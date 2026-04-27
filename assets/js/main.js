@@ -402,19 +402,35 @@
 
             if (!question || !answer) return;
 
-            on(question, 'click', () => {
+            // Ensure answer has initial state
+            answer.style.maxHeight = '0';
+            answer.style.overflow = 'hidden';
+            answer.style.transition = 'max-height 0.4s cubic-bezier(.4, 0, .2, 1)';
+
+            on(question, 'click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
                 const isOpen = item.classList.contains('open');
 
-                // Close others
+                // Close all others
                 $$('.faq-item.open').forEach(open => {
                     if (open !== item) {
                         open.classList.remove('open');
-                        $('.faq-answer', open).style.maxHeight = '0';
+                        const openAnswer = $('.faq-answer', open);
+                        if (openAnswer) {
+                            openAnswer.style.maxHeight = '0';
+                        }
                     }
                 });
 
+                // Toggle current
                 item.classList.toggle('open', !isOpen);
-                answer.style.maxHeight = isOpen ? '0' : answer.scrollHeight + 'px';
+                if (!isOpen) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                } else {
+                    answer.style.maxHeight = '0';
+                }
 
                 track('landing_faq_expanded', {
                     question_index: idx + 1,

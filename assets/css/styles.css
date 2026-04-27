@@ -98,6 +98,58 @@ ol {
     padding: 96px 0;
 }
 
+/* Add subtle floating animation */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Add pulse animation for attention */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(2, 29, 57, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(2, 29, 57, 0.2);
+    }
+}
+
+/* Add slide in from bottom */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Add shimmer effect */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* Add gentle rotate */
+@keyframes gentleRotate {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
 .section-pad-sm {
     padding: 72px 0;
 }
@@ -169,25 +221,35 @@ ol {
     background-size: 200% auto;
     color: var(--white);
     box-shadow: 0 4px 20px rgba(2, 29, 57, 0.3);
+    transition: all 0.3s cubic-bezier(.4, 0, .2, 1);
 }
 
 .btn-gold:hover {
     background: #031e3a;
     background-position: right center;
-    transform: translateY(-1px);
+    transform: translateY(-2px) scale(1.02);
     box-shadow: 0 8px 28px rgba(2, 29, 57, 0.45);
+}
+
+.btn-gold:active {
+    transform: translateY(0) scale(0.98);
 }
 
 .btn-outline {
     background: transparent;
     color: var(--blue);
     border: 1.5px solid rgba(2, 29, 57, 0.25);
+    transition: all 0.3s cubic-bezier(.4, 0, .2, 1);
 }
 
 .btn-outline:hover {
     background: rgba(2, 29, 57, 0.05);
     border-color: rgba(2, 29, 57, 0.5);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+}
+
+.btn-outline:active {
+    transform: translateY(0);
 }
 
 .btn-outline-dark {
@@ -226,8 +288,8 @@ ol {
 /* ─── Reveal Animations ──────────────────────────────────── */
 .reveal {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.65s ease, transform 0.65s ease;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(.4, 0, .2, 1), transform 0.8s cubic-bezier(.4, 0, .2, 1);
 }
 
 .reveal.visible {
@@ -236,19 +298,19 @@ ol {
 }
 
 .reveal-delay-1 {
-    transition-delay: 0.1s;
+    transition-delay: 0.15s;
 }
 
 .reveal-delay-2 {
-    transition-delay: 0.2s;
-}
-
-.reveal-delay-3 {
     transition-delay: 0.3s;
 }
 
+.reveal-delay-3 {
+    transition-delay: 0.45s;
+}
+
 .reveal-delay-4 {
-    transition-delay: 0.4s;
+    transition-delay: 0.6s;
 }
 
 /* ======================================================
@@ -291,9 +353,9 @@ ol {
 }
 
 .nav-logo-img {
-    height: 68px;
+    height: 82px;
     width: auto;
-    max-width: 320px;
+    max-width: 360px;
     display: block;
     object-fit: contain;
     transition: transform 0.3s ease;
@@ -304,7 +366,7 @@ ol {
 }
 
 .nav.scrolled .nav-logo-img {
-    height: 58px;
+    height: 68px;
 }
 
 .nav-logo-mark {
@@ -629,6 +691,7 @@ ol {
     border-radius: 100px;
     width: fit-content;
     margin-bottom: 24px;
+    animation: slideInUp 0.6s ease-out;
 }
 
 .hero-eyebrow::before {
@@ -724,6 +787,7 @@ ol {
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: float 6s ease-in-out infinite;
 }
 
 .hero-mockup-glow {
@@ -1446,14 +1510,18 @@ ol {
     box-shadow: var(--shadow);
     border: 1px solid rgba(2, 29, 57, 0.06);
     border-top: 3px solid var(--blue);
-    transition: var(--transition);
+    transition: all 0.4s cubic-bezier(.4, 0, .2, 1);
     position: relative;
     overflow: hidden;
 }
 
 .pillar-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(2, 29, 57, 0.15);
+}
+
+.pillar-card:hover .pillar-icon {
+    transform: scale(1.1);
 }
 
 .pillar-badge {
@@ -1481,6 +1549,7 @@ ol {
     justify-content: center;
     margin-bottom: 20px;
     font-size: 24px;
+    transition: all 0.3s cubic-bezier(.4, 0, .2, 1);
 }
 
 .pillar-title {
@@ -2468,11 +2537,18 @@ ol {
     border-radius: var(--radius-sm);
     border: 1px solid rgba(2, 29, 57, 0.07);
     overflow: hidden;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(.4, 0, .2, 1);
+    cursor: pointer;
+}
+
+.faq-item:hover {
+    border-color: rgba(2, 29, 57, 0.15);
+    transform: translateX(4px);
 }
 
 .faq-item.open {
     box-shadow: var(--shadow);
+    border-color: rgba(2, 29, 57, 0.12);
 }
 
 .faq-question {
