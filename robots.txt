@@ -1,0 +1,28 @@
+# Estavo Brokers — robots.txt
+# https://estavo-brokers.com/
+
+User-agent: *
+Allow: /
+Disallow: /assets/estavo-guide-character/
+Disallow: /*.md$
+Disallow: /index-deprecated.html
+Disallow: /ar.html
+
+# Block aggressive AI scrapers (optional — remove if you want AI training)
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+# Sitemap
+Sitemap: https://estavo-brokers.com/sitemap.xml
