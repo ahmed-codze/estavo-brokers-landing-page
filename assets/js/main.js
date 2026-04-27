@@ -410,7 +410,7 @@
             on(question, 'click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 const isOpen = item.classList.contains('open');
 
                 // Close all others
