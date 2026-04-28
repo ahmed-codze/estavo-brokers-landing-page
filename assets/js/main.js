@@ -449,26 +449,39 @@
             entries.forEach(entry => {
                 if (!entry.isIntersecting) return;
                 const el = entry.target;
-                const target = parseInt(el.dataset.target || el.textContent, 10);
-                const dur = 2000;
+                const target = parseInt(el.dataset.target, 10);
+                const dur = 2500; // 2.5 seconds for smooth animation
                 const start = performance.now();
 
                 function update(now) {
                     const progress = Math.min((now - start) / dur, 1);
-                    const ease = 1 - Math.pow(1 - progress, 3);
-                    el.textContent = Math.floor(ease * target).toLocaleString();
-                    if (progress < 1) requestAnimationFrame(update);
-                    else el.textContent = target.toLocaleString();
+                    // Easing function for smooth acceleration and deceleration
+                    const ease = progress < 0.5 
+                        ? 4 * progress * progress * progress 
+                        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+                    
+                    const currentValue = Math.floor(ease * target);
+                    
+                    // Format with commas (always use English numerals)
+                    const displayValue = currentValue.toLocaleString('en-US');
+                    
+                    el.textContent = displayValue;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    } else {
+                        // Final value
+                        const finalValue = target.toLocaleString('en-US');
+                        el.textContent = finalValue;
+                    }
                 }
 
                 requestAnimationFrame(update);
                 io.unobserve(el);
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.3 });
 
         stats.forEach(el => {
-            el.dataset.target = el.textContent.replace(/\D/g, '');
-            el.textContent = '0';
             io.observe(el);
         });
     }
