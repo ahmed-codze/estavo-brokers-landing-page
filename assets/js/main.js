@@ -456,17 +456,17 @@
                 function update(now) {
                     const progress = Math.min((now - start) / dur, 1);
                     // Easing function for smooth acceleration and deceleration
-                    const ease = progress < 0.5 
-                        ? 4 * progress * progress * progress 
+                    const ease = progress < 0.5
+                        ? 4 * progress * progress * progress
                         : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-                    
+
                     const currentValue = Math.floor(ease * target);
-                    
+
                     // Format with commas (always use English numerals)
                     const displayValue = currentValue.toLocaleString('en-US');
-                    
+
                     el.textContent = displayValue;
-                    
+
                     if (progress < 1) {
                         requestAnimationFrame(update);
                     } else {
