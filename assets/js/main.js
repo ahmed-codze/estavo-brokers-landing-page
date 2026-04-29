@@ -400,7 +400,7 @@
             // Listen to the native toggle event of <details>
             on(item, 'toggle', () => {
                 const isOpen = item.open;
-                
+
                 if (isOpen) {
                     // Close all other FAQ items when one opens
                     $$('.faq-item').forEach(otherItem => {
