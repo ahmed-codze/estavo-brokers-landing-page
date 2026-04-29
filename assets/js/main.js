@@ -397,45 +397,24 @@
     /* ─── FAQ Accordion ───────────────────────────────────── */
     function initFAQ() {
         $$('.faq-item').forEach((item, idx) => {
-            const question = $('.faq-question', item);
-            const answer = $('.faq-answer', item);
-
-            if (!question || !answer) return;
-
-            // Ensure answer has initial state
-            answer.style.maxHeight = '0';
-            answer.style.overflow = 'hidden';
-            answer.style.transition = 'max-height 0.4s cubic-bezier(.4, 0, .2, 1)';
-
-            on(question, 'click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                const isOpen = item.classList.contains('open');
-
-                // Close all others
-                $$('.faq-item.open').forEach(open => {
-                    if (open !== item) {
-                        open.classList.remove('open');
-                        const openAnswer = $('.faq-answer', open);
-                        if (openAnswer) {
-                            openAnswer.style.maxHeight = '0';
+            // Listen to the native toggle event of <details>
+            on(item, 'toggle', () => {
+                const isOpen = item.open;
+                
+                if (isOpen) {
+                    // Close all other FAQ items when one opens
+                    $$('.faq-item').forEach(otherItem => {
+                        if (otherItem !== item && otherItem.open) {
+                            otherItem.open = false;
                         }
-                    }
-                });
+                    });
 
-                // Toggle current
-                item.classList.toggle('open', !isOpen);
-                if (!isOpen) {
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                } else {
-                    answer.style.maxHeight = '0';
+                    // Track the event
+                    track('landing_faq_expanded', {
+                        question_index: idx + 1,
+                        lang: document.documentElement.lang
+                    });
                 }
-
-                track('landing_faq_expanded', {
-                    question_index: idx + 1,
-                    lang: document.documentElement.lang
-                });
             });
         });
     }
