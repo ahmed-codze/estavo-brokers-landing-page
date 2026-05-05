@@ -51,14 +51,20 @@
         var isPlatform = href.indexOf(PLATFORM_ORIGIN) === 0;
         if (!isPlatform) return;
 
-        // Don't double-tag.
-        if (href.indexOf('utm_campaign=') !== -1) return;
-
         try {
             var url = new URL(href);
-            url.searchParams.set('utm_source', 'referral');
-            url.searchParams.set('utm_medium', 'link');
-            url.searchParams.set('utm_campaign', slug);
+
+            // Always route through the platform's /go/:slug handler so:
+            //  - Logged-in users keep their session and get claimed directly.
+            //  - Logged-out users are redirected to /register with utm params.
+            var targetPath = '/go/' + slug;
+            if (url.pathname !== targetPath) {
+                url.pathname = targetPath;
+            }
+
+            // Ensure a clean URL (the /go/:slug handler doesn't need query params).
+            url.search = '';
+
             anchor.setAttribute('href', url.toString());
         } catch (e) { /* malformed href — leave as-is */ }
     }
