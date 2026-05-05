@@ -15,9 +15,9 @@
 
     // ── Configuration ────────────────────────────────────────────────────────
     var PLATFORM_ORIGIN = 'https://brokers.estavo.space';
-    var COOKIE_NAME     = 'est_ref';
-    var SESSION_KEY     = 'est_ref';
-    var QUERY_PARAM     = 'ref';
+    var COOKIE_NAME = 'est_ref';
+    var SESSION_KEY = 'est_ref';
+    var QUERY_PARAM = 'ref';
 
     // ── Helpers ──────────────────────────────────────────────────────────────
     function getCookie(name) {
@@ -56,8 +56,8 @@
 
         try {
             var url = new URL(href);
-            url.searchParams.set('utm_source',   'referral');
-            url.searchParams.set('utm_medium',   'link');
+            url.searchParams.set('utm_source', 'referral');
+            url.searchParams.set('utm_medium', 'link');
             url.searchParams.set('utm_campaign', slug);
             anchor.setAttribute('href', url.toString());
         } catch (e) { /* malformed href — leave as-is */ }
