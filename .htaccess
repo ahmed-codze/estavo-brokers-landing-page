@@ -1,0 +1,19 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# Estavo Brokers — Apache URL rewriting rules
+# ──────────────────────────────────────────────────────────────────────────────
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # ── Referral links: /go/{slug} → go.php?slug={slug} ──────────────────────
+    # Slug rules: starts + ends with alphanumeric, may contain hyphens, 2-30 chars.
+    # Example: https://estavo-brokers.com/go/ahmed
+    RewriteRule ^go/([a-zA-Z0-9][a-zA-Z0-9-]{0,28}[a-zA-Z0-9])/?$  /go.php?slug=$1  [QSA,L]
+</IfModule>
+
+# ── Security headers ──────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
