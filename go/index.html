@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Redirecting… — Estavo Brokers</title>
+    <style>
+        body { margin: 0; display: flex; align-items: center; justify-content: center;
+               min-height: 100vh; font-family: sans-serif; background: #f8f9fa; color: #555; }
+        p { font-size: 1rem; }
+    </style>
+    <script>
+        (function () {
+            'use strict';
+
+            var LANDING_ROOT = 'https://estavo-brokers.com';
+            var COOKIE_NAME  = 'est_ref';
+            var COOKIE_DAYS  = 30;
+
+            /* ── Read ?ref= from the query string ── */
+            var slug = null;
+            try {
+                slug = new URLSearchParams(window.location.search).get('ref');
+            } catch (e) {}
+
+            /* ── Validate slug ── */
+            function isValid(s) {
+                return typeof s === 'string' && /^[a-z0-9][a-z0-9-]{0,28}[a-z0-9]$/i.test(s);
+            }
+
+            if (!isValid(slug)) {
+                /* Unknown / missing slug — go home without attribution */
+                window.location.replace(LANDING_ROOT + '/');
+                return;
+            }
+
+            slug = slug.toLowerCase();
+
+            /* ── Set first-party cookie (JS-readable so referral.js can use it) ── */
+            var expires = new Date(Date.now() + COOKIE_DAYS * 864e5).toUTCString();
+            document.cookie = COOKIE_NAME + '=' + encodeURIComponent(slug)
+                + '; expires=' + expires
+                + '; path=/'
+                + '; SameSite=Lax'
+                + (location.protocol === 'https:' ? '; Secure' : '');
+
+            /* ── Redirect to landing page root with ?ref= so referral.js
+                   can immediately rewrite all CTA links ── */
+            window.location.replace(LANDING_ROOT + '/?ref=' + encodeURIComponent(slug));
+        })();
+    </script>
+</head>
+<body>
+    <p>Redirecting…</p>
+</body>
+</html>
