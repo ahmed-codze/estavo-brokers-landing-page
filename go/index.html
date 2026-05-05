@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Redirecting… — Estavo Brokers</title>
     <style>
-        body { margin: 0; display: flex; align-items: center; justify-content: center;
-               min-height: 100vh; font-family: sans-serif; background: #f8f9fa; color: #555; }
-        p { font-size: 1rem; }
+        body {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: sans-serif;
+            background: #f8f9fa;
+            color: #555;
+        }
+
+        p {
+            font-size: 1rem;
+        }
     </style>
     <script>
         (function () {
             'use strict';
 
             var LANDING_ROOT = 'https://estavo-brokers.com';
-            var COOKIE_NAME  = 'est_ref';
-            var COOKIE_DAYS  = 30;
+            var COOKIE_NAME = 'est_ref';
+            var COOKIE_DAYS = 30;
 
             /* ── Read ?ref= from the query string ── */
             var slug = null;
             try {
                 slug = new URLSearchParams(window.location.search).get('ref');
-            } catch (e) {}
+            } catch (e) { }
 
             /* ── Validate slug ── */
             function isValid(s) {
@@ -50,7 +62,9 @@
         })();
     </script>
 </head>
+
 <body>
     <p>Redirecting…</p>
 </body>
+
 </html>
