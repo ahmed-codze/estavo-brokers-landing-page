@@ -1971,6 +1971,8 @@ ol {
     -ms-overflow-style: none;
     padding-bottom: 8px;
     cursor: grab;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
 }
 
 .usecases-carousel::-webkit-scrollbar {
@@ -2914,6 +2916,7 @@ details.faq-item>.faq-answer {
     max-width: var(--max-w);
     margin: 0 auto;
     flex-wrap: wrap;
+    position: relative;
 }
 
 .sticky-cta-text {
@@ -3677,10 +3680,10 @@ details.faq-item>.faq-answer {
         padding: 2px 6px;
     }
 
-    /* Footer — bigger logo retained on mobile, breathing room */
+    /* Footer — sensible logo height on mobile */
     .footer-logo-img {
-        height: 144px;
-        max-width: 480px;
+        height: 72px;
+        max-width: 280px;
     }
 
     .footer-top {
@@ -3775,6 +3778,7 @@ details.faq-item>.faq-answer {
    are unnecessary on mobile and drain battery / cause jank on low-end devices.
    ─────────────────────────────────────────────────────────────────────────── */
 @media (max-width: 767px) {
+
     /* Stop the hero mockup float */
     .hero-mockup {
         animation: none !important;
@@ -3816,3 +3820,124 @@ details.faq-item>.faq-answer {
 }
 
 /* Google Fonts import — removed from CSS (loaded via HTML preload instead) */
+
+/* =========================================================
+   RESPONSIVE PATCH — mobile UX improvements
+   ========================================================= */
+
+/* 1. Disable hover transforms on pure-touch devices (no hover support)
+      Prevents sticky "elevated" card state after tap on iOS/Android */
+@media (hover: none) {
+    .problem-card:hover,
+    .pillar-card:hover,
+    .avail-mini-card:hover,
+    .testimonial-card:hover,
+    .usecase-card:hover,
+    .pdf-highlight:hover,
+    .how-step:hover {
+        transform: none !important;
+        box-shadow: inherit !important;
+    }
+
+    .btn:hover,
+    .btn-outline:hover {
+        transform: none !important;
+    }
+}
+
+/* 2. Carousel card — fit safely on 320px screens */
+.usecase-card {
+    min-width: min(300px, 82vw);
+}
+
+/* 3. Main mobile breakpoint additions */
+@media (max-width: 767px) {
+
+    /* section-body should never be constrained on single-column layouts */
+    .section-body {
+        max-width: 100% !important;
+    }
+
+    /* AI demo panel height — 320px is too tall on short mobile screens */
+    .ai-demo-body {
+        min-height: 200px;
+    }
+
+    /* stats-grid — full width, no artificial centering cap */
+    .stats-grid {
+        max-width: 100%;
+    }
+
+    /* pos-grid (positioning section) — stack to single column */
+    .pos-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    /* PDF feature grid — stack */
+    .pdf-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    /* Availability unit grid — 2 col can be cramped, but keep 2 col with smaller padding */
+    .avail-unit-grid {
+        gap: 10px;
+    }
+
+    .avail-unit-card {
+        padding: 14px 12px;
+    }
+
+    /* FAQ question heading — override any inline large font-size */
+    .faq-question h3 {
+        font-size: clamp(14px, 4vw, 17px) !important;
+        line-height: 1.5;
+    }
+
+    /* Sticky CTA bar — improve text readability */
+    .sticky-cta-text {
+        font-size: clamp(13px, 3.5vw, 15px);
+    }
+
+    /* testimonials stars — ensure visibility on dark background */
+    .testimonial-stars {
+        color: #f59e0b !important;
+    }
+
+    /* before-after tabs — full width on mobile */
+    .ba-tabs {
+        width: 100%;
+    }
+
+    .ba-tab {
+        flex: 1;
+        text-align: center;
+        padding: 10px 8px;
+        font-size: 13px;
+    }
+}
+
+/* 4. Very small screens (320px — iPhone SE gen 1) */
+@media (max-width: 399px) {
+
+    /* Availability grid — single column to avoid overflow */
+    .avail-unit-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stats — larger number stays readable */
+    .stat-num {
+        font-size: 26px;
+    }
+
+    /* Pillars — tighter padding */
+    .pillar-card {
+        padding: 20px 16px;
+    }
+
+    /* Hero title even smaller on tiny screens */
+    .hero-title {
+        font-size: clamp(22px, 7.5vw, 32px);
+    }
+}
