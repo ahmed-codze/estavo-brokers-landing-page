@@ -3,7 +3,7 @@
    Senior-Level, Production-Ready
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap');
+/* Google Fonts (Cairo) is loaded via <link rel="preload"> in HTML — no @import needed here */
 
 /* ─── CSS Variables ─────────────────────────────────────── */
 :root {
@@ -3769,3 +3769,50 @@ details.faq-item>.faq-answer {
         scroll-behavior: auto !important;
     }
 }
+
+/* ── Mobile performance — kill GPU-heavy animations ──────────────────────────
+   The hero mockup float, floating emoji icons, and entrance animations
+   are unnecessary on mobile and drain battery / cause jank on low-end devices.
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+    /* Stop the hero mockup float */
+    .hero-mockup {
+        animation: none !important;
+    }
+
+    /* Hide the floating background emoji icons entirely */
+    .hero-bg-icons {
+        display: none !important;
+    }
+
+    /* Stop slideInUp on eyebrow */
+    .hero-eyebrow {
+        animation: none !important;
+    }
+
+    /* Reduce reveal transition cost — shorter duration */
+    .reveal {
+        transition-duration: 0.4s !important;
+    }
+
+    /* Stop the pulse-dot animation on eyebrow::before */
+    .hero-eyebrow::before {
+        animation: none !important;
+    }
+
+    /* Stop counter shimmer / pulse-glow if active */
+    .stat-card,
+    .pillar-card,
+    .usecase-card {
+        animation: none !important;
+    }
+
+    /* Disable backdrop-filter on nav for low-end GPUs */
+    .nav.scrolled {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(240, 242, 245, 0.99) !important;
+    }
+}
+
+/* Google Fonts import — removed from CSS (loaded via HTML preload instead) */

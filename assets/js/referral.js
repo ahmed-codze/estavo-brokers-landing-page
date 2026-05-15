@@ -81,7 +81,9 @@
     }
 
     // ── Watch for dynamically inserted links (any JS framework) ──────────────
+    // Observe only <body> (not documentElement) to limit mutation scope.
     if (typeof MutationObserver !== 'undefined') {
+        var _observeTarget = document.body || document.documentElement;
         new MutationObserver(function (mutations) {
             mutations.forEach(function (m) {
                 m.addedNodes.forEach(function (node) {
@@ -92,7 +94,7 @@
                     }
                 });
             });
-        }).observe(document.documentElement, { childList: true, subtree: true });
+        }).observe(_observeTarget, { childList: true, subtree: true });
     }
 
 })();
