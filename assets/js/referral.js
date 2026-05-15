@@ -15,6 +15,7 @@
 
     // ── Configuration ────────────────────────────────────────────────────────
     var PLATFORM_ORIGIN = 'https://brokers.estavo.space';
+    var DEFAULT_LINK = 'https://estavo-brokers.com/go/?ref=default-landing-page';
     var COOKIE_NAME = 'est_ref';
     var SESSION_KEY = 'est_ref';
     var QUERY_PARAM = 'ref';
@@ -38,10 +39,8 @@
     var slug = getQP(QUERY_PARAM) || getCookie(COOKIE_NAME) || sessionStorage.getItem(SESSION_KEY);
     slug = isValidSlug(slug) ? slug.toLowerCase() : null;
 
-    if (!slug) return; // No referral active — nothing to do.
-
-    // Persist for the lifetime of this browser tab.
-    sessionStorage.setItem(SESSION_KEY, slug);
+    // Persist for the lifetime of this browser tab (only when a slug is active).
+    if (slug) sessionStorage.setItem(SESSION_KEY, slug);
 
     // ── Rewrite a single <a> element ─────────────────────────────────────────
     function rewriteLink(anchor) {
@@ -52,6 +51,12 @@
         if (!isPlatform) return;
 
         try {
+            if (!slug) {
+                // No referral active — use the default landing-page referral link.
+                anchor.setAttribute('href', DEFAULT_LINK);
+                return;
+            }
+
             var url = new URL(href);
 
             // Always route through the platform's /go/:slug handler so:

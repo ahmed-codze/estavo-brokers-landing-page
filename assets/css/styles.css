@@ -3828,6 +3828,7 @@ details.faq-item>.faq-answer {
 /* 1. Disable hover transforms on pure-touch devices (no hover support)
       Prevents sticky "elevated" card state after tap on iOS/Android */
 @media (hover: none) {
+
     .problem-card:hover,
     .pillar-card:hover,
     .avail-mini-card:hover,

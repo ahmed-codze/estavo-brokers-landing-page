@@ -575,14 +575,26 @@
 
         /* ── Mobile ─────────────────────────────────────────── */
         @media(max-width:767px) {
-            :root { --nav-h: 72px }
+            :root {
+                --nav-h: 72px
+            }
 
             /* Hide nav links + CTA btn, but KEEP the lang toggle visible */
-            .nav-links { display: none }
-            .nav-actions .btn { display: none }
+            .nav-links {
+                display: none
+            }
 
-            .nav-hamburger { display: flex }
-            .nav-logo-img { height: 52px }
+            .nav-actions .btn {
+                display: none
+            }
+
+            .nav-hamburger {
+                display: flex
+            }
+
+            .nav-logo-img {
+                height: 52px
+            }
 
             .hero-inner {
                 grid-template-columns: 1fr;
@@ -591,10 +603,19 @@
                 text-align: center
             }
 
-            .hero-content { align-items: center }
-            .hero-eyebrow { margin-left: auto; margin-right: auto }
+            .hero-content {
+                align-items: center
+            }
 
-            .hero-title { font-size: clamp(24px, 7.5vw, 36px); margin-bottom: 12px }
+            .hero-eyebrow {
+                margin-left: auto;
+                margin-right: auto
+            }
+
+            .hero-title {
+                font-size: clamp(24px, 7.5vw, 36px);
+                margin-bottom: 12px
+            }
 
             .hero-body {
                 font-size: 16px;
@@ -613,19 +634,38 @@
                 justify-content: center
             }
 
-            .hero-mockup { display: none }
-            .hero-bg-icons { display: none }
+            .hero-mockup {
+                display: none
+            }
 
-            .btn-lg { padding: 14px 24px; font-size: 16px }
+            .hero-bg-icons {
+                display: none
+            }
+
+            .btn-lg {
+                padding: 14px 24px;
+                font-size: 16px
+            }
 
             /* Section body — remove max-width constraint on single column */
-            .section-body { max-width: 100% }
-            .section-title { font-size: clamp(22px, 6.5vw, 30px) }
+            .section-body {
+                max-width: 100%
+            }
+
+            .section-title {
+                font-size: clamp(22px, 6.5vw, 30px)
+            }
         }
 
         @media(max-width:479px) {
-            .hero-title { font-size: clamp(22px, 8vw, 28px) }
-            .btn-lg { padding: 13px 20px; font-size: 15px }
+            .hero-title {
+                font-size: clamp(22px, 8vw, 28px)
+            }
+
+            .btn-lg {
+                padding: 13px 20px;
+                font-size: 15px
+            }
         }
     </style>
 </head>
