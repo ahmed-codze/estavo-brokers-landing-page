@@ -639,6 +639,92 @@
         });
     }
 
+    /* ─── Scroll Modal — PDF Benefit ─────────────────────── */
+    function initScrollModal() {
+        const modal = $('#scrollModal');
+        if (!modal) return;
+
+        const lang = document.documentElement.lang || 'ar';
+
+        // Only show once per session
+        const SEEN_KEY = 'est_scroll_modal_seen';
+        if (sessionStorage.getItem(SEEN_KEY)) return;
+
+        const statsSection = $('#stats');
+        if (!statsSection) return;
+
+        let shown = false;
+
+        function openModal() {
+            if (shown) return;
+            shown = true;
+            sessionStorage.setItem(SEEN_KEY, '1');
+
+            // Small delay so it doesn't feel instant/jarring
+            setTimeout(() => {
+                modal.hidden = false;
+                // Trigger transition on next frame
+                requestAnimationFrame(() => {
+                    modal.style.opacity = '';
+                });
+                document.body.style.overflow = 'hidden';
+                track('scroll_modal_shown', { lang });
+            }, 900);
+        }
+
+        function closeModal() {
+            modal.style.opacity = '0';
+            const inner = modal.querySelector('.scroll-modal');
+            if (inner) {
+                inner.style.transform = 'translateY(16px) scale(0.97)';
+                inner.style.opacity = '0';
+            }
+            setTimeout(() => {
+                modal.hidden = true;
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        // Trigger: user scrolls past #problem — fire when #ai-expert starts entering view
+        const triggerEl = $('#ai-expert') || statsSection;
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    openModal();
+                    io.disconnect();
+                }
+            });
+        }, { threshold: 0.12 });
+
+        io.observe(triggerEl);
+
+        // Close handlers
+        on($('#scrollModalClose'), 'click', () => {
+            track('scroll_modal_closed', { lang });
+            closeModal();
+        });
+        on($('#scrollModalSkip'), 'click', () => {
+            track('scroll_modal_skipped', { lang });
+            closeModal();
+        });
+
+        // Close on backdrop click
+        on(modal, 'click', (e) => {
+            if (e.target === modal) {
+                track('scroll_modal_backdrop_closed', { lang });
+                closeModal();
+            }
+        });
+
+        // Close on Escape
+        on(document, 'keydown', (e) => {
+            if (e.key === 'Escape' && !modal.hidden) {
+                track('scroll_modal_escape_closed', { lang });
+                closeModal();
+            }
+        });
+    }
+
     /* ─── Init All ────────────────────────────────────────── */
     function init() {
         initNavbar();
@@ -652,6 +738,7 @@
         initStickyCTA();
         initTracking();
         initLangToggle();
+        initScrollModal();
     }
 
     if (document.readyState === 'loading') {

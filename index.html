@@ -1681,6 +1681,59 @@
     <script src="assets/js/referral.js" defer></script>
     <script src="assets/js/main.js" defer></script>
 
+
+    <!-- ══════════════════════════════════════════════════════════
+     16. SCROLL MODAL — PDF BENEFIT
+     Triggered once per session after user passes the stats section.
+     ══════════════════════════════════════════════════════════ -->
+    <div class="scroll-modal-backdrop" id="scrollModal" role="dialog" aria-modal="true"
+        aria-labelledby="scrollModalTitle" hidden>
+        <div class="scroll-modal">
+            <!-- Close -->
+            <button class="scroll-modal-close" id="scrollModalClose" aria-label="إغلاق">✕</button>
+
+            <!-- Icon -->
+            <div class="scroll-modal-icon" aria-hidden="true">📄</div>
+
+            <!-- Title -->
+            <h2 class="scroll-modal-title" id="scrollModalTitle">
+                طلّع أول عرض PDF لعميلك مجانًا
+            </h2>
+
+            <!-- Body -->
+            <p class="scroll-modal-body">
+                جرب إستاڤو على مشروع حقيقي وشوف إزاي تطلع عرض احترافي باسمك ورقمك للعميل في ثواني
+            </p>
+
+            <!-- Benefits -->
+            <ul class="scroll-modal-benefits" aria-label="مميزات التجربة">
+                <li>
+                    <span class="smb-check" aria-hidden="true">✓</span>
+                    أسعار وخطط سداد منظمة في عرض واحد
+                </li>
+                <li>
+                    <span class="smb-check" aria-hidden="true">✓</span>
+                    عرض جاهز يتبعت للعميل مباشرةً
+                </li>
+                <li>
+                    <span class="smb-check" aria-hidden="true">✓</span>
+                    تجربة مجانية — بدون كارت بنكي
+                </li>
+            </ul>
+
+            <!-- Actions -->
+            <div class="scroll-modal-actions">
+                <a href="https://brokers.estavo.space" class="btn btn-gold btn-lg scroll-modal-cta"
+                    data-track="scroll_modal_cta" data-position="scroll_modal" target="_blank" rel="noopener">
+                    ← اطلع أول PDF للعميل
+                </a>
+                <button class="scroll-modal-skip" id="scrollModalSkip">
+                    أكمل تصفح
+                </button>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
