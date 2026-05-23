@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <meta name="theme-color" content="#021D39" />
     <meta name="author" content="Estavo Brokers" />
 
@@ -71,10 +72,12 @@
             var COOKIE_DAYS = 30;
 
             /* ── Read ?ref= from the query string ── */
+            var params = null;
             var slug = null;
             try {
-                slug = new URLSearchParams(window.location.search).get('ref');
-            } catch (e) { }
+                params = new URLSearchParams(window.location.search);
+                slug = params.get('ref');
+            } catch (e) { params = new URLSearchParams(); }
 
             /* ── Validate slug ── */
             function isValid(s) {
@@ -99,7 +102,15 @@
 
             /* ── Redirect to landing page root with ?ref= so referral.js
                    can immediately rewrite all CTA links ── */
-            window.location.replace(LANDING_ROOT + '/?ref=' + encodeURIComponent(slug));
+            /* Also forward any UTM parameters so Meta/Google attribution is preserved */
+            var forwardParams = new URLSearchParams();
+            forwardParams.set('ref', slug);
+            var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+            utmKeys.forEach(function (key) {
+                var val = params.get(key);
+                if (val) forwardParams.set(key, val);
+            });
+            window.location.replace(LANDING_ROOT + '/?' + forwardParams.toString());
         })();
     </script>
 </head>
