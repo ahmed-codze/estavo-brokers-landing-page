@@ -5,7 +5,7 @@
  * Handles clean referral URLs:  https://estavo-brokers.com/go/{slug}
  *
  * Flow:
- *  1. Validates the slug.
+ *  1. Validates the slug, or falls back to the default landing-page campaign.
  *  2. Sets an `est_ref` cookie on this domain (30 days, readable by JS).
  *  3. Redirects to the landing page root with ?ref={slug} — so the JS
  *     tracking script can immediately pick it up and rewrite all CTA links.
@@ -16,14 +16,13 @@
 // ── Configuration ─────────────────────────────────────────────────────────
 const LANDING_ROOT  = 'https://estavo-brokers.com';
 const COOKIE_DAYS   = 30;
+const DEFAULT_SLUG   = 'default-landing-page';
 
 // ── Read & validate slug ───────────────────────────────────────────────────
 $slug = isset($_GET['slug']) ? trim($_GET['slug']) : '';
 
 if (!$slug || !preg_match('/^[a-z0-9][a-z0-9-]{0,28}[a-z0-9]$/i', $slug)) {
-    // Unknown or malformed slug — land on homepage without attribution.
-    header('Location: ' . LANDING_ROOT . '/', true, 302);
-    exit;
+    $slug = DEFAULT_SLUG;
 }
 
 $slug = strtolower($slug);
