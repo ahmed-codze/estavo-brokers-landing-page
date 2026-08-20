@@ -86,10 +86,8 @@ test('rejects unsupported locales and does not trust origin lookalikes', () => {
     );
 });
 
-test('all Arabic and English landing variants expose the same accessible handoff contract', () => {
+test('only the URL-only Arabic and English variants expose the website handoff', () => {
     const pages = [
-        { file: 'index.html', locale: 'ar', input: 'website-source-ar' },
-        { file: 'en.html', locale: 'en', input: 'website-source-en' },
         { file: 'website/index.html', locale: 'ar', input: 'website-source-ar' },
         { file: 'website/en.html', locale: 'en', input: 'website-source-en' },
     ];
@@ -107,5 +105,12 @@ test('all Arabic and English landing variants expose the same accessible handoff
         assert.match(html, new RegExp(`id="${input}-error" role="alert" aria-live="polite"`));
         assert.match(html, /maxlength="2048"/);
         assert.match(html, /assets\/js\/website-referral\.js/);
+    });
+
+    ['index.html', 'en.html'].forEach((file) => {
+        const html = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+
+        assert.doesNotMatch(html, /class="website-starter"/);
+        assert.doesNotMatch(html, /assets\/js\/website-referral\.js/);
     });
 });

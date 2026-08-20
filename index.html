@@ -565,83 +565,6 @@
             margin-bottom: 36px
         }
 
-        .website-starter {
-            width: 100%;
-            max-width: 500px;
-            margin-bottom: 20px;
-            padding: 16px;
-            background: rgba(255, 255, 255, .82);
-            border: 1px solid rgba(2, 29, 57, .12);
-            border-radius: 16px;
-            box-shadow: 0 12px 36px rgba(2, 29, 57, .08);
-            backdrop-filter: blur(12px)
-        }
-
-        .website-starter-label {
-            display: block;
-            margin-bottom: 9px;
-            color: #021d39;
-            font-size: 14px;
-            font-weight: 700
-        }
-
-        .website-starter-row {
-            display: flex;
-            gap: 8px
-        }
-
-        .website-starter-input {
-            min-width: 0;
-            min-height: 48px;
-            flex: 1;
-            padding: 13px 14px;
-            border: 1.5px solid rgba(2, 29, 57, .2);
-            border-radius: 11px;
-            background: #fff;
-            color: #021d39;
-            font: 500 14px/1.4 'Cairo', system-ui, sans-serif;
-            outline: none;
-            transition: border-color .2s, box-shadow .2s
-        }
-
-        .website-starter-input:focus-visible {
-            border-color: #33123b;
-            box-shadow: 0 0 0 3px rgba(51, 18, 59, .14)
-        }
-
-        .website-starter-input[aria-invalid="true"] {
-            border-color: #b42318;
-            box-shadow: 0 0 0 3px rgba(180, 35, 24, .12)
-        }
-
-        .website-starter-submit {
-            min-height: 48px;
-            border: 0;
-            cursor: pointer;
-            justify-content: center
-        }
-
-        .website-starter-submit:focus-visible {
-            outline: 3px solid rgba(51, 18, 59, .28);
-            outline-offset: 2px
-        }
-
-        .website-starter-hint,
-        .website-starter-error {
-            margin-top: 9px;
-            font-size: 12px;
-            line-height: 1.65
-        }
-
-        .website-starter-hint {
-            color: rgba(2, 29, 57, .65)
-        }
-
-        .website-starter-error {
-            color: #8f1d14;
-            font-weight: 600
-        }
-
         .hero-micro {
             font-size: 12px;
             color: rgba(2, 29, 57, .42);
@@ -737,19 +660,6 @@
             .hero-actions .btn {
                 width: 100%;
                 justify-content: center
-            }
-
-            .website-starter {
-                max-width: 100%;
-                text-align: right
-            }
-
-            .website-starter-row {
-                flex-direction: column
-            }
-
-            .website-starter-submit {
-                width: 100%
             }
 
             .hero-mockup {
@@ -876,31 +786,6 @@
                     من غير ما تدور في جروبات، ومن غير ما تستنى ديفيلوبر يبعتلك حاجة.
                     اسأل، قارن، واحصل على عرض PDF احترافي في ثواني.
                 </p>
-
-                <form class="website-starter" data-locale="ar"
-                    action="https://brokers.estavo.space/website/create" method="get" novalidate>
-                    <label class="website-starter-label" for="website-source-ar">
-                        ابنِ موقع شركتك من حسابك الحالي
-                    </label>
-                    <div class="website-starter-row">
-                        <input class="website-starter-input" id="website-source-ar" name="source" type="text"
-                            inputmode="url" autocomplete="url" autocapitalize="none" spellcheck="false"
-                            enterkeyhint="go" maxlength="2048" dir="ltr" required
-                            aria-describedby="website-source-ar-hint website-source-ar-error"
-                            aria-errormessage="website-source-ar-error"
-                            placeholder="https://instagram.com/your-company" />
-                        <input type="hidden" name="locale" value="ar" />
-                        <button class="btn btn-gold website-starter-submit" type="submit"
-                            data-track="start_enterprise_website" data-position="hero">
-                            ابدأ إنشاء الموقع ←
-                        </button>
-                    </div>
-                    <p class="website-starter-hint" id="website-source-ar-hint">
-                        الصق رابط Instagram أو Facebook أو Property Finder أو Bayut أو موقع شركتك الرسمي. هنبحث عن القوائم والمدن، ونربط بيانات ومشروعات Estavo المطابقة بعد تأكيدك لكل خطوة.
-                    </p>
-                    <p class="website-starter-error" id="website-source-ar-error" role="alert" aria-live="polite"
-                        hidden></p>
-                </form>
 
                 <div class="hero-actions">
                     <a href="https://brokers.estavo.space/go/?ref=default-landing-page" class="btn btn-gold btn-lg" data-track="start_free_trial"
@@ -1823,8 +1708,8 @@
 
 
     <!-- Scripts -->
-    <!-- Website referral handling must load before main.js so CTAs and the onboarding form are ready. -->
-    <script src="assets/js/website-referral.js" defer></script>
+    <!-- referral.js must load before main.js so CTA links are tagged before tracking fires -->
+    <script src="assets/js/referral.js" defer></script>
     <script src="assets/js/main.js" defer></script>
 
 
