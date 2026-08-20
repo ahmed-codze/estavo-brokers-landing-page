@@ -43,15 +43,15 @@
         content="بروكر عقارات مصر, بروكرز عقارات مصر, ذكاء اصطناعي عقارات مصر, منصة بروكر مصر, أدوات بروكر عقارات, بحث عقاري ذكي مصر, برنامج بروكر عقارات, عقارات التجمع الخامس, كمبوند الشيخ زايد, العاصمة الإدارية الجديدة, عرض عقاري PDF, مساحة عمل البروكر, تطبيق بروكر عقاري" />
 
     <!-- Robots & Indexing -->
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-    <meta name="googlebot" content="index, follow" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="googlebot" content="noindex, nofollow" />
 
     <!-- Canonical & Hreflang -->
-    <link rel="canonical" href="https://estavo-brokers.com/" />
-    <link rel="alternate" hreflang="ar" href="https://estavo-brokers.com/" />
-    <link rel="alternate" hreflang="ar-eg" href="https://estavo-brokers.com/" />
-    <link rel="alternate" hreflang="en" href="https://estavo-brokers.com/en.html" />
-    <link rel="alternate" hreflang="x-default" href="https://estavo-brokers.com/" />
+    <link rel="canonical" href="https://estavo-brokers.com/website/" />
+    <link rel="alternate" hreflang="ar" href="https://estavo-brokers.com/website/" />
+    <link rel="alternate" hreflang="ar-eg" href="https://estavo-brokers.com/website/" />
+    <link rel="alternate" hreflang="en" href="https://estavo-brokers.com/website/en.html" />
+    <link rel="alternate" hreflang="x-default" href="https://estavo-brokers.com/website/" />
 
     <!-- Open Graph (WhatsApp / Facebook / LinkedIn / iMessage) -->
     <meta property="og:site_name" content="إستاڤو بروكرز" />
@@ -67,7 +67,7 @@
     <meta property="og:locale" content="ar_EG" />
     <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://estavo-brokers.com/" />
+    <meta property="og:url" content="https://estavo-brokers.com/website/" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -222,10 +222,10 @@
     </script>
 
     <!-- Favicon & PWA -->
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/Estavo%20Icon.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/logo/Estavo%20Icon.png" />
-    <link rel="shortcut icon" href="assets/logo/Estavo%20Icon.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/logo/Estavo%20Icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/Estavo%20Icon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/Estavo%20Icon.png" />
+    <link rel="shortcut icon" href="/assets/logo/Estavo%20Icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/Estavo%20Icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="application-name" content="Estavo Brokers" />
     <meta name="apple-mobile-web-app-title" content="Estavo Brokers" />
@@ -234,7 +234,7 @@
     <meta name="format-detection" content="telephone=no" />
 
     <!-- Prefetch alternate language for instant switching -->
-    <link rel="prefetch" href="/en.html" as="document" />
+    <link rel="prefetch" href="/website/en.html" as="document" />
 
     <!-- DNS prefetch for all third-party origins -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
@@ -252,9 +252,9 @@
     </noscript>
 
     <!-- Full stylesheet — non-blocking (loaded async, noscript fallback) -->
-    <link rel="preload" as="style" href="assets/css/styles.css" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="preload" as="style" href="/assets/css/styles.css" onload="this.onload=null;this.rel='stylesheet'" />
     <noscript>
-        <link rel="stylesheet" href="assets/css/styles.css" />
+        <link rel="stylesheet" href="/assets/css/styles.css" />
     </noscript>
 
     <!-- ═══════════════════════════════════════════════════════════
@@ -562,7 +562,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 36px
+            margin-bottom: 24px
         }
 
         .website-starter {
@@ -796,8 +796,8 @@
     <nav class="nav" role="navigation" aria-label="القائمة الرئيسية">
         <div class="nav-inner">
             <!-- Logo -->
-            <a href="/" class="nav-logo" aria-label="إستاڤو بروكرز الرئيسية">
-                <img src="assets/logo/Estavo%20Brokers%20Logo%20transparent.png"
+            <a href="/website/" class="nav-logo" aria-label="إستاڤو بروكرز الرئيسية">
+                <img src="/assets/logo/Estavo%20Brokers%20Logo%20transparent.png"
                     alt="إستاڤو بروكرز — منصة الذكاء الاصطناعي للبروكرز العقاريين في مصر" class="nav-logo-img"
                     width="360" height="82" fetchpriority="high" decoding="sync" />
             </a>
@@ -812,7 +812,7 @@
 
             <!-- Actions -->
             <div class="nav-actions">
-                <a href="/en.html" hreflang="en" lang="en" class="nav-lang" aria-label="Switch to English"
+                <a href="/website/en.html" hreflang="en" lang="en" class="nav-lang" aria-label="Switch to English"
                     title="Switch to English">
                     <span class="flag" aria-hidden="true">🇬🇧</span> EN
                 </a>
@@ -837,7 +837,7 @@
         <a href="#faq">أسئلة شائعة</a>
         <a href="https://brokers.estavo.space/go/?ref=default-landing-page" class="btn btn-gold btn-lg" style="margin-top:12px" target="_blank"
             rel="noopener">ابدأ التجربة المجانية</a>
-        <a href="/en.html" hreflang="en" lang="en" class="nav-lang" style="margin-top:8px">🇬🇧 Switch to English</a>
+        <a href="/website/en.html" hreflang="en" lang="en" class="nav-lang" style="margin-top:8px">🇬🇧 Switch to English</a>
     </div>
 
 
@@ -1715,7 +1715,7 @@
                 <!-- Brand -->
                 <div>
                     <div class="footer-logo">
-                        <img src="assets/logo/Estavo%20Inverted%20full%20word%20logo.png" alt="إستاڤو بروكرز"
+                        <img src="/assets/logo/Estavo%20Inverted%20full%20word%20logo.png" alt="إستاڤو بروكرز"
                             class="footer-logo-img" loading="lazy" decoding="async" width="240" height="60" />
                     </div>
                     <p class="footer-tagline">
@@ -1791,9 +1791,9 @@
                     <a href="/data-deletion.html">حذف البيانات</a>
                     <a href="mailto:support@estavo.space">تواصل معنا</a>
                     <a href="https://wa.me/201069528393" target="_blank" rel="noopener noreferrer">واتساب</a>
-                    <a href="/en.html" hreflang="en" lang="en">English</a>
+                    <a href="/website/en.html" hreflang="en" lang="en">English</a>
                 </nav>
-                <a href="/en.html" hreflang="en" lang="en" class="footer-lang-toggle" aria-label="Switch to English">
+                <a href="/website/en.html" hreflang="en" lang="en" class="footer-lang-toggle" aria-label="Switch to English">
                     🌐 Switch to EN
                 </a>
             </div>
@@ -1823,9 +1823,9 @@
 
 
     <!-- Scripts -->
-    <!-- Website referral handling must load before main.js so CTAs and the onboarding form are ready. -->
-    <script src="assets/js/website-referral.js" defer></script>
-    <script src="assets/js/main.js" defer></script>
+    <!-- referral.js must load before main.js so CTA links are tagged before tracking fires -->
+    <script src="/assets/js/website-referral.js" defer></script>
+    <script src="/assets/js/main.js" defer></script>
 
 
     <!-- ══════════════════════════════════════════════════════════
