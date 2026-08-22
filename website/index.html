@@ -340,6 +340,13 @@
             margin: 0 auto
         }
 
+        .website-starter-hint,
+        .source-options,
+        .website-starter-error {
+            max-width: 640px;
+            margin-inline: auto
+        }
+
 
 
         /* The single interactive surface on the page: lifted, calm, and
@@ -419,6 +426,46 @@
             letter-spacing: .1px
         }
 
+        /* The accepted link types, named explicitly so nobody has to guess
+           what counts as "a company link". */
+        .source-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            list-style: none
+        }
+
+        .source-options li {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 6px 13px 6px 9px;
+            box-shadow: 0 1px 2px rgba(2, 29, 57, .04)
+        }
+
+        .so-ico {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            background: var(--blue);
+            color: var(--white);
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 1;
+            flex-shrink: 0
+        }
+
         .website-starter-error {
             font-size: 13.5px;
             font-weight: 600;
@@ -449,6 +496,48 @@
             font-size: 13px;
             font-weight: 600;
             color: var(--text-muted)
+        }
+
+        /* ── Help: WhatsApp ─────────────────────────────────── */
+        /* Deliberately quiet — it must never compete with the CTA, but stays
+           reachable for anyone unsure which link to paste. */
+        .help-fab {
+            position: fixed;
+            /* Sits above the footer bar. The value clears the tallest footer
+               (stacked, on phones) with room to spare. */
+            inset-block-end: 86px;
+            inset-inline-end: 22px;
+            z-index: 900;
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 11px 16px;
+            border-radius: 999px;
+            background: var(--white);
+            border: 1px solid var(--line);
+            color: var(--text-muted);
+            font-size: 13.5px;
+            font-weight: 600;
+            box-shadow:
+                0 2px 6px rgba(2, 29, 57, .06),
+                0 12px 28px -10px rgba(2, 29, 57, .22);
+            transition: var(--transition)
+        }
+
+        .help-fab:hover {
+            color: #128C7E;
+            border-color: rgba(18, 140, 126, .35);
+            transform: translateY(-2px);
+            box-shadow:
+                0 2px 6px rgba(2, 29, 57, .06),
+                0 16px 32px -10px rgba(18, 140, 126, .30)
+        }
+
+        .help-fab-ico {
+            width: 19px;
+            height: 19px;
+            flex-shrink: 0;
+            color: #25D366
         }
 
         /* ── Footer ─────────────────────────────────────────── */
@@ -499,51 +588,130 @@
         /* ── Responsive ─────────────────────────────────────── */
         @media (max-width:720px) {
             :root {
-                --nav-h: 66px
+                --nav-h: 60px
             }
 
             .nav-logo-img {
-                height: 24px
+                height: 22px
+            }
+
+            .nav-lang {
+                padding: 7px 12px;
+                font-size: 12.5px
             }
 
             .stage {
-                padding: 32px 0 44px
+                padding: 26px 0 34px
             }
 
+            .stage-inner {
+                padding: 0 20px
+            }
+
+            .stage-title {
+                font-size: 30px;
+                line-height: 1.28;
+                letter-spacing: -.4px
+            }
+
+            /* The underline is decorative; on two-line wrapped headings it
+               cuts through the descenders, so it is dropped on phones. */
+            .stage-title .accent::after {
+                display: none
+            }
+
+            .stage-sub {
+                font-size: 14.5px;
+                line-height: 1.6;
+                max-width: 320px
+            }
+
+            /* Stacked, but sized like a real field — not a tall empty box. */
             .starter-field {
                 flex-direction: column;
                 align-items: stretch;
-                gap: 10px;
-                padding: 12px;
-                border-radius: 18px
+                gap: 8px;
+                padding: 8px;
+                border-radius: 16px
             }
 
-
             .website-starter-input {
-                padding: 10px 6px;
+                padding: 13px 12px;
+                font-size: 16px;
                 text-align: center
             }
 
             .website-starter-submit {
                 justify-content: center;
                 width: 100%;
-                padding: 15px 20px
+                padding: 15px 18px;
+                font-size: 15.5px
             }
-
-
-            /* Narrow screens: keep the guidance useful but compact so the
-               whole flow still lands on one screen. */
-
-            .stage-sub {
-                font-size: 15px;
-                line-height: 1.55
-            }
-
 
             .website-starter-hint {
-                margin-top: 10px
+                margin-top: 14px;
+                font-size: 12px
             }
 
+            /* Two even columns, matched to the input's width so the block
+               reads as one column of content. */
+            .source-options {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 7px;
+                margin-top: 9px;
+                max-width: 100%;
+                margin-inline: auto
+            }
+
+            .source-options li {
+                justify-content: center;
+                font-size: 11.5px;
+                padding: 7px 8px;
+                gap: 6px;
+                text-align: center
+            }
+
+            .so-ico {
+                width: 16px;
+                height: 16px;
+                font-size: 8.5px
+            }
+
+            .stage-micro {
+                font-size: 12.5px
+            }
+
+            /* Icon-only, and pinned clear of the chips above the footer. */
+            .help-fab {
+                inset-block-end: 14px;
+                inset-inline-end: 14px;
+                padding: 13px;
+                gap: 0;
+                background: #25D366;
+                border-color: #25D366;
+                box-shadow: 0 6px 18px -4px rgba(37, 211, 102, .5)
+            }
+
+            .help-fab-label {
+                display: none
+            }
+
+            .help-fab-ico {
+                width: 22px;
+                height: 22px;
+                color: #fff
+            }
+
+            /* Reserve a lane on the trailing side so the floating help
+               button can never land on a footer link. */
+            .footer {
+                padding-bottom: 14px
+            }
+
+            .footer-inner {
+                padding-inline-end: 68px
+            }
 
             .footer-inner {
                 flex-direction: column;
@@ -564,10 +732,6 @@
             .footer-links a {
                 font-size: 12px;
                 padding: 3px 6px
-            }
-
-            .footer-links {
-                justify-content: center
             }
         }
 
@@ -616,7 +780,7 @@
             </h1>
 
             <p class="stage-sub">
-                حط لينك شركتك، و<span class="ltr">Estavo AI</span> يبني الموقع ببراندك ومشاريعك.
+                ادّينا أي لينك لشركتك، و<span class="ltr">Estavo AI</span> يبني الموقع ببراندك ومشاريعك.
             </p>
 
             <form class="website-starter" data-locale="ar"
@@ -639,8 +803,15 @@
                 </div>
 
                 <p class="website-starter-hint" id="website-source-ar-hint">
-                    Facebook · Instagram · Property Finder · Bayut · أو موقعك
+                    أي واحد من دول يكفي:
                 </p>
+
+                <ul class="source-options" aria-label="اللينكات اللي نقدر نبدأ منها">
+                    <li><span class="so-ico" aria-hidden="true">f</span> صفحة الفيسبوك</li>
+                    <li><span class="so-ico" aria-hidden="true">ig</span> حساب الإنستجرام</li>
+                    <li><span class="so-ico" aria-hidden="true">◎</span> موقعك القديم</li>
+                    <li><span class="so-ico" aria-hidden="true">◆</span> Property Finder أو Bayut</li>
+                </ul>
 
                 <p class="website-starter-error" id="website-source-ar-error" role="alert" aria-live="polite"
                     hidden></p>
@@ -668,6 +839,22 @@
         </div>
     </footer>
 
+
+    <!-- ══════════════════════════════════════════════════════════
+     4. HELP — WhatsApp, for anyone stuck on which link to use
+     ══════════════════════════════════════════════════════════ -->
+    <a class="help-fab" href="https://wa.me/201069528393?text=%D9%85%D8%AD%D8%AA%D8%A7%D8%AC%20%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D8%A9%20%D9%81%D9%8A%20%D8%B9%D9%85%D9%84%20%D9%85%D9%88%D9%82%D8%B9%20%D8%B4%D8%B1%D9%83%D8%AA%D9%8A"
+        target="_blank" rel="noopener noreferrer"
+        data-track="whatsapp_help" data-position="fab"
+        aria-label="محتاج مساعدة؟ كلمنا على واتساب">
+        <svg class="help-fab-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor"
+                d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.88 1.21 3.08.15.2 2.09 3.2 5.07 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z" />
+            <path fill="currentColor"
+                d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.25-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.24 8.23z" />
+        </svg>
+        <span class="help-fab-label">محتاج مساعدة؟</span>
+    </a>
 
     <!-- Handles URL validation + referral/UTM attribution on the form -->
     <script src="../assets/js/website-referral.js" defer></script>
