@@ -136,6 +136,44 @@
         }
     }
 
+    // Platform roots that identify no specific company. Pasting one of these
+    // means the broker gave us the site, not their own page on it.
+    var PLATFORM_ROOTS = [
+        'facebook.com', 'fb.com', 'm.facebook.com',
+        'instagram.com', 'propertyfinder.eg', 'propertyfinder.ae',
+        'bayut.eg', 'bayut.com', 'olx.com.eg', 'linkedin.com',
+        'tiktok.com', 'youtube.com', 'x.com', 'twitter.com'
+    ];
+
+    function isBarePlatformRoot(normalizedUrl) {
+        try {
+            var url = new URL(normalizedUrl);
+            var host = url.hostname.toLowerCase().replace(/^www\./, '');
+            if (PLATFORM_ROOTS.indexOf(host) === -1) return false;
+
+            // A company page always carries a path or a query that names it.
+            var path = url.pathname.replace(/\/+$/, '');
+            var meaningful = path && path !== '' && path !== '/';
+            return !meaningful && !url.search;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    // Classifies input so the UI can explain the specific problem instead of
+    // showing one generic error. Never loosens normalizeSourceUrl's rules.
+    function classifySource(value) {
+        var raw = typeof value === 'string' ? value.trim() : '';
+        if (!raw) return { ok: false, reason: 'empty' };
+
+        var normalized = normalizeSourceUrl(raw);
+        if (!normalized) return { ok: false, reason: 'malformed' };
+        if (isBarePlatformRoot(normalized)) {
+            return { ok: false, reason: 'platform-root', url: normalized };
+        }
+        return { ok: true, url: normalized };
+    }
+
     function normalizeLocale(value) {
         return value === 'ar' || value === 'en' ? value : null;
     }
@@ -205,19 +243,48 @@
         return documentObject.documentElement.lang === 'ar' ? 'ar' : 'en';
     }
 
-    function showSourceError(input, errorElement, locale) {
+    // Reason-specific guidance. Each message tells the broker what to do next
+    // instead of restating that the value was rejected.
+    var SOURCE_MESSAGES = {
+        ar: {
+            empty: 'حط لينك شركتك الأول — Facebook أو Instagram أو Property Finder أو Bayut أو موقع شركتك.',
+            malformed: 'اللينك ده مش واضح. جرّب لينك صفحة شركتك على Facebook أو Instagram أو موقع شركتك.',
+            'platform-root': 'محتاجين لينك صفحة شركتك نفسها، مش الموقع الرئيسي.',
+            ok: '✓ تمام، لقينا الصفحة — نقدر نبدأ منها.'
+        },
+        en: {
+            empty: 'Add your company link first — Facebook, Instagram, Property Finder, Bayut, or your website.',
+            malformed: 'That link is not clear. Try your company page on Facebook or Instagram, or your website.',
+            'platform-root': 'We need a link to your company page itself, not the main site.',
+            ok: '✓ Got it, we found the page — we can start from here.'
+        }
+    };
+
+    function messagesFor(locale) {
+        return SOURCE_MESSAGES[locale] || SOURCE_MESSAGES.en;
+    }
+
+    function showSourceError(input, errorElement, locale, reason) {
+        var copy = messagesFor(locale);
         input.setAttribute('aria-invalid', 'true');
-        errorElement.textContent = locale === 'ar'
-            ? 'أدخل رابطًا عامًا صحيحًا لحساب شركتك أو موقعها، مثل https://instagram.com/company.'
-            : 'Enter a valid public company profile or website URL, such as https://instagram.com/company.';
+        errorElement.textContent = copy[reason] || copy.malformed;
         errorElement.hidden = false;
+        errorElement.classList.remove('is-ok');
         input.focus();
+    }
+
+    function showSourceSuccess(input, errorElement, locale) {
+        input.removeAttribute('aria-invalid');
+        errorElement.textContent = messagesFor(locale).ok;
+        errorElement.hidden = false;
+        errorElement.classList.add('is-ok');
     }
 
     function clearSourceError(input, errorElement) {
         input.removeAttribute('aria-invalid');
         errorElement.textContent = '';
         errorElement.hidden = true;
+        errorElement.classList.remove('is-ok');
     }
 
     function prepareWebsiteForm(windowObject, documentObject, form) {
@@ -245,12 +312,40 @@
         form.setAttribute('method', 'get');
         form.setAttribute('data-website-starter-ready', 'true');
 
+        // Typing clears whatever verdict was on screen, so guidance never
+        // contradicts what the broker is currently editing.
         input.addEventListener('input', function () {
-            if (input.hasAttribute('aria-invalid')) clearSourceError(input, errorElement);
+            if (!errorElement.hidden) clearSourceError(input, errorElement);
+        });
+
+        // Confirm as soon as they finish, rather than making them press the
+        // button to discover the link was fine all along.
+        function reviewValue() {
+            if (!input.value.trim()) return;
+
+            var verdict = classifySource(input.value);
+            if (verdict.ok) {
+                input.value = verdict.url;
+                showSourceSuccess(input, errorElement, locale);
+            } else {
+                showSourceError(input, errorElement, locale, verdict.reason);
+            }
+        }
+
+        input.addEventListener('blur', reviewValue);
+        input.addEventListener('paste', function () {
+            windowObject.setTimeout(reviewValue, 0);
         });
 
         form.addEventListener('submit', function (event) {
             event.preventDefault();
+
+            var verdict = classifySource(input.value);
+            if (!verdict.ok) {
+                showSourceError(input, errorElement, locale, verdict.reason);
+                return;
+            }
+
             var destination = buildOnboardingUrl(
                 input.value,
                 locale,
@@ -258,12 +353,12 @@
             );
 
             if (!destination) {
-                showSourceError(input, errorElement, locale);
+                showSourceError(input, errorElement, locale, 'malformed');
                 return;
             }
 
             clearSourceError(input, errorElement);
-            input.value = normalizeSourceUrl(input.value);
+            input.value = verdict.url;
             windowObject.location.assign(destination);
         });
     }
@@ -351,6 +446,8 @@
         isPlatformUrl: isPlatformUrl,
         isValidSlug: isValidSlug,
         normalizeSourceUrl: normalizeSourceUrl,
+        classifySource: classifySource,
+        isBarePlatformRoot: isBarePlatformRoot,
         sanitizeAttributionValue: sanitizeAttributionValue,
         bootstrap: bootstrap
     };

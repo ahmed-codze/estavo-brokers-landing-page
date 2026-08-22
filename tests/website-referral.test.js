@@ -86,6 +86,36 @@ test('rejects unsupported locales and does not trust origin lookalikes', () => {
     );
 });
 
+test('classifies sources so the UI can explain the specific problem', () => {
+    // Bare platform roots identify no company, so they must be sent back.
+    ['facebook.com', 'https://facebook.com/', 'www.instagram.com', 'bayut.eg', 'https://propertyfinder.eg/']
+        .forEach((value) => {
+            assert.equal(
+                referral.classifySource(value).reason,
+                'platform-root',
+                `${value} should be reported as a bare platform root`,
+            );
+        });
+
+    // Real company pages on those same platforms must pass.
+    ['instagram.com/acme', 'https://www.facebook.com/acme-realty', 'https://bayut.eg/en/companies/acme']
+        .forEach((value) => {
+            assert.equal(referral.classifySource(value).ok, true, `${value} should be accepted`);
+        });
+
+    assert.equal(referral.classifySource('').reason, 'empty');
+    assert.equal(referral.classifySource('not a url').reason, 'malformed');
+
+    // The classifier must never accept what normalizeSourceUrl rejects.
+    ['javascript:alert(1)', 'http://localhost/x', 'https://127.0.0.1/x', 'https://user:pw@example.com/']
+        .forEach((value) => {
+            assert.equal(referral.classifySource(value).ok, false, `${value} must stay rejected`);
+        });
+
+    // A missing scheme is repaired rather than rejected.
+    assert.equal(referral.classifySource('instagram.com/acme').url, 'https://instagram.com/acme');
+});
+
 test('only the URL-only Arabic and English variants expose the website handoff', () => {
     const pages = [
         { file: 'website/index.html', locale: 'ar', input: 'website-source-ar' },
