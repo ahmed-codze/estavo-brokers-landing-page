@@ -50,7 +50,7 @@
     </div>
 
     <main class="shell">
-        <p class="summary">This policy explains how Estavo Sites CRM ("Estavo," "we," or "us") handles Google user data when a website administrator optionally connects Google Calendar. It supplements Estavo's general product privacy disclosures.</p>
+        <p class="summary">This is the privacy policy for Estavo Sites CRM ("Estavo," "we," or "us"). It explains the personal information the CRM collects and how it accesses, uses, stores, shares, retains, and deletes Google user data when a website administrator optionally connects Google Calendar.</p>
 
         <section>
             <h2>1. Who operates the service</h2>
@@ -58,23 +58,38 @@
         </section>
 
         <section>
-            <h2>2. Google data we access</h2>
+            <h2>2. Information Estavo Sites CRM collects</h2>
+            <ul>
+                <li><strong>Administrator and account information:</strong> name, business contact details, authentication records, assigned role, and the website or brokerage the administrator manages.</li>
+                <li><strong>Lead and CRM information:</strong> names, contact details, form answers, property preferences, messages, notes, assigned agent, pipeline stage, tasks, appointments, showings, and related follow-up history.</li>
+                <li><strong>Website and advertising information:</strong> website enquiries, consent records, source and campaign attribution, and interaction events used to operate reporting and integrations selected by the customer.</li>
+                <li><strong>Technical information:</strong> security logs, IP address, browser and device information, timestamps, diagnostics, and feature usage needed to protect and improve the service.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Why we use personal information</h2>
+            <p>We use this information to provide and secure the real-estate website and CRM, receive and route enquiries, maintain buyer profiles, schedule and record follow-up, deliver customer-selected integrations, provide support, prevent abuse, comply with law, and improve service reliability. We process it to perform our agreement with customers, follow user instructions, support legitimate service and security interests, meet legal duties, and handle consent where the law requires it.</p>
+        </section>
+
+        <section>
+            <h2>4. Google data we access</h2>
             <p>After an authorized website administrator grants permission, Estavo accesses:</p>
             <ul>
                 <li>the Google account identifier and email address, so the CRM can show which account is connected;</li>
                 <li>OAuth access and refresh tokens, so the connection can continue without requiring a new sign-in for every update; and</li>
-                <li>Google Calendar event access needed to create, update, and delete Estavo-generated events in the connected account's primary calendar.</li>
+                <li>permission to create one dedicated Estavo CRM calendar and to create, update, and delete events only in calendars created by this application.</li>
             </ul>
-            <p>Estavo does not read or import the user's unrelated Google Calendar events. It uses deterministic event identifiers to update only events created for Estavo CRM activities.</p>
+            <p>The Google Calendar permission does not allow Estavo to read, update, or delete the user's other calendars. Estavo uses deterministic event identifiers to update only events created for Estavo CRM activities.</p>
         </section>
 
         <section>
-            <h2>3. How Google data is used</h2>
+            <h2>5. How Google data is used</h2>
             <p>Google data is used only to provide the user-facing calendar synchronization feature. A pending CRM task, appointment, or showing can create a Google Calendar event containing its title, scheduled start and end, reminder, location, notes, and the related lead's name and available contact details. When that CRM activity changes, Estavo updates the same event. When it is completed or cancelled, Estavo removes that event while the connection remains active.</p>
         </section>
 
         <section>
-            <h2>4. Storage and security</h2>
+            <h2>6. Storage and security</h2>
             <ul>
                 <li>OAuth access and refresh tokens are encrypted at rest in Estavo's production database.</li>
                 <li>The connected Google account identifier, email, synchronization timestamps, and limited diagnostic error text are stored with the website's isolated CRM connection record.</li>
@@ -84,29 +99,41 @@
         </section>
 
         <section>
-            <h2>5. Sharing and prohibited uses</h2>
-            <p>We do not sell Google user data. We do not use it for advertising, credit decisions, surveillance, or training generalized artificial-intelligence models. We do not transfer it to third parties except infrastructure processors that help us securely operate the service, where they act under our instructions and confidentiality obligations, or when required by law.</p>
+            <h2>7. Sharing and prohibited uses</h2>
+            <p>We do not sell personal information or Google user data. We may use infrastructure, communications, analytics, security, and support processors that help us operate Estavo under our instructions and confidentiality obligations. Customer-directed integrations receive only the information needed to perform the function the administrator enables. We may also disclose information when required by law, to protect users and the service, or as part of a business transaction subject to appropriate safeguards.</p>
+            <p>We do not use Google user data for advertising, credit decisions, surveillance, or training generalized artificial-intelligence models.</p>
             <p>Estavo's access, use, storage, and transfer of information received from Google APIs follows the <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener noreferrer">Google API Services User Data Policy</a>, including its Limited Use requirements.</p>
         </section>
 
         <section>
-            <h2>6. Retention, disconnection, and deletion</h2>
-            <p>The Google connection data and encrypted tokens are retained only while the website's calendar connection remains active. An authorized website administrator can select <strong>Disconnect</strong> in the CRM. Estavo then requests revocation of the Google authorization and deletes its stored connection record and tokens. Events already present in Google Calendar remain under the user's control and can be deleted there.</p>
+            <h2>8. Retention, disconnection, and deletion</h2>
+            <p>CRM information is retained while the customer account is active and afterward only as needed for customer instructions, legitimate records, dispute resolution, security, backup rotation, and legal duties. Retention periods depend on the type of record and applicable law.</p>
+            <p>Google connection data and encrypted tokens are retained only while the website's calendar connection remains active. An authorized website administrator can select <strong>Disconnect</strong> in the CRM. Estavo then requests revocation of the Google authorization and deletes its stored connection record and tokens. The dedicated Estavo calendar and events already present in Google Calendar remain under the user's control and can be deleted there.</p>
             <p>Users can also revoke access from their <a href="https://myaccount.google.com/connections" rel="noopener noreferrer">Google Account connections</a>. To request deletion of associated Estavo account data, email <a href="mailto:support@estavo.space">support@estavo.space</a>. We process verified deletion requests subject to legal retention duties and backup rotation.</p>
         </section>
 
         <section>
-            <h2>7. User choice and legal basis</h2>
+            <h2>9. User choice and legal basis</h2>
             <p>The integration is optional. We process Google user data to perform the calendar-sync service the user explicitly requests. The connected administrator can withdraw that authorization at any time by disconnecting the integration.</p>
         </section>
 
         <section>
-            <h2>8. Changes to this policy</h2>
+            <h2>10. Privacy rights</h2>
+            <p>Depending on applicable law, a person may ask to access, correct, export, restrict, object to, or delete personal information associated with them. Send a request to <a href="mailto:support@estavo.space">support@estavo.space</a>. We may verify identity and authority before acting on a request. A person may also complain to their local data-protection authority.</p>
+        </section>
+
+        <section>
+            <h2>11. Children and international processing</h2>
+            <p>Estavo Sites CRM is a business service and is not directed to children. Service providers may process information in countries other than the user's own; where required, we use contractual and organizational safeguards for those transfers.</p>
+        </section>
+
+        <section>
+            <h2>12. Changes to this policy</h2>
             <p>We will update this page before materially changing how the integration uses Google user data. The effective date above shows the latest revision.</p>
         </section>
 
         <section>
-            <h2>9. Contact</h2>
+            <h2>13. Contact</h2>
             <p>Email: <a href="mailto:support@estavo.space">support@estavo.space</a><br />Product: <a href="https://estavo.space/google-calendar.html">Estavo Sites CRM Google Calendar integration</a><br />Terms: <a href="https://estavo.space/google-calendar-terms.html">Terms of Service</a></p>
         </section>
     </main>
