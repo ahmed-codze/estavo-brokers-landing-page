@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estavo Sites CRM — Google Calendar integration</title>
+    <meta name="description" content="Estavo Sites CRM helps real-estate professionals follow up with website leads and sync CRM appointments to Google Calendar." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://estavo.space/google-calendar.html" />
+    <link rel="icon" href="/assets/logo/Estavo%20Icon.png" type="image/png" />
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #071b31;
+            --muted: #5d6d7f;
+            --line: #dce6f0;
+            --blue: #1677ff;
+            --navy: #021d39;
+            --soft: #f4f8fc;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: #fff;
+            color: var(--ink);
+            font: 16px/1.65 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+        a { color: var(--blue); }
+        .shell { width: min(1100px, calc(100% - 40px)); margin: 0 auto; }
+        header { border-bottom: 1px solid var(--line); background: rgba(255,255,255,.96); }
+        .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+        .brand { display: flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; font-weight: 800; }
+        .brand img { width: 42px; height: 42px; border-radius: 12px; }
+        .nav-links { display: flex; gap: 20px; font-size: 14px; }
+        .nav-links a { color: var(--muted); text-decoration: none; }
+        .hero {
+            padding: 92px 0 70px;
+            background:
+                radial-gradient(circle at 80% 12%, rgba(22,119,255,.16), transparent 28%),
+                linear-gradient(180deg, #fff 0%, var(--soft) 100%);
+        }
+        .eyebrow { color: var(--blue); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; font-size: 13px; }
+        h1 { max-width: 780px; margin: 12px 0 20px; font-size: clamp(38px, 6vw, 66px); line-height: 1.07; letter-spacing: -.04em; }
+        .lead { max-width: 720px; margin: 0; color: var(--muted); font-size: clamp(18px, 2vw, 22px); }
+        .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+        .button { display: inline-flex; padding: 13px 20px; border-radius: 12px; font-weight: 750; text-decoration: none; }
+        .button.primary { color: #fff; background: var(--navy); }
+        .button.secondary { color: var(--ink); border: 1px solid var(--line); background: #fff; }
+        main { padding: 70px 0 90px; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+        .card { padding: 26px; border: 1px solid var(--line); border-radius: 20px; background: #fff; }
+        .card strong { display: block; margin-bottom: 8px; font-size: 18px; }
+        .card p { margin: 0; color: var(--muted); }
+        .details { max-width: 820px; margin-top: 64px; }
+        h2 { margin: 0 0 16px; font-size: 30px; letter-spacing: -.025em; }
+        .details p, .details li { color: var(--muted); }
+        .details li + li { margin-top: 8px; }
+        .notice { margin-top: 28px; padding: 20px 22px; border-radius: 16px; background: var(--soft); border: 1px solid var(--line); }
+        footer { padding: 28px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+        .footer-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+        .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+        @media (max-width: 760px) {
+            .shell { width: min(100% - 28px, 1100px); }
+            .nav { align-items: flex-start; padding: 16px 0; }
+            .nav-links { flex-direction: column; gap: 5px; align-items: flex-end; }
+            .hero { padding: 64px 0 54px; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="nav shell" aria-label="Main navigation">
+            <a class="brand" href="https://estavo.space/google-calendar.html">
+                <img src="/assets/logo/Estavo%20Icon.png" alt="Estavo logo" width="42" height="42" />
+                <span>Estavo Sites CRM</span>
+            </a>
+            <div class="nav-links">
+                <a href="https://estavo.space/google-calendar-privacy.html">Privacy</a>
+                <a href="https://estavo.space/google-calendar-terms.html">Terms</a>
+                <a href="mailto:support@estavo.space">Support</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="shell">
+            <div class="eyebrow">Google Calendar integration</div>
+            <h1>Keep every lead follow-up on your calendar.</h1>
+            <p class="lead">Estavo Sites CRM is the customer workspace included with Estavo-powered real-estate websites. It collects website enquiries, organizes buyer follow-up, and can add CRM tasks, appointments, and showings to the Google Calendar you connect.</p>
+            <div class="actions">
+                <a class="button primary" href="https://estavo-brokers.com">Learn about Estavo</a>
+                <a class="button secondary" href="https://estavo.space/google-calendar-privacy.html">How we use Google data</a>
+            </div>
+        </div>
+    </section>
+
+    <main class="shell">
+        <section aria-labelledby="features-title">
+            <h2 id="features-title">What the connection does</h2>
+            <div class="grid">
+                <article class="card">
+                    <strong>Adds follow-ups</strong>
+                    <p>A CRM task, appointment, or showing is added to the connected account's primary Google Calendar.</p>
+                </article>
+                <article class="card">
+                    <strong>Keeps changes current</strong>
+                    <p>If the scheduled time or CRM details change, Estavo updates the same calendar event. Completed or cancelled CRM activities are removed.</p>
+                </article>
+                <article class="card">
+                    <strong>Works per website</strong>
+                    <p>Each customer website has its own connection. A website administrator controls which Google account is connected and can disconnect it at any time.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="details" aria-labelledby="access-title">
+            <h2 id="access-title">Why Estavo requests Google access</h2>
+            <p>Estavo requests your Google account email to identify the connected account and Google Calendar event access solely to create, update, and delete the CRM follow-up events described above.</p>
+            <ul>
+                <li>Calendar sync is optional and starts only after a website administrator chooses <strong>Sync Google</strong> and grants access.</li>
+                <li>Estavo does not use Google Calendar data for advertising, sell it, or use it to train general-purpose AI models.</li>
+                <li>OAuth tokens are encrypted at rest and kept only while the website remains connected.</li>
+                <li>Disconnecting in the CRM revokes Google's authorization and deletes the stored connection tokens.</li>
+            </ul>
+            <div class="notice">
+                Full details are available in the <a href="https://estavo.space/google-calendar-privacy.html">Estavo Sites CRM privacy policy</a>. For help or a data-deletion request, email <a href="mailto:support@estavo.space">support@estavo.space</a>.
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-row shell">
+            <span>&copy; 2026 Estavo. Cairo, Egypt.</span>
+            <div class="footer-links">
+                <a href="https://estavo.space/google-calendar-privacy.html">Privacy Policy</a>
+                <a href="https://estavo.space/google-calendar-terms.html">Terms of Service</a>
+                <a href="mailto:support@estavo.space">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy — Estavo Sites CRM</title>
+    <meta name="description" content="How Estavo Sites CRM accesses, uses, stores, shares, and deletes Google user data for Google Calendar synchronization." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://estavo.space/google-calendar-privacy.html" />
+    <link rel="icon" href="/assets/logo/Estavo%20Icon.png" type="image/png" />
+    <style>
+        :root { color-scheme: light; --ink:#071b31; --muted:#536477; --line:#dce6f0; --blue:#1677ff; --soft:#f4f8fc; }
+        * { box-sizing: border-box; }
+        body { margin:0; color:var(--ink); background:#fff; font:16px/1.75 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+        a { color:var(--blue); }
+        .shell { width:min(850px,calc(100% - 36px)); margin:0 auto; }
+        header { border-bottom:1px solid var(--line); }
+        nav { min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+        .brand { display:flex; align-items:center; gap:11px; color:var(--ink); text-decoration:none; font-weight:800; }
+        .brand img { width:40px; height:40px; border-radius:11px; }
+        .back { color:var(--muted); text-decoration:none; font-size:14px; }
+        .hero { padding:66px 0 44px; background:linear-gradient(180deg,#fff,var(--soft)); border-bottom:1px solid var(--line); }
+        h1 { margin:0 0 10px; font-size:clamp(34px,6vw,52px); line-height:1.1; letter-spacing:-.035em; }
+        .updated { color:var(--muted); margin:0; }
+        main { padding:58px 0 80px; }
+        section + section { margin-top:42px; }
+        h2 { margin:0 0 12px; font-size:23px; letter-spacing:-.02em; }
+        p, li { color:var(--muted); }
+        li + li { margin-top:7px; }
+        .summary { padding:22px 24px; border:1px solid var(--line); border-radius:16px; background:var(--soft); color:var(--ink); }
+        footer { border-top:1px solid var(--line); padding:25px 0; color:var(--muted); font-size:14px; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="shell" aria-label="Privacy navigation">
+            <a class="brand" href="https://estavo.space/google-calendar.html">
+                <img src="/assets/logo/Estavo%20Icon.png" alt="Estavo logo" width="40" height="40" />
+                <span>Estavo Sites CRM</span>
+            </a>
+            <a class="back" href="https://estavo.space/google-calendar.html">Integration overview</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div class="shell">
+            <h1>Privacy Policy</h1>
+            <p class="updated">Effective and last updated: September 3, 2026</p>
+        </div>
+    </div>
+
+    <main class="shell">
+        <p class="summary">This policy explains how Estavo Sites CRM ("Estavo," "we," or "us") handles Google user data when a website administrator optionally connects Google Calendar. It supplements Estavo's general product privacy disclosures.</p>
+
+        <section>
+            <h2>1. Who operates the service</h2>
+            <p>Estavo operates Estavo Sites CRM from Cairo, Egypt. Questions, privacy requests, and complaints can be sent to <a href="mailto:support@estavo.space">support@estavo.space</a>.</p>
+        </section>
+
+        <section>
+            <h2>2. Google data we access</h2>
+            <p>After an authorized website administrator grants permission, Estavo accesses:</p>
+            <ul>
+                <li>the Google account identifier and email address, so the CRM can show which account is connected;</li>
+                <li>OAuth access and refresh tokens, so the connection can continue without requiring a new sign-in for every update; and</li>
+                <li>Google Calendar event access needed to create, update, and delete Estavo-generated events in the connected account's primary calendar.</li>
+            </ul>
+            <p>Estavo does not read or import the user's unrelated Google Calendar events. It uses deterministic event identifiers to update only events created for Estavo CRM activities.</p>
+        </section>
+
+        <section>
+            <h2>3. How Google data is used</h2>
+            <p>Google data is used only to provide the user-facing calendar synchronization feature. A pending CRM task, appointment, or showing can create a Google Calendar event containing its title, scheduled start and end, reminder, location, notes, and the related lead's name and available contact details. When that CRM activity changes, Estavo updates the same event. When it is completed or cancelled, Estavo removes that event while the connection remains active.</p>
+        </section>
+
+        <section>
+            <h2>4. Storage and security</h2>
+            <ul>
+                <li>OAuth access and refresh tokens are encrypted at rest in Estavo's production database.</li>
+                <li>The connected Google account identifier, email, synchronization timestamps, and limited diagnostic error text are stored with the website's isolated CRM connection record.</li>
+                <li>Access is restricted to the website and authorized administrators under Estavo's tenant access controls.</li>
+                <li>Data is transmitted to Google using encrypted HTTPS connections.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. Sharing and prohibited uses</h2>
+            <p>We do not sell Google user data. We do not use it for advertising, credit decisions, surveillance, or training generalized artificial-intelligence models. We do not transfer it to third parties except infrastructure processors that help us securely operate the service, where they act under our instructions and confidentiality obligations, or when required by law.</p>
+            <p>Estavo's access, use, storage, and transfer of information received from Google APIs follows the <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener noreferrer">Google API Services User Data Policy</a>, including its Limited Use requirements.</p>
+        </section>
+
+        <section>
+            <h2>6. Retention, disconnection, and deletion</h2>
+            <p>The Google connection data and encrypted tokens are retained only while the website's calendar connection remains active. An authorized website administrator can select <strong>Disconnect</strong> in the CRM. Estavo then requests revocation of the Google authorization and deletes its stored connection record and tokens. Events already present in Google Calendar remain under the user's control and can be deleted there.</p>
+            <p>Users can also revoke access from their <a href="https://myaccount.google.com/connections" rel="noopener noreferrer">Google Account connections</a>. To request deletion of associated Estavo account data, email <a href="mailto:support@estavo.space">support@estavo.space</a>. We process verified deletion requests subject to legal retention duties and backup rotation.</p>
+        </section>
+
+        <section>
+            <h2>7. User choice and legal basis</h2>
+            <p>The integration is optional. We process Google user data to perform the calendar-sync service the user explicitly requests. The connected administrator can withdraw that authorization at any time by disconnecting the integration.</p>
+        </section>
+
+        <section>
+            <h2>8. Changes to this policy</h2>
+            <p>We will update this page before materially changing how the integration uses Google user data. The effective date above shows the latest revision.</p>
+        </section>
+
+        <section>
+            <h2>9. Contact</h2>
+            <p>Email: <a href="mailto:support@estavo.space">support@estavo.space</a><br />Product: <a href="https://estavo.space/google-calendar.html">Estavo Sites CRM Google Calendar integration</a><br />Terms: <a href="https://estavo.space/google-calendar-terms.html">Terms of Service</a></p>
+        </section>
+    </main>
+
+    <footer><div class="shell">&copy; 2026 Estavo. Cairo, Egypt.</div></footer>
+</body>
+</html>
