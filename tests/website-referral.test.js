@@ -67,6 +67,36 @@ test('always builds the handoff on the fixed Estavo onboarding endpoint', () => 
     );
 });
 
+test('builds a validated manual freelancer handoff with attribution', () => {
+    const destination = referral.buildManualOnboardingUrl({
+        name: '  أحمد منصور  ',
+        palette: 'navy-gold',
+        cities: ['new-cairo', 'north-coast', 'new-cairo'],
+    }, 'ar', {
+        ref: 'Partner-42',
+        utm_source: 'facebook',
+    });
+    const url = new URL(destination);
+
+    assert.equal(url.origin, 'https://brokers.estavo.space');
+    assert.equal(url.pathname, '/website/create');
+    assert.equal(url.searchParams.get('mode'), 'manual');
+    assert.equal(url.searchParams.get('audience'), 'individual');
+    assert.equal(url.searchParams.get('name'), 'أحمد منصور');
+    assert.equal(url.searchParams.get('palette'), 'navy-gold');
+    assert.equal(url.searchParams.get('cities'), 'new-cairo,north-coast');
+    assert.equal(url.searchParams.get('locale'), 'ar');
+    assert.equal(url.searchParams.get('ref'), 'partner-42');
+    assert.equal(url.searchParams.get('utm_source'), 'facebook');
+});
+
+test('rejects incomplete or tampered manual website profiles', () => {
+    assert.equal(referral.buildManualOnboardingUrl({ name: '', palette: 'navy-gold', cities: ['new-cairo'] }, 'en', {}), null);
+    assert.equal(referral.buildManualOnboardingUrl({ name: 'Jane', palette: 'hacked', cities: ['new-cairo'] }, 'en', {}), null);
+    assert.equal(referral.buildManualOnboardingUrl({ name: 'Jane', palette: 'navy-gold', cities: [] }, 'en', {}), null);
+    assert.equal(referral.buildManualOnboardingUrl({ name: 'Jane', palette: 'navy-gold', cities: ['../../bad'] }, 'en', {}), null);
+});
+
 test('rejects unsupported locales and does not trust origin lookalikes', () => {
     assert.equal(
         referral.buildOnboardingUrl('https://instagram.com/company', 'fr', {}),
@@ -116,7 +146,7 @@ test('classifies sources so the UI can explain the specific problem', () => {
     assert.equal(referral.classifySource('instagram.com/acme').url, 'https://instagram.com/acme');
 });
 
-test('only the URL-only Arabic and English variants expose the website handoff', () => {
+test('the Arabic and English website builders expose link and manual handoffs', () => {
     const pages = [
         { file: 'website/index.html', locale: 'ar', input: 'website-source-ar' },
         { file: 'website/en.html', locale: 'en', input: 'website-source-en' },
@@ -135,6 +165,14 @@ test('only the URL-only Arabic and English variants expose the website handoff',
         assert.match(html, new RegExp(`id="${input}-error" role="alert" aria-live="polite"`));
         assert.match(html, /maxlength="2048"/);
         assert.match(html, /assets\/js\/website-referral\.js/);
+        assert.match(html, /assets\/css\/website-wizard\.css/);
+        assert.match(html, /data-website-wizard/);
+        assert.match(html, /data-panel="audience"/);
+        assert.match(html, /data-panel="personal-choice"/);
+        assert.match(html, /data-panel="manual"/);
+        assert.match(html, /name="display_name"/);
+        assert.match(html, /name="palette"/);
+        assert.match(html, /name="cities"/);
     });
 
     ['index.html', 'en.html'].forEach((file) => {

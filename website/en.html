@@ -8,9 +8,9 @@
     <meta name="author" content="Estavo Brokers" />
 
     <!-- SEO -->
-    <title>A complete brokerage website, free, in 5 minutes | Estavo Brokers</title>
+    <title>Build a free real-estate website for you or your company | Estavo Brokers</title>
     <meta name="description"
-        content="Paste your company link and Estavo AI builds your brokerage website with your brand, projects and listings in 5 minutes — completely free." />
+        content="Build a real-estate website for yourself or your company in about 5 minutes. Start from a page link or choose your name, colours and markets manually." />
 
     <!-- Robots & Indexing -->
     <meta name="robots" content="noindex, nofollow" />
@@ -708,6 +708,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="../assets/css/website-wizard.css" />
 </head>
 
 <body>
@@ -731,57 +732,65 @@
     </nav>
 
 
-    <!-- ══════════════════════════════════════════════════════════
-     2. STAGE — one screen, one input
-     ══════════════════════════════════════════════════════════ -->
     <main class="stage" id="start">
-        <div class="stage-inner">
-
-            <h1 class="stage-title">
-                A complete brokerage website
-                <span class="accent">in 5 minutes</span>
-            </h1>
-
-            <p class="stage-sub">
-                Give us any link to your company and Estavo AI builds the site with your brand and projects.
-            </p>
-
-            <form class="website-starter" data-locale="en"
-                action="https://brokers.estavo.space/website/create" method="get" novalidate>
-
-                <label class="sr-only" for="website-source-en">Your company link</label>
-
-                <div class="starter-field">
-                    <input class="website-starter-input" id="website-source-en" name="source" type="text"
-                        inputmode="url" autocomplete="url" autocapitalize="none" spellcheck="false"
-                        enterkeyhint="go" maxlength="2048" required autofocus
-                        aria-describedby="website-source-en-hint website-source-en-error"
-                        aria-errormessage="website-source-en-error"
-                        placeholder="facebook.com/your-company" />
-                    <input type="hidden" name="locale" value="en" />
-                    <button class="website-starter-submit" type="submit"
-                        data-track="start_enterprise_website" data-position="stage">
-                        Build my website free
-                    </button>
+        <div class="stage-inner" data-website-wizard data-locale="en">
+            <section class="wizard-panel" data-panel="audience" aria-labelledby="audience-title">
+                <span class="wizard-kicker">Your website in about 5 minutes</span>
+                <h1 class="stage-title" id="audience-title">Who is this website <span class="accent">for?</span></h1>
+                <p class="stage-sub">Choose the best fit and we’ll take you through the shortest setup path.</p>
+                <div class="choice-grid">
+                    <button class="choice-card" type="button" data-audience="company" data-next-panel="link"><span class="choice-icon" aria-hidden="true">▦</span><span class="choice-title">My company</span><span class="choice-description">Share any company link and Estavo will collect the brand and projects automatically.</span></button>
+                    <button class="choice-card is-featured" type="button" data-audience="individual" data-next-panel="personal-choice"><span class="choice-badge">Freelancer</span><span class="choice-icon" aria-hidden="true">♙</span><span class="choice-title">Me personally</span><span class="choice-description">Build a personal website in your name, whether you have a Facebook page or not.</span></button>
                 </div>
-
-                <p class="website-starter-hint" id="website-source-en-hint">
-                    Any one of these works:
-                </p>
-
-                <ul class="source-options" aria-label="Links we can start from">
-                    <li><span class="so-ico" aria-hidden="true">f</span> Your Facebook page</li>
-                    <li><span class="so-ico" aria-hidden="true">ig</span> Your Instagram account</li>
-                    <li><span class="so-ico" aria-hidden="true">◎</span> Your old website</li>
-                    <li><span class="so-ico" aria-hidden="true">◆</span> Property Finder or Bayut</li>
-                </ul>
-
-                <p class="website-starter-error" id="website-source-en-error" role="alert" aria-live="polite"
-                    hidden></p>
-            </form>
-
+            </section>
+            <section class="wizard-panel" data-panel="personal-choice" aria-labelledby="personal-choice-title" hidden>
+                <button class="wizard-back" type="button" data-back-panel="audience">← Back</button>
+                <span class="wizard-kicker">A personal website in your name</span>
+                <h1 class="stage-title" id="personal-choice-title">How would you like to <span class="accent">start?</span></h1>
+                <p class="stage-sub">We can read your Facebook page, or you can answer three quick questions.</p>
+                <div class="choice-grid">
+                    <button class="choice-card is-featured" type="button" data-source-kind="personal" data-next-panel="link"><span class="choice-badge">Fastest</span><span class="choice-icon" aria-hidden="true">f</span><span class="choice-title">Use my Facebook page</span><span class="choice-description">Paste your page and Estavo will pull your name, identity and market areas.</span></button>
+                    <button class="choice-card" type="button" data-next-panel="manual"><span class="choice-icon" aria-hidden="true">✦</span><span class="choice-title">Start without a page</span><span class="choice-description">Choose your name, colours and the cities you cover manually.</span></button>
+                </div>
+            </section>
+            <section class="wizard-panel" data-panel="link" aria-labelledby="link-title" hidden>
+                <button class="wizard-back" type="button" data-back-panel="audience">← Back</button>
+                <span class="wizard-kicker" data-link-kicker>We’ll read the details automatically</span>
+                <h1 class="stage-title" id="link-title" data-link-title>Paste your <span class="accent">company link</span></h1>
+                <p class="stage-sub" data-link-copy>Facebook, Instagram, your old website, Property Finder or Bayut — any one works.</p>
+                <form class="website-starter" data-locale="en" action="https://brokers.estavo.space/website/create" method="get" novalidate>
+                    <label class="sr-only" for="website-source-en">Page link</label>
+                    <div class="starter-field">
+                        <input class="website-starter-input" id="website-source-en" name="source" type="text" inputmode="url" autocomplete="url" autocapitalize="none" spellcheck="false" enterkeyhint="go" maxlength="2048" required aria-describedby="website-source-en-hint website-source-en-error" aria-errormessage="website-source-en-error" placeholder="facebook.com/your-company" />
+                        <input type="hidden" name="locale" value="en" />
+                        <button class="website-starter-submit" type="submit" data-track="start_enterprise_website" data-position="stage">Start building</button>
+                    </div>
+                    <p class="website-starter-hint" id="website-source-en-hint">We’ll open the link to prepare the name, colours and content automatically.</p>
+                    <p class="website-starter-error" id="website-source-en-error" role="alert" aria-live="polite" hidden></p>
+                </form>
+            </section>
+            <section class="wizard-panel" data-panel="manual" hidden>
+                <button class="wizard-back" type="button" data-back-panel="personal-choice">← Back</button>
+                <form class="manual-shell" data-manual-form novalidate>
+                    <div class="progress-row" aria-label="Setup progress"><span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span><span class="progress-dot" data-progress="4"></span><span class="step-count" data-step-count>1 of 4</span></div>
+                    <section class="manual-step" data-manual-step="1" aria-labelledby="name-title"><h2 id="name-title">What name should appear on your website?</h2><p class="step-copy">Write it exactly as you want clients to see it, in Arabic or English.</p><label class="sr-only" for="manual-name-en">Website display name</label><input class="manual-input" id="manual-name-en" name="display_name" type="text" autocomplete="name" maxlength="80" placeholder="For example: Ahmed Mansour" /></section>
+                    <section class="manual-step" data-manual-step="2" aria-labelledby="palette-title" hidden><h2 id="palette-title">Choose your colour palette</h2><p class="step-copy">Every option is tuned to keep your content clear and professional.</p><div class="palette-grid">
+                        <label class="palette-option"><input type="radio" name="palette" value="navy-gold" checked /><span class="palette-card"><span class="palette-swatches"><i style="background:#021d39"></i><i style="background:#c8a45c"></i><i style="background:#f7f5f0"></i></span><span class="palette-name">Navy &amp; gold</span></span></label>
+                        <label class="palette-option"><input type="radio" name="palette" value="forest-sand" /><span class="palette-card"><span class="palette-swatches"><i style="background:#153d35"></i><i style="background:#d8b98b"></i><i style="background:#f5f1e8"></i></span><span class="palette-name">Forest &amp; sand</span></span></label>
+                        <label class="palette-option"><input type="radio" name="palette" value="charcoal-copper" /><span class="palette-card"><span class="palette-swatches"><i style="background:#25282b"></i><i style="background:#b87333"></i><i style="background:#f4f4f2"></i></span><span class="palette-name">Charcoal &amp; copper</span></span></label>
+                        <label class="palette-option"><input type="radio" name="palette" value="blue-sky" /><span class="palette-card"><span class="palette-swatches"><i style="background:#123d6a"></i><i style="background:#5db7de"></i><i style="background:#f3f9fc"></i></span><span class="palette-name">Blue &amp; sky</span></span></label>
+                        <label class="palette-option"><input type="radio" name="palette" value="burgundy-cream" /><span class="palette-card"><span class="palette-swatches"><i style="background:#5b1725"></i><i style="background:#d2a66d"></i><i style="background:#fff8ec"></i></span><span class="palette-name">Burgundy &amp; cream</span></span></label>
+                        <label class="palette-option"><input type="radio" name="palette" value="slate-white" /><span class="palette-card"><span class="palette-swatches"><i style="background:#334155"></i><i style="background:#94a3b8"></i><i style="background:#ffffff"></i></span><span class="palette-name">Slate &amp; white</span></span></label>
+                    </div></section>
+                    <section class="manual-step" data-manual-step="3" aria-labelledby="cities-title" hidden><h2 id="cities-title">Where do you work?</h2><p class="step-copy">Select one or more cities. You can change them later.</p><div class="city-grid">
+                        <label class="city-option"><input type="checkbox" name="cities" value="new-cairo" /><span class="city-chip">New Cairo</span></label><label class="city-option"><input type="checkbox" name="cities" value="new-capital" /><span class="city-chip">New Capital</span></label><label class="city-option"><input type="checkbox" name="cities" value="october" /><span class="city-chip">6th of October</span></label><label class="city-option"><input type="checkbox" name="cities" value="sheikh-zayed" /><span class="city-chip">Sheikh Zayed</span></label><label class="city-option"><input type="checkbox" name="cities" value="north-coast" /><span class="city-chip">North Coast</span></label><label class="city-option"><input type="checkbox" name="cities" value="ain-sokhna" /><span class="city-chip">Ain Sokhna</span></label><label class="city-option"><input type="checkbox" name="cities" value="mostakbal-city" /><span class="city-chip">Mostakbal City</span></label><label class="city-option"><input type="checkbox" name="cities" value="new-alamein" /><span class="city-chip">New Alamein</span></label>
+                    </div></section>
+                    <section class="manual-step" data-manual-step="4" aria-labelledby="review-title" hidden><h2 id="review-title">Great — your website is ready to build</h2><p class="step-copy">Review your choices. You can edit everything after creation.</p><div class="review-list"><div class="review-item"><span>Name</span><strong data-review-name></strong></div><div class="review-item"><span>Colours</span><strong data-review-palette></strong></div><div class="review-item"><span>Markets</span><strong data-review-cities></strong></div></div></section>
+                    <p class="manual-error" data-manual-error role="alert" aria-live="polite"></p>
+                    <div class="manual-actions"><button class="wizard-secondary" type="button" data-manual-prev hidden>Previous</button><button class="wizard-primary" type="button" data-manual-next>Next</button><button class="wizard-primary" type="submit" data-manual-submit hidden>Build my website free</button></div>
+                </form>
+            </section>
             <p class="stage-micro">100% free — no credit card</p>
-
         </div>
     </main>
 

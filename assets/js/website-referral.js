@@ -202,6 +202,51 @@
         return destination.toString();
     }
 
+    function normalizeManualProfile(profile) {
+        if (!profile || typeof profile !== 'object') return null;
+        var name = typeof profile.name === 'string'
+            ? profile.name.replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, 80)
+            : '';
+        var palette = typeof profile.palette === 'string' ? profile.palette.trim() : '';
+        var allowedPalettes = [
+            'navy-gold', 'forest-sand', 'charcoal-copper',
+            'blue-sky', 'burgundy-cream', 'slate-white'
+        ];
+        var cities = Array.isArray(profile.cities) ? profile.cities : [];
+        cities = cities.filter(function (city, index) {
+            return typeof city === 'string'
+                && /^[a-z0-9-]{2,40}$/.test(city)
+                && cities.indexOf(city) === index;
+        }).slice(0, 12);
+
+        if (name.length < 2 || allowedPalettes.indexOf(palette) === -1 || !cities.length) {
+            return null;
+        }
+        return { name: name, palette: palette, cities: cities };
+    }
+
+    function buildManualOnboardingUrl(profile, locale, attribution) {
+        var normalizedProfile = normalizeManualProfile(profile);
+        var normalizedLocale = normalizeLocale(locale);
+        if (!normalizedProfile || !normalizedLocale) return null;
+
+        var destination = new URL(ONBOARDING_PATH, PLATFORM_ORIGIN);
+        destination.searchParams.set('mode', 'manual');
+        destination.searchParams.set('audience', 'individual');
+        destination.searchParams.set('name', normalizedProfile.name);
+        destination.searchParams.set('palette', normalizedProfile.palette);
+        destination.searchParams.set('cities', normalizedProfile.cities.join(','));
+        destination.searchParams.set('locale', normalizedLocale);
+
+        var referral = attribution && attribution.ref;
+        if (isValidSlug(referral)) destination.searchParams.set(QUERY_PARAM, referral.toLowerCase());
+        ATTRIBUTION_FIELDS.forEach(function (field) {
+            var value = sanitizeAttributionValue(attribution && attribution[field]);
+            if (value) destination.searchParams.set(field, value);
+        });
+        return destination.toString();
+    }
+
     function isPlatformUrl(href, baseUrl) {
         try {
             return new URL(href, baseUrl || PLATFORM_ORIGIN).origin === PLATFORM_ORIGIN;
@@ -247,15 +292,15 @@
     // instead of restating that the value was rejected.
     var SOURCE_MESSAGES = {
         ar: {
-            empty: 'حط لينك شركتك الأول — Facebook أو Instagram أو Property Finder أو Bayut أو موقع شركتك.',
-            malformed: 'اللينك ده مش واضح. جرّب لينك صفحة شركتك على Facebook أو Instagram أو موقع شركتك.',
-            'platform-root': 'محتاجين لينك صفحة شركتك نفسها، مش الموقع الرئيسي.',
+            empty: 'حط لينك الصفحة الأول — Facebook أو Instagram أو Property Finder أو Bayut أو موقعك.',
+            malformed: 'اللينك ده مش واضح. جرّب لينك صفحتك على Facebook أو Instagram، أو لينك موقعك.',
+            'platform-root': 'محتاجين لينك صفحتك نفسها، مش الموقع الرئيسي.',
             ok: '✓ تمام، لقينا الصفحة — نقدر نبدأ منها.'
         },
         en: {
-            empty: 'Add your company link first — Facebook, Instagram, Property Finder, Bayut, or your website.',
-            malformed: 'That link is not clear. Try your company page on Facebook or Instagram, or your website.',
-            'platform-root': 'We need a link to your company page itself, not the main site.',
+            empty: 'Add your page link first — Facebook, Instagram, Property Finder, Bayut, or your website.',
+            malformed: 'That link is not clear. Try your Facebook or Instagram page, or your website.',
+            'platform-root': 'We need a link to your page itself, not the platform homepage.',
             ok: '✓ Got it, we found the page — we can start from here.'
         }
     };
@@ -363,6 +408,147 @@
         });
     }
 
+    function prepareWebsiteWizard(windowObject, documentObject, wizard, attribution) {
+        if (wizard.getAttribute('data-wizard-ready') === 'true') return;
+        wizard.setAttribute('data-wizard-ready', 'true');
+
+        var locale = normalizeLocale(wizard.getAttribute('data-locale')) || 'en';
+        var panels = Array.prototype.slice.call(wizard.querySelectorAll('[data-panel]'));
+        var sourceKind = 'company';
+        var linkCopy = {
+            ar: {
+                company: {
+                    title: 'هات <span class="accent">لينك شركتك</span>',
+                    copy: 'فيسبوك، إنستجرام، موقعك القديم، Property Finder أو Bayut — أي واحد منهم يكفي.',
+                    placeholder: 'facebook.com/your-company'
+                },
+                personal: {
+                    title: 'هات لينك <span class="accent">صفحتك</span>',
+                    copy: 'الصق لينك صفحة الفيسبوك الشخصية أو المهنية اللي بتعرض عليها شغلك.',
+                    placeholder: 'facebook.com/your-profile'
+                }
+            },
+            en: {
+                company: {
+                    title: 'Paste your <span class="accent">company link</span>',
+                    copy: 'Facebook, Instagram, your old website, Property Finder or Bayut — any one works.',
+                    placeholder: 'facebook.com/your-company'
+                },
+                personal: {
+                    title: 'Paste your <span class="accent">Facebook page</span>',
+                    copy: 'Use the personal or professional Facebook page where you show your real-estate work.',
+                    placeholder: 'facebook.com/your-profile'
+                }
+            }
+        };
+
+        function showPanel(name) {
+            panels.forEach(function (panel) {
+                panel.hidden = panel.getAttribute('data-panel') !== name;
+            });
+            var active = wizard.querySelector('[data-panel="' + name + '"]');
+            var focusTarget = active && active.querySelector('input:not([type="hidden"]), button');
+            if (focusTarget) windowObject.setTimeout(function () { focusTarget.focus(); }, 0);
+        }
+
+        function configureLinkPanel(kind) {
+            sourceKind = kind === 'personal' ? 'personal' : 'company';
+            var copy = linkCopy[locale][sourceKind];
+            wizard.querySelector('[data-link-title]').innerHTML = copy.title;
+            wizard.querySelector('[data-link-copy]').textContent = copy.copy;
+            wizard.querySelector('.website-starter-input').placeholder = copy.placeholder;
+            var back = wizard.querySelector('[data-panel="link"] [data-back-panel]');
+            back.setAttribute('data-back-panel', sourceKind === 'personal' ? 'personal-choice' : 'audience');
+        }
+
+        wizard.querySelectorAll('[data-next-panel]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var destination = button.getAttribute('data-next-panel');
+                if (destination === 'link') {
+                    configureLinkPanel(button.getAttribute('data-source-kind') || 'company');
+                }
+                showPanel(destination);
+            });
+        });
+        wizard.querySelectorAll('[data-back-panel]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                showPanel(button.getAttribute('data-back-panel'));
+            });
+        });
+
+        var form = wizard.querySelector('[data-manual-form]');
+        if (!form) return;
+        var currentStep = 1;
+        var stepCount = 4;
+        var error = form.querySelector('[data-manual-error]');
+        var next = form.querySelector('[data-manual-next]');
+        var previous = form.querySelector('[data-manual-prev]');
+        var submit = form.querySelector('[data-manual-submit]');
+
+        function selectedCities() {
+            return Array.prototype.slice.call(form.querySelectorAll('input[name="cities"]:checked'));
+        }
+
+        function validateStep(step) {
+            error.textContent = '';
+            if (step === 1 && form.elements.display_name.value.trim().length < 2) {
+                error.textContent = locale === 'ar' ? 'اكتب الاسم اللي تحب يظهر على موقعك.' : 'Enter the name you want displayed on your website.';
+                form.elements.display_name.focus();
+                return false;
+            }
+            if (step === 3 && !selectedCities().length) {
+                error.textContent = locale === 'ar' ? 'اختار مدينة واحدة على الأقل.' : 'Choose at least one city.';
+                return false;
+            }
+            return true;
+        }
+
+        function updateReview() {
+            var palette = form.querySelector('input[name="palette"]:checked');
+            var paletteLabel = palette && palette.nextElementSibling.querySelector('.palette-name').textContent;
+            var cityLabels = selectedCities().map(function (input) {
+                return input.nextElementSibling.textContent.trim();
+            });
+            form.querySelector('[data-review-name]').textContent = form.elements.display_name.value.trim();
+            form.querySelector('[data-review-palette]').textContent = paletteLabel;
+            form.querySelector('[data-review-cities]').textContent = cityLabels.join(locale === 'ar' ? '، ' : ', ');
+        }
+
+        function showStep(step) {
+            currentStep = Math.max(1, Math.min(stepCount, step));
+            form.querySelectorAll('[data-manual-step]').forEach(function (section) {
+                section.hidden = Number(section.getAttribute('data-manual-step')) !== currentStep;
+            });
+            form.querySelectorAll('[data-progress]').forEach(function (dot) {
+                dot.classList.toggle('is-active', Number(dot.getAttribute('data-progress')) <= currentStep);
+            });
+            form.querySelector('[data-step-count]').textContent = locale === 'ar'
+                ? currentStep + ' من ' + stepCount
+                : currentStep + ' of ' + stepCount;
+            previous.hidden = currentStep === 1;
+            next.hidden = currentStep === stepCount;
+            submit.hidden = currentStep !== stepCount;
+            error.textContent = '';
+            if (currentStep === stepCount) updateReview();
+        }
+
+        next.addEventListener('click', function () {
+            if (validateStep(currentStep)) showStep(currentStep + 1);
+        });
+        previous.addEventListener('click', function () { showStep(currentStep - 1); });
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            if (!validateStep(1) || !validateStep(3)) return;
+            var palette = form.querySelector('input[name="palette"]:checked');
+            var destination = buildManualOnboardingUrl({
+                name: form.elements.display_name.value,
+                palette: palette && palette.value,
+                cities: selectedCities().map(function (input) { return input.value; })
+            }, locale, attribution);
+            if (destination) windowObject.location.assign(destination);
+        });
+    }
+
     function bootstrap(windowObject, documentObject) {
         function start() {
             var search = windowObject.location.search;
@@ -414,6 +600,9 @@
 
             documentObject.querySelectorAll('a[href]').forEach(rewriteLink);
             documentObject.querySelectorAll('form.website-starter').forEach(prepareForm);
+            documentObject.querySelectorAll('[data-website-wizard]').forEach(function (wizard) {
+                prepareWebsiteWizard(windowObject, documentObject, wizard, attribution);
+            });
 
             if (typeof windowObject.MutationObserver !== 'undefined' && documentObject.body) {
                 new windowObject.MutationObserver(function (mutations) {
@@ -443,6 +632,8 @@
         PLATFORM_ORIGIN: PLATFORM_ORIGIN,
         ONBOARDING_PATH: ONBOARDING_PATH,
         buildOnboardingUrl: buildOnboardingUrl,
+        buildManualOnboardingUrl: buildManualOnboardingUrl,
+        normalizeManualProfile: normalizeManualProfile,
         isPlatformUrl: isPlatformUrl,
         isValidSlug: isValidSlug,
         normalizeSourceUrl: normalizeSourceUrl,

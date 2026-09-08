@@ -36,9 +36,9 @@
     <meta name="author" content="Estavo Brokers" />
 
     <!-- SEO -->
-    <title>موقع شركتك العقارية كامل مجانًا في 5 دقايق | إستاڤو بروكرز</title>
+    <title>اعمل موقع عقاري باسمك أو لشركتك مجانًا | إستاڤو بروكرز</title>
     <meta name="description"
-        content="الصق لينك شركتك، و⁦Estavo AI⁩ هيجهزلك موقع شركتك العقارية ببراندك ومشاريعك وعقاراتك في 5 دقايق — مجاني بالكامل." />
+        content="اعمل موقع عقاري باسمك أو لشركتك في حوالي 5 دقايق. ابدأ من لينك صفحتك أو اختار اسمك وألوانك ومناطق شغلك يدويًا." />
 
     <!-- Robots & Indexing -->
     <meta name="robots" content="noindex, nofollow" />
@@ -745,6 +745,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="../assets/css/website-wizard.css" />
 </head>
 
 <body>
@@ -768,57 +769,122 @@
     </nav>
 
 
-    <!-- ══════════════════════════════════════════════════════════
-     2. STAGE — one screen, one input
-     ══════════════════════════════════════════════════════════ -->
+    <!-- Website builder: choose who the website represents, then take the shortest useful path. -->
     <main class="stage" id="start">
-        <div class="stage-inner">
-
-            <h1 class="stage-title">
-                موقع شركتك العقارية كامل
-                <span class="accent">في 5 دقايق</span>
-            </h1>
-
-            <p class="stage-sub">
-                هات لينك صفحة الفيسبوك بتاعت شركتك، و<span class="ltr">Estavo AI</span> يبني الموقع ببراندك ومشاريعك.
-            </p>
-
-            <form class="website-starter" data-locale="ar"
-                action="https://brokers.estavo.space/website/create" method="get" novalidate>
-
-                <label class="sr-only" for="website-source-ar">لينك شركتك</label>
-
-                <div class="starter-field">
-                    <input class="website-starter-input" id="website-source-ar" name="source" type="text"
-                        inputmode="url" autocomplete="url" autocapitalize="none" spellcheck="false"
-                        enterkeyhint="go" maxlength="2048" dir="ltr" required autofocus
-                        aria-describedby="website-source-ar-hint website-source-ar-error"
-                        aria-errormessage="website-source-ar-error"
-                        placeholder="facebook.com/your-company" />
-                    <input type="hidden" name="locale" value="ar" />
-                    <button class="website-starter-submit" type="submit"
-                        data-track="start_enterprise_website" data-position="stage">
-                        اعمل موقعي مجانًا
+        <div class="stage-inner" data-website-wizard data-locale="ar">
+            <section class="wizard-panel" data-panel="audience" aria-labelledby="audience-title">
+                <span class="wizard-kicker">موقعك جاهز في حوالي 5 دقايق</span>
+                <h1 class="stage-title" id="audience-title">الموقع ده ليك ولا <span class="accent">لشركتك؟</span></h1>
+                <p class="stage-sub">اختار الأنسب، وإحنا هنمشي معاك في أقصر طريق علشان نجهز الموقع.</p>
+                <div class="choice-grid">
+                    <button class="choice-card" type="button" data-audience="company" data-next-panel="link">
+                        <span class="choice-icon" aria-hidden="true">▦</span>
+                        <span class="choice-title">لشركة عقارية</span>
+                        <span class="choice-description">هات أي لينك للشركة وإستاڤو يجمع البراند والمشاريع ويبدأ يبني الموقع.</span>
+                    </button>
+                    <button class="choice-card is-featured" type="button" data-audience="individual" data-next-panel="personal-choice">
+                        <span class="choice-badge">فريلانسر</span>
+                        <span class="choice-icon" aria-hidden="true">♙</span>
+                        <span class="choice-title">ليا أنا</span>
+                        <span class="choice-description">اعمل موقع باسمك الشخصي، سواء عندك صفحة فيسبوك أو لسه بتبدأ من الصفر.</span>
                     </button>
                 </div>
+            </section>
 
-                <p class="website-starter-hint" id="website-source-ar-hint">
-                    أي واحد من دول يكفي:
-                </p>
+            <section class="wizard-panel" data-panel="personal-choice" aria-labelledby="personal-choice-title" hidden>
+                <button class="wizard-back" type="button" data-back-panel="audience">→ ارجع</button>
+                <span class="wizard-kicker">موقع شخصي باسمك</span>
+                <h1 class="stage-title" id="personal-choice-title">تحب نبدأ <span class="accent">إزاي؟</span></h1>
+                <p class="stage-sub">لو عندك صفحة فيسبوك نقدر نقرأها تلقائيًا. لو معندكش، جاوب 3 أسئلة بسيطة.</p>
+                <div class="choice-grid">
+                    <button class="choice-card is-featured" type="button" data-source-kind="personal" data-next-panel="link">
+                        <span class="choice-badge">الأسرع</span>
+                        <span class="choice-icon" aria-hidden="true">f</span>
+                        <span class="choice-title">استخدم صفحة فيسبوك</span>
+                        <span class="choice-description">الصق لينك صفحتك وإستاڤو يستخرج اسمك وهويتك ومناطق شغلك.</span>
+                    </button>
+                    <button class="choice-card" type="button" data-next-panel="manual">
+                        <span class="choice-icon" aria-hidden="true">✦</span>
+                        <span class="choice-title">ابدأ من غير صفحة</span>
+                        <span class="choice-description">اختار اسمك وألوانك والمدن اللي بتشتغل فيها يدويًا في دقايق.</span>
+                    </button>
+                </div>
+            </section>
 
-                <ul class="source-options" aria-label="اللينكات اللي نقدر نبدأ منها">
-                    <li><span class="so-ico" aria-hidden="true">f</span> صفحة الفيسبوك</li>
-                    <li><span class="so-ico" aria-hidden="true">ig</span> حساب الإنستجرام</li>
-                    <li><span class="so-ico" aria-hidden="true">◎</span> موقعك القديم</li>
-                    <li><span class="so-ico" aria-hidden="true">◆</span> Property Finder أو Bayut</li>
-                </ul>
+            <section class="wizard-panel" data-panel="link" aria-labelledby="link-title" hidden>
+                <button class="wizard-back" type="button" data-back-panel="audience">→ ارجع</button>
+                <span class="wizard-kicker" data-link-kicker>هنقرأ البيانات تلقائيًا</span>
+                <h1 class="stage-title" id="link-title" data-link-title>هات <span class="accent">لينك شركتك</span></h1>
+                <p class="stage-sub" data-link-copy>فيسبوك، إنستجرام، موقعك القديم، Property Finder أو Bayut — أي واحد منهم يكفي.</p>
+                <form class="website-starter" data-locale="ar" action="https://brokers.estavo.space/website/create" method="get" novalidate>
+                    <label class="sr-only" for="website-source-ar">لينك الصفحة</label>
+                    <div class="starter-field">
+                        <input class="website-starter-input" id="website-source-ar" name="source" type="text"
+                            inputmode="url" autocomplete="url" autocapitalize="none" spellcheck="false"
+                            enterkeyhint="go" maxlength="2048" dir="ltr" required
+                            aria-describedby="website-source-ar-hint website-source-ar-error"
+                            aria-errormessage="website-source-ar-error" placeholder="facebook.com/your-company" />
+                        <input type="hidden" name="locale" value="ar" />
+                        <button class="website-starter-submit" type="submit" data-track="start_enterprise_website" data-position="stage">ابدأ تجهيز الموقع</button>
+                    </div>
+                    <p class="website-starter-hint" id="website-source-ar-hint">هنفتح اللينك علشان نجهز الاسم والألوان والمحتوى تلقائيًا.</p>
+                    <p class="website-starter-error" id="website-source-ar-error" role="alert" aria-live="polite" hidden></p>
+                </form>
+            </section>
 
-                <p class="website-starter-error" id="website-source-ar-error" role="alert" aria-live="polite"
-                    hidden></p>
-            </form>
-
+            <section class="wizard-panel" data-panel="manual" hidden>
+                <button class="wizard-back" type="button" data-back-panel="personal-choice">→ ارجع</button>
+                <form class="manual-shell" data-manual-form novalidate>
+                    <div class="progress-row" aria-label="تقدم الإعداد">
+                        <span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span><span class="progress-dot" data-progress="4"></span>
+                        <span class="step-count" data-step-count>1 من 4</span>
+                    </div>
+                    <section class="manual-step" data-manual-step="1" aria-labelledby="name-title">
+                        <h2 id="name-title">إيه الاسم اللي يظهر على موقعك؟</h2>
+                        <p class="step-copy">اكتبه بالشكل اللي تحب العميل يشوفه، بالعربي أو الإنجليزي.</p>
+                        <label class="sr-only" for="manual-name-ar">الاسم الظاهر على الموقع</label>
+                        <input class="manual-input" id="manual-name-ar" name="display_name" type="text" autocomplete="name" maxlength="80" placeholder="مثال: أحمد منصور" />
+                    </section>
+                    <section class="manual-step" data-manual-step="2" aria-labelledby="palette-title" hidden>
+                        <h2 id="palette-title">اختار شكل ألوانك</h2>
+                        <p class="step-copy">كل اختيار متظبط علشان النصوص والصور تفضل واضحة.</p>
+                        <div class="palette-grid">
+                            <label class="palette-option"><input type="radio" name="palette" value="navy-gold" checked /><span class="palette-card"><span class="palette-swatches"><i style="background:#021d39"></i><i style="background:#c8a45c"></i><i style="background:#f7f5f0"></i></span><span class="palette-name">كحلي وذهبي</span></span></label>
+                            <label class="palette-option"><input type="radio" name="palette" value="forest-sand" /><span class="palette-card"><span class="palette-swatches"><i style="background:#153d35"></i><i style="background:#d8b98b"></i><i style="background:#f5f1e8"></i></span><span class="palette-name">أخضر ورملي</span></span></label>
+                            <label class="palette-option"><input type="radio" name="palette" value="charcoal-copper" /><span class="palette-card"><span class="palette-swatches"><i style="background:#25282b"></i><i style="background:#b87333"></i><i style="background:#f4f4f2"></i></span><span class="palette-name">فحمي ونحاسي</span></span></label>
+                            <label class="palette-option"><input type="radio" name="palette" value="blue-sky" /><span class="palette-card"><span class="palette-swatches"><i style="background:#123d6a"></i><i style="background:#5db7de"></i><i style="background:#f3f9fc"></i></span><span class="palette-name">أزرق وسماوي</span></span></label>
+                            <label class="palette-option"><input type="radio" name="palette" value="burgundy-cream" /><span class="palette-card"><span class="palette-swatches"><i style="background:#5b1725"></i><i style="background:#d2a66d"></i><i style="background:#fff8ec"></i></span><span class="palette-name">نبيتي وكريمي</span></span></label>
+                            <label class="palette-option"><input type="radio" name="palette" value="slate-white" /><span class="palette-card"><span class="palette-swatches"><i style="background:#334155"></i><i style="background:#94a3b8"></i><i style="background:#ffffff"></i></span><span class="palette-name">رصاصي وأبيض</span></span></label>
+                        </div>
+                    </section>
+                    <section class="manual-step" data-manual-step="3" aria-labelledby="cities-title" hidden>
+                        <h2 id="cities-title">بتشتغل فين؟</h2>
+                        <p class="step-copy">اختار مدينة أو أكتر. تقدر تغيّرهم بعدين.</p>
+                        <div class="city-grid">
+                            <label class="city-option"><input type="checkbox" name="cities" value="new-cairo" /><span class="city-chip">القاهرة الجديدة</span></label>
+                            <label class="city-option"><input type="checkbox" name="cities" value="new-capital" /><span class="city-chip">العاصمة الإدارية</span></label>
+                            <label class="city-option"><input type="checkbox" name="cities" value="october" /><span class="city-chip">6 أكتوبر</span></label>
+                            <label class="city-option"><input type="checkbox" name="cities" value="sheikh-zayed" /><span class="city-chip">الشيخ زايد</span></label>
+                            <label class="city-option"><input type="checkbox" name="cities" value="north-coast" /><span class="city-chip">الساحل الشمالي</span></label>
+                            <label class="city-option"><input type="checkbox" name="cities" value="ain-sokhna" /><span class="city-chip">العين السخنة</span></label>
+                            <label class="city-option"><input type="checkbox" name="cities" value="mostakbal-city" /><span class="city-chip">مستقبل سيتي</span></label>
+                            <label class="city-option"><input type="checkbox" name="cities" value="new-alamein" /><span class="city-chip">العلمين الجديدة</span></label>
+                        </div>
+                    </section>
+                    <section class="manual-step" data-manual-step="4" aria-labelledby="review-title" hidden>
+                        <h2 id="review-title">تمام، موقعك جاهز للبناء</h2>
+                        <p class="step-copy">راجع اختياراتك. تقدر تعدّل كل حاجة بعد إنشاء الموقع.</p>
+                        <div class="review-list"><div class="review-item"><span>الاسم</span><strong data-review-name></strong></div><div class="review-item"><span>الألوان</span><strong data-review-palette></strong></div><div class="review-item"><span>مناطق الشغل</span><strong data-review-cities></strong></div></div>
+                    </section>
+                    <p class="manual-error" data-manual-error role="alert" aria-live="polite"></p>
+                    <div class="manual-actions">
+                        <button class="wizard-secondary" type="button" data-manual-prev hidden>السابق</button>
+                        <button class="wizard-primary" type="button" data-manual-next>التالي</button>
+                        <button class="wizard-primary" type="submit" data-manual-submit hidden>اعمل موقعي مجانًا</button>
+                    </div>
+                </form>
+            </section>
             <p class="stage-micro">مجاني 100% — من غير كارت بنكي</p>
-
         </div>
     </main>
 
