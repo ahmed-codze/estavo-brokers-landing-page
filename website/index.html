@@ -745,7 +745,7 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="../assets/css/website-wizard.css?v=6" />
+    <link rel="stylesheet" href="../assets/css/website-wizard.css?v=7" />
 </head>
 
 <body>
@@ -782,31 +782,11 @@
                         <span class="choice-title">شركة عقارية</span>
                         <span class="choice-description">عندي لينك للشركة</span>
                     </button>
-                    <button class="choice-card is-featured" type="button" data-audience="individual" data-next-panel="personal-choice">
+                    <button class="choice-card is-featured" type="button" data-audience="individual" data-next-panel="manual">
                         <span class="choice-badge">فريلانسر</span>
                         <span class="choice-icon" aria-hidden="true">♙</span>
                         <span class="choice-title">أنا — بروكر مستقل</span>
                         <span class="choice-description">عايز الموقع باسمي</span>
-                    </button>
-                </div>
-            </section>
-
-            <section class="wizard-panel" data-panel="personal-choice" aria-labelledby="personal-choice-title" hidden>
-                <button class="wizard-back" type="button" data-back-panel="audience">→ ارجع</button>
-                <span class="wizard-kicker">موقع شخصي باسمك</span>
-                <h1 class="stage-title" id="personal-choice-title">تحب نبدأ <span class="accent">إزاي؟</span></h1>
-                <p class="stage-sub">اختار الأسرع ليك.</p>
-                <div class="choice-grid">
-                    <button class="choice-card is-featured" type="button" data-source-kind="personal" data-next-panel="link">
-                        <span class="choice-badge">الأسرع</span>
-                        <span class="choice-icon" aria-hidden="true">f</span>
-                        <span class="choice-title">استخدم صفحة فيسبوك</span>
-                        <span class="choice-description">هنجيب التفاصيل منها تلقائيًا</span>
-                    </button>
-                    <button class="choice-card" type="button" data-next-panel="manual">
-                        <span class="choice-icon" aria-hidden="true">✦</span>
-                        <span class="choice-title">ابدأ من غير صفحة</span>
-                        <span class="choice-description">3 أسئلة سريعة وخلاص</span>
                     </button>
                 </div>
             </section>
@@ -833,11 +813,11 @@
             </section>
 
             <section class="wizard-panel" data-panel="manual" hidden>
-                <button class="wizard-back" type="button" data-back-panel="personal-choice">→ ارجع</button>
+                <button class="wizard-back" type="button" data-back-panel="audience">→ ارجع</button>
                 <form class="manual-shell" data-manual-form novalidate>
                     <div class="progress-row" aria-label="تقدم الإعداد">
-                        <span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span>
-                        <span class="step-count" data-step-count>1 من 3</span>
+                        <span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span><span class="progress-dot" data-progress="4"></span>
+                        <span class="step-count" data-step-count>1 من 4</span>
                     </div>
                     <section class="manual-step" data-manual-step="1" aria-labelledby="name-title">
                         <h2 id="name-title">إيه الاسم اللي يظهر على موقعك؟</h2>
@@ -847,7 +827,7 @@
                     </section>
                     <section class="manual-step" data-manual-step="2" aria-labelledby="theme-title" hidden>
                         <h2 id="theme-title">اختار ستايل موقعك</h2>
-                        <p class="step-copy">15 ثيم حقيقي من Estavo Sites — الشكل والخطوط والألوان بيتغيروا مع بعض.</p>
+                        <p class="step-copy">شوف اسمك على كل تصميم واختار شكل الموقع والألوان اللي بيمثلوك.</p>
                         <div class="palette-grid">
                             <label class="palette-option"><input type="radio" name="theme" value="modern_line" checked /><span class="palette-card"><span class="palette-swatches"><i style="background:#17324D"></i><i style="background:#E8EEF3"></i><i style="background:#2F6F8F"></i></span><span class="palette-name">Modern Line</span><small>بسيط وواضح</small></span></label>
                             <label class="palette-option"><input type="radio" name="theme" value="modern_axis" /><span class="palette-card"><span class="palette-swatches"><i style="background:#1F2937"></i><i style="background:#E5E7EB"></i><i style="background:#2563EB"></i></span><span class="palette-name">Modern Axis</span><small>مودرن وواسع</small></span></label>
@@ -872,6 +852,18 @@
                         <div class="city-grid" data-city-grid aria-live="polite"></div>
                         <p class="city-load-status" data-city-status>بنحمّل مدن Estavo…</p>
                         <button class="city-retry" type="button" data-city-retry hidden>حاول تاني</button>
+                    </section>
+                    <section class="manual-step" data-manual-step="4" aria-labelledby="contact-title" hidden>
+                        <h2 id="contact-title">عملاءك يتواصلوا معاك إزاي؟</h2>
+                        <p class="step-copy">الأرقام دي هتظهر في أزرار الاتصال وواتساب على موقعك. روابط السوشيال اختيارية.</p>
+                        <div class="contact-grid">
+                            <label class="contact-field" for="manual-phone-ar"><span>رقم الموبايل <em>مطلوب</em></span><input class="manual-input" id="manual-phone-ar" name="public_phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" dir="ltr" placeholder="01012345678" required /><small>للمكالمات المباشرة من الموقع</small></label>
+                            <label class="contact-field" for="manual-whatsapp-ar"><span>رقم واتساب <em>مطلوب</em></span><input class="manual-input" id="manual-whatsapp-ar" name="whatsapp_phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" dir="ltr" placeholder="01012345678" required /><small>ممكن يكون نفس رقم الموبايل</small></label>
+                            <label class="contact-same"><input type="checkbox" data-whatsapp-same /> رقم واتساب هو نفس رقم الموبايل</label>
+                            <label class="contact-field" for="manual-facebook-ar"><span>Facebook <em>اختياري</em></span><input class="manual-input" id="manual-facebook-ar" name="facebook_url" type="url" inputmode="url" autocomplete="url" maxlength="300" dir="ltr" placeholder="facebook.com/your.name" /><small>لينك صفحتك أو حسابك</small></label>
+                            <label class="contact-field" for="manual-instagram-ar"><span>Instagram <em>اختياري</em></span><input class="manual-input" id="manual-instagram-ar" name="instagram_url" type="url" inputmode="url" autocomplete="url" maxlength="300" dir="ltr" placeholder="instagram.com/your.name" /><small>لينك حسابك المهني</small></label>
+                        </div>
+                        <p class="contact-note">هنستخدم البيانات دي للتواصل على موقعك فقط، وتقدر تعدّلها بعد إنشاء الموقع.</p>
                     </section>
                     <p class="manual-error" data-manual-error role="alert" aria-live="polite"></p>
                     <div class="manual-actions">
@@ -920,7 +912,7 @@
     </a>
 
     <!-- Handles URL validation + referral/UTM attribution on the form -->
-    <script src="../assets/js/website-referral.js?v=9" defer></script>
+    <script src="../assets/js/website-referral.js?v=10" defer></script>
 
 </body>
 

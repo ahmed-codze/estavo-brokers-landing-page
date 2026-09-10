@@ -16,6 +16,48 @@ $cityIds = array_values(array_unique(array_filter(
     explode(',', (string) ($_GET['city_ids'] ?? '')),
     static fn (string $id): bool => preg_match('/\A[1-9][0-9]{0,9}\z/D', $id) === 1,
 )));
+$normalizePhone = static function (mixed $value): ?string {
+    if (! is_string($value)) {
+        return null;
+    }
+    $phone = preg_replace('/[\s().-]+/', '', trim($value));
+
+    return is_string($phone) && preg_match('/\A\+[1-9][0-9]{7,14}\z/D', $phone) === 1
+        ? $phone
+        : null;
+};
+$normalizeSocialUrl = static function (mixed $value, string $platform): ?string {
+    if (! is_string($value) || trim($value) === '') {
+        return null;
+    }
+    $url = trim($value);
+    $parts = parse_url($url);
+    $allowedHosts = $platform === 'facebook'
+        ? ['facebook.com', 'www.facebook.com', 'm.facebook.com', 'web.facebook.com']
+        : ['instagram.com', 'www.instagram.com'];
+    if (! is_array($parts)
+        || filter_var($url, FILTER_VALIDATE_URL) === false
+        || strtolower((string) ($parts['scheme'] ?? '')) !== 'https'
+        || ! in_array(strtolower(rtrim((string) ($parts['host'] ?? ''), '.')), $allowedHosts, true)
+        || trim((string) ($parts['path'] ?? ''), '/') === ''
+        || isset($parts['user'])
+        || isset($parts['pass'])
+        || (isset($parts['port']) && (int) $parts['port'] !== 443)) {
+        return null;
+    }
+
+    return $url;
+};
+$hasContactDetails = array_key_exists('phone', $_GET)
+    || array_key_exists('whatsapp', $_GET)
+    || array_key_exists('facebook', $_GET)
+    || array_key_exists('instagram', $_GET);
+$publicPhone = $normalizePhone($_GET['phone'] ?? null);
+$whatsappPhone = $normalizePhone($_GET['whatsapp'] ?? null);
+$facebookUrl = $normalizeSocialUrl($_GET['facebook'] ?? null, 'facebook');
+$instagramUrl = $normalizeSocialUrl($_GET['instagram'] ?? null, 'instagram');
+$hasInvalidSocialUrl = (isset($_GET['facebook']) && trim((string) $_GET['facebook']) !== '' && $facebookUrl === null)
+    || (isset($_GET['instagram']) && trim((string) $_GET['instagram']) !== '' && $instagramUrl === null);
 
 $themes = [
     'modern_line' => ['#17324D', '#E8EEF3', '#2F6F8F', 'Modern Line'],
@@ -39,7 +81,9 @@ if (preg_match('/\A[a-f0-9]{24,32}\z/D', $token) !== 1
     || mb_strlen($name) > 80
     || ! isset($themes[$themeKey])
     || $cityIds === []
-    || count($cityIds) > 50) {
+    || count($cityIds) > 50
+    || ($hasContactDetails && ($publicPhone === null || $whatsappPhone === null))
+    || $hasInvalidSocialUrl) {
     http_response_code(404);
     exit('Profile not found.');
 }
@@ -54,12 +98,15 @@ $title = $locale === 'ar' ? 'الملف المهني لـ '.$name : $name.' — 
 $description = $locale === 'ar'
     ? 'بروكر عقاري مستقل يعمل في '.implode('، ', $cities)
     : 'Independent real-estate advisor working in '.implode(', ', $cities);
+$sameAs = array_values(array_filter([$facebookUrl, $instagramUrl]));
 $schema = json_encode([
     '@context' => 'https://schema.org',
     '@type' => 'Person',
     'name' => $name,
     'jobTitle' => $locale === 'ar' ? 'مستشار عقاري مستقل' : 'Independent real-estate advisor',
     'areaServed' => $cities,
+    ...($publicPhone !== null ? ['telephone' => $publicPhone] : []),
+    ...($sameAs !== [] ? ['sameAs' => $sameAs] : []),
 ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 ?>
 <!doctype html>
@@ -87,6 +134,15 @@ $schema = json_encode([
             <h2>Selected market coverage</h2>
             <ul><?php foreach ($cities as $city): ?><li><?= $escape($city) ?></li><?php endforeach; ?></ul>
         </section>
+        <?php if ($publicPhone !== null && $whatsappPhone !== null): ?>
+        <section aria-label="Public contact details">
+            <h2>Selected public contact details</h2>
+            <p>Public phone: <?= $escape($publicPhone) ?>.</p>
+            <p>Public WhatsApp: <?= $escape($whatsappPhone) ?>.</p>
+            <?php if ($facebookUrl !== null): ?><p>Facebook profile: <a href="<?= $escape($facebookUrl) ?>"><?= $escape($facebookUrl) ?></a>.</p><?php endif; ?>
+            <?php if ($instagramUrl !== null): ?><p>Instagram profile: <a href="<?= $escape($instagramUrl) ?>"><?= $escape($instagramUrl) ?></a>.</p><?php endif; ?>
+        </section>
+        <?php endif; ?>
     </main>
 </body>
 </html>

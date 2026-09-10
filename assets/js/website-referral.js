@@ -203,7 +203,52 @@
         return destination.toString();
     }
 
-    function normalizeManualProfile(profile) {
+    function normalizePhoneNumber(value) {
+        if (typeof value !== 'string') return null;
+        var compact = value.trim().replace(/[\s().-]/g, '');
+        if (!compact) return null;
+
+        if (/^00\d+$/.test(compact)) compact = '+' + compact.slice(2);
+        if (/^01\d{9}$/.test(compact)) compact = '+20' + compact.slice(1);
+        if (/^20(?:1\d{9})$/.test(compact)) compact = '+' + compact;
+
+        return /^\+[1-9]\d{7,14}$/.test(compact) ? compact : null;
+    }
+
+    function normalizeSocialProfile(value, platform) {
+        if (typeof value !== 'string') return null;
+        var trimmed = value.trim();
+        if (!trimmed) return '';
+        var candidate = /^[a-z][a-z\d+.-]*:/i.test(trimmed)
+            ? trimmed
+            : 'https://' + trimmed;
+        var allowedHosts = platform === 'facebook'
+            ? ['facebook.com', 'www.facebook.com', 'm.facebook.com', 'web.facebook.com']
+            : ['instagram.com', 'www.instagram.com'];
+
+        try {
+            var url = new URL(candidate);
+            var hostname = url.hostname.toLowerCase().replace(/\.$/, '');
+            var path = url.pathname.replace(/\/+$/, '');
+            if ((url.protocol !== 'https:' && url.protocol !== 'http:')
+                || allowedHosts.indexOf(hostname) === -1
+                || !path
+                || path === '/'
+                || url.username
+                || url.password
+                || (url.port && url.port !== '443')) {
+                return null;
+            }
+            url.protocol = 'https:';
+            url.hostname = platform === 'facebook' ? 'www.facebook.com' : 'www.instagram.com';
+            url.hash = '';
+            return url.toString();
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function normalizeManualProfile(profile, requireContacts) {
         if (!profile || typeof profile !== 'object') return null;
         var name = typeof profile.name === 'string'
             ? profile.name.replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, 80)
@@ -226,10 +271,33 @@
             return { id: id, name_en: nameEn, name_ar: nameAr };
         }).filter(Boolean).slice(0, 50);
 
-        if (name.length < 2 || allowedThemes.indexOf(theme) === -1 || !cities.length) {
+        var rawContact = profile.contact && typeof profile.contact === 'object'
+            ? profile.contact
+            : {};
+        var publicPhone = normalizePhoneNumber(rawContact.public_phone);
+        var whatsappPhone = normalizePhoneNumber(rawContact.whatsapp_phone);
+        var facebook = normalizeSocialProfile(rawContact.facebook || '', 'facebook');
+        var instagram = normalizeSocialProfile(rawContact.instagram || '', 'instagram');
+
+        if (name.length < 2
+            || allowedThemes.indexOf(theme) === -1
+            || !cities.length
+            || (requireContacts && (!publicPhone || !whatsappPhone))
+            || facebook === null
+            || instagram === null) {
             return null;
         }
-        return { name: name, theme: theme, cities: cities };
+        return {
+            name: name,
+            theme: theme,
+            cities: cities,
+            contact: {
+                public_phone: publicPhone,
+                whatsapp_phone: whatsappPhone,
+                facebook: facebook,
+                instagram: instagram
+            }
+        };
     }
 
     function normalizeCityCatalog(payload) {
@@ -283,7 +351,7 @@
     }
 
     function buildManualOnboardingUrl(profile, locale, attribution) {
-        var normalizedProfile = normalizeManualProfile(profile);
+        var normalizedProfile = normalizeManualProfile(profile, true);
         var normalizedLocale = normalizeLocale(locale);
         if (!normalizedProfile || !normalizedLocale) return null;
 
@@ -307,6 +375,10 @@
         profileUrl.searchParams.set('theme', normalizedProfile.theme);
         profileUrl.searchParams.set('city_ids', normalizedProfile.cities.map(function (city) { return city.id; }).join(','));
         profileUrl.searchParams.set('locale', normalizedLocale);
+        profileUrl.searchParams.set('phone', normalizedProfile.contact.public_phone);
+        profileUrl.searchParams.set('whatsapp', normalizedProfile.contact.whatsapp_phone);
+        if (normalizedProfile.contact.facebook) profileUrl.searchParams.set('facebook', normalizedProfile.contact.facebook);
+        if (normalizedProfile.contact.instagram) profileUrl.searchParams.set('instagram', normalizedProfile.contact.instagram);
 
         var destination = new URL(ONBOARDING_PATH, PLATFORM_ORIGIN);
         destination.searchParams.set('source', profileUrl.toString());
@@ -494,34 +566,6 @@
 
         var locale = normalizeLocale(wizard.getAttribute('data-locale')) || 'en';
         var panels = Array.prototype.slice.call(wizard.querySelectorAll('[data-panel]'));
-        var sourceKind = 'company';
-        var linkCopy = {
-            ar: {
-                company: {
-                    title: 'هات <span class="accent">لينك شركتك</span>',
-                    copy: 'فيسبوك، إنستجرام، موقعك القديم، Property Finder أو Bayut — أي واحد منهم يكفي.',
-                    placeholder: 'facebook.com/your-company'
-                },
-                personal: {
-                    title: 'هات لينك <span class="accent">صفحتك</span>',
-                    copy: 'الصق لينك صفحة الفيسبوك الشخصية أو المهنية اللي بتعرض عليها شغلك.',
-                    placeholder: 'facebook.com/your-profile'
-                }
-            },
-            en: {
-                company: {
-                    title: 'Paste your <span class="accent">company link</span>',
-                    copy: 'Facebook, Instagram, your old website, Property Finder or Bayut — any one works.',
-                    placeholder: 'facebook.com/your-company'
-                },
-                personal: {
-                    title: 'Paste your <span class="accent">Facebook page</span>',
-                    copy: 'Use the personal or professional Facebook page where you show your real-estate work.',
-                    placeholder: 'facebook.com/your-profile'
-                }
-            }
-        };
-
         function showPanel(name) {
             panels.forEach(function (panel) {
                 panel.hidden = panel.getAttribute('data-panel') !== name;
@@ -532,22 +576,9 @@
             if (name === 'manual') loadCityCatalog();
         }
 
-        function configureLinkPanel(kind) {
-            sourceKind = kind === 'personal' ? 'personal' : 'company';
-            var copy = linkCopy[locale][sourceKind];
-            wizard.querySelector('[data-link-title]').innerHTML = copy.title;
-            wizard.querySelector('[data-link-copy]').textContent = copy.copy;
-            wizard.querySelector('.website-starter-input').placeholder = copy.placeholder;
-            var back = wizard.querySelector('[data-panel="link"] [data-back-panel]');
-            back.setAttribute('data-back-panel', sourceKind === 'personal' ? 'personal-choice' : 'audience');
-        }
-
         wizard.querySelectorAll('[data-next-panel]').forEach(function (button) {
             button.addEventListener('click', function () {
                 var destination = button.getAttribute('data-next-panel');
-                if (destination === 'link') {
-                    configureLinkPanel(button.getAttribute('data-source-kind') || 'company');
-                }
                 showPanel(destination);
             });
         });
@@ -560,7 +591,7 @@
         var form = wizard.querySelector('[data-manual-form]');
         if (!form) return;
         var currentStep = 1;
-        var stepCount = 3;
+        var stepCount = 4;
         var error = form.querySelector('[data-manual-error]');
         var next = form.querySelector('[data-manual-next]');
         var previous = form.querySelector('[data-manual-prev]');
@@ -569,6 +600,88 @@
         var cityStatus = form.querySelector('[data-city-status]');
         var cityRetry = form.querySelector('[data-city-retry]');
         var cityCatalogLoaded = false;
+        var displayName = form.elements.display_name;
+
+        var themePresentation = {
+            modern_line: ['#FBFCFD', '#17212B', 'Inter, Arial, sans-serif', 'modern'],
+            modern_axis: ['#FAFAF9', '#111827', 'Manrope, Arial, sans-serif', 'modern'],
+            modern_frame: ['#FBFCFA', '#18312C', 'DM Sans, Arial, sans-serif', 'modern'],
+            modern_signal: ['#F8FAFF', '#17162B', 'Sora, Arial, sans-serif', 'modern'],
+            modern_studio: ['#FCFAFB', '#2F202B', 'Avenir Next, Arial, sans-serif', 'modern'],
+            monogram_stamp: ['#F9FBFD', '#14263D', 'Montserrat, Arial, sans-serif', 'monogram'],
+            monogram_block: ['#FAFAF9', '#171717', 'Arial, sans-serif', 'monogram'],
+            monogram_orbit: ['#FCFDFB', '#203A33', 'Nunito Sans, Arial, sans-serif', 'monogram'],
+            monogram_grid: ['#F7FAFB', '#102D36', 'IBM Plex Sans, Arial, sans-serif', 'monogram'],
+            monogram_signature: ['#FCFAFD', '#302437', 'Trebuchet MS, Arial, sans-serif', 'monogram'],
+            serif_editorial: ['#FCFBF7', '#242724', 'Georgia, serif', 'serif'],
+            serif_classic: ['#FBFAF5', '#252822', 'Times New Roman, serif', 'serif'],
+            serif_gallery: ['#FDFBF9', '#2D2327', 'Baskerville, Georgia, serif', 'serif'],
+            serif_column: ['#FAF8F3', '#242728', 'Palatino Linotype, Palatino, serif', 'serif'],
+            serif_masthead: ['#FCF9F5', '#2B2025', 'Garamond, Georgia, serif', 'serif']
+        };
+
+        function previewInitials(name) {
+            return name.split(/\s+/).filter(Boolean).slice(0, 2).map(function (part) {
+                return part.charAt(0);
+            }).join('').toUpperCase() || 'YN';
+        }
+
+        function updateThemePreviewName() {
+            var name = displayName.value.trim() || (locale === 'ar' ? 'اسمك هنا' : 'Your Name');
+            form.querySelectorAll('[data-theme-preview-name]').forEach(function (node) {
+                node.textContent = name;
+            });
+            form.querySelectorAll('[data-theme-preview-initials]').forEach(function (node) {
+                node.textContent = previewInitials(name);
+            });
+        }
+
+        function prepareThemePreviews() {
+            form.querySelectorAll('.palette-option').forEach(function (option) {
+                var input = option.querySelector('input[name="theme"]');
+                var card = option.querySelector('.palette-card');
+                var swatches = option.querySelectorAll('.palette-swatches i');
+                var presentation = input && themePresentation[input.value];
+                if (!input || !card || !presentation || swatches.length < 3 || card.querySelector('.theme-site-preview')) return;
+
+                var preview = documentObject.createElement('span');
+                preview.className = 'theme-site-preview theme-site-preview--' + presentation[3];
+                preview.setAttribute('aria-hidden', 'true');
+                preview.style.setProperty('--preview-primary', swatches[0].style.background);
+                preview.style.setProperty('--preview-soft', swatches[1].style.background);
+                preview.style.setProperty('--preview-accent', swatches[2].style.background);
+                preview.style.setProperty('--preview-page', presentation[0]);
+                preview.style.setProperty('--preview-text', presentation[1]);
+                preview.style.setProperty('--preview-font', presentation[2]);
+                preview.innerHTML = '<span class="theme-preview-nav"><span class="theme-preview-brand" data-theme-preview-name></span><span class="theme-preview-links"><i></i><i></i><i></i></span></span>'
+                    + '<span class="theme-preview-hero"><span class="theme-preview-copy"><small>'
+                    + (locale === 'ar' ? 'مستشار عقاري' : 'PROPERTY ADVISOR')
+                    + '</small><strong data-theme-preview-name></strong><i class="theme-preview-cta"></i></span>'
+                    + '<span class="theme-preview-listing"><i data-theme-preview-initials></i><b></b><em></em></span></span>';
+                card.insertBefore(preview, card.firstChild);
+            });
+            updateThemePreviewName();
+        }
+
+        prepareThemePreviews();
+        displayName.addEventListener('input', updateThemePreviewName);
+
+        var sameWhatsapp = form.querySelector('[data-whatsapp-same]');
+        function syncWhatsappNumber() {
+            if (sameWhatsapp && sameWhatsapp.checked) {
+                form.elements.whatsapp_phone.value = form.elements.public_phone.value;
+                form.elements.whatsapp_phone.removeAttribute('aria-invalid');
+            }
+        }
+        if (sameWhatsapp) {
+            sameWhatsapp.addEventListener('change', syncWhatsappNumber);
+            form.elements.public_phone.addEventListener('input', syncWhatsappNumber);
+        }
+        ['public_phone', 'whatsapp_phone', 'facebook_url', 'instagram_url'].forEach(function (field) {
+            form.elements[field].addEventListener('input', function () {
+                form.elements[field].removeAttribute('aria-invalid');
+            });
+        });
 
         function renderCities(cities) {
             cityGrid.textContent = '';
@@ -660,6 +773,34 @@
                 error.textContent = locale === 'ar' ? 'اختار مدينة واحدة على الأقل.' : 'Choose at least one city.';
                 return false;
             }
+            if (step === 4) {
+                var publicPhone = normalizePhoneNumber(form.elements.public_phone.value);
+                var whatsappPhone = normalizePhoneNumber(form.elements.whatsapp_phone.value);
+                var facebook = normalizeSocialProfile(form.elements.facebook_url.value, 'facebook');
+                var instagram = normalizeSocialProfile(form.elements.instagram_url.value, 'instagram');
+                form.elements.public_phone.toggleAttribute('aria-invalid', !publicPhone);
+                form.elements.whatsapp_phone.toggleAttribute('aria-invalid', !whatsappPhone);
+                form.elements.facebook_url.toggleAttribute('aria-invalid', facebook === null);
+                form.elements.instagram_url.toggleAttribute('aria-invalid', instagram === null);
+                if (!publicPhone || !whatsappPhone) {
+                    error.textContent = locale === 'ar'
+                        ? 'اكتب رقم الموبايل ورقم واتساب صحيحين. تقدر تكتب الرقم المصري بصيغة 01012345678.'
+                        : 'Enter valid phone and WhatsApp numbers. Use the country code for numbers outside Egypt.';
+                    (!publicPhone ? form.elements.public_phone : form.elements.whatsapp_phone).focus();
+                    return false;
+                }
+                if (facebook === null || instagram === null) {
+                    error.textContent = locale === 'ar'
+                        ? 'راجع لينك Facebook أو Instagram، أو سيبه فاضي لو مش عندك حساب.'
+                        : 'Check the Facebook or Instagram profile link, or leave it empty if you do not use it.';
+                    (facebook === null ? form.elements.facebook_url : form.elements.instagram_url).focus();
+                    return false;
+                }
+                form.elements.public_phone.value = publicPhone;
+                form.elements.whatsapp_phone.value = whatsappPhone;
+                if (facebook) form.elements.facebook_url.value = facebook;
+                if (instagram) form.elements.instagram_url.value = instagram;
+            }
             return true;
         }
 
@@ -686,7 +827,7 @@
         previous.addEventListener('click', function () { showStep(currentStep - 1); });
         form.addEventListener('submit', function (event) {
             event.preventDefault();
-            if (!validateStep(1) || !validateStep(3)) return;
+            if (!validateStep(1) || !validateStep(3) || !validateStep(4)) return;
             var theme = form.querySelector('input[name="theme"]:checked');
             var destination = buildManualOnboardingUrl({
                 name: form.elements.display_name.value,
@@ -697,7 +838,13 @@
                         name_en: input.dataset.nameEn,
                         name_ar: input.dataset.nameAr
                     };
-                })
+                }),
+                contact: {
+                    public_phone: form.elements.public_phone.value,
+                    whatsapp_phone: form.elements.whatsapp_phone.value,
+                    facebook: form.elements.facebook_url.value,
+                    instagram: form.elements.instagram_url.value
+                }
             }, locale, attribution);
             if (!destination) {
                 error.textContent = locale === 'ar'
@@ -795,6 +942,8 @@
         buildOnboardingUrl: buildOnboardingUrl,
         buildManualOnboardingUrl: buildManualOnboardingUrl,
         normalizeManualProfile: normalizeManualProfile,
+        normalizePhoneNumber: normalizePhoneNumber,
+        normalizeSocialProfile: normalizeSocialProfile,
         normalizeCityCatalog: normalizeCityCatalog,
         isPlatformUrl: isPlatformUrl,
         isValidSlug: isValidSlug,

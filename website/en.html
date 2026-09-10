@@ -708,7 +708,7 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="../assets/css/website-wizard.css?v=6" />
+    <link rel="stylesheet" href="../assets/css/website-wizard.css?v=7" />
 </head>
 
 <body>
@@ -740,17 +740,7 @@
                 <p class="stage-sub">One answer, then we’ll take you straight to the right setup.</p>
                 <div class="choice-grid">
                     <button class="choice-card" type="button" data-audience="company" data-next-panel="link"><span class="choice-icon" aria-hidden="true">▦</span><span class="choice-title">A real-estate company</span><span class="choice-description">I have a company link</span></button>
-                    <button class="choice-card is-featured" type="button" data-audience="individual" data-next-panel="personal-choice"><span class="choice-badge">Freelancer</span><span class="choice-icon" aria-hidden="true">♙</span><span class="choice-title">Me — an independent broker</span><span class="choice-description">I want the website in my name</span></button>
-                </div>
-            </section>
-            <section class="wizard-panel" data-panel="personal-choice" aria-labelledby="personal-choice-title" hidden>
-                <button class="wizard-back" type="button" data-back-panel="audience">← Back</button>
-                <span class="wizard-kicker">A personal website in your name</span>
-                <h1 class="stage-title" id="personal-choice-title">How would you like to <span class="accent">start?</span></h1>
-                <p class="stage-sub">Choose the fastest option for you.</p>
-                <div class="choice-grid">
-                    <button class="choice-card is-featured" type="button" data-source-kind="personal" data-next-panel="link"><span class="choice-badge">Fastest</span><span class="choice-icon" aria-hidden="true">f</span><span class="choice-title">Use my Facebook page</span><span class="choice-description">We’ll get the details automatically</span></button>
-                    <button class="choice-card" type="button" data-next-panel="manual"><span class="choice-icon" aria-hidden="true">✦</span><span class="choice-title">I don’t have a page</span><span class="choice-description">Three quick questions and you’re done</span></button>
+                    <button class="choice-card is-featured" type="button" data-audience="individual" data-next-panel="manual"><span class="choice-badge">Freelancer</span><span class="choice-icon" aria-hidden="true">♙</span><span class="choice-title">Me — an independent broker</span><span class="choice-description">I want the website in my name</span></button>
                 </div>
             </section>
             <section class="wizard-panel" data-panel="link" aria-labelledby="link-title" hidden>
@@ -770,11 +760,11 @@
                 </form>
             </section>
             <section class="wizard-panel" data-panel="manual" hidden>
-                <button class="wizard-back" type="button" data-back-panel="personal-choice">← Back</button>
+                <button class="wizard-back" type="button" data-back-panel="audience">← Back</button>
                 <form class="manual-shell" data-manual-form novalidate>
-                    <div class="progress-row" aria-label="Setup progress"><span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span><span class="step-count" data-step-count>1 of 3</span></div>
+                    <div class="progress-row" aria-label="Setup progress"><span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span><span class="progress-dot" data-progress="4"></span><span class="step-count" data-step-count>1 of 4</span></div>
                     <section class="manual-step" data-manual-step="1" aria-labelledby="name-title"><h2 id="name-title">What name should appear on your website?</h2><p class="step-copy">Write it exactly as you want clients to see it, in Arabic or English.</p><label class="sr-only" for="manual-name-en">Website display name</label><input class="manual-input" id="manual-name-en" name="display_name" type="text" autocomplete="name" maxlength="80" placeholder="For example: Ahmed Mansour" /></section>
-                    <section class="manual-step" data-manual-step="2" aria-labelledby="theme-title" hidden><h2 id="theme-title">Choose your website style</h2><p class="step-copy">15 real Estavo Sites themes — layout, typography, and colours change together.</p><div class="palette-grid">
+                    <section class="manual-step" data-manual-step="2" aria-labelledby="theme-title" hidden><h2 id="theme-title">Choose your website style</h2><p class="step-copy">See your name on every design, then choose the website look and colours that feel like you.</p><div class="palette-grid">
                         <label class="palette-option"><input type="radio" name="theme" value="modern_line" checked /><span class="palette-card"><span class="palette-swatches"><i style="background:#17324D"></i><i style="background:#E8EEF3"></i><i style="background:#2F6F8F"></i></span><span class="palette-name">Modern Line</span><small>Clean and direct</small></span></label>
                         <label class="palette-option"><input type="radio" name="theme" value="modern_axis" /><span class="palette-card"><span class="palette-swatches"><i style="background:#1F2937"></i><i style="background:#E5E7EB"></i><i style="background:#2563EB"></i></span><span class="palette-name">Modern Axis</span><small>Minimal and spacious</small></span></label>
                         <label class="palette-option"><input type="radio" name="theme" value="modern_frame" /><span class="palette-card"><span class="palette-swatches"><i style="background:#214E45"></i><i style="background:#E3EEE9"></i><i style="background:#C46B42"></i></span><span class="palette-name">Modern Frame</span><small>Friendly and warm</small></span></label>
@@ -792,6 +782,18 @@
                         <label class="palette-option"><input type="radio" name="theme" value="serif_masthead" /><span class="palette-card"><span class="palette-swatches"><i style="background:#3B2431"></i><i style="background:#E9DED7"></i><i style="background:#B46A3C"></i></span><span class="palette-name">Serif Masthead</span><small>Cinematic and bold</small></span></label>
                     </div></section>
                     <section class="manual-step" data-manual-step="3" aria-labelledby="cities-title" hidden><h2 id="cities-title">Choose the cities you work in</h2><p class="step-copy">Each city shows its available unit count. We’ll fill your website with every unit in the cities you select, using current Estavo prices—all under your name and on your website.</p><div class="city-grid" data-city-grid aria-live="polite"></div><p class="city-load-status" data-city-status>Loading Estavo cities…</p><button class="city-retry" type="button" data-city-retry hidden>Try again</button></section>
+                    <section class="manual-step" data-manual-step="4" aria-labelledby="contact-title" hidden>
+                        <h2 id="contact-title">How should clients contact you?</h2>
+                        <p class="step-copy">These numbers will power the call and WhatsApp buttons on your website. Social profiles are optional.</p>
+                        <div class="contact-grid">
+                            <label class="contact-field" for="manual-phone-en"><span>Phone number <em>Required</em></span><input class="manual-input" id="manual-phone-en" name="public_phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="01012345678" required /><small>For direct calls from your website</small></label>
+                            <label class="contact-field" for="manual-whatsapp-en"><span>WhatsApp number <em>Required</em></span><input class="manual-input" id="manual-whatsapp-en" name="whatsapp_phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="01012345678" required /><small>It can be the same as your phone</small></label>
+                            <label class="contact-same"><input type="checkbox" data-whatsapp-same /> My WhatsApp number is the same as my phone</label>
+                            <label class="contact-field" for="manual-facebook-en"><span>Facebook <em>Optional</em></span><input class="manual-input" id="manual-facebook-en" name="facebook_url" type="url" inputmode="url" autocomplete="url" maxlength="300" placeholder="facebook.com/your.name" /><small>Your page or profile link</small></label>
+                            <label class="contact-field" for="manual-instagram-en"><span>Instagram <em>Optional</em></span><input class="manual-input" id="manual-instagram-en" name="instagram_url" type="url" inputmode="url" autocomplete="url" maxlength="300" placeholder="instagram.com/your.name" /><small>Your professional profile link</small></label>
+                        </div>
+                        <p class="contact-note">We’ll only use these as public contact details on your website. You can edit them later.</p>
+                    </section>
                     <p class="manual-error" data-manual-error role="alert" aria-live="polite"></p>
                     <div class="manual-actions"><button class="wizard-secondary" type="button" data-manual-prev hidden>Previous</button><button class="wizard-primary" type="button" data-manual-next>Next</button><button class="wizard-primary" type="submit" data-manual-submit hidden>Build my website free</button></div>
                 </form>
@@ -835,7 +837,7 @@
     </a>
 
     <!-- Handles URL validation + referral/UTM attribution on the form -->
-    <script src="../assets/js/website-referral.js?v=9" defer></script>
+    <script src="../assets/js/website-referral.js?v=10" defer></script>
 
 </body>
 
