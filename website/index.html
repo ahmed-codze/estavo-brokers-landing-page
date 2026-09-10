@@ -745,7 +745,7 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="../assets/css/website-wizard.css" />
+    <link rel="stylesheet" href="../assets/css/website-wizard.css?v=6" />
 </head>
 
 <body>
@@ -773,20 +773,20 @@
     <main class="stage" id="start">
         <div class="stage-inner" data-website-wizard data-locale="ar">
             <section class="wizard-panel" data-panel="audience" aria-labelledby="audience-title">
-                <span class="wizard-kicker">موقعك جاهز في حوالي 5 دقايق</span>
-                <h1 class="stage-title" id="audience-title">الموقع ده ليك ولا <span class="accent">لشركتك؟</span></h1>
-                <p class="stage-sub">اختار الأنسب، وإحنا هنمشي معاك في أقصر طريق علشان نجهز الموقع.</p>
+                <span class="wizard-kicker">إستاڤو ويبسايت</span>
+                <h1 class="stage-title" id="audience-title">مين صاحب <span class="accent">الموقع؟</span></h1>
+                <p class="stage-sub">إجابة واحدة وهندخلك على طول في الطريقة المناسبة.</p>
                 <div class="choice-grid">
                     <button class="choice-card" type="button" data-audience="company" data-next-panel="link">
                         <span class="choice-icon" aria-hidden="true">▦</span>
-                        <span class="choice-title">لشركة عقارية</span>
-                        <span class="choice-description">هات أي لينك للشركة وإستاڤو يجمع البراند والمشاريع ويبدأ يبني الموقع.</span>
+                        <span class="choice-title">شركة عقارية</span>
+                        <span class="choice-description">عندي لينك للشركة</span>
                     </button>
                     <button class="choice-card is-featured" type="button" data-audience="individual" data-next-panel="personal-choice">
                         <span class="choice-badge">فريلانسر</span>
                         <span class="choice-icon" aria-hidden="true">♙</span>
-                        <span class="choice-title">ليا أنا</span>
-                        <span class="choice-description">اعمل موقع باسمك الشخصي، سواء عندك صفحة فيسبوك أو لسه بتبدأ من الصفر.</span>
+                        <span class="choice-title">أنا — بروكر مستقل</span>
+                        <span class="choice-description">عايز الموقع باسمي</span>
                     </button>
                 </div>
             </section>
@@ -795,18 +795,18 @@
                 <button class="wizard-back" type="button" data-back-panel="audience">→ ارجع</button>
                 <span class="wizard-kicker">موقع شخصي باسمك</span>
                 <h1 class="stage-title" id="personal-choice-title">تحب نبدأ <span class="accent">إزاي؟</span></h1>
-                <p class="stage-sub">لو عندك صفحة فيسبوك نقدر نقرأها تلقائيًا. لو معندكش، جاوب 3 أسئلة بسيطة.</p>
+                <p class="stage-sub">اختار الأسرع ليك.</p>
                 <div class="choice-grid">
                     <button class="choice-card is-featured" type="button" data-source-kind="personal" data-next-panel="link">
                         <span class="choice-badge">الأسرع</span>
                         <span class="choice-icon" aria-hidden="true">f</span>
                         <span class="choice-title">استخدم صفحة فيسبوك</span>
-                        <span class="choice-description">الصق لينك صفحتك وإستاڤو يستخرج اسمك وهويتك ومناطق شغلك.</span>
+                        <span class="choice-description">هنجيب التفاصيل منها تلقائيًا</span>
                     </button>
                     <button class="choice-card" type="button" data-next-panel="manual">
                         <span class="choice-icon" aria-hidden="true">✦</span>
                         <span class="choice-title">ابدأ من غير صفحة</span>
-                        <span class="choice-description">اختار اسمك وألوانك والمدن اللي بتشتغل فيها يدويًا في دقايق.</span>
+                        <span class="choice-description">3 أسئلة سريعة وخلاص</span>
                     </button>
                 </div>
             </section>
@@ -836,45 +836,42 @@
                 <button class="wizard-back" type="button" data-back-panel="personal-choice">→ ارجع</button>
                 <form class="manual-shell" data-manual-form novalidate>
                     <div class="progress-row" aria-label="تقدم الإعداد">
-                        <span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span><span class="progress-dot" data-progress="4"></span>
-                        <span class="step-count" data-step-count>1 من 4</span>
+                        <span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span>
+                        <span class="step-count" data-step-count>1 من 3</span>
                     </div>
                     <section class="manual-step" data-manual-step="1" aria-labelledby="name-title">
                         <h2 id="name-title">إيه الاسم اللي يظهر على موقعك؟</h2>
                         <p class="step-copy">اكتبه بالشكل اللي تحب العميل يشوفه، بالعربي أو الإنجليزي.</p>
                         <label class="sr-only" for="manual-name-ar">الاسم الظاهر على الموقع</label>
-                        <input class="manual-input" id="manual-name-ar" name="display_name" type="text" autocomplete="name" maxlength="80" placeholder="مثال: أحمد منصور" />
+                        <input class="manual-input" id="manual-name-ar" name="display_name" type="text" autocomplete="name" maxlength="80" placeholder="مثال: Ahmed Mansour" />
                     </section>
-                    <section class="manual-step" data-manual-step="2" aria-labelledby="palette-title" hidden>
-                        <h2 id="palette-title">اختار شكل ألوانك</h2>
-                        <p class="step-copy">كل اختيار متظبط علشان النصوص والصور تفضل واضحة.</p>
+                    <section class="manual-step" data-manual-step="2" aria-labelledby="theme-title" hidden>
+                        <h2 id="theme-title">اختار ستايل موقعك</h2>
+                        <p class="step-copy">15 ثيم حقيقي من Estavo Sites — الشكل والخطوط والألوان بيتغيروا مع بعض.</p>
                         <div class="palette-grid">
-                            <label class="palette-option"><input type="radio" name="palette" value="navy-gold" checked /><span class="palette-card"><span class="palette-swatches"><i style="background:#021d39"></i><i style="background:#c8a45c"></i><i style="background:#f7f5f0"></i></span><span class="palette-name">كحلي وذهبي</span></span></label>
-                            <label class="palette-option"><input type="radio" name="palette" value="forest-sand" /><span class="palette-card"><span class="palette-swatches"><i style="background:#153d35"></i><i style="background:#d8b98b"></i><i style="background:#f5f1e8"></i></span><span class="palette-name">أخضر ورملي</span></span></label>
-                            <label class="palette-option"><input type="radio" name="palette" value="charcoal-copper" /><span class="palette-card"><span class="palette-swatches"><i style="background:#25282b"></i><i style="background:#b87333"></i><i style="background:#f4f4f2"></i></span><span class="palette-name">فحمي ونحاسي</span></span></label>
-                            <label class="palette-option"><input type="radio" name="palette" value="blue-sky" /><span class="palette-card"><span class="palette-swatches"><i style="background:#123d6a"></i><i style="background:#5db7de"></i><i style="background:#f3f9fc"></i></span><span class="palette-name">أزرق وسماوي</span></span></label>
-                            <label class="palette-option"><input type="radio" name="palette" value="burgundy-cream" /><span class="palette-card"><span class="palette-swatches"><i style="background:#5b1725"></i><i style="background:#d2a66d"></i><i style="background:#fff8ec"></i></span><span class="palette-name">نبيتي وكريمي</span></span></label>
-                            <label class="palette-option"><input type="radio" name="palette" value="slate-white" /><span class="palette-card"><span class="palette-swatches"><i style="background:#334155"></i><i style="background:#94a3b8"></i><i style="background:#ffffff"></i></span><span class="palette-name">رصاصي وأبيض</span></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="modern_line" checked /><span class="palette-card"><span class="palette-swatches"><i style="background:#17324D"></i><i style="background:#E8EEF3"></i><i style="background:#2F6F8F"></i></span><span class="palette-name">Modern Line</span><small>بسيط وواضح</small></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="modern_axis" /><span class="palette-card"><span class="palette-swatches"><i style="background:#1F2937"></i><i style="background:#E5E7EB"></i><i style="background:#2563EB"></i></span><span class="palette-name">Modern Axis</span><small>مودرن وواسع</small></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="modern_frame" /><span class="palette-card"><span class="palette-swatches"><i style="background:#214E45"></i><i style="background:#E3EEE9"></i><i style="background:#C46B42"></i></span><span class="palette-name">Modern Frame</span><small>ودود وناعم</small></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="modern_signal" /><span class="palette-card"><span class="palette-swatches"><i style="background:#312E81"></i><i style="background:#E0E7FF"></i><i style="background:#F05D3D"></i></span><span class="palette-name">Modern Signal</span><small>قوي وجريء</small></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="modern_studio" /><span class="palette-card"><span class="palette-swatches"><i style="background:#5B3A52"></i><i style="background:#F0E7EC"></i><i style="background:#B45C7A"></i></span><span class="palette-name">Modern Studio</span><small>ناعم ومميز</small></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="monogram_stamp" /><span class="palette-card"><span class="palette-swatches"><i style="background:#1E3A5F"></i><i style="background:#DCE6F1"></i><i style="background:#C8553D"></i></span><span class="palette-name">Monogram Stamp</span><small>حروف اسمك</small></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="monogram_block" /><span class="palette-card"><span class="palette-swatches"><i style="background:#111111"></i><i style="background:#E7E5E4"></i><i style="background:#C2410C"></i></span><span class="palette-name">Monogram Block</span><small>هندسي ومباشر</small></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="monogram_orbit" /><span class="palette-card"><span class="palette-swatches"><i style="background:#365B51"></i><i style="background:#E5EFEB"></i><i style="background:#D17B55"></i></span><span class="palette-name">Monogram Orbit</span><small>دائري وقريب</small></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="monogram_grid" /><span class="palette-card"><span class="palette-swatches"><i style="background:#0F3D4C"></i><i style="background:#D9EAEE"></i><i style="background:#E07A2F"></i></span><span class="palette-name">Monogram Grid</span><small>تقني وحضري</small></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="monogram_signature" /><span class="palette-card"><span class="palette-swatches"><i style="background:#553C62"></i><i style="background:#EDE6F0"></i><i style="background:#A05F7B"></i></span><span class="palette-name">Monogram Signature</span><small>شخصي وراقي</small></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="serif_editorial" /><span class="palette-card"><span class="palette-swatches"><i style="background:#28302C"></i><i style="background:#E8E7E1"></i><i style="background:#8C5A3C"></i></span><span class="palette-name">Serif Editorial</span><small>تحريري وهادئ</small></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="serif_classic" /><span class="palette-card"><span class="palette-swatches"><i style="background:#263B35"></i><i style="background:#E5E3D8"></i><i style="background:#8B633A"></i></span><span class="palette-name">Serif Classic</span><small>رسمي وكلاسيك</small></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="serif_gallery" /><span class="palette-card"><span class="palette-swatches"><i style="background:#49323C"></i><i style="background:#EEE6E3"></i><i style="background:#A8684F"></i></span><span class="palette-name">Serif Gallery</span><small>بصري وبريميوم</small></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="serif_column" /><span class="palette-card"><span class="palette-swatches"><i style="background:#263238"></i><i style="background:#E6E2DA"></i><i style="background:#9A5B3E"></i></span><span class="palette-name">Serif Column</span><small>عملي وتحليلي</small></span></label>
+                            <label class="palette-option"><input type="radio" name="theme" value="serif_masthead" /><span class="palette-card"><span class="palette-swatches"><i style="background:#3B2431"></i><i style="background:#E9DED7"></i><i style="background:#B46A3C"></i></span><span class="palette-name">Serif Masthead</span><small>سينمائي وقوي</small></span></label>
                         </div>
                     </section>
                     <section class="manual-step" data-manual-step="3" aria-labelledby="cities-title" hidden>
-                        <h2 id="cities-title">بتشتغل فين؟</h2>
-                        <p class="step-copy">اختار مدينة أو أكتر. تقدر تغيّرهم بعدين.</p>
-                        <div class="city-grid">
-                            <label class="city-option"><input type="checkbox" name="cities" value="new-cairo" /><span class="city-chip">القاهرة الجديدة</span></label>
-                            <label class="city-option"><input type="checkbox" name="cities" value="new-capital" /><span class="city-chip">العاصمة الإدارية</span></label>
-                            <label class="city-option"><input type="checkbox" name="cities" value="october" /><span class="city-chip">6 أكتوبر</span></label>
-                            <label class="city-option"><input type="checkbox" name="cities" value="sheikh-zayed" /><span class="city-chip">الشيخ زايد</span></label>
-                            <label class="city-option"><input type="checkbox" name="cities" value="north-coast" /><span class="city-chip">الساحل الشمالي</span></label>
-                            <label class="city-option"><input type="checkbox" name="cities" value="ain-sokhna" /><span class="city-chip">العين السخنة</span></label>
-                            <label class="city-option"><input type="checkbox" name="cities" value="mostakbal-city" /><span class="city-chip">مستقبل سيتي</span></label>
-                            <label class="city-option"><input type="checkbox" name="cities" value="new-alamein" /><span class="city-chip">العلمين الجديدة</span></label>
-                        </div>
-                    </section>
-                    <section class="manual-step" data-manual-step="4" aria-labelledby="review-title" hidden>
-                        <h2 id="review-title">تمام، موقعك جاهز للبناء</h2>
-                        <p class="step-copy">راجع اختياراتك. تقدر تعدّل كل حاجة بعد إنشاء الموقع.</p>
-                        <div class="review-list"><div class="review-item"><span>الاسم</span><strong data-review-name></strong></div><div class="review-item"><span>الألوان</span><strong data-review-palette></strong></div><div class="review-item"><span>مناطق الشغل</span><strong data-review-cities></strong></div></div>
+                        <h2 id="cities-title">اختار المدن اللي بتشتغل فيها</h2>
+                        <p class="step-copy">كل مدينة موضح عليها عدد الوحدات المتاحة. هنملأ موقعك بكل الوحدات في المدن اللي تختارها، بأسعار Estavo الحالية، كلها باسمك وعلى موقعك.</p>
+                        <div class="city-grid" data-city-grid aria-live="polite"></div>
+                        <p class="city-load-status" data-city-status>بنحمّل مدن Estavo…</p>
+                        <button class="city-retry" type="button" data-city-retry hidden>حاول تاني</button>
                     </section>
                     <p class="manual-error" data-manual-error role="alert" aria-live="polite"></p>
                     <div class="manual-actions">
@@ -923,7 +920,7 @@
     </a>
 
     <!-- Handles URL validation + referral/UTM attribution on the form -->
-    <script src="../assets/js/website-referral.js" defer></script>
+    <script src="../assets/js/website-referral.js?v=9" defer></script>
 
 </body>
 

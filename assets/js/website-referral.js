@@ -21,6 +21,7 @@
     'use strict';
 
     var PLATFORM_ORIGIN = 'https://brokers.estavo.space';
+    var CATALOG_ENDPOINT = 'https://api-brokers.estavo.space/api/website-onboarding/catalog?catalog_version=3';
     var ONBOARDING_PATH = '/website/create';
     var COOKIE_NAME = 'est_ref';
     var SESSION_KEY = 'est_ref';
@@ -207,22 +208,78 @@
         var name = typeof profile.name === 'string'
             ? profile.name.replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, 80)
             : '';
-        var palette = typeof profile.palette === 'string' ? profile.palette.trim() : '';
-        var allowedPalettes = [
-            'navy-gold', 'forest-sand', 'charcoal-copper',
-            'blue-sky', 'burgundy-cream', 'slate-white'
+        var theme = typeof profile.theme === 'string' ? profile.theme.trim() : '';
+        var allowedThemes = [
+            'modern_line', 'modern_axis', 'modern_frame', 'modern_signal', 'modern_studio',
+            'monogram_stamp', 'monogram_block', 'monogram_orbit', 'monogram_grid', 'monogram_signature',
+            'serif_editorial', 'serif_classic', 'serif_gallery', 'serif_column', 'serif_masthead'
         ];
-        var cities = Array.isArray(profile.cities) ? profile.cities : [];
-        cities = cities.filter(function (city, index) {
-            return typeof city === 'string'
-                && /^[a-z0-9-]{2,40}$/.test(city)
-                && cities.indexOf(city) === index;
-        }).slice(0, 12);
+        var seenCityIds = [];
+        var cities = (Array.isArray(profile.cities) ? profile.cities : []).map(function (city) {
+            if (!city || typeof city !== 'object') return null;
+            var id = Number(city.id);
+            if (!Number.isInteger(id) || id < 1 || seenCityIds.indexOf(id) !== -1) return null;
+            var nameEn = typeof city.name_en === 'string' ? city.name_en.trim().slice(0, 120) : '';
+            var nameAr = typeof city.name_ar === 'string' ? city.name_ar.trim().slice(0, 120) : '';
+            if (!nameEn && !nameAr) return null;
+            seenCityIds.push(id);
+            return { id: id, name_en: nameEn, name_ar: nameAr };
+        }).filter(Boolean).slice(0, 50);
 
-        if (name.length < 2 || allowedPalettes.indexOf(palette) === -1 || !cities.length) {
+        if (name.length < 2 || allowedThemes.indexOf(theme) === -1 || !cities.length) {
             return null;
         }
-        return { name: name, palette: palette, cities: cities };
+        return { name: name, theme: theme, cities: cities };
+    }
+
+    function normalizeCityCatalog(payload) {
+        var rows = payload && payload.data && Array.isArray(payload.data.cities)
+            ? payload.data.cities
+            : [];
+        var countsById = {};
+        var profile = normalizeManualProfile({
+            name: 'Catalog',
+            theme: 'modern_line',
+            cities: rows.map(function (city) {
+                var names = city && city.name && typeof city.name === 'object' ? city.name : {};
+                var id = Number(city && city.id);
+                var hasCount = city && (
+                    Object.prototype.hasOwnProperty.call(city, 'units_count')
+                    || Object.prototype.hasOwnProperty.call(city, 'unit_models_count')
+                );
+                var rawCount = city && Object.prototype.hasOwnProperty.call(city, 'units_count')
+                    ? city.units_count
+                    : city && city.unit_models_count;
+                var count = Number(rawCount);
+                if (Number.isInteger(id) && id > 0 && countsById[id] === undefined) {
+                    countsById[id] = hasCount && Number.isInteger(count) && count >= 0
+                        ? count
+                        : null;
+                }
+                return {
+                    id: id,
+                    name_en: names.en,
+                    name_ar: names.ar
+                };
+            })
+        });
+        return profile ? profile.cities.map(function (city) {
+            return {
+                id: city.id,
+                name_en: city.name_en,
+                name_ar: city.name_ar,
+                units_count: countsById[city.id]
+            };
+        }).filter(function (city) {
+            // Older cached API responses did not include counts. Keep their
+            // valid cities visible during a staggered deployment; the
+            // versioned, no-store request below immediately fetches counts.
+            return city.units_count === null || city.units_count > 0;
+        }).sort(function (left, right) {
+            var leftCount = Number.isInteger(left.units_count) ? left.units_count : -1;
+            var rightCount = Number.isInteger(right.units_count) ? right.units_count : -1;
+            return rightCount - leftCount;
+        }) : [];
     }
 
     function buildManualOnboardingUrl(profile, locale, attribution) {
@@ -230,12 +287,35 @@
         var normalizedLocale = normalizeLocale(locale);
         if (!normalizedProfile || !normalizedLocale) return null;
 
+        // The existing onboarding service starts from a public source URL. Give
+        // every manual brief its own crawlable Estavo profile instead of
+        // arriving with no source and accidentally resuming the latest website.
+        var token = '';
+        var cryptoObject = typeof globalThis !== 'undefined' ? globalThis.crypto : null;
+        if (cryptoObject && typeof cryptoObject.getRandomValues === 'function') {
+            var bytes = new Uint8Array(12);
+            cryptoObject.getRandomValues(bytes);
+            token = Array.prototype.map.call(bytes, function (value) {
+                return value.toString(16).padStart(2, '0');
+            }).join('');
+        } else {
+            token = String(Date.now()) + Math.random().toString(16).slice(2, 14);
+        }
+        token = token.replace(/[^a-f0-9]/gi, '').slice(0, 32).padEnd(24, '0');
+        var profileUrl = new URL('/website/manual-profile.php/' + token, 'https://estavo-brokers.com');
+        profileUrl.searchParams.set('name', normalizedProfile.name);
+        profileUrl.searchParams.set('theme', normalizedProfile.theme);
+        profileUrl.searchParams.set('city_ids', normalizedProfile.cities.map(function (city) { return city.id; }).join(','));
+        profileUrl.searchParams.set('locale', normalizedLocale);
+
         var destination = new URL(ONBOARDING_PATH, PLATFORM_ORIGIN);
+        destination.searchParams.set('source', profileUrl.toString());
         destination.searchParams.set('mode', 'manual');
+        destination.searchParams.set('fresh_start', '1');
         destination.searchParams.set('audience', 'individual');
         destination.searchParams.set('name', normalizedProfile.name);
-        destination.searchParams.set('palette', normalizedProfile.palette);
-        destination.searchParams.set('cities', normalizedProfile.cities.join(','));
+        destination.searchParams.set('theme', normalizedProfile.theme);
+        destination.searchParams.set('city_ids', normalizedProfile.cities.map(function (city) { return city.id; }).join(','));
         destination.searchParams.set('locale', normalizedLocale);
 
         var referral = attribution && attribution.ref;
@@ -449,6 +529,7 @@
             var active = wizard.querySelector('[data-panel="' + name + '"]');
             var focusTarget = active && active.querySelector('input:not([type="hidden"]), button');
             if (focusTarget) windowObject.setTimeout(function () { focusTarget.focus(); }, 0);
+            if (name === 'manual') loadCityCatalog();
         }
 
         function configureLinkPanel(kind) {
@@ -479,11 +560,90 @@
         var form = wizard.querySelector('[data-manual-form]');
         if (!form) return;
         var currentStep = 1;
-        var stepCount = 4;
+        var stepCount = 3;
         var error = form.querySelector('[data-manual-error]');
         var next = form.querySelector('[data-manual-next]');
         var previous = form.querySelector('[data-manual-prev]');
         var submit = form.querySelector('[data-manual-submit]');
+        var cityGrid = form.querySelector('[data-city-grid]');
+        var cityStatus = form.querySelector('[data-city-status]');
+        var cityRetry = form.querySelector('[data-city-retry]');
+        var cityCatalogLoaded = false;
+
+        function renderCities(cities) {
+            cityGrid.textContent = '';
+            cities.forEach(function (city) {
+                var option = documentObject.createElement('label');
+                option.className = 'city-option';
+                var input = documentObject.createElement('input');
+                input.type = 'checkbox';
+                input.name = 'cities';
+                input.value = String(city.id);
+                input.dataset.nameEn = city.name_en;
+                input.dataset.nameAr = city.name_ar;
+                var chip = documentObject.createElement('span');
+                chip.className = 'city-chip';
+                var cityName = documentObject.createElement('span');
+                cityName.className = 'city-name';
+                cityName.textContent = (locale === 'ar' ? city.name_ar : city.name_en)
+                    || city.name_en
+                    || city.name_ar;
+                var cityCount = documentObject.createElement('small');
+                cityCount.className = 'city-count';
+                cityCount.textContent = city.units_count === null
+                    ? (locale === 'ar' ? 'وحدات Estavo متاحة' : 'Estavo inventory available')
+                    : (locale === 'ar'
+                        ? new Intl.NumberFormat('ar-EG').format(city.units_count) + ' وحدة متاحة'
+                        : city.units_count + (city.units_count === 1 ? ' unit available' : ' units available'));
+                chip.appendChild(cityName);
+                chip.appendChild(cityCount);
+                option.appendChild(input);
+                option.appendChild(chip);
+                cityGrid.appendChild(option);
+            });
+        }
+
+        function loadCityCatalog() {
+            if (cityCatalogLoaded) return;
+            cityStatus.textContent = locale === 'ar' ? 'بنحمّل مدن Estavo…' : 'Loading Estavo cities…';
+            cityRetry.hidden = true;
+            if (typeof windowObject.fetch !== 'function') {
+                cityStatus.textContent = locale === 'ar' ? 'تعذر تحميل المدن. حاول تاني.' : 'Could not load cities. Try again.';
+                cityRetry.hidden = false;
+                return;
+            }
+            windowObject.fetch(CATALOG_ENDPOINT, {
+                headers: { Accept: 'application/json' },
+                cache: 'no-store'
+            })
+                .then(function (response) {
+                    if (!response.ok) throw new Error('City catalog request failed.');
+                    return response.json();
+                })
+                .then(function (payload) {
+                    var cities = normalizeCityCatalog(payload);
+                    if (!cities.length) throw new Error('City catalog is empty.');
+                    renderCities(cities);
+                    cityCatalogLoaded = true;
+                    var countsKnown = cities.every(function (city) {
+                        return Number.isInteger(city.units_count);
+                    });
+                    var total = cities.reduce(function (sum, city) {
+                        return sum + (city.units_count || 0);
+                    }, 0);
+                    cityStatus.textContent = countsKnown
+                        ? (locale === 'ar'
+                            ? new Intl.NumberFormat('ar-EG').format(total) + ' وحدة متاحة في المدن دي بأسعار Estavo الحالية.'
+                            : total + ' available units across these cities, with current Estavo prices.')
+                        : '';
+                })
+                .catch(function () {
+                    cityStatus.textContent = locale === 'ar' ? 'تعذر تحميل المدن. حاول تاني.' : 'Could not load cities. Try again.';
+                    cityRetry.hidden = false;
+                });
+        }
+
+        cityRetry.addEventListener('click', loadCityCatalog);
 
         function selectedCities() {
             return Array.prototype.slice.call(form.querySelectorAll('input[name="cities"]:checked'));
@@ -503,17 +663,6 @@
             return true;
         }
 
-        function updateReview() {
-            var palette = form.querySelector('input[name="palette"]:checked');
-            var paletteLabel = palette && palette.nextElementSibling.querySelector('.palette-name').textContent;
-            var cityLabels = selectedCities().map(function (input) {
-                return input.nextElementSibling.textContent.trim();
-            });
-            form.querySelector('[data-review-name]').textContent = form.elements.display_name.value.trim();
-            form.querySelector('[data-review-palette]').textContent = paletteLabel;
-            form.querySelector('[data-review-cities]').textContent = cityLabels.join(locale === 'ar' ? '، ' : ', ');
-        }
-
         function showStep(step) {
             currentStep = Math.max(1, Math.min(stepCount, step));
             form.querySelectorAll('[data-manual-step]').forEach(function (section) {
@@ -529,7 +678,6 @@
             next.hidden = currentStep === stepCount;
             submit.hidden = currentStep !== stepCount;
             error.textContent = '';
-            if (currentStep === stepCount) updateReview();
         }
 
         next.addEventListener('click', function () {
@@ -539,13 +687,25 @@
         form.addEventListener('submit', function (event) {
             event.preventDefault();
             if (!validateStep(1) || !validateStep(3)) return;
-            var palette = form.querySelector('input[name="palette"]:checked');
+            var theme = form.querySelector('input[name="theme"]:checked');
             var destination = buildManualOnboardingUrl({
                 name: form.elements.display_name.value,
-                palette: palette && palette.value,
-                cities: selectedCities().map(function (input) { return input.value; })
+                theme: theme && theme.value,
+                cities: selectedCities().map(function (input) {
+                    return {
+                        id: input.value,
+                        name_en: input.dataset.nameEn,
+                        name_ar: input.dataset.nameAr
+                    };
+                })
             }, locale, attribution);
-            if (destination) windowObject.location.assign(destination);
+            if (!destination) {
+                error.textContent = locale === 'ar'
+                    ? 'تعذر تجهيز بيانات موقعك. راجع اختياراتك وحاول تاني.'
+                    : 'We could not prepare your website details. Review your choices and try again.';
+                return;
+            }
+            windowObject.location.assign(destination);
         });
     }
 
@@ -630,10 +790,12 @@
 
     return {
         PLATFORM_ORIGIN: PLATFORM_ORIGIN,
+        CATALOG_ENDPOINT: CATALOG_ENDPOINT,
         ONBOARDING_PATH: ONBOARDING_PATH,
         buildOnboardingUrl: buildOnboardingUrl,
         buildManualOnboardingUrl: buildManualOnboardingUrl,
         normalizeManualProfile: normalizeManualProfile,
+        normalizeCityCatalog: normalizeCityCatalog,
         isPlatformUrl: isPlatformUrl,
         isValidSlug: isValidSlug,
         normalizeSourceUrl: normalizeSourceUrl,
