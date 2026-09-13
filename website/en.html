@@ -708,7 +708,7 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="../assets/css/website-wizard.css?v=7" />
+    <link rel="stylesheet" href="../assets/css/website-wizard.css?v=8" />
 </head>
 
 <body>
@@ -762,7 +762,7 @@
             <section class="wizard-panel" data-panel="manual" hidden>
                 <button class="wizard-back" type="button" data-back-panel="audience">← Back</button>
                 <form class="manual-shell" data-manual-form novalidate>
-                    <div class="progress-row" aria-label="Setup progress"><span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span><span class="progress-dot" data-progress="4"></span><span class="step-count" data-step-count>1 of 4</span></div>
+                    <div class="progress-row" aria-label="Setup progress"><span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span><span class="progress-dot" data-progress="4"></span><span class="progress-dot" data-progress="5"></span><span class="step-count" data-step-count>1 of 5</span></div>
                     <section class="manual-step" data-manual-step="1" aria-labelledby="name-title"><h2 id="name-title">What name should appear on your website?</h2><p class="step-copy">Write it exactly as you want clients to see it, in Arabic or English.</p><label class="sr-only" for="manual-name-en">Website display name</label><input class="manual-input" id="manual-name-en" name="display_name" type="text" autocomplete="name" maxlength="80" placeholder="For example: Ahmed Mansour" /></section>
                     <section class="manual-step" data-manual-step="2" aria-labelledby="theme-title" hidden><h2 id="theme-title">Choose your website style</h2><p class="step-copy">See your name on every design, then choose the website look and colours that feel like you.</p><div class="palette-grid">
                         <label class="palette-option"><input type="radio" name="theme" value="modern_line" checked /><span class="palette-card"><span class="palette-swatches"><i style="background:#17324D"></i><i style="background:#E8EEF3"></i><i style="background:#2F6F8F"></i></span><span class="palette-name">Modern Line</span><small>Clean and direct</small></span></label>
@@ -782,7 +782,17 @@
                         <label class="palette-option"><input type="radio" name="theme" value="serif_masthead" /><span class="palette-card"><span class="palette-swatches"><i style="background:#3B2431"></i><i style="background:#E9DED7"></i><i style="background:#B46A3C"></i></span><span class="palette-name">Serif Masthead</span><small>Cinematic and bold</small></span></label>
                     </div></section>
                     <section class="manual-step" data-manual-step="3" aria-labelledby="cities-title" hidden><h2 id="cities-title">Choose the cities you work in</h2><p class="step-copy">Each city shows its available unit count. We’ll fill your website with every unit in the cities you select, using current Estavo prices—all under your name and on your website.</p><div class="city-grid" data-city-grid aria-live="polite"></div><p class="city-load-status" data-city-status>Loading Estavo cities…</p><button class="city-retry" type="button" data-city-retry hidden>Try again</button></section>
-                    <section class="manual-step" data-manual-step="4" aria-labelledby="contact-title" hidden>
+                    <section class="manual-step" data-manual-step="4" aria-labelledby="property-finder-title" hidden>
+                        <h2 id="property-finder-title">Do you have a Property Finder page?</h2>
+                        <p class="step-copy">Optional. We will only connect a page you paste here—we will never select one automatically.</p>
+                        <div class="provider-choice-grid">
+                            <label class="provider-choice"><input type="radio" name="property_finder_choice" value="connect" /><span><strong>Yes, add my link</strong><small>Connect its listings to your website</small></span></label>
+                            <label class="provider-choice"><input type="radio" name="property_finder_choice" value="none" /><span><strong>I don’t have one</strong><small>Continue without Property Finder</small></span></label>
+                            <label class="provider-choice"><input type="radio" name="property_finder_choice" value="later" checked /><span><strong>Later</strong><small>You can connect it after your website is ready</small></span></label>
+                        </div>
+                        <label class="contact-field provider-url-field" for="manual-property-finder-en" data-property-finder-field hidden><span>Property Finder broker-page URL <em>Required when adding</em></span><input class="manual-input" id="manual-property-finder-en" name="property_finder_url" type="url" inputmode="url" autocomplete="url" maxlength="300" placeholder="propertyfinder.eg/en/broker/your-page-1234" /><small>Paste the full URL of your page</small></label>
+                    </section>
+                    <section class="manual-step" data-manual-step="5" aria-labelledby="contact-title" hidden>
                         <h2 id="contact-title">How should clients contact you?</h2>
                         <p class="step-copy">These numbers will power the call and WhatsApp buttons on your website. Social profiles are optional.</p>
                         <div class="contact-grid">
@@ -837,7 +847,7 @@
     </a>
 
     <!-- Handles URL validation + referral/UTM attribution on the form -->
-    <script src="../assets/js/website-referral.js?v=10" defer></script>
+    <script src="../assets/js/website-referral.js?v=11" defer></script>
 
 </body>
 

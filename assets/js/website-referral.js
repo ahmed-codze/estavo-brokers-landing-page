@@ -248,6 +248,37 @@
         }
     }
 
+    function normalizePropertyFinderProfile(value) {
+        if (typeof value !== 'string') return null;
+        var trimmed = value.trim();
+        if (!trimmed) return null;
+        var candidate = /^[a-z][a-z\d+.-]*:/i.test(trimmed)
+            ? trimmed
+            : 'https://' + trimmed;
+
+        try {
+            var url = new URL(candidate);
+            var hostname = url.hostname.toLowerCase().replace(/\.$/, '');
+            var path = url.pathname.replace(/\/+$/, '');
+            if ((url.protocol !== 'https:' && url.protocol !== 'http:')
+                || !['propertyfinder.eg', 'www.propertyfinder.eg'].includes(hostname)
+                || !/^\/(?:ar|en)\/broker\/[a-z0-9-]+-\d+$/i.test(path)
+                || url.username
+                || url.password
+                || (url.port && url.port !== '443')) {
+                return null;
+            }
+            url.protocol = 'https:';
+            url.hostname = 'www.propertyfinder.eg';
+            url.pathname = path;
+            url.search = '';
+            url.hash = '';
+            return url.toString();
+        } catch (error) {
+            return null;
+        }
+    }
+
     function normalizeManualProfile(profile, requireContacts) {
         if (!profile || typeof profile !== 'object') return null;
         var name = typeof profile.name === 'string'
@@ -278,19 +309,28 @@
         var whatsappPhone = normalizePhoneNumber(rawContact.whatsapp_phone);
         var facebook = normalizeSocialProfile(rawContact.facebook || '', 'facebook');
         var instagram = normalizeSocialProfile(rawContact.instagram || '', 'instagram');
+        var propertyFinderChoice = ['connect', 'none', 'later'].indexOf(profile.property_finder_choice) !== -1
+            ? profile.property_finder_choice
+            : 'later';
+        var propertyFinderUrl = propertyFinderChoice === 'connect'
+            ? normalizePropertyFinderProfile(profile.property_finder_url || '')
+            : null;
 
         if (name.length < 2
             || allowedThemes.indexOf(theme) === -1
             || !cities.length
             || (requireContacts && (!publicPhone || !whatsappPhone))
             || facebook === null
-            || instagram === null) {
+            || instagram === null
+            || (propertyFinderChoice === 'connect' && !propertyFinderUrl)) {
             return null;
         }
         return {
             name: name,
             theme: theme,
             cities: cities,
+            property_finder_choice: propertyFinderChoice,
+            property_finder_url: propertyFinderUrl,
             contact: {
                 public_phone: publicPhone,
                 whatsapp_phone: whatsappPhone,
@@ -377,6 +417,10 @@
         profileUrl.searchParams.set('locale', normalizedLocale);
         profileUrl.searchParams.set('phone', normalizedProfile.contact.public_phone);
         profileUrl.searchParams.set('whatsapp', normalizedProfile.contact.whatsapp_phone);
+        profileUrl.searchParams.set('property_finder_choice', normalizedProfile.property_finder_choice);
+        if (normalizedProfile.property_finder_url) {
+            profileUrl.searchParams.set('property_finder_url', normalizedProfile.property_finder_url);
+        }
         if (normalizedProfile.contact.facebook) profileUrl.searchParams.set('facebook', normalizedProfile.contact.facebook);
         if (normalizedProfile.contact.instagram) profileUrl.searchParams.set('instagram', normalizedProfile.contact.instagram);
 
@@ -591,7 +635,7 @@
         var form = wizard.querySelector('[data-manual-form]');
         if (!form) return;
         var currentStep = 1;
-        var stepCount = 4;
+        var stepCount = 5;
         var error = form.querySelector('[data-manual-error]');
         var next = form.querySelector('[data-manual-next]');
         var previous = form.querySelector('[data-manual-prev]');
@@ -601,6 +645,27 @@
         var cityRetry = form.querySelector('[data-city-retry]');
         var cityCatalogLoaded = false;
         var displayName = form.elements.display_name;
+        var propertyFinderInputs = Array.prototype.slice.call(
+            form.querySelectorAll('input[name="property_finder_choice"]')
+        );
+        var propertyFinderUrl = form.elements.property_finder_url;
+
+        function updatePropertyFinderChoice() {
+            var selected = form.querySelector('input[name="property_finder_choice"]:checked');
+            var showUrl = selected && selected.value === 'connect';
+            var field = form.querySelector('[data-property-finder-field]');
+            if (field) field.hidden = !showUrl;
+            if (!showUrl && propertyFinderUrl) propertyFinderUrl.removeAttribute('aria-invalid');
+        }
+        propertyFinderInputs.forEach(function (input) {
+            input.addEventListener('change', updatePropertyFinderChoice);
+        });
+        if (propertyFinderUrl) {
+            propertyFinderUrl.addEventListener('input', function () {
+                propertyFinderUrl.removeAttribute('aria-invalid');
+            });
+        }
+        updatePropertyFinderChoice();
 
         var themePresentation = {
             modern_line: ['#FBFCFD', '#17212B', 'Inter, Arial, sans-serif', 'modern'],
@@ -774,6 +839,27 @@
                 return false;
             }
             if (step === 4) {
+                var propertyFinderChoice = form.querySelector('input[name="property_finder_choice"]:checked');
+                if (!propertyFinderChoice) {
+                    error.textContent = locale === 'ar'
+                        ? 'اختار إضافة لينك Property Finder أو مش عندي أو بعدين.'
+                        : 'Choose Add a Property Finder link, I don’t have one, or Later.';
+                    return false;
+                }
+                if (propertyFinderChoice.value === 'connect') {
+                    var normalizedPropertyFinder = normalizePropertyFinderProfile(propertyFinderUrl.value);
+                    propertyFinderUrl.toggleAttribute('aria-invalid', !normalizedPropertyFinder);
+                    if (!normalizedPropertyFinder) {
+                        error.textContent = locale === 'ar'
+                            ? 'حط لينك صفحة البروكر الصحيحة على Property Finder.'
+                            : 'Enter the full URL of your Property Finder broker page.';
+                        propertyFinderUrl.focus();
+                        return false;
+                    }
+                    propertyFinderUrl.value = normalizedPropertyFinder;
+                }
+            }
+            if (step === 5) {
                 var publicPhone = normalizePhoneNumber(form.elements.public_phone.value);
                 var whatsappPhone = normalizePhoneNumber(form.elements.whatsapp_phone.value);
                 var facebook = normalizeSocialProfile(form.elements.facebook_url.value, 'facebook');
@@ -827,8 +913,9 @@
         previous.addEventListener('click', function () { showStep(currentStep - 1); });
         form.addEventListener('submit', function (event) {
             event.preventDefault();
-            if (!validateStep(1) || !validateStep(3) || !validateStep(4)) return;
+            if (!validateStep(1) || !validateStep(3) || !validateStep(4) || !validateStep(5)) return;
             var theme = form.querySelector('input[name="theme"]:checked');
+            var propertyFinderChoice = form.querySelector('input[name="property_finder_choice"]:checked');
             var destination = buildManualOnboardingUrl({
                 name: form.elements.display_name.value,
                 theme: theme && theme.value,
@@ -839,6 +926,8 @@
                         name_ar: input.dataset.nameAr
                     };
                 }),
+                property_finder_choice: propertyFinderChoice && propertyFinderChoice.value,
+                property_finder_url: propertyFinderUrl && propertyFinderUrl.value,
                 contact: {
                     public_phone: form.elements.public_phone.value,
                     whatsapp_phone: form.elements.whatsapp_phone.value,
@@ -944,6 +1033,7 @@
         normalizeManualProfile: normalizeManualProfile,
         normalizePhoneNumber: normalizePhoneNumber,
         normalizeSocialProfile: normalizeSocialProfile,
+        normalizePropertyFinderProfile: normalizePropertyFinderProfile,
         normalizeCityCatalog: normalizeCityCatalog,
         isPlatformUrl: isPlatformUrl,
         isValidSlug: isValidSlug,

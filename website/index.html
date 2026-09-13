@@ -745,7 +745,7 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="../assets/css/website-wizard.css?v=7" />
+    <link rel="stylesheet" href="../assets/css/website-wizard.css?v=8" />
 </head>
 
 <body>
@@ -816,8 +816,8 @@
                 <button class="wizard-back" type="button" data-back-panel="audience">→ ارجع</button>
                 <form class="manual-shell" data-manual-form novalidate>
                     <div class="progress-row" aria-label="تقدم الإعداد">
-                        <span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span><span class="progress-dot" data-progress="4"></span>
-                        <span class="step-count" data-step-count>1 من 4</span>
+                        <span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span><span class="progress-dot" data-progress="4"></span><span class="progress-dot" data-progress="5"></span>
+                        <span class="step-count" data-step-count>1 من 5</span>
                     </div>
                     <section class="manual-step" data-manual-step="1" aria-labelledby="name-title">
                         <h2 id="name-title">إيه الاسم اللي يظهر على موقعك؟</h2>
@@ -853,7 +853,17 @@
                         <p class="city-load-status" data-city-status>بنحمّل مدن Estavo…</p>
                         <button class="city-retry" type="button" data-city-retry hidden>حاول تاني</button>
                     </section>
-                    <section class="manual-step" data-manual-step="4" aria-labelledby="contact-title" hidden>
+                    <section class="manual-step" data-manual-step="4" aria-labelledby="property-finder-title" hidden>
+                        <h2 id="property-finder-title">عندك صفحة على Property Finder؟</h2>
+                        <p class="step-copy">اختياري. هنربط الصفحة بس لو أنت حطيت اللينك بنفسك، ومش هنختار أي صفحة تلقائيًا.</p>
+                        <div class="provider-choice-grid">
+                            <label class="provider-choice"><input type="radio" name="property_finder_choice" value="connect" /><span><strong>أيوه، هضيف اللينك</strong><small>اربط وحدات صفحتك بالموقع</small></span></label>
+                            <label class="provider-choice"><input type="radio" name="property_finder_choice" value="none" /><span><strong>مش عندي</strong><small>كمّل من غير Property Finder</small></span></label>
+                            <label class="provider-choice"><input type="radio" name="property_finder_choice" value="later" checked /><span><strong>بعدين</strong><small>تقدر تربطه بعد إنشاء الموقع</small></span></label>
+                        </div>
+                        <label class="contact-field provider-url-field" for="manual-property-finder-ar" data-property-finder-field hidden><span>لينك صفحة البروكر على Property Finder <em>مطلوب عند الإضافة</em></span><input class="manual-input" id="manual-property-finder-ar" name="property_finder_url" type="url" inputmode="url" autocomplete="url" maxlength="300" dir="ltr" placeholder="propertyfinder.eg/ar/broker/your-page-1234" /><small>الصق لينك صفحتك الكامل</small></label>
+                    </section>
+                    <section class="manual-step" data-manual-step="5" aria-labelledby="contact-title" hidden>
                         <h2 id="contact-title">عملاءك يتواصلوا معاك إزاي؟</h2>
                         <p class="step-copy">الأرقام دي هتظهر في أزرار الاتصال وواتساب على موقعك. روابط السوشيال اختيارية.</p>
                         <div class="contact-grid">
@@ -912,7 +922,7 @@
     </a>
 
     <!-- Handles URL validation + referral/UTM attribution on the form -->
-    <script src="../assets/js/website-referral.js?v=10" defer></script>
+    <script src="../assets/js/website-referral.js?v=11" defer></script>
 
 </body>
 

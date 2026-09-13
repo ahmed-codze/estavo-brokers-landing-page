@@ -105,6 +105,8 @@ test('builds a validated manual freelancer handoff with attribution', () => {
     assert.equal(source.searchParams.get('whatsapp'), '+201009876543');
     assert.equal(source.searchParams.get('facebook'), 'https://www.facebook.com/ahmed.mansour');
     assert.equal(source.searchParams.get('instagram'), 'https://www.instagram.com/ahmed.mansour/');
+    assert.equal(source.searchParams.get('property_finder_choice'), 'later');
+    assert.equal(source.searchParams.has('property_finder_url'), false);
     assert.equal(source.searchParams.has('city_names_en'), false);
     assert.equal(source.searchParams.has('city_names_ar'), false);
     assert.equal(url.searchParams.get('mode'), 'manual');
@@ -136,6 +138,37 @@ test('normalizes Egyptian contacts and validates optional social profiles', () =
     assert.equal(referral.normalizeSocialProfile('instagram.com/jane.broker/', 'instagram'), 'https://www.instagram.com/jane.broker/');
     assert.equal(referral.normalizeSocialProfile('', 'instagram'), '');
     assert.equal(referral.normalizeSocialProfile('https://evil.example/jane', 'instagram'), null);
+});
+
+test('only accepts an explicitly supplied Property Finder broker page', () => {
+    const propertyFinderUrl = 'https://www.propertyfinder.eg/ar/broker/darak-madinaty-4316';
+    assert.equal(
+        referral.normalizePropertyFinderProfile('propertyfinder.eg/ar/broker/darak-madinaty-4316?ignored=1'),
+        propertyFinderUrl,
+    );
+    assert.equal(referral.normalizePropertyFinderProfile('https://propertyfinder.eg/'), null);
+    assert.equal(referral.normalizePropertyFinderProfile('https://evil.example/ar/broker/darak-4316'), null);
+
+    const destination = referral.buildManualOnboardingUrl({
+        name: 'Ahmed Mansour',
+        theme: 'modern_line',
+        cities: [NEW_CAIRO],
+        property_finder_choice: 'connect',
+        property_finder_url: propertyFinderUrl,
+        contact: CONTACT,
+    }, 'en', {});
+    const source = new URL(new URL(destination).searchParams.get('source'));
+    assert.equal(source.searchParams.get('property_finder_choice'), 'connect');
+    assert.equal(source.searchParams.get('property_finder_url'), propertyFinderUrl);
+
+    assert.equal(referral.buildManualOnboardingUrl({
+        name: 'Ahmed Mansour',
+        theme: 'modern_line',
+        cities: [NEW_CAIRO],
+        property_finder_choice: 'connect',
+        property_finder_url: 'https://evil.example/broker/1',
+        contact: CONTACT,
+    }, 'en', {}), null);
 });
 
 test('keeps the largest allowed city selection inside the API source limit', () => {
@@ -255,8 +288,8 @@ test('the Arabic and English website builders expose link and manual handoffs', 
         assert.match(html, new RegExp(`aria-describedby="${input}-hint ${input}-error"`));
         assert.match(html, new RegExp(`id="${input}-error" role="alert" aria-live="polite"`));
         assert.match(html, /maxlength="2048"/);
-        assert.match(html, /assets\/js\/website-referral\.js\?v=10/);
-        assert.match(html, /assets\/css\/website-wizard\.css/);
+        assert.match(html, /assets\/js\/website-referral\.js\?v=11/);
+        assert.match(html, /assets\/css\/website-wizard\.css\?v=8/);
         assert.match(html, /data-website-wizard/);
         assert.match(html, /data-panel="audience"/);
         assert.doesNotMatch(html, /data-panel="personal-choice"/);
@@ -265,12 +298,16 @@ test('the Arabic and English website builders expose link and manual handoffs', 
         assert.match(html, /name="display_name"/);
         assert.match(html, /name="theme"/);
         assert.match(html, /data-city-grid/);
+        assert.match(html, /name="property_finder_choice" value="connect"/);
+        assert.match(html, /name="property_finder_choice" value="none"/);
+        assert.match(html, /name="property_finder_choice" value="later" checked/);
+        assert.match(html, /name="property_finder_url"/);
         assert.match(html, /name="public_phone"/);
         assert.match(html, /name="whatsapp_phone"/);
         assert.match(html, /name="facebook_url"/);
         assert.match(html, /name="instagram_url"/);
         assert.doesNotMatch(html, /name="cities"/);
-        assert.equal((html.match(/data-manual-step=/g) || []).length, 4, `${file} should keep manual setup to four steps`);
+        assert.equal((html.match(/data-manual-step=/g) || []).length, 5, `${file} should expose the optional provider step`);
         const themes = [...html.matchAll(/name="theme" value="([^"]+)"/g)].map((match) => match[1]);
         assert.deepEqual(themes, ESTAVO_PERSONAL_THEMES, `${file} should offer the exact Estavo theme catalog`);
         assert.doesNotMatch(html, /data-review-name/);

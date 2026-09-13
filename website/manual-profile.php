@@ -56,6 +56,24 @@ $publicPhone = $normalizePhone($_GET['phone'] ?? null);
 $whatsappPhone = $normalizePhone($_GET['whatsapp'] ?? null);
 $facebookUrl = $normalizeSocialUrl($_GET['facebook'] ?? null, 'facebook');
 $instagramUrl = $normalizeSocialUrl($_GET['instagram'] ?? null, 'instagram');
+$propertyFinderChoice = in_array($_GET['property_finder_choice'] ?? 'later', ['connect', 'none', 'later'], true)
+    ? (string) ($_GET['property_finder_choice'] ?? 'later')
+    : '';
+$propertyFinderUrl = null;
+if ($propertyFinderChoice === 'connect' && is_string($_GET['property_finder_url'] ?? null)) {
+    $candidate = trim((string) $_GET['property_finder_url']);
+    $parts = parse_url($candidate);
+    if (is_array($parts)
+        && filter_var($candidate, FILTER_VALIDATE_URL) !== false
+        && strtolower((string) ($parts['scheme'] ?? '')) === 'https'
+        && in_array(strtolower(rtrim((string) ($parts['host'] ?? ''), '.')), ['propertyfinder.eg', 'www.propertyfinder.eg'], true)
+        && preg_match('#\A/(?:ar|en)/broker/[a-z0-9-]+-[0-9]+/?\z#Di', (string) ($parts['path'] ?? '')) === 1
+        && ! isset($parts['user'])
+        && ! isset($parts['pass'])
+        && (! isset($parts['port']) || (int) $parts['port'] === 443)) {
+        $propertyFinderUrl = $candidate;
+    }
+}
 $hasInvalidSocialUrl = (isset($_GET['facebook']) && trim((string) $_GET['facebook']) !== '' && $facebookUrl === null)
     || (isset($_GET['instagram']) && trim((string) $_GET['instagram']) !== '' && $instagramUrl === null);
 
@@ -83,7 +101,9 @@ if (preg_match('/\A[a-f0-9]{24,32}\z/D', $token) !== 1
     || $cityIds === []
     || count($cityIds) > 50
     || ($hasContactDetails && ($publicPhone === null || $whatsappPhone === null))
-    || $hasInvalidSocialUrl) {
+    || $hasInvalidSocialUrl
+    || $propertyFinderChoice === ''
+    || ($propertyFinderChoice === 'connect' && $propertyFinderUrl === null)) {
     http_response_code(404);
     exit('Profile not found.');
 }
@@ -133,6 +153,10 @@ $schema = json_encode([
         <section aria-label="Market coverage">
             <h2>Selected market coverage</h2>
             <ul><?php foreach ($cities as $city): ?><li><?= $escape($city) ?></li><?php endforeach; ?></ul>
+        </section>
+        <section aria-label="Property Finder preference">
+            <h2>Selected Property Finder preference</h2>
+            <?php if ($propertyFinderUrl !== null): ?><p>Owner-supplied Property Finder profile: <a href="<?= $escape($propertyFinderUrl) ?>"><?= $escape($propertyFinderUrl) ?></a>.</p><?php else: ?><p>No Property Finder profile was supplied during setup (<?= $escape($propertyFinderChoice) ?>).</p><?php endif; ?>
         </section>
         <?php if ($publicPhone !== null && $whatsappPhone !== null): ?>
         <section aria-label="Public contact details">
