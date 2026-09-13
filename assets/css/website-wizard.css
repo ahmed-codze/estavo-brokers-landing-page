@@ -110,6 +110,7 @@ body { background: #fff; }
 .city-load-status { min-height: 20px; margin-top: 10px; color: rgba(2, 29, 57, .52); font-size: 12px; }
 .city-retry { margin-top: 4px; border: 0; background: transparent; color: var(--estavo-navy); font: inherit; font-size: 12px; font-weight: 700; text-decoration: underline; cursor: pointer; }
 .city-retry[hidden] { display: none !important; }
+.provider-brand { display: inline-block; white-space: nowrap; }
 .provider-choice-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
