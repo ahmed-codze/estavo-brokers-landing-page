@@ -967,6 +967,8 @@
             safeStorageSet(sessionStorage, SESSION_KEY, slug);
 
             function rewriteLink(anchor) {
+                // Support destinations are deep links, not signup/referral calls to action.
+                if (anchor.closest('#raghad-support')) return;
                 var href = anchor.getAttribute('href');
                 if (!href || !isPlatformUrl(href, windowObject.location.href)) return;
 

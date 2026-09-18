@@ -46,6 +46,8 @@
 
     // ── Rewrite a single <a> element ─────────────────────────────────────────
     function rewriteLink(anchor) {
+        // Support destinations are deep links, not signup/referral calls to action.
+        if (anchor.closest('#raghad-support')) return;
         var href = anchor.getAttribute('href');
         if (!href) return;
 

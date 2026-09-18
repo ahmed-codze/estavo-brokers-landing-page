@@ -8,9 +8,9 @@ const { JSDOM } = require('jsdom');
 const source = fs.readFileSync(path.join(__dirname, '../assets/js/raghad.js'), 'utf8');
 const tick = () => new Promise(resolve => setImmediate(resolve));
 
-function setup(locale = 'en', fetcher = async () => ({ ok: false, status: 503, json: async () => ({}) })) {
+function setup(locale = 'en', fetcher = async () => ({ ok: false, status: 503, json: async () => ({}) }), options = {}) {
     const dom = new JSDOM(`<!doctype html><html lang="${locale}"><body><div class="sticky-cta"></div></body></html>`, {
-        url: 'https://estavo-brokers.com/website/', runScripts: 'outside-only',
+        url: options.url || 'https://estavo-brokers.com/website/', runScripts: 'outside-only',
     });
     const { window } = dom;
     const script = window.document.createElement('script');
@@ -18,6 +18,7 @@ function setup(locale = 'en', fetcher = async () => ({ ok: false, status: 503, j
     script.dataset.endpoint = 'https://api-brokers.estavo.space/api/public/support/chat';
     Object.defineProperty(window.document, 'currentScript', { value: script });
     window.fetch = fetcher;
+    if (options.handoff) window.sessionStorage.setItem('estavo-raghad-language-handoff-v1', options.handoff);
     window.eval(source);
     const get = selector => window.document.querySelector(selector);
     function send(message) {
@@ -114,6 +115,8 @@ test('new chat aborts pending work and ignores stale replies', async () => {
     send('Old question');
     assert.equal(get('.raghad-send').disabled, true);
     get('.raghad-reset').click();
+    assert.equal(requestSignal.aborted, false);
+    get('.raghad-confirm-reset').click();
     assert.equal(requestSignal.aborted, true);
     resolve({ ok: true, json: async () => ({ message: 'Stale answer', conversation_token: 'old' }) });
     await tick();
@@ -164,6 +167,128 @@ test('all four landing routes load the same widget with correct relative assets'
         assert.equal(new URL(script.src).pathname, '/assets/js/raghad.js');
         assert.equal(new URL(style.href).pathname, '/assets/css/raghad.css');
         assert.equal(script.dataset.endpoint, 'https://api-brokers.estavo.space/api/public/support/chat');
+        dom.window.close();
+    }
+});
+
+test('only approved answer URLs become links, punctuation and hostile markup remain safe', async () => {
+    const {dom, get, send} = setup('en', async () => ({ok:true,json:async()=>({
+        message:'Buy https://brokers.estavo.space/credits. Help https://wa.me/201069528393 — https://brokers.estavo.space.evil.test/credits <img src=x onerror=alert(1)> javascript:alert(1)', conversation_token:'signed'
+    })}));
+    send('Links'); await tick();
+    const links=[...get('.raghad-message--assistant').querySelectorAll('a')];
+    assert.deepEqual(links.map(a=>a.href), ['https://brokers.estavo.space/credits','https://wa.me/201069528393']);
+    assert.ok(links.every(a=>a.rel.includes('noopener') && a.target==='_blank'));
+    assert.equal(get('.raghad-message--assistant img'),null);
+    dom.window.close();
+});
+
+test('reset cancellation preserves the conversation and draft; confirmation clears them', async () => {
+    const {dom, get, send} = setup('en', async()=>({ok:true,json:async()=>({message:'Answer',conversation_token:'signed'})}));
+    send('Question'); await tick();
+    get('.raghad-input').value='Unsent draft';
+    get('.raghad-reset').click();
+    assert.equal(get('.raghad-reset-prompt').hidden,false);
+    get('.raghad-cancel-reset').click();
+    assert.equal(get('.raghad-input').value,'Unsent draft');
+    assert.equal(get('.raghad-messages').children.length,2);
+    get('.raghad-reset').click(); get('.raghad-confirm-reset').click();
+    assert.equal(get('.raghad-input').value,'');
+    assert.equal(get('.raghad-messages').children.length,0);
+    dom.window.close();
+});
+
+test('retry respects server cooldown and cannot be bypassed by Enter, starters or New chat', async () => {
+    let calls=0;
+    const {dom,get,send}=setup('en',async()=>{calls++;return {ok:false,status:429,headers:{get:()=> '3600'},json:async()=>({})};});
+    send('Question'); await tick();
+    assert.match(get('.raghad-error').textContent,/try again at/);
+    assert.equal(get('.raghad-send').disabled,true);
+    assert.equal(get('.raghad-retry').disabled,true);
+    send('Attempt');
+    get('.raghad-reset').click(); get('.raghad-confirm-reset').click();
+    send('Attempt after reset');
+    assert.equal(calls,1);
+    dom.window.close();
+});
+
+test('cooldown expiry re-enables retry and preserves the failed draft', async () => {
+    let now=Date.now();
+    const {dom,window,get,send}=setup('en',async()=>({ok:false,status:429,headers:{get:()=> '1'},json:async()=>({})}));
+    window.Date.now=()=>now;
+    send('Question'); await tick(); now+=2000;
+    await new Promise(resolve=>setTimeout(resolve,1100));
+    assert.equal(get('.raghad-retry').disabled,false);
+    assert.equal(get('.raghad-input').value,'Question');
+    assert.match(get('.raghad-error').textContent,/now/);
+    dom.window.close();
+});
+
+test('HTTP-date cooldowns are honored; missing timing uses a bounded cooldown', async () => {
+    for(const header of [new Date(Date.now()+3600000).toUTCString(),null]) {
+        const {dom,get,send}=setup('ar',async()=>({ok:false,status:429,headers:{get:()=>header},json:async()=>({})}));
+        send('سؤال'); await tick();
+        assert.equal(get('.raghad-send').disabled,true);
+        assert.match(get('.raghad-error').textContent,/الساعة/);
+        dom.window.close();
+    }
+});
+
+test('in-widget language switch preserves conversation, draft and authenticated follow-up', async () => {
+    const calls=[];
+    const {dom,get,send}=setup('en',async(url,options)=>{calls.push(JSON.parse(options.body));return {ok:true,json:async()=>({message:'Answer',conversation_token:'signed'})};});
+    send('Question'); await tick(); get('.raghad-input').value='سؤال تاني';
+    get('.raghad-language').click();
+    assert.equal(get('#raghad-support').dir,'rtl');
+    assert.equal(get('.raghad-input').value,'سؤال تاني');
+    assert.equal(get('.raghad-messages').children.length,2);
+    send('سؤال تاني'); await tick();
+    assert.equal(calls[1].locale,'ar'); assert.equal(calls[1].conversation_token,'signed');
+    dom.window.close();
+});
+
+test('page language handoff restores same-tab chat and draft once, without ongoing storage', async () => {
+    const {dom,window,get,send}=setup('ar',async()=>({ok:true,json:async()=>({message:'إجابة',conversation_token:'signed'})}));
+    send('سؤال'); await tick(); get('.raghad-input').value='Unsent follow-up'; get('.raghad-launcher').click();
+    const link=window.document.createElement('a');link.href='/website/en.html';window.document.body.append(link);
+    window.document.addEventListener('click',event=>event.preventDefault()); link.click();
+    const saved=window.sessionStorage.getItem('estavo-raghad-language-handoff-v1');assert.ok(saved);
+    const restored=setup('en',undefined,{url:'https://estavo-brokers.com/website/en.html',handoff:saved});
+    assert.equal(restored.get('.raghad-input').value,'Unsent follow-up');
+    assert.equal(restored.get('.raghad-messages').children.length,2);
+    assert.equal(restored.get('.raghad-panel').hidden,false);
+    assert.equal(restored.window.sessionStorage.length,0);
+    assert.equal(restored.window.localStorage.length,0);
+    dom.window.close();restored.dom.window.close();
+});
+
+test('stale and wrong-route language handoffs are discarded',()=>{
+    for(const state of [{at:Date.now()-120000,target:'/website/'},{at:Date.now(),target:'/en.html'}]) {
+        const {dom,get,window}=setup('en',undefined,{handoff:JSON.stringify({...state,token:'old',draft:'old',transcript:[]})});
+        assert.equal(get('.raghad-input').value,'');assert.equal(window.sessionStorage.length,0);dom.window.close();
+    }
+});
+
+test('blocked session storage prevents language navigation from silently losing a draft',()=>{
+    const {dom,window,get}=setup();get('.raghad-input').value='Keep me';
+    Object.defineProperty(window,'sessionStorage',{get(){throw new Error('Storage unavailable');}});
+    const link=window.document.createElement('a');link.href='/website/en.html';window.document.body.append(link);
+    // Current document is English: switch to the Arabic route.
+    link.href='/';
+    const event=new window.MouseEvent('click',{bubbles:true,cancelable:true});link.dispatchEvent(event);
+    assert.equal(event.defaultPrevented,true);assert.equal(get('.raghad-input').value,'Keep me');
+    assert.match(get('.raghad-error').textContent,/language button/);dom.window.close();
+});
+
+test('both landing referral scripts preserve dynamic support deep links while tracking signup CTAs', async () => {
+    for(const file of ['referral.js','website-referral.js']) {
+        const {dom,window,get,send}=setup('en',async()=>({ok:true,json:async()=>({message:'https://brokers.estavo.space/credits',conversation_token:'signed'})}));
+        const signup=window.document.createElement('a');signup.href='https://brokers.estavo.space/';window.document.body.append(signup);
+        window.eval(fs.readFileSync(path.join(__dirname,'../assets/js',file),'utf8'));
+        window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
+        send('Credits');await tick();await tick();
+        assert.equal(get('.raghad-message--assistant a').href,'https://brokers.estavo.space/credits');
+        assert.match(signup.href,/\/go\/\?ref=/);
         dom.window.close();
     }
 });
