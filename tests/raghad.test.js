@@ -55,7 +55,8 @@ test('requests carry only user input and encrypted token; model markup stays ine
     await tick();
     assert.equal(get('.raghad-message--assistant img'), null);
     assert.match(get('.raghad-message--assistant').textContent, /<img/);
-    assert.match(get('.raghad-sources').textContent, /Estavo Brokers/);
+    assert.equal(get('.raghad-sources'), null);
+    assert.doesNotMatch(get('.raghad-message--assistant').textContent, /From the guide|من دليل/);
     assert.equal(get('.raghad-input').value, '');
     send('And PDF offers?');
     await tick();
@@ -123,6 +124,68 @@ test('new chat aborts pending work and ignores stale replies', async () => {
     assert.equal(get('.raghad-messages').children.length, 0);
     assert.equal(get('.raghad-intro').hidden, false);
     assert.equal(get('.raghad-input').readOnly, false);
+    assert.equal(get('.raghad-status').hidden, true);
+    assert.equal(get('.raghad-input').value, '');
+    dom.window.close();
+});
+
+test('quick actions clear immediately and show localized waiting feedback until the reply', async () => {
+    for (const locale of ['ar', 'en']) {
+        let resolve;
+        let submitted;
+        const { dom, get } = setup(locale, (url, options) => {
+            submitted = JSON.parse(options.body).message;
+            return new Promise(done => { resolve = done; });
+        });
+        const prompt = get('.raghad-starter').textContent;
+        get('.raghad-starter').click();
+        assert.equal(submitted, prompt);
+        assert.equal(get('.raghad-input').value, '');
+        assert.equal(get('.raghad-input').readOnly, true);
+        assert.equal(get('.raghad-message--user p').textContent, prompt);
+        assert.equal(get('.raghad-status').hidden, false);
+        assert.match(get('.raghad-status').textContent, locale === 'ar' ? /رغد بتراجع/ : /Raghad is checking/);
+        assert.equal(get('.raghad-thinking-dots').children.length, 3);
+        assert.equal(get('.raghad-thinking-dots').getAttribute('aria-hidden'), 'true');
+        resolve({ ok: true, json: async () => ({ message: 'Answer', conversation_token: 'signed', sources: [{ product: 'brokers' }, { product: 'ai' }] }) });
+        await tick();
+        assert.equal(get('.raghad-status').hidden, true);
+        assert.equal(get('.raghad-input').value, '');
+        assert.equal(get('.raghad-sources'), null);
+        assert.equal(get('.raghad-message--assistant p').textContent, 'Answer');
+        dom.window.close();
+    }
+});
+
+test('a failed quick action restores the question for retry and stops the waiting feedback', async () => {
+    let reject;
+    const { dom, get } = setup('en', () => new Promise((resolve, fail) => { reject = fail; }));
+    const prompt = get('.raghad-starter').textContent;
+    get('.raghad-starter').click();
+    assert.equal(get('.raghad-input').value, '');
+    reject(new Error('Network unavailable'));
+    await tick();
+    assert.equal(get('.raghad-input').value, prompt);
+    assert.equal(get('.raghad-input').readOnly, false);
+    assert.equal(get('.raghad-status').hidden, true);
+    assert.equal(get('.raghad-retry').hidden, false);
+    dom.window.close();
+});
+
+test('language navigation during a pending request preserves the submitted question for retry', () => {
+    const { dom, window, get, send } = setup('ar', () => new Promise(() => {}));
+    send('Pending question');
+    assert.equal(get('.raghad-input').value, '');
+    const link = window.document.createElement('a');
+    link.href = '/website/en.html';
+    window.document.body.append(link);
+    link.click();
+    const handoff = window.sessionStorage.getItem('estavo-raghad-language-handoff-v1');
+    const restored = setup('en', undefined, { url: link.href, handoff });
+    assert.equal(restored.get('.raghad-input').value, 'Pending question');
+    assert.equal(restored.get('.raghad-message--user p').textContent, 'Pending question');
+    assert.equal(restored.get('.raghad-status').hidden, true);
+    restored.dom.window.close();
     dom.window.close();
 });
 

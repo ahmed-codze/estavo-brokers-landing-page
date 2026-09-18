@@ -12,7 +12,7 @@
         prompts: ['إيه الفرق بين Brokers وSites؟', 'الكريدتس بتتحسب إزاي؟', 'عندي موقع بالفعل'],
         label: 'رسالتك لرغد', placeholder: 'اكتب سؤالك هنا…', send: 'إرسال', close: 'إغلاق المحادثة',
         reset: 'محادثة جديدة', human: 'تواصل مع فريق الدعم', thinking: 'رغد بتراجع سؤالك…',
-        note: 'ما تبعتش كلمات سر أو بيانات دفع.', sources: 'من دليل',
+        note: 'ما تبعتش كلمات سر أو بيانات دفع.',
         unavailable: 'مش قادرة أرد دلوقتي. جرّب تبعت رسالتك تاني أو تواصل مع فريق الدعم.',
         limited: 'وصلت لحد الرسائل المتاح حاليًا. استنى شوية وجرّب تاني، أو تواصل مع الدعم.',
         expired: 'المحادثة انتهت صلاحيتها. ابعت رسالتك تاني عشان نبدأ محادثة جديدة.',
@@ -29,7 +29,7 @@
         prompts: ['Brokers or Sites: what’s the difference?', 'How do credits work?', 'I already have a website'],
         label: 'Your message to Raghad', placeholder: 'Type your question…', send: 'Send', close: 'Close conversation',
         reset: 'New chat', human: 'Contact the support team', thinking: 'Raghad is checking your question…',
-        note: 'Please don’t share passwords or payment details.', sources: 'From the guide',
+        note: 'Please don’t share passwords or payment details.',
         unavailable: 'I can’t reply right now. Try sending your message again, or contact the support team.',
         limited: 'You’ve reached the current message limit. Please wait and try again, or contact support.',
         expired: 'This conversation has expired. Send your message again to start a new conversation.',
@@ -46,6 +46,7 @@
     const supportUrl = script.dataset.supportUrl || 'https://wa.me/201069528393';
     let token = null; // Memory only, except a one-use, same-tab language-navigation handoff.
     let pending = false;
+    let pendingMessage = null;
     let controller = null;
     let generation = 0;
     let failedBubble = null;
@@ -170,6 +171,12 @@
     scroll.append(intro, messages);
     const status = el('p', 'raghad-status');
     status.setAttribute('role', 'status');
+    status.hidden = true;
+    const thinkingDots = el('span', 'raghad-thinking-dots');
+    thinkingDots.setAttribute('aria-hidden', 'true');
+    for (let i = 0; i < 3; i++) thinkingDots.append(el('span', ''));
+    const thinkingLabel = el('span', '');
+    status.append(thinkingDots, thinkingLabel);
     const error = el('p', 'raghad-error');
     error.setAttribute('role', 'alert');
     error.id = 'raghad-error';
@@ -245,7 +252,8 @@
         input.readOnly = pending;
         starters.querySelectorAll('button').forEach(node => { node.disabled = pending || cooling; });
         form.setAttribute('aria-busy', String(pending));
-        status.textContent = pending ? copy.thinking : '';
+        status.hidden = !pending;
+        thinkingLabel.textContent = pending ? copy.thinking : '';
     }
     input.addEventListener('input', () => { syncControls(); growInput(); });
     function growInput() {
@@ -268,9 +276,6 @@
         else body.textContent = text;
         body.dir = 'auto'; // Text only: never render model-supplied HTML or link markup.
         bubble.append(body);
-        const products = { brokers: 'Estavo Brokers', sites: 'Estavo Sites', ai: 'Estavo AI', integrations: 'Meta & Integrations' };
-        const labels = [...new Set((sources || []).map(source => products[source?.product]).filter(Boolean))];
-        if (labels.length) bubble.append(el('p', 'raghad-sources', `${copy.sources}: ${labels.join(' · ')}`));
         messages.append(bubble);
         // Bound the DOM for long-lived tabs independently from model history.
         while (messages.children.length > 40) { messages.firstElementChild.remove(); transcript.shift(); }
@@ -291,6 +296,7 @@
         controller?.abort();
         token = null;
         pending = false;
+        pendingMessage = null;
         failedBubble = null;
         messages.replaceChildren();
         transcript.length = 0;
@@ -321,7 +327,11 @@
         intro.hidden = true;
         const bubble = appendMessage('user', message);
         pending = true;
+        pendingMessage = message;
+        input.value = '';
+        growInput();
         syncControls();
+        scroll.scrollTop = scroll.scrollHeight;
         const requestGeneration = ++generation;
         controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), 50000);
@@ -355,21 +365,22 @@
             }
             token = data.conversation_token;
             appendMessage('assistant', data.message, Array.isArray(data.sources) ? data.sources : []);
-            input.value = '';
-            growInput();
         } catch (failure) {
             if (requestGeneration !== generation) return;
+            input.value = message;
+            growInput();
             failedBubble = bubble;
             bubble.classList.add('raghad-message--failed');
             error.textContent = Object.values(copy).includes(failure.message) ? failure.message : copy.unavailable;
             error.hidden = false;
             if (errorKind === 'limited') showLimit();
             scroll.scrollTop = scroll.scrollHeight;
-            // Keep the draft and old token so retry never adds a fabricated successful turn.
+            // Restore the submitted question and keep the old token for a safe retry.
         } finally {
             clearTimeout(timer);
             if (requestGeneration === generation) {
                 pending = false;
+                pendingMessage = null;
                 syncControls();
             }
         }
@@ -456,7 +467,7 @@
         if (target.origin !== location.origin || !languageRoutes.has(target.pathname) || languageRoutes.get(target.pathname) === document.documentElement.lang.slice(0, 2)) return;
         if (!transcript.length && !input.value.trim() && retryUntil <= Date.now()) return;
         try {
-            const data = JSON.stringify({ at: Date.now(), target: target.pathname, token, transcript, draft: input.value, failed: Boolean(failedBubble || pending), retryUntil, open: !panel.hidden });
+            const data = JSON.stringify({ at: Date.now(), target: target.pathname, token, transcript, draft: pending ? pendingMessage : input.value, failed: Boolean(failedBubble || pending), retryUntil, open: !panel.hidden });
             if (data.length > MAX_HANDOFF_BYTES) throw new Error('Handoff too large');
             sessionStorage.setItem(HANDOFF_KEY, data);
         } catch {
