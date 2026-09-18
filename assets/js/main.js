@@ -657,11 +657,13 @@
 
         function openModal() {
             if (shown) return;
+            if (document.querySelector('[data-raghad-open="true"]')) return;
             shown = true;
             sessionStorage.setItem(SEEN_KEY, '1');
 
             // Small delay so it doesn't feel instant/jarring
             setTimeout(() => {
+                if (document.querySelector('[data-raghad-open="true"]')) return;
                 modal.hidden = false;
                 // Trigger transition on next frame
                 requestAnimationFrame(() => {

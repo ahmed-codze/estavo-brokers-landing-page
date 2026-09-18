@@ -1,0 +1,17 @@
+{
+  "subject": "Raghad support avatar",
+  "origin": "User-supplied portrait in this conversation",
+  "source_filename": "ChatGPT Image Sep 18, 2026 at 05_37_25 PM.png",
+  "source_sha256": "2222d1d6c2c43bad5686ed8a56c86d82514b95787c5315c3eae72f5dc2322358",
+  "conversion": "cwebp -q 85 -m 6; resized without cropping or regenerating the artwork",
+  "outputs": {
+    "raghad-96.webp": {
+      "width": 96,
+      "height": 96
+    },
+    "raghad-192.webp": {
+      "width": 192,
+      "height": 192
+    }
+  }
+}
