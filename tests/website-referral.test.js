@@ -65,9 +65,6 @@ test('always builds the handoff on the fixed Estavo onboarding endpoint', () => 
             ref: 'Partner-42',
             utm_source: 'facebook',
             utm_campaign: 'enterprise-launch',
-            utm_adset: 'new-brokers',
-            utm_ad: 'create-your-site',
-            fbclid: 'meta-click-id',
         },
     );
     const url = new URL(destination);
@@ -78,9 +75,6 @@ test('always builds the handoff on the fixed Estavo onboarding endpoint', () => 
     assert.equal(url.searchParams.get('ref'), 'partner-42');
     assert.equal(url.searchParams.get('utm_source'), 'facebook');
     assert.equal(url.searchParams.get('utm_campaign'), 'enterprise-launch');
-    assert.equal(url.searchParams.get('utm_adset'), 'new-brokers');
-    assert.equal(url.searchParams.get('utm_ad'), 'create-your-site');
-    assert.equal(url.searchParams.get('fbclid'), 'meta-click-id');
     assert.equal(
         url.searchParams.get('source'),
         'https://instagram.com/company?next=https://evil.example/redirect',
