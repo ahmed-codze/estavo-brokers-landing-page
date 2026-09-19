@@ -3,6 +3,8 @@
 
     const script = document.currentScript;
     if (!script || document.getElementById('raghad-support')) return;
+    const disabledHosts = (script.dataset.disabledHosts || '').split(',').map(host => host.trim());
+    if (disabledHosts.includes(window.location.hostname)) return;
     let locale = document.documentElement.lang.startsWith('ar') ? 'ar' : 'en';
     let ar = locale === 'ar';
     function translations(ar) { return ar ? {

@@ -15,6 +15,7 @@ function setup(locale = 'en', fetcher = async () => ({ ok: false, status: 503, j
     const { window } = dom;
     const script = window.document.createElement('script');
     script.src = 'https://estavo-brokers.com/assets/js/raghad.js';
+    if (options.disabledHosts) script.dataset.disabledHosts = options.disabledHosts;
     script.dataset.endpoint = 'https://api-brokers.estavo.space/api/public/support/chat';
     Object.defineProperty(window.document, 'currentScript', { value: script });
     window.fetch = fetcher;
@@ -352,6 +353,17 @@ test('both landing referral scripts preserve dynamic support deep links while tr
         send('Credits');await tick();await tick();
         assert.equal(get('.raghad-message--assistant a').href,'https://brokers.estavo.space/credits');
         assert.match(signup.href,/\/go\/\?ref=/);
+        dom.window.close();
+    }
+});
+
+
+test('production pause hides Raghad on listed hosts while previews remain available', () => {
+    for (const host of ['estavo-brokers.com', 'www.estavo-brokers.com', 'preview.estavo.test']) {
+        const { dom, get } = setup('en', undefined, {
+            url: `https://${host}/`, disabledHosts: 'estavo-brokers.com,www.estavo-brokers.com',
+        });
+        assert.equal(Boolean(get('#raghad-support')), host === 'preview.estavo.test');
         dom.window.close();
     }
 });
