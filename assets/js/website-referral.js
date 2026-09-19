@@ -31,8 +31,13 @@
         'utm_source',
         'utm_medium',
         'utm_campaign',
+        'utm_adset',
+        'adset',
+        'utm_ad',
+        'ad',
         'utm_content',
-        'utm_term'
+        'utm_term',
+        'fbclid'
     ];
     var MAX_SOURCE_LENGTH = 2048;
     var MAX_ATTRIBUTION_LENGTH = 160;
@@ -960,8 +965,13 @@
                 utm_source: getQueryParameter(search, 'utm_source') || 'referral',
                 utm_medium: getQueryParameter(search, 'utm_medium') || 'link',
                 utm_campaign: getQueryParameter(search, 'utm_campaign') || slug,
+                utm_adset: getQueryParameter(search, 'utm_adset'),
+                adset: getQueryParameter(search, 'adset'),
+                utm_ad: getQueryParameter(search, 'utm_ad'),
+                ad: getQueryParameter(search, 'ad'),
                 utm_content: getQueryParameter(search, 'utm_content'),
-                utm_term: getQueryParameter(search, 'utm_term')
+                utm_term: getQueryParameter(search, 'utm_term'),
+                fbclid: getQueryParameter(search, 'fbclid')
             };
 
             safeStorageSet(sessionStorage, SESSION_KEY, slug);
