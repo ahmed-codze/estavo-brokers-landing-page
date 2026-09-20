@@ -130,6 +130,18 @@ test('new chat aborts pending work and ignores stale replies', async () => {
     dom.window.close();
 });
 
+test('business quick actions use the approved questions in both languages', () => {
+    const expected = {
+        ar: ['إيه هو استافو؟', 'ازاي الاقي انسب مشاريع ووحدات لعملائي؟', 'ازاي اعمل موقع عقاري ذكي باسمي؟'],
+        en: ['What is Estavo?', 'How can I find the best projects and units for my clients?', 'How can I create a smart real estate website under my own name?'],
+    };
+    for (const locale of ['ar', 'en']) {
+        const { dom } = setup(locale);
+        assert.deepEqual(Array.from(dom.window.document.querySelectorAll('.raghad-starter'), button => button.textContent), expected[locale]);
+        dom.window.close();
+    }
+});
+
 test('quick actions clear immediately and show localized waiting feedback until the reply', async () => {
     for (const locale of ['ar', 'en']) {
         let resolve;
