@@ -1,0 +1,407 @@
+/* ============================================================
+   Estavo v3 — header and footer (§10)
+
+   These use es- names of their own rather than reusing .nav /
+   .footer from styles.css, because styles.css is shared with
+   14 other pages (privacy, terms, data-deletion, the
+   google-calendar set and the what-is-* pages) and must keep
+   rendering them unchanged.
+   ============================================================ */
+
+@layer components {
+  /* ── Header ──────────────────────────────────────────── */
+  .es-header {
+    position: sticky;
+    z-index: 900;
+    inset-block-start: 0;
+    border-block-end: 1px solid var(--es-line);
+    background: rgb(250 252 255 / 92%);
+    backdrop-filter: blur(10px);
+  }
+
+  .es-header__inner {
+    display: flex;
+    min-block-size: var(--es-header-h);
+    align-items: center;
+    gap: var(--es-space-5);
+  }
+
+  .es-header__logo {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+  }
+
+  .es-header__logo img {
+    block-size: auto;
+    inline-size: clamp(7rem, 12vw, 8.75rem);
+  }
+
+  .es-header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--es-space-2);
+    margin-inline-end: auto;
+  }
+
+  .es-header__nav a,
+  .es-header__disclosure {
+    display: inline-flex;
+    min-block-size: 2.75rem;
+    align-items: center;
+    gap: var(--es-space-2);
+    border-radius: var(--es-radius-control);
+    color: var(--es-ink-72);
+    font-size: var(--es-fs-ui);
+    font-weight: 600;
+    padding-inline: var(--es-space-3);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .es-header__nav a:hover,
+  .es-header__disclosure:hover {
+    background: var(--es-mist);
+    color: var(--es-ink);
+  }
+
+  .es-header__actions {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: var(--es-space-2);
+  }
+
+  .es-header-cta-short {
+    display: none;
+  }
+
+  .es-header__lang {
+    display: inline-flex;
+    min-inline-size: 2.75rem;
+    min-block-size: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--es-line-strong);
+    border-radius: var(--es-radius-control);
+    font-size: var(--es-fs-ui);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  /* ── Solutions disclosure ────────────────────────────── */
+  .es-menu {
+    position: relative;
+  }
+
+  .es-menu__panel {
+    position: absolute;
+    z-index: 20;
+    inset-block-start: calc(100% + var(--es-space-2));
+    inset-inline-start: 0;
+    display: grid;
+    gap: var(--es-space-1);
+    min-inline-size: 16rem;
+    border: 1px solid var(--es-line);
+    border-radius: var(--es-radius-panel);
+    background: var(--es-white);
+    padding: var(--es-space-2);
+    box-shadow: var(--es-shadow-2);
+  }
+
+  .es-menu__panel[hidden] {
+    display: none;
+  }
+
+  /* The Sites panel carries seven destinations, so it is grouped rather
+     than served as one long list: two section labels separate "start
+     here" from "add later", and a footer rail holds the two secondary
+     routes (examples, integrations) that do not earn a top-level slot. */
+  .es-menu__panel--grouped {
+    min-inline-size: 19rem;
+  }
+
+  .es-menu__label {
+    display: flex;
+    align-items: center;
+    gap: var(--es-space-2);
+    padding: var(--es-space-3) var(--es-space-3) var(--es-space-1);
+    color: var(--es-blue-600);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* A short rule after the label keeps the group boundary legible
+     without adding another horizontal divider to a tall panel. */
+  .es-menu__label::after {
+    content: "";
+    flex: 1;
+    block-size: 1px;
+    background: var(--es-line);
+  }
+
+  .es-menu__label:first-child {
+    padding-block-start: var(--es-space-1);
+  }
+
+  .es-menu__foot {
+    display: grid;
+    gap: var(--es-space-1);
+    margin-block-start: var(--es-space-1);
+    border-block-start: 1px solid var(--es-line);
+    padding-block-start: var(--es-space-2);
+  }
+
+  .es-menu__foot a {
+    padding-block: var(--es-space-2);
+    color: var(--es-ink-72);
+    font-size: var(--es-fs-label);
+    font-weight: 600;
+  }
+
+  .es-menu__panel a {
+    display: grid;
+    gap: 0.1rem;
+    border-radius: var(--es-radius-row);
+    padding: var(--es-space-3);
+    text-decoration: none;
+  }
+
+  .es-menu__panel a:hover {
+    background: var(--es-mist);
+  }
+
+  .es-menu__panel b {
+    font-size: var(--es-fs-ui);
+  }
+
+  .es-menu__panel small {
+    color: var(--es-ink-60);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .es-header__burger {
+    display: none;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    place-items: center;
+    border: 1px solid var(--es-line-strong);
+    border-radius: var(--es-radius-control);
+  }
+
+  .es-header__burger svg {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+  }
+
+  /* ── Mobile drawer ───────────────────────────────────── */
+  .es-drawer {
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    background: var(--es-paper);
+  }
+
+  .es-drawer[hidden] {
+    display: none;
+  }
+
+  .es-drawer__top {
+    display: flex;
+    min-block-size: var(--es-header-h);
+    align-items: center;
+    justify-content: space-between;
+    border-block-end: 1px solid var(--es-line);
+    padding-inline: var(--es-gutter);
+  }
+
+  .es-drawer__close {
+    display: grid;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    place-items: center;
+    border: 1px solid var(--es-line-strong);
+    border-radius: var(--es-radius-control);
+  }
+
+  .es-drawer__body {
+    overflow-y: auto;
+    padding: var(--es-space-5) var(--es-gutter);
+  }
+
+  .es-drawer__group + .es-drawer__group {
+    margin-block-start: var(--es-space-6);
+  }
+
+  .es-drawer__group h2 {
+    color: var(--es-ink-46);
+    font-size: var(--es-fs-label);
+    font-weight: 700;
+    letter-spacing: 0.055em;
+  }
+
+  .es-drawer__body a {
+    display: flex;
+    min-block-size: 3rem;
+    align-items: center;
+    border-block-end: 1px solid var(--es-line);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .es-drawer__foot {
+    border-block-start: 1px solid var(--es-line);
+    padding: var(--es-space-4) var(--es-gutter);
+  }
+
+  .es-drawer__foot .es-button {
+    inline-size: 100%;
+  }
+
+  /* ── Footer ──────────────────────────────────────────── */
+  .es-footer {
+    border-block-start: 1px solid var(--es-line);
+    background: var(--es-navy-950);
+    color: var(--es-on-dark-muted);
+    padding-block: var(--es-section-space-compact);
+  }
+
+  .es-footer__grid {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr));
+    gap: var(--es-space-8);
+  }
+
+  .es-footer__brand img {
+    inline-size: 9rem;
+    block-size: auto;
+  }
+
+  .es-footer__tagline {
+    margin-block-start: var(--es-space-4);
+    max-inline-size: 22rem;
+    font-size: var(--es-fs-ui);
+    line-height: 1.7;
+  }
+
+  .es-footer h2 {
+    color: var(--es-on-dark);
+    font-size: var(--es-fs-label);
+    font-weight: 700;
+    letter-spacing: 0.055em;
+  }
+
+  .es-footer__links {
+    display: grid;
+    gap: var(--es-space-1);
+    margin-block-start: var(--es-space-4);
+  }
+
+  .es-footer__links a,
+  .es-footer__legal a {
+    display: inline-flex;
+    min-block-size: 2.75rem;
+    align-items: center;
+    color: var(--es-on-dark-muted);
+    font-size: var(--es-fs-ui);
+    text-decoration: none;
+  }
+
+  .es-footer__links a:hover,
+  .es-footer__legal a:hover {
+    color: var(--es-on-dark);
+    text-decoration: underline;
+  }
+
+  .es-footer__socials {
+    display: flex;
+    gap: var(--es-space-2);
+    margin-block-start: var(--es-space-5);
+  }
+
+  /* Real icons, never text abbreviations such as f / in / ig (§10). */
+  .es-footer__social {
+    display: grid;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    place-items: center;
+    border: 1px solid var(--es-line-dark);
+    border-radius: var(--es-radius-control);
+    color: var(--es-on-dark-muted);
+  }
+
+  .es-footer__social:hover {
+    border-color: var(--es-on-dark-muted);
+    color: var(--es-on-dark);
+  }
+
+  /* Constrained in both axes so the mark cannot expand to fill
+     its container if this stylesheet arrives late. The markup
+     also carries width/height for the same reason. */
+  .es-footer__social svg {
+    inline-size: 1.125rem;
+    block-size: 1.125rem;
+    max-inline-size: 1.125rem;
+    max-block-size: 1.125rem;
+  }
+
+  .es-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--es-space-4);
+    margin-block-start: var(--es-space-10);
+    border-block-start: 1px solid var(--es-line-dark);
+    padding-block-start: var(--es-space-5);
+  }
+
+  .es-footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--es-space-4);
+  }
+
+  .es-footer__copy {
+    color: var(--es-on-dark-muted);
+    font-size: var(--es-fs-ui);
+  }
+}
+
+@media (max-width: 30rem) {
+  .es-header__inner {
+    gap: 0.5rem;
+  }
+
+  .es-header__logo {
+    inline-size: 5.75rem;
+    overflow: hidden;
+    justify-content: center;
+  }
+
+  .es-header__logo img {
+    inline-size: 7rem;
+    max-inline-size: none;
+  }
+
+  .es-header__actions {
+    gap: 0.35rem;
+  }
+
+  .es-header__actions .es-button {
+    padding-inline: 0.6rem;
+  }
+
+  .es-header__actions .es-header-cta-long {
+    display: none;
+  }
+
+  .es-header__actions .es-header-cta-short {
+    display: inline;
+  }
+}

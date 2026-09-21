@@ -1,0 +1,261 @@
+/* Estavo Sites for brokerage companies.
+   Route thesis: the public company website is the largest surface, with
+   a governed admin/team rail attached to it. Navy carries the governed
+   core; paper/white carries the public customer surfaces. Deliberately
+   more structured than the freelancer page, but never a generic
+   enterprise dashboard of six equal feature tiles (brief §visual). */
+
+/* ── Hero ─────────────────────────────────────────────────── */
+.co-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 22% 18%, rgb(71 116 154 / 12%), transparent 26rem),
+    linear-gradient(180deg, var(--es-paper), var(--es-mist));
+}
+.co-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgb(19 40 60 / 7%) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+  pointer-events: none;
+}
+.co-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(32rem, 1.18fr);
+  align-items: center;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  min-block-size: calc(100svh - var(--es-header-h));
+  padding-block: clamp(4rem, 8vh, 6.5rem);
+}
+.co-hero__copy { display: grid; justify-items: start; gap: 1.3rem; }
+.co-hero .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+.co-hero h1 { max-inline-size: 36rem; color: var(--es-ink); font-size: clamp(2.3rem, 3.5vw, 2.9rem); font-weight: 600; line-height: 1.16; letter-spacing: -.04em; }
+[lang="ar"] .co-hero h1 { line-height: 1.38; letter-spacing: -.02em; }
+.co-hero__lead { max-inline-size: 36rem; color: var(--es-ink-72); font-size: clamp(1.02rem, 1.3vw, 1.15rem); line-height: 1.85; }
+.co-hero__note { max-inline-size: 34rem; color: var(--es-ink-60); font-size: .8rem; line-height: 1.7; }
+.co-hero__art { position: relative; min-inline-size: 0; align-self: center; }
+
+/* Site + attached rail. The rail overlaps the site's edge so the two
+   read as one system rather than two separate panels. */
+.co-stack { display: grid; grid-template-columns: minmax(0, 1fr) minmax(11rem, .42fr); align-items: start; gap: 0; }
+.co-site {
+  position: relative;
+  z-index: 1;
+  border: 1px solid var(--es-line);
+  border-radius: .9rem;
+  background: var(--es-white);
+  box-shadow: var(--es-shadow-3);
+  overflow: hidden;
+}
+.co-site__bar { display: flex; align-items: center; gap: .35rem; padding: .6rem .8rem; background: var(--es-mist); border-block-end: 1px solid var(--es-line); }
+.co-site__bar i { inline-size: .42rem; block-size: .42rem; border-radius: 50%; background: var(--es-line-strong); }
+.co-site__bar span { margin-inline-start: .6rem; color: var(--es-ink-60); font-size: .64rem; direction: ltr; }
+.co-site__nav { display: flex; align-items: center; gap: .85rem; padding: .7rem .9rem; border-block-end: 1px solid var(--es-line); }
+.co-site__nav strong { color: var(--es-ink); font-size: .82rem; font-weight: 600; }
+.co-site__nav span { color: var(--es-ink-60); font-size: .68rem; }
+.co-site__nav b { margin-inline-start: auto; border-radius: .28rem; background: var(--es-navy-900); color: var(--es-white); padding: .28rem .6rem; font-size: .64rem; font-weight: 500; }
+.co-site__hero { display: grid; gap: .5rem; margin: .7rem; border-radius: .6rem; background: var(--es-navy-950); color: var(--es-on-dark); padding: .95rem; }
+.co-site__hero small { color: var(--es-on-dark-muted); font-size: .64rem; }
+.co-site__hero strong { font-size: .95rem; font-weight: 600; line-height: 1.4; }
+.co-site__search { display: flex; align-items: center; gap: .35rem; margin-block-start: .25rem; }
+.co-site__search span { flex: 1; border-radius: .3rem; background: var(--es-white); color: var(--es-ink-60); padding: .35rem .5rem; font-size: .62rem; }
+.co-site__search b { border-radius: .3rem; background: var(--es-blue-600); color: var(--es-white); padding: .35rem .65rem; font-size: .62rem; font-weight: 500; }
+.co-site__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; padding: 0 .7rem .8rem; }
+.co-site__grid article { border: 1px solid var(--es-line); border-radius: .45rem; padding: .45rem; }
+.co-site__grid i {
+  display: block;
+  block-size: 2.2rem;
+  margin-block-end: .35rem;
+  border-radius: .3rem;
+  background:
+    linear-gradient(var(--es-line) 0 0) no-repeat .35rem 62% / 48% 1px,
+    linear-gradient(var(--es-line) 0 0) no-repeat .35rem 80% / 30% 1px,
+    var(--es-mist-2);
+}
+.co-site__grid b { display: block; color: var(--es-ink); font-size: .62rem; font-weight: 600; line-height: 1.35; }
+.co-site__grid small {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--es-ink-46);
+  font-size: .55rem;
+  line-height: 1.4;
+}
+
+/* Governed rail: navy, attached to the site's trailing edge. */
+/* The rail tucks under the site's trailing edge so the two read as one
+   system. It must sit BELOW the site in stacking order, and its content
+   needs padding on the overlapped side so nothing is clipped. */
+.co-rail {
+  align-self: center;
+  z-index: 0;
+  margin-inline-start: -1.25rem;
+  padding: 1rem .9rem 1rem 2rem;
+  border-radius: .75rem;
+  background: var(--es-navy-950);
+  color: var(--es-on-dark);
+  box-shadow: var(--es-shadow-2);
+}
+[dir="rtl"] .co-rail { padding: 1rem 2rem 1rem .9rem; }
+.co-rail__label { margin-block-end: .75rem; color: var(--es-art-mint); font-size: .62rem; font-weight: 600; letter-spacing: .04em; }
+.co-rail__list { display: grid; gap: .65rem; }
+.co-rail__list li { display: grid; grid-template-columns: .5rem minmax(0, 1fr); align-items: start; gap: .5rem; }
+.co-rail__dot { inline-size: .45rem; block-size: .45rem; margin-block-start: .3rem; border-radius: 50%; background: var(--es-line-dark); }
+.co-rail__dot--admin { background: var(--es-art-mint); }
+.co-rail__list b { grid-column: 2; color: var(--es-on-dark); font-size: .68rem; font-weight: 600; }
+.co-rail__list small { grid-column: 2; color: var(--es-on-dark-muted); font-size: .58rem; line-height: 1.45; }
+.co-rail__handoff { display: grid; gap: .2rem; margin-block-start: .85rem; border-block-start: 1px solid var(--es-line-dark); padding-block-start: .75rem; }
+.co-rail__handoff span { color: var(--es-on-dark-muted); font-size: .58rem; }
+.co-rail__handoff b { color: var(--es-art-mint); font-size: .66rem; font-weight: 600; }
+
+/* ── Brand chips ──────────────────────────────────────────── */
+.co-brand__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+.co-brand__chips { display: flex; flex-wrap: wrap; gap: .6rem; }
+.co-brand__chips span { border: 1px solid var(--es-line); border-radius: 999px; background: var(--es-white); padding: .55rem 1rem; color: var(--es-ink-72); font-size: .82rem; }
+
+/* ── Catalogue sources ────────────────────────────────────── */
+.co-catalogue { background: var(--es-navy-950); color: var(--es-on-dark); }
+.co-catalogue__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+.co-sources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.co-source { border: 1px solid var(--es-line-dark); border-radius: .75rem; padding: 1.35rem; }
+.co-source--company { background: rgb(255 255 255 / 6%); }
+.co-source__label { color: var(--es-on-dark); font-size: .92rem; font-weight: 600; }
+.co-source__owner { margin-block: .3rem 1rem; color: var(--es-art-mint); font-size: .7rem; font-weight: 600; }
+.co-source ul { display: grid; gap: .55rem; }
+.co-source li { color: var(--es-on-dark-muted); font-size: .8rem; line-height: 1.6; }
+
+/* ── Team roles ───────────────────────────────────────────── */
+.co-team__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+.co-roles { display: grid; gap: .65rem; counter-reset: role; }
+.co-roles li {
+  display: grid;
+  gap: .25rem;
+  border: 1px solid var(--es-line);
+  border-radius: .65rem;
+  background: var(--es-white);
+  padding: 1.1rem 1.25rem;
+}
+.co-roles strong { color: var(--es-ink); font-size: .95rem; font-weight: 600; }
+.co-roles span { color: var(--es-ink-60); font-size: .84rem; line-height: 1.65; }
+
+/* ── Capabilities ─────────────────────────────────────────── */
+.co-capabilities { background: var(--es-mist); }
+.co-cap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; margin-block-start: 2.75rem; }
+.co-cap { display: grid; align-content: start; gap: .6rem; border: 1px solid var(--es-line); border-radius: .85rem; background: var(--es-white); padding: 1.65rem; }
+.co-cap__icon { display: grid; inline-size: 2.75rem; block-size: 2.75rem; place-items: center; border: 1px solid var(--es-line); border-radius: .8rem; background: var(--es-mist); color: var(--es-blue-600); }
+.co-cap__icon svg { inline-size: 1.4rem; block-size: 1.4rem; }
+.co-cap h3 { color: var(--es-ink); font-size: 1.1rem; font-weight: 600; line-height: 1.45; }
+.co-cap p { color: var(--es-ink-60); font-size: .88rem; line-height: 1.75; }
+.co-cap .sites-text-link { margin-block-start: .5rem; }
+
+/* ── Fork ─────────────────────────────────────────────────── */
+.co-fork__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin-block-start: 2.5rem; }
+.co-fork__card { display: grid; align-content: start; gap: .6rem; border: 1px solid var(--es-line); border-radius: .85rem; background: var(--es-white); padding: 1.85rem; }
+.co-fork__card--primary { border-color: var(--es-line-strong); box-shadow: var(--es-shadow-1); }
+.co-fork__label { color: var(--es-ink-60); font-size: .76rem; font-weight: 600; }
+.co-fork__card h3 { color: var(--es-ink); font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+.co-fork__card p { color: var(--es-ink-60); font-size: .9rem; line-height: 1.75; }
+.co-fork__card .btn { justify-self: start; margin-block-start: .6rem; }
+
+/* ── Scope ────────────────────────────────────────────────── */
+.co-scope__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: start; gap: clamp(2rem, 5vw, 4.5rem); }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 68rem) {
+  .co-hero__inner,
+  .co-brand__inner,
+  .co-catalogue__inner,
+  .co-team__inner,
+  .co-scope__inner { grid-template-columns: minmax(0, 1fr); }
+  .co-hero__inner { min-block-size: 0; gap: 2.5rem; }
+  .co-cap-grid { gap: .9rem; }
+}
+
+/* ============================================================
+   Mechanism, output and risk-reversal sections.
+
+   The company page previously ran hero → proof → description →
+   FAQ, with no visible transition from today to a running site
+   and no low-risk first step. These three blocks supply the
+   middle of the sale that /websites/ already had.
+   ============================================================ */
+.co-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+.co-step {
+  position: relative;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  border: 1px solid var(--es-line);
+  border-radius: var(--es-radius-panel);
+  background: var(--es-white);
+  box-shadow: var(--es-shadow-1);
+}
+/* The number is the only ornament; the step title carries the claim. */
+.co-step__num {
+  display: grid;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  place-items: center;
+  margin-block-end: .85rem;
+  border-radius: 50%;
+  background: var(--es-navy-950);
+  color: #fff;
+  font-size: .95rem;
+  font-weight: 600;
+}
+.co-step__title { display: block; color: var(--es-ink); font-size: 1.05rem; font-weight: 600; }
+.co-step__body { margin-block-start: .5rem; color: var(--es-ink-60); font-size: .88rem; line-height: 1.7; }
+
+.co-output__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(.85rem, 2vw, 1.25rem);
+}
+.co-output__item {
+  padding: clamp(1.1rem, 2.2vw, 1.5rem);
+  border: 1px solid var(--es-line);
+  border-radius: var(--es-radius-row);
+  background: var(--es-mist);
+}
+.co-output__item strong { display: block; color: var(--es-ink); font-size: 1rem; font-weight: 600; }
+.co-output__item p { margin-block-start: .4rem; color: var(--es-ink-60); font-size: .86rem; line-height: 1.65; }
+
+
+@media (max-width: 48rem) {
+  /* Phone order from the brief: company brand → managed catalogue →
+     one buyer request handed to sales. The rail moves beneath the
+     site and stops overlapping it. */
+  .co-stack { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+  .co-rail { margin-inline-start: 0; }
+  [dir="rtl"] .co-rail { margin-inline-start: 0; }
+  .co-site__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .co-site__grid article:last-child { display: none; }
+  .co-sources,
+  .co-cap-grid,
+  .co-fork__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 24rem) {
+  .co-site__grid { grid-template-columns: minmax(0, 1fr); }
+  .co-site__grid article:nth-child(2) { display: none; }
+  .co-brand__chips span { font-size: .76rem; }
+}
+
+@media (max-width: 48rem) {
+  /* The plan forbids shrinking a desktop composition onto a phone:
+     these become one readable column instead. */
+  .co-steps,
+  .co-output__grid { grid-template-columns: minmax(0, 1fr); }
+}

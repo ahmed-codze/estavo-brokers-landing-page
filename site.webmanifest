@@ -1,25 +1,25 @@
 {
-  "name": "Estavo Brokers — AI Real Estate Platform",
+  "name": "Estavo — Egypt's real-estate inventory",
   "short_name": "Estavo",
-  "description": "AI-powered workspace for real estate brokers in Egypt.",
-  "start_url": "/",
-  "scope": "/",
+  "description": "Developer, project, unit, price and payment-plan information for Egypt, maintained by Estavo and used through search, a branded website, AI, or an integration.",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#021D39",
-  "theme_color": "#021D39",
+  "background_color": "#0b2239",
+  "theme_color": "#0b2239",
   "lang": "ar",
   "dir": "rtl",
   "categories": ["business", "productivity", "real estate"],
   "icons": [
     {
-      "src": "/assets/logo/Estavo%20Icon.png",
+      "src": "assets/logo/Estavo%20Icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/assets/logo/Estavo%20Icon.png",
+      "src": "assets/logo/Estavo%20Icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"

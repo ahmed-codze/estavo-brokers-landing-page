@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" role="img"><title>Illustrative three-bedroom apartment plan</title><g transform="translate(0 0) scale(1.0 1.0)"><rect width="240" height="200" rx="12" fill="#f1f5f8"/>
+    <g fill="#ffffff"><path d="M22 22H100V82H22Z"/><path d="M106 22H174V82H106Z"/><path d="M180 22H218V113H180Z"/><path d="M22 88H100V174H22Z"/><path d="M106 88H174V174H106Z"/></g>
+    <g fill="#d5e5ef">
+      <rect x="34" y="32" width="46" height="34" rx="3"/><rect x="116" y="32" width="42" height="34" rx="3"/><rect x="33" y="104" width="45" height="38" rx="3"/>
+      <rect x="117" y="139" width="45" height="15" rx="4"/><rect x="151" y="119" width="11" height="25" rx="3"/><rect x="124" y="117" width="18" height="12" rx="3"/>
+      <path d="M186 30H211V39H194V61H186Z"/><rect x="187" y="77" width="23" height="19" rx="4"/>
+    </g>
+    <g fill="none" stroke="#28567f" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 22H218V174H22Z" stroke-width="3"/>
+      <path d="M103 22V65M103 80V111M103 133V174M177 22V103M177 125V174M22 85H66M86 85H125M145 85H177" stroke-width="2.5"/>
+      <path d="M103 65H88M88 65a15 15 0 0 0 15 15M66 85V65M66 65a20 20 0 0 1 20 20M125 85V65M125 65a20 20 0 0 1 20 20M177 103H199M199 103a22 22 0 0 1-22 22M103 111H125M125 111a22 22 0 0 1-22 22" stroke-width="1" opacity=".55"/>
+      <path d="M40 38H53V45H40ZM59 38H72V45H59ZM123 38H135V45H123ZM140 38H152V45H140ZM39 111H52V119H39ZM58 111H71V119H58" stroke-width="1" opacity=".6"/>
+      <path d="M117 149H162M155 119V139M187 43h6M187 51h6M197 33h8M194 81v10" stroke-width="1" opacity=".6"/>
+      <path d="M43 180H80M121 180H158M38 16H80M117 16H159M224 44V76" stroke-width="3"/>
+      <path d="M185 174V153M185 153a21 21 0 0 1 21 21" stroke-width="1" opacity=".6"/>
+    </g></g></svg>

@@ -1,4 +1,4 @@
-# Estavo Brokers — robots.txt
+# Estavo — robots.txt
 # https://estavo-brokers.com/
 
 User-agent: *
@@ -7,6 +7,9 @@ Disallow: /assets/estavo-guide-character/
 Disallow: /*.md$
 Disallow: /index-deprecated.html
 Disallow: /ar.html
+Disallow: /index.old.html
+Disallow: /en.old.html
+Disallow: /tools/
 
 # Block aggressive AI scrapers (optional — remove if you want AI training)
 User-agent: GPTBot

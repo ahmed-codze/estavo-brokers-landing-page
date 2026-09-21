@@ -1,0 +1,165 @@
+/* ============================================================
+   Estavo v3 — layout primitives
+   Containers, sections, grids and copy blocks.
+   All spacing uses logical properties so RTL and LTR share
+   one rule set (Visual Theme Plan v1 §7.2.6).
+   ============================================================ */
+
+@layer layout {
+  .es-skip-link {
+    position: fixed;
+    z-index: 10000;
+    inset-block-start: var(--es-space-3);
+    inset-inline-start: var(--es-space-3);
+    translate: 0 -180%;
+    border-radius: var(--es-radius-control);
+    background: var(--es-white);
+    color: var(--es-navy-950);
+    font-weight: 700;
+    padding: var(--es-space-3) var(--es-space-4);
+    box-shadow: var(--es-shadow-2);
+    transition: translate var(--es-speed-control) var(--es-ease);
+  }
+
+  .es-skip-link:focus {
+    translate: 0;
+  }
+
+  .es-container {
+    inline-size: min(100% - (2 * var(--es-gutter)), var(--es-container));
+    margin-inline: auto;
+  }
+
+  .es-container--reading {
+    max-inline-size: var(--es-container-reading);
+  }
+
+  .es-container--theatre {
+    max-inline-size: var(--es-container-theatre);
+  }
+
+  .es-section {
+    position: relative;
+    padding-block: var(--es-section-space);
+  }
+
+  .es-section--compact {
+    padding-block: var(--es-section-space-compact);
+  }
+
+  .es-section--mist {
+    background: var(--es-mist);
+  }
+
+  .es-stack {
+    display: grid;
+    gap: var(--es-stack-gap, var(--es-space-6));
+  }
+
+  .es-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--es-cluster-gap, var(--es-space-3));
+  }
+
+  .es-split {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    align-items: center;
+    gap: clamp(3rem, 7vw, 7rem);
+  }
+
+  /* Visual order flips without touching DOM order, so keyboard
+     and screen-reader order still match reading order (§7.4). */
+  .es-split--reverse > :first-child {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .es-split--reverse > :last-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .es-grid-2,
+  .es-grid-3,
+  .es-grid-4 {
+    display: grid;
+    gap: var(--es-space-5);
+  }
+
+  .es-grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .es-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .es-grid-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  /* Hero: copy beside its figure. The copy column keeps its own
+     measure so the headline never stretches to meet the
+     illustration; responsive.css collapses this to one column
+     below 1024px, where the figure follows the copy instead. */
+  .es-hero .es-container {
+    inline-size: min(calc(100% - (2 * var(--es-gutter))), 96rem);
+    max-inline-size: 96rem;
+  }
+
+  .es-hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: clamp(1.25rem, 1.75vw, 2rem);
+  }
+
+  @media (min-width: 64rem) {
+    .es-hero {
+      display: grid;
+      min-block-size: calc(100svh - var(--es-header-h));
+      align-items: center;
+    }
+    .es-hero h1 { font-size: clamp(3.75rem, 4.75vw, 4.5rem); }
+    .es-hero__copy { transform: translateY(-1.25rem); }
+  }
+
+  .es-copy {
+    display: grid;
+    justify-items: start;
+    gap: var(--es-space-5);
+    max-inline-size: 39rem;
+  }
+
+  .es-copy--center {
+    justify-items: center;
+    max-inline-size: 58rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  /* Arabic reads comfortably at roughly 34–40 characters (§3.2). */
+  .es-lead {
+    max-inline-size: 42rem;
+    color: var(--es-ink-72);
+    font-size: var(--es-fs-lead);
+    line-height: 1.75;
+    text-wrap: pretty;
+  }
+
+  .es-dark .es-lead {
+    color: var(--es-on-dark-muted);
+  }
+
+  .es-prose p + p {
+    margin-block-start: var(--es-space-4);
+  }
+
+  .es-prose {
+    color: var(--es-ink-72);
+    max-inline-size: 42rem;
+  }
+}

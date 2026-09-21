@@ -1,0 +1,191 @@
+/* Broker-network distribution — one owner-controlled property record
+   branching to a branded Site and a professional broker-network view.
+   The record is deliberately larger and heavier than either output:
+   the brief requires the original broker to stay visually central, so
+   Estavo never looks like it takes over the listing. */
+
+/* ── Hero ─────────────────────────────────────────────────── */
+.net-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 80% 24%, rgb(71 116 154 / 12%), transparent 26rem),
+    linear-gradient(180deg, var(--es-paper), var(--es-mist));
+}
+.net-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgb(19 40 60 / 7%) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+  pointer-events: none;
+}
+.net-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(30rem, 1.1fr);
+  align-items: center;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  min-block-size: calc(100svh - var(--es-header-h));
+  padding-block: clamp(4rem, 8vh, 6.5rem);
+}
+.net-hero__copy { display: grid; justify-items: start; gap: 1.3rem; }
+.net-hero .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+.net-hero h1 { max-inline-size: 38rem; color: var(--es-ink); font-size: clamp(2.35rem, 3.7vw, 3rem); font-weight: 600; line-height: 1.16; letter-spacing: -.04em; }
+[lang="ar"] .net-hero h1 { line-height: 1.38; letter-spacing: -.02em; }
+.net-hero__lead { max-inline-size: 37rem; color: var(--es-ink-72); font-size: clamp(1.02rem, 1.3vw, 1.15rem); line-height: 1.85; }
+.net-hero__note { max-inline-size: 34rem; color: var(--es-ink-60); font-size: .8rem; line-height: 1.7; }
+.net-hero__art { position: relative; min-inline-size: 0; align-self: center; }
+
+/* The flow: record → branch → two outputs. */
+.net-flow { display: grid; grid-template-columns: minmax(0, 1fr) 3rem minmax(0, 1.05fr); align-items: center; gap: 0; }
+
+.net-record {
+  border: 1px solid var(--es-line-strong);
+  border-radius: .9rem;
+  background: var(--es-white);
+  box-shadow: var(--es-shadow-3);
+  padding: 1.15rem;
+}
+.net-record__head { display: grid; gap: .25rem; }
+.net-record__tag { justify-self: start; border-radius: 999px; background: var(--es-navy-950); color: var(--es-white); padding: .2rem .6rem; font-size: .62rem; font-weight: 600; }
+.net-record__head strong { margin-block-start: .35rem; color: var(--es-ink); font-size: 1rem; font-weight: 600; }
+.net-record__head small { color: var(--es-ink-60); font-size: .74rem; }
+.net-record__plan { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .3rem; margin-block: .85rem; }
+.net-record__plan i {
+  display: block;
+  block-size: 2.1rem;
+  border: 1px solid var(--es-line);
+  border-radius: .3rem;
+  background:
+    linear-gradient(var(--es-line) 0 0) no-repeat .4rem 50% / 45% 1px,
+    linear-gradient(var(--es-line) 0 0) no-repeat .4rem 70% / 28% 1px,
+    var(--es-mist);
+}
+.net-record__plan i:first-child { grid-row: span 2; block-size: auto; }
+.net-record__fields { display: grid; gap: .5rem; border-block-start: 1px solid var(--es-line); padding-block-start: .75rem; }
+.net-record__fields div { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.net-record__fields dt { color: var(--es-ink-60); font-size: .72rem; }
+.net-record__fields dd { color: var(--es-ink); font-size: .76rem; font-weight: 600; }
+/* Commission is the field the brief wants visibly under the owner's control. */
+.net-record__commission { color: var(--es-blue-700) !important; }
+
+/* Grid-tracked branch: both ends stay attached at any width. */
+.net-branch { position: relative; block-size: 100%; min-block-size: 8rem; }
+.net-branch__stem { position: absolute; inset-block: 25%; inset-inline-start: calc(50% - 1px); inline-size: 1px; background: var(--es-line-strong); }
+.net-branch__arm { position: absolute; inset-inline: -.1rem; block-size: 1px; background: var(--es-line-strong); }
+.net-branch__arm--up { inset-block-start: 25%; }
+.net-branch__arm--down { inset-block-start: 75%; }
+
+.net-outputs { display: grid; gap: .9rem; }
+.net-output { display: grid; gap: .4rem; }
+.net-output__label { color: var(--es-ink-60); font-size: .68rem; font-weight: 600; letter-spacing: .04em; }
+
+/* Site output uses browser framing (brief: visual system). */
+.net-browser { border: 1px solid var(--es-line); border-radius: .6rem; background: var(--es-white); overflow: hidden; }
+.net-browser__bar { display: flex; align-items: center; gap: .3rem; padding: .4rem .55rem; background: var(--es-mist); }
+.net-browser__bar i { inline-size: .35rem; block-size: .35rem; border-radius: 50%; background: var(--es-line-strong); }
+.net-browser__bar span { margin-inline-start: .5rem; color: var(--es-ink-46); font-size: .58rem; direction: ltr; }
+.net-browser__page { display: grid; gap: .45rem; padding: .6rem; }
+.net-browser__page > strong { color: var(--es-ink); font-size: .74rem; font-weight: 600; }
+.net-browser__card { display: flex; align-items: center; gap: .45rem; border: 1px solid var(--es-line); border-radius: .4rem; padding: .4rem; }
+.net-browser__card i { inline-size: 1.9rem; block-size: 1.5rem; flex: none; border-radius: .25rem; background: var(--es-mist-2); }
+.net-browser__card b { display: block; color: var(--es-ink); font-size: .68rem; font-weight: 600; }
+.net-browser__card small { color: var(--es-ink-60); font-size: .6rem; }
+.net-browser__cta { justify-self: start; border-radius: .3rem; background: var(--es-navy-900); color: var(--es-white); padding: .3rem .6rem; font-size: .62rem; font-weight: 500; }
+
+/* Network output is a compact professional row view, not a card. */
+.net-rows { border: 1px solid var(--es-line-strong); border-radius: .6rem; background: var(--es-white); padding: .6rem; }
+.net-rows__head { display: flex; align-items: center; justify-content: space-between; gap: .75rem; border-block-end: 1px solid var(--es-line); padding-block-end: .4rem; color: var(--es-ink-46); font-size: .6rem; font-weight: 600; }
+.net-row { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding-block: .55rem; }
+.net-row b { display: block; color: var(--es-ink); font-size: .7rem; font-weight: 600; }
+.net-row small { color: var(--es-ink-60); font-size: .6rem; }
+.net-row__fee { flex: none; border-radius: .25rem; background: var(--es-blue-700); color: var(--es-white); padding: .22rem .5rem; font-size: .62rem; font-weight: 600; }
+.net-rows__owner { border-block-start: 1px solid var(--es-line); padding-block-start: .45rem; color: var(--es-ink-60); font-size: .6rem; }
+
+/* ── Add-once fields ──────────────────────────────────────── */
+.net-add__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .95fr); align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+.net-fields { display: flex; flex-wrap: wrap; gap: .55rem; }
+.net-fields span { border: 1px solid var(--es-line); border-radius: 999px; background: var(--es-white); padding: .5rem .95rem; color: var(--es-ink-72); font-size: .8rem; }
+
+/* ── Two outputs ──────────────────────────────────────────── */
+.net-outputs-section { background: var(--es-mist); }
+.net-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin-block-start: 2.75rem; }
+.net-two__card { display: grid; align-content: start; gap: .6rem; border: 1px solid var(--es-line); border-radius: .85rem; background: var(--es-white); padding: 1.75rem; }
+.net-two__card--network { border-color: var(--es-line-strong); box-shadow: var(--es-shadow-1); }
+.net-two__step { color: var(--es-blue-600); font-size: .78rem; font-weight: 600; letter-spacing: .06em; }
+.net-two__card h3 { color: var(--es-ink); font-size: 1.15rem; font-weight: 600; line-height: 1.45; }
+.net-two__card > p { color: var(--es-ink-60); font-size: .9rem; line-height: 1.75; }
+.net-two__list { display: grid; gap: .5rem; margin-block-start: .35rem; }
+.net-two__list li { position: relative; padding-inline-start: 1.1rem; color: var(--es-ink-72); font-size: .84rem; line-height: 1.6; }
+[dir="rtl"] .net-two__list li { padding-inline-start: 0; padding-inline-end: 1.1rem; }
+.net-two__list li::before { content: ""; position: absolute; inset-inline-start: 0; inset-block-start: .5rem; inline-size: .38rem; block-size: .38rem; border-radius: 50%; background: var(--es-blue-600); }
+[dir="rtl"] .net-two__list li::before { inset-inline-start: auto; inset-inline-end: 0; }
+.net-outputs-section__note { margin-block-start: 1.5rem; color: var(--es-ink-60); font-size: .8rem; text-align: center; }
+
+/* ── Commission and deal ownership ────────────────────────── */
+.net-control { background: var(--es-navy-950); color: var(--es-on-dark); }
+.net-control__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+.net-control__limit { margin-block-start: 1.25rem; max-inline-size: 36rem; color: var(--es-on-dark-muted); font-size: .78rem; line-height: 1.75; }
+.net-roles { display: grid; gap: .85rem; }
+.net-roles div { display: grid; gap: .25rem; border: 1px solid var(--es-line-dark); border-radius: .6rem; background: rgb(255 255 255 / 5%); padding: 1rem 1.15rem; }
+.net-roles dt { color: var(--es-art-mint); font-size: .8rem; font-weight: 600; }
+.net-roles dd { color: var(--es-on-dark-muted); font-size: .84rem; line-height: 1.6; }
+
+/* ── Status ───────────────────────────────────────────────── */
+.net-status__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+.net-states { display: grid; gap: .5rem; }
+.net-state { display: flex; align-items: center; gap: .6rem; border: 1px solid var(--es-line); border-radius: .5rem; background: var(--es-white); padding: .7rem .9rem; color: var(--es-ink-72); font-size: .85rem; }
+.net-state::before { content: ""; inline-size: .5rem; block-size: .5rem; flex: none; border-radius: 50%; background: var(--es-line-strong); }
+.net-state--live::before { background: var(--es-positive); }
+.net-state--off { color: var(--es-ink-46); }
+.net-state--off::before { background: var(--es-ink-46); }
+
+/* ── Journey strip ────────────────────────────────────────── */
+.net-journey { background: var(--es-mist); }
+.net-journey__strip { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .75rem; margin-block-start: 2.5rem; }
+.net-journey__strip li { display: grid; justify-items: center; gap: .5rem; border: 1px solid var(--es-line); border-radius: .6rem; background: var(--es-white); padding: 1.1rem .65rem; text-align: center; }
+.net-journey__strip span { display: grid; inline-size: 1.7rem; block-size: 1.7rem; place-items: center; border-radius: 50%; background: var(--es-navy-950); color: var(--es-white); font-size: .72rem; font-weight: 600; }
+.net-journey__strip strong { color: var(--es-ink); font-size: .8rem; font-weight: 600; line-height: 1.4; }
+.net-journey__cta { display: flex; justify-content: center; margin-block-start: 2.5rem; }
+
+/* ── Managed entry ────────────────────────────────────────── */
+.net-managed__inner { max-inline-size: 48rem; }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 68rem) {
+  .net-hero__inner,
+  .net-add__inner,
+  .net-control__inner,
+  .net-status__inner { grid-template-columns: minmax(0, 1fr); }
+  .net-hero__inner { min-block-size: 0; gap: 2.5rem; }
+  .net-journey__strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 48rem) {
+  /* Phone keeps the Y-shape the brief asks for: record first, then
+     the branch turns vertical and the two outputs stack beneath it. */
+  .net-flow { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 2rem auto; }
+  .net-branch { min-block-size: 0; }
+  .net-branch__stem { inset-block: 0; inset-inline-start: calc(50% - 1px); }
+  .net-branch__arm { display: none; }
+  .net-two,
+  .net-journey__strip { grid-template-columns: minmax(0, 1fr); }
+  .net-two { gap: .85rem; }
+  .net-journey__strip li { grid-template-columns: auto minmax(0, 1fr); justify-items: start; text-align: start; }
+}
+
+@media (max-width: 24rem) {
+  .net-fields span { font-size: .75rem; padding: .45rem .8rem; }
+  .net-record { padding: .9rem; }
+}
+
+/* ── Motion ───────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  /* Both outputs arrive together so the branch never appears to
+     connect to something that is not there yet. Entrance only —
+     the content is visible whether or not this ever runs. */
+  .has-js .net-flow[data-reveal] .net-output { transition: opacity var(--es-speed-reveal) var(--es-ease), translate var(--es-speed-reveal) var(--es-ease); }
+}

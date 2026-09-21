@@ -1,0 +1,161 @@
+/* ============================================================
+   Estavo v3 — motion (§5)
+
+   Progressive enhancement contract (§5.4): content is visible
+   by default. Only once JS has added .has-js may animation
+   styles hide anything. This is what prevents the blank
+   below-fold state when the reveal script never runs.
+   ============================================================ */
+
+@layer motion {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .has-js [data-reveal] {
+      opacity: 0;
+      transform: translateY(0.75rem);
+      transition:
+        opacity var(--es-speed-reveal) var(--es-ease),
+        transform var(--es-speed-reveal) var(--es-ease);
+    }
+
+    .has-js [data-reveal].is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Staggered rows: 120ms apart, capped so the whole
+       sequence finishes within 600ms (§5.2). */
+    .has-js [data-reveal-stagger] > * {
+      opacity: 0;
+      transform: translateY(0.5rem);
+      transition:
+        opacity 480ms var(--es-ease),
+        transform 480ms var(--es-ease);
+    }
+
+    .has-js [data-reveal-stagger].is-visible > * {
+      opacity: 1;
+      transform: none;
+    }
+
+    .has-js [data-reveal-stagger].is-visible > :nth-child(1) { transition-delay: 0ms; }
+    .has-js [data-reveal-stagger].is-visible > :nth-child(2) { transition-delay: 120ms; }
+    .has-js [data-reveal-stagger].is-visible > :nth-child(3) { transition-delay: 240ms; }
+    .has-js [data-reveal-stagger].is-visible > :nth-child(4) { transition-delay: 360ms; }
+    .has-js [data-reveal-stagger].is-visible > :nth-child(5) { transition-delay: 480ms; }
+
+    /* The rail draws once, toward the destination. It explains
+       propagation; it is not an ambient loop (§5.1). */
+    .has-js .es-flow[data-flow-active] .es-flow__rail::before {
+      transform: scaleX(0);
+      transform-origin: right;
+      animation: es-draw-rail 800ms var(--es-ease) forwards;
+    }
+
+    [dir="ltr"] .has-js .es-flow[data-flow-active] .es-flow__rail::before {
+      transform-origin: left;
+    }
+  }
+
+  @keyframes es-draw-rail {
+    to { transform: scaleX(1); }
+  }
+
+  /* ── Hero figure ─────────────────────────────────────────
+     Above the fold, so it cannot use [data-reveal] (which waits
+     on an observer). It assembles once on load, then rests.
+     Nothing loops (§5.1).
+
+     Order: the core builds base-up, the map and cards arrive,
+     connectors draw toward the core, surfaces appear last.
+     Additive — with no JS or reduced motion it is already
+     in its final state. */
+  @media (prefers-reduced-motion: no-preference) {
+    .has-js .es-hero-figure__pillars,
+    .has-js .es-hero-figure__glass,
+    .has-js .es-hero-figure__cube {
+      animation: es-figure-rise 720ms var(--es-ease) both;
+    }
+
+    .has-js .es-hero-figure__glass { animation-delay: 90ms; }
+    .has-js .es-hero-figure__cube { animation-delay: 170ms; }
+
+    .has-js .es-hero-figure__pillar {
+      animation: es-figure-settle 420ms var(--es-ease) both;
+    }
+
+    .has-js .es-hero-figure__pillar:nth-child(1) { animation-delay: 300ms; }
+    .has-js .es-hero-figure__pillar:nth-child(2) { animation-delay: 355ms; }
+    .has-js .es-hero-figure__pillar:nth-child(3) { animation-delay: 410ms; }
+    .has-js .es-hero-figure__pillar:nth-child(4) { animation-delay: 465ms; }
+
+    .has-js .es-hero-card,
+    .has-js .es-hero-output {
+      animation: es-figure-settle 540ms var(--es-ease) both;
+    }
+
+    .has-js .es-hero-card--devs { animation-delay: 320ms; }
+    .has-js .es-hero-card--units { animation-delay: 380ms; }
+    .has-js .es-hero-card--projects { animation-delay: 440ms; }
+    .has-js .es-hero-card--prices { animation-delay: 500ms; }
+    .has-js .es-hero-card--plans { animation-delay: 560ms; }
+
+    /* Connectors draw toward what they feed. */
+    .has-js .es-hero-figure__links path {
+      stroke-dasharray: var(--es-link-len, 40);
+      stroke-dashoffset: var(--es-link-len, 40);
+      animation: es-draw-link 700ms var(--es-ease) forwards;
+    }
+
+    .has-js .es-hero-figure__links path:nth-of-type(1) { animation-delay: 420ms; }
+    .has-js .es-hero-figure__links path:nth-of-type(2) { animation-delay: 470ms; }
+    .has-js .es-hero-figure__links path:nth-of-type(3) { animation-delay: 520ms; }
+    .has-js .es-hero-figure__links path:nth-of-type(4) { animation-delay: 570ms; }
+    .has-js .es-hero-figure__links path:nth-of-type(5) { animation-delay: 620ms; }
+    .has-js .es-hero-figure__links path:nth-of-type(6) { animation-delay: 700ms; }
+    .has-js .es-hero-figure__links path:nth-of-type(7) { animation-delay: 740ms; }
+    .has-js .es-hero-figure__links path:nth-of-type(8) { animation-delay: 780ms; }
+
+    .has-js .es-hero-figure__links circle {
+      animation: es-figure-settle 300ms var(--es-ease) both;
+      animation-delay: 860ms;
+    }
+
+    .has-js .es-hero-output:nth-child(1) { animation-delay: 820ms; }
+    .has-js .es-hero-output:nth-child(2) { animation-delay: 880ms; }
+    .has-js .es-hero-output:nth-child(3) { animation-delay: 940ms; }
+  }
+
+  @keyframes es-draw-link {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes es-figure-rise {
+    from { opacity: 0; scale: 0.94; }
+    to { opacity: 1; scale: 1; }
+  }
+
+  @keyframes es-figure-settle {
+    from { opacity: 0; translate: 0 0.5rem; }
+    to { opacity: 1; translate: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

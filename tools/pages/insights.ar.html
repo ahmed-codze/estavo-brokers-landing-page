@@ -1,0 +1,145 @@
+        <!-- ══════════════════════════════════════════════════
+             INSIGHTS — Arabic
+             §7.8: use actual editorial inventory. No invented
+             developer announcements, launch dates or reports.
+             With no approved articles available, this ships as
+             an honest index with a real empty state and the
+             filter/read action the plan permits — never a
+             "follow this city" subscription that does not exist.
+             ══════════════════════════════════════════════════ -->
+        <section class="es-hero es-service-hero" aria-labelledby="hero-h">
+            <div class="es-container">
+                <div class="es-hero__copy">
+                    <span class="es-eyebrow">أخبار وتحليلات السوق</span>
+                    <h1 id="hero-h">تابع جديد المشاريع والمناطق اللي بتشتغل فيها.</h1>
+                    <p class="es-lead">
+                        أخبار المطورين وإطلاقات المشاريع وتحديثات السوق، مع تاريخ
+                        ومصدر واضح لكل مادة منشورة.
+                    </p>
+                    <div class="es-cluster es-cluster--actions">
+                        <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-button es-button--primary"
+                            data-track="market_opened" data-position="hero">استخدم <bdi>Estavo Market</bdi> مجانًا</a>
+                    </div>
+                </div>
+            <div class="es-service-hero-art es-service-hero-art--diagram" aria-hidden="true"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="/assets/img/estavo-roi-breakdown-still.svg" type="image/svg+xml" /><img src="/assets/img/estavo-roi-breakdown.svg" width="1024" height="640" alt="" decoding="async" fetchpriority="high" /></picture><div class="es-service-hero-mobile"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="/assets/img/estavo-roi-breakdown-mobile-still.svg" type="image/svg+xml" /><img src="/assets/img/estavo-roi-breakdown-mobile.svg" width="390" height="430" alt="" decoding="async" /></picture></div></div></div>
+        </section>
+
+        <section class="es-section es-section--mist" aria-labelledby="filters-h">
+            <div class="es-container">
+                <div class="es-copy es-copy--center" data-reveal>
+                    <span class="es-eyebrow">الفلاتر</span>
+                    <h2 id="filters-h">الأخبار هتظهر هنا بالمصدر وتاريخ النشر.</h2>
+                </div>
+
+                <div class="es-container--theatre es-mt-8" data-reveal>
+                    <div class="es-panel es-panel--pad">
+                        <div class="es-grid-4">
+                            <div class="es-field">
+                                <label for="n-city">المدينة</label>
+                                <select class="es-select" id="n-city"><option>كل المدن</option></select>
+                            </div>
+                            <div class="es-field">
+                                <label for="n-area">المنطقة</label>
+                                <select class="es-select" id="n-area"><option>كل المناطق</option></select>
+                            </div>
+                            <div class="es-field">
+                                <label for="n-dev">المطور</label>
+                                <select class="es-select" id="n-dev"><option>كل المطورين</option></select>
+                            </div>
+                            <div class="es-field">
+                                <label for="n-type">نوع المحتوى</label>
+                                <select class="es-select" id="n-type">
+                                    <option>الكل</option>
+                                    <option>أخبار</option>
+                                    <option>إطلاقات</option>
+                                    <option>تحديثات مشاريع</option>
+                                    <option>ملخصات أسبوعية</option>
+                                    <option>تقارير</option>
+                                    <option>تحليلات</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Honest empty state. Cards appear here only when
+                         approved editorial content exists (§7.8). -->
+                    <div class="es-panel es-panel--pad es-mt-6 es-center">
+                        <p class="es-kicker">لسه مفيش محتوى منشور</p>
+                        <p class="es-note es-mt-4">
+                            أول ما ينزل محتوى متاح، هيظهر هنا بتاريخ نشره ومصدره ونوعه.
+                            لحد ساعتها تقدر تروح لبيانات المشاريع مباشرة.
+                        </p>
+                        <p class="es-mt-6">
+                            <a href="/market/" class="es-text-link" data-track="market_opened"
+                                data-position="insights_empty">شوف <bdi>Estavo Market</bdi></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="es-section" aria-labelledby="anatomy-h">
+            <div class="es-container">
+                <div class="es-copy es-copy--center" data-reveal>
+                    <span class="es-eyebrow">شكل المحتوى</span>
+                    <h2 id="anatomy-h">كل مادة بتوضح مصدرها وتاريخها.</h2>
+                    <p class="es-lead">
+                        الخبر بيتفصل عن التحليل. والتحليل بيوضح البيانات المستخدمة والفترة
+                        ونطاق المدن والمشاريع وطريقة القراءة.
+                    </p>
+                </div>
+
+                <div class="es-grid-2 es-mt-8" data-reveal-stagger>
+                    <div class="es-panel es-panel--pad">
+                        <span class="es-status">خبر</span>
+                        <h3 class="es-mt-4">بيانات المادة</h3>
+                        <p class="es-note es-mt-4">
+                            نوع المحتوى · الكاتب · تاريخ النشر · آخر تحديث ·
+                            المدينة والمنطقة · المشروع والمطور · المصادر
+                        </p>
+                    </div>
+                    <div class="es-panel es-panel--pad">
+                        <span class="es-status">تحليل</span>
+                        <h3 class="es-mt-4">أساس القراءة</h3>
+                        <p class="es-note es-mt-4">
+                            الفترة · نطاق المدن والمشاريع · البيانات المستخدمة · أساس الأسعار ·
+                            طريقة التحليل · المعلومات غير المتاحة
+                        </p>
+                    </div>
+                </div>
+
+                <p class="es-note es-mt-6 es-center">
+                    أسعار الطلب وأسعار التعاقد وأسعار بداية الوحدات مش نفس الشيء،
+                    وتغيّر تشكيلة المعروض وحده مش دليل على ارتفاع السوق.
+                </p>
+            </div>
+        </section>
+
+        <section class="es-section es-section--mist" aria-labelledby="link-h">
+            <div class="es-container es-container--reading">
+                <div class="es-copy" data-reveal>
+                    <span class="es-eyebrow">الصلة بالداتا</span>
+                    <h2 id="link-h">من الخبر لتفاصيل المشروع.</h2>
+                    <div class="es-prose">
+                        <p>
+                            لما تقرأ تحديث يهمك، ارجع لبيانات المشروع أو المدينة
+                            على <bdi>Estavo Market</bdi> وشوف المعلومات المرتبطة بشغلك.
+                        </p>
+                    </div>
+                    <a href="/market/" class="es-text-link" data-track="market_opened"
+                        data-position="insights_link">شوف <bdi>Estavo Market</bdi></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="es-section es-dark" aria-labelledby="close-h">
+            <div class="es-container">
+                <div class="es-copy es-copy--center" data-reveal>
+                    <h2 id="close-h">لحد ما الأخبار تنزل، اشتغل على بيانات السوق مباشرة.</h2>
+                    <div class="es-cluster es-cluster--actions">
+                        <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-button es-button--primary"
+                            data-track="market_opened" data-position="close">جرّب <bdi>Estavo Market</bdi> مجانًا</a>
+                    </div>
+                </div>
+            </div>
+        </section>

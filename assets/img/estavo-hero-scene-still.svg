@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 90 1024 510" role="img"><title>Shared property data, under your brand</title><defs>
+<linearGradient id="hero-route" x1="0" x2="1"><stop stop-color="#5c91c7" stop-opacity=".1"/><stop offset="1" stop-color="#5c91c7" stop-opacity=".65"/></linearGradient>
+<pattern id="hero-blueprint-grid" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#a9c6e2" stroke-opacity=".07" stroke-width="1"/></pattern>
+<linearGradient id="hero-light"><stop stop-color="white" stop-opacity="0"/><stop offset=".5" stop-color="white"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+<mask id="hero-sweep" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="820"><rect class="hero-sweep" x="-320" y="0" width="300" height="820" fill="url(#hero-light)"/></mask>
+<style>
+text{font-family:ArtPlex,Arial,sans-serif;fill:#0b2239;font-size:21px;font-weight:400}
+.display{font-size:28px;font-weight:500}.light-display{font-size:28px;font-weight:500;fill:#f5f9fc}.title{font-size:24px;font-weight:500}.label{font-size:21px;font-weight:500}.small{font-size:19px;fill:#47749a}.micro{font-size:17px;fill:#47749a}.white{fill:#f5f9fc}.muted{fill:#a9c6e2}.hero-icon{fill:none;stroke:#28567f;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.hero-icon-light{stroke:#a9c6e2}
+.hero-route{fill:none;stroke:url(#hero-route);stroke-width:2;stroke-linecap:round}
+.hero-energy{fill:none;stroke:#5c91c7;stroke-width:3;stroke-linecap:round}
+.hero-orbit{transform-origin:290px 388px}
+@media(prefers-reduced-motion:no-preference){.hero-sweep{animation:hero-sweep 12s cubic-bezier(.4,0,.2,1) infinite}.hero-orbit{animation:hero-orbit 12s ease-in-out infinite}.hero-status{animation:hero-status 12s ease-in-out infinite}.hero-typing-dot{animation:hero-typing 1.4s ease-in-out infinite}}
+@media(prefers-reduced-motion:no-preference){
+.hero-composition{animation:hero-composition-drift 14s ease-in-out infinite}
+.hero-card-website{animation:hero-card-website 12s ease-in-out -1s infinite}
+.hero-card-chat{animation:hero-card-chat 12s ease-in-out -5s infinite}
+.hero-card-market{animation:hero-card-market 12s ease-in-out -9s infinite}
+.hero-link-website path{animation:hero-link-website 12s ease-in-out -1s infinite}
+.hero-link-chat path{animation:hero-link-chat 12s ease-in-out -5s infinite}
+.hero-link-market path{animation:hero-link-market 12s ease-in-out -9s infinite}
+}
+@keyframes hero-composition-drift{0%,100%{transform:translate(-3px,3px)}50%{transform:translate(3px,-3px)}}
+@keyframes hero-card-website{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes hero-card-chat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes hero-card-market{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes hero-link-website{0%,100%{d:path("M520 362C558 362 544 254 574 254")}50%{d:path("M520 362C558 362 544 246 574 246")}}
+@keyframes hero-link-chat{0%,100%{d:path("M520 402C577 402 572 479 632 479")}50%{d:path("M520 402C577 402 572 473 632 473")}}
+@keyframes hero-link-market{0%,100%{d:path("M520 442C563 442 529 620 529 676Q529 708 558 708")}50%{d:path("M520 442C563 442 529 613 529 669Q529 701 558 701")}}
+@keyframes hero-sweep{0%,12%{transform:translateX(0)}80%,100%{transform:translateX(1400px)}}
+@keyframes hero-orbit{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.hero-typing-dot{opacity:.55}
+@keyframes hero-typing{0%,70%,100%{opacity:.3;transform:translateY(0)}35%{opacity:1;transform:translateY(-2px)}}
+@keyframes hero-status{0%,15%,100%{opacity:.45}45%,75%{opacity:1}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}.hero-energy{display:none}}
+</style></defs><g class="hero-orbit"><path d="M240 208C85 221 77 449 267 504C451 557 703 492 831 302" fill="none" stroke="#dcecf5" stroke-width="60" stroke-linecap="round"/><path d="M240 208C85 221 77 449 267 504" fill="none" stroke="#5c91c7" stroke-opacity=".35" stroke-width="60" stroke-linecap="round"/></g><path d="M472 323C620 323 600 240 746 240" class="hero-route"/><path d="M472 323C620 323 600 240 746 240" class="hero-energy" mask="url(#hero-sweep)"/><path d="M472 371C640 371 622 470 758 470" class="hero-route"/><path d="M472 371C640 371 622 470 758 470" class="hero-energy" mask="url(#hero-sweep)"/><rect x="270" y="248" width="202" height="202" rx="48" fill="#102b45" /><g transform="translate(306 284) scale(0.21666666666666667)"><path d="M154 0L180 0L207 4L229 11L252 22L274 37L294 56L294 58L308 73L324 99L324 102L297 133L297 135L287 146L285 151L282 153L272 169L265 176L263 181L249 199L78 199L86 222L103 245L105 245L118 257L131 264L157 271L180 271L195 268L215 259L233 247L238 241L240 241L240 239L264 214L272 201L281 191L283 186L298 168L302 160L306 157L308 152L312 149L330 122L333 120L354 90L358 87L360 82L372 69L372 67L401 38L403 38L406 34L425 21L442 12L462 5L482 1L505 0L531 3L546 7L564 14L580 23L598 35L600 37L600 42L592 50L592 52L586 58L585 62L581 65L579 70L576 72L560 95L556 95L541 85L513 76L485 77L464 86L451 95L445 102L443 102L426 121L426 123L422 126L411 143L396 161L388 175L372 194L372 196L363 205L363 207L359 210L359 212L355 215L355 217L351 220L351 222L347 225L347 227L344 229L342 234L339 236L337 241L333 244L318 266L284 301L282 301L272 311L254 323L225 337L195 345L162 347L143 345L108 335L79 320L66 311L62 306L60 306L39 284L39 282L35 279L33 274L24 263L7 225L0 186L0 157L7 121L20 91L40 61L59 41L89 20L123 6L154 0Z M158 73L136 78L109 94L95 108L95 110L87 119L81 130L77 146L182 146L263 145L254 125L252 124L247 114L237 104L237 102L223 90L203 79L194 76L179 73L158 73Z M495 97L513 98L533 107L542 113L567 133L567 135L580 149L587 162L596 192L598 205L598 231L591 262L584 278L582 279L574 294L557 313L555 313L546 322L525 335L494 345L464 347L438 343L403 328L396 322L389 319L380 310L378 310L354 282L346 267L344 266L344 263L354 252L366 234L370 231L370 229L388 207L390 202L394 199L408 201L409 221L416 239L431 258L446 268L460 272L484 271L501 263L516 248L521 239L525 224L524 205L517 188L508 179L441 137L450 124L468 108L481 101L495 97Z" fill="#f5f9fc" fill-rule="evenodd"/></g><g transform="translate(746 162) scale(0.6833333333333333 0.64)"><rect width="240" height="200" rx="12" fill="#f1f5f8"/>
+    <g fill="#ffffff"><path d="M22 22H100V82H22Z"/><path d="M106 22H174V82H106Z"/><path d="M180 22H218V113H180Z"/><path d="M22 88H100V174H22Z"/><path d="M106 88H174V174H106Z"/></g>
+    <g fill="#d5e5ef">
+      <rect x="34" y="32" width="46" height="34" rx="3"/><rect x="116" y="32" width="42" height="34" rx="3"/><rect x="33" y="104" width="45" height="38" rx="3"/>
+      <rect x="117" y="139" width="45" height="15" rx="4"/><rect x="151" y="119" width="11" height="25" rx="3"/><rect x="124" y="117" width="18" height="12" rx="3"/>
+      <path d="M186 30H211V39H194V61H186Z"/><rect x="187" y="77" width="23" height="19" rx="4"/>
+    </g>
+    <g fill="none" stroke="#28567f" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 22H218V174H22Z" stroke-width="3"/>
+      <path d="M103 22V65M103 80V111M103 133V174M177 22V103M177 125V174M22 85H66M86 85H125M145 85H177" stroke-width="2.5"/>
+      <path d="M103 65H88M88 65a15 15 0 0 0 15 15M66 85V65M66 65a20 20 0 0 1 20 20M125 85V65M125 65a20 20 0 0 1 20 20M177 103H199M199 103a22 22 0 0 1-22 22M103 111H125M125 111a22 22 0 0 1-22 22" stroke-width="1" opacity=".55"/>
+      <path d="M40 38H53V45H40ZM59 38H72V45H59ZM123 38H135V45H123ZM140 38H152V45H140ZM39 111H52V119H39ZM58 111H71V119H58" stroke-width="1" opacity=".6"/>
+      <path d="M117 149H162M155 119V139M187 43h6M187 51h6M197 33h8M194 81v10" stroke-width="1" opacity=".6"/>
+      <path d="M43 180H80M121 180H158M38 16H80M117 16H159M224 44V76" stroke-width="3"/>
+      <path d="M185 174V153M185 153a21 21 0 0 1 21 21" stroke-width="1" opacity=".6"/>
+    </g></g><rect x="758" y="414" width="172" height="110" rx="20" fill="#ffffff" /><path d="M786 442H838M786 470H902M786 497H861" stroke="#28567f" stroke-width="3" stroke-linecap="round"/><path d="M855 442H902" stroke="#5c91c7" stroke-width="3" stroke-linecap="round"/><style>*{animation:none!important}.enter,.chartbar,.bar-deduction,.orbit,.float-object,.trace,.plan-scan,.review-check,.loop-weave,.core-breathe,.intent-wash,.phase-light,.rise,.lift-in,.sheen,.drift-slow,.drift-tilt,.halo-pulse{opacity:1!important;transform:none!important;stroke-dashoffset:0!important}.packet,.plan-scan,.loop-energy,.signal-runner,.spark,.ribbon-mote,.synapse,.answer-edge{display:none!important}</style></svg>

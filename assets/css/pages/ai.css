@@ -1,0 +1,283 @@
+/* Client AI — the assistant demonstrated inside the customer's own site.
+   Route thesis: every composition keeps the brokerage site visible around
+   the conversation, so the page never reads as a standalone chatbot.
+   Buyer and assistant turns are separated by shape and alignment rather
+   than bright colour (brief: visual system). */
+
+/* ── Hero ─────────────────────────────────────────────────── */
+.ai-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 22%, rgb(71 116 154 / 13%), transparent 26rem),
+    linear-gradient(180deg, var(--es-paper), var(--es-mist));
+}
+.ai-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgb(19 40 60 / 7%) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+  pointer-events: none;
+}
+.ai-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, .88fr) minmax(30rem, 1.12fr);
+  align-items: center;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  min-block-size: calc(100svh - var(--es-header-h));
+  padding-block: clamp(4rem, 8vh, 6.5rem);
+}
+.ai-hero__copy { display: grid; justify-items: start; gap: 1.3rem; }
+.ai-hero .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+.ai-hero h1 { max-inline-size: 38rem; color: var(--es-ink); font-size: clamp(2.35rem, 3.7vw, 3rem); font-weight: 600; line-height: 1.16; letter-spacing: -.04em; }
+[lang="ar"] .ai-hero h1 { line-height: 1.38; letter-spacing: -.02em; }
+.ai-hero__lead { max-inline-size: 37rem; color: var(--es-ink-72); font-size: clamp(1.02rem, 1.3vw, 1.15rem); line-height: 1.85; }
+.ai-hero__note { max-inline-size: 34rem; color: var(--es-ink-60); font-size: .8rem; line-height: 1.7; }
+.ai-hero__art { position: relative; min-inline-size: 0; align-self: center; }
+
+/* The brokerage site that contains the assistant. */
+.ai-site {
+  position: relative;
+  border: 1px solid var(--es-line);
+  border-radius: 1rem;
+  background: var(--es-white);
+  box-shadow: var(--es-shadow-3);
+  overflow: hidden;
+}
+.ai-site__bar { display: flex; align-items: center; gap: .4rem; padding: .7rem .9rem; background: var(--es-mist); border-block-end: 1px solid var(--es-line); }
+.ai-site__bar i { inline-size: .5rem; block-size: .5rem; border-radius: 50%; background: var(--es-line-strong); }
+.ai-site__bar span { margin-inline-start: .75rem; color: var(--es-ink-60); font-size: .7rem; direction: ltr; }
+.ai-site__nav { display: flex; align-items: center; gap: 1rem; padding: .85rem 1.1rem; border-block-end: 1px solid var(--es-line); }
+.ai-site__nav strong { color: var(--es-ink); font-size: .9rem; font-weight: 600; }
+.ai-site__nav span { color: var(--es-ink-60); font-size: .75rem; }
+.ai-site__nav b { margin-inline-start: auto; padding: .35rem .7rem; border-radius: .3rem; background: var(--es-navy-900); color: var(--es-white); font-size: .7rem; font-weight: 500; }
+.ai-site__body { display: grid; grid-template-columns: minmax(0, .62fr) minmax(0, 1fr); gap: 1rem; padding: 1.1rem; background: var(--es-paper); }
+
+/* Muted page content behind the conversation: present, so the
+   assistant is visibly inside a site, but never competing. */
+.ai-site__listings { display: grid; align-content: start; gap: .7rem; }
+.ai-site__listings i {
+  display: block;
+  block-size: 4.6rem;
+  border: 1px solid var(--es-line);
+  border-radius: .55rem;
+  background:
+    linear-gradient(var(--es-mist-2) 0 0) no-repeat 0 0 / 100% 2.6rem,
+    linear-gradient(var(--es-line) 0 0) no-repeat .6rem 3.2rem / 55% 2px,
+    linear-gradient(var(--es-line) 0 0) no-repeat .6rem 3.9rem / 34% 2px,
+    var(--es-white);
+}
+.ai-site__listings i:nth-child(2) { block-size: 3.4rem; }
+.ai-site__listings i:nth-child(3) { block-size: 2.6rem; opacity: .55; }
+
+.ai-widget { display: grid; align-content: start; border: 1px solid var(--es-line); border-radius: .75rem; background: var(--es-white); overflow: hidden; }
+.ai-widget__head { display: flex; align-items: center; gap: .6rem; padding: .75rem .85rem; background: var(--es-navy-950); color: var(--es-on-dark); }
+.ai-widget__head > span:last-child { display: grid; gap: .1rem; }
+.ai-widget__head strong { font-size: .82rem; font-weight: 600; }
+.ai-widget__head small { color: var(--es-on-dark-muted); font-size: .66rem; }
+/* The buyer-facing avatar carries the customer's initial, never
+   the Estavo mark (brief: hero art). */
+.ai-widget__avatar { display: grid; inline-size: 1.7rem; block-size: 1.7rem; flex: none; place-items: center; border-radius: 50%; background: var(--es-blue-700); color: var(--es-white); font-size: .8rem; font-weight: 600; }
+.ai-widget__thread { display: grid; gap: .5rem; padding: .85rem; }
+
+/* ── Message shapes (shared by hero, stages and mobile) ────── */
+.ai-msg {
+  max-inline-size: 88%;
+  padding: .55rem .75rem;
+  font-size: .76rem;
+  line-height: 1.6;
+}
+.ai-msg--buyer {
+  justify-self: end;
+  border-radius: .7rem .7rem .15rem .7rem;
+  background: var(--es-mist-2);
+  color: var(--es-ink);
+}
+.ai-msg--bot {
+  justify-self: start;
+  border-radius: .7rem .7rem .7rem .15rem;
+  border: 1px solid var(--es-line);
+  background: var(--es-white);
+  color: var(--es-ink-72);
+}
+[dir="rtl"] .ai-msg--buyer { border-radius: .7rem .7rem .7rem .15rem; }
+[dir="rtl"] .ai-msg--bot { border-radius: .7rem .7rem .15rem .7rem; }
+
+/* Results read as property rows, not promotional cards. */
+.ai-results { display: grid; gap: .4rem; }
+.ai-results article { display: flex; align-items: center; gap: .55rem; border: 1px solid var(--es-line); border-radius: .5rem; background: var(--es-white); padding: .5rem .6rem; }
+.ai-results article i {
+  inline-size: 2.1rem;
+  block-size: 1.7rem;
+  flex: none;
+  border-radius: .3rem;
+  background:
+    linear-gradient(var(--es-blue-500) 0 0) no-repeat 50% 60% / 55% 2px,
+    linear-gradient(var(--es-blue-500) 0 0) no-repeat 50% 80% / 35% 2px,
+    var(--es-mist-2);
+}
+.ai-results article span { display: grid; gap: .1rem; min-inline-size: 0; }
+.ai-results article strong { color: var(--es-ink); font-size: .74rem; font-weight: 600; }
+.ai-results article small { color: var(--es-ink-60); font-size: .66rem; }
+.ai-results__note { color: var(--es-ink-46); font-size: .62rem; line-height: 1.5; }
+
+.ai-handoff { display: flex; align-items: center; justify-content: space-between; gap: .6rem; border-radius: .5rem; background: var(--es-mist); padding: .5rem .65rem; }
+.ai-handoff span { color: var(--es-ink-72); font-size: .72rem; }
+.ai-handoff b { padding: .32rem .6rem; border-radius: .3rem; background: var(--es-navy-900); color: var(--es-white); font-size: .68rem; font-weight: 500; }
+
+.ai-hero-mobile { display: none; }
+
+/* ── Chat box vs. Client AI ───────────────────────────────── */
+.ai-difference__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+.ai-compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.ai-compare__col { border: 1px solid var(--es-line); border-radius: .75rem; padding: 1.35rem; background: var(--es-white); }
+.ai-compare__col--plain { background: var(--es-mist); }
+.ai-compare__col--ai { border-color: var(--es-line-strong); box-shadow: var(--es-shadow-1); }
+.ai-compare__label { margin-block-end: .9rem; color: var(--es-ink-60); font-size: .72rem; font-weight: 600; letter-spacing: .04em; }
+.ai-compare__col--ai .ai-compare__label { color: var(--es-blue-700); }
+.ai-compare ul { display: grid; gap: .65rem; }
+.ai-compare li { position: relative; padding-inline-start: 1.1rem; color: var(--es-ink-72); font-size: .85rem; line-height: 1.65; }
+[dir="rtl"] .ai-compare li { padding-inline-start: 0; padding-inline-end: 1.1rem; }
+.ai-compare li::before { content: ""; position: absolute; inset-inline-start: 0; inset-block-start: .55rem; inline-size: .4rem; block-size: .4rem; border-radius: 50%; background: var(--es-line-strong); }
+[dir="rtl"] .ai-compare li::before { inset-inline-start: auto; inset-inline-end: 0; }
+.ai-compare__col--ai li::before { background: var(--es-blue-600); }
+
+/* ── Scope: in / out of bounds ────────────────────────────── */
+.ai-scope { background: var(--es-navy-950); color: var(--es-on-dark); }
+.ai-scope__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+.ai-scope__rings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.ai-scope__ring { border: 1px solid var(--es-line-dark); border-radius: .75rem; padding: 1.35rem; }
+.ai-scope__ring--in { background: rgb(255 255 255 / 6%); }
+.ai-scope__ring-label { margin-block-end: .9rem; font-size: .72rem; font-weight: 600; letter-spacing: .04em; }
+.ai-scope__ring--in .ai-scope__ring-label { color: var(--es-art-mint); }
+.ai-scope__ring--out .ai-scope__ring-label { color: var(--es-on-dark-muted); }
+.ai-scope__ring ul { display: grid; gap: .6rem; }
+.ai-scope__ring li { color: var(--es-on-dark-muted); font-size: .82rem; line-height: 1.6; }
+.ai-scope__ring--out li { text-decoration: line-through; text-decoration-color: rgb(255 255 255 / 30%); }
+
+/* ── Staged conversation ──────────────────────────────────── */
+.ai-stages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-block-start: 2.75rem; counter-reset: none; }
+.ai-stage { display: grid; align-content: start; gap: .55rem; border: 1px solid var(--es-line); border-radius: .75rem; background: var(--es-white); padding: 1.35rem; }
+.ai-stage__num { display: grid; inline-size: 1.9rem; block-size: 1.9rem; place-items: center; border-radius: 50%; background: var(--es-mist); color: var(--es-blue-700); font-size: .8rem; font-weight: 600; }
+.ai-stage h3 { color: var(--es-ink); font-size: 1rem; font-weight: 600; line-height: 1.45; }
+.ai-stage p { color: var(--es-ink-60); font-size: .85rem; line-height: 1.7; }
+.ai-stage__demo { display: grid; margin-block-start: .35rem; }
+.ai-stage__demo .ai-msg { max-inline-size: 100%; }
+.ai-conversation-section { background: var(--es-mist); }
+.ai-conversation-section__cta { display: flex; justify-content: center; margin-block-start: 2.5rem; }
+
+/* ── Missing information ──────────────────────────────────── */
+.ai-unknown__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+.ai-unknown__steps { display: grid; gap: .6rem; counter-reset: step; }
+.ai-unknown__steps li { display: grid; gap: .2rem; position: relative; border-inline-start: 2px solid var(--es-line); padding-inline-start: 1.1rem; padding-block: .35rem; }
+[dir="rtl"] .ai-unknown__steps li { border-inline-start: 0; border-inline-end: 2px solid var(--es-line); padding-inline-start: 0; padding-inline-end: 1.1rem; }
+.ai-unknown__steps strong { color: var(--es-ink); font-size: .92rem; font-weight: 600; }
+.ai-unknown__steps span { color: var(--es-ink-60); font-size: .82rem; line-height: 1.65; }
+
+/* ── Handoff ──────────────────────────────────────────────── */
+.ai-handoff-section { background: var(--es-navy-950); color: var(--es-on-dark); }
+.ai-handoff-section__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .92fr); align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+.ai-handoff-section__limit { margin-block-start: 1.25rem; max-inline-size: 36rem; color: var(--es-on-dark-muted); font-size: .78rem; line-height: 1.75; }
+.ai-handoff-card { border: 1px solid var(--es-line-dark); border-radius: .85rem; background: rgb(255 255 255 / 6%); padding: 1.5rem; }
+.ai-handoff-card__label { margin-block-end: 1rem; color: var(--es-art-mint); font-size: .72rem; font-weight: 600; letter-spacing: .04em; }
+.ai-handoff-card dl { display: grid; gap: .75rem; }
+.ai-handoff-card div { display: grid; grid-template-columns: minmax(6rem, .5fr) minmax(0, 1fr); gap: .75rem; border-block-end: 1px solid var(--es-line-dark); padding-block-end: .75rem; }
+.ai-handoff-card div:last-of-type { border-block-end: 0; padding-block-end: 0; }
+.ai-handoff-card dt { color: var(--es-on-dark-muted); font-size: .76rem; }
+.ai-handoff-card dd { color: var(--es-on-dark); font-size: .8rem; font-weight: 500; }
+.ai-handoff-card__note { margin-block-start: 1rem; color: var(--es-on-dark-muted); font-size: .7rem; line-height: 1.6; }
+
+/* ── Brand configuration ──────────────────────────────────── */
+.ai-brand__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); align-items: center; gap: clamp(2rem, 5vw, 4.5rem); }
+.ai-brand__chips { display: flex; flex-wrap: wrap; gap: .6rem; }
+.ai-brand__chips span { border: 1px solid var(--es-line); border-radius: 999px; background: var(--es-white); padding: .55rem 1rem; color: var(--es-ink-72); font-size: .82rem; }
+
+/* ── Client AI vs Brokers AI ──────────────────────────────── */
+.ai-vs-brokers { background: var(--es-mist); }
+.ai-vs-brokers__inner { max-inline-size: 48rem; }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 68rem) {
+  .ai-hero__inner,
+  .ai-difference__inner,
+  .ai-scope__inner,
+  .ai-unknown__inner,
+  .ai-handoff-section__inner,
+  .ai-brand__inner { grid-template-columns: minmax(0, 1fr); }
+  .ai-hero__inner { min-block-size: 0; gap: 2.5rem; }
+  .ai-stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 48rem) {
+  /* Phone keeps one conversation, two results and one handoff in a
+     purpose-built composition rather than shrinking the desktop
+     site frame (brief: mobile). */
+  .ai-site { display: none; }
+  .ai-hero-mobile {
+    display: grid;
+    gap: .5rem;
+    max-inline-size: 22rem;
+    margin-inline: auto;
+    border: 1px solid var(--es-line);
+    border-radius: .9rem;
+    background: var(--es-white);
+    box-shadow: var(--es-shadow-2);
+    padding: .85rem;
+  }
+  .ai-hero-mobile__head { display: flex; align-items: center; gap: .55rem; margin: -.85rem -.85rem .35rem; padding: .7rem .8rem; background: var(--es-navy-950); color: var(--es-on-dark); border-radius: .9rem .9rem 0 0; }
+  .ai-hero-mobile__head span { display: grid; inline-size: 1.6rem; block-size: 1.6rem; place-items: center; border-radius: 50%; background: var(--es-blue-700); font-size: .78rem; font-weight: 600; }
+  .ai-hero-mobile__head strong { font-size: .82rem; font-weight: 600; }
+  .ai-hero-mobile__results { display: grid; gap: .4rem; }
+  .ai-hero-mobile__results article { display: flex; align-items: center; gap: .5rem; border: 1px solid var(--es-line); border-radius: .5rem; padding: .45rem .55rem; }
+  .ai-hero-mobile__results i { inline-size: 1.9rem; block-size: 1.5rem; flex: none; border-radius: .25rem; background: var(--es-mist-2); }
+  .ai-hero-mobile__results strong { color: var(--es-ink); font-size: .72rem; font-weight: 600; }
+
+  .ai-compare,
+  .ai-scope__rings,
+  .ai-stages { grid-template-columns: minmax(0, 1fr); }
+  .ai-handoff-card div { grid-template-columns: minmax(0, 1fr); gap: .25rem; }
+}
+
+@media (max-width: 24rem) {
+  .ai-hero-mobile { padding: .7rem; }
+  .ai-brand__chips span { font-size: .76rem; }
+}
+
+/* ── Motion ───────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  /* The hero conversation plays once, in order, so the argument
+     (ask → clarify → results → handoff) is legible. It never loops:
+     a chat that keeps re-typing reads as a demo reel, not a product.
+
+     The turns are VISIBLE by default. `.is-playing` replays them as
+     an entrance, starting from the hidden keyframe and ending at the
+     natural state. Nothing hides a turn permanently, so a script that
+     never runs, an observer that never fires, or a full-page capture
+     that never scrolls all still show the complete conversation. */
+  .ai-site[data-ai-scene].is-playing [data-ai-step] {
+    animation: ai-turn-in 380ms var(--es-ease) backwards;
+  }
+  .ai-site[data-ai-scene].is-playing [data-ai-step="1"] { animation-delay: 60ms; }
+  .ai-site[data-ai-scene].is-playing [data-ai-step="2"] { animation-delay: 320ms; }
+  .ai-site[data-ai-scene].is-playing [data-ai-step="3"] { animation-delay: 580ms; }
+  .ai-site[data-ai-scene].is-playing [data-ai-step="4"] { animation-delay: 840ms; }
+  .ai-site[data-ai-scene].is-playing [data-ai-step="5"] { animation-delay: 1100ms; }
+}
+
+@keyframes ai-turn-in {
+  from { opacity: 0; translate: 0 .4rem; }
+  to { opacity: 1; translate: none; }
+}
+
+/* Reduced motion shows the complete final answer, per the brief. */
+@media (prefers-reduced-motion: reduce) {
+  .ai-site[data-ai-scene] [data-ai-step] {
+    opacity: 1 !important;
+    translate: none !important;
+    animation: none !important;
+  }
+}

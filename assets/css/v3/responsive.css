@@ -1,0 +1,413 @@
+/* ============================================================
+   Estavo v3 — responsive (§7)
+
+   Four breakpoints only. Mobile gets its own compositions
+   rather than scaled-down desktop diagrams (§7.3).
+   ============================================================ */
+
+/* ── Large: tablet and compact laptop (<1024px) ────────── */
+@media (max-width: 63.999rem) {
+  :root {
+    --es-gutter: clamp(1.25rem, 3.5vw, 2rem);
+  }
+
+  .es-header__nav {
+    display: none;
+  }
+
+  .es-header__burger {
+    display: grid;
+  }
+
+  .es-header__inner {
+    justify-content: space-between;
+  }
+
+  .es-split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--es-space-12);
+  }
+
+  .es-split--reverse > :first-child,
+  .es-split--reverse > :last-child {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .es-grid-4,
+  .es-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .es-grid-3 > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  /* Source → Estavo → destinations becomes a vertical rail. */
+  .es-flow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .es-flow__rail {
+    min-block-size: 3rem;
+  }
+
+  .es-flow__rail::before {
+    inset-block: 0;
+    inset-inline-start: 50%;
+    inline-size: 1px;
+    block-size: auto;
+  }
+
+  .es-flow__rail::after {
+    inset-block-start: auto;
+    inset-block-end: -0.05rem;
+    inset-inline-start: calc(50% - 0.2rem);
+    inset-inline-end: auto;
+  }
+
+  .es-footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ── Large: the hero figure loses its own column ───────── */
+@media (max-width: 63.999rem) {
+  /* Below the two-column hero the copy centres again, and the
+     figure follows it rather than sitting beside it. */
+  .es-hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--es-space-10);
+  }
+
+  .es-hero__copy {
+    justify-items: center;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .es-hero__figure {
+    min-block-size: 0;
+  }
+}
+
+/* ── Medium and Small: phone and portrait tablet (<768px) ─ */
+@media (max-width: 47.999rem) {
+  :root {
+    --es-fs-hero: clamp(2.125rem, 9.4vw, 2.75rem);
+    --es-fs-h1: clamp(2rem, 8.5vw, 2.625rem);
+    --es-fs-h2: clamp(1.6875rem, 7.2vw, 2.125rem);
+    --es-fs-h3: clamp(1.25rem, 5.6vw, 1.5rem);
+    --es-fs-lead: 1.125rem;
+    /* Body never drops below 16px (§7.2.5). */
+    --es-fs-body: 1rem;
+    --es-section-space: clamp(2.75rem, 9vw, 3.75rem);
+    --es-section-space-compact: clamp(2.25rem, 7vw, 3rem);
+  }
+
+  .es-copy {
+    gap: var(--es-space-4);
+    max-inline-size: none;
+  }
+
+  .es-hero-figure.es-hero-figure--vector {
+    inline-size: min(100%, 34rem);
+    max-inline-size: 34rem;
+    aspect-ratio: auto;
+    filter: none;
+  }
+
+  .es-hero-figure--vector .es-hero-figure__vector { display: none; }
+
+  .es-hero-mobile-map {
+    display: grid;
+    grid-column: 1 / -1;
+    inline-size: 100%;
+    gap: 1rem;
+    padding: .25rem;
+    background: radial-gradient(circle at 50% 16%, #edf6ff 0, transparent 46%);
+  }
+
+  .es-grid-2,
+  .es-grid-3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .es-grid-3 > :last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+
+  .es-grid-4 {
+    gap: var(--es-space-3);
+  }
+
+  .es-service-card {
+    min-block-size: 0;
+  }
+
+  /* Hero figure on a phone (§7.3) gets its own composition,
+     not a scaled-down desktop one.
+
+     Desktop is a fixed-aspect stage with cards absolutely
+     placed by percentage — at 390px those cards would overlap
+     the core and each other. So the stage collapses: aspect
+     ratio is dropped, every card returns to normal flow as a
+     2-up grid, the core sits in the middle of the flow, and
+     the connectors are hidden because adjacency now carries
+     the relationship. */
+  .es-hero-figure {
+    display: grid;
+    max-inline-size: 23rem;
+    justify-items: center;
+    gap: var(--es-space-3);
+    aspect-ratio: auto;
+  }
+
+  .es-hero-figure::before {
+    inset-block-start: 30%;
+    inline-size: 100%;
+  }
+
+
+  /* Cards return to flow as a 2-up grid. There is no wrapper
+     element, so the figure itself becomes the grid and the
+     full-width members span both tracks. */
+  .es-hero-figure {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .es-hero-card {
+    position: relative;
+    inset: auto;
+    inline-size: auto;
+    justify-self: stretch;
+  }
+
+  .es-hero-card--plans,
+  .es-hero-figure__core,
+  .es-hero-figure__outputs { grid-column: 1 / -1; }
+
+  /* 132% of the core overflowed the figure on a phone. */
+  .es-hero-figure__pillars { inline-size: 100%; }
+
+  .es-hero-figure__core {
+    position: relative;
+    inset: auto;
+    inline-size: min(17rem, 92%);
+    margin-inline: auto;
+  }
+
+  .es-hero-figure__cube { padding: 1.1rem 0.9rem 0.9rem; }
+  .es-hero-figure__cube b { font-size: 1.35rem; }
+  .es-hero-figure__cube span { font-size: 0.5rem; }
+  .es-hero-figure__cube img { inline-size: 3rem; }
+  .es-hero-figure__glass { block-size: 0.7rem; }
+
+  .es-hero-figure__pillars { padding: 0.6rem 0.4rem; }
+  .es-hero-figure__pillar { font-size: 0.5rem; }
+  .es-hero-figure__pillar svg { inline-size: 0.9rem; block-size: 0.9rem; }
+
+  .es-hero-figure__outputs {
+    position: relative;
+    inset: auto;
+    inline-size: 100%;
+    gap: var(--es-space-2);
+  }
+
+  .es-hero-output__panel { min-block-size: 5rem; }
+  .es-hero-output__msg,
+  .es-hero-output__row,
+  .es-hero-output__caption { font-size: 0.5625rem; }
+  .es-hero-output__avatar { inline-size: 1.2rem; block-size: 1.2rem; font-size: 0.5rem; }
+  .es-hero-output__code { font-size: 0.625rem; }
+  .es-hero-output__caption svg { inline-size: 0.75rem; block-size: 0.75rem; }
+
+  .es-hero-figure__links { display: none; }
+
+  .es-data-record {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .es-data-record__media {
+    min-block-size: 0;
+    aspect-ratio: 16 / 9;
+  }
+
+  .es-data-record__head {
+    display: grid;
+  }
+
+  /* Two narrow columns are unreadable; stack the groups and
+     let the richer one follow the simpler one (§8.6). */
+  .es-context-compare {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .es-context-group + .es-context-group {
+    border-block-start: 1px solid var(--es-line-dark);
+    border-inline-start: 0;
+  }
+
+  /* Card width 86% leaves a visible next-card edge, so the
+     track reads as scrollable rather than clipped (§7.2.9). */
+  .es-card-track {
+    grid-auto-columns: 86%;
+    margin-inline: calc(-1 * var(--es-gutter));
+    padding-inline: var(--es-gutter);
+    scroll-padding-inline: var(--es-gutter);
+  }
+
+  .es-result {
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    row-gap: var(--es-space-2);
+  }
+
+  .es-result__value {
+    grid-column: 2;
+  }
+
+  /* Four stacked single-column groups made the footer ~1,100px
+     on a phone. Two columns halve that without shrinking any
+     link below the 44px touch target (§7.2.4). */
+  .es-footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--es-space-5);
+  }
+
+  .es-footer__brand {
+    grid-column: 1 / -1;
+  }
+
+  .es-footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .es-mobile-data-core__disc,
+  .es-mobile-output-card--ai .es-mobile-output-icon { animation: none; }
+}
+
+/* ── Small: compact phones (<480px) ────────────────────── */
+@media (max-width: 29.999rem) {
+  :root {
+    --es-gutter: 1.25rem;
+  }
+
+  .es-grid-4 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Both hero actions go full width so neither wraps (§7.2.3). */
+  .es-cluster--actions {
+    align-items: stretch;
+  }
+
+  .es-cluster--actions .es-button {
+    inline-size: 100%;
+  }
+
+  .es-button-row .es-button {
+    inline-size: 100%;
+  }
+
+  .es-data-record__facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .es-context-list li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--es-space-1);
+  }
+
+  .es-context-list small {
+    white-space: normal;
+  }
+}
+
+/* Narrowest supported width keeps a 16px side gutter (§3.3). */
+@media (max-width: 22.4375rem) {
+  :root {
+    --es-gutter: 1rem;
+  }
+}
+
+/* ── MarketExplorer: phone composition (§7.3) ──────────── */
+@media (max-width: 47.999rem) {
+  .es-market-figure__vector { display: none; }
+
+  /* The figure inherits the hero stage's max-inline-size, which
+     overflows a 390px viewport once the source row and the 2-up
+     facts grid are laid out. Both the figure and its composition
+     are pinned to the container's inline size instead. */
+  .es-market-figure {
+    max-inline-size: 100%;
+  }
+
+  .es-market-mobile {
+    display: grid;
+    inline-size: 100%;
+    max-inline-size: 100%;
+    gap: 0.75rem;
+  }
+
+  /* Three chips fit 390px; below that they wrap rather than clip. */
+  .es-market-mobile__sources {
+    grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+  }
+
+  /* ── MarketUpdates: phone composition (§3) ─────────────── */
+  .es-updates-figure__vector { display: none; }
+
+  .es-updates-figure {
+    max-inline-size: 100%;
+  }
+
+  .es-updates-mobile {
+    display: grid;
+    inline-size: 100%;
+    max-inline-size: 100%;
+    gap: 0.75rem;
+  }
+
+  /* ── MetaSignals / ROI / Reach: phone compositions (§3) ── */
+  .es-signals-figure__vector,
+  .es-roi-figure__vector,
+  .es-reach-figure__vector { display: none; }
+
+  .es-signals-figure,
+  .es-roi-figure,
+  .es-reach-figure {
+    max-inline-size: 100%;
+  }
+
+  .es-signals-mobile,
+  .es-roi-mobile,
+  .es-reach-mobile {
+    display: grid;
+    inline-size: 100%;
+    max-inline-size: 100%;
+    gap: 0.75rem;
+  }
+
+  /* ── BrandSurfaces: phone composition, one per tab (§3) ── */
+  .es-brand-figure__vector { display: none; }
+
+  .es-brand-figure {
+    max-inline-size: 100%;
+  }
+
+  .es-brand-mobile {
+    display: grid;
+    inline-size: 100%;
+    max-inline-size: 100%;
+    gap: 0.6rem;
+  }
+}
+
+/* Keep the four change nodes around their review hub at narrow widths. */
+@media (max-width: 22.4375rem) {
+  .es-updates-mobile__events { column-gap: .35rem; }
+  .es-update-event small { font-size: .75rem; letter-spacing: -.02em; }
+}

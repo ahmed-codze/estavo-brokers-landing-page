@@ -1,0 +1,48 @@
+{
+  "_comment": "Estavo v3 — the single illustrative property record.",
+  "_rule": "Visual Theme Plan v1 §4.1: one record is the recurring visual anchor across Home, Data, Market, Websites and AI, and the same record must use the same value everywhere. Master Plan v3 §7.1 forbids pairing a real project name with invented prices, availability or payment plans.",
+  "_status": "ILLUSTRATIVE PLACEHOLDER — NOT APPROVED PRODUCT DATA",
+  "_before_publishing": [
+    "Replace with an approved record from the source of truth defined in Master Plan v3 §11 (owner: Data).",
+    "Master Plan v3 §7.2 requires the price basis to be explicit: starting price, unit-specific, cash or instalment.",
+    "Until replaced, every surface rendering this record MUST show the component-level label in `label_ar`/`label_en`.",
+    "Do not remove the label to make the page look more finished. The label is what makes the placeholder honest."
+  ],
+
+  "label_ar": "مثال توضيحي",
+  "label_en": "Illustrative example",
+  "snapshot_ar": "عينة بيانات بتاريخ ١٤ سبتمبر ٢٠٢٦",
+  "snapshot_en": "Data sample as of 14 September 2026",
+
+  "record": {
+    "project_ar": "مشروع تجريبي",
+    "project_en": "Sample Project",
+    "developer_ar": "مطور تجريبي",
+    "developer_en": "Sample Developer",
+    "city_ar": "القاهرة الجديدة",
+    "city_en": "New Cairo",
+    "area_ar": "التجمع",
+    "area_en": "Fifth Settlement",
+    "unit_type_ar": "شقة · غرفتين",
+    "unit_type_en": "Apartment · 2 bedrooms",
+
+    "price_display_ar": "[قيمة معتمدة]",
+    "price_display_en": "[approved value]",
+    "price_basis_ar": "[أساس السعر: يتحدد من المصدر المعتمد]",
+    "price_basis_en": "[price basis: set by the approved source]",
+
+    "down_payment_ar": "[قيمة معتمدة]",
+    "down_payment_en": "[approved value]",
+    "term_ar": "[مدة معتمدة]",
+    "term_en": "[approved term]",
+
+    "availability_ar": "التوفر بيتأكد قبل الحجز",
+    "availability_en": "Availability confirmed before booking",
+    "image": "assets/img/proj-a.jpg"
+  },
+
+  "_images": {
+    "_rule": "Visual Theme Plan v1 §4.5: every image needs an owner, permission state and intended route; a real project name does not grant rights to unrelated architecture.",
+    "_status": "proj-a/b/c.jpg and site-1/2/3.jpg are existing generic assets, used here as unattributed illustrative imagery only. They are not paired with any real project name."
+  }
+}
