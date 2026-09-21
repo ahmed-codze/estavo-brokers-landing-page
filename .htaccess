@@ -4,10 +4,6 @@
 
 # Referral links use /go/?ref={slug} — handled by go/index.html (pure JS, no server config needed).
 
-# Legacy market-data route: the complete broker proposition now lives in Estavo Market.
-Redirect 301 /data/en.html /market/en.html
-RedirectMatch 301 ^/data/?$ /market/
-
 # ── Security headers ──────────────────────────────────────────────────────────
 <IfModule mod_headers.c>
     Header always set X-Content-Type-Options "nosniff"
