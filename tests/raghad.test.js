@@ -242,7 +242,7 @@ test('all four landing routes load the same widget with correct relative assets'
         const style = dom.window.document.querySelector('link[href*="raghad.css"]');
         assert.equal(new URL(script.src).pathname, '/assets/js/raghad.js');
         assert.equal(new URL(style.href).pathname, '/assets/css/raghad.css');
-        assert.equal(script.dataset.endpoint, 'https://api-brokers.estavo.space/api/public/support/chat');
+        assert.equal(script.dataset.endpoint, 'https://api-staging-brokers.estavo.space/api/public/support/chat');
         dom.window.close();
     }
 });
