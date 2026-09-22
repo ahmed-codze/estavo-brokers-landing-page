@@ -45,11 +45,20 @@
 
     /* ── Type (§3.2) ─────────────────────────────────────── */
     --es-font: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --es-fs-hero: clamp(2.75rem, 5vw, 4.5rem);
-    --es-fs-h1: clamp(2.625rem, 4.5vw, 4rem);
-    --es-fs-h2: clamp(2.125rem, 3.2vw, 3.125rem);
-    --es-fs-h3: clamp(1.375rem, 2vw, 1.75rem);
-    --es-fs-lead: clamp(1.125rem, 1.5vw, 1.25rem);
+    /* The ramp caps hero headings at 64px, service H1s at 58px,
+       section headings at 41px and card headings at 23px. The
+       §3.2 ceilings (56/52/37) were set against a 1440 stage and
+       read undersized on a 1920+ display, so the top of each
+       clamp is raised while the phone/tablet end is unchanged.
+       These tokens are the only place those caps are expressed:
+       hero/section rules read the token instead of restating a
+       clamp, so the ceiling cannot be raised by a later-loading
+       module. */
+    --es-fs-hero: clamp(2.75rem, 2.6vw + 1.2rem, 4rem);
+    --es-fs-h1: clamp(2.625rem, 2.4vw + 1.15rem, 3.625rem);
+    --es-fs-h2: clamp(1.9375rem, 1.85vw + 0.7rem, 2.5625rem);
+    --es-fs-h3: clamp(1.1875rem, 0.6vw + 1rem, 1.4375rem);
+    --es-fs-lead: clamp(1.0625rem, 0.5vw + 0.9rem, 1.25rem);
     --es-fs-body: 1.0625rem;
     --es-fs-ui: 0.875rem;
     --es-fs-label: 0.75rem;

@@ -123,7 +123,7 @@
       min-block-size: calc(100svh - var(--es-header-h));
       align-items: center;
     }
-    .es-hero h1 { font-size: clamp(3.75rem, 4.75vw, 4.5rem); }
+    /* Hero size comes from --es-fs-hero; see tokens.css. */
     .es-hero__copy { transform: translateY(-1.25rem); }
   }
 

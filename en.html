@@ -247,8 +247,14 @@
     <noscript>
         <link rel="stylesheet" href="assets/css/estavo-v3.css" />
     </noscript>
-<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/plex-arabic-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/plex-arabic-500.woff2" />
+
+
+
+    <link rel="stylesheet" href="assets/css/chatbot-shared.css?v=20260918-chat-ui" />
+    <link rel="stylesheet" href="assets/css/raghad.css?v=20260918-chat-feedback" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
 <style id="es-design-critical">
 @layer reset, tokens, base, layout, components, motion, utilities;
 /* ============================================================
@@ -279,8 +285,8 @@
     --es-mist: #f1f5f8;
     --es-mist-2: #e8eef3;
     --es-positive: #27a06f;
-    --es-art-paper: linear-gradient(180deg, var(--es-white), var(--es-mist));
-    --es-art-dark: linear-gradient(180deg, var(--es-blue-700), var(--es-navy-950));
+    --es-art-paper: var(--es-white);
+    --es-art-dark: var(--es-navy-900);
     --es-art-shadow: 0 16px 36px rgb(11 34 57 / 9%), 0 2px 4px rgb(11 34 57 / 7%);
     --es-art-inner: inset 0 1px 0 rgb(255 255 255 / 16%);
     --es-art-mint: #72e0bb;
@@ -298,11 +304,20 @@
 
     /* ── Type (§3.2) ─────────────────────────────────────── */
     --es-font: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --es-fs-hero: clamp(2.75rem, 5vw, 4.5rem);
-    --es-fs-h1: clamp(2.625rem, 4.5vw, 4rem);
-    --es-fs-h2: clamp(2.125rem, 3.2vw, 3.125rem);
-    --es-fs-h3: clamp(1.375rem, 2vw, 1.75rem);
-    --es-fs-lead: clamp(1.125rem, 1.5vw, 1.25rem);
+    /* The ramp caps hero headings at 64px, service H1s at 58px,
+       section headings at 41px and card headings at 23px. The
+       §3.2 ceilings (56/52/37) were set against a 1440 stage and
+       read undersized on a 1920+ display, so the top of each
+       clamp is raised while the phone/tablet end is unchanged.
+       These tokens are the only place those caps are expressed:
+       hero/section rules read the token instead of restating a
+       clamp, so the ceiling cannot be raised by a later-loading
+       module. */
+    --es-fs-hero: clamp(2.75rem, 2.6vw + 1.2rem, 4rem);
+    --es-fs-h1: clamp(2.625rem, 2.4vw + 1.15rem, 3.625rem);
+    --es-fs-h2: clamp(1.9375rem, 1.85vw + 0.7rem, 2.5625rem);
+    --es-fs-h3: clamp(1.1875rem, 0.6vw + 1rem, 1.4375rem);
+    --es-fs-lead: clamp(1.0625rem, 0.5vw + 0.9rem, 1.25rem);
     --es-fs-body: 1.0625rem;
     --es-fs-ui: 0.875rem;
     --es-fs-label: 0.75rem;
@@ -343,6 +358,7 @@
     --es-shadow-2: 0 2px 4px rgb(11 34 57 / 5%), 0 18px 48px rgb(11 34 57 / 8%);
     --es-shadow-3: 0 28px 72px rgb(11 34 57 / 13%);
     --es-ease: cubic-bezier(0.2, 0.65, 0.25, 1);
+    --es-ease-glide: cubic-bezier(0, 0, 0.01, 1);
     --es-speed-control: 180ms;
     --es-speed-view: 240ms;
     --es-speed-reveal: 600ms;
@@ -633,7 +649,7 @@
       min-block-size: calc(100svh - var(--es-header-h));
       align-items: center;
     }
-    .es-hero h1 { font-size: clamp(3.75rem, 4.75vw, 4.5rem); }
+    /* Hero size comes from --es-fs-hero; see tokens.css. */
     .es-hero__copy { transform: translateY(-1.25rem); }
   }
 
@@ -778,6 +794,16 @@
     color: var(--es-navy-950);
     font-weight: 700;
     text-decoration: none;
+  }
+
+  /* A two-line link on a phone centred its arrow against the
+     whole block, so the arrow floated beside the gap between
+     the lines. Wrapping links align to the last line instead. */
+  @media (max-width: 47.999rem) {
+    .es-text-link {
+      align-items: end;
+      text-align: start;
+    }
   }
 
   /* The arrow points along the reading direction and is
@@ -1003,6 +1029,10 @@
     gap: var(--es-space-2);
   }
 
+  .es-header-cta-short {
+    display: none;
+  }
+
   .es-header__lang {
     display: inline-flex;
     min-inline-size: 2.75rem;
@@ -1038,6 +1068,54 @@
 
   .es-menu__panel[hidden] {
     display: none;
+  }
+
+  /* The Sites panel carries seven destinations, so it is grouped rather
+     than served as one long list: two section labels separate "start
+     here" from "add later", and a footer rail holds the two secondary
+     routes (examples, integrations) that do not earn a top-level slot. */
+  .es-menu__panel--grouped {
+    min-inline-size: 19rem;
+  }
+
+  .es-menu__label {
+    display: flex;
+    align-items: center;
+    gap: var(--es-space-2);
+    padding: var(--es-space-3) var(--es-space-3) var(--es-space-1);
+    color: var(--es-blue-600);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* A short rule after the label keeps the group boundary legible
+     without adding another horizontal divider to a tall panel. */
+  .es-menu__label::after {
+    content: "";
+    flex: 1;
+    block-size: 1px;
+    background: var(--es-line);
+  }
+
+  .es-menu__label:first-child {
+    padding-block-start: var(--es-space-1);
+  }
+
+  .es-menu__foot {
+    display: grid;
+    gap: var(--es-space-1);
+    margin-block-start: var(--es-space-1);
+    border-block-start: 1px solid var(--es-line);
+    padding-block-start: var(--es-space-2);
+  }
+
+  .es-menu__foot a {
+    padding-block: var(--es-space-2);
+    color: var(--es-ink-72);
+    font-size: var(--es-fs-label);
+    font-weight: 600;
   }
 
   .es-menu__panel a {
@@ -1249,6 +1327,39 @@
   .es-footer__copy {
     color: var(--es-on-dark-muted);
     font-size: var(--es-fs-ui);
+  }
+}
+
+@media (max-width: 30rem) {
+  .es-header__inner {
+    gap: 0.5rem;
+  }
+
+  .es-header__logo {
+    inline-size: 5.75rem;
+    overflow: hidden;
+    justify-content: center;
+  }
+
+  .es-header__logo img {
+    inline-size: 7rem;
+    max-inline-size: none;
+  }
+
+  .es-header__actions {
+    gap: 0.35rem;
+  }
+
+  .es-header__actions .es-button {
+    padding-inline: 0.6rem;
+  }
+
+  .es-header__actions .es-header-cta-long {
+    display: none;
+  }
+
+  .es-header__actions .es-header-cta-short {
+    display: inline;
   }
 }
 /* Section artwork: a vector stage on desktop, a composition made for phones. */
@@ -1506,6 +1617,10 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .es-grid-3 > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
   /* Source → Estavo → destinations becomes a vertical rail. */
   .es-flow {
     grid-template-columns: minmax(0, 1fr);
@@ -1557,11 +1672,12 @@
 /* ── Medium and Small: phone and portrait tablet (<768px) ─ */
 @media (max-width: 47.999rem) {
   :root {
-    --es-fs-hero: clamp(2.125rem, 9.4vw, 2.75rem);
-    --es-fs-h1: clamp(2rem, 8.5vw, 2.625rem);
-    --es-fs-h2: clamp(1.6875rem, 7.2vw, 2.125rem);
-    --es-fs-h3: clamp(1.25rem, 5.6vw, 1.5rem);
-    --es-fs-lead: 1.125rem;
+    /* Phones: 31–38px hero, 26–30px section headings (§3.2). */
+    --es-fs-hero: clamp(1.9375rem, 7.6vw, 2.375rem);
+    --es-fs-h1: clamp(1.9375rem, 7.3vw, 2.375rem);
+    --es-fs-h2: clamp(1.625rem, 6.3vw, 1.875rem);
+    --es-fs-h3: 1.1875rem;
+    --es-fs-lead: 1.0625rem;
     /* Body never drops below 16px (§7.2.5). */
     --es-fs-body: 1rem;
     --es-section-space: clamp(2.75rem, 9vw, 3.75rem);
@@ -1571,6 +1687,33 @@
   .es-copy {
     gap: var(--es-space-4);
     max-inline-size: none;
+  }
+
+  /* A centred heading is a title; a centred six-line Arabic
+     paragraph is a wall, because every line starts at a
+     different x and the eye loses the return point. On phones
+     the headings keep their centring and the running copy
+     returns to the reading edge. */
+  .es-copy--center :is(p, li),
+  .es-hero__copy :is(p, li) {
+    text-align: start;
+    text-wrap: pretty;
+  }
+
+  .es-copy--center,
+  .es-hero__copy {
+    justify-items: stretch;
+  }
+
+  .es-copy--center > :is(h1, h2, h3, .es-eyebrow),
+  .es-hero__copy > :is(h1, h2, h3, .es-eyebrow) {
+    justify-self: center;
+  }
+
+  /* CTAs stay centred under the copy they belong to. */
+  .es-copy--center > :is(.es-button, .es-text-link, .es-actions),
+  .es-hero__copy > :is(.es-button, .es-text-link, .es-actions) {
+    justify-self: center;
   }
 
   .es-hero-figure.es-hero-figure--vector {
@@ -1594,6 +1737,10 @@
   .es-grid-2,
   .es-grid-3 {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .es-grid-3 > :last-child:nth-child(odd) {
+    grid-column: auto;
   }
 
   .es-grid-4 {
@@ -1767,6 +1914,10 @@
     inline-size: 100%;
   }
 
+  .es-button-row .es-button {
+    inline-size: 100%;
+  }
+
   .es-data-record__facts {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1861,6 +2012,33 @@
   }
 }
 
+/* The Raghad launcher is fixed 20px from the bottom and is
+   ~52px tall, but nothing reserved room for it, so it sat on
+   top of whatever the page ended with. Reserve its height at
+   the end of the page so the last row can always scroll clear.
+   Kept on the footer rather than body, because body carries
+   overflow-x: clip and a padding here would not scroll. */
+@media (max-width: 40rem) {
+  /* Scoped to pages that actually mount the launcher, so the
+     others do not gain dead space at the end of the page. */
+  body:has(.raghad-support) .es-footer {
+    padding-block-end: calc(var(--es-space-9, 3rem) + 4.5rem);
+  }
+}
+
+/* Legacy .btn instances live on pages that load only the v3
+   bundle, so the phone touch minimum belongs here too. */
+@media (max-width: 47.999rem) {
+  .btn {
+    display: inline-flex;
+    min-block-size: 3rem;
+    align-items: center;
+    justify-content: center;
+    padding-block: .8rem;
+    text-align: center;
+  }
+}
+
 /* Keep the four change nodes around their review hub at narrow widths. */
 @media (max-width: 22.4375rem) {
   .es-updates-mobile__events { column-gap: .35rem; }
@@ -1868,22 +2046,14 @@
 }
 /* Shared editorial language. Loaded last; the same above-fold rules are
    copied into critical CSS by tools/refresh-premium-design.py. */
-@font-face { font-family: "Estavo Plex"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/plex-arabic-400.woff2") format("woff2"); }
-@font-face { font-family: "Estavo Plex"; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/fonts/plex-arabic-500.woff2") format("woff2"); }
-@font-face { font-family: "Estavo Plex"; font-style: normal; font-weight: 600; font-display: swap; src: url("assets/fonts/plex-arabic-600.woff2") format("woff2"); }
-
 @layer tokens {
   :root {
-    --es-font: "Estavo Plex", Arial, sans-serif;
-    --es-fs-hero: clamp(2.25rem, 3.7vw, 3.5rem);
-    --es-fs-h1: clamp(2.25rem, 3.4vw, 3.25rem);
-    --es-fs-h2: clamp(1.875rem, 2.45vw, 2.3125rem);
-    --es-fs-h3: clamp(1.1875rem, 1.6vw, 1.375rem);
-    --es-fs-lead: clamp(1.0625rem, 1.25vw, 1.1875rem);
-    --es-fs-body: 1.0625rem;
+    --es-font: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    /* Type scale lives in tokens.css. This module used to restate it,
+       which meant the scale silently depended on load order. */
     --es-header-h: 4.5rem;
-    --es-art-paper: linear-gradient(155deg, var(--es-white), #edf3f7);
-    --es-art-dark: linear-gradient(145deg, #244b65, var(--es-navy-950) 85%);
+    --es-art-paper: var(--es-white);
+    --es-art-dark: var(--es-navy-900);
     --es-art-shadow: 0 24px 56px rgb(11 34 57 / 10%), 0 3px 8px rgb(11 34 57 / 6%);
     --es-art-inner: inset 0 1px 0 rgb(255 255 255 / 20%);
     --es-radius-control: .625rem;
@@ -1892,12 +2062,6 @@
   }
   @media (max-width: 47.999rem) {
     :root {
-      --es-fs-hero: clamp(1.9375rem, 7.6vw, 2.375rem);
-      --es-fs-h1: clamp(1.9375rem, 7.3vw, 2.375rem);
-      --es-fs-h2: clamp(1.625rem, 6.3vw, 1.875rem);
-      --es-fs-h3: 1.1875rem;
-      --es-fs-lead: 1.0625rem;
-      --es-fs-body: 1rem;
       --es-gutter: 1rem;
     }
   }
@@ -1934,17 +2098,22 @@
   .es-eyebrow::before { content: ""; inline-size: .375rem; block-size: .375rem; border-radius: 50%; background: var(--es-blue-500); opacity: .6; }
   .es-dark .es-eyebrow::before { background: var(--es-art-mint); }
   .es-button { font-size: .875rem; font-weight: 500; border-radius: var(--es-radius-control); min-block-size: 3rem; }
-  .es-button--primary { background: var(--es-art-dark); box-shadow: var(--es-art-inner), 0 5px 16px rgb(11 34 57 / 12%); }
-  .es-button--secondary { background: var(--es-art-paper); box-shadow: inset 0 1px 0 var(--es-white); }
+  .es-button--primary { background: var(--es-navy-900); box-shadow: 0 5px 16px rgb(11 34 57 / 12%); }
+  .es-button--secondary { background: var(--es-white); box-shadow: none; }
+  .es-dark .es-button--secondary { border-color: var(--es-white); color: var(--es-navy-950); }
   .es-text-link, .es-kicker, .es-status, .es-hero__secondary-link { font-weight: 500; }
   body.es b, body.es strong { font-weight: 500; }
   .es-copy { gap: 1.15rem; }
-  .es-lead { line-height: 1.85; }
+  .es-lead { line-height: 1.75; }
   .es-lead__short { display: none; }
-  .es-hero { padding-block: clamp(2rem, 5vh, 4rem); background: radial-gradient(ellipse at 20% 38%, #edf3f7, transparent 60%), var(--es-paper); }
-  .es-hero h1 { font-size: var(--es-fs-hero); font-weight: 500; line-height: 1.38; letter-spacing: -.035em; }
+  .es-hero { padding-block: clamp(2rem, 5vh, 4rem); background: var(--es-paper); }
+  /* Arabic display leading stays 1.38–1.45 (§3.2); Cairo's tall
+     ascenders and vowel marks collide below that. The Latin
+     override in base sets its own tighter figure. */
+  .es-hero h1 { font-size: var(--es-fs-hero); font-weight: 500; line-height: 1.4; letter-spacing: -.02em; text-wrap: balance; }
+  [dir="ltr"] .es-hero h1 { line-height: 1.12; letter-spacing: -.03em; }
   .es-hero__copy { display: grid; justify-items: start; gap: 1.5rem; transform: none; max-inline-size: 37rem; }
-  .es-hero__inner { grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(2rem,4vw,4rem); }
+  .es-hero__inner { grid-template-columns: minmax(0,.98fr) minmax(0,1.02fr); gap: clamp(2rem,4vw,4rem); }
   .es-hero__figure { display: grid; place-items: center; inline-size: 100%; min-inline-size: 0; }
   .es-hero-figure.es-hero-figure--vector { inline-size: 100%; max-inline-size: 54rem; aspect-ratio: 1024 / 900; }
   .es-hero-figure__vector { inline-size: 100%; block-size: auto; max-block-size: calc(100svh - 11rem); object-fit: contain; }
@@ -1957,7 +2126,8 @@
   .es-service-hero-art--diagram > img, .es-service-hero-art--diagram > .es-vector-picture > img { object-fit: contain; box-shadow: none; }
   .es-service-hero-art--client > img, .es-service-hero-art--client > .es-vector-picture > img { background: var(--es-art-dark); box-shadow: var(--es-art-shadow); }
   .es-service-hero-mobile { display: none; }
-  .es-service-configuration { padding: clamp(1.5rem,3vw,2.5rem); background: var(--es-art-paper); border: 1px solid var(--es-line); border-radius: var(--es-radius-theatre); box-shadow: var(--es-art-shadow); }
+  .es-service-hero-mobile img { display: block; inline-size: 100%; block-size: auto; max-block-size: 27rem; object-fit: contain; }
+  .es-service-configuration { padding: clamp(1.5rem,3vw,2.5rem); background: var(--es-white); border: 1px solid var(--es-line); border-radius: var(--es-radius-theatre); box-shadow: var(--es-shadow-1); }
   .es-service-configuration__note { font-size: .75rem; color: var(--es-blue-500); margin: 0 0 .65rem; }
   .es-service-configuration__title { font-size: 1.375rem; font-weight: 500; margin: 0 0 1.4rem; }
   .es-service-configuration > .es-service-configuration__scene, .es-service-configuration > .es-vector-picture > .es-service-configuration__scene { inline-size: 100%; block-size: auto; max-block-size: 9rem; object-fit: contain; box-shadow: none; border-radius: 0; margin-block: -.5rem 1rem; }
@@ -1965,17 +2135,47 @@
   .es-service-configuration__row span { display: grid; gap: .25rem; }
   .es-service-configuration__row b { font-size: 1rem; }
   .es-service-configuration__row small { font-size: .8125rem; color: var(--es-blue-500); }
-  .es-panel, .es-product-frame, .es-service-card { background: var(--es-art-paper); border-color: rgb(19 40 60 / 9%); box-shadow: inset 0 1px 0 var(--es-white), 0 6px 24px rgb(11 34 57 / 3%); }
+  .es-panel, .es-product-frame, .es-service-card { background: var(--es-white); border-color: rgb(19 40 60 / 12%); box-shadow: 0 10px 28px rgb(11 34 57 / 5%); }
   .es-service-card { gap: .9rem; padding: 1.65rem; }
   .es-service-card h3 { font-size: 1.25rem; font-weight: 500; }
   .es-service-card p { font-size: .9375rem; line-height: 1.85; }
-  .es-service-card__icon { inline-size: 3.75rem; block-size: 3.75rem; border-radius: 0; background: transparent; }
-  .es-service-card__icon img { inline-size: 100%; block-size: 100%; }
+  /* Line icons sit on a soft plate rather than floating: the
+     plate gives the 24-grid geometry a consistent optical weight
+     next to the 1.25rem headings, and carries the hover state so
+     the icon artwork itself never has to change. */
+  .es-service-card__icon {
+    inline-size: 3rem;
+    block-size: 3rem;
+    border-radius: .875rem;
+    background: var(--es-mist);
+    border: 1px solid var(--es-line);
+    transition: background var(--es-speed-control) var(--es-ease),
+                border-color var(--es-speed-control) var(--es-ease);
+  }
+  .es-service-card__icon img { inline-size: 1.5rem; block-size: 1.5rem; }
+  .es-service-card:hover .es-service-card__icon,
+  .es-service-card:focus-visible .es-service-card__icon {
+    background: var(--es-white);
+    border-color: var(--es-line-strong);
+  }
+  .es-service-card .es-text-link { margin-block-start: auto; opacity: .72; translate: 0 .15rem; transition: opacity var(--es-speed-control) var(--es-ease), translate var(--es-speed-control) var(--es-ease); }
+  .es-service-card:hover .es-text-link, .es-service-card:focus-visible .es-text-link { opacity: 1; translate: 0; }
+  .es-proof-section { padding-block: clamp(2.25rem,4vw,3.5rem); border-block: 1px solid var(--es-line); background: var(--es-white); }
+  .es-proof-intro { display: grid; grid-template-columns: minmax(0,.72fr) minmax(0,1.28fr); align-items: end; gap: clamp(1rem,4vw,4rem); margin-block-end: 1.75rem; }
+  .es-proof-intro h2 { font-size: clamp(1.75rem,2.7vw,2.5rem); }
+  .es-proof-intro p { color: var(--es-ink-72); line-height: 1.8; }
+  .es-proof-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); border: 1px solid var(--es-line); border-radius: var(--es-radius-theatre); overflow: hidden; background: var(--es-white); box-shadow: var(--es-shadow-1); }
+  .es-proof-card { display: grid; align-content: start; gap: .55rem; min-block-size: 9.5rem; padding: 1.35rem; color: inherit; text-decoration: none; transition: background-color var(--es-speed-view) var(--es-ease), color var(--es-speed-view) var(--es-ease); }
+  .es-proof-card + .es-proof-card { border-inline-start: 1px solid var(--es-line); }
+  .es-proof-card small { color: var(--es-blue-500); font-size: .75rem; font-weight: 500; }
+  .es-proof-card strong { font-size: 1.1rem; font-weight: 500; }
+  .es-proof-card span { color: var(--es-ink-72); font-size: .9rem; line-height: 1.7; }
+  .es-proof-card:hover, .es-proof-card:focus-visible { background: var(--es-mist); color: var(--es-navy-950); }
   .es-product-frame__dots { display: none; }
-  .es-product-frame__bar { grid-template-columns: minmax(0,1fr) auto; background: var(--es-art-paper); }
+  .es-product-frame__bar { grid-template-columns: minmax(0,1fr) auto; background: var(--es-white); }
   .es-product-frame__url { text-align: start; color: var(--es-blue-500); font-size: .8125rem; }
-  .es-dark { background: radial-gradient(ellipse at 50% 15%, #17384e, transparent 75%), var(--es-navy-950); }
-  .es-dark .es-panel, .es-dark .es-service-card { background: linear-gradient(145deg,rgb(255 255 255 / 7%),rgb(255 255 255 / 2%)); box-shadow: var(--es-art-inner); border-color: var(--es-line-dark); }
+  .es-dark { background: var(--es-navy-950); }
+  .es-dark .es-panel, .es-dark .es-service-card { background: rgb(255 255 255 / 5%); box-shadow: none; border-color: var(--es-line-dark); }
   .es-footer h2 { font-size: .875rem; font-weight: 500; letter-spacing: 0; }
   .es-art-v2 { box-shadow: var(--es-art-shadow); }
   .es-art-v2 .es-art-title { font-size: 1.125rem; font-weight: 500; }
@@ -2021,7 +2221,7 @@
   .es-mobile-hero-outputs img { inline-size: 3rem; block-size: 3rem; }
   .es-art-stage { transform: perspective(1100px) rotateX(var(--art-rx,0deg)) rotateY(var(--art-ry,0deg)); transition: transform 600ms cubic-bezier(.2,.7,.2,1); }
   @media (min-width:64rem) {
-    .es-hero:not(.es-service-hero) { min-block-size: calc(100svh - var(--es-header-h) - 1px); max-block-size: calc(100svh - var(--es-header-h) - 1px); }
+    .es-hero:not(.es-service-hero) { min-block-size: calc(100svh - var(--es-header-h) - 1px); }
   }
   @media (max-width:63.999rem) {
     .es-hero__inner { grid-template-columns: minmax(0,1fr); gap: 2rem; }
@@ -2036,7 +2236,6 @@
     .es-hero__copy { gap: 1.2rem; }
     .es-lead__full { display: none; }
     .es-lead__short { display: inline; }
-    .es-hero h1 { line-height: 1.45; }
     .es-hero-figure.es-hero-figure--vector { aspect-ratio: auto; }
     .es-hero-figure--vector .es-hero-figure__vector { display: none; }
     .es-hero-mobile-map { display: grid; gap: .8rem; padding: 0; background: none; }
@@ -2045,15 +2244,103 @@
     .es-service-hero-art--diagram > img, .es-service-hero-art--diagram > .es-vector-picture > img { display: none; }
     .es-service-hero-mobile { display: block; }
     .es-service-card { padding: 1.3rem; }
+    .es-proof-intro, .es-proof-grid { grid-template-columns: minmax(0,1fr); }
+    .es-proof-intro { align-items: start; gap: .75rem; }
+    .es-proof-card { min-block-size: 0; }
+    .es-proof-card + .es-proof-card { border-inline-start: 0; border-block-start: 1px solid var(--es-line); }
     .es-art-stage { transform: none; }
   }
+}
+
+/* Service choices preview the product itself instead of displaying a 3D icon. */
+.es-service-product-grid { gap: 1rem; align-items: stretch; }
+.es-service-product-card { overflow: hidden; gap: .7rem; padding: 0; }
+.es-service-product-visual { display: block; block-size: 8rem; padding: .65rem; border-block-end: 1px solid var(--es-line); background: #f7fafc; }
+.es-service-product-visual img { display: block; inline-size: 100%; block-size: 100%; object-fit: contain; }
+.es-service-product-card h3 { margin: .45rem 1.25rem 0; }
+.es-service-product-card p { margin: 0 1.25rem; }
+.es-service-product-card .es-text-link { margin: auto 1.25rem 1.25rem; }
+
+@media (max-width:47.999rem) {
+  .es-grid-4.es-service-product-grid { grid-template-columns: minmax(0,1fr); gap: .75rem; }
+  .es-service-product-card { grid-template-columns: minmax(0,7.5rem) minmax(0,1fr); grid-template-rows: auto auto 1fr; gap: .3rem .75rem; padding: .7rem; }
+  .es-service-product-visual { grid-column: 1; grid-row: 1 / 4; block-size: 100%; min-block-size: 8.5rem; padding: .3rem .6rem; border-block-end: 0; border-inline-end: 1px solid var(--es-line); }
+  .es-service-product-card h3, .es-service-product-card p, .es-service-product-card .es-text-link { grid-column: 2; margin: 0; }
+  .es-service-product-card h3 { font-size: 1rem; align-self: end; }
+  .es-service-product-card p { font-size: .8rem; line-height: 1.55; }
+  .es-service-product-card .es-text-link { align-self: end; font-size: .8rem; }
+}
+
+/* Client intelligence: editorial copy and the working profile share one row. */
+.es-client-intelligence-section { overflow: hidden; }
+.es-client-intelligence-layout { grid-template-columns: minmax(0,.72fr) minmax(0,1.28fr); gap: clamp(2rem,4vw,4rem); }
+.es-client-intelligence-copy { max-inline-size: 34rem; }
+.es-client-intelligence-callout { display: grid; gap: .55rem; margin-block-start: .35rem; padding-block-start: 1.25rem; border-block-start: 1px solid var(--es-line-dark); }
+.es-client-intelligence-callout h3, .es-client-intelligence-callout p { margin: 0; }
+.es-client-intelligence-callout p { color: var(--es-on-dark-muted); line-height: 1.75; }
+.es-client-intelligence-art { min-inline-size: 0; }
+.es-client-intelligence-art .es-note { color: var(--es-on-dark-muted); }
+
+/* Listings: product workspace first, then one compact process and offer. */
+.es-listings-layout { grid-template-columns: minmax(0,.72fr) minmax(0,1.28fr); gap: clamp(2rem,4vw,4rem); }
+.es-listings-copy { max-inline-size: 34rem; }
+.es-listings-art { min-inline-size: 0; }
+.es-listings-quick-facts { display: flex; flex-wrap: wrap; gap: .55rem; }
+.es-listings-quick-facts span { padding: .45rem .7rem; border: 1px solid var(--es-line); border-radius: .55rem; background: var(--es-white); color: var(--es-blue-600); font-size: .8rem; }
+.es-listings-process { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); overflow: hidden; border: 1px solid var(--es-line); border-radius: var(--es-radius-theatre); background: var(--es-white); box-shadow: inset 0 1px 0 var(--es-white); }
+.es-listings-step { display: grid; align-content: start; gap: .55rem; padding: 1.25rem; }
+.es-listings-step + .es-listings-step { border-inline-start: 1px solid var(--es-line); }
+.es-listings-step h3, .es-listings-step p { margin: 0; }
+.es-listings-step h3 { font-size: 1.05rem; }
+.es-listings-step p { color: var(--es-ink-72); font-size: .875rem; line-height: 1.7; }
+.es-listings-offer { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 2rem; padding: 1.5rem; border: 1px solid var(--es-line); border-radius: var(--es-radius-theatre); background: var(--es-white); }
+.es-listings-offer > div:first-child { display: grid; gap: .65rem; }
+.es-listings-offer h3, .es-listings-offer p { margin: 0; }
+.es-listings-offer p { color: var(--es-ink-72); }
+
+/* Meta connection: the copy mirrors the three stages in the illustration. */
+.es-signal-steps { display: grid; gap: .65rem; margin: .25rem 0; padding: 0; list-style: none; counter-reset: none; }
+.es-signal-steps li { display: grid; grid-template-columns: 2rem minmax(0,1fr); align-items: center; gap: .75rem; }
+.es-signal-steps li > span { display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: 50%; background: var(--es-mist-2); color: var(--es-blue-600); font-size: .8rem; font-weight: 600; }
+.es-signal-steps p { margin: 0; color: var(--es-ink-72); font-size: .925rem; line-height: 1.7; }
+
+@media (max-width:63.999rem) {
+  .es-client-intelligence-layout, .es-listings-layout { grid-template-columns: minmax(0,1fr); }
+  .es-client-intelligence-copy, .es-listings-copy { max-inline-size: none; }
+}
+
+@media (max-width:47.999rem) {
+  .es-client-intelligence-layout, .es-listings-layout { gap: 2rem; }
+  .es-client-intelligence-callout { padding-block-start: 1rem; }
+  .es-listings-process { grid-template-columns: minmax(0,1fr); }
+  .es-listings-step { padding: 1rem; }
+  .es-listings-step + .es-listings-step { border-inline-start: 0; border-block-start: 1px solid var(--es-line); }
+  .es-listings-offer { grid-template-columns: minmax(0,1fr); gap: 1rem; padding: 1.15rem; }
+  .es-listings-offer .es-cluster--actions { inline-size: 100%; }
+  .es-listings-offer .es-button { inline-size: 100%; }
+}
+
+/* responsive.css is intentionally unlayered, so this compact ROI grid must
+   also be unlayered to keep four evidence cards to two phone rows. */
+@media (max-width:47.999rem) {
+  .es-grid-4.es-roi-proof-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; }
 }
 
 @layer motion {
   .has-js [data-reveal], .has-js [data-reveal-stagger] > * { opacity: 1; transform: none; transition: none; }
   @media (prefers-reduced-motion:no-preference) {
-    .has-js [data-reveal].is-visible { animation: es-editorial-reveal 850ms cubic-bezier(.2,.7,.2,1) both; }
-    .has-js [data-reveal-stagger].is-visible > * { animation: es-editorial-reveal 750ms cubic-bezier(.2,.7,.2,1) both; }
+    /* Rotate a small set of entrance directions between top-level sections.
+       RTL and LTR pages enter from their logical reading edges. */
+    .has-js main > section { --es-reveal-x: 0px; --es-reveal-y: 22px; --es-reveal-scale: 1; }
+    .has-js main > section:nth-of-type(3n + 1) { --es-reveal-y: 18px; --es-reveal-scale: .975; }
+    [dir="rtl"] .has-js main > section:nth-of-type(3n + 2) { --es-reveal-x: 24px; --es-reveal-y: 0px; }
+    [dir="ltr"] .has-js main > section:nth-of-type(3n + 2) { --es-reveal-x: -24px; --es-reveal-y: 0px; }
+    [dir="rtl"] .has-js main > section:nth-of-type(3n) { --es-reveal-x: -24px; --es-reveal-y: 0px; }
+    [dir="ltr"] .has-js main > section:nth-of-type(3n) { --es-reveal-x: 24px; --es-reveal-y: 0px; }
+    .has-js main > .es-dark { --es-reveal-y: 28px; --es-reveal-scale: .985; }
+
+    .has-js [data-reveal].is-visible { animation: es-editorial-reveal 900ms var(--es-ease-glide) both; }
+    .has-js [data-reveal-stagger].is-visible > * { animation: es-editorial-reveal 800ms var(--es-ease-glide) both; }
     .has-js [data-reveal-stagger].is-visible > :nth-child(2) { animation-delay: 90ms; }
     .has-js [data-reveal-stagger].is-visible > :nth-child(3) { animation-delay: 180ms; }
     .has-js [data-reveal-stagger].is-visible > :nth-child(4) { animation-delay: 270ms; }
@@ -2065,7 +2352,13 @@
     .es-vector-bar { transform-box: fill-box; transform-origin: center bottom; animation: es-waterfall-grow 1.4s cubic-bezier(.2,.7,.2,1) both; }
     .es-vector-bar--deduction { transform-origin: center top; }
   }
-  @keyframes es-editorial-reveal { from { opacity: .15; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  @keyframes es-editorial-reveal {
+    from {
+      opacity: .12;
+      transform: translate3d(var(--es-reveal-x, 0px), var(--es-reveal-y, 22px), 0) scale(var(--es-reveal-scale, 1));
+    }
+    to { opacity: 1; transform: none; }
+  }
   @keyframes es-surface-arrive { from { opacity: .5; transform: translateY(12px) scale(.97); } to { opacity: 1; transform: none; } }
   @keyframes es-segment-breathe { 50% { border-color: rgb(114 224 187 / 50%); transform: scale(1.04); } }
   @keyframes es-vector-transfer { 0% { stroke-dashoffset: 100; opacity: 0; } 8%,88% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
@@ -2261,32 +2554,84 @@
   }
 }
 
-@media (max-width:47.999rem) {
-  /* Keep the quieter vector composition on phones instead of the legacy
-     miniature-dashboard fallback. */
-  .es-hero-figure--vector .es-hero-figure__vector {
-    display: block;
-    grid-column: 1 / -1;
-    inline-size: 100%;
-    block-size: auto;
-    max-block-size: none;
-    aspect-ratio: 390 / 430;
-    object-fit: contain;
-  }
+/* ROI evidence cards are small data views, not repeated decorative icons. */
+@layer components {
+  .es-roi-proof-grid { gap: 1rem; align-items: stretch; }
+  .es-roi-proof-card { overflow: hidden; gap: .65rem; padding: 0; }
+  .es-roi-proof-visual { display: block; block-size: 6.5rem; padding: .7rem; border-block-end: 1px solid var(--es-line); background: #f7fafc; }
+  .es-roi-proof-visual img { display: block; inline-size: 100%; block-size: 100%; object-fit: contain; }
+  .es-roi-proof-card h3 { margin: .45rem 1.2rem 0; }
+  .es-roi-proof-card p { margin: 0 1.2rem 1.25rem; }
 
-  .es-hero-mobile-map--compact { display: none; }
+  @media (max-width:47.999rem) {
+    .es-grid-4.es-roi-proof-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; }
+    .es-roi-proof-visual { block-size: 4.85rem; padding: .4rem; }
+    .es-roi-proof-card h3 { margin: .35rem .8rem 0; font-size: 1rem; }
+    .es-roi-proof-card p { margin: 0 .8rem .85rem; font-size: .8rem; line-height: 1.6; }
+  }
 }
 
-@media (min-width:64rem) {
-  .es-hero-figure.es-hero-figure--vector {
-    inline-size: 115%;
-    max-inline-size: 62rem;
+/* ── Homepage polish: services icons + trust network entrance ──
+   Motion here is purposeful, not ambient (DESIGN-GUIDELINES §7):
+   the icon plate responds to the card it belongs to, and the
+   network assembles once in reading order — supply, then the
+   core, then the branded surfaces — which is the section's
+   actual argument. Nothing loops. */
+@layer components {
+  @media (prefers-reduced-motion: no-preference) {
+    .es-service-card__icon img {
+      transition: scale var(--es-speed-view) var(--es-ease);
+    }
+    .es-service-card:hover .es-service-card__icon img,
+    .es-service-card:focus-visible .es-service-card__icon img {
+      scale: 1.08;
+    }
+
+    /* The diagram draws itself in the order it should be read.
+       Groups fade toward the core from each side; the rails
+       scale from the core outward so a connector never appears
+       detached from the thing it connects. */
+    .has-js .es-trust-network[data-reveal] .es-trust-network__col,
+    .has-js .es-trust-network[data-reveal] .es-trust-network__core {
+      opacity: 0;
+      translate: 0 .5rem;
+      transition:
+        opacity var(--es-speed-reveal) var(--es-ease),
+        translate var(--es-speed-reveal) var(--es-ease);
+    }
+
+    .has-js .es-trust-network[data-reveal] .es-trust-rail {
+      opacity: 0;
+      transition: opacity var(--es-speed-reveal) var(--es-ease);
+    }
+
+    .has-js .es-trust-network[data-reveal].is-visible .es-trust-network__col,
+    .has-js .es-trust-network[data-reveal].is-visible .es-trust-network__core,
+    .has-js .es-trust-network[data-reveal].is-visible .es-trust-rail {
+      opacity: 1;
+      translate: none;
+    }
+
+    .has-js .es-trust-network[data-reveal].is-visible .es-trust-network__core { transition-delay: 0ms; }
+    .has-js .es-trust-network[data-reveal].is-visible .es-trust-rail { transition-delay: 220ms; }
+    .has-js .es-trust-network[data-reveal].is-visible .es-trust-network__col--in { transition-delay: 320ms; }
+    .has-js .es-trust-network[data-reveal].is-visible .es-trust-network__col--out { transition-delay: 440ms; }
+  }
+
+  /* Reduced motion keeps the finished state, fully visible. */
+  @media (prefers-reduced-motion: reduce) {
+    .es-trust-network .es-trust-network__col,
+    .es-trust-network .es-trust-network__core,
+    .es-trust-network .es-trust-rail {
+      opacity: 1 !important;
+      translate: none !important;
+      transition: none !important;
+    }
+    .es-service-card__icon img { scale: 1 !important; transition: none !important; }
   }
 }
 
 </style>
-    <link rel="stylesheet" href="assets/css/chatbot-shared.css?v=20260918-chat-ui" />
-    <link rel="stylesheet" href="assets/css/raghad.css?v=20260918-chat-feedback" />
 </head>
 
 <body class="es">
@@ -2428,7 +2773,7 @@
                          reference art shows a price or a developer logo, this
                          shows the field label and a redacted bar — the shape of
                          the data, with no claim and no unlicensed mark. -->
-                    <div class="es-hero__figure" aria-hidden="true"><div class="es-hero-figure es-hero-figure--vector"><picture class="es-vector-picture"><source media="(max-width:47.999rem) and (prefers-reduced-motion:reduce)" srcset="assets/img/estavo-mobile-hero-en-still.svg" type="image/svg+xml" /><source media="(max-width:47.999rem)" srcset="assets/img/estavo-mobile-hero-en.svg" type="image/svg+xml" /><source media="(prefers-reduced-motion: reduce)" srcset="assets/img/estavo-desktop-hero-en-still.svg" type="image/svg+xml" /><img class="es-hero-figure__vector" src="assets/img/estavo-desktop-hero-en.svg" alt="" width="1024" height="900" loading="eager" fetchpriority="high" decoding="async" /></picture><div class="es-hero-mobile-map es-hero-mobile-map--modern es-hero-mobile-map--compact">
+                    <div class="es-hero__figure" aria-hidden="true"><div class="es-hero-figure es-hero-figure--vector"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="assets/img/estavo-desktop-hero-en-still.svg" type="image/svg+xml" /><img class="es-hero-figure__vector" src="assets/img/estavo-desktop-hero-en.svg" alt="" width="1024" height="900" loading="eager" fetchpriority="high" decoding="async" /></picture><div class="es-hero-mobile-map es-hero-mobile-map--modern es-hero-mobile-map--compact">
       <svg class="es-hero-mobile-links" viewBox="0 0 360 286" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="#5c91c7" stroke-width="1.6" stroke-linecap="round"><path d="M151 76C160 76 155 72 164 72M151 190C160 190 155 213 164 213M78 274V286"/></g><g fill="#28567f"><circle cx="151" cy="76" r="2.5"/><circle cx="164" cy="72" r="2.5"/><circle cx="151" cy="190" r="2.5"/><circle cx="164" cy="213" r="2.5"/><circle cx="78" cy="286" r="2.5"/></g></svg>
       <div class="es-hero-record">
         <div class="es-hero-record-heading"><img class="es-hero-source-mark" src="assets/logo/estavo-mark.svg" width="600" height="600" alt="" /><b><bdi>Estavo</bdi></b></div><small class="es-hero-compact-caption">Property data</small>
@@ -2459,9 +2804,9 @@
 
         <section class="es-scale-strip" aria-label="Estavo in numbers">
             <div class="es-container es-scale-strip__inner" data-reveal-stagger>
-                <div class="es-scale-stat"><strong>5,000+ brokers</strong><span>to extend distribution at the commission you set</span></div>
+                <div class="es-scale-stat"><strong>7,000 brokers</strong><span>to extend distribution at the commission you set</span></div>
                 <div class="es-scale-stat"><strong>Around 5 minutes</strong><span>to put a property link under your name in front of buyers</span></div>
-                <div class="es-scale-stat"><strong>30,000+ units</strong><span>to search and compare instead of scattered spreadsheets</span></div>
+                <div class="es-scale-stat"><strong>30,000 units</strong><span>to search and compare instead of scattered spreadsheets</span></div>
                 <div class="es-scale-stat"><strong>Daily updates</strong><span>so you can review the latest information available before sending</span></div>
             </div>
         </section>
@@ -2496,7 +2841,7 @@
                         <img src="assets/logo/estavo-mark-white.png" width="512" height="512" alt="" />
                         <b>Estavo network</b>
                         <span>Organised, maintained data</span>
-                        <small>30,000+ units</small>
+                        <small>30,000 units</small>
                     </div>
 
                     <span class="es-trust-rail es-trust-rail--out" aria-hidden="true"><i class="es-trust-rail__arm es-trust-rail__arm--top"></i><i class="es-trust-rail__arm es-trust-rail__arm--bottom"></i></span>
@@ -2513,7 +2858,7 @@
                         </div>
                         <div class="es-trust-item">
                             <svg class="es-trust-item__glyph" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="3.2"/><circle cx="20" cy="9" r="3.2"/><path d="M3.5 21c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><path d="M14.5 21c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/></svg>
-                            <span class="es-trust-item__text"><b>5,000+ brokers</b><span>Distribution and clear commission</span></span>
+                            <span class="es-trust-item__text"><b>7,000 brokers</b><span>Distribution and clear commission</span></span>
                         </div>
                     </div>
                 </div>
@@ -2542,7 +2887,7 @@
             <div class="es-container es-split es-listings-layout">
                 <div class="es-copy es-listings-copy" data-reveal>
                     <span class="es-eyebrow">Estavo broker network</span>
-                    <h2 id="listings-h">Put your properties in front of 5,000+ brokers.</h2>
+                    <h2 id="listings-h">Put your properties in front of 7,000 brokers.</h2>
                     <p class="es-lead">Publish on your website, set the commission and let brokers across the Estavo network sell with you.</p>
                     <p><strong>Your first bulk upload is free: send us your property sheet and we will upload it.</strong></p>
                     <p><a href="https://estavo-brokers.com/website/" class="es-button es-button--primary"
@@ -2567,9 +2912,9 @@
                     <p class="es-lead">Estavo Market brings the repeated parts of broker work together, so you can reach comparable options and present them professionally.</p>
                 </div>
                 <div class="es-grid-3 es-home-services-grid es-mt-8" data-reveal-stagger>
-                    <article class="es-service-card es-outcome-card"><span class="es-service-card__icon" aria-hidden="true"><img src="assets/img/icons/estavo-layers.svg" width="120" height="120" alt="" loading="lazy" /></span><h3>Reach relevant options faster</h3><p>Start from the area, budget and buyer request instead of opening scattered sources and spreadsheets every time.</p></article>
-                    <article class="es-service-card es-outcome-card"><span class="es-service-card__icon" aria-hidden="true"><img src="assets/img/icons/estavo-chart.svg" width="120" height="120" alt="" loading="lazy" /></span><h3>Compare what drives the decision</h3><p>Put prices, areas and payment plans side by side so the differences are clear to you and your buyer.</p></article>
-                    <article class="es-service-card es-outcome-card"><span class="es-service-card__icon" aria-hidden="true"><img src="assets/img/icons/estavo-profile.svg" width="120" height="120" alt="" loading="lazy" /></span><h3>Send the offer under your name</h3><p>Turn the comparison into a branded PDF, or present the options on your website so the buyer comes back to you.</p></article>
+                    <article class="es-service-card es-outcome-card"><span class="es-service-card__icon" aria-hidden="true"><img class="es-art-icon" src="assets/img/icons/estavo-layers.svg" width="160" height="160" alt="" loading="lazy" decoding="async" /></span><h3>Reach relevant options faster</h3><p>Start from the area, budget and buyer request instead of opening scattered sources and spreadsheets every time.</p></article>
+                    <article class="es-service-card es-outcome-card"><span class="es-service-card__icon" aria-hidden="true"><img class="es-art-icon" src="assets/img/icons/estavo-chart.svg" width="160" height="160" alt="" loading="lazy" decoding="async" /></span><h3>Compare what drives the decision</h3><p>Put prices, areas and payment plans side by side so the differences are clear to you and your buyer.</p></article>
+                    <article class="es-service-card es-outcome-card"><span class="es-service-card__icon" aria-hidden="true"><img class="es-art-icon" src="assets/img/icons/estavo-messages.svg" width="160" height="160" alt="" loading="lazy" decoding="async" /></span><h3>Send the offer under your name</h3><p>Turn the comparison into a branded PDF, or present the options on your website so the buyer comes back to you.</p></article>
                 </div>
             </div>
         </section>
@@ -2744,7 +3089,7 @@
                     <p class="es-lead">Give your marketing team transparent context such as a selected area or viewed project—without turning browsing into a hidden qualification signal. You keep account, audience and budget control.</p>
                     <a href="meta/en.html" class="es-text-link" data-track="service_selected" data-position="meta">Review the Meta connection and privacy</a>
                 </div>
-                <div data-reveal aria-hidden="true"><div class="es-signals-figure"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="assets/img/estavo-meta-signals-en-still.svg" type="image/svg+xml"><img class="es-signals-figure__vector" src="assets/img/estavo-meta-signals-en.svg" alt="" width="1024" height="640" loading="lazy" decoding="async"></picture><div class="es-home-art-mobile-flat"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="assets/img/estavo-meta-signals-mobile-en-still.svg" type="image/svg+xml"><img src="assets/img/estavo-meta-signals-mobile-en.svg" width="390" height="430" alt="" loading="lazy" decoding="async"></picture></div></div></div>
+                <div data-reveal aria-hidden="true"><div class="es-signals-figure"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="assets/img/estavo-meta-signals-en-still.svg" type="image/svg+xml" /><img class="es-signals-figure__vector" src="assets/img/estavo-meta-signals-en.svg" alt="" width="1024" height="640" loading="lazy" decoding="async"></picture><div class="es-home-art-mobile-flat"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="assets/img/estavo-meta-signals-mobile-en-still.svg" type="image/svg+xml" /><img src="assets/img/estavo-meta-signals-mobile-en.svg" width="390" height="430" alt="" loading="lazy" decoding="async"></picture></div></div></div>
             </div>
         </template>
 
@@ -2756,7 +3101,7 @@
                     <p class="es-lead">Add an eligible property under your name, choose the commission brokers see and keep ownership of the contact, negotiation and deal. Distribution does not guarantee a sale.</p>
                     <a href="listings/en.html" class="es-text-link" data-track="service_selected" data-position="listings">See broker-network distribution</a>
                 </div>
-                <div data-reveal aria-hidden="true"><div class="es-reach-figure"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="assets/img/estavo-listings-reach-en-still.svg" type="image/svg+xml"><img class="es-reach-figure__vector" src="assets/img/estavo-listings-reach-en.svg" alt="" width="1024" height="640" loading="lazy" decoding="async"></picture><div class="es-home-art-mobile-flat"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="assets/img/estavo-listings-reach-mobile-en-still.svg" type="image/svg+xml"><img src="assets/img/estavo-listings-reach-mobile-en.svg" width="390" height="430" alt="" loading="lazy" decoding="async"></picture></div></div></div>
+                <div data-reveal aria-hidden="true"><div class="es-reach-figure"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="assets/img/estavo-listings-reach-en-still.svg" type="image/svg+xml" /><img class="es-reach-figure__vector" src="assets/img/estavo-listings-reach-en.svg" alt="" width="1024" height="640" loading="lazy" decoding="async"></picture><div class="es-home-art-mobile-flat"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="assets/img/estavo-listings-reach-mobile-en-still.svg" type="image/svg+xml" /><img src="assets/img/estavo-listings-reach-mobile-en.svg" width="390" height="430" alt="" loading="lazy" decoding="async"></picture></div></div></div>
             </div>
         </template>
 

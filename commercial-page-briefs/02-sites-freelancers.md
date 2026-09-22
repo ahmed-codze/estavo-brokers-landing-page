@@ -44,8 +44,8 @@ English:
 
 - Eyebrow: `Estavo Sites — موقع عقاري للبروكر المستقل`
 - H1: `خلي العميل يرجعلك إنت، مش يضيع وسط المنافسين.`
-- Lead: a website under the broker's name with more than 30,000 comparable units
-  from 1,029 projects, plus the broker's own properties.
+- Lead: a website under the broker's name with 30,000 comparable units
+  from 2,000 projects, plus the broker's own properties.
 - CTA: `اعمل موقعك مجانًا`
 - Destination: `/website/`
 
@@ -53,7 +53,7 @@ English:
 
 - Eyebrow: `Estavo Sites — a property website for independent brokers`
 - H1: `Bring the buyer back to you—not to a page full of competitors.`
-- Lead: a branded website with more than 30,000 comparable units from 1,029
+- Lead: a branded website with 30,000 comparable units from 2,000
   projects, plus the broker's own properties.
 - CTA: `Create your website free`
 - Destination: `/website/`

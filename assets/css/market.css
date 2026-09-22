@@ -33,8 +33,11 @@
 }
 
 .hero-content { display: grid; justify-items: start; gap: 1.35rem; }
-.hero-title { max-inline-size: 41rem; color: var(--es-ink); font-size: clamp(2.7rem, 4.5vw, 4.6rem); font-weight: 600; line-height: 1.08; letter-spacing: -.055em; }
-.hero-body { max-inline-size: 38rem; color: var(--es-ink-72); font-size: clamp(1.05rem, 1.35vw, 1.22rem); line-height: 1.8; }
+/* Service H1s cap at 52px (§3.2). Arabic keeps 1.38–1.45 leading;
+   the tight tracking below that cap collided the vowel marks. */
+.hero-title { max-inline-size: 41rem; color: var(--es-ink); font-size: var(--es-fs-h1); font-weight: 500; line-height: 1.4; letter-spacing: -.02em; }
+[dir="ltr"] .hero-title { line-height: 1.12; letter-spacing: -.03em; }
+.hero-body { max-inline-size: 38rem; color: var(--es-ink-72); font-size: var(--es-fs-lead); line-height: 1.75; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
 .hero-micro { color: var(--es-ink-60); font-size: .8rem; line-height: 1.65; }
 .hero-market-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); inline-size:100%; max-inline-size:38rem; overflow:hidden; border:1px solid var(--es-line); border-radius:var(--es-radius-row); background:rgb(255 255 255 / 72%); }
@@ -290,10 +293,19 @@
 }
 
 @media (max-width: 47.999rem) {
-  .section-pad{padding-block:3.75rem}.section-title{font-size:clamp(1.75rem,7vw,2.25rem);line-height:1.28}.eyebrow,.hero-eyebrow{font-size:.68rem}.hero-inner{padding-block:2.8rem}.hero-title{font-size:clamp(2rem,9vw,2.75rem);line-height:1.2}.hero-body{font-size:1rem}.hero-actions{inline-size:100%;flex-direction:column}.hero-actions .btn{inline-size:100%}.browser-frame,[dir="rtl"] .browser-frame{transform:none}.browser-content{grid-template-columns:minmax(0,1fr);min-block-size:20rem}.browser-sidebar{display:none}.problem-grid,.pillars-grid,.hiw-steps,.avail-unit-grid{grid-template-columns:minmax(0,1fr)}.problem-card{grid-template-columns:2.6rem minmax(0,1fr);padding:1.15rem}.problem-icon{inline-size:2.6rem;block-size:2.6rem}.ai-demo-body{min-block-size:15rem}.ba-tabs{display:flex;justify-content:center;gap:.35rem;margin:1.5rem auto 0}.ba-tab{border:1px solid var(--es-line-dark);border-radius:2rem;padding:.5rem .8rem;color:var(--es-on-dark-muted);font-size:.75rem}.ba-tab.active{background:var(--es-white);color:var(--es-navy-950)}.ba-grid{grid-template-columns:minmax(0,1fr);margin-block-start:1rem}.ba-col-after{border-inline-start:0}.section-ba[data-ba="before"] .ba-col-after,.section-ba[data-ba="after"] .ba-col-before{display:none}.hiw-steps::before{inset-block:2rem auto;inset-inline:2rem;inline-size:1px;block-size:calc(100% - 4rem)}.hiw-step{grid-template-columns:4rem minmax(0,1fr);justify-items:start;gap:0 1rem;text-align:start}.hiw-num{grid-row:1 / 4}.hiw-step-icon{margin-block:.5rem .25rem}.pdf-mockup-shadow{display:none}.pdf-mockup,[dir="rtl"] .pdf-mockup{transform:none}.usecases-carousel{grid-auto-columns:minmax(16.5rem,84vw)}.market-update-story .es-split{gap:2rem}.market-update-story .es-split>div:last-child{order:-1}
+  .section-pad{padding-block:3.75rem}.eyebrow,.hero-eyebrow{font-size:.68rem}.hero-inner{padding-block:2.8rem}.hero-actions{inline-size:100%;flex-direction:column}.hero-actions .btn{inline-size:100%}.browser-frame,[dir="rtl"] .browser-frame{transform:none}.browser-content{grid-template-columns:minmax(0,1fr);min-block-size:20rem}.browser-sidebar{display:none}.problem-grid,.pillars-grid,.hiw-steps,.avail-unit-grid{grid-template-columns:minmax(0,1fr)}.problem-card{grid-template-columns:2.6rem minmax(0,1fr);padding:1.15rem}.problem-icon{inline-size:2.6rem;block-size:2.6rem}.ai-demo-body{min-block-size:15rem}.ba-tabs{display:flex;justify-content:center;gap:.35rem;margin:1.5rem auto 0}.ba-tab{border:1px solid var(--es-line-dark);border-radius:2rem;padding:.5rem .8rem;color:var(--es-on-dark-muted);font-size:.75rem}.ba-tab.active{background:var(--es-white);color:var(--es-navy-950)}.ba-grid{grid-template-columns:minmax(0,1fr);margin-block-start:1rem}.ba-col-after{border-inline-start:0}.section-ba[data-ba="before"] .ba-col-after,.section-ba[data-ba="after"] .ba-col-before{display:none}.hiw-steps::before{inset-block:2rem auto;inset-inline:2rem;inline-size:1px;block-size:calc(100% - 4rem)}.hiw-step{grid-template-columns:4rem minmax(0,1fr);justify-items:start;gap:0 1rem;text-align:start}.hiw-num{grid-row:1 / 4}.hiw-step-icon{margin-block:.5rem .25rem}.pdf-mockup-shadow{display:none}.pdf-mockup,[dir="rtl"] .pdf-mockup{transform:none}.usecases-carousel{grid-auto-columns:minmax(16.5rem,84vw)}.market-update-story .es-split{gap:2rem}.market-update-story .es-split>div:last-child{order:-1}
 }
 
 @media (max-width: 47.999rem) {
+  /* An inline link cannot take a touch height, so the phone
+     rule promotes it to an inline-flex box first. */
+  .hero-support-link a,
+  .cta-inner a:not(.btn) {
+    display: inline-flex;
+    min-block-size: 2.75rem;
+    align-items: center;
+  }
+
   .hero-market-stats span { padding:.65rem .45rem; font-size:.6rem; }
   .hero-market-stats strong { font-size:.86rem; }
   .market-proof-inner { padding-block: 2.5rem; }

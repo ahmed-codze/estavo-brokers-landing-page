@@ -28,7 +28,7 @@
 }
 .sites-hero__copy { display: grid; justify-items: start; gap: 1.3rem; }
 .sites-hero .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
-.sites-hero h1 { max-inline-size: 38rem; color: var(--es-ink); font-size: clamp(2.6rem, 4.2vw, 3.25rem); font-weight: 600; line-height: 1.12; letter-spacing: -.045em; }
+.sites-hero h1 { max-inline-size: 38rem; color: var(--es-ink); font-size: var(--es-fs-h1); font-weight: 500; line-height: 1.12; letter-spacing: -.045em; }
 [lang="ar"] .sites-hero h1 { line-height: 1.35; letter-spacing: -.025em; }
 .sites-hero__lead { max-inline-size: 37rem; color: var(--es-ink-72); font-size: clamp(1.05rem, 1.35vw, 1.2rem); line-height: 1.85; }
 .sites-hero__promise { max-inline-size: 37rem; border-inline-start: 2px solid var(--es-blue-500); padding-inline-start: .8rem; color: var(--es-ink); font-size: .9rem; font-weight: 600; line-height: 1.7; }
@@ -371,7 +371,6 @@
 
 @media (max-width: 47.999rem) {
   .sites-hero__inner { gap: 2rem; padding-block: 3rem; }
-  .sites-hero h1 { font-size: clamp(2rem, 9vw, 2.45rem); }
   [lang="ar"] .sites-hero h1 { line-height: 1.4; }
   .sites-hero__lead { font-size: 1rem; }
   .sites-hero__promise { border-inline-start: 0; border-block-start: 2px solid var(--es-blue-500); padding-block-start: .75rem; padding-inline-start: 0; }

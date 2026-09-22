@@ -69,6 +69,16 @@
 
     <link rel="stylesheet" href="../assets/css/commercial.css" />
     <link rel="stylesheet" href="../assets/css/pages/enterprise.css" />
+
+
+
+
+
+    <link rel="preload" as="style" href="../assets/css/estavo-v3.css"
+        onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+        <link rel="stylesheet" href="../assets/css/estavo-v3.css" />
+    </noscript>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
@@ -121,11 +131,20 @@
 
     /* ── Type (§3.2) ─────────────────────────────────────── */
     --es-font: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --es-fs-hero: clamp(2.75rem, 5vw, 4.5rem);
-    --es-fs-h1: clamp(2.625rem, 4.5vw, 4rem);
-    --es-fs-h2: clamp(2.125rem, 3.2vw, 3.125rem);
-    --es-fs-h3: clamp(1.375rem, 2vw, 1.75rem);
-    --es-fs-lead: clamp(1.125rem, 1.5vw, 1.25rem);
+    /* The ramp caps hero headings at 64px, service H1s at 58px,
+       section headings at 41px and card headings at 23px. The
+       §3.2 ceilings (56/52/37) were set against a 1440 stage and
+       read undersized on a 1920+ display, so the top of each
+       clamp is raised while the phone/tablet end is unchanged.
+       These tokens are the only place those caps are expressed:
+       hero/section rules read the token instead of restating a
+       clamp, so the ceiling cannot be raised by a later-loading
+       module. */
+    --es-fs-hero: clamp(2.75rem, 2.6vw + 1.2rem, 4rem);
+    --es-fs-h1: clamp(2.625rem, 2.4vw + 1.15rem, 3.625rem);
+    --es-fs-h2: clamp(1.9375rem, 1.85vw + 0.7rem, 2.5625rem);
+    --es-fs-h3: clamp(1.1875rem, 0.6vw + 1rem, 1.4375rem);
+    --es-fs-lead: clamp(1.0625rem, 0.5vw + 0.9rem, 1.25rem);
     --es-fs-body: 1.0625rem;
     --es-fs-ui: 0.875rem;
     --es-fs-label: 0.75rem;
@@ -457,7 +476,7 @@
       min-block-size: calc(100svh - var(--es-header-h));
       align-items: center;
     }
-    .es-hero h1 { font-size: clamp(3.75rem, 4.75vw, 4.5rem); }
+    /* Hero size comes from --es-fs-hero; see tokens.css. */
     .es-hero__copy { transform: translateY(-1.25rem); }
   }
 
@@ -602,6 +621,16 @@
     color: var(--es-navy-950);
     font-weight: 700;
     text-decoration: none;
+  }
+
+  /* A two-line link on a phone centred its arrow against the
+     whole block, so the arrow floated beside the gap between
+     the lines. Wrapping links align to the last line instead. */
+  @media (max-width: 47.999rem) {
+    .es-text-link {
+      align-items: end;
+      text-align: start;
+    }
   }
 
   /* The arrow points along the reading direction and is
@@ -868,6 +897,54 @@
     display: none;
   }
 
+  /* The Sites panel carries seven destinations, so it is grouped rather
+     than served as one long list: two section labels separate "start
+     here" from "add later", and a footer rail holds the two secondary
+     routes (examples, integrations) that do not earn a top-level slot. */
+  .es-menu__panel--grouped {
+    min-inline-size: 19rem;
+  }
+
+  .es-menu__label {
+    display: flex;
+    align-items: center;
+    gap: var(--es-space-2);
+    padding: var(--es-space-3) var(--es-space-3) var(--es-space-1);
+    color: var(--es-blue-600);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* A short rule after the label keeps the group boundary legible
+     without adding another horizontal divider to a tall panel. */
+  .es-menu__label::after {
+    content: "";
+    flex: 1;
+    block-size: 1px;
+    background: var(--es-line);
+  }
+
+  .es-menu__label:first-child {
+    padding-block-start: var(--es-space-1);
+  }
+
+  .es-menu__foot {
+    display: grid;
+    gap: var(--es-space-1);
+    margin-block-start: var(--es-space-1);
+    border-block-start: 1px solid var(--es-line);
+    padding-block-start: var(--es-space-2);
+  }
+
+  .es-menu__foot a {
+    padding-block: var(--es-space-2);
+    color: var(--es-ink-72);
+    font-size: var(--es-fs-label);
+    font-weight: 600;
+  }
+
   .es-menu__panel a {
     display: grid;
     gap: 0.1rem;
@@ -1081,13 +1158,36 @@
 }
 
 @media (max-width: 30rem) {
-  .es-header__inner { gap: 0.5rem; }
-  .es-header__logo { inline-size: 5.75rem; overflow: hidden; justify-content: center; }
-  .es-header__logo img { inline-size: 7rem; max-inline-size: none; }
-  .es-header__actions { gap: 0.35rem; }
-  .es-header__actions .es-button { padding-inline: 0.6rem; }
-  .es-header__actions .es-header-cta-long { display: none; }
-  .es-header__actions .es-header-cta-short { display: inline; }
+  .es-header__inner {
+    gap: 0.5rem;
+  }
+
+  .es-header__logo {
+    inline-size: 5.75rem;
+    overflow: hidden;
+    justify-content: center;
+  }
+
+  .es-header__logo img {
+    inline-size: 7rem;
+    max-inline-size: none;
+  }
+
+  .es-header__actions {
+    gap: 0.35rem;
+  }
+
+  .es-header__actions .es-button {
+    padding-inline: 0.6rem;
+  }
+
+  .es-header__actions .es-header-cta-long {
+    display: none;
+  }
+
+  .es-header__actions .es-header-cta-short {
+    display: inline;
+  }
 }
 /* Section artwork: a vector stage on desktop, a composition made for phones. */
 @layer components {
@@ -1399,11 +1499,12 @@
 /* ── Medium and Small: phone and portrait tablet (<768px) ─ */
 @media (max-width: 47.999rem) {
   :root {
-    --es-fs-hero: clamp(2.125rem, 9.4vw, 2.75rem);
-    --es-fs-h1: clamp(2rem, 8.5vw, 2.625rem);
-    --es-fs-h2: clamp(1.6875rem, 7.2vw, 2.125rem);
-    --es-fs-h3: clamp(1.25rem, 5.6vw, 1.5rem);
-    --es-fs-lead: 1.125rem;
+    /* Phones: 31–38px hero, 26–30px section headings (§3.2). */
+    --es-fs-hero: clamp(1.9375rem, 7.6vw, 2.375rem);
+    --es-fs-h1: clamp(1.9375rem, 7.3vw, 2.375rem);
+    --es-fs-h2: clamp(1.625rem, 6.3vw, 1.875rem);
+    --es-fs-h3: 1.1875rem;
+    --es-fs-lead: 1.0625rem;
     /* Body never drops below 16px (§7.2.5). */
     --es-fs-body: 1rem;
     --es-section-space: clamp(2.75rem, 9vw, 3.75rem);
@@ -1413,6 +1514,33 @@
   .es-copy {
     gap: var(--es-space-4);
     max-inline-size: none;
+  }
+
+  /* A centred heading is a title; a centred six-line Arabic
+     paragraph is a wall, because every line starts at a
+     different x and the eye loses the return point. On phones
+     the headings keep their centring and the running copy
+     returns to the reading edge. */
+  .es-copy--center :is(p, li),
+  .es-hero__copy :is(p, li) {
+    text-align: start;
+    text-wrap: pretty;
+  }
+
+  .es-copy--center,
+  .es-hero__copy {
+    justify-items: stretch;
+  }
+
+  .es-copy--center > :is(h1, h2, h3, .es-eyebrow),
+  .es-hero__copy > :is(h1, h2, h3, .es-eyebrow) {
+    justify-self: center;
+  }
+
+  /* CTAs stay centred under the copy they belong to. */
+  .es-copy--center > :is(.es-button, .es-text-link, .es-actions),
+  .es-hero__copy > :is(.es-button, .es-text-link, .es-actions) {
+    justify-self: center;
   }
 
   .es-hero-figure.es-hero-figure--vector {
@@ -1711,6 +1839,33 @@
   }
 }
 
+/* The Raghad launcher is fixed 20px from the bottom and is
+   ~52px tall, but nothing reserved room for it, so it sat on
+   top of whatever the page ended with. Reserve its height at
+   the end of the page so the last row can always scroll clear.
+   Kept on the footer rather than body, because body carries
+   overflow-x: clip and a padding here would not scroll. */
+@media (max-width: 40rem) {
+  /* Scoped to pages that actually mount the launcher, so the
+     others do not gain dead space at the end of the page. */
+  body:has(.raghad-support) .es-footer {
+    padding-block-end: calc(var(--es-space-9, 3rem) + 4.5rem);
+  }
+}
+
+/* Legacy .btn instances live on pages that load only the v3
+   bundle, so the phone touch minimum belongs here too. */
+@media (max-width: 47.999rem) {
+  .btn {
+    display: inline-flex;
+    min-block-size: 3rem;
+    align-items: center;
+    justify-content: center;
+    padding-block: .8rem;
+    text-align: center;
+  }
+}
+
 /* Keep the four change nodes around their review hub at narrow widths. */
 @media (max-width: 22.4375rem) {
   .es-updates-mobile__events { column-gap: .35rem; }
@@ -1721,12 +1876,8 @@
 @layer tokens {
   :root {
     --es-font: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --es-fs-hero: clamp(2.25rem, 3.7vw, 3.5rem);
-    --es-fs-h1: clamp(2.25rem, 3.4vw, 3.25rem);
-    --es-fs-h2: clamp(1.875rem, 2.45vw, 2.3125rem);
-    --es-fs-h3: clamp(1.1875rem, 1.6vw, 1.375rem);
-    --es-fs-lead: clamp(1.0625rem, 1.25vw, 1.1875rem);
-    --es-fs-body: 1.0625rem;
+    /* Type scale lives in tokens.css. This module used to restate it,
+       which meant the scale silently depended on load order. */
     --es-header-h: 4.5rem;
     --es-art-paper: var(--es-white);
     --es-art-dark: var(--es-navy-900);
@@ -1738,12 +1889,6 @@
   }
   @media (max-width: 47.999rem) {
     :root {
-      --es-fs-hero: clamp(1.9375rem, 7.6vw, 2.375rem);
-      --es-fs-h1: clamp(1.9375rem, 7.3vw, 2.375rem);
-      --es-fs-h2: clamp(1.625rem, 6.3vw, 1.875rem);
-      --es-fs-h3: 1.1875rem;
-      --es-fs-lead: 1.0625rem;
-      --es-fs-body: 1rem;
       --es-gutter: 1rem;
     }
   }
@@ -1786,11 +1931,14 @@
   .es-text-link, .es-kicker, .es-status, .es-hero__secondary-link { font-weight: 500; }
   body.es b, body.es strong { font-weight: 500; }
   .es-copy { gap: 1.15rem; }
-  .es-lead { line-height: 1.85; }
+  .es-lead { line-height: 1.75; }
   .es-lead__short { display: none; }
   .es-hero { padding-block: clamp(2rem, 5vh, 4rem); background: var(--es-paper); }
-  .es-hero h1 { font-size: clamp(3rem,5.15vw,4.75rem); font-weight: 500; line-height: 1.28; letter-spacing: -.04em; text-wrap: balance; }
-  :lang(ar) .es-hero:not(.es-service-hero) h1 { font-size: clamp(3rem,5.5vw,5rem); }
+  /* Arabic display leading stays 1.38–1.45 (§3.2); Cairo's tall
+     ascenders and vowel marks collide below that. The Latin
+     override in base sets its own tighter figure. */
+  .es-hero h1 { font-size: var(--es-fs-hero); font-weight: 500; line-height: 1.4; letter-spacing: -.02em; text-wrap: balance; }
+  [dir="ltr"] .es-hero h1 { line-height: 1.12; letter-spacing: -.03em; }
   .es-hero__copy { display: grid; justify-items: start; gap: 1.5rem; transform: none; max-inline-size: 37rem; }
   .es-hero__inner { grid-template-columns: minmax(0,.98fr) minmax(0,1.02fr); gap: clamp(2rem,4vw,4rem); }
   .es-hero__figure { display: grid; place-items: center; inline-size: 100%; min-inline-size: 0; }
@@ -1915,7 +2063,6 @@
     .es-hero__copy { gap: 1.2rem; }
     .es-lead__full { display: none; }
     .es-lead__short { display: inline; }
-    .es-hero h1, :lang(ar) .es-hero:not(.es-service-hero) h1 { font-size: var(--es-fs-hero); line-height: 1.4; }
     .es-hero-figure.es-hero-figure--vector { aspect-ratio: auto; }
     .es-hero-figure--vector .es-hero-figure__vector { display: none; }
     .es-hero-mobile-map { display: grid; gap: .8rem; padding: 0; background: none; }
@@ -2312,13 +2459,6 @@
 }
 
 </style>
-
-
-    <link rel="preload" as="style" href="../assets/css/estavo-v3.css"
-        onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript>
-        <link rel="stylesheet" href="../assets/css/estavo-v3.css" />
-    </noscript>
 </head>
 <body class="es">
 
@@ -2436,14 +2576,14 @@
         <section class="co-hero" aria-labelledby="hero-h">
             <div class="container co-hero__inner">
                 <div class="co-hero__copy">
-                    <p class="hero-eyebrow"><bdi>Estavo Sites</bdi> — لشركات الوساطة</p>
-                    <h1 id="hero-h">موقع وداتا لفريق شركتك، بأقل من مرتب موظف <bdi>Data Entry</bdi> واحد.</h1>
-                    <p class="co-hero__lead">إستاڤو يجمع موقع الشركة والمشاريع والوحدات وتحديثات الداتا في نظام واحد، من غير ما تبنوا فريق تقني وفريق داتا من الصفر.</p>
+                    <p class="hero-eyebrow">لشركات الوساطة العقارية</p>
+                    <h1 id="hero-h">موقع عقاري ذكي باسم شركتك، وشغل فريقك في مكان واحد.</h1>
+                    <p class="co-hero__lead">إستاڤو يجمع موقع الشركة والمشاريع والوحدات وتحديثات الداتا في نظام واحد، من غير ما تبنوا فريق تقني وفريق داتا من الصفر. موقع وداتا لفريق شركتك، بأقل من مرتب موظف <bdi>Data Entry</bdi> واحد.</p>
                     <div class="hero-actions">
-                        <a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="hero">ابدأ موقع شركتك</a>
-                        <a href="#how" class="btn btn-outline btn-lg" data-track="service_selected" data-position="enterprise_how">شوف بيشتغل إزاي</a>
+                        <a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="hero">اعمل موقع شركتك</a>
+                        <a href="#how" class="btn btn-outline btn-lg" data-track="service_selected" data-position="enterprise_how">شوف تجربة موقع شركة</a>
                     </div>
-                    <p class="co-hero__note">نطاق الشركة النهائي بيتحدد حسب الكتالوج والفريق والخدمات المطلوبة، ويظل أقل من تكلفة مرتب موظف إدخال بيانات واحد. الشركة تفضل صاحبة البراند والحسابات وقرارات الوحدات وعلاقة البيع.</p>
+                    <p class="co-hero__note">الموقع نفسه مجاني، وموقع الشركة النهائي بيتحدد حسب المشاريع والفريق والخدمات المطلوبة، ويظل أقل من تكلفة مرتب موظف إدخال بيانات واحد. الشركة تفضل صاحبة البراند والحسابات وقرارات الوحدات وعلاقات البيع.</p>
                 </div>
 
                 <div class="co-hero__art" aria-hidden="true">
@@ -2452,7 +2592,7 @@
                             <div class="co-site__bar"><i></i><i></i><i></i><span><bdi>company-realty.com</bdi></span></div>
                             <div class="co-site__nav"><strong>شركة الأفق العقارية</strong><span>المشاريع</span><span>الوحدات</span><span>عن الشركة</span><b>تواصل</b></div>
                             <div class="co-site__hero"><small>تجربة عقارية باسم الشركة</small><strong>اختار من مشاريع ووحدات الأفق.</strong><div class="co-site__search"><span>المنطقة</span><span>نوع الوحدة</span><b>دور</b></div></div>
-                            <div class="co-site__grid"><article><i></i><b>مشروع من الكتالوج</b><small>داتا متابعة من إستاڤو</small></article><article><i></i><b>وحدة من الشركة</b><small>إدخال ومراجعة الشركة</small></article><article><i></i><b>مشروع من الكتالوج</b><small>داتا متابعة من إستاڤو</small></article></div>
+                            <div class="co-site__grid"><article><i></i><b>مشروع من داتا إستاڤو</b><small>داتا متابعة من إستاڤو</small></article><article><i></i><b>وحدة من الشركة</b><small>إدخال ومراجعة الشركة</small></article><article><i></i><b>مشروع من داتا إستاڤو</b><small>داتا متابعة من إستاڤو</small></article></div>
                         </div>
 
                         <aside class="co-rail">
@@ -2472,15 +2612,15 @@
         <section class="commercial-proof" data-commercial-proof aria-labelledby="proof-h">
             <div class="container commercial-proof__inner">
                 <div class="commercial-proof__head">
-                    <p class="commercial-proof__kicker">نفس سبب استثمار الشركات الكبيرة</p>
+                    <p class="commercial-proof__kicker">موقع الشركة من أول يوم</p>
                     <h2 id="proof-h">داتا منظمة قدام العميل، ومصدر واحد يرجع له فريق المبيعات.</h2>
                 </div>
                 <div class="commercial-proof__grid">
                     <article class="commercial-proof__item"><span class="commercial-proof__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V8l6-4 6 4v12M10 12h4M10 16h4"/></svg></span><strong class="commercial-proof__title">براند الشركة</strong><span class="commercial-proof__detail">واجهة واحدة باسم الشركة ولوجوها وألوانها.</span></article>
-                    <article class="commercial-proof__item"><span class="commercial-proof__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 9 4.5-9 4.5-9-4.5zM3 12l9 4.5L21 12M3 16.5 12 21l9-4.5"/></svg></span><strong class="commercial-proof__title">كتالوج محكوم</strong><span class="commercial-proof__detail">داتا السوق المختارة ووحدات الشركة، كل مصدر واضح.</span></article>
+                    <article class="commercial-proof__item"><span class="commercial-proof__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 9 4.5-9 4.5-9-4.5zM3 12l9 4.5L21 12M3 16.5 12 21l9-4.5"/></svg></span><strong class="commercial-proof__title">مشاريع ووحدات منظمة</strong><span class="commercial-proof__detail">مشاريع السوق وعقارات الشركة في مكان واحد، وكل مصدر واضح.</span></article>
                     <article class="commercial-proof__item"><span class="commercial-proof__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20c.6-3.6 2.9-5.5 6-5.5s5.4 1.9 6 5.5M16 20c.3-2.4 1.6-3.8 4-3.8"/></svg></span><strong class="commercial-proof__title">فريق بصلاحيات</strong><span class="commercial-proof__detail">كل دور يشوف ويعمل اللي يخصه فقط.</span></article>
                 </div>
-                <p class="commercial-proof__note">فريقك بيشتغل على أكتر من <bdi>1,700</bdi> مشروع وأكتر من <bdi>650</bdi> مطوّر، وإستاڤو بيتابع تحديثهم.</p>
+                <p class="commercial-proof__note">فريقك بيشتغل على <bdi>2,000</bdi> مشروع من <bdi>700</bdi> مطوّر، وإستاڤو بيتابع تحديثهم.</p>
             </div>
         </section>
 
@@ -2488,9 +2628,9 @@
         <section class="section-pad co-how" id="how" aria-labelledby="how-h">
             <div class="container">
                 <div class="section-head" data-reveal>
-                    <p class="eyebrow">شركتك تبدأ إزاي</p>
-                    <h2 class="section-title" id="how-h">ابدأ الموقع، وبعدها نظّم الكتالوج والفريق في ٣ خطوات.</h2>
-                    <p class="section-body">مش محتاج تجهّز داتا ولا توظّف حد قبل ما تبدأ. موقع الشركة يفتح الأول، وبعدها نظبط الكتالوج والفريق معاك.</p>
+                    <p class="eyebrow">ابدأ شركتك مع إستاڤو</p>
+                    <h2 class="section-title" id="how-h">ابدأ بالموقع، وبعدها نظّم المشاريع وشغل الفريق في ٣ خطوات.</h2>
+                    <p class="section-body">مش محتاج تبدأ بنظام معقد. فعّل موقع الشركة، اختار السوق اللي بتشتغل عليه، وبعدها ضيف مشاريع وعقارات الشركة وابدأ تستخدمه مع فريقك وعملائك.</p>
                 </div>
                 <ol class="co-steps" data-reveal>
                     <li class="co-step">
@@ -2500,7 +2640,7 @@
                     </li>
                     <li class="co-step">
                         <span class="co-step__num" aria-hidden="true">٢</span>
-                        <strong class="co-step__title">نزّل الكتالوج</strong>
+                        <strong class="co-step__title">اختار مدينتك</strong>
                         <p class="co-step__body">اختار المدن والمشاريع اللي شركتك بتبيع فيها، وضيف وحداتك. لو عندك عدد كبير من الوحدات، فريق إستاڤو يقدر يساعد في الإدخال بنطاق بتتفقوا عليه.</p>
                     </li>
                     <li class="co-step">
@@ -2510,7 +2650,7 @@
                     </li>
                 </ol>
                 <div class="section-actions" data-reveal>
-                    <a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="workflow">ابدأ موقع شركتك</a>
+                    <a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="workflow">ابدأ موقع شركتك مجانًا</a>
                 </div>
             </div>
         </section>
@@ -2519,14 +2659,14 @@
         <section class="section-pad co-output" aria-labelledby="output-h">
             <div class="container">
                 <div class="section-head" data-reveal>
-                    <p class="eyebrow">اللي شركتك بتستلمه</p>
-                    <h2 class="section-title" id="output-h">مكان واحد للبراند والوحدات وشغل الفريق.</h2>
-                    <p class="section-body">بدل موقع من شركة، وملفات على لابتوب حد، وإدخال داتا مش واضح مسؤول عنه مين، الشركة بتشتغل من مكان واحد.</p>
+                    <p class="eyebrow">كل شغل الشركة في مكان واحد</p>
+                    <h2 class="section-title" id="output-h">مكان واحد لبراند الشركة، العقارات وشغل الفريق.</h2>
+                    <p class="section-body">بدل ما موقع الشركة يبقى حاجة، والمشاريع في ملفات، ومتابعة العملاء في مكان تاني، إستاڤو يجمع أهم أجزاء الشغل في نظام واحد.</p>
                 </div>
                 <div class="co-output__grid" data-reveal>
-                    <article class="co-output__item"><strong>عنوان واحد للشركة</strong><p>العميل يوصل لبراند الشركة ولنفس فريق المبيعات في كل مرة.</p></article>
-                    <article class="co-output__item"><strong>كتالوج واحد</strong><p>مشاريع السوق اللي إستاڤو بيتابعها، وجنبها وحداتك، وكل مصدر باين.</p></article>
-                    <article class="co-output__item"><strong>شاشة واحدة للفريق</strong><p>الأدوار والصلاحيات وطلبات العملاء في مكان واحد، وحد ميجريش ورا ملف.</p></article>
+                    <article class="co-output__item"><strong>موقع باسم الشركة</strong><p>اسم الشركة، اللوجو، الألوان وبيانات التواصل قدام العميل. العميل يوصل لبراند الشركة ولنفس فريق المبيعات في كل مرة.</p></article>
+                    <article class="co-output__item"><strong>مشاريع وعقارات الشركة</strong><p>اعرض مشاريع السوق اللي اخترتها مع العقارات والوحدات الخاصة بشركتك، وكل مصدر باين.</p></article>
+                    <article class="co-output__item"><strong>متابعة العملاء</strong><p>فريق المبيعات يشوف العملاء واهتماماتهم وتفاعلهم مع الموقع من مكان واحد.</p></article>
                     <article class="co-output__item"><strong>ملكيتك</strong><p>براندك وحساباتك وقرارات وحداتك وعلاقتك بالعميل كلها تفضل عندك.</p></article>
                 </div>
                 <div class="section-actions" data-reveal>
@@ -2551,8 +2691,8 @@
         <template data-conversion-archive="co-catalogue">
             <div class="container co-catalogue__inner">
                 <div class="co-catalogue__copy" data-reveal>
-                    <p class="eyebrow light">الكتالوج والمسؤولية</p>
-                    <h2 class="section-title light" id="catalogue-h">بدل ملفات متفرقة وفريق يدخل نفس الداتا كل يوم، بقى عندك كتالوج واحد وكل مصدر باين.</h2>
+                    <p class="eyebrow light">المشاريع والمسؤولية</p>
+                    <h2 class="section-title light" id="catalogue-h">بدل ملفات متفرقة وفريق يدخل نفس الداتا كل يوم، بقى عندك مشاريع ووحدات منظمة وكل مصدر باين.</h2>
                     <p class="section-body light">إستاڤو يتابع المشاريع المختارة من بياناته. وحدات الشركة تفضل تحت مراجعتها، أو تدخل ضمن خدمة مُدارة حسب الاتفاق. فريق المبيعات يوصل لنفس المصدر بدل ما كل شخص يشتغل من ملف مختلف.</p>
                 </div>
                 <div class="co-sources" data-reveal aria-hidden="true">
@@ -2575,7 +2715,7 @@
                 <div class="co-team__copy" data-reveal>
                     <p class="eyebrow">إدارة تناسب فريق</p>
                     <h2 class="section-title" id="team-h">خلّي فريقك يركز على العميل، مش مطاردة آخر نسخة من الشيت.</h2>
-                    <p class="section-body">الموقع والكتالوج يجمعوا الشغل على أساس واحد. الأدوار والصلاحيات المتاحة بتتحدد وقت الإعداد حسب حجم الفريق وطريقة شغلكم.</p>
+                    <p class="section-body">الموقع والمشاريع والوحدات يجمعوا الشغل على أساس واحد. الأدوار والصلاحيات المتاحة بتتحدد وقت الإعداد حسب حجم الفريق وطريقة شغلكم.</p>
                     <a href="../pricing/" class="sites-text-link">شوف اللي بيحدد النطاق</a>
                 </div>
                 <ol class="co-roles" data-reveal>
@@ -2589,9 +2729,9 @@
         <section class="section-pad co-capabilities" aria-labelledby="capabilities-h">
             <div class="container">
                 <div class="sites-section-head sites-section-head--center" data-reveal>
-                    <p class="eyebrow">حوالين الموقع</p>
+                    <p class="eyebrow">أكتر من مجرد موقع</p>
                     <h2 class="section-title" id="capabilities-h">الموقع هو الأساس. وكل إمكانية ليها دور واضح.</h2>
-                    <p class="section-body">ابدأ بموقع الشركة، وبعدها اختار الإمكانيات اللي تخدم طريقة شغلكم. مش لازم تفعّلوهم كلهم مع بعض.</p>
+                    <p class="section-body">ابدأ بموقع الشركة، وبعدها استخدم الإمكانيات اللي تساعد فريقك في التعامل مع العملاء والتسويق وإدارة الشغل.</p>
                 </div>
                 <div class="co-cap-grid" data-reveal-stagger>
                     <article class="co-cap">
@@ -2632,7 +2772,7 @@
                     <article class="co-fork__card co-fork__card--primary">
                         <p class="co-fork__label">محتاجين موقع عقاري جاهز</p>
                         <h3>كمّل مع <bdi>Estavo Sites</bdi></h3>
-                        <p>موقع الشركة بالكتالوج والفريق والإمكانيات من غير مشروع تطوير جديد.</p>
+                        <p>موقع الشركة بالمشاريع والوحدات والفريق والإمكانيات من غير مشروع تطوير جديد.</p>
                         <a href="https://estavo-brokers.com/website/" class="btn btn-gold es-button--primary" data-track="website_preview_started" data-position="workflow">ابدأ موقع شركتك</a>
                     </article>
                     <article class="co-fork__card">
@@ -2649,10 +2789,10 @@
         <section class="section-pad co-scope" aria-labelledby="scope-h">
             <div class="container co-scope__inner" data-reveal>
                 <div>
-                    <p class="eyebrow">التكلفة ونطاق الخدمة</p>
-                    <h2 class="section-title" id="scope-h">موقع وداتا وتشغيل للفريق بأقل من مرتب موظف <bdi>Data Entry</bdi> واحد.</h2>
-                    <p class="section-body">النطاق النهائي بيتحدد حسب المدن وحجم الفريق والإمكانيات المطلوبة. المقارنة هنا بتكلفة التشغيل، من غير ما نلزمكم ببناء فريق تقني وداتا كامل.</p>
-                    <p class="section-body">تقدر تبدأ موقع الشركة وتشوفه مع فريقك قبل ما تحدد الكتالوج أو عدد المستخدمين أو أي خدمة مدفوعة. إنشاء الموقع مجاني، والبدء ما بينقلش ملكية أو صلاحيات أي حساب من حسابات الشركة.</p>
+                    <p class="eyebrow">للشركات اللي عايزة تنظم شغلها</p>
+                    <h2 class="section-title" id="scope-h">موقع الشركة، مشاريع السوق وشغل الفريق في نظام واحد.</h2>
+                    <p class="section-body">بدل ما فريقك يجمع المشاريع والتحديثات من مصادر مختلفة كل يوم، إستاڤو يدي شركتك موقع عقاري جاهز، ويوفر مشاريع المدن اللي تختاروها ويحدّثها باستمرار، وإنت تضيف عقارات الشركة الخاصة وتدير العملاء من نفس المكان.</p>
+                    <p class="section-body">تقدر تبدأ موقع الشركة وتشوفه مع فريقك قبل ما تحدد المشاريع أو عدد المستخدمين أو أي خدمة مدفوعة. إنشاء الموقع مجاني، والبدء ما بينقلش ملكية أو صلاحيات أي حساب من حسابات الشركة.</p>
                 </div>
                 <dl class="scope-list" data-reveal>
                     <div><dt>المدن والبيانات</dt><dd>نطاق داتا السوق اللي الشركة عايزة تعرضه.</dd></div>
@@ -2676,7 +2816,7 @@
                     <h2 class="section-title" id="faq-h">أسئلة شركات الوساطة.</h2>
                 </div>
                 <div class="faq-list" data-exclusive-details data-reveal>
-                    <details class="faq-item" open><summary class="faq-question"><h3>إيه الفرق بين موقع الفرد وموقع الشركة؟</h3></summary><p class="faq-answer">موقع الفرد بيركز على اسم البروكر وعلاقته المباشرة بالعميل. موقع الشركة مبني على براند الشركة وكتالوج مشترك وأدوار للفريق، عشان أكتر من شخص يشتغلوا على نفس الأساس.</p></details>
+                    <details class="faq-item" open><summary class="faq-question"><h3>إيه الفرق بين موقع الفرد وموقع الشركة؟</h3></summary><p class="faq-answer">موقع الفرد بيركز على اسم البروكر وعلاقته المباشرة بالعميل. موقع الشركة مبني على براند الشركة ومشاريع ووحدات مشتركة وأدوار للفريق، عشان أكتر من شخص يشتغلوا على نفس الأساس.</p></details>
                     <details class="faq-item"><summary class="faq-question"><h3>هل كل فريق الـ <bdi>Sales</bdi> يقدر يستخدمه؟</h3></summary><p class="faq-answer">الأدوار وعدد المستخدمين المتاحين بيتحددوا وقت الإعداد حسب حجم الفريق وطريقة شغلكم.</p></details>
                     <details class="faq-item"><summary class="faq-question"><h3>مين يدير الداتا والوحدات؟</h3></summary><p class="faq-answer">إستاڤو بيتابع داتا المشاريع المختارة من مصادره. الوحدات اللي الشركة بتدخلها بتفضل مسؤولية الشركة في المراجعة والتحديث، إلا لو فيه خدمة إدخال مُدارة متفق عليها.</p></details>
                     <details class="faq-item"><summary class="faq-question"><h3>هل <bdi>Client AI</bdi> يظهر باسم إستاڤو؟</h3></summary><p class="faq-answer">المساعد بيظهر جوّه موقع الشركة بهوية الموقع. الاسم والأيقونة بيتظبطوا ضمن الإعدادات المتاحة وقت الإعداد.</p></details>
@@ -2692,10 +2832,10 @@
             <div class="container">
                 <div class="cta-inner">
                     <div class="cta-character" aria-hidden="true">أ</div>
-                    <h2 class="cta-title" id="close-h">اجمع موقع الشركة والداتا والفريق في مكان واحد.</h2>
-                    <p class="cta-subtitle">اجمع البراند والكتالوج والفريق على أساس واحد، بأقل من مرتب موظف إدخال بيانات واحد. ابدأ الموقع وشوفه مع فريقك الأول.</p>
+                    <h2 class="cta-title" id="close-h">خلي موقع شركتك، مشاريعك وشغل فريقك في مكان واحد.</h2>
+                    <p class="cta-subtitle">اعمل موقع عقاري ذكي باسم وبراند شركتك، ضيف مشاريعكم وعقاراتكم، وخلي فريق المبيعات والعملاء يلاقوا اللي محتاجينه في مكان واحد.</p>
                     <div class="cta-buttons">
-                        <a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--light" data-track="website_preview_started" data-position="close">ابدأ موقع شركتك</a>
+                        <a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--light" data-track="website_preview_started" data-position="close">اعمل موقع شركتك</a>
                     </div>
                 </div>
             </div>

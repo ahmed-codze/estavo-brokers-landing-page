@@ -105,6 +105,16 @@
     text-decoration: none;
   }
 
+  /* A two-line link on a phone centred its arrow against the
+     whole block, so the arrow floated beside the gap between
+     the lines. Wrapping links align to the last line instead. */
+  @media (max-width: 47.999rem) {
+    .es-text-link {
+      align-items: end;
+      text-align: start;
+    }
+  }
+
   /* The arrow points along the reading direction and is
      mirrored for LTR, never hard-coded per instance (§7.4). */
   .es-text-link::after {

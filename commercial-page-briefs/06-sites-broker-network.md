@@ -29,8 +29,8 @@ The page is not a general listing portal pitch. The property remains attached to
 
 Validated-number version:
 
-> وحدتك على موقعك. وقدام 5,000 بروكر يساعدوك تبيعها.  
-> Your property on your website—and in front of 5,000 brokers who can help sell it.
+> وحدتك على موقعك. وقدام 7,000 بروكر يساعدوك تبيعها.
+> Your property on your website—and in front of 7,000 brokers who can help sell it.
 
 Fallback until the count is approved:
 
@@ -163,8 +163,8 @@ Recommended questions:
 
 Validated-number title direction:
 
-- Arabic: `اعرض وحداتك على موقعك وقدام 5,000 بروكر — Estavo Sites`
-- English: `List properties on your website and reach 5,000 brokers — Estavo Sites`
+- Arabic: `اعرض وحداتك على موقعك وقدام 7,000 بروكر — Estavo Sites`
+- English: `List properties on your website and reach 7,000 brokers — Estavo Sites`
 
 Fallback title direction:
 
@@ -173,7 +173,7 @@ Fallback title direction:
 
 ## Claims requiring approval
 
-- 5,000-broker count, definition and measurement date;
+- 7,000-broker count, confirmed 22 September 2026;
 - eligible listing/property/account types;
 - commission display and fee model;
 - whether distribution is automatic or opt-in;

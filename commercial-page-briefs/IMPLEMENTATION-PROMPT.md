@@ -224,10 +224,10 @@ The owner has explicitly defined these strategic claims:
 
 - Estavo Market is the free broker-facing product.
 - Estavo Sites is the second main product.
-- the broker-network page is built around access to 5,000 brokers;
+- the broker-network page is built around access to 7,000 brokers;
 - all Sites-family primary actions begin at `/website/`.
 
-Use `5,000` only as supplied. Do not transform it into “active monthly brokers,” guaranteed reach or guaranteed sale without evidence. Include the no-guarantee boundary.
+Use `7,000` only as supplied. Do not add a “+” qualifier or transform it into “active monthly brokers,” guaranteed reach or guaranteed sale without evidence. Include the no-guarantee boundary.
 
 Do not publish any other exact price, credit amount, inventory count, city count, update interval or implementation time unless it is confirmed by the current product/commercial source. When not confirmed, omit the number and describe the model structurally.
 

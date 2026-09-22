@@ -124,7 +124,7 @@ def replace_critical(source,prefix):
     return head.rstrip()+'\n'+critical(prefix)+'\n</head>'+rest
 
 def choose_icon(copy):
-    for words,name in [(['ai','assistant','مساعد','ذكاء'],'chat'),(['تحديث','review','مراجعة','آمن','verified'],'shield'),(['سعر','نمو','roi','price','growth','return'],'chart'),(['وحدة','unit','تفاصيل'],'plan'),(['ربط','integration','meta','network','بروكر'],'network'),(['عميل','customer','client','contact'],'profile'),(['مدينة','cities','منطقة','المناطق','location'],'map'),(['موقع','website','project','مشروع'],'building')]:
+    for words,name in [(['ai','assistant','مساعد','ذكاء'],'chat'),(['تحديث','review','مراجعة','آمن','verified'],'shield'),(['قارن','مقارنة','compare','سعر','نمو','roi','price','growth','return'],'chart'),(['ابعت','عرض','offer','send','share','pdf'],'messages'),(['وحدة','unit','تفاصيل'],'plan'),(['ربط','integration','meta','network','بروكر'],'network'),(['عميل','customer','client','contact'],'profile'),(['مدينة','cities','منطقة','المناطق','location'],'map'),(['موقع','website','project','مشروع'],'building')]:
         if any(w in copy.lower() for w in words):return name
     return 'layers'
 

@@ -283,6 +283,12 @@
     <noscript>
         <link rel="stylesheet" href="assets/css/estavo-v3.css" />
     </noscript>
+
+
+
+
+    <link rel="stylesheet" href="assets/css/chatbot-shared.css?v=20260918-chat-ui" />
+    <link rel="stylesheet" href="assets/css/raghad.css?v=20260918-chat-feedback" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
@@ -335,11 +341,20 @@
 
     /* ── Type (§3.2) ─────────────────────────────────────── */
     --es-font: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --es-fs-hero: clamp(2.75rem, 5vw, 4.5rem);
-    --es-fs-h1: clamp(2.625rem, 4.5vw, 4rem);
-    --es-fs-h2: clamp(2.125rem, 3.2vw, 3.125rem);
-    --es-fs-h3: clamp(1.375rem, 2vw, 1.75rem);
-    --es-fs-lead: clamp(1.125rem, 1.5vw, 1.25rem);
+    /* The ramp caps hero headings at 64px, service H1s at 58px,
+       section headings at 41px and card headings at 23px. The
+       §3.2 ceilings (56/52/37) were set against a 1440 stage and
+       read undersized on a 1920+ display, so the top of each
+       clamp is raised while the phone/tablet end is unchanged.
+       These tokens are the only place those caps are expressed:
+       hero/section rules read the token instead of restating a
+       clamp, so the ceiling cannot be raised by a later-loading
+       module. */
+    --es-fs-hero: clamp(2.75rem, 2.6vw + 1.2rem, 4rem);
+    --es-fs-h1: clamp(2.625rem, 2.4vw + 1.15rem, 3.625rem);
+    --es-fs-h2: clamp(1.9375rem, 1.85vw + 0.7rem, 2.5625rem);
+    --es-fs-h3: clamp(1.1875rem, 0.6vw + 1rem, 1.4375rem);
+    --es-fs-lead: clamp(1.0625rem, 0.5vw + 0.9rem, 1.25rem);
     --es-fs-body: 1.0625rem;
     --es-fs-ui: 0.875rem;
     --es-fs-label: 0.75rem;
@@ -671,7 +686,7 @@
       min-block-size: calc(100svh - var(--es-header-h));
       align-items: center;
     }
-    .es-hero h1 { font-size: clamp(3.75rem, 4.75vw, 4.5rem); }
+    /* Hero size comes from --es-fs-hero; see tokens.css. */
     .es-hero__copy { transform: translateY(-1.25rem); }
   }
 
@@ -816,6 +831,16 @@
     color: var(--es-navy-950);
     font-weight: 700;
     text-decoration: none;
+  }
+
+  /* A two-line link on a phone centred its arrow against the
+     whole block, so the arrow floated beside the gap between
+     the lines. Wrapping links align to the last line instead. */
+  @media (max-width: 47.999rem) {
+    .es-text-link {
+      align-items: end;
+      text-align: start;
+    }
   }
 
   /* The arrow points along the reading direction and is
@@ -1041,6 +1066,10 @@
     gap: var(--es-space-2);
   }
 
+  .es-header-cta-short {
+    display: none;
+  }
+
   .es-header__lang {
     display: inline-flex;
     min-inline-size: 2.75rem;
@@ -1076,6 +1105,54 @@
 
   .es-menu__panel[hidden] {
     display: none;
+  }
+
+  /* The Sites panel carries seven destinations, so it is grouped rather
+     than served as one long list: two section labels separate "start
+     here" from "add later", and a footer rail holds the two secondary
+     routes (examples, integrations) that do not earn a top-level slot. */
+  .es-menu__panel--grouped {
+    min-inline-size: 19rem;
+  }
+
+  .es-menu__label {
+    display: flex;
+    align-items: center;
+    gap: var(--es-space-2);
+    padding: var(--es-space-3) var(--es-space-3) var(--es-space-1);
+    color: var(--es-blue-600);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* A short rule after the label keeps the group boundary legible
+     without adding another horizontal divider to a tall panel. */
+  .es-menu__label::after {
+    content: "";
+    flex: 1;
+    block-size: 1px;
+    background: var(--es-line);
+  }
+
+  .es-menu__label:first-child {
+    padding-block-start: var(--es-space-1);
+  }
+
+  .es-menu__foot {
+    display: grid;
+    gap: var(--es-space-1);
+    margin-block-start: var(--es-space-1);
+    border-block-start: 1px solid var(--es-line);
+    padding-block-start: var(--es-space-2);
+  }
+
+  .es-menu__foot a {
+    padding-block: var(--es-space-2);
+    color: var(--es-ink-72);
+    font-size: var(--es-fs-label);
+    font-weight: 600;
   }
 
   .es-menu__panel a {
@@ -1287,6 +1364,39 @@
   .es-footer__copy {
     color: var(--es-on-dark-muted);
     font-size: var(--es-fs-ui);
+  }
+}
+
+@media (max-width: 30rem) {
+  .es-header__inner {
+    gap: 0.5rem;
+  }
+
+  .es-header__logo {
+    inline-size: 5.75rem;
+    overflow: hidden;
+    justify-content: center;
+  }
+
+  .es-header__logo img {
+    inline-size: 7rem;
+    max-inline-size: none;
+  }
+
+  .es-header__actions {
+    gap: 0.35rem;
+  }
+
+  .es-header__actions .es-button {
+    padding-inline: 0.6rem;
+  }
+
+  .es-header__actions .es-header-cta-long {
+    display: none;
+  }
+
+  .es-header__actions .es-header-cta-short {
+    display: inline;
   }
 }
 /* Section artwork: a vector stage on desktop, a composition made for phones. */
@@ -1599,11 +1709,12 @@
 /* ── Medium and Small: phone and portrait tablet (<768px) ─ */
 @media (max-width: 47.999rem) {
   :root {
-    --es-fs-hero: clamp(2.125rem, 9.4vw, 2.75rem);
-    --es-fs-h1: clamp(2rem, 8.5vw, 2.625rem);
-    --es-fs-h2: clamp(1.6875rem, 7.2vw, 2.125rem);
-    --es-fs-h3: clamp(1.25rem, 5.6vw, 1.5rem);
-    --es-fs-lead: 1.125rem;
+    /* Phones: 31–38px hero, 26–30px section headings (§3.2). */
+    --es-fs-hero: clamp(1.9375rem, 7.6vw, 2.375rem);
+    --es-fs-h1: clamp(1.9375rem, 7.3vw, 2.375rem);
+    --es-fs-h2: clamp(1.625rem, 6.3vw, 1.875rem);
+    --es-fs-h3: 1.1875rem;
+    --es-fs-lead: 1.0625rem;
     /* Body never drops below 16px (§7.2.5). */
     --es-fs-body: 1rem;
     --es-section-space: clamp(2.75rem, 9vw, 3.75rem);
@@ -1613,6 +1724,33 @@
   .es-copy {
     gap: var(--es-space-4);
     max-inline-size: none;
+  }
+
+  /* A centred heading is a title; a centred six-line Arabic
+     paragraph is a wall, because every line starts at a
+     different x and the eye loses the return point. On phones
+     the headings keep their centring and the running copy
+     returns to the reading edge. */
+  .es-copy--center :is(p, li),
+  .es-hero__copy :is(p, li) {
+    text-align: start;
+    text-wrap: pretty;
+  }
+
+  .es-copy--center,
+  .es-hero__copy {
+    justify-items: stretch;
+  }
+
+  .es-copy--center > :is(h1, h2, h3, .es-eyebrow),
+  .es-hero__copy > :is(h1, h2, h3, .es-eyebrow) {
+    justify-self: center;
+  }
+
+  /* CTAs stay centred under the copy they belong to. */
+  .es-copy--center > :is(.es-button, .es-text-link, .es-actions),
+  .es-hero__copy > :is(.es-button, .es-text-link, .es-actions) {
+    justify-self: center;
   }
 
   .es-hero-figure.es-hero-figure--vector {
@@ -1911,6 +2049,33 @@
   }
 }
 
+/* The Raghad launcher is fixed 20px from the bottom and is
+   ~52px tall, but nothing reserved room for it, so it sat on
+   top of whatever the page ended with. Reserve its height at
+   the end of the page so the last row can always scroll clear.
+   Kept on the footer rather than body, because body carries
+   overflow-x: clip and a padding here would not scroll. */
+@media (max-width: 40rem) {
+  /* Scoped to pages that actually mount the launcher, so the
+     others do not gain dead space at the end of the page. */
+  body:has(.raghad-support) .es-footer {
+    padding-block-end: calc(var(--es-space-9, 3rem) + 4.5rem);
+  }
+}
+
+/* Legacy .btn instances live on pages that load only the v3
+   bundle, so the phone touch minimum belongs here too. */
+@media (max-width: 47.999rem) {
+  .btn {
+    display: inline-flex;
+    min-block-size: 3rem;
+    align-items: center;
+    justify-content: center;
+    padding-block: .8rem;
+    text-align: center;
+  }
+}
+
 /* Keep the four change nodes around their review hub at narrow widths. */
 @media (max-width: 22.4375rem) {
   .es-updates-mobile__events { column-gap: .35rem; }
@@ -1921,12 +2086,8 @@
 @layer tokens {
   :root {
     --es-font: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --es-fs-hero: clamp(2.25rem, 3.7vw, 3.5rem);
-    --es-fs-h1: clamp(2.25rem, 3.4vw, 3.25rem);
-    --es-fs-h2: clamp(1.875rem, 2.45vw, 2.3125rem);
-    --es-fs-h3: clamp(1.1875rem, 1.6vw, 1.375rem);
-    --es-fs-lead: clamp(1.0625rem, 1.25vw, 1.1875rem);
-    --es-fs-body: 1.0625rem;
+    /* Type scale lives in tokens.css. This module used to restate it,
+       which meant the scale silently depended on load order. */
     --es-header-h: 4.5rem;
     --es-art-paper: var(--es-white);
     --es-art-dark: var(--es-navy-900);
@@ -1938,12 +2099,6 @@
   }
   @media (max-width: 47.999rem) {
     :root {
-      --es-fs-hero: clamp(1.9375rem, 7.6vw, 2.375rem);
-      --es-fs-h1: clamp(1.9375rem, 7.3vw, 2.375rem);
-      --es-fs-h2: clamp(1.625rem, 6.3vw, 1.875rem);
-      --es-fs-h3: 1.1875rem;
-      --es-fs-lead: 1.0625rem;
-      --es-fs-body: 1rem;
       --es-gutter: 1rem;
     }
   }
@@ -1986,11 +2141,14 @@
   .es-text-link, .es-kicker, .es-status, .es-hero__secondary-link { font-weight: 500; }
   body.es b, body.es strong { font-weight: 500; }
   .es-copy { gap: 1.15rem; }
-  .es-lead { line-height: 1.85; }
+  .es-lead { line-height: 1.75; }
   .es-lead__short { display: none; }
   .es-hero { padding-block: clamp(2rem, 5vh, 4rem); background: var(--es-paper); }
-  .es-hero h1 { font-size: clamp(3rem,5.15vw,4.75rem); font-weight: 500; line-height: 1.28; letter-spacing: -.04em; text-wrap: balance; }
-  :lang(ar) .es-hero:not(.es-service-hero) h1 { font-size: clamp(3rem,5.5vw,5rem); }
+  /* Arabic display leading stays 1.38–1.45 (§3.2); Cairo's tall
+     ascenders and vowel marks collide below that. The Latin
+     override in base sets its own tighter figure. */
+  .es-hero h1 { font-size: var(--es-fs-hero); font-weight: 500; line-height: 1.4; letter-spacing: -.02em; text-wrap: balance; }
+  [dir="ltr"] .es-hero h1 { line-height: 1.12; letter-spacing: -.03em; }
   .es-hero__copy { display: grid; justify-items: start; gap: 1.5rem; transform: none; max-inline-size: 37rem; }
   .es-hero__inner { grid-template-columns: minmax(0,.98fr) minmax(0,1.02fr); gap: clamp(2rem,4vw,4rem); }
   .es-hero__figure { display: grid; place-items: center; inline-size: 100%; min-inline-size: 0; }
@@ -2115,7 +2273,6 @@
     .es-hero__copy { gap: 1.2rem; }
     .es-lead__full { display: none; }
     .es-lead__short { display: inline; }
-    .es-hero h1, :lang(ar) .es-hero:not(.es-service-hero) h1 { font-size: var(--es-fs-hero); line-height: 1.4; }
     .es-hero-figure.es-hero-figure--vector { aspect-ratio: auto; }
     .es-hero-figure--vector .es-hero-figure__vector { display: none; }
     .es-hero-mobile-map { display: grid; gap: .8rem; padding: 0; background: none; }
@@ -2512,8 +2669,6 @@
 }
 
 </style>
-    <link rel="stylesheet" href="assets/css/chatbot-shared.css?v=20260918-chat-ui" />
-    <link rel="stylesheet" href="assets/css/raghad.css?v=20260918-chat-feedback" />
 </head>
 
 <body class="es">
@@ -2635,18 +2790,18 @@
             <div class="es-container">
                 <div class="es-hero__inner">
                     <div class="es-hero__copy">
-                        <span class="es-eyebrow">إستاڤو للبروكرز—أفراد وشركات</span>
+                        <span class="es-eyebrow">إستاڤو للبروكرز وشركات الوساطة العقارية</span>
 
                         <h1 id="hero-h">السوق كله بيتباع تحت اسمك.</h1>
 
-                        <p class="es-lead">عميلك بيسأل عن مشروع أو ميزانية؟ دور في أحدث المعلومات المتاحة، قارن الأسعار وخطط السداد، وابعتله اختيارات واضحة باسمك.</p>
-                        <p class="es-note"><bdi>Estavo Market</bdi> يجمع شغل البحث والمقارنة في مكان واحد—ومجاني للبروكرز.</p>
+                        <p class="es-lead">عميلك بيسأل عن مشروع أو ميزانية معينة؟ دور على المشاريع والوحدات، قارن الأسعار وخطط السداد، واسأل <bdi>AI</bdi> مذاكر السوق يساعدك توصل لأنسب اختيارات لعميلك أسرع.</p>
+                        <p class="es-note"><bdi>Estavo Market</bdi> يجمع لك المشاريع والبحث والمقارنة في مكان واحد، مجانًا للبروكرز.</p>
 
                         <div class="es-cluster es-cluster--actions">
                             <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-button es-button--primary"
                                 data-track="market_opened" data-position="hero">افتح <bdi>Estavo Market</bdi> مجانًا</a>
                         </div>
-                        <p class="es-note">عايز تعرض المشاريع ووحداتك في لينك باسمك؟ <a href="https://estavo-brokers.com/website/" class="es-text-link" data-track="website_preview_started" data-position="hero_secondary">اعمل موقعك مجانًا في حوالي ٥ دقايق</a></p>
+                        <p class="es-note">عايز تعرض المشاريع ووحداتك في موقع عقاري باسمك؟ <a href="https://estavo-brokers.com/website/" class="es-text-link" data-track="website_preview_started" data-position="hero_secondary">اعمل موقعك العقاري الذكي في ٥ دقايق</a></p>
                     </div>
 
                     <!-- Desktop: market data converges into one atlas and feeds
@@ -2684,20 +2839,20 @@
         <section class="es-scale-strip" aria-label="أرقام إستاڤو">
             <div class="es-container es-scale-strip__inner" data-reveal-stagger>
                 <div class="es-scale-stat">
-                    <strong><bdi>+5,000</bdi> بروكر</strong>
-                    <span>يوسّعوا توزيع وحداتك بالعمولة اللي بتحددها</span>
+                    <strong><bdi>7,000</bdi> بروكر</strong>
+                    <span>يزوّدوا فرص بيع وحداتك بالعمولة اللي إنت بتحددها</span>
                 </div>
                 <div class="es-scale-stat">
                     <strong>حوالي ٥ دقايق</strong>
-                    <span>ويبقى عندك لينك عقاري باسمك قدام العميل</span>
+                    <span>ويبقى عندك موقع عقاري باسمك قدام العميل</span>
                 </div>
                 <div class="es-scale-stat">
-                    <strong><bdi>+30,000</bdi> وحدة</strong>
+                    <strong><bdi>30,000</bdi> وحدة</strong>
                     <span>تدور وتقارن بينهم بدل الشيتات المتفرقة</span>
                 </div>
                 <div class="es-scale-stat">
                     <strong>تحديثات يومية</strong>
-                    <span>عشان تراجع أحدث معلومات متاحة قبل ما تبعت</span>
+                    <span>عشان تراجع أحدث معلومات متاحة قبل ما تكلم العميل</span>
                 </div>
             </div>
         </section>
@@ -2705,9 +2860,9 @@
         <section class="es-section es-section--mist es-trust-network-section" aria-labelledby="trust-network-h">
             <div class="es-container">
                 <div class="es-copy es-copy--center" data-reveal>
-                    <span class="es-eyebrow">داتا تشتغل بيها، مش بورتال ينافسك</span>
-                    <h2 id="trust-network-h">إستاڤو يرتّب السوق وراك. وإنت تفضل قدّام عميلك.</h2>
-                    <p class="es-lead">إستاڤو ينظّم معلومات المطورين والمشاريع والوحدات، وإنت تستخدمها في شغلك من غير ما تنقل علاقتك بالعميل لبراند تاني.</p>
+                    <span class="es-eyebrow">داتا تشتغل بيها تحت اسمك</span>
+                    <h2 id="trust-network-h">إستاڤو يرتّب لك السوق، وإنت تفضل مع عميلك.</h2>
+                    <p class="es-lead">إستاڤو بينظّم لك معلومات المطورين والمشاريع والوحدات، وإنت تستخدمها في شغلك من غير ما عميلك يروح لموقع تاني.</p>
                 </div>
                 <div class="es-trust-network es-mt-8" data-reveal aria-hidden="true">
                     <div class="es-trust-network__col es-trust-network__col--in">
@@ -2732,24 +2887,24 @@
                         <img src="assets/logo/estavo-mark-white.png" width="512" height="512" alt="" />
                         <b>شبكة إستاڤو</b>
                         <span>داتا منظمة ومتابعة</span>
-                        <small><bdi>+30,000</bdi> وحدة</small>
+                        <small><bdi>30,000</bdi> وحدة</small>
                     </div>
 
                     <span class="es-trust-rail es-trust-rail--out" aria-hidden="true"><i class="es-trust-rail__arm es-trust-rail__arm--top"></i><i class="es-trust-rail__arm es-trust-rail__arm--bottom"></i></span>
 
                     <div class="es-trust-network__col es-trust-network__col--out">
-                        <span class="es-trust-network__label">تشتغل بيها باسمك</span>
+                        <span class="es-trust-network__label">الجانب الخاص بشغلك</span>
                         <div class="es-trust-item">
                             <svg class="es-trust-item__glyph" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="22" height="18" rx="2"/><path d="M3 10h22"/><path d="M8 15h7M8 19h11"/></svg>
-                            <span class="es-trust-item__text"><b>موقعك</b><span>وحداتك بعلامتك التجارية</span></span>
+                            <span class="es-trust-item__text"><b>موقعك العقاري الذكي</b><span>مشاريعك وعقاراتك باسمك أو باسم شركتك</span></span>
                         </div>
                         <div class="es-trust-item">
                             <svg class="es-trust-item__glyph" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 17a3 3 0 0 1-3 3H11l-6 4V8a3 3 0 0 1 3-3h13a3 3 0 0 1 3 3z"/><path d="M11 12h8M11 16h5"/></svg>
-                            <span class="es-trust-item__text"><b><bdi>Client AI</bdi></b><span>يرد على عميلك على موقعك</span></span>
+                            <span class="es-trust-item__text"><b><bdi>AI</bdi> لعملاء موقعك</b><span>يساعدهم يدوروا ويسألوا عن اختياراتك</span></span>
                         </div>
                         <div class="es-trust-item">
                             <svg class="es-trust-item__glyph" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="3.2"/><circle cx="20" cy="9" r="3.2"/><path d="M3.5 21c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><path d="M14.5 21c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/></svg>
-                            <span class="es-trust-item__text"><b><bdi>+5,000</bdi> بروكر</b><span>توزيع وعمولات واضحة</span></span>
+                            <span class="es-trust-item__text"><b><bdi>7,000</bdi> بروكر</b><span>يوسّعوا توزيع وحداتك بالعمولة اللي بتحددها</span></span>
                         </div>
                     </div>
                 </div>
@@ -2760,10 +2915,10 @@
             <div class="es-container es-split">
                 <div class="es-copy" data-reveal>
                     <span class="es-eyebrow"><bdi>Estavo Market</bdi></span>
-                    <h2 id="market-h">شوف السوق وتحديثاته من مكان واحد—من غير ما تجمع الداتا بنفسك.</h2>
-                    <p class="es-lead">إستاڤو يجمع بيانات المطورين والمشاريع والوحدات، ويتابع تغييرات الأسعار وخطط السداد. عشان لما العميل يطلب منطقة أو ميزانية، تلاقي الاختيارات المتاحة وتقارنها بدل ما تبدأ من شيت فاضي.</p>
+                    <h2 id="market-h">شوف السوق وتحديثاته من مكان واحد بدل ما تدور في كذا مكان.</h2>
+                    <p class="es-lead">إستاڤو ماركت بيجمع لك المشاريع والوحدات والأسعار وخطط السداد في مكان واحد، وبيتابع تحديثاتها باستمرار. عشان لما العميل يطلب منطقة أو ميزانية معينة، تقدر تدور على الاختيارات المناسبة وتقارن بينها أسرع بدل ما تجمع الداتا بنفسك.</p>
                     <p><a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-button es-button--primary" data-track="market_opened" data-position="market">ابدأ طلب عميل على <bdi>Estavo Market</bdi></a></p>
-                    <p class="es-note"><a href="market/" class="es-text-link" data-track="service_selected" data-position="market_details">شوف كل إمكانيات السوق</a> · <a href="insights/" class="es-text-link" data-track="service_selected" data-position="market_insights">تابع أخبار وتغييرات السوق</a></p>
+                    <p class="es-note"><a href="market/" class="es-text-link" data-track="service_selected" data-position="market_details">شوف كل إمكانيات <bdi>Estavo Market</bdi></a> · <a href="insights/" class="es-text-link" data-track="service_selected" data-position="market_insights">تابع أخبار وتغييرات السوق</a></p>
                 </div>
                 <div data-reveal aria-hidden="true">
                     <div class="es-updates-figure">
@@ -2778,7 +2933,7 @@
             <div class="es-container es-split es-listings-layout">
                 <div class="es-copy es-listings-copy" data-reveal>
                     <span class="es-eyebrow">شبكة إستاڤو للبروكرز</span>
-                    <h2 id="listings-h">وحداتك قدام <bdi>+5,000</bdi> بروكر.</h2>
+                    <h2 id="listings-h">وحداتك قدام <bdi>7,000</bdi> بروكر.</h2>
                     <p class="es-lead">اعرض وحداتك على موقعك، حدّد العمولة، وشبكة إستاڤو للبروكرز تقدر تبيع معاك.</p>
                     <p><strong>أول رفع جماعي مجانًا: ابعتلنا شيت وحداتك وإحنا نرفعها.</strong></p>
                     <p><a href="https://estavo-brokers.com/website/" class="es-button es-button--primary" data-track="website_preview_started"
@@ -2799,13 +2954,13 @@
             <div class="es-container">
                 <div class="es-copy es-copy--center" data-reveal>
                     <span class="es-eyebrow">من طلب العميل للعرض</span>
-                    <h2 id="services-h">وقت أقل في جمع الداتا. وقت أكتر مع العميل.</h2>
-                    <p class="es-lead"><bdi>Estavo Market</bdi> يجمع خطوات الشغل اللي بتتكرر كل يوم، عشان توصل لاختيارات قابلة للمقارنة وتقدمها بشكل مهني.</p>
+                    <h2 id="services-h">وقت أقل في البحث. وقت أكتر مع العميل.</h2>
+                    <p class="es-lead"><bdi>Estavo Market</bdi> بيجمع لك خطوات البحث والمقارنة في مكان واحد، عشان توصل لاختيارات مناسبة لطلب العميل أسرع وتعرضها له بشكل منظم.</p>
                 </div>
                 <div class="es-grid-3 es-home-services-grid es-mt-8" data-reveal-stagger>
-                    <article class="es-service-card es-outcome-card"><span class="es-service-card__icon" aria-hidden="true"><img class="es-art-icon" src="assets/img/icons/estavo-layers.svg" width="160" height="160" alt="" loading="lazy" decoding="async" /></span><h3>وصل للاختيارات أسرع</h3><p>ابدأ من المنطقة والميزانية واحتياج العميل، بدل ما تفتح مصادر وشيتات متفرقة كل مرة.</p></article>
-                    <article class="es-service-card es-outcome-card"><span class="es-service-card__icon" aria-hidden="true"><img class="es-art-icon" src="assets/img/icons/estavo-chart.svg" width="160" height="160" alt="" loading="lazy" decoding="async" /></span><h3>قارن اللي يفرق في القرار</h3><p>حط الأسعار والمساحات وخطط السداد جنب بعض، وخلّي الفرق بين الاختيارات واضح ليك ولعميلك.</p></article>
-                    <article class="es-service-card es-outcome-card"><span class="es-service-card__icon" aria-hidden="true"><img class="es-art-icon" src="assets/img/icons/estavo-profile.svg" width="160" height="160" alt="" loading="lazy" decoding="async" /></span><h3>ابعت العرض باسمك</h3><p>حوّل المقارنة لعرض <bdi>PDF</bdi> باسمك، أو اعرض الاختيارات من موقعك وخلّي التواصل يرجعلك.</p></article>
+                    <article class="es-service-card es-outcome-card"><span class="es-service-card__icon" aria-hidden="true"><img class="es-art-icon" src="assets/img/icons/estavo-layers.svg" width="160" height="160" alt="" loading="lazy" decoding="async" /></span><h3>اوصل للاختيارات أسرع</h3><p>ابدأ من المنطقة والميزانية ونوع الوحدة، ودور بين المشاريع والوحدات بدل ما تفتح كذا مصدر كل مرة.</p></article>
+                    <article class="es-service-card es-outcome-card"><span class="es-service-card__icon" aria-hidden="true"><img class="es-art-icon" src="assets/img/icons/estavo-chart.svg" width="160" height="160" alt="" loading="lazy" decoding="async" /></span><h3>قارن اللي يفرق فعلًا</h3><p>قارن الأسعار والمساحات وخطط السداد بين الاختيارات، وخلي الفروق واضحة ليك ولعميلك.</p></article>
+                    <article class="es-service-card es-outcome-card"><span class="es-service-card__icon" aria-hidden="true"><img class="es-art-icon" src="assets/img/icons/estavo-messages.svg" width="160" height="160" alt="" loading="lazy" decoding="async" /></span><h3>ابعت عرض باسمك</h3><p>اعمل عرض <bdi>PDF</bdi> باسمك ورقمك، وابعته لعميلك أو اعرض الاختيارات على موقعك العقاري الذكي وخليه يتواصل معاك.</p></article>
                 </div>
             </div>
         </section>
@@ -2813,11 +2968,11 @@
         <section class="es-section es-section--mist" aria-labelledby="website-h">
             <div class="es-container">
                 <div class="es-copy es-copy--center" data-reveal>
-                    <span class="es-eyebrow">لما تكون جاهز تبني حضورك</span>
-                    <h2 id="website-h">بدل ما تبعت لينك لحد تاني، ابعت عميلك لموقع باسمك.</h2>
-                    <p class="es-lead">العميل يدور في المشاريع ووحداتك، يشوف التفاصيل، ويسألك أو يرجعلك من نفس المكان—بلوجوك وألوانك وطرق التواصل بتاعتك.</p>
-                    <p class="es-note">الموقع الأساسي مجاني وجاهز في حوالي ٥ دقايق. الدومين وداتا المدن واستخدام <bdi>Client AI</bdi> إضافات اختيارية.</p>
-                    <p><a href="https://estavo-brokers.com/website/" class="es-button es-button--primary" data-track="website_preview_started" data-position="website">اعمل موقعك مجانًا · حوالي ٥ دقايق</a></p>
+                    <span class="es-eyebrow">موقعك العقاري الذكي</span>
+                    <h2 id="website-h">بدل ما تبعت عميلك لموقع تاني، ابعته لموقع باسمك.</h2>
+                    <p class="es-lead">عميلك يقدر يدور في المشاريع والعقارات اللي بتعرضها، يشوف التفاصيل، ويسأل الـ <bdi>AI</bdi> عن الاختيارات المناسبة — وكل ده باسمك والبراند وبيانات التواصل بتاعتك.</p>
+                    <p class="es-note">الموقع نفسه مجاني وبيجهز في حوالي ٥ دقايق، وتقدر تضيف مشاريعك وعقاراتك بنفسك.</p>
+                    <p><a href="https://estavo-brokers.com/website/" class="es-button es-button--primary" data-track="website_preview_started" data-position="website">اعمل موقعك العقاري الذكي مجانًا · حوالي ٥ دقايق</a></p>
                 </div>
 
                 <div class="es-container--theatre es-mt-8" data-reveal>
@@ -3096,13 +3251,13 @@
         <section class="es-home-enterprise es-dark" aria-labelledby="enterprise-h">
             <div class="es-container es-home-enterprise__inner" data-reveal>
                 <div>
-                    <span class="es-eyebrow">لفِرق وشركات البروكرز</span>
-                    <h2 id="enterprise-h">خلّي موقعك يبيع وحدات مصر كلها—تحت براندك.</h2>
-                    <p class="es-lead">مواقع شركات البروكرز الكبيرة وراها فرق ضخمة تجمع الوحدات وتحدّثها. إستاڤو يديك داتا السوق المتاحة ووحداتك الخاصة على موقع ببراندك، بتكلفة أقل من مرتب موظف إدخال بيانات.</p>
+                    <span class="es-eyebrow">للبروكرز وشركات الوساطة العقارية</span>
+                    <h2 id="enterprise-h">بيع مشاريعك وعقاراتك على موقعك تحت اسمك.</h2>
+                    <p class="es-lead">شركات الوساطة الكبيرة بيبقى وراها فرق بتجمع المشاريع والوحدات وتتابع تحديثاتها باستمرار. إستاڤو يوفّر لشركتك مشاريع ووحدات السوق اللي بيغطيها، مع عقاراتكم الخاصة، على موقع باسم وبراند شركتك من غير ما تحتاج تبني فريق كامل لجمع وتحديث المعلومات بنفسك.</p>
                 </div>
                 <div class="es-cluster es-cluster--actions">
-                    <a href="enterprise/" class="es-button es-button--light" data-track="service_selected" data-position="enterprise">شوف حلول شركات البروكرز</a>
-                    <a href="integrations/" class="es-text-link" data-track="service_selected" data-position="enterprise_integration">عندك منصة؟ ناقش الربط</a>
+                    <a href="enterprise/" class="es-button es-button--light" data-track="service_selected" data-position="enterprise">شوف حلول الشركات</a>
+                    <a href="integrations/" class="es-text-link" data-track="service_selected" data-position="enterprise_integration">عندك موقع أو منصة؟ اعرف أكتر عن ربط المشاريع والـ <bdi>AI</bdi></a>
                 </div>
             </div>
         </section>

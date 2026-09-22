@@ -94,11 +94,12 @@
 /* ── Medium and Small: phone and portrait tablet (<768px) ─ */
 @media (max-width: 47.999rem) {
   :root {
-    --es-fs-hero: clamp(2.125rem, 9.4vw, 2.75rem);
-    --es-fs-h1: clamp(2rem, 8.5vw, 2.625rem);
-    --es-fs-h2: clamp(1.6875rem, 7.2vw, 2.125rem);
-    --es-fs-h3: clamp(1.25rem, 5.6vw, 1.5rem);
-    --es-fs-lead: 1.125rem;
+    /* Phones: 31–38px hero, 26–30px section headings (§3.2). */
+    --es-fs-hero: clamp(1.9375rem, 7.6vw, 2.375rem);
+    --es-fs-h1: clamp(1.9375rem, 7.3vw, 2.375rem);
+    --es-fs-h2: clamp(1.625rem, 6.3vw, 1.875rem);
+    --es-fs-h3: 1.1875rem;
+    --es-fs-lead: 1.0625rem;
     /* Body never drops below 16px (§7.2.5). */
     --es-fs-body: 1rem;
     --es-section-space: clamp(2.75rem, 9vw, 3.75rem);
@@ -108,6 +109,33 @@
   .es-copy {
     gap: var(--es-space-4);
     max-inline-size: none;
+  }
+
+  /* A centred heading is a title; a centred six-line Arabic
+     paragraph is a wall, because every line starts at a
+     different x and the eye loses the return point. On phones
+     the headings keep their centring and the running copy
+     returns to the reading edge. */
+  .es-copy--center :is(p, li),
+  .es-hero__copy :is(p, li) {
+    text-align: start;
+    text-wrap: pretty;
+  }
+
+  .es-copy--center,
+  .es-hero__copy {
+    justify-items: stretch;
+  }
+
+  .es-copy--center > :is(h1, h2, h3, .es-eyebrow),
+  .es-hero__copy > :is(h1, h2, h3, .es-eyebrow) {
+    justify-self: center;
+  }
+
+  /* CTAs stay centred under the copy they belong to. */
+  .es-copy--center > :is(.es-button, .es-text-link, .es-actions),
+  .es-hero__copy > :is(.es-button, .es-text-link, .es-actions) {
+    justify-self: center;
   }
 
   .es-hero-figure.es-hero-figure--vector {
@@ -403,6 +431,33 @@
     inline-size: 100%;
     max-inline-size: 100%;
     gap: 0.6rem;
+  }
+}
+
+/* The Raghad launcher is fixed 20px from the bottom and is
+   ~52px tall, but nothing reserved room for it, so it sat on
+   top of whatever the page ended with. Reserve its height at
+   the end of the page so the last row can always scroll clear.
+   Kept on the footer rather than body, because body carries
+   overflow-x: clip and a padding here would not scroll. */
+@media (max-width: 40rem) {
+  /* Scoped to pages that actually mount the launcher, so the
+     others do not gain dead space at the end of the page. */
+  body:has(.raghad-support) .es-footer {
+    padding-block-end: calc(var(--es-space-9, 3rem) + 4.5rem);
+  }
+}
+
+/* Legacy .btn instances live on pages that load only the v3
+   bundle, so the phone touch minimum belongs here too. */
+@media (max-width: 47.999rem) {
+  .btn {
+    display: inline-flex;
+    min-block-size: 3rem;
+    align-items: center;
+    justify-content: center;
+    padding-block: .8rem;
+    text-align: center;
   }
 }
 

@@ -248,9 +248,13 @@ Use lower opacity for construction lines; connectors need a visible endpoint.
 **Typography:** use Cairo for page text in both languages, loaded at 400, 500,
 600 and 700. Body text is regular 400; headings, labels and modest emphasis use
 500. Reserve 600–700 for selective emphasis. Never synthesise large bold headings.
-The page ramp caps hero headings at 56px, service H1s at 52px, section headings
-at 37px and card headings at 22px. Phones use 31–38px hero headings, 26–30px
+The page ramp caps hero headings at 64px, service H1s at 58px, section headings
+at 41px and card headings at 23px, reached at roughly 1800px and above; a 1440px
+stage lands near 56/52/37px. Phones use 31–38px hero headings, 26–30px
 section headings and 16px body text. Keep Arabic display leading at 1.38–1.45.
+The ramp lives only in the `--es-fs-*` tokens in `assets/css/v3/tokens.css`.
+Set heading sizes from those tokens; a module that restates a `clamp()` re-breaks
+the scale, because the last file concatenated by `tools/build-css.sh` wins.
 
 Standalone SVGs use 28px display / 24px heading / 21px field or body / 19px
 secondary / 17px metadata on a 1024px stage. Field labels are medium; values

@@ -33,7 +33,7 @@
 }
 .ai-hero__copy { display: grid; justify-items: start; gap: 1.3rem; }
 .ai-hero .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
-.ai-hero h1 { max-inline-size: 38rem; color: var(--es-ink); font-size: clamp(2.35rem, 3.7vw, 3rem); font-weight: 600; line-height: 1.16; letter-spacing: -.04em; }
+.ai-hero h1 { max-inline-size: 38rem; color: var(--es-ink); font-size: var(--es-fs-h1); font-weight: 500; line-height: 1.16; letter-spacing: -.04em; }
 [lang="ar"] .ai-hero h1 { line-height: 1.38; letter-spacing: -.02em; }
 .ai-hero__lead { max-inline-size: 37rem; color: var(--es-ink-72); font-size: clamp(1.02rem, 1.3vw, 1.15rem); line-height: 1.85; }
 .ai-hero__note { max-inline-size: 34rem; color: var(--es-ink-60); font-size: .8rem; line-height: 1.7; }

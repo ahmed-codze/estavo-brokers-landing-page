@@ -32,7 +32,7 @@ Estavo homepage
     ├── Website for brokerage companies
     ├── AI for your clients
     ├── Meta integration
-    └── 5,000 brokers sell your properties
+    └── 7,000 brokers sell your properties
         └── Every primary CTA → estavo-brokers.com/website/
 ```
 
@@ -422,7 +422,7 @@ Show one Estavo Site sending permitted, named property events through a visible 
 
 ---
 
-## 11. 5,000 brokers sell your properties
+## 11. 7,000 brokers sell your properties
 
 Route: `/listings/`  
 Product family: Estavo Sites  
@@ -432,12 +432,12 @@ Primary CTA: `/website/`
 
 This page sells a clear distribution advantage: add a resale property to the broker’s own site and make it available to the Estavo Brokers network with the commission controlled by the property owner/broker.
 
-The “5,000 brokers” number is central to the planned proposition but must be verified and dated before publication.
+The “7,000 brokers” number is central to the planned proposition and was confirmed by the product owner on 22 September 2026.
 
 ### Proposed hero
 
-> وحدتك على موقعك. وقدام 5,000 بروكر يساعدوك تبيعها.  
-> Your property on your website—and in front of 5,000 brokers who can help sell it.
+> وحدتك على موقعك. وقدام 7,000 بروكر يساعدوك تبيعها.
+> Your property on your website—and in front of 7,000 brokers who can help sell it.
 
 If the count is not validated, use:
 
@@ -517,7 +517,7 @@ These facts appear in the supplied documents but require current owner confirmat
 | Site, hosting and server are free indefinitely | Product + finance + operations | Define fair-use and suspension/support boundaries. |
 | Custom domain prices | Finance | Confirm VAT, period, registration, renewal and customer-owned-domain rules. |
 | First 25 units entered for EGP 200 | Finance + operations | Confirm scope and update responsibility. |
-| 5,000+ brokers | Analytics + legal | Supply a dated definition of active/reachable broker accounts. |
+| 7,000 brokers | Product owner | Confirmed 22 September 2026; do not add a “+” qualifier. |
 | Meta integration included at no separate charge | Product + finance | Confirm setup/support limits. |
 | Direct ad publishing from Estavo | Product + Meta permissions review | Verify live workflow and supported states. |
 | Client AI customization | Product | Confirm name, icon, tone and bilingual settings. |
@@ -555,7 +555,7 @@ Shared palette, typography and material create the family. Different product str
 ### Phase 0 — confirm facts
 
 1. Approve Market free-access boundaries.
-2. Validate the 5,000-broker count.
+2. Keep the confirmed 7,000-broker count synchronized across all pages.
 3. Validate credits, Sites pricing and optional services.
 4. Confirm Meta capabilities and privacy contract.
 5. Confirm which Client AI customization settings are live.

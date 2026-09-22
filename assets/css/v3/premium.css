@@ -3,12 +3,8 @@
 @layer tokens {
   :root {
     --es-font: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --es-fs-hero: clamp(2.25rem, 3.7vw, 3.5rem);
-    --es-fs-h1: clamp(2.25rem, 3.4vw, 3.25rem);
-    --es-fs-h2: clamp(1.875rem, 2.45vw, 2.3125rem);
-    --es-fs-h3: clamp(1.1875rem, 1.6vw, 1.375rem);
-    --es-fs-lead: clamp(1.0625rem, 1.25vw, 1.1875rem);
-    --es-fs-body: 1.0625rem;
+    /* Type scale lives in tokens.css. This module used to restate it,
+       which meant the scale silently depended on load order. */
     --es-header-h: 4.5rem;
     --es-art-paper: var(--es-white);
     --es-art-dark: var(--es-navy-900);
@@ -20,12 +16,6 @@
   }
   @media (max-width: 47.999rem) {
     :root {
-      --es-fs-hero: clamp(1.9375rem, 7.6vw, 2.375rem);
-      --es-fs-h1: clamp(1.9375rem, 7.3vw, 2.375rem);
-      --es-fs-h2: clamp(1.625rem, 6.3vw, 1.875rem);
-      --es-fs-h3: 1.1875rem;
-      --es-fs-lead: 1.0625rem;
-      --es-fs-body: 1rem;
       --es-gutter: 1rem;
     }
   }
@@ -68,11 +58,14 @@
   .es-text-link, .es-kicker, .es-status, .es-hero__secondary-link { font-weight: 500; }
   body.es b, body.es strong { font-weight: 500; }
   .es-copy { gap: 1.15rem; }
-  .es-lead { line-height: 1.85; }
+  .es-lead { line-height: 1.75; }
   .es-lead__short { display: none; }
   .es-hero { padding-block: clamp(2rem, 5vh, 4rem); background: var(--es-paper); }
-  .es-hero h1 { font-size: clamp(3rem,5.15vw,4.75rem); font-weight: 500; line-height: 1.28; letter-spacing: -.04em; text-wrap: balance; }
-  :lang(ar) .es-hero:not(.es-service-hero) h1 { font-size: clamp(3rem,5.5vw,5rem); }
+  /* Arabic display leading stays 1.38–1.45 (§3.2); Cairo's tall
+     ascenders and vowel marks collide below that. The Latin
+     override in base sets its own tighter figure. */
+  .es-hero h1 { font-size: var(--es-fs-hero); font-weight: 500; line-height: 1.4; letter-spacing: -.02em; text-wrap: balance; }
+  [dir="ltr"] .es-hero h1 { line-height: 1.12; letter-spacing: -.03em; }
   .es-hero__copy { display: grid; justify-items: start; gap: 1.5rem; transform: none; max-inline-size: 37rem; }
   .es-hero__inner { grid-template-columns: minmax(0,.98fr) minmax(0,1.02fr); gap: clamp(2rem,4vw,4rem); }
   .es-hero__figure { display: grid; place-items: center; inline-size: 100%; min-inline-size: 0; }
@@ -197,7 +190,6 @@
     .es-hero__copy { gap: 1.2rem; }
     .es-lead__full { display: none; }
     .es-lead__short { display: inline; }
-    .es-hero h1, :lang(ar) .es-hero:not(.es-service-hero) h1 { font-size: var(--es-fs-hero); line-height: 1.4; }
     .es-hero-figure.es-hero-figure--vector { aspect-ratio: auto; }
     .es-hero-figure--vector .es-hero-figure__vector { display: none; }
     .es-hero-mobile-map { display: grid; gap: .8rem; padding: 0; background: none; }

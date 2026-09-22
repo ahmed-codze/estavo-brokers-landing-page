@@ -65,6 +65,17 @@ const FORBIDDEN = [
   { re: /\[(?:قيمة معتمدة|مدة معتمدة|أساس معتمد|اسم الشركة|من إدخالك)\]/g, why: 'visible bracket placeholder' },
 ];
 
+/* Product-owner scale figures, confirmed 2026-09-22. Any published claim
+   that pairs one of these nouns with a numeric value must use the same exact
+   figure across Arabic and English. A leading/trailing plus is intentionally
+   rejected: these are approved counts, not "more than" claims. */
+const APPROVED_SCALE_CLAIMS = [
+  { noun: '(?:units?|وحدات?|وحدة)', value: '30000', label: 'units / الوحدات' },
+  { noun: '(?:developers?|مطوّ?رين?|مطوّ?ر)', value: '700', label: 'developers / المطورين' },
+  { noun: '(?:brokers?|بروكرز?|بروكر)', value: '7000', label: 'brokers / البروكرز' },
+  { noun: '(?:projects?|مشاريع|مشروع)', value: '2000', label: 'projects / المشاريع' },
+];
+
 /* A sample/demo surface must say so, in the page language. */
 const SAMPLE_LABELS = [
   'مثال توضيحي', 'عينة بيانات بتاريخ', 'نموذج توضيحي', 'إحصاءات التغطية بتاريخ',
@@ -98,6 +109,27 @@ function checkFile(file) {
     if (approvedMarketUnitPdfCount) continue;
     const hits = body.match(re);
     if (hits) failures.push(`${hits.length}x "${hits[0]}" — ${why}`);
+  }
+
+  // Scale-claim consistency. Allow up to two descriptive words between the
+  // number and noun (for example, "30,000 comparable units").
+  const number = '[+]?\\d{1,3}(?:,\\d{3})*(?:\\+)?';
+  const word = '[A-Za-z؀-ۿ-]+';
+  for (const claim of APPROVED_SCALE_CLAIMS) {
+    const pair = new RegExp(
+      `(${number})(?:\\s+${word}){0,2}\\s+${claim.noun}|` +
+      `${claim.noun}(?:\\s+${word}){0,2}\\s+(${number})`,
+      'gi'
+    );
+    for (const match of body.matchAll(pair)) {
+      const displayed = match[1] || match[2];
+      const normalized = displayed.replaceAll(',', '').replaceAll('+', '');
+      if (normalized !== claim.value || displayed.includes('+')) {
+        failures.push(
+          `scale claim "${match[0].trim()}" must use ${Number(claim.value).toLocaleString('en-US')} ${claim.label}`
+        );
+      }
+    }
   }
 
   // 3. Any placeholder bracket must be accompanied by a label.

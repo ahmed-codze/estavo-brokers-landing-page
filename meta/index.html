@@ -69,6 +69,16 @@
 
     <link rel="stylesheet" href="../assets/css/commercial.css" />
     <link rel="stylesheet" href="../assets/css/pages/meta.css" />
+
+
+
+
+
+    <link rel="preload" as="style" href="../assets/css/estavo-v3.css"
+        onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+        <link rel="stylesheet" href="../assets/css/estavo-v3.css" />
+    </noscript>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
@@ -121,11 +131,20 @@
 
     /* ── Type (§3.2) ─────────────────────────────────────── */
     --es-font: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --es-fs-hero: clamp(2.75rem, 5vw, 4.5rem);
-    --es-fs-h1: clamp(2.625rem, 4.5vw, 4rem);
-    --es-fs-h2: clamp(2.125rem, 3.2vw, 3.125rem);
-    --es-fs-h3: clamp(1.375rem, 2vw, 1.75rem);
-    --es-fs-lead: clamp(1.125rem, 1.5vw, 1.25rem);
+    /* The ramp caps hero headings at 64px, service H1s at 58px,
+       section headings at 41px and card headings at 23px. The
+       §3.2 ceilings (56/52/37) were set against a 1440 stage and
+       read undersized on a 1920+ display, so the top of each
+       clamp is raised while the phone/tablet end is unchanged.
+       These tokens are the only place those caps are expressed:
+       hero/section rules read the token instead of restating a
+       clamp, so the ceiling cannot be raised by a later-loading
+       module. */
+    --es-fs-hero: clamp(2.75rem, 2.6vw + 1.2rem, 4rem);
+    --es-fs-h1: clamp(2.625rem, 2.4vw + 1.15rem, 3.625rem);
+    --es-fs-h2: clamp(1.9375rem, 1.85vw + 0.7rem, 2.5625rem);
+    --es-fs-h3: clamp(1.1875rem, 0.6vw + 1rem, 1.4375rem);
+    --es-fs-lead: clamp(1.0625rem, 0.5vw + 0.9rem, 1.25rem);
     --es-fs-body: 1.0625rem;
     --es-fs-ui: 0.875rem;
     --es-fs-label: 0.75rem;
@@ -457,7 +476,7 @@
       min-block-size: calc(100svh - var(--es-header-h));
       align-items: center;
     }
-    .es-hero h1 { font-size: clamp(3.75rem, 4.75vw, 4.5rem); }
+    /* Hero size comes from --es-fs-hero; see tokens.css. */
     .es-hero__copy { transform: translateY(-1.25rem); }
   }
 
@@ -602,6 +621,16 @@
     color: var(--es-navy-950);
     font-weight: 700;
     text-decoration: none;
+  }
+
+  /* A two-line link on a phone centred its arrow against the
+     whole block, so the arrow floated beside the gap between
+     the lines. Wrapping links align to the last line instead. */
+  @media (max-width: 47.999rem) {
+    .es-text-link {
+      align-items: end;
+      text-align: start;
+    }
   }
 
   /* The arrow points along the reading direction and is
@@ -868,6 +897,54 @@
     display: none;
   }
 
+  /* The Sites panel carries seven destinations, so it is grouped rather
+     than served as one long list: two section labels separate "start
+     here" from "add later", and a footer rail holds the two secondary
+     routes (examples, integrations) that do not earn a top-level slot. */
+  .es-menu__panel--grouped {
+    min-inline-size: 19rem;
+  }
+
+  .es-menu__label {
+    display: flex;
+    align-items: center;
+    gap: var(--es-space-2);
+    padding: var(--es-space-3) var(--es-space-3) var(--es-space-1);
+    color: var(--es-blue-600);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* A short rule after the label keeps the group boundary legible
+     without adding another horizontal divider to a tall panel. */
+  .es-menu__label::after {
+    content: "";
+    flex: 1;
+    block-size: 1px;
+    background: var(--es-line);
+  }
+
+  .es-menu__label:first-child {
+    padding-block-start: var(--es-space-1);
+  }
+
+  .es-menu__foot {
+    display: grid;
+    gap: var(--es-space-1);
+    margin-block-start: var(--es-space-1);
+    border-block-start: 1px solid var(--es-line);
+    padding-block-start: var(--es-space-2);
+  }
+
+  .es-menu__foot a {
+    padding-block: var(--es-space-2);
+    color: var(--es-ink-72);
+    font-size: var(--es-fs-label);
+    font-weight: 600;
+  }
+
   .es-menu__panel a {
     display: grid;
     gap: 0.1rem;
@@ -1081,13 +1158,36 @@
 }
 
 @media (max-width: 30rem) {
-  .es-header__inner { gap: 0.5rem; }
-  .es-header__logo { inline-size: 5.75rem; overflow: hidden; justify-content: center; }
-  .es-header__logo img { inline-size: 7rem; max-inline-size: none; }
-  .es-header__actions { gap: 0.35rem; }
-  .es-header__actions .es-button { padding-inline: 0.6rem; }
-  .es-header__actions .es-header-cta-long { display: none; }
-  .es-header__actions .es-header-cta-short { display: inline; }
+  .es-header__inner {
+    gap: 0.5rem;
+  }
+
+  .es-header__logo {
+    inline-size: 5.75rem;
+    overflow: hidden;
+    justify-content: center;
+  }
+
+  .es-header__logo img {
+    inline-size: 7rem;
+    max-inline-size: none;
+  }
+
+  .es-header__actions {
+    gap: 0.35rem;
+  }
+
+  .es-header__actions .es-button {
+    padding-inline: 0.6rem;
+  }
+
+  .es-header__actions .es-header-cta-long {
+    display: none;
+  }
+
+  .es-header__actions .es-header-cta-short {
+    display: inline;
+  }
 }
 /* Section artwork: a vector stage on desktop, a composition made for phones. */
 @layer components {
@@ -1399,11 +1499,12 @@
 /* ── Medium and Small: phone and portrait tablet (<768px) ─ */
 @media (max-width: 47.999rem) {
   :root {
-    --es-fs-hero: clamp(2.125rem, 9.4vw, 2.75rem);
-    --es-fs-h1: clamp(2rem, 8.5vw, 2.625rem);
-    --es-fs-h2: clamp(1.6875rem, 7.2vw, 2.125rem);
-    --es-fs-h3: clamp(1.25rem, 5.6vw, 1.5rem);
-    --es-fs-lead: 1.125rem;
+    /* Phones: 31–38px hero, 26–30px section headings (§3.2). */
+    --es-fs-hero: clamp(1.9375rem, 7.6vw, 2.375rem);
+    --es-fs-h1: clamp(1.9375rem, 7.3vw, 2.375rem);
+    --es-fs-h2: clamp(1.625rem, 6.3vw, 1.875rem);
+    --es-fs-h3: 1.1875rem;
+    --es-fs-lead: 1.0625rem;
     /* Body never drops below 16px (§7.2.5). */
     --es-fs-body: 1rem;
     --es-section-space: clamp(2.75rem, 9vw, 3.75rem);
@@ -1413,6 +1514,33 @@
   .es-copy {
     gap: var(--es-space-4);
     max-inline-size: none;
+  }
+
+  /* A centred heading is a title; a centred six-line Arabic
+     paragraph is a wall, because every line starts at a
+     different x and the eye loses the return point. On phones
+     the headings keep their centring and the running copy
+     returns to the reading edge. */
+  .es-copy--center :is(p, li),
+  .es-hero__copy :is(p, li) {
+    text-align: start;
+    text-wrap: pretty;
+  }
+
+  .es-copy--center,
+  .es-hero__copy {
+    justify-items: stretch;
+  }
+
+  .es-copy--center > :is(h1, h2, h3, .es-eyebrow),
+  .es-hero__copy > :is(h1, h2, h3, .es-eyebrow) {
+    justify-self: center;
+  }
+
+  /* CTAs stay centred under the copy they belong to. */
+  .es-copy--center > :is(.es-button, .es-text-link, .es-actions),
+  .es-hero__copy > :is(.es-button, .es-text-link, .es-actions) {
+    justify-self: center;
   }
 
   .es-hero-figure.es-hero-figure--vector {
@@ -1711,6 +1839,33 @@
   }
 }
 
+/* The Raghad launcher is fixed 20px from the bottom and is
+   ~52px tall, but nothing reserved room for it, so it sat on
+   top of whatever the page ended with. Reserve its height at
+   the end of the page so the last row can always scroll clear.
+   Kept on the footer rather than body, because body carries
+   overflow-x: clip and a padding here would not scroll. */
+@media (max-width: 40rem) {
+  /* Scoped to pages that actually mount the launcher, so the
+     others do not gain dead space at the end of the page. */
+  body:has(.raghad-support) .es-footer {
+    padding-block-end: calc(var(--es-space-9, 3rem) + 4.5rem);
+  }
+}
+
+/* Legacy .btn instances live on pages that load only the v3
+   bundle, so the phone touch minimum belongs here too. */
+@media (max-width: 47.999rem) {
+  .btn {
+    display: inline-flex;
+    min-block-size: 3rem;
+    align-items: center;
+    justify-content: center;
+    padding-block: .8rem;
+    text-align: center;
+  }
+}
+
 /* Keep the four change nodes around their review hub at narrow widths. */
 @media (max-width: 22.4375rem) {
   .es-updates-mobile__events { column-gap: .35rem; }
@@ -1721,12 +1876,8 @@
 @layer tokens {
   :root {
     --es-font: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --es-fs-hero: clamp(2.25rem, 3.7vw, 3.5rem);
-    --es-fs-h1: clamp(2.25rem, 3.4vw, 3.25rem);
-    --es-fs-h2: clamp(1.875rem, 2.45vw, 2.3125rem);
-    --es-fs-h3: clamp(1.1875rem, 1.6vw, 1.375rem);
-    --es-fs-lead: clamp(1.0625rem, 1.25vw, 1.1875rem);
-    --es-fs-body: 1.0625rem;
+    /* Type scale lives in tokens.css. This module used to restate it,
+       which meant the scale silently depended on load order. */
     --es-header-h: 4.5rem;
     --es-art-paper: var(--es-white);
     --es-art-dark: var(--es-navy-900);
@@ -1738,12 +1889,6 @@
   }
   @media (max-width: 47.999rem) {
     :root {
-      --es-fs-hero: clamp(1.9375rem, 7.6vw, 2.375rem);
-      --es-fs-h1: clamp(1.9375rem, 7.3vw, 2.375rem);
-      --es-fs-h2: clamp(1.625rem, 6.3vw, 1.875rem);
-      --es-fs-h3: 1.1875rem;
-      --es-fs-lead: 1.0625rem;
-      --es-fs-body: 1rem;
       --es-gutter: 1rem;
     }
   }
@@ -1786,11 +1931,14 @@
   .es-text-link, .es-kicker, .es-status, .es-hero__secondary-link { font-weight: 500; }
   body.es b, body.es strong { font-weight: 500; }
   .es-copy { gap: 1.15rem; }
-  .es-lead { line-height: 1.85; }
+  .es-lead { line-height: 1.75; }
   .es-lead__short { display: none; }
   .es-hero { padding-block: clamp(2rem, 5vh, 4rem); background: var(--es-paper); }
-  .es-hero h1 { font-size: clamp(3rem,5.15vw,4.75rem); font-weight: 500; line-height: 1.28; letter-spacing: -.04em; text-wrap: balance; }
-  :lang(ar) .es-hero:not(.es-service-hero) h1 { font-size: clamp(3rem,5.5vw,5rem); }
+  /* Arabic display leading stays 1.38–1.45 (§3.2); Cairo's tall
+     ascenders and vowel marks collide below that. The Latin
+     override in base sets its own tighter figure. */
+  .es-hero h1 { font-size: var(--es-fs-hero); font-weight: 500; line-height: 1.4; letter-spacing: -.02em; text-wrap: balance; }
+  [dir="ltr"] .es-hero h1 { line-height: 1.12; letter-spacing: -.03em; }
   .es-hero__copy { display: grid; justify-items: start; gap: 1.5rem; transform: none; max-inline-size: 37rem; }
   .es-hero__inner { grid-template-columns: minmax(0,.98fr) minmax(0,1.02fr); gap: clamp(2rem,4vw,4rem); }
   .es-hero__figure { display: grid; place-items: center; inline-size: 100%; min-inline-size: 0; }
@@ -1915,7 +2063,6 @@
     .es-hero__copy { gap: 1.2rem; }
     .es-lead__full { display: none; }
     .es-lead__short { display: inline; }
-    .es-hero h1, :lang(ar) .es-hero:not(.es-service-hero) h1 { font-size: var(--es-fs-hero); line-height: 1.4; }
     .es-hero-figure.es-hero-figure--vector { aspect-ratio: auto; }
     .es-hero-figure--vector .es-hero-figure__vector { display: none; }
     .es-hero-mobile-map { display: grid; gap: .8rem; padding: 0; background: none; }
@@ -2312,13 +2459,6 @@
 }
 
 </style>
-
-
-    <link rel="preload" as="style" href="../assets/css/estavo-v3.css"
-        onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript>
-        <link rel="stylesheet" href="../assets/css/estavo-v3.css" />
-    </noscript>
 </head>
 <body class="es">
 
@@ -2441,11 +2581,11 @@
         <section class="mx-hero" aria-labelledby="hero-h">
             <div class="container mx-hero__inner">
                 <div class="mx-hero__copy">
-                    <p class="hero-eyebrow"><bdi>Meta</bdi> مع <bdi>Estavo Sites</bdi></p>
-                    <h1 id="hero-h">خلّي <bdi>Meta</bdi> يعرف العميل شاف مشروع إيه أو اختار منطقة إيه على موقعك.</h1>
-                    <p class="mx-hero__lead">ابدأ موقعك باسمك، وبعدها ابعت تفاعلات واضحة—زي مشاهدة مشروع أو طلب تواصل—لحسابك على <bdi>Meta</bdi>. الحساب والميزانية والقرار يفضلوا عندك.</p>
+                    <p class="hero-eyebrow">ربط موقعك بـ <bdi>Meta</bdi></p>
+                    <h1 id="hero-h">خلي <bdi>Meta</bdi> يعرف عميلك مهتم بإيه فعلًا على موقعك.</h1>
+                    <p class="mx-hero__lead">بدل ما <bdi>Meta</bdi> يعرف إن العميل دخل صفحة أو بعت فورم بس، ابدأ بموقع باسمك يقدر يعرف هو شاف أنهي مشاريع، واهتم بأنهي مناطق أو أنواع عقارات، ويحوّل التفاعلات دي لجماهير تقدر تستخدمها في الاستهداف والإعلانات.</p>
                     <div class="hero-actions">
-                        <a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="hero">اعمل موقعك مجانًا · حوالي ٥ دقايق</a>
+                        <a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="hero">اعمل موقعك واربطه بـ <bdi>Meta</bdi></a>
                         <a href="#privacy" class="btn btn-outline btn-lg">اقرا الخصوصية والصلاحيات</a>
                     </div>
                     <p class="mx-hero__note">ابدأ موقعك المجاني في حوالي ٥ دقايق. ربط <bdi>Meta</bdi> خطوة إعداد منفصلة، وحسابك وميزانيتك يفضلوا تحت تحكمك.</p>
@@ -2507,8 +2647,8 @@
             <div class="container mx-context__inner">
                 <div class="mx-context__copy" data-reveal>
                     <p class="eyebrow">من زيارة عامة لحدث واضح</p>
-                    <h2 class="section-title" id="context-h">بدل <bdi>Page View</bdi> بس، اعرف إن العميل شاف مشروع أو اختار منطقة أو طلب تواصل.</h2>
-                    <p class="section-body">الفرق هو تنظيم إضافي للمعلومة، مش إن الموقع بقى «فاهم» نية العميل. الحدث بيوصف حاجة حصلت على الموقع، زي مشاهدة مشروع أو اختيار منطقة. مش بيوصف الشخص نفسه.</p>
+                    <h2 class="section-title" id="context-h">بدل <bdi>Page View</bdi>، اعرف العميل شاف إيه واهتم بإيه.</h2>
+                    <p class="section-body">زيارة الموقع لوحدها مش دايمًا بتقول كتير. مع موقع إستاڤو، التفاعل يبقى مرتبط بحاجة مفهومة: مشروع، منطقة، نوع عقار أو اهتمام ظهر من رحلة العميل. ده يخلي الإشارات اللي بتوصل لـ <bdi>Meta</bdi> أقرب لسلوك العميل الحقيقي، من غير ما نحولها لتقييم خفي لنية الشراء.</p>
                 </div>
                 <div class="mx-compare" data-reveal aria-hidden="true">
                     <div class="mx-compare__col">
@@ -2595,9 +2735,9 @@
         <section class="section-pad mx-privacy" id="privacy" aria-labelledby="privacy-h">
             <div class="container mx-privacy__inner">
                 <div class="mx-privacy__copy" data-reveal>
-                    <p class="eyebrow light">الخصوصية والموافقة</p>
-                    <h2 class="section-title light" id="privacy-h">بيتبعت إيه بالظبط، وإمتى، وتحت أي صلاحية.</h2>
-                    <p class="section-body light">ده مش هامش في آخر الصفحة. قبل ما تربط، لازم تكون عارف نوع البيانات اللي بتتحرك ومين المسؤول عنها.</p>
+                    <p class="eyebrow light">الخصوصية والتحكم</p>
+                    <h2 class="section-title light" id="privacy-h">حسابك يفضل بتاعك، وإنت صاحب التحكم في الربط.</h2>
+                    <p class="section-body light">ربط إستاڤو بـ <bdi>Meta</bdi> بيكون على حسابك إنت، سواء <bdi>Meta Business</bdi> أو <bdi>Ad Account</bdi>، والحساب والـ <bdi>Assets</bdi> بتفضل ملكك وتحت تحكمك.</p>
                 </div>
                 <dl class="mx-privacy__grid" data-reveal>
                     <div><dt>فئات الأحداث</dt><dd>أحداث محددة ومسموح بيها بتوصف نشاط على الموقع، زي مشاهدة مشروع أو اختيار منطقة.</dd></div>
@@ -2611,11 +2751,38 @@
             </div>
         </section>
 
+        <div class="es-section es-section--mist" role="region" aria-labelledby="integration-h">
+            <div class="es-container es-split">
+                <div class="es-copy" data-reveal>
+                    <span class="es-eyebrow">عندك موقع أو منصة بالفعل؟</span>
+                    <h2 id="integration-h">مشاريع وعقارات إستاڤو والـ <bdi>AI</bdi> جوّه موقعك أو تطبيقك.</h2>
+                    <p class="es-lead">مش لازم تعمل موقع جديد عشان تستفيد من إستاڤو. لو عندك موقع أو منصة أو تطبيق بالفعل، نقدر نربطه بمشاريع وعقارات إستاڤو ونضيف الـ <bdi>AI</bdi> حسب احتياج النظام الحالي.</p>
+                    <div class="es-cluster es-cluster--actions"><a href="#request" class="es-button es-button--primary" data-track="integration_enquiry_submitted" data-position="meta_integration">كلّمنا عن منصتك</a><a href="../market/" class="es-text-link" data-track="market_opened" data-position="meta_integration">جرّب <bdi>Estavo Market</bdi></a></div>
+                </div>
+                <div class="es-product-frame" data-reveal aria-hidden="true"><div class="es-product-frame__bar"><span class="es-product-frame__dots"><i></i><i></i><i></i></span><span class="es-product-frame__url">منصتك الحالية</span></div><div class="es-product-frame__body"><div class="es-flow"><div class="es-flow__stage es-flow__stage--core"><span class="es-status">بيانات إستاڤو</span><h3>مشاريع ووحدات</h3></div><span class="es-flow__rail"></span><div class="es-flow__stage"><span class="es-kicker">الربط</span><h3>داخل نظامك الحالي</h3></div><span class="es-flow__rail"></span><div class="es-flow__stage"><span class="es-kicker"><bdi>AI</bdi></span><h3>بحث وأسئلة ومقارنات</h3></div></div></div></div>
+            </div>
+        </div>
+
+        <div class="es-section" role="region" aria-labelledby="continue-h">
+            <div class="es-container">
+                <div class="es-copy es-copy--center" data-reveal><span class="es-eyebrow">كمل على اللي بنيته</span><h2 id="continue-h">كمل على النظام اللي عندك.</h2><p class="es-lead">مش محتاج تغيّر موقعك أو البراند بتاعك. سواء محتاج بيانات مشاريع ووحدات، أو مساعد <bdi>AI</bdi>، أو الاتنين مع بعض، نتفق معاك على الخدمة والمدن وطريقة الربط المناسبة لمنصتك.</p></div>
+                <div class="es-grid-3 es-mt-8" data-reveal-stagger><div class="es-panel es-panel--pad"><h3>بيانات المشروع والوحدة</h3><p class="es-note es-mt-4">مشاريع، وحدات ومعلوماتها.</p></div><div class="es-panel es-panel--pad"><h3>اربطها بنظامك</h3><p class="es-note es-mt-4">تستخدم المعلومات جوّه موقعك أو تطبيقك الحالي.</p></div><div class="es-panel es-panel--pad"><h3>خلي الـ <bdi>AI</bdi> يشتغل عليها</h3><p class="es-note es-mt-4">يستخدم المعلومات المربوطة في البحث والأسئلة والمقارنات.</p></div></div>
+            </div>
+        </div>
+
+        <div class="es-section es-section--mist" role="region" aria-labelledby="integration-fields-h">
+            <div class="es-container"><div class="es-copy es-copy--center" data-reveal><span class="es-eyebrow">نطاق المعلومات</span><h2 id="integration-fields-h">اختار المعلومات اللي منصتك محتاجاها.</h2><p class="es-lead">حسب استخدامك، نحدد معاك إيه اللي محتاج يتربط من معلومات السوق بدل ما تاخد حاجة مش محتاجها.</p></div><div class="es-grid-3 es-mt-8" data-reveal-stagger><div class="es-panel es-panel--pad"><h3>المعلومات المطلوبة</h3><p class="es-note es-mt-4">مشاريع، وحدات، أسعار، خطط سداد والمعلومات المتاحة حسب نطاق الربط.</p></div><div class="es-panel es-panel--pad"><h3>المدن والمناطق</h3><p class="es-note es-mt-4">نحدد المدن أو المناطق اللي محتاج معلوماتها على منصتك.</p></div><div class="es-panel es-panel--pad"><h3>التحديثات</h3><p class="es-note es-mt-4">نحدد طريقة ونطاق تحديث المعلومات حسب الاتفاق والتنفيذ.</p></div></div></div>
+        </div>
+
+        <div class="es-section" role="region" aria-labelledby="integration-scope-h"><div class="es-container es-container--reading"><div class="es-copy" data-reveal><span class="es-eyebrow">قبل التنفيذ</span><h2 id="integration-scope-h">نحدد الربط قبل ما نبدأ التنفيذ.</h2><div class="es-prose"><p>كل موقع أو منصة مختلف، عشان كده بنفهم الأول النظام الحالي، والمعلومات المطلوبة، واستخدام الـ <bdi>AI</bdi> ونطاق الربط. بعدها نحدد طريقة التنفيذ والتكلفة حسب كل حالة، بدل ما يبقى فيه باقة واحدة مفروضة على كل الأنظمة.</p></div></div></div></div>
+
+        <div class="es-section es-section--mist" id="request" role="region" aria-labelledby="form-h"><div class="es-container es-container--reading"><div class="es-copy" data-reveal><span class="es-eyebrow">طلب الربط</span><h2 id="form-h">قول لنا عن منصتك.</h2></div><form class="es-stack es-mt-8" data-reveal action="https://wa.me/201069528393" method="get"><div class="es-grid-2"><div class="es-field"><label for="mx-company">اسم الشركة</label><input class="es-input" id="mx-company" name="company" type="text" /></div><div class="es-field"><label for="mx-name">اسمك</label><input class="es-input" id="mx-name" name="name" type="text" /></div></div><div class="es-grid-2"><div class="es-field"><label for="mx-contact">وسيلة التواصل</label><input class="es-input" id="mx-contact" name="contact" type="text" required /></div><div class="es-field"><label for="mx-platform">الموقع أو التطبيق الحالي</label><input class="es-input" id="mx-platform" name="platform" type="text" /></div></div><div class="es-field"><label for="mx-use">إيه اللي محتاج تربطه؟</label><textarea class="es-textarea" id="mx-use" name="use"></textarea></div><div class="es-cluster es-cluster--actions"><button type="submit" class="es-button es-button--primary" data-track="integration_enquiry_submitted" data-position="meta_form">ابعت طلب الربط ←</button></div></form></div></div>
+
         <section class="section-faq section-pad" aria-labelledby="faq-h">
             <div class="container">
                 <div class="sites-section-head sites-section-head--center" data-reveal>
                     <p class="eyebrow">قبل ما تربط</p>
-                    <h2 class="section-title" id="faq-h">أسئلة عن ربط <bdi>Meta</bdi>.</h2>
+                    <h2 class="section-title" id="faq-h">أسئلة عن <bdi>Meta</bdi> والربط بمنصتك.</h2>
                 </div>
                 <div class="faq-list" data-exclusive-details data-reveal>
                     <details class="faq-item" open><summary class="faq-question"><h3>الـ <bdi>Meta Account</bdi> بيكون بتاع مين؟</h3></summary><p class="faq-answer">بتاعك. الـ <bdi>Meta Business</bdi> والـ <bdi>Dataset/Pixel</bdi> والـ <bdi>Ad Account</bdi> يفضلوا باسمك، والربط ما بينقلش الملكية لإستاڤو.</p></details>
@@ -2626,6 +2793,9 @@
                     <details class="faq-item"><summary class="faq-question"><h3>هل الربط يضمن <bdi>Leads</bdi> أو مبيعات أفضل؟</h3></summary><p class="faq-answer">لأ. الربط بيوفّر سياق أوضح، لكن النتيجة بتعتمد كمان على المحتوى والعرض والميزانية والمتابعة وظروف السوق.</p></details>
                     <details class="faq-item"><summary class="faq-question"><h3>هل بتشوفوا بيانات عملائي؟</h3></summary><p class="faq-answer">الأحداث بتوصف نشاط على الموقع بأقل قدر من البيانات. نص المحادثات وأرقام التواصل ما بتتبعتش في خصائص الأحداث، والصلاحيات على أصولك في <bdi>Meta</bdi> بتفضل تحت تحكمك.</p></details>
                     <details class="faq-item"><summary class="faq-question"><h3>أقدر أعمل إعلان من إستاڤو مباشرة؟</h3></summary><p class="faq-answer">النشر المباشر من داخل إستاڤو بيتأكد وقت الإعداد حسب المتاح في حسابك. الربط الأساسي بيغطي إرسال الأحداث المسموح بها لحسابك.</p></details>
+                    <details class="faq-item"><summary class="faq-question"><h3>لازم أستبدل موقعي الحالي؟</h3></summary><p class="faq-answer">لأ. نراجع نظامك الحالي ونحدد معاك طريقة ربط مشاريع وعقارات إستاڤو أو الـ <bdi>AI</bdi> من غير ما تغيّر موقعك أو البراند بتاعك.</p></details>
+                    <details class="faq-item"><summary class="faq-question"><h3>أقدر أطلب بيانات المشاريع والوحدات بس؟</h3></summary><p class="faq-answer">آه. تقدر تناقش احتياج البيانات بشكل مستقل، ونحدد المدن والمعلومات وطريقة التحديث والاستخدام.</p></details>
+                    <details class="faq-item"><summary class="faq-question"><h3>التكلفة ووقت التنفيذ بيتحددوا إزاي؟</h3></summary><p class="faq-answer">حسب النظام الحالي والمدن والمعلومات المطلوبة واستخدام الـ <bdi>AI</bdi> وطريقة الربط. التفاصيل بتتوضح بعد مراجعة احتياجك.</p></details>
                 </div>
             </div>
         </section>
@@ -2634,10 +2804,11 @@
             <div class="container">
                 <div class="cta-inner">
                     <div class="cta-character" aria-hidden="true">م</div>
-                    <h2 class="cta-title" id="close-h">ابدأ بالموقع، وبعدها اربط <bdi>Meta</bdi> لما تحتاجه.</h2>
-                    <p class="cta-subtitle">ابدأ موقعك مجانًا في حوالي ٥ دقايق، وبعدها اربط حسابك وحدد الأحداث المسموح بيها.</p>
+                    <h2 class="cta-title" id="close-h">عندك موقع من إستاڤو أو نظام موجود بالفعل؟ خلينا نربطه بالطريقة المناسبة ليك.</h2>
+                    <p class="cta-subtitle">سواء عايز تربط موقعك من إستاڤو بـ <bdi>Meta</bdi>، أو تضيف مشاريع وعقارات إستاڤو والـ <bdi>AI</bdi> لنظامك الحالي، نحدد معاك أنسب طريقة حسب احتياجك.</p>
                     <div class="cta-buttons">
-                        <a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--light" data-track="website_preview_started" data-position="close">اعمل موقعك مجانًا · حوالي ٥ دقايق</a>
+                        <a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--light" data-track="website_preview_started" data-position="close">اعمل موقعك واربطه بـ <bdi>Meta</bdi></a>
+                        <a href="#request" class="btn btn-outline btn-lg" data-track="integration_enquiry_submitted" data-position="integration_close">كلّمنا عن الربط بمنصتك</a>
                     </div>
                 </div>
             </div>

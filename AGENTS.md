@@ -188,7 +188,7 @@ The current bilingual homepages are `index.html` and `en.html`. They are hand-ma
 The intended homepage argument is:
 
 - **Hero:** lead with the parent Estavo proposition, “the real-estate market under your name,” but give the visitor one primary next step: open Estavo Market. Website creation is a secondary text link for visitors already ready to build their branded presence.
-- **Proof strip:** establish scale with the approved 30,000+ unit, broker-network, website-onboarding and update facts, and connect each fact to the broker task it enables. Do not put caveats inside the proof strip or use developer/project counts there.
+- **Proof strip:** establish scale with the approved 30,000-unit and 7,000-broker figures, website-onboarding and update facts, and connect each fact to the broker task it enables. The other approved scale figures are 700 developers and 2,000 projects. Use these counts exactly, without a “+” qualifier. Do not put caveats inside the proof strip or use developer/project counts there.
 - **Differentiation:** explain that Estavo organises market information behind the broker while the broker remains in front of the buyer. The network visual demonstrates sources flowing into Estavo and then into customer-controlled surfaces.
 - **Market workflow:** start from a real buyer request, then show search, comparison, available updates and a branded offer as one working sequence. Estavo Market remains the primary conversion path.
 - **Outcome proof:** describe the three broker outcomes—reaching relevant options, comparing decision inputs and sending under the broker's name—rather than presenting six co-equal service cards.

@@ -178,7 +178,7 @@ Recommended questions:
 - Client AI and activity access;
 - Meta feature availability;
 - company pricing/domain terms;
-- 5,000-broker network count;
+- 7,000-broker network count;
 - Management AI, if mentioned at all.
 
 ## Acceptance criteria
