@@ -653,6 +653,14 @@
     </style>
     <link rel="stylesheet" href="assets/css/chatbot-shared.css?v=20260918-chat-ui" />
     <link rel="stylesheet" href="assets/css/raghad.css?v=20260918-chat-feedback" />
+    <style>
+        .crm-overview { background: var(--bg, #fff); }
+        .crm-overview .container { max-width: 900px; }
+        .crm-overview p { max-width: 72ch; font-size: 18px; line-height: 1.8; color: #26364a; margin: 16px 0; }
+        .crm-overview h3 { font-size: 22px; line-height: 1.4; margin: 32px 0 8px; color: #12243a; }
+        .crm-overview a { color: #174c8e; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+        .crm-overview a:focus-visible { outline: 2px solid #174c8e; outline-offset: 4px; }
+    </style>
 </head>
 
 <body>
@@ -1375,6 +1383,18 @@
     <!-- ══════════════════════════════════════════════════════════
      12. FAQ
      ══════════════════════════════════════════════════════════ -->
+    <section class="section-pad crm-overview" id="meta-integration" aria-labelledby="meta-integration-heading">
+        <div class="container">
+            <h2 class="section-title" id="meta-integration-heading">Estavo Sites CRM and Meta integration</h2>
+            <p>Estavo Sites CRM is provided by Estavo Brokers, a software service for real estate professionals in Egypt.</p>
+            <h3>Connect your enquiries to your team</h3><p>Connect the Facebook Pages and ad accounts you are authorized to manage. Choose your Page and lead forms, import enquiries into your CRM, assign follow-up to team members, and track each enquiry’s progress.</p>
+            <h3>Manage your property advertising</h3><p>View advertising performance, prepare property campaigns, and create audiences for your own advertising from the connected workspace.</p>
+            <h3>You choose what to connect</h3><p>The integration requests access to your Page list, selected Pages, lead-form submissions and ad accounts to provide these features. Facebook account roles, asset access and Meta approvals determine which features are available. Customer access is subject to Meta approval.</p>
+            <h3>Disconnect and get support</h3><p>You can disconnect Meta in your workspace. For questions or a request to delete your data, contact <a href="mailto:support@estavo.space" dir="ltr">support@estavo.space</a>.</p>
+            <p><a href="/privacy-en.html">Privacy policy</a> · <a href="/data-deletion-en.html">Data deletion instructions</a></p>
+        </div>
+    </section>
+
     <section class="section-faq section-pad" id="faq" aria-labelledby="faq-heading">
         <div class="container">
             <div class="faq-header" style="text-align:center;margin-bottom:40px">
@@ -1560,6 +1580,7 @@
                 <div>
                     <div class="footer-col-title">Product</div>
                     <nav class="footer-links" aria-label="Product links">
+                        <a href="#meta-integration">Sites CRM & Meta</a>
                         <a href="#ai-expert">AI Market Advisor</a>
                         <a href="#pdf-feature">PDF Offers</a>
                         <a href="#pillars">Features</a>

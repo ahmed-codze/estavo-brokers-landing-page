@@ -698,6 +698,14 @@
     </style>
     <link rel="stylesheet" href="assets/css/chatbot-shared.css?v=20260918-chat-ui" />
     <link rel="stylesheet" href="assets/css/raghad.css?v=20260918-chat-feedback" />
+    <style>
+        .crm-overview { background: var(--bg, #fff); }
+        .crm-overview .container { max-width: 900px; }
+        .crm-overview p { max-width: 72ch; font-size: 18px; line-height: 1.8; color: #26364a; margin: 16px 0; }
+        .crm-overview h3 { font-size: 22px; line-height: 1.4; margin: 32px 0 8px; color: #12243a; }
+        .crm-overview a { color: #174c8e; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+        .crm-overview a:focus-visible { outline: 2px solid #174c8e; outline-offset: 4px; }
+    </style>
 </head>
 
 <body>
@@ -1444,6 +1452,18 @@
     <!-- ══════════════════════════════════════════════════════════
      12. FAQ
      ══════════════════════════════════════════════════════════ -->
+    <section class="section-pad crm-overview" id="meta-integration" aria-labelledby="meta-integration-heading">
+        <div class="container">
+            <h2 class="section-title" id="meta-integration-heading">إستاڤو Sites CRM والربط مع Meta</h2>
+            <p>إستاڤو Sites CRM خدمة برمجية من إستاڤو بروكرز للمتخصصين في العقارات في مصر.</p>
+            <h3>وصل استفسارات العملاء بفريقك</h3><p>اربط صفحات فيسبوك والحسابات الإعلانية المصرح لك بإدارتها. اختار الصفحة ونماذج العملاء المحتملين، واستورد الاستفسارات إلى إدارة العملاء، ووزع المتابعة على فريقك وتابع حالة كل استفسار.</p>
+            <h3>إدارة إعلانات عقاراتك</h3><p>راجع أداء الإعلانات، وجهز حملات العقارات، وأنشئ جماهير لإعلاناتك من مساحة العمل المرتبطة.</p>
+            <h3>إنت بتختار إيه اللي تربطه</h3><p>الربط بيطلب الوصول لقائمة صفحاتك والصفحات المختارة وبيانات نماذج العملاء والحسابات الإعلانية لتقديم المميزات دي. المميزات المتاحة بتعتمد على دور حسابك وصلاحيات الأصول وموافقات Meta. إتاحة الربط لحسابات العملاء تخضع لموافقة Meta.</p>
+            <h3>فصل الربط والدعم</h3><p>تقدر تفصل ربط Meta من مساحة عملك. للاستفسارات أو طلب حذف بياناتك، تواصل على <a href="mailto:support@estavo.space" dir="ltr">support@estavo.space</a>.</p>
+            <p><a href="/privacy.html">سياسة الخصوصية</a> · <a href="/data-deletion.html">تعليمات حذف البيانات</a></p>
+        </div>
+    </section>
+
     <section class="section-faq section-pad" id="faq" aria-labelledby="faq-heading">
         <div class="container">
             <div class="faq-header" style="text-align:center;margin-bottom:40px">
@@ -1625,6 +1645,7 @@
                 <div>
                     <div class="footer-col-title">المنتج</div>
                     <nav class="footer-links" aria-label="روابط المنتج">
+                        <a href="#meta-integration">إدارة العملاء والربط مع Meta</a>
                         <a href="#ai-expert">مستشار السوق الذكي</a>
                         <a href="#pdf-feature">عروض PDF</a>
                         <a href="#pillars">المميزات</a>
