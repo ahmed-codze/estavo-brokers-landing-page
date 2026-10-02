@@ -1,28 +1,43 @@
-# Estavo Brokers — robots.txt
-# https://estavo-brokers.com/
-
+# Estavo Brokers — public knowledge for real estate brokers in Egypt.
+# Search discovery and model-training controls are separate.
 User-agent: *
-Allow: /
 Disallow: /assets/estavo-guide-character/
 Disallow: /*.md$
 Disallow: /index-deprecated.html
 Disallow: /ar.html
+Disallow: /content/
+Disallow: /scripts/
+Disallow: /tests/
+Disallow: /docs/
+Disallow: /.git/
+Disallow: /.impeccable/
+Allow: /
 
-# Block aggressive AI scrapers (optional — remove if you want AI training)
+# OAI-SearchBot, PerplexityBot, Claude-SearchBot, Claude-User,
+# ChatGPT-User, Googlebot and Bingbot inherit the public access above.
+# Allow Google-Extended for Gemini grounding of public pages.
+# It also permits the Gemini training uses covered by this token.
+User-agent: Google-Extended
+Disallow: /content/
+Disallow: /scripts/
+Disallow: /tests/
+Disallow: /docs/
+Disallow: /.git/
+Disallow: /.impeccable/
+Disallow: /assets/estavo-guide-character/
+Disallow: /*.md$
+Disallow: /index-deprecated.html
+Disallow: /ar.html
+Allow: /
+
+# OpenAI and Anthropic training remain disabled; search is allowed separately.
 User-agent: GPTBot
 Disallow: /
-
 User-agent: CCBot
 Disallow: /
-
-User-agent: Google-Extended
-Disallow: /
-
 User-agent: anthropic-ai
 Disallow: /
-
 User-agent: ClaudeBot
 Disallow: /
 
-# Sitemap
 Sitemap: https://estavo-brokers.com/sitemap.xml

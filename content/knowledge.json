@@ -1,0 +1,912 @@
+[
+  {
+    "slug": "sell-more-properties",
+    "kind": "guide",
+    "en": {
+      "title": "How to sell more properties as a broker in Egypt",
+      "description": "A practical broker sales workflow: qualify buyers, verify inventory, compare options, send a clear offer and agree the next action.",
+      "answer": "To improve property sales, make each step of the buyer journey clearer: qualify the budget and timing, verify suitable inventory, explain a short comparison and agree one next action. Track where opportunities stall before spending more on leads.",
+      "sections": [
+        {
+          "title": "Find the step that is losing opportunities",
+          "html": "<p>Review your last 20 enquiries using a simple sheet: enquiry source, first response, qualified need, shortlist sent, viewing booked, offer made and outcome. Count how many enquiries reach each step. These are your own operating measures, not industry benchmarks.</p><p>If enquiries rarely become qualified conversations, improve your opening questions. If buyers receive a shortlist but do not view, check location, affordability and delivery requirements. If viewings do not progress, record the actual objection instead of assuming price is always the problem.</p>"
+        },
+        {
+          "title": "Qualify the buyer before searching",
+          "html": "<ul><li>Purpose: home, second home or investment?</li><li>Preferred area and acceptable alternatives?</li><li>Total price ceiling, cash available now and comfortable payment schedule?</li><li>Unit type, bedrooms, minimum area and finishing?</li><li>Required handover date and readiness to book?</li><li>Who else needs to approve the decision?</li></ul><p>Repeat the brief back to the client. Distinguish a hard limit from a preference: a delivery deadline may rule out a project even when its advertised price looks attractive.</p>"
+        },
+        {
+          "title": "Build a shortlist the client can decide from",
+          "html": "<p>Present a small set of defensible options rather than forwarding every file you have. For each option, state why it fits, its main compromise and the item you still need to verify. Compare equivalent unit types and payment structures. A lower advertised total does not necessarily mean a lighter upfront commitment.</p><p>Estavo Market can help you search project and unit information, ask the broker AI about the request and compare available details. Treat fast-changing prices, availability and booking terms as provisional until the responsible source confirms them.</p>"
+        },
+        {
+          "title": "Send an offer that answers the next questions",
+          "html": "<p>Use one readable proposal containing the project, exact unit or model, location, area, finishing, delivery information, payment terms, source/check date and your contact details. Mark unknown items openly. Estavo’s branded PDF Offer brings the available information into a document you can send to the buyer; review it before sending.</p><p>Finish with a choice the client can make: “Which of these two locations suits your daily commute better?” or “Shall we verify this unit and arrange a viewing?” A proposal without a next step can leave both sides waiting.</p>"
+        },
+        {
+          "title": "Follow up with a reason, not another generic reminder",
+          "html": "<p>Agree the next contact time and channel. Follow up with a useful answer: clarification of a payment milestone, a confirmed availability update or a comparison against the buyer’s stated concern. Stop or reduce contact when the client asks you to.</p><blockquote>“You said delivery timing was the deciding factor. I have checked the information for the two shortlisted options. Would you like us to review that difference before choosing a viewing?”</blockquote><p>This is a reusable message template, not evidence of a completed customer transaction.</p>"
+        },
+        {
+          "title": "Review the funnel every week",
+          "html": "<p>Measure qualified-enquiry-to-viewing and viewing-to-offer conversion on consistent definitions. Record lost reasons such as unaffordable upfront cash, wrong delivery date, no suitable stock or no response. Compare periods with similar lead sources and sample sizes. Change one weak step and observe your own results; do not attribute every change to a tool.</p><p>Use the buyer-matching and proposal guides below to make the next two steps concrete.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "Does Estavo guarantee more sales?",
+          "answer": "No. Estavo supports research, comparisons and offer preparation. Sales depend on inventory, buyer fit, follow-up and market conditions."
+        },
+        {
+          "question": "Should I buy more leads first?",
+          "answer": "First identify where existing enquiries stop progressing. More leads will not automatically solve weak qualification or unsuitable shortlists."
+        }
+      ]
+    },
+    "ar": {
+      "title": "إزاي تبيع عقارات أكتر كبروكر في مصر؟",
+      "description": "خطوات عملية لتأهيل العميل، تأكيد المتاح، مقارنة الاختيارات، إرسال عرض واضح ومتابعة لها هدف.",
+      "answer": "عشان تحسّن مبيعاتك، خلّي كل خطوة أوضح: افهم ميزانية العميل وتوقيته، راجع المتاح المناسب، اعرض مقارنة مختصرة واتفق على خطوة تالية. اعرف الفرص بتقف فين قبل ما تزود الإنفاق على الليدز.",
+      "sections": [
+        {
+          "title": "اعرف الفرص بتضيع في أي خطوة",
+          "html": "<p>راجع آخر 20 استفسار في شيت بسيط: مصدر الاستفسار، أول رد، احتياج مؤهل، اختيارات اتبعتت، معاينة، عرض ونتيجة. احسب كام عميل انتقل من كل خطوة للتالية. دي مؤشرات لشغلك أنت، مش متوسطات للسوق.</p><p>لو الاستفسارات مش بتوصل لمحادثة جادة، راجع أسئلة البداية. لو العميل شاف الاختيارات وماحجزش معاينة، راجع المنطقة والقدرة على السداد والتسليم. ولو المعاينات مش بتتقدم، سجّل الاعتراض الحقيقي بدل ما تفترض إن المشكلة دايمًا السعر.</p>"
+        },
+        {
+          "title": "افهم العميل قبل ما تدور",
+          "html": "<ul><li>الغرض سكن ولا بيت تاني ولا استثمار؟</li><li>المنطقة الأساسية والبدائل المقبولة؟</li><li>إجمالي الميزانية، السيولة المتاحة دلوقتي وجدول السداد المناسب؟</li><li>نوع الوحدة، الغرف، أقل مساحة والتشطيب؟</li><li>ميعاد التسليم المطلوب ومدى الاستعداد للحجز؟</li><li>مين كمان بيشارك في القرار؟</li></ul><p>ارجع للعميل بملخص الطلب عشان تتأكد إنك فاهمه. فرّق بين شرط أساسي وتفضيل: ميعاد التسليم ممكن يستبعد مشروع حتى لو سعره جذاب.</p>"
+        },
+        {
+          "title": "اعرض اختيارات تساعد على القرار",
+          "html": "<p>قدّم مجموعة صغيرة ليها أسباب واضحة بدل ما تبعت كل الملفات. لكل اختيار وضّح سبب مناسبته، أهم تنازل فيه وإيه لسه محتاج تأكيد. قارن نفس نوع الوحدة وبنفس أساس السداد؛ السعر الإجمالي الأقل مش معناه بالضرورة سيولة أقل وقت الحجز.</p><p>استافو ماركت يساعدك تبحث في بيانات المشاريع والوحدات، تسأل AI البروكر عن الطلب وتقارن المعلومات المتاحة. السعر والمتاح وشروط الحجز محتاجين تأكيد من الجهة المسؤولة قبل التزام نهائي.</p>"
+        },
+        {
+          "title": "ابعت عرض يجاوب الأسئلة اللي جاية",
+          "html": "<p>جهّز عرض مقروء فيه المشروع والوحدة أو النموذج والموقع والمساحة والتشطيب والتسليم وخطة السداد وتاريخ مراجعة المعلومة وبياناتك. اكتب أي معلومة ناقصة بوضوح. PDF Offer من استافو يجمّع البيانات المتاحة في عرض باسمك؛ راجعه قبل الإرسال.</p><p>اختم بسؤال له إجابة عملية: «أنهي منطقة أقرب لشغلك؟» أو «نأكد المتاح ونرتب معاينة؟». العرض من غير خطوة تالية ممكن يسيب الطرفين مستنيين.</p>"
+        },
+        {
+          "title": "تابع بسبب مفيد",
+          "html": "<p>اتفق على ميعاد وطريقة المتابعة. ابعت توضيح لدفعة، تأكيد للمتاح أو مقارنة تخص اعتراض العميل. احترم طلبه لو عايز يوقف أو يقلل التواصل.</p><blockquote>«حضرتك قلت إن التسليم أهم نقطة. راجعت المعلومات للاختيارين اللي اتكلمنا عنهم. تحب نوضح الفرق قبل ما نحدد المعاينة؟»</blockquote><p>دي صيغة قابلة للاستخدام، مش حكاية صفقة حقيقية أو نتيجة عميل.</p>"
+        },
+        {
+          "title": "راجع مسار البيع كل أسبوع",
+          "html": "<p>تابع نسبة الطلبات المؤهلة اللي وصلت لمعاينة، والمعاينات اللي وصلت لعرض، بنفس تعريفات القياس. سجّل أسباب التوقف: المقدم، التسليم، عدم وجود اختيار مناسب أو عدم الرد. قارن فترات فيها مصادر ليدز وحجم عينة متقارب، وغيّر خطوة واحدة ضعيفة وراقب نتيجتها.</p><p>دليل مطابقة طلب العميل ودليل العروض تحت يساعدوك تطبّق الخطوات دي.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "هل استافو بيضمن مبيعات أكتر؟",
+          "answer": "لأ. استافو يساعد في البحث والمقارنة وتجهيز العرض. النتيجة بتعتمد على المتاح ومناسبة الاختيارات والمتابعة وظروف السوق."
+        },
+        {
+          "question": "أزوّد الليدز الأول؟",
+          "answer": "اعرف العملاء الحاليين بيقفوا فين. زيادة الليدز مش هتحل تلقائيًا مشكلة التأهيل أو الاختيارات غير المناسبة."
+        }
+      ]
+    },
+    "related": [
+      "match-client-property",
+      "property-pdf-offer",
+      "find-property-clients"
+    ],
+    "sources": [
+      {
+        "url": "https://estavo-brokers.com/what-is-estavo-brokers-en.html",
+        "en": "Estavo Brokers: product overview",
+        "ar": "استافو بروكرز: تعريف المنتج"
+      }
+    ]
+  },
+  {
+    "slug": "find-developer-inventory",
+    "kind": "guide",
+    "en": {
+      "title": "Where to find and verify developer inventory in Egypt",
+      "description": "A broker checklist for sourcing developer inventory, checking unit identity, recording update dates and confirming availability before booking.",
+      "answer": "Find developer inventory through authorized developer contacts, official project materials and a maintained broker platform. For every offer, verify the unit, source, payment terms and update date; confirm availability again before a booking commitment.",
+      "sections": [
+        {
+          "title": "Choose a source for each job",
+          "html": "<p>An official brochure helps explain a project. A dated price list helps establish quoted terms. A responsible sales or reservations contact confirms booking status. An inventory platform helps you search and compare. These sources solve different jobs: a brochure is not confirmation that a specific unit is available today.</p><p>Estavo Market organizes project and unit information and available payment plans for broker research. Use it to build a shortlist, then verify changing details with the responsible booking source.</p>"
+        },
+        {
+          "title": "Keep an inventory verification record",
+          "html": "<div class=\"table-wrap\"><table><caption>Fields to check for each shortlisted offer</caption><thead><tr><th>Field</th><th>What to record</th></tr></thead><tbody><tr><td>Identity</td><td>Developer, project, phase, building, unit number or model</td></tr><tr><td>Specification</td><td>Area definition, type, floor, view and finishing</td></tr><tr><td>Price</td><td>Currency, quoted total, cash/instalment basis and validity</td></tr><tr><td>Payments</td><td>Booking, down payment, dated instalments and extra charges</td></tr><tr><td>Status</td><td>Available, held, sold or not confirmed; source and check time</td></tr><tr><td>Delivery</td><td>Published or contract date, phase and verification status</td></tr></tbody></table></div>"
+        },
+        {
+          "title": "Do not confuse an upload date with an offer date",
+          "html": "<p>A PDF filename, website upload timestamp or spreadsheet creation date can describe the document rather than the economic terms. Preserve the date label exactly and ask whether the quote is still valid. If no effective date is stated, record “effective date not confirmed.” Never turn an old document into a current offer because you downloaded it today.</p>"
+        },
+        {
+          "title": "Resolve conflicting availability before promising it",
+          "html": "<p>If a platform shows available stock and the developer says it is sold, pause that option and request confirmation. Check whether both sources refer to the same phase, building and unit. Report the discrepancy for correction rather than continuing to use the older status.</p><p>A sold marker is also not proof of the achieved sale price. An old inventory row may retain a list price after its status changes.</p>"
+        },
+        {
+          "title": "Ask for the missing terms explicitly",
+          "html": "<blockquote>“Please confirm the status of [project / phase / building / unit], the current quoted price and currency, valid payment plan, booking amount, additional charges and delivery basis. What is the effective date of these terms?”</blockquote><p>Use the reply to update your shortlist and keep the confirmation with the offer record. If a field remains unknown, mark it unknown in the proposal. Do not substitute a similar unit’s terms without saying so.</p>"
+        },
+        {
+          "title": "Use Estavo for the research, keep confirmation at the decision point",
+          "html": "<p>Search the chosen city and project, review available unit information and ask the broker AI to explain relevant differences. Prepare the proposal only after checking the information that changes the buyer’s decision. Estavo is a research and preparation aid; final reservation status remains a booking-source check.</p><p>Our research case study below shows why multiple historical price lists cannot automatically establish current availability or completed-sale prices.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "Is a downloaded price list current inventory?",
+          "answer": "Not necessarily. Check the effective date, exact unit and current status with the responsible source."
+        },
+        {
+          "question": "Can I treat a sold row as a transaction price?",
+          "answer": "No. A sold label with a stored asking price does not establish the achieved price or sale date."
+        }
+      ]
+    },
+    "ar": {
+      "title": "ألاقي إنفنتوري المطورين فين وأتأكد من المتاح إزاي؟",
+      "description": "دليل للبروكر: مصادر الإنفنتوري، تحديد الوحدة، مراجعة تاريخ العرض وخطة السداد وتأكيد المتاح قبل الحجز.",
+      "answer": "ابدأ بجهات المطور المعتمدة وملفات المشروع الرسمية ومنصة بروكرز بتراجع بياناتها. لكل عرض راجع هوية الوحدة والمصدر وخطة السداد وتاريخ التحديث، وأكد المتاح تاني قبل أي التزام بالحجز.",
+      "sections": [
+        {
+          "title": "اختار المصدر المناسب لكل مهمة",
+          "html": "<p>البروشور الرسمي يشرح المشروع، وقائمة الأسعار المؤرخة توضّح السعر المعروض، وجهة المبيعات أو الحجز تؤكد الحالة الحالية. منصة الإنفنتوري تساعدك تبحث وتقارن. البروشور مش تأكيد إن وحدة محددة متاحة النهارده.</p><p>استافو ماركت بينظم معلومات المشاريع والوحدات وخطط السداد المتاحة للبحث. استخدمه لتجهيز الاختيارات، وبعدها أكد التفاصيل المتغيرة مع الجهة المسؤولة عن الحجز.</p>"
+        },
+        {
+          "title": "جهّز سجل مراجعة لكل عرض",
+          "html": "<div class=\"table-wrap\"><table><caption>بيانات تراجعها لكل اختيار</caption><thead><tr><th>البند</th><th>إيه اللي تسجله؟</th></tr></thead><tbody><tr><td>الهوية</td><td>المطور، المشروع، المرحلة، العمارة، رقم الوحدة أو النموذج</td></tr><tr><td>المواصفات</td><td>تعريف المساحة، النوع، الدور، الإطلالة والتشطيب</td></tr><tr><td>السعر</td><td>العملة، الإجمالي، كاش ولا تقسيط ومدة صلاحية العرض</td></tr><tr><td>السداد</td><td>الحجز، المقدم، الدفعات بمواعيدها والمصاريف الإضافية</td></tr><tr><td>الحالة</td><td>متاح، محجوز، مباع أو غير مؤكد، مع المصدر ووقت المراجعة</td></tr><tr><td>التسليم</td><td>التاريخ المنشور أو التعاقدي والمرحلة وحالة التأكيد</td></tr></tbody></table></div>"
+        },
+        {
+          "title": "فرّق بين تاريخ رفع الملف وتاريخ العرض",
+          "html": "<p>اسم PDF أو تاريخ رفعه أو إنشاء شيت ممكن يخص الملف، مش توقيت السعر. احتفظ بوصف التاريخ زي ما هو واسأل هل العرض لسه ساري. لو مافيش تاريخ نفاذ واضح، اكتب «تاريخ سريان العرض غير مؤكد». تنزيل ملف قديم النهارده مش بيحوّله لعرض حالي.</p>"
+        },
+        {
+          "title": "حل تعارض المتاح قبل ما توعد العميل",
+          "html": "<p>لو المنصة بتقول متاح والمطور بيقول مباع، وقف الاختيار ده لحد التأكيد. اتأكد إن المصدرين بيتكلموا عن نفس المرحلة والعمارة والوحدة، وبلّغ عن الاختلاف للمراجعة بدل استخدام الحالة الأقدم.</p><p>وكلمة «مباع» مش دليل على سعر الصفقة: الصف القديم ممكن يكون محتفظ بسعر الطلب بعد تغيير الحالة.</p>"
+        },
+        {
+          "title": "اطلب الشروط الناقصة بوضوح",
+          "html": "<blockquote>«ممكن تأكيد حالة [المشروع / المرحلة / العمارة / الوحدة] والسعر الحالي والعملة وخطة السداد ومبلغ الحجز والمصاريف الإضافية وأساس موعد التسليم؟ وإيه تاريخ سريان الشروط دي؟»</blockquote><p>حدّث اختياراتك بالرد واحتفظ بالتأكيد مع سجل العرض. اكتب المعلومة الناقصة كغير مؤكدة، وماتستخدمش شروط وحدة مشابهة من غير توضيح.</p>"
+        },
+        {
+          "title": "استخدم استافو للبحث وأكد وقت القرار",
+          "html": "<p>ابحث في المدينة والمشروع، راجع بيانات الوحدات واسأل AI البروكر عن الفروق المهمة. قبل تجهيز العرض، أكد المعلومات اللي بتغيّر قرار العميل. استافو يساعدك في البحث والتحضير؛ التأكيد النهائي للحجز من الجهة المسؤولة.</p><p>دراسة البحث تحت بتوضّح ليه تعدد قوائم الأسعار القديمة مش إثبات للمتاح الحالي أو سعر البيع الفعلي.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "قائمة الأسعار اللي نزلتها تعتبر متاح حالي؟",
+          "answer": "مش بالضرورة. راجع تاريخ سريانها وهوية الوحدة وحالتها الحالية مع الجهة المسؤولة."
+        },
+        {
+          "question": "ينفع أعتبر سعر الصف المباع سعر صفقة؟",
+          "answer": "لأ. حالة مباع مع سعر طلب محفوظ مش إثبات لسعر البيع أو تاريخ الصفقة."
+        }
+      ]
+    },
+    "related": [
+      "match-client-property",
+      "developer-offer-evidence",
+      "property-price-evidence-september-2026"
+    ],
+    "sources": [
+      {
+        "url": "https://estavo-brokers.com/what-is-estavo-brokers-en.html",
+        "en": "Estavo Brokers: product overview",
+        "ar": "استافو بروكرز: تعريف المنتج"
+      }
+    ]
+  },
+  {
+    "slug": "match-client-property",
+    "kind": "guide",
+    "en": {
+      "title": "How to match a client with the right property",
+      "description": "A buyer-matching framework for Egyptian brokers: hard constraints, preferences, comparable options and a reusable AI research prompt.",
+      "answer": "Match properties by checking the buyer’s hard constraints first, then ranking preferences. Compare affordability, location, specification and delivery on the same basis, and explain the trade-off behind each shortlisted option.",
+      "sections": [
+        {
+          "title": "Turn the conversation into a usable brief",
+          "html": "<p>Separate four groups: purpose, financial capacity, physical requirements and timing. Total budget alone is incomplete: a buyer may afford the headline price but not the booking or later milestone payments. Ask how much cash is available now and when additional funds become available.</p><p>Write one sentence the buyer can confirm: “You need [type] in [area], with [minimum requirements], within [total and upfront limits], for delivery by [date].”</p>"
+        },
+        {
+          "title": "Filter hard constraints before ranking preferences",
+          "html": "<p>Hard constraints are requirements that rule out an option: maximum upfront cash, required handover date or accessibility needs. Preferences help rank remaining options: a particular view, floor or amenity. Ask the client which category each requirement belongs to. Never silently relax a hard constraint to produce more results.</p><ul><li>Reject options that exceed a confirmed financial limit.</li><li>Flag missing delivery or finishing information.</li><li>Keep acceptable alternative locations separate from the requested area.</li><li>If nothing fits, explain which constraint prevents a match.</li></ul>"
+        },
+        {
+          "title": "Use this research prompt",
+          "html": "<blockquote>“Help me shortlist properties for this buyer: [purpose], [city/area], [type and rooms], [minimum area], [total budget], [cash available now], [payment capacity], [delivery deadline], [finishing] and [non-negotiables]. Use information available in Estavo Market. For each option explain the fit, compromise and missing information. Do not invent availability or relax the limits without asking.”</blockquote><p>This is a reusable prompt, not a claim that every request will return a match. Review the AI answer against the underlying project and unit information.</p>"
+        },
+        {
+          "title": "Compare options on the same basis",
+          "html": "<div class=\"table-wrap\"><table><caption>Buyer shortlist comparison</caption><thead><tr><th>Question</th><th>What the client needs to understand</th></tr></thead><tbody><tr><td>Location</td><td>Actual access and daily travel fit, not only the area name</td></tr><tr><td>Cash required</td><td>Booking, initial payment and near-term milestones</td></tr><tr><td>Total commitment</td><td>Quoted price and separately identified extra charges</td></tr><tr><td>Specification</td><td>Comparable area definition, finishing, floor and view</td></tr><tr><td>Timing</td><td>Delivery basis and any uncertainty needing confirmation</td></tr><tr><td>Confidence</td><td>Source, review date and unresolved fields</td></tr></tbody></table></div>"
+        },
+        {
+          "title": "Explain the compromise behind the recommendation",
+          "html": "<p>Say “This fits your upfront limit but needs confirmation of the delivery date,” rather than “This is the best investment.” A property can be suitable for a home buyer and unsuitable for another client’s rental or resale plan. Keep your recommendation tied to the confirmed brief.</p><p>If no option fits, discuss one explicit change at a time: alternative area, smaller unit, later handover or different payment capacity. Obtain the buyer’s agreement before searching the revised brief.</p>"
+        },
+        {
+          "title": "Create the next action from the shortlist",
+          "html": "<p>Ask the buyer which trade-off they prefer, confirm the exact unit and current terms, then arrange a viewing or prepare a reviewed PDF Offer. Estavo Market supports the research, comparison and offer preparation; the broker and buyer remain responsible for the final choice.</p><p>Record why each option was included and why the others were rejected. That short record makes your next conversation more useful than starting the search again.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "What if no property fits the request?",
+          "answer": "Explain which hard constraint prevents a match, then ask whether the buyer wants to change one requirement."
+        },
+        {
+          "question": "Can AI make the final property decision?",
+          "answer": "AI can organize available information and suggest options. The broker and buyer must assess suitability and confirm material details."
+        }
+      ]
+    },
+    "ar": {
+      "title": "إزاي تلاقي العقار المناسب لطلب العميل؟",
+      "description": "طريقة عملية لمطابقة طلب العميل: شروط أساسية، تفضيلات، مقارنة على نفس الأساس وبرومبت بحث قابل للاستخدام.",
+      "answer": "ابدأ بشروط العميل اللي ماينفعش تتغيّر، وبعدها رتّب الاختيارات حسب التفضيلات. قارن القدرة على السداد والموقع والمواصفات والتسليم على نفس الأساس، ووضّح التنازل الموجود في كل اختيار.",
+      "sections": [
+        {
+          "title": "حوّل المكالمة لطلب واضح",
+          "html": "<p>قسّم الطلب لأربع مجموعات: الغرض، القدرة المالية، المواصفات والتوقيت. الميزانية الإجمالية لوحدها مش كفاية؛ العميل ممكن يتحمل الإجمالي لكن ماعندوش سيولة للحجز أو دفعة قريبة. اسأل معاه كام دلوقتي وإمتى باقي السيولة تكون متاحة.</p><p>اكتب جملة يقدر يوافق عليها: «محتاج [نوع] في [منطقة] بمواصفات [أساسية] وفي حدود [إجمالي ومقدم] والتسليم قبل [تاريخ]».</p>"
+        },
+        {
+          "title": "فلتر الشروط الأساسية قبل ترتيب التفضيلات",
+          "html": "<p>الشرط الأساسي يستبعد الاختيار: أقصى سيولة دلوقتي، ميعاد تسليم لازم أو احتياج لإتاحة الحركة. التفضيل يرتّب اللي باقي: إطلالة أو دور أو خدمة معينة. اسأل العميل كل طلب ينتمي لأنهي نوع، وماتغيّرش شرط أساسي من نفسك عشان تزود النتائج.</p><ul><li>استبعد اللي يتجاوز الحد المالي المؤكد.</li><li>علّم أي بيانات تسليم أو تشطيب ناقصة.</li><li>اعرض المناطق البديلة منفصلة عن المنطقة المطلوبة.</li><li>لو مافيش اختيار مناسب، وضّح الشرط اللي مانع المطابقة.</li></ul>"
+        },
+        {
+          "title": "استخدم برومبت البحث ده",
+          "html": "<blockquote>«ساعدني أجهز اختيارات لعميل: [الغرض]، [المدينة والمنطقة]، [النوع والغرف]، [أقل مساحة]، [إجمالي الميزانية]، [السيولة دلوقتي]، [قدرة السداد]، [آخر ميعاد تسليم]، [التشطيب] و[الشروط الأساسية]. استخدم المعلومات المتاحة في استافو ماركت. لكل اختيار وضّح سبب مناسبته والتنازل والمعلومة الناقصة. ماتخترعش المتاح وماتغيّرش الحدود من غير ما تسأل».</blockquote><p>ده برومبت للاستخدام، مش ضمان لوجود نتيجة لكل طلب. راجع إجابة AI على بيانات المشروع والوحدة.</p>"
+        },
+        {
+          "title": "قارن على نفس الأساس",
+          "html": "<div class=\"table-wrap\"><table><caption>مقارنة اختيارات العميل</caption><thead><tr><th>البند</th><th>إيه اللي لازم يبقى واضح؟</th></tr></thead><tbody><tr><td>الموقع</td><td>الوصول والمشوار اليومي، مش اسم المنطقة بس</td></tr><tr><td>السيولة</td><td>الحجز والمقدم والدفعات القريبة</td></tr><tr><td>الالتزام الكلي</td><td>السعر والمصاريف الإضافية كل بند لوحده</td></tr><tr><td>المواصفات</td><td>تعريف المساحة والتشطيب والدور والإطلالة</td></tr><tr><td>التوقيت</td><td>أساس ميعاد التسليم وإيه محتاج تأكيد</td></tr><tr><td>الثقة</td><td>المصدر وتاريخ المراجعة والحقول الناقصة</td></tr></tbody></table></div>"
+        },
+        {
+          "title": "اشرح التنازل وراء الترشيح",
+          "html": "<p>قول «ده مناسب لحد المقدم، لكن التسليم لسه محتاج تأكيد» بدل «ده أفضل استثمار». نفس الوحدة ممكن تناسب السكن وماتناسبش خطة عميل تاني للإيجار أو إعادة البيع. اربط الترشيح بالطلب المؤكد.</p><p>لو مافيش اختيار، ناقش تغيير واحد واضح: منطقة بديلة، مساحة أقل، تسليم أبعد أو قدرة سداد مختلفة. خد موافقة العميل على الطلب الجديد قبل البحث.</p>"
+        },
+        {
+          "title": "اتفق على الخطوة التالية",
+          "html": "<p>اسأل العميل أي تنازل يفضله، وأكد الوحدة والشروط الحالية، وبعدها رتّب معاينة أو جهّز PDF Offer مراجع. استافو ماركت يساعد في البحث والمقارنة وتجهيز العرض؛ الاختيار النهائي للبروكر والعميل.</p><p>سجّل سبب إدراج كل اختيار واستبعاد غيره. السجل ده يخلّي المكالمة التالية مفيدة بدل ما تبدأ البحث من الأول.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "أعمل إيه لو مافيش وحدة مناسبة؟",
+          "answer": "وضّح الشرط الأساسي اللي مانع المطابقة واسأل العميل لو يحب يعدّل طلب واحد."
+        },
+        {
+          "question": "هل AI يختار العقار نهائيًا؟",
+          "answer": "AI ينظم المعلومات المتاحة ويقترح اختيارات. البروكر والعميل يقيّموا المناسب ويأكدوا التفاصيل المهمة."
+        }
+      ]
+    },
+    "related": [
+      "find-developer-inventory",
+      "compare-payment-plans",
+      "property-pdf-offer"
+    ],
+    "sources": [
+      {
+        "url": "https://estavo-brokers.com/what-is-estavo-brokers-en.html",
+        "en": "Estavo Brokers: product overview",
+        "ar": "استافو بروكرز: تعريف المنتج"
+      }
+    ]
+  },
+  {
+    "slug": "compare-payment-plans",
+    "kind": "guide",
+    "en": {
+      "title": "How to compare property payment plans without misleading a client",
+      "description": "Compare booking cash, total contractual payments, milestones, extra charges and delivery timing using a consistent broker checklist.",
+      "answer": "Compare payment plans using the same unit specification and a dated schedule of all required payments. Show the initial cash, near-term commitments, total quoted obligation and extra charges separately. A longer plan or smaller percentage down payment is not automatically more affordable.",
+      "sections": [
+        {
+          "title": "Start with comparable units and dated quotations",
+          "html": "<p>Before discussing percentages, align unit type, area definition, finishing, phase, delivery basis and currency. A cash quote and an instalment quote are different offers. State which basis applies and when it was checked. If either quotation is missing a material term, ask the source before ranking it.</p>"
+        },
+        {
+          "title": "Write out the schedule instead of quoting the headline",
+          "html": "<ul><li>Booking amount and whether it forms part of the down payment.</li><li>Down payment and each additional milestone.</li><li>Number, frequency and amount of recurring instalments.</li><li>Handover payment and any balloon payment.</li><li>Maintenance, parking, club or other charges, with payment timing.</li><li>Any stated cash discount and its conditions.</li></ul><p>Use the source’s actual schedule. Do not divide the remaining balance equally if the contract uses stepped or irregular payments.</p>"
+        },
+        {
+          "title": "Show the arithmetic with an explicitly illustrative example",
+          "html": "<p>Suppose a fictional offer has a quoted price of EGP 5,000,000, a 10% down payment and the remaining price divided into 20 equal quarterly instalments, with no other price payments. The down payment is EGP 500,000; the remaining EGP 4,500,000 produces EGP 225,000 per quarter.</p><p>This example is arithmetic only, not live inventory or developer terms. Additional charges, different schedules and discounts change the result. Twenty quarterly instalments do not mean the developer also offers a monthly payment option.</p>"
+        },
+        {
+          "title": "Test the schedule against the buyer’s cash timing",
+          "html": "<p>Ask whether the client can meet each payment at its actual due date. Show the cumulative amount due over the first year, then any later large milestones. A buyer who can afford an average monthly equivalent may still be unable to meet a large quarterly or handover payment.</p><p>Keep unconfirmed charges visible as questions. A plan with missing fees should not be presented as cheaper simply because fewer items were supplied.</p>"
+        },
+        {
+          "title": "Use a comparison prompt that preserves unknowns",
+          "html": "<blockquote>“Compare these two quoted schedules. List booking cash, down payment, dated instalments, handover amounts, extra charges and total stated payments. Identify missing terms and whether the specifications differ. Use only the supplied figures; do not assume a discount, equal instalments or a guaranteed return.”</blockquote><p>Estavo’s broker AI can help explain available payment-plan information. Check the underlying terms and arithmetic before sending the comparison. This guide does not depend on a separate Estavo calculator.</p>"
+        },
+        {
+          "title": "Present the decision in the client’s language",
+          "html": "<p>Explain which plan fits the client’s confirmed cash timeline, which requires more near-term cash and what remains unknown. Keep that suitability judgement separate from forecasts about investment returns. Before booking, obtain the current written terms from the responsible source and put the verified schedule into the proposal.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "Is the lowest down payment the best plan?",
+          "answer": "Not necessarily. Later milestones, extra charges, total price and delivery timing may make it unsuitable for the client."
+        },
+        {
+          "question": "Can I turn a quarterly instalment into a monthly obligation?",
+          "answer": "You may explain a monthly budgeting equivalent, but label it clearly. It does not change the developer’s actual due dates or contract."
+        }
+      ]
+    },
+    "ar": {
+      "title": "إزاي تقارن خطط السداد من غير ما تضلل العميل؟",
+      "description": "قارن سيولة الحجز، إجمالي الدفعات، المواعيد والمصاريف والتسليم بقائمة مراجعة واضحة للبروكر.",
+      "answer": "قارن نفس مواصفات الوحدة، واكتب كل الدفعات بمواعيدها. افصل السيولة المطلوبة في البداية والالتزامات القريبة وإجمالي السعر والمصاريف الإضافية. التقسيط الأطول أو نسبة المقدم الأقل مش بالضرورة أنسب للعميل.",
+      "sections": [
+        {
+          "title": "ابدأ بوحدات وعروض قابلة للمقارنة",
+          "html": "<p>قبل النسب، وحّد نوع الوحدة وتعريف المساحة والتشطيب والمرحلة وأساس التسليم والعملة. سعر الكاش وسعر التقسيط عرضين مختلفين؛ وضّح أساس كل واحد وتاريخ مراجعته. لو شرط مهم ناقص، اطلبه من المصدر قبل ترتيب الأفضلية.</p>"
+        },
+        {
+          "title": "اكتب الجدول بدل الاكتفاء بعنوان الخطة",
+          "html": "<ul><li>مبلغ الحجز وهل داخل المقدم.</li><li>المقدم وكل دفعة إضافية.</li><li>عدد الأقساط ودوريتها وقيمة كل قسط.</li><li>دفعة الاستلام وأي دفعة كبيرة لاحقة.</li><li>الصيانة والجراج والنادي والمصاريف بمواعيدها.</li><li>خصم الكاش المعلن وشروطه لو موجود.</li></ul><p>استخدم الجدول الفعلي من المصدر. ماتقسّمش الباقي بالتساوي لو العقد فيه أقساط متدرجة أو دفعات غير منتظمة.</p>"
+        },
+        {
+          "title": "مثال حسابي توضيحي فقط",
+          "html": "<p>نفترض عرض خيالي سعره 5,000,000 جنيه، مقدم 10%، وباقي السعر على 20 قسط ربع سنوي متساوي من غير دفعات سعر إضافية. المقدم 500,000 جنيه، والباقي 4,500,000 جنيه، يعني القسط 225,000 جنيه كل ربع سنة.</p><p>ده مثال حسابي، مش وحدة متاحة أو شروط مطور. المصاريف والخصومات واختلاف الجدول تغيّر النتيجة. وجود قسط ربع سنوي مش معناه إن المطور بيسمح بالسداد الشهري.</p>"
+        },
+        {
+          "title": "اختبر الجدول على توقيت سيولة العميل",
+          "html": "<p>اسأل العميل يقدر يدفع كل مبلغ في موعده الحقيقي ولا لأ. وضّح الإجمالي المطلوب خلال أول سنة، وأي دفعة كبيرة بعد كده. القدرة على متوسط شهري مش إثبات للقدرة على دفع مبلغ كبير وقت الاستلام.</p><p>خلّي المصاريف غير المؤكدة ظاهرة كأسئلة. الخطة اللي بياناتها ناقصة ماتتعرضش كأرخص لمجرد إن المصدر ذكر بنود أقل.</p>"
+        },
+        {
+          "title": "استخدم برومبت يحافظ على المجهول",
+          "html": "<blockquote>«قارن جدولَي السداد دول. اذكر الحجز والمقدم والأقساط بمواعيدها ودفعة الاستلام والمصاريف وإجمالي الدفعات المذكورة. وضّح الشروط الناقصة واختلاف المواصفات. استخدم الأرقام المقدمة بس، وماتفترضش خصم أو أقساط متساوية أو عائد مضمون».</blockquote><p>AI البروكر في استافو يساعدك توضح معلومات السداد المتاحة. راجع المصدر والحساب قبل الإرسال. الدليل ده مش معتمد على حاسبة منفصلة من استافو.</p>"
+        },
+        {
+          "title": "اشرح القرار بلغة العميل",
+          "html": "<p>وضّح أنهي خطة مناسبة لتوقيت سيولته المؤكد، وأنهي محتاجة فلوس أكتر قريب، وإيه لسه مجهول. افصل ده عن أي توقع لعائد الاستثمار. قبل الحجز خد الشروط الحالية مكتوبة من الجهة المسؤولة وحط الجدول المراجع في العرض.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "أقل مقدم هو أفضل خطة؟",
+          "answer": "مش بالضرورة. الدفعات اللاحقة والمصاريف والإجمالي والتسليم ممكن يخلوها غير مناسبة."
+        },
+        {
+          "question": "ينفع أحوّل القسط الربع سنوي لالتزام شهري؟",
+          "answer": "ممكن تشرح متوسط شهري للتخطيط بشرط تسميته بوضوح. ده مش بيغيّر موعد القسط أو شروط المطور."
+        }
+      ]
+    },
+    "related": [
+      "match-client-property",
+      "property-pdf-offer",
+      "property-price-evidence-september-2026"
+    ],
+    "sources": [
+      {
+        "url": "https://estavo-brokers.com/what-is-estavo-brokers-en.html",
+        "en": "Estavo Brokers: product overview",
+        "ar": "استافو بروكرز: تعريف المنتج"
+      }
+    ]
+  },
+  {
+    "slug": "property-pdf-offer",
+    "kind": "guide",
+    "en": {
+      "title": "How to create a property PDF offer clients can actually use",
+      "description": "A property proposal checklist with buyer fit, verified specifications, payment terms, source dates and a clear next step.",
+      "answer": "A useful property PDF offer answers why the option fits, what it costs, what is included, when it is due and what to do next. Use verified details and an obvious contact route; review the document on a phone before sending it.",
+      "sections": [
+        {
+          "title": "Open with the client’s brief and the reason for the option",
+          "html": "<p>Start with a short description of the confirmed need and why this property belongs on the shortlist. Avoid generic “best opportunity” language. If a unit compromises on area, location or delivery timing, say so. A clear explanation helps the buyer understand why you selected it.</p>"
+        },
+        {
+          "title": "Use this proposal structure",
+          "html": "<ol><li>Your name, contact information and proposal date.</li><li>Client need and reason for the recommendation.</li><li>Developer, project, phase and exact unit or reference model.</li><li>Location, area definition, type, rooms, floor, view and finishing.</li><li>Quoted price, currency, payment schedule and extra charges.</li><li>Delivery information and availability verification status.</li><li>Source/check date, missing terms and validity if supplied.</li><li>Next action: confirm details, discuss a comparison or arrange a viewing.</li></ol><p>Include only images you are permitted to use. A reference-layout image should be labeled as a reference, not represented as a photograph of the exact unit.</p>"
+        },
+        {
+          "title": "Keep unconfirmed information visible",
+          "html": "<p>Use “not supplied” or “awaiting confirmation” for unknown charges, final booking status or unclear delivery terms. Do not fill the gap with a nearby project’s details. Separate a quoted offer from an accepted reservation and keep the price basis clear: cash and instalment quotations may differ.</p><p>Estavo Market’s PDF Offer uses the available project or unit information and includes broker identification. It is a preparation tool; review current price, availability and material terms before sending.</p>"
+        },
+        {
+          "title": "Write a short cover message",
+          "html": "<blockquote>“I have shortlisted this option because it fits [confirmed requirement]. The PDF shows the specifications and supplied payment terms. [Item] still needs confirmation before booking. Would you prefer to discuss the comparison or arrange a viewing?”</blockquote><p>Replace the placeholders with reviewed information. This template is illustrative and is not a customer testimonial or a sales result.</p>"
+        },
+        {
+          "title": "Check the PDF on a phone",
+          "html": "<ul><li>Can the recipient identify the project and price without zooming repeatedly?</li><li>Are table labels and currency visible?</li><li>Do Arabic words, numerals and contact details display correctly?</li><li>Are images legible and correctly labeled?</li><li>Is the file name descriptive rather than “final-final”?</li><li>Are the contact link and next action easy to find?</li></ul><p>Open the exported document, not just the editor preview. When comparing alternatives, make sure identical labels mean identical things in both offers.</p>"
+        },
+        {
+          "title": "Keep a reviewed version and learn from questions",
+          "html": "<p>Save the sent version and its check date. If the source changes a price or term, prepare a new dated version and explain the change to the client. Do not silently overwrite an offer the buyer is already discussing.</p><p>Review recurring questions after sending proposals. If clients repeatedly ask about initial cash or handover, make those sections clearer. Evaluate your own response and viewing data before claiming a proposal design improved sales.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "Is the PDF a booking confirmation?",
+          "answer": "No. A proposal summarizes supplied information. Reservation status and final contractual terms require separate confirmation."
+        },
+        {
+          "question": "Should I include a missing fee as zero?",
+          "answer": "No. Label it as not supplied or awaiting confirmation; zero is a factual amount, not a placeholder."
+        }
+      ]
+    },
+    "ar": {
+      "title": "إزاي تعمل عرض عقاري PDF واضح للعميل؟",
+      "description": "قائمة تجهيز العرض العقاري: سبب الاختيار، مواصفات مراجعة، خطة السداد، تاريخ المصدر والخطوة التالية.",
+      "answer": "العرض المفيد يوضح ليه العقار مناسب، تكلفته، إيه داخل السعر، مواعيد الدفعات وإيه الخطوة الجاية. استخدم بيانات مراجعة وطريقة تواصل واضحة، وافتح الملف على الموبايل قبل ما تبعته.",
+      "sections": [
+        {
+          "title": "ابدأ بطلب العميل وسبب الترشيح",
+          "html": "<p>اكتب ملخص الاحتياج المؤكد وليه الاختيار داخل القائمة. تجنب «أفضل فرصة» من غير تفسير. لو فيه تنازل في المساحة أو الموقع أو التسليم، وضّحه. الشرح يساعد العميل يفهم سبب الترشيح.</p>"
+        },
+        {
+          "title": "هيكل عملي للعرض",
+          "html": "<ol><li>اسمك وبيانات التواصل وتاريخ العرض.</li><li>احتياج العميل وسبب الترشيح.</li><li>المطور والمشروع والمرحلة والوحدة المحددة أو النموذج.</li><li>الموقع وتعريف المساحة والنوع والغرف والدور والإطلالة والتشطيب.</li><li>السعر والعملة وجدول السداد والمصاريف الإضافية.</li><li>معلومات التسليم وحالة تأكيد المتاح.</li><li>تاريخ مراجعة المصدر والشروط الناقصة وصلاحية العرض لو مذكورة.</li><li>الخطوة التالية: تأكيد، مقارنة أو معاينة.</li></ol><p>استخدم الصور المسموح لك باستخدامها. صورة نموذج لازم تتسمى نموذج، مش صورة للوحدة المحددة.</p>"
+        },
+        {
+          "title": "خلّي المعلومة غير المؤكدة واضحة",
+          "html": "<p>اكتب «غير مذكور» أو «بانتظار التأكيد» للمصاريف الناقصة أو حالة الحجز أو شروط التسليم غير الواضحة. ماتسدش الفراغ بمعلومة من مشروع قريب. فرّق بين عرض سعر وحجز مقبول، ووضّح كاش ولا تقسيط.</p><p>PDF Offer من استافو ماركت يستخدم معلومات المشروع أو الوحدة المتاحة مع بيانات البروكر. هو أداة تجهيز؛ راجع السعر والمتاح والشروط المهمة قبل الإرسال.</p>"
+        },
+        {
+          "title": "رسالة قصيرة مع العرض",
+          "html": "<blockquote>«رشحت الاختيار ده لأنه مناسب لـ[الشرط المؤكد]. الملف فيه المواصفات وشروط السداد المتاحة. [البند] لسه محتاج تأكيد قبل الحجز. تحب نناقش المقارنة ولا نحدد معاينة؟»</blockquote><p>استبدل الأقواس بمعلومات مراجعة. دي صيغة توضيحية، مش شهادة عميل أو نتيجة مبيعات.</p>"
+        },
+        {
+          "title": "راجع الملف على الموبايل",
+          "html": "<ul><li>اسم المشروع والسعر واضحين من غير تكبير متكرر؟</li><li>عناوين الجدول والعملة ظاهرين؟</li><li>العربي والأرقام وبيانات التواصل معروضين صح؟</li><li>الصور مقروءة ومتسمية بدقة؟</li><li>اسم الملف واضح ومش «نهائي-نهائي»؟</li><li>التواصل والخطوة التالية سهل الوصول لهم؟</li></ul><p>افتح الملف المُصدّر نفسه، مش معاينة المحرر بس. لو بتقارن بديلين، لازم نفس عنوان البند يكون له نفس المعنى في العرضين.</p>"
+        },
+        {
+          "title": "احتفظ بنسخة واتعلم من الأسئلة",
+          "html": "<p>احتفظ بالنسخة اللي اتبعتت وتاريخ مراجعتها. لو المصدر غيّر السعر أو الشروط، جهّز نسخة جديدة مؤرخة وفسّر التغيير للعميل. ماتبدلش بصمت عرض هو بيتناقش فيه.</p><p>راجع الأسئلة المتكررة بعد الإرسال. لو العملاء بيسألوا كتير عن السيولة أو التسليم، حسّن وضوح البنود دي. قِس نتائجك أنت قبل ما تنسب زيادة المبيعات لشكل العرض.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "هل PDF تأكيد حجز؟",
+          "answer": "لأ. العرض يلخص المعلومات المتاحة. حالة الحجز والشروط التعاقدية النهائية محتاجة تأكيد منفصل."
+        },
+        {
+          "question": "أكتب المصروف الناقص صفر؟",
+          "answer": "لأ. اكتب غير مذكور أو بانتظار التأكيد. الصفر قيمة فعلية مش بديل لمعلومة ناقصة."
+        }
+      ]
+    },
+    "related": [
+      "compare-payment-plans",
+      "match-client-property",
+      "sell-more-properties"
+    ],
+    "sources": [
+      {
+        "url": "https://estavo-brokers.com/what-is-estavo-brokers-en.html",
+        "en": "Estavo Brokers: product overview",
+        "ar": "استافو بروكرز: تعريف المنتج"
+      }
+    ]
+  },
+  {
+    "slug": "find-property-clients",
+    "kind": "guide",
+    "en": {
+      "title": "How to find property clients as a broker in Egypt",
+      "description": "A practical client-acquisition plan for brokers: choose a niche, publish useful answers, build referrals and measure qualified enquiries.",
+      "answer": "Find property clients by choosing a clear buyer segment, answering its real questions and giving people a simple way to contact you. Build genuine referrals, track qualified enquiries by source and follow up with consent and useful information.",
+      "sections": [
+        {
+          "title": "Choose a specific client problem",
+          "html": "<p>Define the people you can serve well: home buyers in a chosen area, buyers needing a particular handover window or owners seeking a suitable resale route. Avoid claiming expertise in every area at once. Your positioning should describe the client’s problem and the evidence you can provide.</p><p>For example, “I help families compare New Cairo homes against their payment and delivery needs” is more actionable than “all properties, best prices.” This is an illustrative positioning statement, not a verified business claim.</p>"
+        },
+        {
+          "title": "Publish answers that show how you work",
+          "html": "<p>Build a small library around recurring questions: upfront cash, cash versus instalment quotes, finishing, delivery and comparing two projects. Use your own explanations and permitted visuals. Give sources and check dates when discussing offers. Avoid presenting old prices as current stock.</p><p>End each useful post with a relevant action: send a brief, request a comparison or book a call. Publish enough detail that the answer helps even if the reader never contacts you.</p>"
+        },
+        {
+          "title": "Build referral relationships with a clear handoff",
+          "html": "<p>Ask satisfied clients and professional contacts for genuine introductions where appropriate. Explain which enquiries you can handle and what information helps: purpose, area, budget and timeline. Agree responsibilities with cooperating brokers and respect confidentiality.</p><p>Never publish a client’s name, budget, phone number or transaction story without permission. Use anonymous operating notes for internal learning, not invented public testimonials.</p>"
+        },
+        {
+          "title": "Give prospects one clear contact path",
+          "html": "<p>A mobile-friendly page should identify you, your coverage and the next step. Keep a contact form brief: name, preferred contact method and an initial description of the need. Follow up to qualify the rest. Explain how the information will be used and respect a request to stop contact.</p><p>Estavo Sites is a separate service for a broker’s property website. Its site-specific client AI and management tools should not be confused with the broker AI inside Estavo Market. Check the available service scope before promising an integration.</p>"
+        },
+        {
+          "title": "Test channels against qualified enquiries",
+          "html": "<div class=\"table-wrap\"><table><caption>A simple weekly acquisition log</caption><thead><tr><th>Measure</th><th>Why record it?</th></tr></thead><tbody><tr><td>Source and spend</td><td>Compare channels on the same period</td></tr><tr><td>Enquiries</td><td>Count incoming conversations consistently</td></tr><tr><td>Qualified enquiries</td><td>Separate buyer fit from raw volume</td></tr><tr><td>Viewings and offers</td><td>See whether leads progress</td></tr><tr><td>Lost reason</td><td>Identify a message or inventory mismatch</td></tr></tbody></table></div><p>For paid channels, cost per qualified enquiry equals channel spend divided by qualified enquiries in that period. If there are none, do not report a reassuring average. Small samples should guide a test, not support broad performance claims.</p>"
+        },
+        {
+          "title": "A four-week plan you can execute",
+          "html": "<ol><li>Week one: choose your segment, prepare a brief form and record a baseline.</li><li>Week two: publish answers to three recurring buyer questions and share them through your legitimate channels.</li><li>Week three: ask for genuine introductions and follow up on agreed conversations with useful comparisons.</li><li>Week four: review qualified enquiries and progression; keep the activity that fits your segment and improve the weak step.</li></ol><p>Estavo Market can help with research and proposals once an enquiry arrives. It does not guarantee new leads or replace the work of client acquisition.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "Does Estavo Market automatically bring me clients?",
+          "answer": "No guarantee of leads is made here. Market supports broker research and offers; Estavo Sites is a separate website service."
+        },
+        {
+          "question": "What should I measure first?",
+          "answer": "Record the source, qualified need and next action for each enquiry. Raw lead counts alone do not show whether a channel brings suitable buyers."
+        }
+      ]
+    },
+    "ar": {
+      "title": "إزاي تجيب عملاء عقارات كبروكر في مصر؟",
+      "description": "خطة عملية لجذب العملاء: تخصص واضح، محتوى مفيد، ترشيحات حقيقية وقياس الاستفسارات المؤهلة.",
+      "answer": "اختار شريحة عملاء واضحة، جاوب أسئلتها الحقيقية وخلي التواصل معاك سهل. ابنِ ترشيحات حقيقية، قِس الطلبات المؤهلة حسب المصدر وتابع بإذن العميل وبمعلومة مفيدة.",
+      "sections": [
+        {
+          "title": "اختار مشكلة عميل محددة",
+          "html": "<p>حدد مين تقدر تخدمه كويس: أسر بتدور في منطقة معينة، مشترين محتاجين تسليم في وقت محدد أو ملاك عايزين طريق مناسب لإعادة البيع. ماتدّعيش خبرة في كل المناطق مرة واحدة. التعريف بشغلك لازم يوضح مشكلة العميل والمعلومات اللي تقدر توفرها.</p><p>مثال: «بساعد الأسر تقارن سكن التجمع حسب السداد والتسليم» أوضح من «كل العقارات بأفضل الأسعار». ده مثال لصياغة، مش ادعاء مثبت عن شركة.</p>"
+        },
+        {
+          "title": "انشر إجابات تبيّن طريقة شغلك",
+          "html": "<p>اعمل مكتبة صغيرة للأسئلة المتكررة: السيولة المطلوبة، الكاش والتقسيط، التشطيب، التسليم ومقارنة مشروعين. استخدم شرحك وصور مسموح لك باستخدامها. اذكر المصدر وتاريخ المراجعة لما تتكلم عن عرض، وماتقدمش السعر القديم كمتاح حالي.</p><p>اختم بخطوة مناسبة: ابعت طلبك، اطلب مقارنة أو احجز مكالمة. الإجابة لازم تفيد حتى لو القارئ ماتواصلش معاك.</p>"
+        },
+        {
+          "title": "ابنِ ترشيحات بتسليم واضح",
+          "html": "<p>اطلب تعريفات حقيقية من عملاء راضيين ومعارف مهنية لما يكون مناسب. وضّح الطلبات اللي تقدر تخدمها والمعلومات المفيدة: الغرض والمنطقة والميزانية والتوقيت. اتفق على المسؤوليات مع البروكرز المتعاونين واحترم السرية.</p><p>ماتنشرش اسم عميل أو ميزانيته أو تليفونه أو قصة صفقته من غير إذن. ملاحظات التشغيل المجهولة تساعدك داخليًا، مش بديل لشهادات عملاء حقيقية.</p>"
+        },
+        {
+          "title": "خلّي التواصل خطوة واحدة واضحة",
+          "html": "<p>صفحة الموبايل توضح مين أنت وتغطيتك والخطوة الجاية. فورم البداية يكون مختصر: الاسم وطريقة التواصل ووصف أولي للاحتياج. كمل التأهيل في المتابعة، ووضّح استخدام البيانات واحترم طلب وقف التواصل.</p><p>استافو سايتس خدمة منفصلة للموقع العقاري الذكي للبروكر. AI العميل وأدوات الإدارة المرتبطة بالموقع مختلفين عن AI البروكر داخل استافو ماركت. راجع نطاق الخدمة قبل ما توعد بربط معين.</p>"
+        },
+        {
+          "title": "قِس القنوات بالطلبات المؤهلة",
+          "html": "<div class=\"table-wrap\"><table><caption>سجل أسبوعي بسيط لجذب العملاء</caption><thead><tr><th>المؤشر</th><th>فايدته</th></tr></thead><tbody><tr><td>المصدر والإنفاق</td><td>مقارنة القنوات في نفس الفترة</td></tr><tr><td>الاستفسارات</td><td>عدّ المحادثات بتعريف ثابت</td></tr><tr><td>الطلبات المؤهلة</td><td>فصل مناسبة العميل عن العدد الخام</td></tr><tr><td>المعاينات والعروض</td><td>معرفة هل الطلب بيتقدم</td></tr><tr><td>سبب التوقف</td><td>اكتشاف اختلاف الرسالة أو المتاح عن الاحتياج</td></tr></tbody></table></div><p>في القنوات المدفوعة، تكلفة الطلب المؤهل = الإنفاق على القناة ÷ الطلبات المؤهلة في نفس الفترة. لو مافيش طلب مؤهل، ماتعرضش متوسط مطمّن. العينة الصغيرة تساعد على تجربة، مش ادعاء أداء واسع.</p>"
+        },
+        {
+          "title": "خطة أربعة أسابيع قابلة للتنفيذ",
+          "html": "<ol><li>الأسبوع الأول: اختار الشريحة، جهّز نموذج الطلب وسجّل خط البداية.</li><li>الأسبوع التاني: انشر إجابات لثلاثة أسئلة متكررة وشاركها على قنواتك المشروعة.</li><li>الأسبوع التالت: اطلب ترشيحات حقيقية وتابع المحادثات المتفق عليها بمقارنات مفيدة.</li><li>الأسبوع الرابع: راجع الطلبات المؤهلة والتقدم، وكمل النشاط المناسب وحسّن الخطوة الضعيفة.</li></ol><p>استافو ماركت يساعد في البحث والعروض بعد وصول الاستفسار. مش ضمان لليدز جديدة ولا بديل لشغل جذب العملاء.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "هل استافو ماركت بيجيب عملاء تلقائيًا؟",
+          "answer": "الدليل مش بيقدم ضمان لليدز. ماركت يساعد في البحث والعروض، وسايتس خدمة موقع منفصلة."
+        },
+        {
+          "question": "أقيس إيه الأول؟",
+          "answer": "سجّل المصدر والاحتياج المؤهل والخطوة التالية لكل استفسار. عدد الليدز وحده مش بيحدد مناسبة المشترين."
+        }
+      ]
+    },
+    "related": [
+      "sell-more-properties",
+      "match-client-property",
+      "property-pdf-offer"
+    ],
+    "sources": [
+      {
+        "url": "https://estavo-brokers.com/what-is-estavo-brokers-en.html",
+        "en": "Estavo Brokers: product overview",
+        "ar": "استافو بروكرز: تعريف المنتج"
+      }
+    ]
+  },
+  {
+    "slug": "archived-listing-evidence",
+    "kind": "case-study",
+    "en": {
+      "title": "Research case study: verifying 297 archived property-price snapshots",
+      "description": "How Estavo checked archived Egyptian listing evidence, retained 251 usable price-area pairs and avoided claiming repeat-sale returns.",
+      "answer": "Our 30 September 2026 research recovered 297 archive-verified asking-price snapshots across 212 portal listing IDs. Of those snapshots, 251 included a usable positive area. The result improves historical evidence coverage; it does not establish completed-sale prices or investment returns.",
+      "sections": [
+        {
+          "title": "The research problem",
+          "html": "<p>Historical property claims often rely on an old screenshot, an undated spreadsheet or today’s description of what prices used to be. Individual archived listing pages can also fail to replay. We investigated whether archived search/category pages and old listing formats could preserve more usable evidence.</p><p>This is a research case study, not a customer success story. No broker sales uplift, time saving or transaction outcome was measured.</p>"
+        },
+        {
+          "title": "How the evidence was collected",
+          "html": "<p>The acquisition targeted archived Property Finder category pages and Aqarmap’s older listing URL format. Search cards retained prices and areas; some older Aqarmap pages retained structured listing data. Original source bytes, retrieval metadata, extraction locators and hashes were saved privately.</p><p>A replay was accepted as archive-verified only when its response capture metadata agreed with the effective Wayback replay timestamp. The archive capture date and any advertiser posting-date claim remained separate fields. Neither was automatically treated as the date of a sale or of an effective price.</p>"
+        },
+        {
+          "title": "What the bounded collection found",
+          "html": "<div class=\"table-wrap\"><table><caption>New archive observations collected on 30 September 2026</caption><thead><tr><th>Capture year</th><th>Asking-price snapshots</th></tr></thead><tbody><tr><td>2012</td><td>26</td></tr><tr><td>2013</td><td>32</td></tr><tr><td>2014</td><td>239</td></tr><tr><td>Total</td><td>297</td></tr></tbody></table></div><p>All 297 snapshots stated currency; 251 also had a usable positive area. There were 74 groups where a listing ID appeared more than once. None of those groups showed a changed asking price in this collection. A repeated listing ID is not independently verified physical-property identity.</p>"
+        },
+        {
+          "title": "What we rejected",
+          "html": "<p>Rediscovered datasets identical to earlier originals added zero new rows. Missing areas were not filled with guessed values, and execution timestamps were not turned into historical price dates. Failed downloads and empty discovery results were recorded as attempts rather than counted as observations.</p><p>Exact snapshot overlap checks found no duplicates with the earlier normalized collections. Different advertisements can still describe the same property, so that is not proof that all physical properties are unique.</p>"
+        },
+        {
+          "title": "What a broker can use from the method",
+          "html": "<p>When discussing a historical quote, keep the original source, the exact observed price and currency, the area if stated and the date type. Explain whether it is an asking price, a market benchmark or a verified transaction. Do not turn a repeated old advertisement into a return calculation.</p><p>The observed archive coverage is highly uneven across years and is not representative of Egyptian housing. Use the method to improve evidence discipline, not to claim that this sample proves a national trend.</p>"
+        },
+        {
+          "title": "Evidence and reproducibility",
+          "html": "<p>The public evidence summary contains aggregate counts and source-document hashes. Representative archived source links appear below. We publish original analysis, not copied listing pages, contact information or raw advertising data. All economic dates remained unassigned in the research export and all training-approval flags remained false.</p><p>For the collection-wide interpretation, read the September property-price evidence report.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "Did the research prove historical property returns?",
+          "answer": "No. It recovered archived asking-price observations, not verified repeat transactions."
+        },
+        {
+          "question": "Are 297 snapshots the same as 297 unique properties?",
+          "answer": "No. They span 212 portal listing IDs, and physical-property identity was not independently verified."
+        }
+      ]
+    },
+    "ar": {
+      "title": "دراسة بحثية: التحقق من 297 لقطة لأسعار عقارات مؤرشفة",
+      "description": "إزاي استافو راجع أدلة الإعلانات القديمة، واحتفظ بـ251 لقطة فيها سعر ومساحة، من غير ادعاء عوائد صفقات.",
+      "answer": "بحثنا بتاريخ 30 سبتمبر 2026 استعاد 297 لقطة موثقة بالأرشيف لأسعار طلب، تخص 212 معرّف إعلان. 251 لقطة فيها مساحة موجبة قابلة للاستخدام. ده يحسّن تغطية الأدلة القديمة، مش إثبات لأسعار بيع فعلية أو عائد استثمار.",
+      "sections": [
+        {
+          "title": "المشكلة البحثية",
+          "html": "<p>كلام كتير عن الأسعار القديمة بيعتمد على لقطة شاشة أو شيت من غير تاريخ أو وصف حالي لسعر زمان. كمان صفحات الإعلانات الفردية المؤرشفة ممكن ماتفتحش. بحثنا هل صفحات البحث والتصنيفات وصيغ الروابط القديمة تحفظ دليل قابل للاستخدام.</p><p>دي دراسة بحثية، مش قصة نجاح عميل. مافيش قياس لزيادة مبيعات بروكر أو توفير وقت أو نتيجة صفقة.</p>"
+        },
+        {
+          "title": "طريقة جمع الدليل",
+          "html": "<p>استهدفنا صفحات تصنيفات بروبرتي فايندر المؤرشفة وصيغة روابط عقارماب القديمة. كروت البحث احتفظت بأسعار ومساحات، وبعض صفحات عقارماب احتفظت ببيانات منظمة. اتحفظت نسخ المصادر وبيانات الاسترجاع ومواضع الاستخراج والبصمات بشكل خاص.</p><p>اعتبرنا اللقطة موثقة بالأرشيف فقط لما بيانات الالتقاط في الرد تطابق توقيت رابط Wayback الفعلي. تاريخ الالتقاط وتاريخ النشر اللي ذكره المعلن فضلوا حقول منفصلة، ومااعتبرناش أي واحد تلقائيًا تاريخ صفقة أو نفاذ سعر.</p>"
+        },
+        {
+          "title": "نتائج الجمع المحدود",
+          "html": "<div class=\"table-wrap\"><table><caption>اللقطات الجديدة المجمعة في 30 سبتمبر 2026</caption><thead><tr><th>سنة الالتقاط</th><th>لقطات سعر طلب</th></tr></thead><tbody><tr><td>2012</td><td>26</td></tr><tr><td>2013</td><td>32</td></tr><tr><td>2014</td><td>239</td></tr><tr><td>الإجمالي</td><td>297</td></tr></tbody></table></div><p>كل اللقطات ذكرت العملة، و251 منها ذكرت مساحة موجبة قابلة للاستخدام. فيه 74 مجموعة ظهر فيها نفس معرّف الإعلان أكتر من مرة؛ مافيش مجموعة أظهرت تغيّر سعر الطلب في الجمع ده. تكرار معرّف الإعلان مش تحقق مستقل من هوية العقار.</p>"
+        },
+        {
+          "title": "إيه اللي استبعدناه؟",
+          "html": "<p>مجموعات البيانات اللي طابقت ملفات أقدم بالبايت أضافت صفر صفوف جديدة. ماخمنّاش المساحات الناقصة وماحوّلناش وقت تشغيل كود لتاريخ سعر قديم. التحميلات الفاشلة ونتائج البحث الفارغة اتسجلت كمحاولات، مش مشاهدات.</p><p>اختبارات تطابق اللقطات ماوجدتش تكرارًا مطابقًا مع الجمع السابق. لكن إعلانات مختلفة ممكن تخص نفس العقار، فده مش إثبات لعدم تكرار العقارات نفسها.</p>"
+        },
+        {
+          "title": "البروكر يستفيد إزاي من الطريقة؟",
+          "html": "<p>لما تشرح سعر قديم، احتفظ بالمصدر والسعر المرصود والعملة والمساحة لو مذكورة ونوع التاريخ. وضّح هل ده سعر طلب أو متوسط مرجعي أو صفقة متحققة. ماتحوّلش إعلان قديم متكرر لحساب عائد.</p><p>التغطية غير متوازنة بين السنوات ومش ممثلة لعقارات مصر. الطريقة لتحسين جودة الدليل، مش لإثبات اتجاه قومي للسوق.</p>"
+        },
+        {
+          "title": "الدليل وإعادة التحقق",
+          "html": "<p>ملخص الأدلة العام فيه أعداد مجمعة وبصمات المصادر وروابط مؤرشفة ممثلة تحت. بننشر تحليلنا الأصلي، مش صفحات إعلانات منسوخة أو بيانات تواصل. تواريخ الأسعار الاقتصادية فضلت غير محددة وكل علامات اعتماد التدريب فضلت غير مفعلة.</p><p>اقرأ تقرير أدلة أسعار العقارات لشهر سبتمبر لفهم حدود المجموعة كلها.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "هل البحث أثبت عوائد تاريخية؟",
+          "answer": "لأ. استعاد مشاهدات أسعار طلب مؤرشفة، مش صفقات متكررة متحقق منها."
+        },
+        {
+          "question": "297 لقطة يعني 297 عقار مختلف؟",
+          "answer": "لأ. تخص 212 معرّف إعلان، وهوية العقار الفعلية مش متحققة بشكل مستقل."
+        }
+      ]
+    },
+    "related": [
+      "find-developer-inventory",
+      "developer-offer-evidence",
+      "property-price-evidence-september-2026"
+    ],
+    "sources": [
+      {
+        "url": "/guides/evidence/september-2026.json",
+        "en": "Estavo research: aggregate evidence and source-version ledger, collected 30 September 2026",
+        "ar": "بحث استافو: ملخص الأدلة وسجل نسخ المصادر، جمع 30 سبتمبر 2026"
+      },
+      {
+        "url": "https://web.archive.org/web/20130627115055/http://www.propertyfinder.eg:80/en/buy/al-fayum/properties-for-sale-al-nasereya.html",
+        "en": "Representative archive source: Property Finder category page, 27 June 2013",
+        "ar": "مصدر أرشيف ممثل: صفحة تصنيف بروبرتي فايندر، 27 يونيو 2013"
+      }
+    ]
+  },
+  {
+    "slug": "developer-offer-evidence",
+    "kind": "case-study",
+    "en": {
+      "title": "Research case study: comparing developer offers across six versions",
+      "description": "What 188 provisional Tiba Golden offer groups reveal about unit identifiers, changed specifications and the limits of sold-status rows.",
+      "answer": "Comparing six versions of Tiba Golden inventory produced 188 provisional recurring-offer groups. Changes in area, view and status showed why a repeated unit identifier is insufficient proof of an unchanged property or a completed sale.",
+      "sections": [
+        {
+          "title": "The question behind the study",
+          "html": "<p>Can older developer price books help a broker assess a historical quotation? Our 30 September 2026 collection examined public developer download and media catalogues, including documents no longer highlighted on the current downloads page. The question was about evidence quality, not whether a specific project guarantees returns.</p><p>This is an independent research case study of public-source records. It is not a customer testimonial, an endorsement or a claim of partnership with the source publisher.</p>"
+        },
+        {
+          "title": "Preserve versions before comparing them",
+          "html": "<p>Red Sea Way’s public media catalogue exposed older Tiba Golden documents. We retained the source bytes and hashes and matched recurring entries using publisher project, floor and unit identifier. Filename dates, upload timestamps and document dates were preserved as different evidence classes.</p><p>Spreadsheet creation dates described file ancestry, not the date of each price. Hidden rows and cached formula values were retained during private analysis; formulas were not recalculated into invented offers.</p>"
+        },
+        {
+          "title": "What the comparison found",
+          "html": "<div class=\"table-wrap\"><table><caption>Provisional recurring-offer review groups</caption><thead><tr><th>Finding</th><th>Count</th></tr></thead><tbody><tr><td>Recurring groups</td><td>188</td></tr><tr><td>Present in at least three versions</td><td>154</td></tr><tr><td>Present in all six versions</td><td>36</td></tr><tr><td>Consistent reported area and type</td><td>185</td></tr><tr><td>Changed reported area</td><td>3</td></tr><tr><td>Changed view</td><td>37</td></tr><tr><td>Changed status</td><td>56</td></tr></tbody></table></div><p>These flags overlap: do not add them to calculate a total number of affected properties. Even stable area and type do not prove unchanged finishing, quality or physical identity.</p>"
+        },
+        {
+          "title": "Why a sold status is not a sale price",
+          "html": "<p>The broader spreadsheet inventory channel contained 475 hidden rows and 461 rows marked Sold or Sold out. These are counts across inventory snapshots, not confirmed unique property sales; the categories can overlap. A stored list price next to a sold marker does not reveal the negotiated price or completion date.</p><p>Payment basis, discounts and unit-state changes also need review before interpreting a difference between two quotations. The collection did not create realized-return labels.</p>"
+        },
+        {
+          "title": "A broker checklist for historical developer offers",
+          "html": "<ol><li>Match the exact project, phase, building, floor and unit reference.</li><li>Check whether area, type, view, finishing or status changed.</li><li>Record what the stated date actually means.</li><li>Separate cash quotations, instalment quotations and currency equivalents.</li><li>Verify whether an apparent sale has a transaction record rather than only a status flag.</li><li>For current availability, obtain a fresh booking-source confirmation.</li></ol>"
+        },
+        {
+          "title": "What can be published responsibly",
+          "html": "<p>We publish aggregate findings, a source-version ledger and original methodological analysis. The raw spreadsheets, hidden rows and individual offers are not republished here. Source redistribution and training rights remain unverified; public accessibility is not a commercial data licence.</p><p>The research demonstrates a review method. It does not establish national property growth, investment performance or that these units are available today.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "Are recurring offer groups repeat sales?",
+          "answer": "No. They are provisional matches between publisher references across documents, awaiting identity and economic-term review."
+        },
+        {
+          "question": "Can I add the changed-area, view and status counts?",
+          "answer": "No. The flags overlap, and a group can have more than one kind of change."
+        }
+      ]
+    },
+    "ar": {
+      "title": "دراسة بحثية: مقارنة عروض مطور عبر ست نسخ",
+      "description": "إيه اللي تكشفه 188 مجموعة عروض مبدئية في تيبا جولدن عن هوية الوحدة وتغيّر المواصفات وحدود علامة مباع؟",
+      "answer": "مقارنة ست نسخ من إنفنتوري تيبا جولدن أنتجت 188 مجموعة مبدئية لعروض متكررة. تغيّر المساحة والإطلالة والحالة بيبيّن ليه تكرار رقم الوحدة مش كفاية لإثبات عقار ثابت المواصفات أو صفقة بيع فعلية.",
+      "sections": [
+        {
+          "title": "سؤال الدراسة",
+          "html": "<p>هل قوائم أسعار المطور القديمة تساعد البروكر يراجع عرض تاريخي؟ جمعنا بتاريخ 30 سبتمبر 2026 مصادر تنزيل وكتالوجات ملفات عامة، بما فيها نسخ أقدم مش ظاهرة في صفحة التنزيل الحالية. السؤال عن جودة الدليل، مش ضمان عائد مشروع.</p><p>دي دراسة مستقلة لسجلات من مصادر عامة، مش شهادة عميل ولا تزكية ولا ادعاء شراكة مع ناشر المصدر.</p>"
+        },
+        {
+          "title": "احفظ النسخ قبل المقارنة",
+          "html": "<p>كتالوج Red Sea Way العام كشف ملفات تيبا جولدن أقدم. احتفظنا بالنسخ والبصمات وربطنا الصفوف حسب مشروع الناشر والدور ورقم الوحدة. تواريخ أسماء الملفات والرفع والمستند فضلت أنواع أدلة منفصلة.</p><p>تاريخ إنشاء الشيت بيخص أصل الملف، مش كل سعر. الصفوف المخفية وقيم المعادلات المحفوظة اتراجعت داخليًا، من غير إعادة حساب تنتج عروض مخترعة.</p>"
+        },
+        {
+          "title": "نتائج المقارنة",
+          "html": "<div class=\"table-wrap\"><table><caption>مجموعات مبدئية لمراجعة العروض المتكررة</caption><thead><tr><th>النتيجة</th><th>العدد</th></tr></thead><tbody><tr><td>مجموعات متكررة</td><td>188</td></tr><tr><td>ظهرت في ثلاث نسخ على الأقل</td><td>154</td></tr><tr><td>ظهرت في كل الست نسخ</td><td>36</td></tr><tr><td>المساحة والنوع المذكوران ثابتان</td><td>185</td></tr><tr><td>المساحة المذكورة اتغيّرت</td><td>3</td></tr><tr><td>الإطلالة اتغيّرت</td><td>37</td></tr><tr><td>الحالة اتغيّرت</td><td>56</td></tr></tbody></table></div><p>العلامات دي متداخلة؛ ماتجمعهاش كإجمالي عقارات متأثرة. ثبات المساحة والنوع مش إثبات لثبات التشطيب أو الجودة أو هوية العقار.</p>"
+        },
+        {
+          "title": "ليه علامة مباع مش سعر صفقة؟",
+          "html": "<p>قناة الشيتات الأوسع احتوت 475 صف مخفي و461 صف مكتوب عليه Sold أو Sold out. دي أعداد صفوف عبر لقطات إنفنتوري، مش صفقات لعقارات فريدة متحققة، والفئات ممكن تتداخل. سعر طلب مخزن جنب «مباع» مش بيوضح السعر المتفاوض عليه أو تاريخ التنفيذ.</p><p>أساس السداد والخصم وتغيّر حالة الوحدة محتاجين مراجعة قبل تفسير فرق السعر. الجمع ده ماعملش قيم لعوائد فعلية.</p>"
+        },
+        {
+          "title": "قائمة مراجعة للبروكر",
+          "html": "<ol><li>طابق المشروع والمرحلة والعمارة والدور ورقم الوحدة.</li><li>راجع تغيّر المساحة والنوع والإطلالة والتشطيب والحالة.</li><li>سجّل معنى التاريخ المذكور بالضبط.</li><li>افصل الكاش والتقسيط ومعادلات العملة.</li><li>تحقق من مستند صفقة بدل الاكتفاء بعلامة حالة.</li><li>للمتاح الحالي اطلب تأكيد جديد من جهة الحجز.</li></ol>"
+        },
+        {
+          "title": "إيه اللي ننشره بمسؤولية؟",
+          "html": "<p>بننشر نتائج مجمعة وسجل نسخ المصادر وتحليلنا للمنهج. الشيتات الخام والصفوف المخفية والعروض الفردية مش معاد نشرها هنا. حقوق إعادة النشر والتدريب لسه غير متحققة؛ ظهور الملف للعامة مش ترخيص بيانات تجاري.</p><p>الدراسة تثبت طريقة مراجعة، مش نمو أسعار قومي أو أداء استثماري أو إتاحة الوحدات النهارده.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "المجموعات دي صفقات متكررة؟",
+          "answer": "لأ. دي مطابقات مبدئية لمراجع الناشر بين مستندات، لسه محتاجة مراجعة الهوية والشروط الاقتصادية."
+        },
+        {
+          "question": "أجمع أعداد تغيّر المساحة والإطلالة والحالة؟",
+          "answer": "لأ. العلامات متداخلة والمجموعة ممكن يكون فيها أكتر من نوع تغيّر."
+        }
+      ]
+    },
+    "related": [
+      "find-developer-inventory",
+      "archived-listing-evidence",
+      "property-price-evidence-september-2026"
+    ],
+    "sources": [
+      {
+        "url": "/guides/evidence/september-2026.json",
+        "en": "Estavo research: aggregate evidence and source-version ledger, collected 30 September 2026",
+        "ar": "بحث استافو: ملخص الأدلة وسجل نسخ المصادر، جمع 30 سبتمبر 2026"
+      },
+      {
+        "url": "https://www.redseaway.co/downloads/",
+        "en": "Red Sea Way: public developer downloads",
+        "ar": "Red Sea Way: تنزيلات المطور العامة"
+      }
+    ]
+  },
+  {
+    "slug": "property-price-evidence-september-2026",
+    "kind": "report",
+    "en": {
+      "title": "Egypt property-price evidence report — September 2026",
+      "description": "Original Estavo analysis of 2,268 additional research records: archive coverage, developer offers, date quality and limits on market conclusions.",
+      "answer": "Our bounded September 2026 research added 2,268 records, but these are a mix of asking-price snapshots, developer quotations and market benchmarks. The main finding is an evidence-quality gap: more records do not automatically establish sale prices, current inventory or a reliable national price trend.",
+      "sections": [
+        {
+          "title": "Scope and method",
+          "html": "<p>Collected on 30 September 2026 and published on 2 October 2026, this report analyzes one additional evidence collection. It excludes totals from two earlier collections. Selection followed recoverable archived pages and public developer source catalogues; it was not a random or representative sample of Egyptian housing.</p><p>The archive channel contains 346 records; the developer-source channel contains 1,922 records across seven projects. Sources were retained with hashes and exact extraction references. The public release contains aggregate analysis and representative source pointers, not raw listings, customer details or a redistributed price database.</p>"
+        },
+        {
+          "title": "What the 2,268 records actually represent",
+          "html": "<div class=\"table-wrap\"><table><caption>Mutually exclusive research-record categories</caption><thead><tr><th>Record type</th><th>Count</th><th>What it establishes</th></tr></thead><tbody><tr><td>Archived asking-price snapshots</td><td>297</td><td>An advertised quote in a verified archive capture</td></tr><tr><td>Market/project benchmarks</td><td>49</td><td>Report-level context with its own definitions</td></tr><tr><td>Developer unit asking-price rows</td><td>1,121</td><td>A quoted unit offer, subject to term review</td></tr><tr><td>Developer inventory snapshots</td><td>739</td><td>Stored workbook values and statuses</td></tr><tr><td>Reference-layout offers</td><td>62</td><td>Model/layout quotations, not individual unit counts</td></tr><tr><td>Total</td><td>2,268</td><td>Research records, not completed transactions</td></tr></tbody></table></div>"
+        },
+        {
+          "title": "Finding: archive coverage is uneven",
+          "html": "<p>The 297 archived asking-price snapshots include 26 from 2012, 32 from 2013 and 239 from 2014. Thus 80.5% of these archive snapshots are from 2014 (239 ÷ 297, rounded to one decimal). Only 251 snapshots contain both explicit currency and usable positive area: 84.5% (251 ÷ 297).</p><p>That concentration reflects what this acquisition recovered, not where buyers were most active or how national prices moved. Averages across these years would be vulnerable to changing location and property mix. Forty-nine report-level benchmarks remain separate from individual-unit observations.</p>"
+        },
+        {
+          "title": "Finding: document dates are not economic price dates",
+          "html": "<p>The developer channel has 1,310 records with 2019–2023 document-date evidence and 612 current-source observations from 2026. Upload timestamps, filename dates, API update times and page publication dates have different meanings. None was automatically assigned as an effective economic price date.</p><p>All 2,268 economic-date fields remained unassigned in this research export, and all training-approval flags remained false. This describes the evidence-review state, not a claim that every source lacks any date. More interpretation is needed before these records can support comparable historical price labels.</p>"
+        },
+        {
+          "title": "Finding: recurring references need identity review",
+          "html": "<p>Across six Tiba Golden versions, 188 provisional recurring-offer groups were identified. Three changed reported area, 37 changed view and 56 changed status; these flags overlap. The archive channel also has 74 repeated listing-ID groups, none showing a changed asking price in this collection.</p><p>Neither result establishes verified repeat sales. Stable identifiers can coexist with changed specification, reused marketing references or stale offers. Likewise, sold-status workbook rows do not establish achieved transaction prices.</p>"
+        },
+        {
+          "title": "What brokers should do with these findings",
+          "html": "<ol><li>Ask whether a number is an asking price, cash quote, instalment quote, benchmark or verified transaction.</li><li>Record source and date type, not just the downloaded date.</li><li>Compare location, property type, area definition, finishing and payment basis.</li><li>Keep unconfirmed availability and charges explicit.</li><li>Before booking, get current written terms from the responsible source.</li></ol><p>Estavo Market helps brokers research available information, compare options and prepare offers. This report supports the verification discipline around that workflow; it does not promise market coverage or investment accuracy.</p>"
+        },
+        {
+          "title": "Limits and citation",
+          "html": "<p>This is an original market-evidence audit, not a national price index, valuation or return forecast. Asking prices are not achieved prices. Rows are not unique properties. The developer sample is concentrated in recoverable resort-project sources, and the archives are uneven by year. No national growth rate, return projection or prediction-accuracy claim is supported.</p><p>Suggested citation: Estavo Brokers (2026), <cite>Egypt property-price evidence report — September 2026</cite>, published 2 October 2026. Cite the collection date and limitations with any reused aggregate. Download the evidence summary below to inspect category counts, calculations and source hashes.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "Does this report show how much Egyptian property prices rose?",
+          "answer": "No. The sample is not representative, economic price dates are unresolved and asking prices are not verified transactions."
+        },
+        {
+          "question": "Can I use the record count as available stock?",
+          "answer": "No. It includes historical, sold-status, benchmark and model-reference records. Current availability requires a separate check."
+        }
+      ]
+    },
+    "ar": {
+      "title": "تقرير أدلة أسعار العقارات في مصر — سبتمبر 2026",
+      "description": "تحليل أصلي من استافو لـ2,268 سجل بحثي إضافي: تغطية الأرشيف وعروض المطورين وجودة التواريخ وحدود استنتاجات السوق.",
+      "answer": "بحثنا المحدود في سبتمبر 2026 أضاف 2,268 سجلًا، لكنها خليط من أسعار طلب مؤرشفة وعروض مطورين ومؤشرات مرجعية. النتيجة الأساسية فجوة جودة الدليل: زيادة السجلات مش تلقائيًا إثبات لسعر البيع أو المتاح الحالي أو اتجاه أسعار قومي موثوق.",
+      "sections": [
+        {
+          "title": "نطاق التقرير والمنهج",
+          "html": "<p>اتجمع الدليل في 30 سبتمبر 2026 واتنشر التقرير في 2 أكتوبر 2026. التحليل يخص مجموعة إضافية واحدة، ومايضمش إجماليات مجموعتين أقدم. الاختيار اتبع صفحات أرشيف قابلة للاسترجاع وكتالوجات مصادر مطورين عامة، مش عينة عشوائية ممثلة لعقارات مصر.</p><p>قناة الأرشيف فيها 346 سجلًا، وقناة مصادر المطورين فيها 1,922 سجلًا عبر سبعة مشاريع. اتحفظت المصادر ببصمات ومواضع استخراج دقيقة. النشر العام فيه تحليل مجمع وروابط ممثلة، مش إعلانات خام أو بيانات عملاء أو قاعدة أسعار معاد نشرها.</p>"
+        },
+        {
+          "title": "إيه معنى 2,268 سجل؟",
+          "html": "<div class=\"table-wrap\"><table><caption>فئات سجلات البحث المنفصلة</caption><thead><tr><th>النوع</th><th>العدد</th><th>إيه اللي يثبته؟</th></tr></thead><tbody><tr><td>لقطات أسعار طلب مؤرشفة</td><td>297</td><td>عرض منشور داخل لقطة أرشيف متحققة</td></tr><tr><td>مؤشرات سوق ومشاريع مرجعية</td><td>49</td><td>سياق تقارير بتعريفاته الخاصة</td></tr><tr><td>صفوف أسعار طلب لوحدات مطورين</td><td>1,121</td><td>عرض وحدة محتاج مراجعة شروط</td></tr><tr><td>لقطات إنفنتوري مطورين</td><td>739</td><td>قيم وحالات محفوظة في شيتات</td></tr><tr><td>عروض نماذج مرجعية</td><td>62</td><td>سعر نموذج، مش عدد وحدات فردية</td></tr><tr><td>الإجمالي</td><td>2,268</td><td>سجلات بحث، مش صفقات منفذة</td></tr></tbody></table></div>"
+        },
+        {
+          "title": "نتيجة: تغطية الأرشيف غير متوازنة",
+          "html": "<p>الـ297 لقطة فيها 26 من 2012، و32 من 2013، و239 من 2014. يعني 80.5% من لقطات الأرشيف من 2014: 239 ÷ 297 مع التقريب لرقم عشري. و251 لقطة فيها عملة صريحة ومساحة موجبة قابلة للاستخدام: 84.5%، أي 251 ÷ 297.</p><p>التركيز ده يعكس اللي طريقة الجمع قدرت تستعيده، مش نشاط المشترين أو حركة السعر القومي. المتوسط بين السنوات يتأثر باختلاف المناطق وأنواع العقارات. الـ49 مؤشرًا من التقارير منفصلين عن مشاهدات الوحدات الفردية.</p>"
+        },
+        {
+          "title": "نتيجة: تاريخ المستند مش تاريخ السعر الاقتصادي",
+          "html": "<p>قناة المطورين فيها 1,310 سجلًا بأدلة تواريخ مستندات من 2019–2023، و612 مشاهدة من مصادر حالية في 2026. وقت رفع الملف وتاريخ اسمه وتحديث API ونشر الصفحة معاني مختلفة. ماحوّلناش أي واحد تلقائيًا لتاريخ نفاذ اقتصادي للسعر.</p><p>كل حقول التاريخ الاقتصادي للـ2,268 سجلًا فضلت غير محددة، وكل علامات اعتماد التدريب غير مفعلة. ده وصف لحالة مراجعة الدليل، مش ادعاء إن المصادر كلها مافيهاش تواريخ. محتاجين مراجعة إضافية قبل استخدام السجلات كقيم أسعار تاريخية قابلة للمقارنة.</p>"
+        },
+        {
+          "title": "نتيجة: المراجع المتكررة تحتاج مراجعة الهوية",
+          "html": "<p>عبر ست نسخ لتيبا جولدن لقينا 188 مجموعة عروض متكررة مبدئية. ثلاث مجموعات تغيّرت مساحتها المذكورة، و37 الإطلالة، و56 الحالة، والعلامات متداخلة. قناة الأرشيف فيها كمان 74 مجموعة معرّف إعلان متكرر، من غير تغيّر سعر طلب داخل الجمع ده.</p><p>ولا نتيجة فيهم تثبت صفقات متكررة متحققة. الرقم الثابت ممكن يرافق مواصفات متغيرة أو مرجع تسويق معاد استخدامه أو عرض قديم. وصف مباع في الشيت مش إثبات لسعر الصفقة المنفذة.</p>"
+        },
+        {
+          "title": "البروكر يعمل إيه بالنتائج؟",
+          "html": "<ol><li>اسأل الرقم سعر طلب ولا كاش ولا تقسيط ولا مؤشر مرجعي ولا صفقة متحققة.</li><li>سجّل المصدر ونوع التاريخ، مش تاريخ التنزيل بس.</li><li>قارن المنطقة والنوع وتعريف المساحة والتشطيب وأساس السداد.</li><li>خلّي المتاح والمصاريف غير المؤكدة واضحين.</li><li>قبل الحجز خد الشروط الحالية مكتوبة من الجهة المسؤولة.</li></ol><p>استافو ماركت يساعد في بحث المعلومات المتاحة والمقارنة وتجهيز العرض. التقرير يدعم طريقة التحقق حول الخطوات دي، مش وعد بتغطية السوق أو دقة استثمارية.</p>"
+        },
+        {
+          "title": "الحدود وطريقة الاقتباس",
+          "html": "<p>ده تحليل أصلي لأدلة السوق، مش مؤشر أسعار قومي أو تقييم أو توقع عائد. سعر الطلب مش سعر التنفيذ، والصف مش عقار فريد. عينة المطورين مركزة في مصادر مشاريع منتجعات أمكن استرجاعها، والأرشيف غير متوازن بين السنوات. مافيش دليل هنا لنسبة نمو قومية أو عائد أو دقة تنبؤ.</p><p>صيغة اقتباس: استافو بروكرز (2026)، <cite>تقرير أدلة أسعار العقارات في مصر — سبتمبر 2026</cite>، منشور 2 أكتوبر 2026. اذكر تاريخ الجمع والحدود مع أي رقم تستخدمه. ملخص الأدلة تحت يوضح الأعداد والحسابات وبصمات المصادر.</p>"
+        }
+      ],
+      "faq": [
+        {
+          "question": "التقرير بيقول أسعار عقارات مصر زادت قد إيه؟",
+          "answer": "لأ. العينة مش ممثلة، وتواريخ نفاذ الأسعار غير محسومة، وأسعار الطلب مش صفقات متحققة."
+        },
+        {
+          "question": "ينفع أستخدم عدد السجلات كعدد وحدات متاحة؟",
+          "answer": "لأ. المجموعة فيها تاريخي ومباع ومؤشرات ونماذج. المتاح الحالي محتاج تأكيد منفصل."
+        }
+      ]
+    },
+    "related": [
+      "archived-listing-evidence",
+      "developer-offer-evidence",
+      "compare-payment-plans"
+    ],
+    "sources": [
+      {
+        "url": "/guides/evidence/september-2026.json",
+        "en": "Estavo research: aggregate evidence and source-version ledger, collected 30 September 2026",
+        "ar": "بحث استافو: ملخص الأدلة وسجل نسخ المصادر، جمع 30 سبتمبر 2026"
+      },
+      {
+        "url": "https://www.redseaway.co/downloads/",
+        "en": "Red Sea Way: public developer downloads",
+        "ar": "Red Sea Way: تنزيلات المطور العامة"
+      },
+      {
+        "url": "https://web.archive.org/web/20130627115055/http://www.propertyfinder.eg:80/en/buy/al-fayum/properties-for-sale-al-nasereya.html",
+        "en": "Representative archive source: Property Finder category page, 27 June 2013",
+        "ar": "مصدر أرشيف ممثل: صفحة تصنيف بروبرتي فايندر، 27 يونيو 2013"
+      }
+    ]
+  }
+]

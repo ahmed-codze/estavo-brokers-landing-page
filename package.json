@@ -1,0 +1,12 @@
+{
+  "name": "estavo-brokers-landing-page",
+  "private": true,
+  "scripts": {
+    "build:knowledge": "python3 scripts/build_knowledge.py",
+    "test": "node --test tests/*.test.js",
+    "test:knowledge": "node --test tests/public-knowledge.test.js"
+  },
+  "devDependencies": {
+    "jsdom": "27.4.0"
+  }
+}

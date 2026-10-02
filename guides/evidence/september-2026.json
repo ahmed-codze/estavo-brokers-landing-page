@@ -1,0 +1,128 @@
+{
+  "title": "Estavo Brokers — September 2026 property-price evidence summary",
+  "publisher": "Estavo Brokers",
+  "collection_date": "2026-09-30",
+  "published_date": "2026-10-02",
+  "scope": "One bounded additional research collection; excludes earlier collections. Counts are records, not unique properties or available inventory.",
+  "records": 2268,
+  "by_category": {
+    "archived_asking_snapshot": 297,
+    "market_benchmark": 49,
+    "private_primary_unit_offer": 1121,
+    "private_inventory_snapshot": 739,
+    "layout_reference_offer": 62
+  },
+  "by_channel": {
+    "archives": 346,
+    "private-primary": 1922
+  },
+  "archive": {
+    "capture_year_counts": {
+      "2012": 26,
+      "2013": 32,
+      "2014": 239
+    },
+    "snapshots": 297,
+    "portal_listing_ids": 212,
+    "with_explicit_currency": 297,
+    "with_usable_area": 251,
+    "repeated_listing_groups": 74,
+    "repeated_groups_with_changed_asking_price": 0
+  },
+  "developer": {
+    "observations": 1922,
+    "projects": 7,
+    "document_evidence_2019_2023": 1310,
+    "current_source_observations_2026": 612,
+    "recurring_offer_groups": 188,
+    "groups_in_at_least_three_versions": 154,
+    "groups_in_all_six_versions": 36,
+    "groups_area_type_consistent": 185,
+    "groups_changed_area": 3,
+    "groups_changed_view": 37,
+    "groups_changed_status": 56,
+    "hidden_inventory_rows": 475,
+    "sold_status_inventory_rows": 461,
+    "change_flags_overlap": true
+  },
+  "calculations": [
+    {
+      "name": "2014 share of archive snapshots",
+      "numerator": 239,
+      "denominator": 297,
+      "percent": 80.5
+    },
+    {
+      "name": "Archive snapshots with usable price/area/currency",
+      "numerator": 251,
+      "denominator": 297,
+      "percent": 84.5
+    }
+  ],
+  "limitations": [
+    "Not a representative Egyptian market sample or a national price index.",
+    "Asking prices and stored offers are not achieved transaction prices.",
+    "Physical property identity is unverified.",
+    "All economic price dates remain unassigned in the research export.",
+    "All training-approval flags remain false.",
+    "Source redistribution and model-training rights remain unverified; no source documents or raw rows are redistributed in this release."
+  ],
+  "input_integrity": [
+    {
+      "reference": "coverage",
+      "sha256": "f180122318071bda839062841be9d5b840c23f4dccf66374ba924d118447c1e4"
+    },
+    {
+      "reference": "archive_summary",
+      "sha256": "8b1c2a67509880636e30e84cbb1951d1625a3ed9611e61a298723f287ea7f2be"
+    },
+    {
+      "reference": "developer_summary",
+      "sha256": "25bd5581aed61e6077ae8445985354185ff61e9f3996be8b3804759fd71c98e7"
+    }
+  ],
+  "public_source_versions": [
+    {
+      "reference": "tiba-golden-2023-05-price-list",
+      "url": "https://www.redseaway.co/wp-content/uploads/2023/05/A-B-Tiba-GOLDEN-Price-List-Availability.pdf",
+      "sha256": "90f300a45f03765a41914a41678ff9cd320873ed9dc6c65baed94841c2f6f200",
+      "date_evidence_class": "upload_path_month_only",
+      "meaning": "Source version reference, not a verified transaction or economic price date."
+    },
+    {
+      "reference": "redseaway-media-4459",
+      "url": "https://www.redseaway.co/wp-content/uploads/2023/02/Tiba-GOLDEN-Price-List-Availability-8-2-2023.pdf",
+      "sha256": "d723864b59bc4f935fde37dd2784beaf69763e62b20efb4bf10f41581238408e",
+      "date_evidence_class": "publisher_media_upload_date_only",
+      "meaning": "Source version reference, not a verified transaction or economic price date."
+    },
+    {
+      "reference": "redseaway-media-4397",
+      "url": "https://www.redseaway.co/wp-content/uploads/2022/12/Tiba-GOLDEN-Price-List-Availability-10-12-2022.pdf",
+      "sha256": "15081dd30e2f0d747605edeb7107dc56abf05e2319890db381218dbbeb034580",
+      "date_evidence_class": "publisher_media_upload_date_only",
+      "meaning": "Source version reference, not a verified transaction or economic price date."
+    },
+    {
+      "reference": "redseaway-media-4257",
+      "url": "https://www.redseaway.co/wp-content/uploads/2022/06/Tiba-GOLDEN-Price-List-Availability-14-6-2022.pdf",
+      "sha256": "af2677ad3402ac761db0c4d846ab8ae33de4f6089a9b60755b8b2569661f0e18",
+      "date_evidence_class": "publisher_media_upload_date_only",
+      "meaning": "Source version reference, not a verified transaction or economic price date."
+    },
+    {
+      "reference": "redseaway-media-4147",
+      "url": "https://www.redseaway.co/wp-content/uploads/2022/03/Tiba-GOLDEN-Price-List-Availability-27-3-2022.pdf",
+      "sha256": "a2aba0d2c0fb54177f72e9a18b45df570c3428460c9f82c773778b3fcfc7a376",
+      "date_evidence_class": "publisher_media_upload_date_only",
+      "meaning": "Source version reference, not a verified transaction or economic price date."
+    },
+    {
+      "reference": "redseaway-media-3662",
+      "url": "https://www.redseaway.co/wp-content/uploads/2020/10/Tiba-GOLDEN-Price-List-Availability.xlsx",
+      "sha256": "59292b6cde75aae1b82309c450470e5807b3adabddd75a54dfb4f51cef523f19",
+      "date_evidence_class": "publisher_media_upload_date_only",
+      "meaning": "Source version reference, not a verified transaction or economic price date."
+    }
+  ]
+}
