@@ -27,6 +27,7 @@ The existing website-referral suite has one pre-existing failure: it expects `we
 - All articles render complete text, sources, FAQs and links without JavaScript.
 - Canonicals, reciprocal Arabic/English alternatives, social metadata and matching Article/Breadcrumb/FAQ markup are generated. Structured data does not guarantee AI selection or FAQ rich results.
 - The sitemap includes 26 actual static pages; legacy product canonicals now point to their existing `.html` files rather than unresolved extensionless URLs.
+- The scoped Nginx include `ops/nginx/knowledge.conf` gives unknown knowledge URLs real 404 responses and redirects the four legacy extensionless product URLs to their canonical `.html` files.
 - Existing menus and footers link the knowledge section. Signup links retain the existing referral handling and analytics account.
 - Search crawlers inherit public access, while GPTBot and ClaudeBot training stay disabled.
 - Google-Extended is allowed for public content to support Gemini grounding; this token also permits its covered Gemini training uses. It is independent of Google Search ranking.
