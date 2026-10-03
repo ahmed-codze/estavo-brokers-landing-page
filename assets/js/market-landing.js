@@ -32,32 +32,32 @@
     const isArabic = document.documentElement.lang === 'ar';
     const conversations = isArabic ? [
       {
-        user: 'عميل عايز شقة ٣ غرف في القاهرة الجديدة وعايز يقارن مدة السداد.',
+        user: 'عميل عايز شقة ٣ غرف في القاهرة الجديدة، والمقدم عنده محدود.',
         answer: 'لقيت اختيارين مطابقين في المثال:',
-        rows: [['اختيار أ', '١٤٥ م² · ٦ سنين'], ['اختيار ب', '١٥٢ م² · ٧ سنين']],
-        summary: 'اختيار ب يضيف سنة تقسيط ومساحة ٧ م².',
+        rows: [['اختيار أ', '١٤٥ م² · مقدم ٢٠٪ · ٦ سنين'], ['اختيار ب', '١٥٠ م² · مقدم ٥٪ · ٨ سنين']],
+        summary: 'نفس المساحة تقريبًا، بس اختيار ب مقدمه أقل بـ١٥٪ وسداده أطول سنتين.',
         actions: ['شوف المقارنة', 'جهّز العرض'],
       },
       {
-        user: 'قارن اختيار أ واختيار ب في المساحة ومدة السداد.',
+        user: 'قارن اختيار أ واختيار ب في المقدم ومدة السداد.',
         answer: 'دي المقارنة من بيانات المثال:',
-        rows: [['اختيار أ', '١٤٥ م² · ٦ سنين'], ['اختيار ب', '١٥٢ م² · ٧ سنين']],
-        summary: 'اختيار أ أقل مساحة؛ اختيار ب يدي سنة تقسيط إضافية.',
+        rows: [['اختيار أ', '١٤٥ م² · مقدم ٢٠٪ · ٦ سنين'], ['اختيار ب', '١٥٠ م² · مقدم ٥٪ · ٨ سنين']],
+        summary: 'اختيار أ مقدمه أعلى وسداده أقصر؛ اختيار ب يبدأ بكاش أقل على مدة أطول.',
         actions: ['جهّز العرض', 'اسأل سؤال مكمل'],
       },
     ] : [
       {
-        user: 'My client wants three bedrooms in New Cairo and needs to compare payment duration.',
+        user: 'My client wants three bedrooms in New Cairo but has a limited down payment.',
         answer: 'I found two matches in this example:',
-        rows: [['Option A', '145 m² · 6 years'], ['Option B', '152 m² · 7 years']],
-        summary: 'Option B adds one payment year and 7 m².',
+        rows: [['Option A', '145 m² · 20% down · 6 years'], ['Option B', '150 m² · 5% down · 8 years']],
+        summary: 'Nearly the same area, but B needs 15% less upfront and pays over two more years.',
         actions: ['View comparison', 'Prepare a PDF'],
       },
       {
-        user: 'Compare Option A and Option B for area and payment duration.',
+        user: 'Compare Option A and Option B for down payment and term.',
         answer: 'Here is the comparison from the example data:',
-        rows: [['Option A', '145 m² · 6 years'], ['Option B', '152 m² · 7 years']],
-        summary: 'Option A is smaller; Option B adds one payment year.',
+        rows: [['Option A', '145 m² · 20% down · 6 years'], ['Option B', '150 m² · 5% down · 8 years']],
+        summary: 'A costs more upfront over a shorter term; B starts with less cash over a longer one.',
         actions: ['Prepare a PDF', 'Ask a follow-up'],
       },
     ];

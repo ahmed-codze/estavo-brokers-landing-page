@@ -40,7 +40,7 @@
     --es-line: rgb(19 40 60 / 12%);
     --es-line-strong: rgb(19 40 60 / 22%);
     --es-on-dark: rgb(255 255 255 / 92%);
-    --es-on-dark-muted: rgb(255 255 255 / 66%);
+    --es-on-dark-muted: hsl(211 39% 84%);
     --es-line-dark: rgb(255 255 255 / 16%);
 
     /* ── Type (§3.2) ─────────────────────────────────────── */

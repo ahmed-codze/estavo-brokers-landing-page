@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the eight non-hero homepage illustrations in the flat Estavo system."""
+"""Build the eight non-hero homepage illustrations in the Estavo clay system."""
 from pathlib import Path
 import importlib.util
 import json
@@ -9,8 +9,8 @@ spec = importlib.util.spec_from_file_location("estavo_builder", ROOT / "tools/bu
 b = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(b)
 
-DEFS = r'''<defs>
-<linearGradient id="route" x1="0" x2="1"><stop stop-color="#5c91c7" stop-opacity=".16"/><stop offset="1" stop-color="#5c91c7" stop-opacity=".72"/></linearGradient>
+DEFS = r'''<defs>'''+b.clay.defs()+r'''
+<linearGradient id="route" x1="0" x2="1"><stop stop-color="#5c91c7" stop-opacity=".48"/><stop offset="1" stop-color="#5c91c7" stop-opacity=".85"/></linearGradient>
 <linearGradient id="soft-sweep"><stop stop-color="white" stop-opacity="0"/><stop offset=".5" stop-color="white"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
 <mask id="sweep" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="640"><rect class="scene-sweep" x="-300" width="260" height="640" fill="url(#soft-sweep)"/></mask>
 <style>
@@ -22,8 +22,9 @@ text{font-family:ArtPlex,Arial,sans-serif;fill:#0b2239;font-size:21px;font-weigh
 </style></defs>'''
 
 def panel(x,y,w,h,dark=False,r=20):
-    fill='#102b45' if dark else '#ffffff'; stroke='#274b68' if dark else '#dce7ef'
-    return b.rect(x,y,w,h,fill,r,f'stroke="{stroke}" stroke-width="1.5"')
+    # Clay surfaces carry their own edge via the inner highlight/shadow pair,
+    # so the 1.5px border that defined the flat system is dropped here.
+    return b.rect(x,y,w,h,'#102b45' if dark else '#ffffff',r)
 
 def divider(x1,y1,x2,y2,dark=False):
     return f'<path d="M{x1} {y1}L{x2} {y2}" stroke="{"#a9c6e2" if dark else "#dce7ef"}" stroke-opacity="{.2 if dark else 1}"/>'
@@ -91,31 +92,44 @@ def market_desktop():
     return s
 
 def updates_desktop():
-    s=f'<g class="float-a">{panel(42,54,940,532)}'
-    s+=b.text(958,94,'مراجعة إستاڤو','title')+b.text(66,91,'تغييرات السوق','small','start')+divider(66,116,958,116)
+    # The headline promises one place "instead of hunting in several" -- but the
+    # scene only drew the destination, so the contrast it sells was invisible.
+    # The scattered sources now appear as a muted intake column feeding the
+    # review rail: the thing you escape has to be on screen for "instead of"
+    # to mean anything.
+    s='<g class="float-a">'
+    s+=b.text(52,74,'قبل','micro','start')
+    for i,(label,kind) in enumerate([('WhatsApp','chat'),('PDF','file'),('مواقع متفرّقة','web')]):
+        y=96+i*78
+        s+=b.rect(42,y,164,58,'#eef4f9',12)
+        s+=icon(56,y+17,kind,24)
+        s+=b.text(192,y+35,label,'micro').replace('class="micro"','class="micro" style="font-size:15px"')
+        s+=route(f'M206 {y+29}C238 {y+29} 232 320 262 320')
+    s+=f'{panel(262,54,720,532)}'
+    s+=b.text(958,94,'مراجعة إستاڤو','title')+b.text(286,91,'تغييرات السوق','small','start')+divider(286,116,958,116)
     # A single review workspace: incoming changes remain part of the product,
     # instead of becoming three detached icon cards connected to a gate.
-    s+=b.rect(66,140,250,414,'#f7fafc',14,'stroke="#dce7ef"')
-    s+=b.text(292,176,'تغييرات السوق','label')+b.circle(88,169,15,'#28567f')+b.text(88,176,'٣','micro white','middle')
-    s+=f'<path d="M92 219V423" stroke="#a9c6e2" stroke-width="2"/>'
+    s+=b.rect(286,140,224,414,'#f7fafc',14,'stroke="#dce7ef"')
+    s+=b.text(486,176,'تغييرات السوق','label')+b.circle(308,169,15,'#28567f')+b.text(308,176,'٣','micro white','middle')
+    s+=f'<path d="M312 219V423" stroke="#a9c6e2" stroke-width="2"/>'
     events=[('مشروع جديد','المشروع والمنطقة','building'),('سعر اتعدّل','السعر قبل وبعد','chart'),('السداد اتغيّر','المقدّم وفترة التقسيط','file')]
     for i,(label,sub,kind) in enumerate(events):
         y=205+i*96
-        if i==2:s+=b.rect(78,y-11,226,78,'#e8f2f8',10)
-        s+=b.circle(92,y+18,7,'#5c91c7')+icon(112,y+5,kind,24)+b.text(288,y+25,label,'label')+b.text(288,y+50,sub,'micro')
-        if i<2:s+=divider(112,y+70,288,y+70)
-    s+=b.rect(78,480,226,50,'#102b45',10)+icon(92,493,'shield',22,True)+b.text(288,510,'بعد المراجعة','micro white')
+        if i==2:s+=b.rect(298,y-11,200,78,'#e8f2f8',10)
+        s+=b.circle(312,y+18,7,'#5c91c7')+icon(332,y+5,kind,24)+b.text(482,y+25,label,'label')+b.text(482,y+50,sub,'micro')
+        if i<2:s+=divider(332,y+70,482,y+70)
+    s+=b.rect(298,480,200,50,'#102b45',10)+icon(312,493,'shield',22,True)+b.text(482,510,'بعد المراجعة','micro white')
 
     s+=b.text(950,160,'مثال تحديث مشروع','label')+b.text(950,196,'مشروع أ','title')+b.text(950,224,'القاهرة الجديدة · شقة ٣ غرف','small')
-    s+=b.hero_plan(354,151,152,116,False,True)+divider(344,250,954,250)
-    s+=b.text(720,280,'السابق','micro','middle')+b.text(500,280,'الحالي','micro','middle')
+    s+=b.hero_plan(540,151,140,110,False,True)+divider(530,250,954,250)
+    s+=b.text(790,280,'السابق','micro','middle')+b.text(610,280,'الحالي','micro','middle')
     rows=[('السعر','قبل المراجعة','بعد المراجعة'),('خطة السداد','خطة سابقة','خطة حالية'),('حالة الوحدات','متاحة','محدودة')]
     for i,(label,old,new) in enumerate(rows):
         y=296+i*68
-        s+=b.rect(344,y,610,56,'#f7fafc' if i!=1 else '#e8f2f8',9)
-        s+=b.text(930,y+34,label,'micro')+b.text(720,y+34,old,'small','middle')+b.text(500,y+34,new,'label','middle')
-        s+=f'<path d="M628 {y+28}H578m9-7-9 7 9 7" fill="none" stroke="#5c91c7" stroke-width="2"/>'
-    s+=b.rect(344,510,610,44,'#102b45',9)+icon(362,520,'check',20,True)+b.text(936,538,'مثال توضيحي · تحديث بعد المراجعة','micro white')+'</g>'
+        s+=b.rect(530,y,424,56,'#f7fafc' if i!=1 else '#e8f2f8',9)
+        s+=b.text(938,y+34,label,'micro')+b.text(790,y+34,old,'small','middle')+b.text(610,y+34,new,'label','middle')
+        s+=f'<path d="M714 {y+28}H676m9-7-9 7 9 7" fill="none" stroke="#5c91c7" stroke-width="2"/>'
+    s+=b.rect(530,510,424,44,'#102b45',9)+icon(548,520,'check',20,True)+b.text(936,538,'تحديث بعد المراجعة','micro white')+'</g>'
     return s
 
 def brand_desktop():
@@ -154,8 +168,22 @@ def conversation_desktop():
     s+=b.rect(184,388,268,54,'#e8f2f8',14)+b.text(430,421,'قارن خطط السداد','small')
     s+=b.rect(68,473,326,68,'#f1f5f8',14)+b.text(90,502,'بيبحث في عقاراتك…','micro','start')
     for i,x in enumerate([90,102,114]):s+=b.circle(x,522,3,'#5c91c7',f'class="typing" style="animation-delay:{i*.16}s"')
-    s+='</g>'+route('M480 330C532 330 520 330 570 330')
+    s+='</g>'
+    # The two panels must read as cause and effect. A bare 1px route was being
+    # swallowed by the neighbouring clay ambient shadows, leaving the halves
+    # floating unconnected -- so the link is drawn with an explicit endpoint
+    # and an arrowhead into the results panel.
+    # A gradient `route` fades to 16% at its start, which disappears entirely
+    # against two neighbouring clay ambient shadows. This link carries the whole
+    # cause-and-effect claim, so it is drawn at full opacity instead.
+    s+=('<path d="M486 330H556" fill="none" stroke="#5c91c7" stroke-width="2.5" '
+        'stroke-linecap="round"/>')
+    s+=('<path d="M548 322l8 8-8 8" fill="none" stroke="#5c91c7" stroke-width="2.5" '
+        'stroke-linecap="round" stroke-linejoin="round"/>')
+    s+=b.circle(486,330,5,'#28567f')
     s+=f'<g class="float-b">{panel(570,84,412,492)}'+header(570,84,412,'اختيارات من عقاراتك','مطابقة الطلب')
+    # The filters are the client's own words, so the match is visibly derived
+    # from the conversation rather than asserted.
     s+=chip(594,150,174,'التجمع الخامس')+chip(782,150,174,'٣ غرف')
     for y,name,term in [(208,'مشروع أ','خطة سداد أ'),(342,'مشروع ب','خطة سداد ب')]:
         s+=b.rect(594,y,362,112,'#f7fafc',12,'stroke="#dce7ef"')+b.hero_plan(608,y+13,114,86)+b.text(938,y+34,name,'label')+b.text(938,y+62,'شقة · ٣ غرف','micro')+b.text(938,y+91,term,'small')
@@ -178,7 +206,12 @@ def client_desktop():
         s+=b.text(278,y+35,label,'label white')+b.text(278,y+65,value,'micro muted')
         s+=route(f'M302 {y+44}C342 {y+44} 340 320 324 320')
 
-    s+=route('M452 320H520')
+    # The payoff is the brief, not the hub, so the hub->brief connector is drawn
+    # after the ring (which otherwise buries it) and terminates in an arrowhead.
+    # Without this the eye stops at the hub and the argument dies mid-scene.
+    s+=route('M456 320H516')
+    s+=('<path d="M508 312l8 8-8 8" fill="none" stroke="#5c91c7" stroke-width="2.5" '
+        'stroke-linecap="round" stroke-linejoin="round"/>')
     s+=f'<g class="float-b">{panel(520,92,462,456,False,20)}'
     s+=b.text(954,135,'ملخص قبل المكالمة','title')+b.text(546,132,'من تفاعلات العميل','micro','start')+divider(546,154,956,154)
     s+=b.rect(546,178,410,76,'#f7fafc',12)+icon(566,202,'person',26)
@@ -207,12 +240,19 @@ def roi_desktop():
         s+=b.circle(x,y,6,'#ffffff','stroke="#5c91c7" stroke-width="3"'+(' class="typing"' if i==5 else ''))
     s+=b.text(112,420,'وقت الشراء','micro','middle')+b.text(590,420,'الآن','micro','middle')
 
-    # The right rail explains the arithmetic without inventing monetary values.
+    # The right rail must read as arithmetic, not as three decorative bars. Each
+    # term carries its own sign, so the eye can follow gain minus cost minus
+    # inflation down to a result -- which is the actual claim ("in numbers").
     s+=b.rect(662,140,296,300,'#102b45',14)+b.text(934,178,'العائد الحقيقي','label white')+b.text(686,176,'حساب توضيحي','micro muted','start')
-    calc=[('النمو في القيمة',214,190,'#5c91c7'),('تكلفة الشراء',272,132,'#a9c6e2'),('أثر التضخم',330,92,'#d5e5ef')]
-    for label,y,w,color in calc:
-        s+=b.text(934,y,label,'micro muted')+b.rect(686,y+12,238,12,'#173a55',6)+b.rect(686,y+12,w,12,color,6)
-    s+=divider(686,374,934,374,True)+b.text(934,410,'العائد الحقيقي','label white')+b.rect(686,394,124,24,'#e8f2f8',7)+b.text(748,412,'الناتج','micro','middle')
+    calc=[('النمو في القيمة',216,196,'#5c91c7','+'),('تكلفة الشراء',274,124,'#a9c6e2','−'),('أثر التضخم',332,86,'#d5e5ef','−')]
+    for label,y,w,color,sign in calc:
+        s+=b.text(910,y,label,'micro muted')
+        # The sign sits in a fixed gutter so the three terms align as a column.
+        s+=b.text(934,y,sign,'micro muted')
+        s+=b.rect(686,y+12,238,12,'#173a55',6)+b.rect(686+(238-w),y+12,w,12,color,6)
+    s+=divider(686,376,934,376,True)
+    s+=b.text(934,412,'العائد الحقيقي','label white')
+    s+=b.rect(686,396,124,26,'#e8f2f8',7)+b.text(748,415,'الناتج','micro','middle')
 
     # Decision strip connects the calculation to the broker's actual conversation.
     s+=b.rect(66,462,892,92,'#e8f2f8',12)+b.text(934,493,'قارن البيع والاحتفاظ','label')+b.text(934,524,'النتيجة حسب بيانات الوحدة وتكلفتها وفترة الاحتفاظ','micro')
@@ -299,39 +339,56 @@ def signals_desktop():
     return s
 
 def reach_desktop():
-    # One distribution workspace shows where the record is published and what
-    # brokers do with it. This replaces the generic hub-and-spokes diagram.
-    s=f'<g class="float-a">{panel(42,54,940,532)}'
-    s+=b.text(958,94,'توزيع الوحدة','title')+b.text(66,91,'مثال · نفس الوحدة وقنوات بيع أوسع','small','start')+divider(66,116,958,116)
+    # The claim is reach: one unit, published once, in front of a broker network
+    # far larger than any one office. The previous scene showed three anonymous
+    # activity rows, which proves "someone looked" -- not reach. So the network
+    # itself is now the subject and occupies most of the stage, while the source
+    # record shrinks to a source chip: the unit is the input, the network is the
+    # argument.
+    s=f'<g class="float-a">{panel(42,40,940,580)}'
+    s+=b.text(958,84,'توزيع الوحدة','title')+b.text(66,81,'مثال · وحدة واحدة على شبكة البروكرز','small','start')+divider(66,106,958,106)
 
-    # Source record remains visible while distribution settings change.
-    s+=b.rect(66,140,274,414,'#102b45',14)
-    s+=b.text(316,176,'وحدتك','label white')+b.text(90,174,'نفس التفاصيل','micro muted','start')
-    # Keep a clear gutter between the plan and the detail column in both
-    # Arabic and the longer English translation.
-    s+=b.hero_plan(88,212,92,86,True,True)
-    s+=b.text(316,226,'شقة · ٣ غرف','label white').replace('class="label white"','class="label white" style="font-size:16px"')+b.text(316,255,'التجمع الخامس','micro muted')
-    s+=divider(90,338,316,338,True)
-    s+=b.text(316,371,'السعر','micro muted')+b.text(316,400,'حسب الوحدة','label white')
-    s+=b.text(316,443,'العمولة','micro muted')+b.text(316,474,'اللي إنت بتحددها','label white')
-    s+=b.rect(90,505,226,28,'#173a55',7)+icon(98,509,'check',18,True)+b.text(304,523,'جاهزة للتوزيع','micro muted')
+    # LEFT: the unit you publish, with the one control that matters -- commission.
+    s+=b.rect(66,136,258,344,'#102b45',14)
+    s+=b.text(300,174,'وحدتك','label white')+b.text(90,172,'مرة واحدة','micro muted','start')
+    s+=b.hero_plan(88,204,86,80,True,True)
+    s+=b.text(300,218,'شقة · ٣ غرف','label white').replace('class="label white"','class="label white" style="font-size:16px"')
+    s+=b.text(300,246,'التجمع الخامس','micro muted')
+    s+=divider(90,330,300,330,True)
+    s+=b.text(300,366,'العمولة','micro muted')+b.text(300,400,'اللي إنت بتحددها','label white')
+    s+=b.rect(90,432,210,28,'#173a55',7)+icon(98,437,'check',17,True)+b.text(288,450,'جاهزة للتوزيع','micro muted')
 
-    # Two destinations make the promise in the copy explicit.
-    s+=b.text(950,160,'منشورة في','label')
-    for x,title,kind in [(356,'موقعك','web'),(654,'Estavo Brokers','link')]:
-        s+=b.rect(x,180,284,84,'#f7fafc',11,'stroke="#dce7ef"')+icon(x+18,198,kind,26)
-        s+=b.text(x+260,210,title,'label')+b.text(x+260,240,'نفس بيانات الوحدة','micro')
-        s+=b.rect(x+18,232,42,18,'#e8f2f8',9)+b.circle(x+49,241,7,'#28567f','class="typing"')
+    # The connector carries the argument: one record fans out into many brokers.
+    for ty in (250,330,410):
+        s+=route(f'M330 300C382 300 376 {ty} 428 {ty}')
 
-    s+=b.text(950,304,'نشاط شبكة البروكرز','label')+b.text(364,302,'مثال','micro','start')+divider(356,320,958,320)
-    activities=[('شاف تفاصيل الوحدة','مشاهدة'),('حفظ الوحدة','اهتمام'),('طلب التواصل','متابعة')]
-    for i,(action,state) in enumerate(activities):
-        y=336+i*60
-        s+=b.rect(356,y,602,50,'#f7fafc' if i!=2 else '#e8f2f8',9)
-        s+=b.circle(926,y+25,14,'#ffffff','stroke="#a9c6e2"')+icon(914,y+13,'person',24)
-        s+=b.text(896,y+31,action,'label')+b.text(560,y+31,state,'micro')
-        s+=b.rect(378,y+16,96,18,'#ffffff',9)+b.text(426,y+30,'بروكر','micro','middle')
-    s+=b.rect(356,526,602,28,'#102b45',7)+icon(370,531,'check',18,True)+b.text(944,545,'نفس الوحدة · نفس البيانات · شبكة أوسع','micro white')
+    # RIGHT: the network as a real population. Density IS the message, so the
+    # field is deliberately full and bleeds past the right edge of the type
+    # column -- a counted list would cap the number at whatever fits.
+    s+=b.text(950,158,'شبكة إستاڤو للبروكرز','label')+b.text(438,156,'مثال','micro','start')
+    s+=divider(428,178,958,178)
+
+    # Three are lit as the ones currently acting on this unit; the rest recede,
+    # so scale reads without every node competing for attention.
+    active={5,12,20,27}
+    for i in range(32):
+        col,row=i%8,i//8
+        cx,cy=462+col*64,214+row*56
+        on=i in active
+        s+=b.circle(cx,cy,18,'#28567f' if on else '#eef4f9')
+        s+=icon(cx-11,cy-11,'person',22,light=on)
+    s+=divider(428,424,958,424)
+    s+=b.text(950,452,'٧٬٠٠٠ بروكر','label')
+    s+=b.text(438,452,'بيشوفوا نفس بيانات الوحدة','micro','start')
+
+    # One live example keeps the scene honest about what actually happens.
+    s+=b.rect(428,472,530,54,'#e8f2f8',10)
+    s+=b.circle(926,499,15,'#28567f')+icon(915,488,'person',22,True)
+    s+=b.text(896,506,'بروكر من الشبكة طلب التواصل','label').replace('class="label"','class="label" style="font-size:19px"')
+    s+=b.rect(440,485,88,28,'#ffffff',9)+b.text(484,504,'متابعة','micro','middle')
+
+    s+=b.rect(66,544,892,30,'#102b45',7)+icon(80,550,'check',18,True)
+    s+=b.text(944,564,'نفس الوحدة · نفس البيانات · شبكة أوسع','micro white')
     s+='</g>'
     return s
 
@@ -434,17 +491,26 @@ def mobile_scene(kind):
         s+=b.text(342,309,'إعلان أقرب لاهتمامه','micro').replace('class="micro"','class="micro" style="font-size:13px"')+b.text(342,334,'اكتشف تفاصيل المشروع','label').replace('class="label"','class="label" style="font-size:15px"')+b.text(342,359,'مرتبط باهتمام العميل','micro').replace('class="micro"','class="micro" style="font-size:13px"')+b.rect(210,366,128,20,'#e8f2f8',6)+b.text(274,381,'اعرف المزيد','micro','middle').replace('class="micro"','class="micro" style="font-size:12px"')
         return s
     if kind=='listings-reach':
+        # Mobile carries the same argument as the desktop redesign: the network
+        # is the subject. A phone cannot hold a 32-node field legibly, so the
+        # density is reduced to 18 while the count label does the scaling work.
         s=panel(16,18,358,394)+b.text(356,50,'توزيع الوحدة','label')+b.text(32,48,'مثال','micro','start')+divider(32,64,358,64)
-        s+=b.rect(32,80,326,82,'#102b45',10)+b.hero_plan(44,90,72,62,True,True)
-        s+=b.text(344,105,'شقة · ٣ غرف','label white')+b.text(344,130,'التجمع الخامس','micro muted')+b.text(344,151,'العمولة اللي إنت بتحددها','micro muted')
-        s+=b.text(352,190,'منشورة في','micro')
-        for x,title,kind in [(32,'موقعك','web'),(200,'Estavo Brokers','link')]:
-            s+=b.rect(x,202,158,50,'#f7fafc',8,'stroke="#dce7ef"')+icon(x+10,215,kind,20)+b.text(x+146,225,title,'micro').replace('class="micro"','class="micro" style="font-size:12px"')+b.circle(x+146,241,4,'#28567f','class="typing"')
-        s+=b.text(352,282,'نشاط شبكة البروكرز','label')
-        for i,(action,state) in enumerate([('شاف تفاصيل الوحدة','مشاهدة'),('حفظ الوحدة','اهتمام'),('طلب التواصل','متابعة')]):
-            y=296+i*31
-            s+=b.rect(32,y,326,26,'#e8f2f8' if i==2 else '#f7fafc',6)+icon(40,y+4,'person',18)+b.text(346,y+19,action,'micro').replace('class="micro"','class="micro" style="font-size:14px"')+b.text(132,y+19,state,'micro','middle').replace('class="micro"','class="micro" style="font-size:12px"')
-        s+=b.rect(32,396,326,8,'#102b45',4)
+        s+=b.rect(32,80,326,78,'#102b45',10)+b.hero_plan(44,90,68,58,True,True)
+        s+=b.text(344,104,'شقة · ٣ غرف','label white')+b.text(344,128,'التجمع الخامس','micro muted')
+        s+=b.text(344,149,'العمولة اللي إنت بتحددها','micro muted')
+
+        s+=b.text(352,192,'شبكة إستاڤو للبروكرز','micro')
+        active={3,9,14}
+        for i in range(18):
+            col,row=i%6,i//6
+            cx,cy=56+col*54,222+row*46
+            on=i in active
+            s+=b.circle(cx,cy,15,'#28567f' if on else '#eef4f9')
+            s+=icon(cx-9,cy-9,'person',18,light=on)
+        s+=divider(32,342,358,342)
+        s+=b.text(352,368,'٧٬٠٠٠ بروكر','micro').replace('class="micro"','class="micro" style="font-size:14px"')
+        s+=b.text(32,368,'نفس بيانات الوحدة','micro','start').replace('class="micro"','class="micro" style="font-size:12px"')
+        s+=b.rect(32,388,326,16,'#102b45',6)
         return s
     return panel(16,18,358,150)+header(16,18,358,'وحدتك','نفس التفاصيل')+b.hero_plan(32,77,106,78)+b.text(354,96,'شقة · ٣ غرف','label')+b.text(354,124,'التجمع الخامس','micro')+route('M195 168V195')+panel(111,195,168,88,True)+b.text(195,230,'Estavo Brokers','label white','middle')+b.text(195,258,'توزيع الوحدة','micro muted','middle')+route('M195 283V310')+''.join(panel(x,310,106,78)+icon(x+8,326,'person',18)+b.text(x+96,343,'بروكر','micro')+b.text(x+96,365,'تفاصيل الوحدة','micro') for x in [16,142,268])
 

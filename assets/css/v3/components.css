@@ -2391,14 +2391,14 @@
 
 .es-trust-network__core img { inline-size: 2.5rem; block-size: 2.5rem; object-fit: contain; }
 .es-trust-network__core b { font-size: 1rem; font-weight: 600; }
-.es-trust-network__core span { color: var(--es-on-dark-muted); font-size: .72rem; line-height: 1.5; }
+.es-trust-network__core span { color: var(--es-on-dark-muted); font-size: var(--es-fs-label); line-height: 1.5; }
 .es-trust-network__core small {
   margin-block-start: .15rem;
   padding: .2rem .5rem;
   border-radius: 999px;
   background: rgb(255 255 255 / 10%);
   color: var(--es-on-dark);
-  font-size: .6875rem;
+  font-size: var(--es-fs-label);
 }
 
 .es-home-choice {
@@ -2540,7 +2540,7 @@
   .es-trust-rail::after,
   .es-trust-rail__arm { display: none; }
   .es-trust-item { padding: .6rem .75rem; }
-  .es-trust-item__text span { font-size: .72rem; }
+  .es-trust-item__text span { font-size: var(--es-fs-label); }
 }
 
 @media (min-width: 48rem) and (max-width: 74.99rem) {

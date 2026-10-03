@@ -32,7 +32,7 @@
             src="https://www.facebook.com/tr?id=1693755678488065&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0b2239" />
+    <meta name="theme-color" content="#fafcff" />
     <meta name="author" content="Estavo" />
 
     <title>Estavo Market for brokers — search and compare free</title>
@@ -69,19 +69,9 @@
 
     <link rel="stylesheet" href="../assets/css/commercial.css" />
     <link rel="stylesheet" href="../assets/css/market.css" />
-
-
-
-
-
-    <link rel="preload" as="style" href="../assets/css/estavo-v3.css"
-        onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript>
-        <link rel="stylesheet" href="../assets/css/estavo-v3.css" />
-    </noscript>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap" rel="stylesheet" />
 <style id="es-design-critical">
 @layer reset, tokens, base, layout, components, motion, utilities;
 /* ============================================================
@@ -126,7 +116,7 @@
     --es-line: rgb(19 40 60 / 12%);
     --es-line-strong: rgb(19 40 60 / 22%);
     --es-on-dark: rgb(255 255 255 / 92%);
-    --es-on-dark-muted: rgb(255 255 255 / 66%);
+    --es-on-dark-muted: hsl(211 39% 84%);
     --es-line-dark: rgb(255 255 255 / 16%);
 
     /* ── Type (§3.2) ─────────────────────────────────────── */
@@ -285,6 +275,7 @@
     font-size: var(--es-fs-body);
     line-height: 1.8;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
 
@@ -294,8 +285,10 @@
 
   a {
     color: inherit;
-    text-decoration-thickness: 0.08em;
+    text-decoration-thickness: from-font;
+    text-underline-position: from-font;
     text-underline-offset: 0.2em;
+    text-decoration-skip-ink: auto;
   }
 
   :focus-visible {
@@ -981,6 +974,35 @@
     block-size: 1.25rem;
   }
 
+  .es-menu-icon {
+    position: relative;
+    display: block;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+  }
+
+  .es-menu-icon i {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 50%;
+    display: block;
+    block-size: 2px;
+    border-radius: 9999px;
+    background: currentColor;
+    transform-origin: center;
+    transition: transform 700ms cubic-bezier(0.32, 0.72, 0, 1), opacity 700ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .es-menu-icon i:first-child { transform: translateY(-6px); }
+  .es-menu-icon i:nth-child(2) { transform: translateY(-1px); }
+  .es-menu-icon i:last-child { transform: translateY(4px); }
+  .is-open .es-menu-icon i:first-child,
+  .es-menu-icon.is-open i:first-child { transform: translateY(-1px) rotate(45deg); }
+  .is-open .es-menu-icon i:nth-child(2),
+  .es-menu-icon.is-open i:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .is-open .es-menu-icon i:last-child,
+  .es-menu-icon.is-open i:last-child { transform: translateY(-1px) rotate(-45deg); }
+
   /* ── Mobile drawer ───────────────────────────────────── */
   .es-drawer {
     position: fixed;
@@ -989,6 +1011,11 @@
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
     background: var(--es-paper);
+  }
+
+  .es-home .es-drawer {
+    background: rgb(250 252 255 / 88%);
+    backdrop-filter: blur(48px) saturate(120%);
   }
 
   .es-drawer[hidden] {
@@ -1013,6 +1040,8 @@
     border-radius: var(--es-radius-control);
   }
 
+  .es-drawer__lang { display: none; }
+
   .es-drawer__body {
     overflow-y: auto;
     padding: var(--es-space-5) var(--es-gutter);
@@ -1036,6 +1065,21 @@
     border-block-end: 1px solid var(--es-line);
     font-weight: 600;
     text-decoration: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .es-home .es-drawer:not([hidden]) .es-drawer__group,
+    .es-home .es-drawer:not([hidden]) .es-drawer__foot {
+      animation: es-drawer-group-in 800ms cubic-bezier(0.32, 0.72, 0, 1) both;
+    }
+    .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(2) { animation-delay: 100ms; }
+    .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(3) { animation-delay: 150ms; }
+    .es-home .es-drawer:not([hidden]) .es-drawer__foot { animation-delay: 200ms; }
+  }
+
+  @keyframes es-drawer-group-in {
+    from { opacity: 0; transform: translateY(3rem); }
+    to { opacity: 1; transform: none; }
   }
 
   .es-drawer__foot {
@@ -1188,6 +1232,11 @@
   .es-header__actions .es-header-cta-short {
     display: inline;
   }
+}
+
+@media (max-width: 22rem) {
+  .es-home .es-header__actions > .es-header__lang { display: none; }
+  .es-home .es-drawer__lang { display: inline-flex; }
 }
 /* Section artwork: a vector stage on desktop, a composition made for phones. */
 @layer components {
@@ -1916,15 +1965,43 @@
   .es-art-ai-results > p { margin: 0 0 .4rem; font-size: .8125rem; font-weight: 500; }
   .es-art-ai-results > div { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-block: .5rem; border-block-start: 1px solid var(--es-line); font-size: .8125rem; }
   .es-art-ai-results span { color: var(--es-blue-500); }
-  .es-header { background: rgb(250 252 255 / 84%); backdrop-filter: blur(20px) saturate(130%); }
-  .es-header__inner { block-size: var(--es-header-h); min-block-size: var(--es-header-h); }
+  .es-home {
+    --es-header-h: 6rem;
+    --es-fs-hero: 3.75rem;
+    --es-fs-h1: 3rem;
+    --es-fs-h2: 2.25rem;
+    --es-fs-h3: 1.25rem;
+    --es-fs-lead: 1.125rem;
+    --es-fs-body: 1rem;
+  }
+  .es-home .es-header {
+    inset-block-start: 0;
+    border: 0;
+    background: transparent;
+    padding-block-start: 1.5rem;
+    backdrop-filter: none;
+    pointer-events: none;
+  }
+  .es-home .es-header__inner {
+    block-size: 4.5rem;
+    min-block-size: 4.5rem;
+    max-inline-size: calc(var(--es-container) + 2rem);
+    border: 1px solid var(--es-line);
+    border-radius: 9999px;
+    background: rgb(250 252 255 / 88%);
+    padding-inline: 1rem;
+    box-shadow: 0 0.5rem 2rem rgb(11 34 57 / 10%);
+    backdrop-filter: blur(24px) saturate(130%);
+    pointer-events: auto;
+  }
   .es-header__logo { inline-size: 9.5rem; block-size: 2.75rem; overflow: hidden; justify-content: center; }
   .es-header__logo img { inline-size: 10rem; block-size: 10rem; max-inline-size: none; flex: 0 0 auto; object-fit: contain; transform: translateY(-2px); }
   .es-header__nav a, .es-header__disclosure, .es-header__lang { font-weight: 400; }
   .es-eyebrow { gap: .6rem; padding: 0; border: 0; background: transparent; font-weight: 500; min-block-size: 1.5rem; }
   .es-eyebrow::before { content: ""; inline-size: .375rem; block-size: .375rem; border-radius: 50%; background: var(--es-blue-500); opacity: .6; }
   .es-dark .es-eyebrow::before { background: var(--es-art-mint); }
-  .es-button { font-size: .875rem; font-weight: 500; border-radius: var(--es-radius-control); min-block-size: 3rem; }
+  .es-home .es-button { padding: .5rem .75rem; font-size: 1rem; font-weight: 600; border-radius: var(--es-radius-control); min-block-size: 3rem; }
+  .es-home .es-header .es-button { font-size: .875rem; }
   .es-button--primary { background: var(--es-navy-900); box-shadow: 0 5px 16px rgb(11 34 57 / 12%); }
   .es-button--secondary { background: var(--es-white); box-shadow: none; }
   .es-dark .es-button--secondary { border-color: var(--es-white); color: var(--es-navy-950); }
@@ -1937,7 +2014,18 @@
   /* Arabic display leading stays 1.38–1.45 (§3.2); Cairo's tall
      ascenders and vowel marks collide below that. The Latin
      override in base sets its own tighter figure. */
-  .es-hero h1 { font-size: var(--es-fs-hero); font-weight: 500; line-height: 1.4; letter-spacing: -.02em; text-wrap: balance; }
+  .es-home .es-hero h1 {
+    max-inline-size: 42.5rem;
+    background: linear-gradient(90deg, #000000, #666666);
+    background-clip: text;
+    color: transparent;
+    font-size: var(--es-fs-hero);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -.02em;
+    text-wrap: balance;
+  }
+  .es-home .es-hero .es-lead { max-inline-size: 42.5rem; }
   [dir="ltr"] .es-hero h1 { line-height: 1.12; letter-spacing: -.03em; }
   .es-hero__copy { display: grid; justify-items: start; gap: 1.5rem; transform: none; max-inline-size: 37rem; }
   .es-hero__inner { grid-template-columns: minmax(0,.98fr) minmax(0,1.02fr); gap: clamp(2rem,4vw,4rem); }
@@ -2056,6 +2144,17 @@
     .es-service-hero > .es-container { gap: 2rem; }
   }
   @media (max-width:47.999rem) {
+    .es-home {
+      --es-header-h: 5.25rem;
+      --es-fs-hero: 2.25rem;
+      --es-fs-h1: 2.25rem;
+      --es-fs-h2: 1.875rem;
+      --es-fs-h3: 1.125rem;
+      --es-fs-lead: 1.125rem;
+      --es-fs-body: 1rem;
+    }
+    .es-home .es-header { padding-block-start: .75rem; }
+    .es-home .es-header__inner { block-size: 4.5rem; min-block-size: 4.5rem; max-inline-size: calc(100% - 1.5rem); padding-inline: .5rem; }
     .es-header__logo { inline-size: 6.75rem; }
     .es-header__logo img { inline-size: 8rem; block-size: 8rem; }
     .es-header__actions .es-button { padding-inline: .7rem; font-size: .75rem; }
@@ -2076,6 +2175,787 @@
     .es-proof-card { min-block-size: 0; }
     .es-proof-card + .es-proof-card { border-inline-start: 0; border-block-start: 1px solid var(--es-line); }
     .es-art-stage { transform: none; }
+  }
+}
+
+/* ── Shared landing-page system ──────────────────────────────
+   Applied to the homepage and every generated commercial route.
+   The shell is Swiss and editorial; product demonstrations keep
+   their route-specific geometry and Estavo illustration palette. */
+.es-landing {
+  --es-container: 80rem;
+  --es-container-reading: 45rem;
+  --es-gutter: clamp(1rem, 3vw, 2rem);
+  --es-section-space: clamp(4rem, 7vw, 6rem);
+  --es-section-space-compact: clamp(3rem, 5vw, 4rem);
+  --es-radius-control: 0;
+  --es-radius-row: 0;
+  --es-radius-panel: 0;
+  --es-radius-theatre: 0;
+  --es-fs-hero: 3.75rem;
+  --es-fs-h1: 3rem;
+  --es-fs-h2: 2.25rem;
+  --es-fs-h3: 1.25rem;
+  --es-fs-lead: 1.125rem;
+  --es-fs-body: 1rem;
+}
+
+:lang(en) body.es-landing {
+  font-family: "IBM Plex Sans", "Hanken Grotesk", "Barlow", system-ui, sans-serif;
+}
+
+.es-landing main {
+  background: var(--es-paper);
+}
+
+.es-landing main :is(h1, h2, h3) {
+  font-weight: 400;
+  text-wrap: balance;
+}
+
+:lang(en) .es-landing main :is(h1, h2) {
+  font-weight: 300;
+}
+
+.es-landing main h1 {
+  font-size: var(--es-fs-h1);
+  line-height: 1.08;
+  letter-spacing: -.025em;
+}
+
+.es-landing main h2,
+.es-landing .section-title,
+.es-landing .cta-title {
+  font-size: var(--es-fs-h2);
+  line-height: 1.14;
+  letter-spacing: -.02em;
+}
+
+.es-landing main h3 {
+  font-size: var(--es-fs-h3);
+  line-height: 1.4;
+  letter-spacing: -.01em;
+}
+
+[dir="rtl"] .es-landing main :is(h1, h2),
+[dir="rtl"] .es-landing :is(.section-title, .cta-title) {
+  line-height: 1.42;
+}
+
+.es-landing main :is(p, li, dd, summary),
+.es-landing .section-body {
+  text-wrap: pretty;
+}
+
+.es-landing :is(.es-lead, .section-body, .faq-answer, .cta-subtitle, .cta-sub2) {
+  max-inline-size: 60ch;
+  line-height: 1.6;
+}
+
+.es-landing :is(.metric-value, .proof-stat, .commercial-proof__title, .comparison-row, table) {
+  font-variant-numeric: tabular-nums;
+}
+
+.es-landing .es-header {
+  inset-block-start: 0;
+  border-block-end: 1px solid var(--es-line);
+  background: rgb(250 252 255 / 94%);
+  padding-block-start: 0;
+  backdrop-filter: blur(16px);
+  pointer-events: auto;
+}
+
+.es-landing .es-header__inner {
+  block-size: 5rem;
+  min-block-size: 5rem;
+  max-inline-size: var(--es-container);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding-inline: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.es-landing .es-header__nav {
+  gap: 2rem;
+}
+
+.es-landing .es-header__nav :is(a, button),
+.es-landing .es-header__lang {
+  font-weight: 400;
+}
+
+.es-landing [aria-current="page"] {
+  color: var(--es-navy-950);
+  text-decoration-line: underline;
+  text-decoration-thickness: from-font;
+  text-underline-offset: .5rem;
+}
+
+.es-landing :is(.es-button, .btn) {
+  min-block-size: 3rem;
+  border-radius: 0;
+  padding: .5rem .75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.es-landing .es-header :is(.es-button, .btn) {
+  font-size: .875rem;
+}
+
+.es-landing :is(.es-button--primary, .btn-gold) {
+  background: var(--es-blue-700);
+  color: var(--es-white);
+}
+
+.es-landing :is(.es-button, .btn):hover {
+  translate: none;
+}
+
+.es-landing :is(.es-button--primary, .btn-gold):hover {
+  background: var(--es-navy-950);
+}
+
+.es-landing :is(.es-button, .btn):active {
+  scale: .98;
+}
+
+.es-landing :is(.es-eyebrow, .eyebrow, .hero-eyebrow) {
+  min-block-size: auto;
+  gap: 0;
+  border: 0;
+  background: transparent;
+  color: var(--es-ink-60);
+  padding: 0;
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .04em;
+  line-height: 1.5;
+  text-transform: none;
+}
+
+.es-landing :is(.es-eyebrow, .eyebrow, .hero-eyebrow)::before {
+  display: none;
+}
+
+.es-landing .es-service-hero {
+  min-block-size: 0;
+  border-block-end: 1px solid var(--es-line);
+  background: var(--es-paper) !important;
+  background-image: none !important;
+  padding-block: clamp(4rem, 7vw, 6rem);
+}
+
+.es-landing .es-service-hero::before {
+  display: none !important;
+}
+
+.es-landing .es-service-hero > .es-container {
+  inline-size: min(calc(100% - (2 * var(--es-gutter))), var(--es-container));
+  max-inline-size: var(--es-container);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.es-landing .es-service-hero .es-hero__copy {
+  grid-column: span 5;
+  gap: 1.5rem;
+  max-inline-size: 42.5rem;
+}
+
+.es-landing .es-service-hero .es-service-hero-art {
+  grid-column: span 7;
+}
+
+.es-landing .es-service-hero h1 {
+  max-inline-size: 42.5rem;
+  background: linear-gradient(90deg, #000000, #666666);
+  background-clip: text;
+  color: transparent;
+  font-size: var(--es-fs-hero);
+}
+
+[dir="rtl"] .es-landing .es-service-hero h1 {
+  background-image: linear-gradient(270deg, #000000, #666666);
+}
+
+.es-landing .es-service-hero .es-lead {
+  max-inline-size: 42.5rem;
+}
+
+.es-landing :is(.es-section, .section-pad) {
+  padding-block: var(--es-section-space);
+}
+
+.es-landing main > section {
+  border-block-end: 1px solid var(--es-line);
+}
+
+.es-landing :is(.es-section--mist, .section-muted, .section-soft) {
+  background: var(--es-mist);
+}
+
+.es-landing :is(.section-title, .section-body) {
+  max-inline-size: 60ch;
+}
+
+.es-landing :is(.business-card, .faq-item, .es-panel, .es-service-card, .es-product-frame, .proof-card, .audience-card, .pricing-card, .commercial-proof__icon) {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.es-landing .business-card::before {
+  display: none;
+}
+
+.es-landing .commercial-proof__icon {
+  background: var(--es-mist);
+}
+
+.es-landing :is(.faq-list, .es-faq) {
+  gap: 0;
+  max-inline-size: 60rem;
+}
+
+.es-landing :is(.faq-item, .es-faq details) {
+  border-inline: 0;
+  border-block-start: 1px solid var(--es-line);
+  background: transparent;
+}
+
+.es-landing :is(.faq-item, .es-faq details):last-child {
+  border-block-end: 1px solid var(--es-line);
+}
+
+.es-landing :is(.faq-item[open], .es-faq details[open]) {
+  background: transparent;
+}
+
+.es-landing :is(.faq-question, .es-faq summary) {
+  min-block-size: 4rem;
+}
+
+.es-landing .es-tagline-reveal {
+  max-inline-size: 42.5rem;
+  margin-inline: 0;
+  font-size: 3rem;
+  line-height: 1.12;
+}
+
+[dir="rtl"] .es-landing .es-tagline-reveal {
+  line-height: 1.42;
+}
+
+.es-landing :is(.es-dark .es-tagline-word, .es-tagline-reveal.light .es-tagline-word) {
+  color: rgb(207 226 245 / 32%);
+}
+
+.has-js .es-landing :is(.es-dark .es-tagline-word.is-visible, .es-tagline-reveal.light .es-tagline-word.is-visible) {
+  color: var(--es-on-dark);
+}
+
+.es-landing .es-tagline-line {
+  display: block;
+}
+
+.es-landing:not(.es-home) .es-art-stage {
+  transform: none;
+  transition: none;
+}
+
+.es-landing .es-footer__grid {
+  border-radius: 0;
+}
+
+.es-landing .sites-concept__grid > article > span:first-child {
+  display: none;
+}
+
+@media (forced-colors: active) {
+  .es-landing .es-service-hero h1 {
+    background: none;
+    color: CanvasText;
+  }
+}
+
+@media (max-width: 63.999rem) {
+  .es-landing .es-service-hero > .es-container {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  .es-landing .es-service-hero :is(.es-hero__copy, .es-service-hero-art) {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .es-landing {
+    --es-header-h: 4.5rem;
+    --es-section-space: 4rem;
+    --es-section-space-compact: 3rem;
+    --es-fs-hero: 2.25rem;
+    --es-fs-h1: 2.25rem;
+    --es-fs-h2: 1.875rem;
+    --es-fs-h3: 1.125rem;
+    --es-fs-lead: 1.125rem;
+    --es-fs-body: 1rem;
+  }
+
+  .es-landing .es-header__inner {
+    block-size: 4.5rem;
+    min-block-size: 4.5rem;
+    max-inline-size: calc(100% - 2rem);
+  }
+
+  .es-landing .es-service-hero {
+    padding-block: 4rem;
+  }
+
+  .es-landing .es-service-hero > .es-container {
+    gap: 3rem;
+  }
+
+  .es-landing .es-service-hero h1 {
+    font-size: var(--es-fs-hero);
+  }
+
+  .es-landing .es-tagline-reveal {
+    font-size: 2.25rem;
+  }
+
+  .es-landing :is(input, select, textarea) {
+    font-size: 1rem;
+  }
+
+  .es-landing :is(.es-button, .btn) {
+    min-block-size: 3rem;
+    max-inline-size: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .has-js .es-landing:not(.es-home) [data-reveal],
+  .has-js .es-landing:not(.es-home) [data-reveal-stagger] > * {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* Swiss restraint: the product illustrations are static compositions.
+   One-shot entrance feedback remains, but no ambient scene loops beside
+   reading content. */
+@layer motion {
+  .es-home .es-hero-mobile-map--modern,
+  .es-home .es-hero-mobile-map--modern .es-hero-record,
+  .es-home .es-hero-mobile-map--modern .es-hero-product-site,
+  .es-home .es-hero-mobile-map--modern .es-hero-product-assistant,
+  .es-home .es-hero-mobile-map--modern .es-hero-product-market,
+  .es-home .es-hero-chat-typing i {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* ── Homepage Swiss grid and typography pass ─────────────────
+   Page structure follows an 8px rhythm, flat geometry and one
+   Estavo-blue accent. Product scenes keep their own material
+   language because they depict the product rather than page UI. */
+@layer components {
+  .es-home {
+    --es-container: 80rem;
+    --es-container-reading: 45rem;
+    --es-gutter: clamp(1rem, 3vw, 2rem);
+    --es-section-space: clamp(4rem, 7vw, 8rem);
+    --es-section-space-compact: clamp(3rem, 5vw, 6rem);
+    --es-radius-control: 0;
+    --es-radius-row: 0;
+    --es-radius-panel: 0;
+    --es-radius-theatre: 0;
+  }
+
+  :lang(en) body.es-home {
+    font-family: "IBM Plex Sans", "Hanken Grotesk", "Barlow", system-ui, sans-serif;
+  }
+
+  .es-home main {
+    background: var(--es-paper);
+  }
+
+  .es-home :is(p, li, summary) {
+    text-wrap: pretty;
+  }
+
+  .es-home :is(.es-lead, .es-note, .es-prose) {
+    max-inline-size: 60ch;
+  }
+
+  .es-home :is(.es-scale-stat, .es-hero-market-table, .es-hero-record-terms) {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .es-home main :is(h1, h2, h3) {
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  :lang(en) .es-home main :is(h1, h2) {
+    font-weight: 300;
+  }
+
+  .es-home main h2 {
+    line-height: 1.14;
+    letter-spacing: -.025em;
+  }
+
+  [dir="rtl"] .es-home main h2 {
+    line-height: 1.42;
+  }
+
+  .es-home .es-header {
+    inset-block-start: 0;
+    padding-block-start: 0;
+    border-block-end: 1px solid var(--es-line);
+    background: rgb(250 252 255 / 94%);
+    backdrop-filter: blur(16px);
+  }
+
+  .es-home .es-header__inner {
+    block-size: 5rem;
+    min-block-size: 5rem;
+    max-inline-size: var(--es-container);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding-inline: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  .es-home .es-header__nav {
+    gap: 2rem;
+  }
+
+  .es-home .es-header__nav :is(a, button),
+  .es-home .es-header__lang {
+    font-weight: 400;
+  }
+
+  .es-home .es-button {
+    min-block-size: 3rem;
+    border-radius: 0;
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+    box-shadow: none;
+  }
+
+  .es-home .es-button:hover {
+    translate: none;
+  }
+
+  .es-home .es-button--primary {
+    background: var(--es-blue-700);
+    color: var(--es-white);
+  }
+
+  .es-home .es-button--primary:hover {
+    background: var(--es-navy-950);
+  }
+
+  .es-home .es-eyebrow {
+    min-block-size: auto;
+    color: var(--es-ink-60);
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .1em;
+    line-height: 1.5;
+  }
+
+  :lang(en) .es-home .es-eyebrow {
+    text-transform: uppercase;
+  }
+
+  .es-home .es-eyebrow::before {
+    display: none;
+  }
+
+  .es-home .es-hero {
+    display: block;
+    min-block-size: auto;
+    border-block-end: 1px solid var(--es-line);
+    padding-block: clamp(3rem, 5vw, 5rem);
+  }
+
+  .es-home .es-hero__inner {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-items: start;
+    gap: 2rem;
+  }
+
+  .es-home .es-hero__copy {
+    grid-column: span 5;
+    gap: 1.5rem;
+    max-inline-size: none;
+  }
+
+  .es-home .es-hero__figure {
+    grid-column: span 7;
+  }
+
+  .es-home .es-hero h1 {
+    max-inline-size: 13ch;
+    background: none;
+    color: var(--es-ink);
+    font-size: clamp(3.5rem, 4.5vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -.035em;
+  }
+
+  :lang(en) .es-home .es-hero h1 {
+    font-weight: 300;
+  }
+
+  [dir="rtl"] .es-home .es-hero h1 {
+    max-inline-size: 15ch;
+    line-height: 1.38;
+  }
+
+  .es-home .es-hero .es-lead {
+    max-inline-size: 60ch;
+    line-height: 1.6;
+  }
+
+  .es-home .es-scale-strip {
+    border-block-start: 0;
+    background: var(--es-paper);
+  }
+
+  .es-home .es-scale-strip__inner {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .es-home .es-scale-stat {
+    grid-column: span 3;
+    gap: .5rem;
+    min-block-size: 9rem;
+    padding: 2rem;
+  }
+
+  .es-home .es-scale-stat strong {
+    font-size: 1.25rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+  }
+
+  .es-home .es-scale-stat span {
+    color: var(--es-ink-60);
+    font-size: .875rem;
+    line-height: 1.6;
+  }
+
+  .es-home .es-section {
+    border-block-end: 1px solid var(--es-line);
+  }
+
+  .es-home .es-section--mist {
+    background: var(--es-mist);
+  }
+
+  .es-home .es-split {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .es-home .es-split > :first-child {
+    grid-column: span 5;
+  }
+
+  .es-home .es-split > :last-child {
+    grid-column: span 7;
+  }
+
+  .es-home .es-copy {
+    gap: 1.5rem;
+    max-inline-size: 60ch;
+  }
+
+  .es-home .es-copy--center {
+    justify-items: start;
+    margin-inline: 0;
+    text-align: start;
+  }
+
+  .es-home .es-tagline-reveal {
+    margin-inline: 0;
+  }
+
+  .es-home :is(.es-panel, .es-service-card, .es-proof-grid, .es-faq details, .es-trust-item) {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .es-home .es-trust-network__core {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .es-home .es-trust-network__core small {
+    border-radius: 0;
+  }
+
+  .es-home .es-home-enterprise {
+    border-block-end: 1px solid var(--es-line-dark);
+    padding-block: clamp(4rem, 7vw, 8rem);
+  }
+
+  .es-home .es-home-enterprise__inner {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-items: end;
+    gap: 2rem;
+  }
+
+  .es-home .es-home-enterprise__inner > :first-child {
+    grid-column: span 8;
+  }
+
+  .es-home .es-home-enterprise__inner > :last-child {
+    grid-column: 10 / -1;
+  }
+
+  .es-home .es-faq {
+    max-inline-size: 60rem;
+    margin-inline: 0;
+  }
+
+  .es-home .es-faq details {
+    border-inline: 0;
+    border-block-start: 1px solid var(--es-line);
+    background: transparent;
+  }
+
+  .es-home .es-faq details:last-child {
+    border-block-end: 1px solid var(--es-line);
+  }
+
+  .es-home .es-faq details[open] {
+    background: transparent;
+  }
+
+  .es-home .es-faq summary {
+    min-block-size: 4rem;
+    font-weight: 500;
+  }
+
+  .es-home .es-footer__grid {
+    border-radius: 0;
+  }
+
+  @media (max-width: 63.999rem) {
+    .es-home .es-hero__inner,
+    .es-home .es-split {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 3rem;
+    }
+
+    .es-home .es-hero__copy,
+    .es-home .es-hero__figure,
+    .es-home .es-split > :first-child,
+    .es-home .es-split > :last-child {
+      grid-column: 1;
+    }
+  }
+
+  @media (max-width: 47.999rem) {
+    .es-home {
+      --es-header-h: 4.5rem;
+      --es-section-space: 4rem;
+      --es-section-space-compact: 3rem;
+    }
+
+    .es-home .es-header__inner {
+      block-size: 4.5rem;
+      min-block-size: 4.5rem;
+      max-inline-size: calc(100% - 2rem);
+    }
+
+    .es-home .es-hero {
+      padding-block: 3rem;
+    }
+
+    .es-home .es-hero__inner {
+      gap: 3rem;
+    }
+
+    .es-home .es-hero h1 {
+      max-inline-size: 14ch;
+      font-size: 2.5rem;
+      line-height: 1.08;
+    }
+
+    [dir="rtl"] .es-home .es-hero h1 {
+      max-inline-size: 16ch;
+      line-height: 1.4;
+    }
+
+    .es-home .es-scale-strip__inner {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .es-home .es-scale-stat {
+      grid-column: span 1;
+      min-block-size: 10rem;
+      padding: 1.5rem 1rem;
+    }
+
+    .es-home .es-scale-stat:nth-child(odd) {
+      border-inline-start: 0;
+    }
+
+    .es-home .es-scale-stat:nth-child(n + 3) {
+      border-block-start: 1px solid var(--es-line);
+    }
+
+    .es-home .es-home-enterprise__inner {
+      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
+      gap: 2rem;
+    }
+
+    .es-home .es-home-enterprise__inner > :first-child,
+    .es-home .es-home-enterprise__inner > :last-child {
+      grid-column: 1;
+    }
+
+    .es-home .es-home-enterprise__inner > :last-child,
+    .es-home .es-home-enterprise .es-button {
+      inline-size: 100%;
+    }
+  }
+}
+
+/* The commercial homepage primitives in components.css are deliberately
+   unlayered. Match that cascade level for the wide Swiss proof grid so the
+   desktop composition remains four measured columns; the existing mobile
+   and tablet rules still collapse it to one and two columns respectively. */
+@media (min-width: 75rem) {
+  .es-home .es-scale-strip__inner {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .es-home .es-scale-stat {
+    grid-column: auto;
+    min-block-size: 9rem;
+    padding: 2rem;
+  }
+
+  .es-home .es-scale-stat + .es-scale-stat {
+    border-block-start: 0;
+    border-inline-start: 1px solid var(--es-line);
   }
 }
 
@@ -2155,6 +3035,16 @@
 
 @layer motion {
   .has-js [data-reveal], .has-js [data-reveal-stagger] > * { opacity: 1; transform: none; transition: none; }
+  .es-tagline-reveal {
+    max-inline-size: 42.5rem;
+    margin-inline: auto;
+    font-size: var(--es-fs-h1);
+  }
+  .es-tagline-line { display: block; }
+  .es-tagline-word {
+    display: inline-block;
+    color: rgb(19 40 60 / 30%);
+  }
   @media (prefers-reduced-motion:no-preference) {
     /* Rotate a small set of entrance directions between top-level sections.
        RTL and LTR pages enter from their logical reading edges. */
@@ -2171,6 +3061,10 @@
     .has-js [data-reveal-stagger].is-visible > :nth-child(2) { animation-delay: 90ms; }
     .has-js [data-reveal-stagger].is-visible > :nth-child(3) { animation-delay: 180ms; }
     .has-js [data-reveal-stagger].is-visible > :nth-child(4) { animation-delay: 270ms; }
+    .has-js .es-tagline-word {
+      transition: color 800ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .has-js .es-tagline-word.is-visible { color: var(--es-ink); }
     .es-mobile-data-surface { animation: es-surface-arrive 1.1s cubic-bezier(.2,.7,.2,1) both; }
     .es-art-segment::after { animation: es-segment-breathe 6s ease-in-out infinite; }
     .es-art-waterfall-v2 { animation: es-surface-arrive 1s cubic-bezier(.2,.7,.2,1) both; }
@@ -2197,6 +3091,7 @@
     .es-art-segment::after { animation: none; transform: none; }
     .es-vector-packet, .es-art-unit-plan .plan-scan { display: none; animation: none; }
     .es-vector-bar { animation: none; transform: none; opacity: 1; }
+    .es-tagline-word { color: var(--es-ink); transition: none; }
   }
   @media print { [data-reveal], [data-reveal-stagger] > * { animation: none !important; opacity: 1 !important; transform: none !important; } }
 }
@@ -2310,55 +3205,55 @@
 
 @layer components {
   @media (max-width:47.999rem) {
-    .es-hero-mobile-map--compact { position: relative; padding: 0; line-height: 1.4; direction: ltr; grid-template-columns: minmax(0,42%) minmax(0,1fr); grid-template-rows: 150px 112px auto; gap: 12px; }
+    .es-hero-mobile-map--compact { position: relative; padding: 0; line-height: 1.5; direction: ltr; grid-template-columns: minmax(0,42%) minmax(0,1fr); grid-template-rows: 180px 140px auto; gap: 12px; }
     .es-hero-mobile-map--compact .es-hero-product-site, .es-hero-mobile-map--compact .es-hero-product-assistant, .es-hero-mobile-map--compact .es-hero-product-market { border: 1px solid var(--es-line); background: var(--es-white); }
     .es-hero-mobile-map--compact > div { line-height: 1.4; position: relative; direction: rtl; min-inline-size: 0; }
     :lang(en) .es-hero-mobile-map--compact > div { direction: ltr; }
-    .es-hero-mobile-links { position: absolute; inset: 0; inline-size: 100%; block-size: 286px; overflow: visible; }
+    .es-hero-mobile-links { position: absolute; inset: 0; inline-size: 100%; block-size: 344px; overflow: visible; }
     .es-hero-mobile-map--compact .es-hero-record { grid-column: 1; grid-row: 1 / 3; margin: 0; padding: 10px; border-radius: 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 -7px 0 3px var(--es-line); }
     .es-hero-mobile-map--compact .es-hero-record-heading { display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 4px; margin: 0; }
     .es-hero-mobile-map--compact .es-hero-source-mark { inline-size: 32px; block-size: 32px; flex: none; }
-    .es-hero-mobile-map--compact .es-hero-record-heading b { font-size: 15px; font-weight: 500; }
-    .es-hero-compact-caption { color: var(--es-on-dark-muted); font-size: 10px; }
+    .es-hero-mobile-map--compact .es-hero-record-heading b { font-size: 18px; font-weight: 500; }
+    .es-hero-compact-caption { color: var(--es-on-dark-muted); font-size: 12px; }
     .es-hero-mobile-map--compact .es-hero-record-plan { margin-block: 2px; }
     .es-hero-mobile-map--compact .es-hero-record-main { display: grid; gap: 4px; margin: 0; }
-    .es-hero-mobile-map--compact .es-hero-record-main b { font-size: 12px; line-height: 1.4; font-weight: 500; }
-    .es-hero-mobile-map--compact .es-hero-record-main span { font-size: 10px; line-height: 1.4; color: var(--es-on-dark-muted); }
+    .es-hero-mobile-map--compact .es-hero-record-main b { font-size: 14px; line-height: 1.5; font-weight: 500; }
+    .es-hero-mobile-map--compact .es-hero-record-main span { font-size: 12px; line-height: 1.5; color: var(--es-on-dark-muted); }
     .es-hero-mobile-map--compact .es-hero-record-terms { margin-block-start: auto; grid-template-columns: 1fr; gap: 5px; padding-block-start: 7px; }
     .es-hero-mobile-map--compact .es-hero-record-terms > span { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
-    .es-hero-mobile-map--compact .es-hero-record-terms small { font-size: 9px; }
-    .es-hero-mobile-map--compact .es-hero-record-terms b { font-size: 10px; font-weight: 500; }
+    .es-hero-mobile-map--compact .es-hero-record-terms small { font-size: 12px; }
+    .es-hero-mobile-map--compact .es-hero-record-terms b { font-size: 14px; font-weight: 500; }
     .es-hero-mobile-map--compact .es-hero-product-site { grid-column: 2; grid-row: 1; padding: 0; border-radius: 12px; overflow: hidden; }
     .es-hero-mobile-map--compact .es-hero-website-nav { padding: 7px; gap: 3px; }
-    .es-hero-mobile-map--compact .es-hero-website-nav b { font-size: 12px; }
-    .es-hero-mobile-map--compact .es-hero-website-nav small { font-size: 9px; }
+    .es-hero-mobile-map--compact .es-hero-website-nav b { font-size: 18px; }
+    .es-hero-mobile-map--compact .es-hero-website-nav small { font-size: 12px; }
     .es-hero-mobile-map--compact .es-hero-website-banner { margin-inline: 5px; padding: 6px; gap: 6px; border-radius: 7px; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); }
-    .es-hero-mobile-map--compact .es-hero-website-banner b { font-size: 11px; line-height: 1.4; }
+    .es-hero-mobile-map--compact .es-hero-website-banner b { font-size: 14px; line-height: 1.5; }
     .es-hero-mobile-map--compact .es-hero-website-search { padding: 3px; gap: 3px; }
-    .es-hero-mobile-map--compact .es-hero-website-search span { font-size: 8px; padding: 0; }
-    .es-hero-mobile-map--compact .es-hero-website-search b { font-size: 8px; padding: 3px 5px; }
+    .es-hero-mobile-map--compact .es-hero-website-search span { font-size: 12px; padding: 0; }
+    .es-hero-mobile-map--compact .es-hero-website-search b { font-size: 12px; padding: 3px 5px; }
     .es-hero-mobile-map--compact .es-hero-website-section { padding: 6px 7px; gap: 3px; }
-    .es-hero-mobile-map--compact .es-hero-website-section b, .es-hero-mobile-map--compact .es-hero-website-section small { font-size: 9px; }
+    .es-hero-mobile-map--compact .es-hero-website-section b, .es-hero-mobile-map--compact .es-hero-website-section small { font-size: 12px; }
     .es-hero-mobile-map--compact .es-hero-product-assistant { grid-column: 2; grid-row: 2; padding: 7px; border-radius: 12px; overflow: hidden; }
     .es-hero-mobile-map--compact .es-hero-chat-header { margin: -7px -7px 0; padding: 5px 7px; gap: 5px; }
-    .es-hero-mobile-map--compact .es-hero-chat-header b { font-size: 11px; }
+    .es-hero-mobile-map--compact .es-hero-chat-header b { font-size: 18px; }
     .es-hero-mobile-map--compact .es-hero-ai-mark { inline-size: 18px; block-size: 18px; }
     .es-hero-mobile-map--compact .es-hero-ai-glyph { inline-size: 14px; block-size: 14px; }
-    .es-hero-mobile-map--compact .es-hero-chat-question { margin: 6px 0 5px; padding: 5px; font-size: 10px; line-height: 1.4; }
+    .es-hero-mobile-map--compact .es-hero-chat-question { margin: 6px 0 5px; padding: 5px; font-size: 14px; line-height: 1.5; }
     .es-hero-mobile-map--compact .es-hero-chat-reply { display: flex; align-items: center; justify-content: space-between; gap: 4px; padding: 4px; margin: 0; }
-    .es-hero-mobile-map--compact .es-hero-chat-reply > span { font-size: 9px; }
+    .es-hero-mobile-map--compact .es-hero-chat-reply > span { font-size: 12px; }
     .es-hero-mobile-map--compact .es-hero-chat-typing { gap: 3px; flex: none; }
     .es-hero-mobile-map--compact .es-hero-chat-typing i { inline-size: 3px; block-size: 3px; }
     .es-hero-mobile-map--compact .es-hero-product-market { grid-column: 1 / -1; grid-row: 3; padding: 9px; border-radius: 14px; }
-    .es-hero-mobile-map--compact .es-hero-product-heading b { font-size: 13px; line-height: 1.4; }
-    .es-hero-mobile-map--compact .es-hero-product-heading small { font-size: 9px; }
+    .es-hero-mobile-map--compact .es-hero-product-heading b { font-size: 18px; line-height: 1.5; }
+    .es-hero-mobile-map--compact .es-hero-product-heading small { font-size: 12px; }
     .es-hero-mobile-map--compact .es-hero-market-filters { margin-block: 5px; grid-template-columns: minmax(0,1.5fr) minmax(0,1fr) 24px; }
-    .es-hero-mobile-map--compact .es-hero-market-filters > span { padding: 4px; font-size: 10px; }
-    .es-hero-mobile-map--compact .es-hero-market-columns { padding-block-end: 4px; font-size: 9px; }
-    .es-hero-mobile-map--compact .es-hero-market-row { padding-block: 4px; font-size: 10px; line-height: 1.4; }
-    .es-hero-mobile-map--compact .es-hero-market-row b { font-size: 11px; }
-    .es-hero-mobile-map--compact .es-hero-market-compare { padding: 3px; line-height: 1.4; margin-block-start: 5px; font-size: 10px; }
-    .es-hero-mobile-map--compact .es-hero-market-compare b { font-size: 10px; padding: 3px 7px; }
+    .es-hero-mobile-map--compact .es-hero-market-filters > span { padding: 4px; font-size: 12px; }
+    .es-hero-mobile-map--compact .es-hero-market-columns { padding-block-end: 4px; font-size: 12px; }
+    .es-hero-mobile-map--compact .es-hero-market-row { padding-block: 4px; font-size: 14px; line-height: 1.5; }
+    .es-hero-mobile-map--compact .es-hero-market-row b { font-size: 14px; }
+    .es-hero-mobile-map--compact .es-hero-market-compare { padding: 3px; line-height: 1.5; margin-block-start: 5px; font-size: 12px; }
+    .es-hero-mobile-map--compact .es-hero-market-compare b { font-size: 12px; padding: 3px 7px; }
   }
 }
 @layer motion {
@@ -2459,8 +3354,14 @@
 }
 
 </style>
+
+    <link rel="preload" as="style" href="../assets/css/estavo-v3.css"
+        onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+        <link rel="stylesheet" href="../assets/css/estavo-v3.css" />
+    </noscript>
 </head>
-<body class="es">
+<body class="es es-landing">
 
     <a class="es-skip-link" href="#main">Skip to content</a>
 
@@ -2475,7 +3376,7 @@
             </a>
 
             <nav class="es-header__nav" aria-label="Main navigation">
-                <a href="../market/en.html">Estavo Market</a>
+                <a href="../market/en.html" aria-current="page">Estavo Market</a>
 
                 <span class="es-menu" data-menu>
                     <button type="button" class="es-header__disclosure" data-menu-trigger
@@ -2514,10 +3415,7 @@
                 </a>
                 <button type="button" class="es-header__burger" data-drawer-open
                     aria-expanded="false" aria-label="Open menu">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" aria-hidden="true">
-                        <path d="M4 7h16M4 12h16M4 17h16" />
-                    </svg>
+                    <span class="es-menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
                 </button>
             </div>
         </div>
@@ -2529,18 +3427,17 @@
                 <img src="../assets/logo/Estavo%20Brokers%20Logo%20transparent.png" alt="Estavo"
                     width="1563" height="1563" loading="lazy" decoding="async" />
             </span>
+            <a href="index.html" hreflang="ar" lang="ar" class="es-header__lang es-drawer__lang"
+                aria-label="التحويل للعربية" title="التحويل للعربية">AR</a>
             <button type="button" class="es-drawer__close" data-drawer-close aria-label="Close menu">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                    <path d="M6 6l12 12M18 6L6 18" />
-                </svg>
+                <span class="es-menu-icon is-open" aria-hidden="true"><i></i><i></i><i></i></span>
             </button>
         </div>
 
         <div class="es-drawer__body">
             <div class="es-drawer__group">
                 <h2>Estavo Market</h2>
-                <a href="../market/en.html">Market data and units</a>
+                <a href="../market/en.html" aria-current="page">Market data and units</a>
                 <a href="../insights/en.html">Insights</a>
                 <a href="../examples/en.html">Examples</a>
             </div>
@@ -2594,18 +3491,18 @@
                         <div class="browser-bar"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-url">brokers.estavo.space · Example</span></div>
                         <div class="browser-content">
                             <div class="browser-sidebar">
-                                <div class="mini-project-card"><div class="mini-project-img"></div><div class="mini-project-name">Option A · New Cairo</div><div class="mini-project-price">3 bed · 145 m² · 6 years</div></div>
-                                <div class="mini-project-card"><div class="mini-project-img"></div><div class="mini-project-name">Option B · New Cairo</div><div class="mini-project-price">3 bed · 152 m² · 7 years</div></div>
-                                <div class="mini-project-card"><div class="mini-project-img"></div><div class="mini-project-name">Alternative · nearby area</div><div class="mini-project-price">3 bed · 150 m² · 8 years</div></div>
+                                <div class="mini-project-card"><div class="mini-project-img"></div><div class="mini-project-name">Option A · New Cairo</div><div class="mini-project-price">3 bed · 145 m² · 20% down · 6 years</div></div>
+                                <div class="mini-project-card"><div class="mini-project-img"></div><div class="mini-project-name">Option B · New Cairo</div><div class="mini-project-price">3 bed · 150 m² · 5% down · 8 years</div></div>
+                                <div class="mini-project-card"><div class="mini-project-img"></div><div class="mini-project-name">Alternative · nearby area</div><div class="mini-project-price">3 bed · 148 m² · ready to move</div></div>
                             </div>
                             <div class="browser-chat">
                                 <div class="chat-header-mini"><div class="chat-avatar">✦</div><div><div class="chat-title-mini">Brokers AI</div><div class="chat-subtitle-mini">Ask the Market naturally</div></div></div>
                                 <div class="chat-messages">
-                                    <div class="chat-bubble user show">Three bedrooms in New Cairo with a longer payment plan.</div>
+                                    <div class="chat-bubble user show">Three bedrooms in New Cairo, and the down payment is tight.</div>
                                     <div class="chat-thinking"><span></span><span></span><span></span></div>
                                     <div class="chat-bubble ai show"><span class="ai-label">Brokers AI</span>I found two matches and one alternative in a nearby area.</div>
                                     <div class="chat-bubble user show">Compare the matching options.</div>
-                                    <div class="chat-bubble ai show"><span class="ai-label">Brokers AI</span>Option A: 145 m² · 6 years. Option B: 152 m² · 7 years. The clearest difference: B adds one year and 7 m².<div class="chat-action-btns"><span class="chat-action-btn">View comparison</span><span class="chat-action-btn">Prepare PDF</span></div></div>
+                                    <div class="chat-bubble ai show"><span class="ai-label">Brokers AI</span>The areas are nearly the same. The difference that matters to your client is the down payment: A is 20% over 6 years, B is 5% over 8 years — a real gap in upfront cash. The alternative is ready to move if they are in a hurry.<div class="chat-action-btns"><span class="chat-action-btn">View comparison</span><span class="chat-action-btn">Prepare PDF</span></div></div>
                                 </div>
                             </div>
                         </div>
@@ -2617,8 +3514,8 @@
         <section class="section-problem section-pad" aria-labelledby="problem-heading">
             <div class="container">
                 <div class="problem-header">
-                    <div class="eyebrow">The reality before Estavo</div>
-                    <h2 class="section-title" id="problem-heading">The inventory exists—but it is scattered across websites and WhatsApp threads.</h2>
+                    <div class="eyebrow">The problem you face</div>
+                    <h2 class="section-title es-tagline-reveal" id="problem-heading" data-word-reveal><span class="es-tagline-line">The inventory exists—but it is scattered across websites and WhatsApp threads.</span></h2>
                     <p class="section-body" style="margin:0 auto;text-align:center">When every source shows one part, it is hard to know whether the option in front of you is really the best fit for the client request.</p>
                 </div>
                 <div class="problem-grid">
@@ -2634,7 +3531,7 @@
             <div class="container">
                 <div class="ai-inner">
                     <div class="ai-content">
-                        <div class="eyebrow light">Ask the Market naturally</div>
+                        <div class="eyebrow light">Brokers AI — ask in your own words</div>
                         <h2 class="section-title light" id="ai-heading">Instead of searching every source, ask the Market itself.</h2>
                         <p class="section-body light" style="margin-top:16px">Write the client request in Arabic, English or both. Brokers AI searches inside Estavo Market, finds options and puts the differences in front of you.</p>
                         <div class="ai-tags" role="list" aria-label="Brokers AI capabilities">
@@ -2644,7 +3541,7 @@
                     <div class="ai-demo-wrap">
                         <div class="ai-demo" role="region" aria-label="Prepared Brokers AI conversation example">
                             <div class="ai-demo-header"><div class="ai-demo-avatar" aria-hidden="true">✦</div><div class="ai-demo-info"><div class="ai-demo-name">Brokers AI</div><div class="ai-demo-status">Ready for a market question</div></div><span class="ai-tag" style="opacity:1;transform:none;animation:none">Example</span></div>
-                            <div class="ai-demo-body" aria-live="polite"><div class="demo-bubble user-msg show">My client wants three bedrooms in New Cairo and needs to compare payment duration.</div><div class="demo-bubble ai-msg show"><span class="ai-msg-label">Brokers AI</span><span>I found two matches in this example:</span><div class="demo-comparison"><span><b>Option A</b><em>145 m² · 6 years</em></span><span><b>Option B</b><em>152 m² · 7 years</em></span></div><strong class="demo-summary">Option B adds one payment year and 7 m².</strong></div></div>
+                            <div class="ai-demo-body" aria-live="polite"><div class="demo-bubble user-msg show">My client wants three bedrooms in New Cairo but has a limited down payment.</div><div class="demo-bubble ai-msg show"><span class="ai-msg-label">Brokers AI</span><span>I found two matches in this example:</span><div class="demo-comparison"><span><b>Option A</b><em>145 m² · 20% down · 6 years</em></span><span><b>Option B</b><em>150 m² · 5% down · 8 years</em></span></div><strong class="demo-summary">Nearly the same area, but B needs 15% less upfront and pays over two more years.</strong></div></div>
                             <div class="ai-demo-input" aria-hidden="true"><div class="ai-demo-input-field">Ask about a project, unit or payment plan…</div><div class="ai-demo-send">→</div></div>
                         </div>
                     </div>
@@ -2654,7 +3551,7 @@
 
         <section class="section-pillars section-pad" id="pillars" aria-labelledby="pillars-heading">
             <div class="container">
-                <div class="pillars-header"><div class="eyebrow">Everything inside the Market</div><h2 class="section-title" id="pillars-heading">Search, compare and send—without leaving the Market.</h2><p class="section-body" style="margin:0 auto;text-align:center">From the client request to what you send back, each step connects to the next.</p></div>
+                <div class="pillars-header"><div class="eyebrow">What Estavo Market gives you</div><h2 class="section-title" id="pillars-heading">Search, compare and send—without leaving the Market.</h2><p class="section-body" style="margin:0 auto;text-align:center">From the client request to what you send back, each step connects to the next.</p></div>
                 <div class="pillars-grid">
                     <article class="pillar-card"><span class="pillar-badge">Ask the Market</span><div class="pillar-icon" aria-hidden="true">✦</div><h3 class="pillar-title">A direct answer from property data</h3><p class="pillar-body">Ask about a project or comparison and continue with follow-up questions without restarting the search.</p></article>
                     <article class="pillar-card"><span class="pillar-badge">Ready to send</span><div class="pillar-icon" aria-hidden="true">▤</div><h3 class="pillar-title">A client offer carrying your details</h3><p class="pillar-body">Turn selected project, unit and payment information into a structured PDF with your name and contact details.</p></article>
@@ -2664,17 +3561,17 @@
             </div>
         </section>
 
-        <template data-conversion-archive="market-update-story">
-            <div class="es-container es-split">
+        <section class="section-pad es-section" id="data-trust" aria-labelledby="updates-heading">
+<div class="es-container es-split">
                 <div class="es-copy" data-reveal>
-                    <span class="es-eyebrow">The work behind the answer</span>
-                    <h2 id="updates-heading">Useful market information does not organize itself.</h2>
-                    <p class="es-lead">Project material still arrives through messages, files and developer channels. Estavo reviews it, puts it into consistent project and unit fields, and sends later changes through the same process.</p>
-                    <p>That gives the broker a stronger starting point. Prices, availability, booking and contract terms can still change and need final confirmation.</p>
+                    <span class="es-eyebrow">Why trust Estavo’s data?</span>
+                    <h2 id="updates-heading">Where the data comes from, how often it updates, and who reviews it.</h2>
+                    <p class="es-lead"><b>Source:</b> the developers themselves — their messages, files and official channels. <b>Review:</b> Estavo reviews and organizes it into consistent fields, rather than passing it along as received. <b>Updates:</b> every change goes through that same review cycle.</p>
+                    <p>That gives the broker a stronger starting point. We also say it plainly: prices, availability, booking and contract terms can still change and need final confirmation from the developer.</p>
                 </div>
-                <div aria-hidden="true"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="../assets/img/estavo-market-updates-en-still.svg" type="image/svg+xml" /><img src="../assets/img/estavo-market-updates-en.svg" width="1024" height="640" alt="" decoding="async" /></picture></div>
+                <div aria-hidden="true"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="/assets/img/estavo-market-updates-en-still.svg" type="image/svg+xml" /><img src="../assets/img/estavo-market-updates-en-still.svg" width="1024" height="640" alt="" decoding="async" /></picture></div>
             </div>
-        </template>
+        </section>
 
         <template data-conversion-archive="section-ba">
             <div class="container">
@@ -2688,7 +3585,7 @@
             </div>
         </template>
 
-        <section class="section-hiw section-pad" id="how-it-works" aria-labelledby="hiw-heading">
+        <template data-conversion-archive="section-journey">
             <div class="container">
                 <div class="hiw-header"><div class="eyebrow">From request to response</div><h2 class="section-title" id="hiw-heading">From the client's question to a clear offer ready to send.</h2></div>
                 <div class="hiw-steps">
@@ -2698,11 +3595,11 @@
                 </div>
                 <div style="text-align:center;margin-top:48px"><a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="btn btn-gold btn-lg es-button--primary" data-track="market_opened" data-position="workflow">Enter the Market with your next request</a></div>
             </div>
-        </section>
+        </template>
 
         <template data-conversion-archive="section-usecases">
             <div class="container">
-                <div class="usecases-header"><div class="eyebrow light">Real broker moments</div><h2 class="section-title light" id="usecases-heading">Client questions repeat every day. Your response can be faster and clearer.</h2><p class="section-body light" style="margin:0 auto;text-align:center">Estavo Market is for the minutes after you say “let me check.”</p></div>
+                <div class="usecases-header"><div class="eyebrow light">Requests you get every day</div><h2 class="section-title light" id="usecases-heading">Client questions repeat every day. Your response can be faster and clearer.</h2><p class="section-body light" style="margin:0 auto;text-align:center">Estavo Market is for the minutes after you say “let me check.”</p></div>
                 <div class="usecases-carousel">
                     <article class="usecase-card"><span class="usecase-emoji" aria-hidden="true">?</span><h3 class="usecase-title">The client asks during the call</h3><p class="usecase-body">Search the stated request while the conditions are still clear, then ask for anything important that is missing.</p></article>
                     <article class="usecase-card"><span class="usecase-emoji" aria-hidden="true">⇄</span><h3 class="usecase-title">Two projects sound almost the same</h3><p class="usecase-body">Put payment, delivery and unit information side by side so the client can see the actual difference.</p></article>
@@ -2716,7 +3613,7 @@
             <div class="container">
                 <div class="pdf-inner">
                     <div class="pdf-content">
-                        <div class="eyebrow">PDF offers</div><h2 class="section-title" id="pdf-heading">You prepare the offer. Your name goes on it.</h2><p class="section-body">Choose the unit and the details that matter to the client, then turn them into a structured PDF they can review and return to you from.</p>
+                        <div class="eyebrow">Examples of Estavo PDF offers</div><h2 class="section-title" id="pdf-heading">You prepare the offer. Your name goes on it.</h2><p class="section-body">Choose the unit and the details that matter to the client, then turn them into a structured PDF they can review and return to you from.</p>
                         <ul class="pdf-features"><li class="pdf-feature-item"><span class="icon">✓</span>Your name and number are clear from the first page</li><li class="pdf-feature-item"><span class="icon">✓</span>Unit, area and payment duration in one document</li><li class="pdf-feature-item"><span class="icon">✓</span>The same details you selected in the comparison</li></ul>
                         <div style="margin-top:28px"><a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="btn btn-gold btn-lg" data-track="market_opened" data-position="pdf">Build your first PDF offer</a></div>
                     </div>
@@ -2735,7 +3632,7 @@
         </template>
 
         <section class="section-pillars section-pad" aria-labelledby="commercial-heading">
-            <div class="container"><div class="pillars-header"><div class="eyebrow">Free and optional</div><h2 class="section-title" id="commercial-heading">Enter the Market free. Spend credits only on an additional tool.</h2><p class="section-body" style="margin:0 auto;text-align:center">Searching, browsing and comparing are free. Brokers AI messages and PDF generation are the tools that use credits.</p></div><div class="pillars-grid"><article class="pillar-card"><span class="pillar-badge">Free Market</span><div class="pillar-icon">⌕</div><h3 class="pillar-title">Search, browse and compare</h3><p class="pillar-body">Enter the broker marketplace free and search projects and units for the request in front of you.</p></article><article class="pillar-card"><span class="pillar-badge">Optional credits</span><div class="pillar-icon">✦</div><h3 class="pillar-title">Know before you use</h3><p class="pillar-body">The product identifies a credit-based action before it runs, while your balance and purchase terms stay visible inside the product.</p></article></div></div>
+            <div class="container"><div class="pillars-header"><div class="eyebrow">Pricing — what is free, what uses Credits</div><h2 class="section-title" id="commercial-heading">Enter the Market free. Spend credits only on an additional tool.</h2><p class="section-body" style="margin:0 auto;text-align:center">Searching, browsing and comparing are free. Brokers AI messages and PDF generation are the tools that use credits.</p></div><div class="pillars-grid"><article class="pillar-card"><span class="pillar-badge">Free Market</span><div class="pillar-icon">⌕</div><h3 class="pillar-title">Search, browse and compare</h3><p class="pillar-body">Enter the broker marketplace free and search projects and units for the request in front of you.</p></article><article class="pillar-card"><span class="pillar-badge">Optional credits</span><div class="pillar-icon">✦</div><h3 class="pillar-title">Know before you use</h3><p class="pillar-body">The product identifies a credit-based action before it runs, while your balance and purchase terms stay visible inside the product.</p></article></div></div>
         </section>
 
         <section class="section-faq section-pad" id="faq" aria-labelledby="faq-heading">
@@ -2749,9 +3646,40 @@
         </section>
 
         <section class="section-cta section-pad" aria-labelledby="cta-heading">
-            <div class="container"><div class="cta-inner"><div class="cta-character" aria-hidden="true">✦</div><h2 class="cta-title" id="cta-heading">Be the broker with the clearer answer.</h2><p class="cta-subtitle">Start with the request. Compare what matters. Send something your client can use.</p><p class="cta-sub2">Enter Estavo Market with your next request for free.</p><div class="cta-buttons"><a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="btn btn-gold btn-lg es-button--light" data-track="market_opened" data-position="close">Enter the Market free</a><a href="#how-it-works" class="btn btn-outline btn-lg">See the 3-step workflow</a></div><p class="cta-enterprise">Run a broker team? <a href="../enterprise/en.html" data-track="service_selected" data-position="market_close_enterprise">Explore Estavo for brokerage companies</a></p></div></div>
+            <div class="container"><div class="cta-inner"><div class="cta-character" aria-hidden="true">✦</div><h2 class="cta-title" id="cta-heading">Be the broker with the clearer answer.</h2><p class="cta-subtitle">Start with the request. Compare what matters. Send something your client can use. 2,000 projects and 30,000 units from 700 developers, in one place.</p><p class="cta-sub2">Enter Estavo Market with your next request for free.</p><div class="cta-buttons"><a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="btn btn-gold btn-lg es-button--light" data-track="market_opened" data-position="close">Enter the Market free</a><a href="#how-it-works" class="btn btn-outline btn-lg">See the 3-step workflow</a></div><p class="cta-enterprise">Run a broker team? <a href="../enterprise/en.html" data-track="service_selected" data-position="market_close_enterprise">Explore Estavo for brokerage companies</a></p></div></div>
         </section>
 
+    
+        <!-- ============================================================
+             TESTIMONIALS — NOT LIVE. DO NOT UNWRAP UNTIL FILLED.
+             Held in a <template> so it renders nowhere and does not count
+             against the conversion section budget in tools/qa.js.
+
+             To ship:
+               1. Replace every REPLACE_ME with a real, attributable quote.
+                  Name + company are required; anonymous filler reads as
+                  fake and costs more trust than it earns.
+               2. Confirm written permission to publish each name.
+               3. Unwrap: delete the <template> tags, keeping the <section>.
+               4. Raise the page's budget in tools/qa.js by 1, then run
+                  `node tools/qa.js`.
+
+             Publishing invented quotes would breach the same rule that
+             forbids fabricated ratings (tools/qa.js FORBIDDEN).
+             ============================================================ -->
+        <template data-conversion-archive="testimonials-pending-real-quotes">
+            <section class="es-section" aria-labelledby="testimonials-h">
+                <div class="es-container">
+                    <span class="es-eyebrow">What brokers say</span>
+                    <h2 id="testimonials-h">Brokers who start their day in Estavo Market.</h2>
+                    <ul class="es-testimonials">
+                        <li><blockquote>REPLACE_ME — quote</blockquote><cite>REPLACE_ME — name, company</cite></li>
+                        <li><blockquote>REPLACE_ME — quote</blockquote><cite>REPLACE_ME — name, company</cite></li>
+                        <li><blockquote>REPLACE_ME — quote</blockquote><cite>REPLACE_ME — name, company</cite></li>
+                    </ul>
+                </div>
+            </section>
+        </template>
     </main>
     <footer class="es-footer" role="contentinfo">
         <div class="es-container">
@@ -2832,6 +3760,11 @@
     <script src="../assets/js/commercial-page.js" defer></script>
     <script src="../assets/js/market-landing.js" defer></script>
     <script src="../assets/js/v3/estavo-v3.js" defer></script>
+
+    <div class="es-sticky-cta sticky-cta visible" aria-hidden="false">
+        <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-button es-button--primary"
+            data-track="market_opened" data-position="sticky_mobile">Enter the Market free</a>
+    </div>
 </body>
 
 </html>

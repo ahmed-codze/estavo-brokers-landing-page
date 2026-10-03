@@ -46,7 +46,11 @@ def vector_pictures(source):
     def picture(m):
         image=m.group()
         url=re.search(r'src="([^"]+)"',image)[1]
-        still=url[:-4]+'-still.svg'
+        still=url if url.endswith('-still.svg') else url[:-4]+'-still.svg'
+        if 'assets/' in still:
+            asset=ROOT/'assets'/still.split('assets/',1)[1]
+            if asset.exists():
+                image=image.replace(f'src="{url}"',f'src="{still}"',1)
         return f'<picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="{still}" type="image/svg+xml" />{image}</picture>'
     return re.sub(r'<img\b[^>]*src="[^"]*/img/estavo-[a-z-]+\.svg"[^>]*>',picture,source)
 
@@ -108,13 +112,13 @@ def mobile_hero(prefix,english):
 
 def hero_figure(prefix,english):
     suffix='-en' if english else ''
-    return f'''<div class="es-hero__figure" aria-hidden="true"><div class="es-hero-figure es-hero-figure--vector"><img class="es-hero-figure__vector" src="{prefix}/img/estavo-desktop-hero{suffix}.svg" alt="" width="1024" height="900" loading="eager" fetchpriority="high" decoding="async" />'''+mobile_hero(prefix,english)+'</div></div>'
+    return f'''<div class="es-hero__figure" aria-hidden="true"><div class="es-hero-figure es-hero-figure--vector"><img class="es-hero-figure__vector" src="{prefix}/img/estavo-desktop-hero{suffix}-still.svg" alt="" width="1024" height="900" loading="eager" fetchpriority="high" decoding="async" />'''+mobile_hero(prefix,english)+'</div></div>'
 
 def critical(prefix):
     modules=['tokens','base','layout','controls','header-footer','illustrations','responsive','premium']
     content='@layer reset, tokens, base, layout, components, motion, utilities;\n'+''.join((CSS/(m+'.css')).read_text() for m in modules)
     content=content.replace('../fonts/',prefix+'/fonts/')
-    return f'<link rel="preconnect" href="https://fonts.googleapis.com" />\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />\n<style id="es-design-critical">\n{content}\n</style>'
+    return f'<link rel="preconnect" href="https://fonts.googleapis.com" />\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap" rel="stylesheet" />\n<style id="es-design-critical">\n{content}\n</style>'
 
 def replace_critical(source,prefix):
     head,rest=source.split('</head>',1)

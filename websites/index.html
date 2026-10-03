@@ -32,7 +32,7 @@
             src="https://www.facebook.com/tr?id=1693755678488065&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0b2239" />
+    <meta name="theme-color" content="#fafcff" />
     <meta name="author" content="Estavo" />
 
     <title>موقع عقاري مجاني للبروكر باسمك — Estavo Sites</title>
@@ -69,19 +69,9 @@
 
     <link rel="stylesheet" href="../assets/css/commercial.css" />
     <link rel="stylesheet" href="../assets/css/pages/websites.css" />
-
-
-
-
-
-    <link rel="preload" as="style" href="../assets/css/estavo-v3.css"
-        onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript>
-        <link rel="stylesheet" href="../assets/css/estavo-v3.css" />
-    </noscript>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap" rel="stylesheet" />
 <style id="es-design-critical">
 @layer reset, tokens, base, layout, components, motion, utilities;
 /* ============================================================
@@ -126,7 +116,7 @@
     --es-line: rgb(19 40 60 / 12%);
     --es-line-strong: rgb(19 40 60 / 22%);
     --es-on-dark: rgb(255 255 255 / 92%);
-    --es-on-dark-muted: rgb(255 255 255 / 66%);
+    --es-on-dark-muted: hsl(211 39% 84%);
     --es-line-dark: rgb(255 255 255 / 16%);
 
     /* ── Type (§3.2) ─────────────────────────────────────── */
@@ -285,6 +275,7 @@
     font-size: var(--es-fs-body);
     line-height: 1.8;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
 
@@ -294,8 +285,10 @@
 
   a {
     color: inherit;
-    text-decoration-thickness: 0.08em;
+    text-decoration-thickness: from-font;
+    text-underline-position: from-font;
     text-underline-offset: 0.2em;
+    text-decoration-skip-ink: auto;
   }
 
   :focus-visible {
@@ -981,6 +974,35 @@
     block-size: 1.25rem;
   }
 
+  .es-menu-icon {
+    position: relative;
+    display: block;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+  }
+
+  .es-menu-icon i {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 50%;
+    display: block;
+    block-size: 2px;
+    border-radius: 9999px;
+    background: currentColor;
+    transform-origin: center;
+    transition: transform 700ms cubic-bezier(0.32, 0.72, 0, 1), opacity 700ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .es-menu-icon i:first-child { transform: translateY(-6px); }
+  .es-menu-icon i:nth-child(2) { transform: translateY(-1px); }
+  .es-menu-icon i:last-child { transform: translateY(4px); }
+  .is-open .es-menu-icon i:first-child,
+  .es-menu-icon.is-open i:first-child { transform: translateY(-1px) rotate(45deg); }
+  .is-open .es-menu-icon i:nth-child(2),
+  .es-menu-icon.is-open i:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .is-open .es-menu-icon i:last-child,
+  .es-menu-icon.is-open i:last-child { transform: translateY(-1px) rotate(-45deg); }
+
   /* ── Mobile drawer ───────────────────────────────────── */
   .es-drawer {
     position: fixed;
@@ -989,6 +1011,11 @@
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
     background: var(--es-paper);
+  }
+
+  .es-home .es-drawer {
+    background: rgb(250 252 255 / 88%);
+    backdrop-filter: blur(48px) saturate(120%);
   }
 
   .es-drawer[hidden] {
@@ -1013,6 +1040,8 @@
     border-radius: var(--es-radius-control);
   }
 
+  .es-drawer__lang { display: none; }
+
   .es-drawer__body {
     overflow-y: auto;
     padding: var(--es-space-5) var(--es-gutter);
@@ -1036,6 +1065,21 @@
     border-block-end: 1px solid var(--es-line);
     font-weight: 600;
     text-decoration: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .es-home .es-drawer:not([hidden]) .es-drawer__group,
+    .es-home .es-drawer:not([hidden]) .es-drawer__foot {
+      animation: es-drawer-group-in 800ms cubic-bezier(0.32, 0.72, 0, 1) both;
+    }
+    .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(2) { animation-delay: 100ms; }
+    .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(3) { animation-delay: 150ms; }
+    .es-home .es-drawer:not([hidden]) .es-drawer__foot { animation-delay: 200ms; }
+  }
+
+  @keyframes es-drawer-group-in {
+    from { opacity: 0; transform: translateY(3rem); }
+    to { opacity: 1; transform: none; }
   }
 
   .es-drawer__foot {
@@ -1188,6 +1232,11 @@
   .es-header__actions .es-header-cta-short {
     display: inline;
   }
+}
+
+@media (max-width: 22rem) {
+  .es-home .es-header__actions > .es-header__lang { display: none; }
+  .es-home .es-drawer__lang { display: inline-flex; }
 }
 /* Section artwork: a vector stage on desktop, a composition made for phones. */
 @layer components {
@@ -1916,15 +1965,43 @@
   .es-art-ai-results > p { margin: 0 0 .4rem; font-size: .8125rem; font-weight: 500; }
   .es-art-ai-results > div { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-block: .5rem; border-block-start: 1px solid var(--es-line); font-size: .8125rem; }
   .es-art-ai-results span { color: var(--es-blue-500); }
-  .es-header { background: rgb(250 252 255 / 84%); backdrop-filter: blur(20px) saturate(130%); }
-  .es-header__inner { block-size: var(--es-header-h); min-block-size: var(--es-header-h); }
+  .es-home {
+    --es-header-h: 6rem;
+    --es-fs-hero: 3.75rem;
+    --es-fs-h1: 3rem;
+    --es-fs-h2: 2.25rem;
+    --es-fs-h3: 1.25rem;
+    --es-fs-lead: 1.125rem;
+    --es-fs-body: 1rem;
+  }
+  .es-home .es-header {
+    inset-block-start: 0;
+    border: 0;
+    background: transparent;
+    padding-block-start: 1.5rem;
+    backdrop-filter: none;
+    pointer-events: none;
+  }
+  .es-home .es-header__inner {
+    block-size: 4.5rem;
+    min-block-size: 4.5rem;
+    max-inline-size: calc(var(--es-container) + 2rem);
+    border: 1px solid var(--es-line);
+    border-radius: 9999px;
+    background: rgb(250 252 255 / 88%);
+    padding-inline: 1rem;
+    box-shadow: 0 0.5rem 2rem rgb(11 34 57 / 10%);
+    backdrop-filter: blur(24px) saturate(130%);
+    pointer-events: auto;
+  }
   .es-header__logo { inline-size: 9.5rem; block-size: 2.75rem; overflow: hidden; justify-content: center; }
   .es-header__logo img { inline-size: 10rem; block-size: 10rem; max-inline-size: none; flex: 0 0 auto; object-fit: contain; transform: translateY(-2px); }
   .es-header__nav a, .es-header__disclosure, .es-header__lang { font-weight: 400; }
   .es-eyebrow { gap: .6rem; padding: 0; border: 0; background: transparent; font-weight: 500; min-block-size: 1.5rem; }
   .es-eyebrow::before { content: ""; inline-size: .375rem; block-size: .375rem; border-radius: 50%; background: var(--es-blue-500); opacity: .6; }
   .es-dark .es-eyebrow::before { background: var(--es-art-mint); }
-  .es-button { font-size: .875rem; font-weight: 500; border-radius: var(--es-radius-control); min-block-size: 3rem; }
+  .es-home .es-button { padding: .5rem .75rem; font-size: 1rem; font-weight: 600; border-radius: var(--es-radius-control); min-block-size: 3rem; }
+  .es-home .es-header .es-button { font-size: .875rem; }
   .es-button--primary { background: var(--es-navy-900); box-shadow: 0 5px 16px rgb(11 34 57 / 12%); }
   .es-button--secondary { background: var(--es-white); box-shadow: none; }
   .es-dark .es-button--secondary { border-color: var(--es-white); color: var(--es-navy-950); }
@@ -1937,7 +2014,18 @@
   /* Arabic display leading stays 1.38–1.45 (§3.2); Cairo's tall
      ascenders and vowel marks collide below that. The Latin
      override in base sets its own tighter figure. */
-  .es-hero h1 { font-size: var(--es-fs-hero); font-weight: 500; line-height: 1.4; letter-spacing: -.02em; text-wrap: balance; }
+  .es-home .es-hero h1 {
+    max-inline-size: 42.5rem;
+    background: linear-gradient(90deg, #000000, #666666);
+    background-clip: text;
+    color: transparent;
+    font-size: var(--es-fs-hero);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -.02em;
+    text-wrap: balance;
+  }
+  .es-home .es-hero .es-lead { max-inline-size: 42.5rem; }
   [dir="ltr"] .es-hero h1 { line-height: 1.12; letter-spacing: -.03em; }
   .es-hero__copy { display: grid; justify-items: start; gap: 1.5rem; transform: none; max-inline-size: 37rem; }
   .es-hero__inner { grid-template-columns: minmax(0,.98fr) minmax(0,1.02fr); gap: clamp(2rem,4vw,4rem); }
@@ -2056,6 +2144,17 @@
     .es-service-hero > .es-container { gap: 2rem; }
   }
   @media (max-width:47.999rem) {
+    .es-home {
+      --es-header-h: 5.25rem;
+      --es-fs-hero: 2.25rem;
+      --es-fs-h1: 2.25rem;
+      --es-fs-h2: 1.875rem;
+      --es-fs-h3: 1.125rem;
+      --es-fs-lead: 1.125rem;
+      --es-fs-body: 1rem;
+    }
+    .es-home .es-header { padding-block-start: .75rem; }
+    .es-home .es-header__inner { block-size: 4.5rem; min-block-size: 4.5rem; max-inline-size: calc(100% - 1.5rem); padding-inline: .5rem; }
     .es-header__logo { inline-size: 6.75rem; }
     .es-header__logo img { inline-size: 8rem; block-size: 8rem; }
     .es-header__actions .es-button { padding-inline: .7rem; font-size: .75rem; }
@@ -2076,6 +2175,787 @@
     .es-proof-card { min-block-size: 0; }
     .es-proof-card + .es-proof-card { border-inline-start: 0; border-block-start: 1px solid var(--es-line); }
     .es-art-stage { transform: none; }
+  }
+}
+
+/* ── Shared landing-page system ──────────────────────────────
+   Applied to the homepage and every generated commercial route.
+   The shell is Swiss and editorial; product demonstrations keep
+   their route-specific geometry and Estavo illustration palette. */
+.es-landing {
+  --es-container: 80rem;
+  --es-container-reading: 45rem;
+  --es-gutter: clamp(1rem, 3vw, 2rem);
+  --es-section-space: clamp(4rem, 7vw, 6rem);
+  --es-section-space-compact: clamp(3rem, 5vw, 4rem);
+  --es-radius-control: 0;
+  --es-radius-row: 0;
+  --es-radius-panel: 0;
+  --es-radius-theatre: 0;
+  --es-fs-hero: 3.75rem;
+  --es-fs-h1: 3rem;
+  --es-fs-h2: 2.25rem;
+  --es-fs-h3: 1.25rem;
+  --es-fs-lead: 1.125rem;
+  --es-fs-body: 1rem;
+}
+
+:lang(en) body.es-landing {
+  font-family: "IBM Plex Sans", "Hanken Grotesk", "Barlow", system-ui, sans-serif;
+}
+
+.es-landing main {
+  background: var(--es-paper);
+}
+
+.es-landing main :is(h1, h2, h3) {
+  font-weight: 400;
+  text-wrap: balance;
+}
+
+:lang(en) .es-landing main :is(h1, h2) {
+  font-weight: 300;
+}
+
+.es-landing main h1 {
+  font-size: var(--es-fs-h1);
+  line-height: 1.08;
+  letter-spacing: -.025em;
+}
+
+.es-landing main h2,
+.es-landing .section-title,
+.es-landing .cta-title {
+  font-size: var(--es-fs-h2);
+  line-height: 1.14;
+  letter-spacing: -.02em;
+}
+
+.es-landing main h3 {
+  font-size: var(--es-fs-h3);
+  line-height: 1.4;
+  letter-spacing: -.01em;
+}
+
+[dir="rtl"] .es-landing main :is(h1, h2),
+[dir="rtl"] .es-landing :is(.section-title, .cta-title) {
+  line-height: 1.42;
+}
+
+.es-landing main :is(p, li, dd, summary),
+.es-landing .section-body {
+  text-wrap: pretty;
+}
+
+.es-landing :is(.es-lead, .section-body, .faq-answer, .cta-subtitle, .cta-sub2) {
+  max-inline-size: 60ch;
+  line-height: 1.6;
+}
+
+.es-landing :is(.metric-value, .proof-stat, .commercial-proof__title, .comparison-row, table) {
+  font-variant-numeric: tabular-nums;
+}
+
+.es-landing .es-header {
+  inset-block-start: 0;
+  border-block-end: 1px solid var(--es-line);
+  background: rgb(250 252 255 / 94%);
+  padding-block-start: 0;
+  backdrop-filter: blur(16px);
+  pointer-events: auto;
+}
+
+.es-landing .es-header__inner {
+  block-size: 5rem;
+  min-block-size: 5rem;
+  max-inline-size: var(--es-container);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding-inline: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.es-landing .es-header__nav {
+  gap: 2rem;
+}
+
+.es-landing .es-header__nav :is(a, button),
+.es-landing .es-header__lang {
+  font-weight: 400;
+}
+
+.es-landing [aria-current="page"] {
+  color: var(--es-navy-950);
+  text-decoration-line: underline;
+  text-decoration-thickness: from-font;
+  text-underline-offset: .5rem;
+}
+
+.es-landing :is(.es-button, .btn) {
+  min-block-size: 3rem;
+  border-radius: 0;
+  padding: .5rem .75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.es-landing .es-header :is(.es-button, .btn) {
+  font-size: .875rem;
+}
+
+.es-landing :is(.es-button--primary, .btn-gold) {
+  background: var(--es-blue-700);
+  color: var(--es-white);
+}
+
+.es-landing :is(.es-button, .btn):hover {
+  translate: none;
+}
+
+.es-landing :is(.es-button--primary, .btn-gold):hover {
+  background: var(--es-navy-950);
+}
+
+.es-landing :is(.es-button, .btn):active {
+  scale: .98;
+}
+
+.es-landing :is(.es-eyebrow, .eyebrow, .hero-eyebrow) {
+  min-block-size: auto;
+  gap: 0;
+  border: 0;
+  background: transparent;
+  color: var(--es-ink-60);
+  padding: 0;
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .04em;
+  line-height: 1.5;
+  text-transform: none;
+}
+
+.es-landing :is(.es-eyebrow, .eyebrow, .hero-eyebrow)::before {
+  display: none;
+}
+
+.es-landing .es-service-hero {
+  min-block-size: 0;
+  border-block-end: 1px solid var(--es-line);
+  background: var(--es-paper) !important;
+  background-image: none !important;
+  padding-block: clamp(4rem, 7vw, 6rem);
+}
+
+.es-landing .es-service-hero::before {
+  display: none !important;
+}
+
+.es-landing .es-service-hero > .es-container {
+  inline-size: min(calc(100% - (2 * var(--es-gutter))), var(--es-container));
+  max-inline-size: var(--es-container);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.es-landing .es-service-hero .es-hero__copy {
+  grid-column: span 5;
+  gap: 1.5rem;
+  max-inline-size: 42.5rem;
+}
+
+.es-landing .es-service-hero .es-service-hero-art {
+  grid-column: span 7;
+}
+
+.es-landing .es-service-hero h1 {
+  max-inline-size: 42.5rem;
+  background: linear-gradient(90deg, #000000, #666666);
+  background-clip: text;
+  color: transparent;
+  font-size: var(--es-fs-hero);
+}
+
+[dir="rtl"] .es-landing .es-service-hero h1 {
+  background-image: linear-gradient(270deg, #000000, #666666);
+}
+
+.es-landing .es-service-hero .es-lead {
+  max-inline-size: 42.5rem;
+}
+
+.es-landing :is(.es-section, .section-pad) {
+  padding-block: var(--es-section-space);
+}
+
+.es-landing main > section {
+  border-block-end: 1px solid var(--es-line);
+}
+
+.es-landing :is(.es-section--mist, .section-muted, .section-soft) {
+  background: var(--es-mist);
+}
+
+.es-landing :is(.section-title, .section-body) {
+  max-inline-size: 60ch;
+}
+
+.es-landing :is(.business-card, .faq-item, .es-panel, .es-service-card, .es-product-frame, .proof-card, .audience-card, .pricing-card, .commercial-proof__icon) {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.es-landing .business-card::before {
+  display: none;
+}
+
+.es-landing .commercial-proof__icon {
+  background: var(--es-mist);
+}
+
+.es-landing :is(.faq-list, .es-faq) {
+  gap: 0;
+  max-inline-size: 60rem;
+}
+
+.es-landing :is(.faq-item, .es-faq details) {
+  border-inline: 0;
+  border-block-start: 1px solid var(--es-line);
+  background: transparent;
+}
+
+.es-landing :is(.faq-item, .es-faq details):last-child {
+  border-block-end: 1px solid var(--es-line);
+}
+
+.es-landing :is(.faq-item[open], .es-faq details[open]) {
+  background: transparent;
+}
+
+.es-landing :is(.faq-question, .es-faq summary) {
+  min-block-size: 4rem;
+}
+
+.es-landing .es-tagline-reveal {
+  max-inline-size: 42.5rem;
+  margin-inline: 0;
+  font-size: 3rem;
+  line-height: 1.12;
+}
+
+[dir="rtl"] .es-landing .es-tagline-reveal {
+  line-height: 1.42;
+}
+
+.es-landing :is(.es-dark .es-tagline-word, .es-tagline-reveal.light .es-tagline-word) {
+  color: rgb(207 226 245 / 32%);
+}
+
+.has-js .es-landing :is(.es-dark .es-tagline-word.is-visible, .es-tagline-reveal.light .es-tagline-word.is-visible) {
+  color: var(--es-on-dark);
+}
+
+.es-landing .es-tagline-line {
+  display: block;
+}
+
+.es-landing:not(.es-home) .es-art-stage {
+  transform: none;
+  transition: none;
+}
+
+.es-landing .es-footer__grid {
+  border-radius: 0;
+}
+
+.es-landing .sites-concept__grid > article > span:first-child {
+  display: none;
+}
+
+@media (forced-colors: active) {
+  .es-landing .es-service-hero h1 {
+    background: none;
+    color: CanvasText;
+  }
+}
+
+@media (max-width: 63.999rem) {
+  .es-landing .es-service-hero > .es-container {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  .es-landing .es-service-hero :is(.es-hero__copy, .es-service-hero-art) {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .es-landing {
+    --es-header-h: 4.5rem;
+    --es-section-space: 4rem;
+    --es-section-space-compact: 3rem;
+    --es-fs-hero: 2.25rem;
+    --es-fs-h1: 2.25rem;
+    --es-fs-h2: 1.875rem;
+    --es-fs-h3: 1.125rem;
+    --es-fs-lead: 1.125rem;
+    --es-fs-body: 1rem;
+  }
+
+  .es-landing .es-header__inner {
+    block-size: 4.5rem;
+    min-block-size: 4.5rem;
+    max-inline-size: calc(100% - 2rem);
+  }
+
+  .es-landing .es-service-hero {
+    padding-block: 4rem;
+  }
+
+  .es-landing .es-service-hero > .es-container {
+    gap: 3rem;
+  }
+
+  .es-landing .es-service-hero h1 {
+    font-size: var(--es-fs-hero);
+  }
+
+  .es-landing .es-tagline-reveal {
+    font-size: 2.25rem;
+  }
+
+  .es-landing :is(input, select, textarea) {
+    font-size: 1rem;
+  }
+
+  .es-landing :is(.es-button, .btn) {
+    min-block-size: 3rem;
+    max-inline-size: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .has-js .es-landing:not(.es-home) [data-reveal],
+  .has-js .es-landing:not(.es-home) [data-reveal-stagger] > * {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* Swiss restraint: the product illustrations are static compositions.
+   One-shot entrance feedback remains, but no ambient scene loops beside
+   reading content. */
+@layer motion {
+  .es-home .es-hero-mobile-map--modern,
+  .es-home .es-hero-mobile-map--modern .es-hero-record,
+  .es-home .es-hero-mobile-map--modern .es-hero-product-site,
+  .es-home .es-hero-mobile-map--modern .es-hero-product-assistant,
+  .es-home .es-hero-mobile-map--modern .es-hero-product-market,
+  .es-home .es-hero-chat-typing i {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* ── Homepage Swiss grid and typography pass ─────────────────
+   Page structure follows an 8px rhythm, flat geometry and one
+   Estavo-blue accent. Product scenes keep their own material
+   language because they depict the product rather than page UI. */
+@layer components {
+  .es-home {
+    --es-container: 80rem;
+    --es-container-reading: 45rem;
+    --es-gutter: clamp(1rem, 3vw, 2rem);
+    --es-section-space: clamp(4rem, 7vw, 8rem);
+    --es-section-space-compact: clamp(3rem, 5vw, 6rem);
+    --es-radius-control: 0;
+    --es-radius-row: 0;
+    --es-radius-panel: 0;
+    --es-radius-theatre: 0;
+  }
+
+  :lang(en) body.es-home {
+    font-family: "IBM Plex Sans", "Hanken Grotesk", "Barlow", system-ui, sans-serif;
+  }
+
+  .es-home main {
+    background: var(--es-paper);
+  }
+
+  .es-home :is(p, li, summary) {
+    text-wrap: pretty;
+  }
+
+  .es-home :is(.es-lead, .es-note, .es-prose) {
+    max-inline-size: 60ch;
+  }
+
+  .es-home :is(.es-scale-stat, .es-hero-market-table, .es-hero-record-terms) {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .es-home main :is(h1, h2, h3) {
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  :lang(en) .es-home main :is(h1, h2) {
+    font-weight: 300;
+  }
+
+  .es-home main h2 {
+    line-height: 1.14;
+    letter-spacing: -.025em;
+  }
+
+  [dir="rtl"] .es-home main h2 {
+    line-height: 1.42;
+  }
+
+  .es-home .es-header {
+    inset-block-start: 0;
+    padding-block-start: 0;
+    border-block-end: 1px solid var(--es-line);
+    background: rgb(250 252 255 / 94%);
+    backdrop-filter: blur(16px);
+  }
+
+  .es-home .es-header__inner {
+    block-size: 5rem;
+    min-block-size: 5rem;
+    max-inline-size: var(--es-container);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding-inline: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  .es-home .es-header__nav {
+    gap: 2rem;
+  }
+
+  .es-home .es-header__nav :is(a, button),
+  .es-home .es-header__lang {
+    font-weight: 400;
+  }
+
+  .es-home .es-button {
+    min-block-size: 3rem;
+    border-radius: 0;
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+    box-shadow: none;
+  }
+
+  .es-home .es-button:hover {
+    translate: none;
+  }
+
+  .es-home .es-button--primary {
+    background: var(--es-blue-700);
+    color: var(--es-white);
+  }
+
+  .es-home .es-button--primary:hover {
+    background: var(--es-navy-950);
+  }
+
+  .es-home .es-eyebrow {
+    min-block-size: auto;
+    color: var(--es-ink-60);
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .1em;
+    line-height: 1.5;
+  }
+
+  :lang(en) .es-home .es-eyebrow {
+    text-transform: uppercase;
+  }
+
+  .es-home .es-eyebrow::before {
+    display: none;
+  }
+
+  .es-home .es-hero {
+    display: block;
+    min-block-size: auto;
+    border-block-end: 1px solid var(--es-line);
+    padding-block: clamp(3rem, 5vw, 5rem);
+  }
+
+  .es-home .es-hero__inner {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-items: start;
+    gap: 2rem;
+  }
+
+  .es-home .es-hero__copy {
+    grid-column: span 5;
+    gap: 1.5rem;
+    max-inline-size: none;
+  }
+
+  .es-home .es-hero__figure {
+    grid-column: span 7;
+  }
+
+  .es-home .es-hero h1 {
+    max-inline-size: 13ch;
+    background: none;
+    color: var(--es-ink);
+    font-size: clamp(3.5rem, 4.5vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -.035em;
+  }
+
+  :lang(en) .es-home .es-hero h1 {
+    font-weight: 300;
+  }
+
+  [dir="rtl"] .es-home .es-hero h1 {
+    max-inline-size: 15ch;
+    line-height: 1.38;
+  }
+
+  .es-home .es-hero .es-lead {
+    max-inline-size: 60ch;
+    line-height: 1.6;
+  }
+
+  .es-home .es-scale-strip {
+    border-block-start: 0;
+    background: var(--es-paper);
+  }
+
+  .es-home .es-scale-strip__inner {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .es-home .es-scale-stat {
+    grid-column: span 3;
+    gap: .5rem;
+    min-block-size: 9rem;
+    padding: 2rem;
+  }
+
+  .es-home .es-scale-stat strong {
+    font-size: 1.25rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+  }
+
+  .es-home .es-scale-stat span {
+    color: var(--es-ink-60);
+    font-size: .875rem;
+    line-height: 1.6;
+  }
+
+  .es-home .es-section {
+    border-block-end: 1px solid var(--es-line);
+  }
+
+  .es-home .es-section--mist {
+    background: var(--es-mist);
+  }
+
+  .es-home .es-split {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .es-home .es-split > :first-child {
+    grid-column: span 5;
+  }
+
+  .es-home .es-split > :last-child {
+    grid-column: span 7;
+  }
+
+  .es-home .es-copy {
+    gap: 1.5rem;
+    max-inline-size: 60ch;
+  }
+
+  .es-home .es-copy--center {
+    justify-items: start;
+    margin-inline: 0;
+    text-align: start;
+  }
+
+  .es-home .es-tagline-reveal {
+    margin-inline: 0;
+  }
+
+  .es-home :is(.es-panel, .es-service-card, .es-proof-grid, .es-faq details, .es-trust-item) {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .es-home .es-trust-network__core {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .es-home .es-trust-network__core small {
+    border-radius: 0;
+  }
+
+  .es-home .es-home-enterprise {
+    border-block-end: 1px solid var(--es-line-dark);
+    padding-block: clamp(4rem, 7vw, 8rem);
+  }
+
+  .es-home .es-home-enterprise__inner {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-items: end;
+    gap: 2rem;
+  }
+
+  .es-home .es-home-enterprise__inner > :first-child {
+    grid-column: span 8;
+  }
+
+  .es-home .es-home-enterprise__inner > :last-child {
+    grid-column: 10 / -1;
+  }
+
+  .es-home .es-faq {
+    max-inline-size: 60rem;
+    margin-inline: 0;
+  }
+
+  .es-home .es-faq details {
+    border-inline: 0;
+    border-block-start: 1px solid var(--es-line);
+    background: transparent;
+  }
+
+  .es-home .es-faq details:last-child {
+    border-block-end: 1px solid var(--es-line);
+  }
+
+  .es-home .es-faq details[open] {
+    background: transparent;
+  }
+
+  .es-home .es-faq summary {
+    min-block-size: 4rem;
+    font-weight: 500;
+  }
+
+  .es-home .es-footer__grid {
+    border-radius: 0;
+  }
+
+  @media (max-width: 63.999rem) {
+    .es-home .es-hero__inner,
+    .es-home .es-split {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 3rem;
+    }
+
+    .es-home .es-hero__copy,
+    .es-home .es-hero__figure,
+    .es-home .es-split > :first-child,
+    .es-home .es-split > :last-child {
+      grid-column: 1;
+    }
+  }
+
+  @media (max-width: 47.999rem) {
+    .es-home {
+      --es-header-h: 4.5rem;
+      --es-section-space: 4rem;
+      --es-section-space-compact: 3rem;
+    }
+
+    .es-home .es-header__inner {
+      block-size: 4.5rem;
+      min-block-size: 4.5rem;
+      max-inline-size: calc(100% - 2rem);
+    }
+
+    .es-home .es-hero {
+      padding-block: 3rem;
+    }
+
+    .es-home .es-hero__inner {
+      gap: 3rem;
+    }
+
+    .es-home .es-hero h1 {
+      max-inline-size: 14ch;
+      font-size: 2.5rem;
+      line-height: 1.08;
+    }
+
+    [dir="rtl"] .es-home .es-hero h1 {
+      max-inline-size: 16ch;
+      line-height: 1.4;
+    }
+
+    .es-home .es-scale-strip__inner {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .es-home .es-scale-stat {
+      grid-column: span 1;
+      min-block-size: 10rem;
+      padding: 1.5rem 1rem;
+    }
+
+    .es-home .es-scale-stat:nth-child(odd) {
+      border-inline-start: 0;
+    }
+
+    .es-home .es-scale-stat:nth-child(n + 3) {
+      border-block-start: 1px solid var(--es-line);
+    }
+
+    .es-home .es-home-enterprise__inner {
+      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
+      gap: 2rem;
+    }
+
+    .es-home .es-home-enterprise__inner > :first-child,
+    .es-home .es-home-enterprise__inner > :last-child {
+      grid-column: 1;
+    }
+
+    .es-home .es-home-enterprise__inner > :last-child,
+    .es-home .es-home-enterprise .es-button {
+      inline-size: 100%;
+    }
+  }
+}
+
+/* The commercial homepage primitives in components.css are deliberately
+   unlayered. Match that cascade level for the wide Swiss proof grid so the
+   desktop composition remains four measured columns; the existing mobile
+   and tablet rules still collapse it to one and two columns respectively. */
+@media (min-width: 75rem) {
+  .es-home .es-scale-strip__inner {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .es-home .es-scale-stat {
+    grid-column: auto;
+    min-block-size: 9rem;
+    padding: 2rem;
+  }
+
+  .es-home .es-scale-stat + .es-scale-stat {
+    border-block-start: 0;
+    border-inline-start: 1px solid var(--es-line);
   }
 }
 
@@ -2155,6 +3035,16 @@
 
 @layer motion {
   .has-js [data-reveal], .has-js [data-reveal-stagger] > * { opacity: 1; transform: none; transition: none; }
+  .es-tagline-reveal {
+    max-inline-size: 42.5rem;
+    margin-inline: auto;
+    font-size: var(--es-fs-h1);
+  }
+  .es-tagline-line { display: block; }
+  .es-tagline-word {
+    display: inline-block;
+    color: rgb(19 40 60 / 30%);
+  }
   @media (prefers-reduced-motion:no-preference) {
     /* Rotate a small set of entrance directions between top-level sections.
        RTL and LTR pages enter from their logical reading edges. */
@@ -2171,6 +3061,10 @@
     .has-js [data-reveal-stagger].is-visible > :nth-child(2) { animation-delay: 90ms; }
     .has-js [data-reveal-stagger].is-visible > :nth-child(3) { animation-delay: 180ms; }
     .has-js [data-reveal-stagger].is-visible > :nth-child(4) { animation-delay: 270ms; }
+    .has-js .es-tagline-word {
+      transition: color 800ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .has-js .es-tagline-word.is-visible { color: var(--es-ink); }
     .es-mobile-data-surface { animation: es-surface-arrive 1.1s cubic-bezier(.2,.7,.2,1) both; }
     .es-art-segment::after { animation: es-segment-breathe 6s ease-in-out infinite; }
     .es-art-waterfall-v2 { animation: es-surface-arrive 1s cubic-bezier(.2,.7,.2,1) both; }
@@ -2197,6 +3091,7 @@
     .es-art-segment::after { animation: none; transform: none; }
     .es-vector-packet, .es-art-unit-plan .plan-scan { display: none; animation: none; }
     .es-vector-bar { animation: none; transform: none; opacity: 1; }
+    .es-tagline-word { color: var(--es-ink); transition: none; }
   }
   @media print { [data-reveal], [data-reveal-stagger] > * { animation: none !important; opacity: 1 !important; transform: none !important; } }
 }
@@ -2310,55 +3205,55 @@
 
 @layer components {
   @media (max-width:47.999rem) {
-    .es-hero-mobile-map--compact { position: relative; padding: 0; line-height: 1.4; direction: ltr; grid-template-columns: minmax(0,42%) minmax(0,1fr); grid-template-rows: 150px 112px auto; gap: 12px; }
+    .es-hero-mobile-map--compact { position: relative; padding: 0; line-height: 1.5; direction: ltr; grid-template-columns: minmax(0,42%) minmax(0,1fr); grid-template-rows: 180px 140px auto; gap: 12px; }
     .es-hero-mobile-map--compact .es-hero-product-site, .es-hero-mobile-map--compact .es-hero-product-assistant, .es-hero-mobile-map--compact .es-hero-product-market { border: 1px solid var(--es-line); background: var(--es-white); }
     .es-hero-mobile-map--compact > div { line-height: 1.4; position: relative; direction: rtl; min-inline-size: 0; }
     :lang(en) .es-hero-mobile-map--compact > div { direction: ltr; }
-    .es-hero-mobile-links { position: absolute; inset: 0; inline-size: 100%; block-size: 286px; overflow: visible; }
+    .es-hero-mobile-links { position: absolute; inset: 0; inline-size: 100%; block-size: 344px; overflow: visible; }
     .es-hero-mobile-map--compact .es-hero-record { grid-column: 1; grid-row: 1 / 3; margin: 0; padding: 10px; border-radius: 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 -7px 0 3px var(--es-line); }
     .es-hero-mobile-map--compact .es-hero-record-heading { display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 4px; margin: 0; }
     .es-hero-mobile-map--compact .es-hero-source-mark { inline-size: 32px; block-size: 32px; flex: none; }
-    .es-hero-mobile-map--compact .es-hero-record-heading b { font-size: 15px; font-weight: 500; }
-    .es-hero-compact-caption { color: var(--es-on-dark-muted); font-size: 10px; }
+    .es-hero-mobile-map--compact .es-hero-record-heading b { font-size: 18px; font-weight: 500; }
+    .es-hero-compact-caption { color: var(--es-on-dark-muted); font-size: 12px; }
     .es-hero-mobile-map--compact .es-hero-record-plan { margin-block: 2px; }
     .es-hero-mobile-map--compact .es-hero-record-main { display: grid; gap: 4px; margin: 0; }
-    .es-hero-mobile-map--compact .es-hero-record-main b { font-size: 12px; line-height: 1.4; font-weight: 500; }
-    .es-hero-mobile-map--compact .es-hero-record-main span { font-size: 10px; line-height: 1.4; color: var(--es-on-dark-muted); }
+    .es-hero-mobile-map--compact .es-hero-record-main b { font-size: 14px; line-height: 1.5; font-weight: 500; }
+    .es-hero-mobile-map--compact .es-hero-record-main span { font-size: 12px; line-height: 1.5; color: var(--es-on-dark-muted); }
     .es-hero-mobile-map--compact .es-hero-record-terms { margin-block-start: auto; grid-template-columns: 1fr; gap: 5px; padding-block-start: 7px; }
     .es-hero-mobile-map--compact .es-hero-record-terms > span { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
-    .es-hero-mobile-map--compact .es-hero-record-terms small { font-size: 9px; }
-    .es-hero-mobile-map--compact .es-hero-record-terms b { font-size: 10px; font-weight: 500; }
+    .es-hero-mobile-map--compact .es-hero-record-terms small { font-size: 12px; }
+    .es-hero-mobile-map--compact .es-hero-record-terms b { font-size: 14px; font-weight: 500; }
     .es-hero-mobile-map--compact .es-hero-product-site { grid-column: 2; grid-row: 1; padding: 0; border-radius: 12px; overflow: hidden; }
     .es-hero-mobile-map--compact .es-hero-website-nav { padding: 7px; gap: 3px; }
-    .es-hero-mobile-map--compact .es-hero-website-nav b { font-size: 12px; }
-    .es-hero-mobile-map--compact .es-hero-website-nav small { font-size: 9px; }
+    .es-hero-mobile-map--compact .es-hero-website-nav b { font-size: 18px; }
+    .es-hero-mobile-map--compact .es-hero-website-nav small { font-size: 12px; }
     .es-hero-mobile-map--compact .es-hero-website-banner { margin-inline: 5px; padding: 6px; gap: 6px; border-radius: 7px; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); }
-    .es-hero-mobile-map--compact .es-hero-website-banner b { font-size: 11px; line-height: 1.4; }
+    .es-hero-mobile-map--compact .es-hero-website-banner b { font-size: 14px; line-height: 1.5; }
     .es-hero-mobile-map--compact .es-hero-website-search { padding: 3px; gap: 3px; }
-    .es-hero-mobile-map--compact .es-hero-website-search span { font-size: 8px; padding: 0; }
-    .es-hero-mobile-map--compact .es-hero-website-search b { font-size: 8px; padding: 3px 5px; }
+    .es-hero-mobile-map--compact .es-hero-website-search span { font-size: 12px; padding: 0; }
+    .es-hero-mobile-map--compact .es-hero-website-search b { font-size: 12px; padding: 3px 5px; }
     .es-hero-mobile-map--compact .es-hero-website-section { padding: 6px 7px; gap: 3px; }
-    .es-hero-mobile-map--compact .es-hero-website-section b, .es-hero-mobile-map--compact .es-hero-website-section small { font-size: 9px; }
+    .es-hero-mobile-map--compact .es-hero-website-section b, .es-hero-mobile-map--compact .es-hero-website-section small { font-size: 12px; }
     .es-hero-mobile-map--compact .es-hero-product-assistant { grid-column: 2; grid-row: 2; padding: 7px; border-radius: 12px; overflow: hidden; }
     .es-hero-mobile-map--compact .es-hero-chat-header { margin: -7px -7px 0; padding: 5px 7px; gap: 5px; }
-    .es-hero-mobile-map--compact .es-hero-chat-header b { font-size: 11px; }
+    .es-hero-mobile-map--compact .es-hero-chat-header b { font-size: 18px; }
     .es-hero-mobile-map--compact .es-hero-ai-mark { inline-size: 18px; block-size: 18px; }
     .es-hero-mobile-map--compact .es-hero-ai-glyph { inline-size: 14px; block-size: 14px; }
-    .es-hero-mobile-map--compact .es-hero-chat-question { margin: 6px 0 5px; padding: 5px; font-size: 10px; line-height: 1.4; }
+    .es-hero-mobile-map--compact .es-hero-chat-question { margin: 6px 0 5px; padding: 5px; font-size: 14px; line-height: 1.5; }
     .es-hero-mobile-map--compact .es-hero-chat-reply { display: flex; align-items: center; justify-content: space-between; gap: 4px; padding: 4px; margin: 0; }
-    .es-hero-mobile-map--compact .es-hero-chat-reply > span { font-size: 9px; }
+    .es-hero-mobile-map--compact .es-hero-chat-reply > span { font-size: 12px; }
     .es-hero-mobile-map--compact .es-hero-chat-typing { gap: 3px; flex: none; }
     .es-hero-mobile-map--compact .es-hero-chat-typing i { inline-size: 3px; block-size: 3px; }
     .es-hero-mobile-map--compact .es-hero-product-market { grid-column: 1 / -1; grid-row: 3; padding: 9px; border-radius: 14px; }
-    .es-hero-mobile-map--compact .es-hero-product-heading b { font-size: 13px; line-height: 1.4; }
-    .es-hero-mobile-map--compact .es-hero-product-heading small { font-size: 9px; }
+    .es-hero-mobile-map--compact .es-hero-product-heading b { font-size: 18px; line-height: 1.5; }
+    .es-hero-mobile-map--compact .es-hero-product-heading small { font-size: 12px; }
     .es-hero-mobile-map--compact .es-hero-market-filters { margin-block: 5px; grid-template-columns: minmax(0,1.5fr) minmax(0,1fr) 24px; }
-    .es-hero-mobile-map--compact .es-hero-market-filters > span { padding: 4px; font-size: 10px; }
-    .es-hero-mobile-map--compact .es-hero-market-columns { padding-block-end: 4px; font-size: 9px; }
-    .es-hero-mobile-map--compact .es-hero-market-row { padding-block: 4px; font-size: 10px; line-height: 1.4; }
-    .es-hero-mobile-map--compact .es-hero-market-row b { font-size: 11px; }
-    .es-hero-mobile-map--compact .es-hero-market-compare { padding: 3px; line-height: 1.4; margin-block-start: 5px; font-size: 10px; }
-    .es-hero-mobile-map--compact .es-hero-market-compare b { font-size: 10px; padding: 3px 7px; }
+    .es-hero-mobile-map--compact .es-hero-market-filters > span { padding: 4px; font-size: 12px; }
+    .es-hero-mobile-map--compact .es-hero-market-columns { padding-block-end: 4px; font-size: 12px; }
+    .es-hero-mobile-map--compact .es-hero-market-row { padding-block: 4px; font-size: 14px; line-height: 1.5; }
+    .es-hero-mobile-map--compact .es-hero-market-row b { font-size: 14px; }
+    .es-hero-mobile-map--compact .es-hero-market-compare { padding: 3px; line-height: 1.5; margin-block-start: 5px; font-size: 12px; }
+    .es-hero-mobile-map--compact .es-hero-market-compare b { font-size: 12px; padding: 3px 7px; }
   }
 }
 @layer motion {
@@ -2459,8 +3354,14 @@
 }
 
 </style>
+
+    <link rel="preload" as="style" href="../assets/css/estavo-v3.css"
+        onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+        <link rel="stylesheet" href="../assets/css/estavo-v3.css" />
+    </noscript>
 </head>
-<body class="es">
+<body class="es es-landing">
 
     <a class="es-skip-link" href="#main">تخطَّ إلى المحتوى</a>
 
@@ -2486,7 +3387,7 @@
                     </button>
                     <span class="es-menu__panel es-menu__panel--grouped" data-menu-panel hidden>
                         <span class="es-menu__label">ابدأ بموقعك</span>
-                        <a href="../websites/"><b>موقع للبروكر</b><small>اسمك وشغلك في لينك واحد.</small></a>
+                        <a href="../websites/" aria-current="page"><b>موقع للبروكر</b><small>اسمك وشغلك في لينك واحد.</small></a>
                         <a href="../enterprise/"><b>موقع للشركة</b><small>موقع وداتا وفريق بأقل من مرتب موظف إدخال بيانات.</small></a>
                         <span class="es-menu__label">إمكانيات تضيفها</span>
                         <a href="../ai/"><b><bdi>Client AI</bdi></b><small>مساعد لعملاء موقعك.</small></a>
@@ -2514,10 +3415,7 @@
                 </a>
                 <button type="button" class="es-header__burger" data-drawer-open
                     aria-expanded="false" aria-label="افتح القائمة">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" aria-hidden="true">
-                        <path d="M4 7h16M4 12h16M4 17h16" />
-                    </svg>
+                    <span class="es-menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
                 </button>
             </div>
         </div>
@@ -2529,11 +3427,10 @@
                 <img src="../assets/logo/Estavo%20Brokers%20Logo%20transparent.png" alt="إستاڤو"
                     width="1563" height="1563" loading="lazy" decoding="async" />
             </span>
+            <a href="en.html" hreflang="en" lang="en" class="es-header__lang es-drawer__lang"
+                aria-label="Switch to English" title="Switch to English">EN</a>
             <button type="button" class="es-drawer__close" data-drawer-close aria-label="اقفل القائمة">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                    <path d="M6 6l12 12M18 6L6 18" />
-                </svg>
+                <span class="es-menu-icon is-open" aria-hidden="true"><i></i><i></i><i></i></span>
             </button>
         </div>
 
@@ -2546,7 +3443,7 @@
             </div>
             <div class="es-drawer__group">
                 <h2>موقعك — <bdi>Estavo Sites</bdi></h2>
-                <a href="../websites/">موقع للبروكر</a>
+                <a href="../websites/" aria-current="page">موقع للبروكر</a>
                 <a href="../enterprise/">موقع للشركة</a>
                 <a href="../ai/"><bdi>Client AI</bdi></a>
                 <a href="../marketing/">سياق العميل</a>
@@ -2589,24 +3486,55 @@
             </div>
         </section>
 
-        <section class="section-pad sites-concept" aria-labelledby="concept-h"><div class="container"><div class="sites-concept__intro" data-reveal><p class="eyebrow">موقعك يتولد وهو مليان</p><h2 class="section-title" id="concept-h">موقعك جاهز للشغل من أول يوم.</h2><p class="section-body">أي موقع بتعمله من الصفر بيبدأ فاضي — وإنت اللي بتضيف الداتا بنفسك. تجمع المشاريع، تكتب التفاصيل، تتابع الأسعار وتحدّث خطط السداد. شغل مستمر مش بينتهي.</p><p class="section-body">إستاڤو بيقلب المعادلة: المشاريع والوحدات موجودة ومحدّثة عندنا. إنت بتختار المدن والمشاريع اللي تعرضها، وتضيف وحداتك الخاصة كمان. الموقع بيطلع باسمك وبالشكل اللي إنت حابه ورقمك، والمحتوى جاهز من أول يوم. وبكده يبقى عندك مكان واحد تعرض منه شغلك للعميل بدل ما تفضل تبعت له معلومات متفرقة.</p></div><div class="sites-concept__grid" data-reveal-stagger><article><span>01</span><h3>مشاريع المدينة اللي شغال عليها</h3><p>مشاريع ووحدات وخطط سداد من إستاڤو — وإحنا بنتابع تحديثها.</p></article><article><span>02</span><h3>مشاريعك وعقاراتك الخاصة</h3><p>ضيف وحدات أول بيع وإعادة بيع بصورك وأسعارك، وإنت تراجعها.</p></article><article><span>03</span><h3>موقع باسمك</h3><p>اسمك، البراند بتاعك ورقمك عشان العميل يشوفك إنت.</p></article></div></div></section>
+        <section class="section-pad sites-concept" aria-labelledby="concept-h"><div class="container"><div class="sites-concept__intro" data-reveal><p class="eyebrow">يعني إيه <bdi>Estavo Sites</bdi>؟</p><h2 class="section-title" id="concept-h">موقعك جاهز للشغل من أول يوم.</h2><p class="section-body">أي موقع بتعمله من الصفر بيبدأ فاضي — وإنت اللي بتضيف الداتا بنفسك. تجمع المشاريع، تكتب التفاصيل، تتابع الأسعار وتحدّث خطط السداد. شغل مستمر مش بينتهي.</p><p class="section-body">إستاڤو بيقلب المعادلة: المشاريع والوحدات موجودة ومحدّثة عندنا. إنت تختار المدن والمشاريع اللي تعرضها، وتضيف وحداتك جنبها. الموقع يطلع باسمك ولونك ورقمك، ومليان من أول يوم.</p></div><div class="sites-concept__grid" data-reveal-stagger><article><span>01</span><h3>مشاريع المدينة اللي شغال عليها</h3><p>مشاريع ووحدات وخطط سداد من إستاڤو — وإحنا بنتابع تحديثها.</p></article><article><span>02</span><h3>مشاريعك وعقاراتك الخاصة</h3><p>ضيف وحدات أول بيع وإعادة بيع بصورك وأسعارك، وإنت تراجعها.</p></article><article><span>03</span><h3>موقع باسمك</h3><p>اسمك، البراند بتاعك ورقمك عشان العميل يشوفك إنت.</p></article></div></div></section>
 
-        <section class="section-pad sites-builder-section" id="site-preview" aria-labelledby="preview-h"><div class="container"><div class="sites-section-head" data-reveal><p class="eyebrow light">معاينة موقع باسمك</p><h2 class="section-title light" id="preview-h">نور العقارية: بيانات السوق وعقاراتها في نفس الموقع.</h2><p class="section-body light">مثال يوضح شكل التجربة اللي عميلك يشوفها: بحث، تفاصيل مفيدة، وطريق مباشر للتواصل معاك.</p></div><div class="sites-builder" data-reveal><div class="builder-controls"><div class="builder-controls__head"><i>ن</i><span><strong>هوية الموقع</strong><small>إعدادات نور العقارية</small></span></div><dl><div><dt>الاسم</dt><dd>نور العقارية</dd></div><div><dt>اللون الأساسي</dt><dd><i class="colour-dot"></i>كحلي</dd></div><div><dt>التواصل</dt><dd><bdi>WhatsApp</bdi></dd></div><div><dt>المحتوى</dt><dd>مشاريع + عقاراتي</dd></div></dl><span class="builder-ready">جاهز للعميل</span></div><div class="builder-connection" aria-hidden="true"><i></i><span>نفس هويتك</span></div><div class="builder-preview"><div class="builder-preview__bar"><span><bdi>nour-properties.com</bdi> · مثال توضيحي</span></div><div class="builder-preview__nav"><strong>نور العقارية</strong><span>الرئيسية</span><span>المشاريع</span><b>تواصل</b></div><div class="builder-preview__hero"><small>عقارات مختارة ليك</small><strong>ابدأ من المنطقة اللي بتدور فيها.</strong><div><span>القاهرة الجديدة</span><span>شقة</span><b>عرض النتائج</b></div></div><div class="builder-preview__grid builder-preview__grid--three"><article><i></i><span><strong>كمبوند في التجمع الخامس</strong><small>٣ غرف · من ٤.٨ مليون · ١٠٪ مقدم · ٧ سنين</small></span></article><article><i></i><span><strong>مشروع في الشيخ زايد</strong><small>شقق · من ٥.١ مليون · خطة سداد متاحة</small></span></article><article><i></i><span><strong>إعادة بيع — أضافتها نور</strong><small>٢ غرف · ٣.٢ مليون · تواصل مباشر</small></span></article></div><div class="builder-preview__contact"><span>سؤال عن اختيار؟</span><b>كلم نور على <bdi>WhatsApp</bdi></b></div></div></div><div class="sites-builder-mobile" data-reveal><div><small>من بيانات إستاڤو</small><strong>كمبوند التجمع · ٣ غرف</strong><span>من ٤.٨ مليون</span></div><i></i><div><small>أضافتها نور</small><strong>ريسيل الشيخ زايد · ٢ غرف</strong><span>٣.٢ مليون</span></div><i></i><div><small>التواصل</small><strong>كلم نور مباشرة</strong><span><bdi>WhatsApp</bdi></span></div></div><p class="sites-preview-note">المحتوى والأسعار في المعاينة مثال لطريقة العرض.</p><div class="sites-action"><a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--light" data-track="website_preview_started" data-position="preview">اعمل موقعك وشوفه باسمك</a></div></div></section>
+        <section class="section-pad sites-builder-section" id="site-preview" aria-labelledby="preview-h"><div class="container"><div class="sites-section-head" data-reveal><p class="eyebrow light">شكل الموقع باسمك</p><h2 class="section-title light es-tagline-reveal" id="preview-h" data-word-reveal><span class="es-tagline-line">نور العقارية: بيانات السوق وعقاراتها في نفس الموقع.</span></h2><p class="section-body light">مثال يوضح شكل التجربة اللي عميلك يشوفها: بحث، تفاصيل مفيدة، وطريق مباشر للتواصل معاك.</p></div><div class="sites-builder" data-reveal><div class="builder-controls"><div class="builder-controls__head"><i>ن</i><span><strong>هوية الموقع</strong><small>إعدادات نور العقارية</small></span></div><dl><div><dt>الاسم</dt><dd>نور العقارية</dd></div><div><dt>اللون الأساسي</dt><dd><i class="colour-dot"></i>كحلي</dd></div><div><dt>التواصل</dt><dd><bdi>WhatsApp</bdi></dd></div><div><dt>المحتوى</dt><dd>مشاريع + عقاراتي</dd></div></dl><span class="builder-ready">جاهز للعميل</span></div><div class="builder-connection" aria-hidden="true"><i></i><span>نفس هويتك</span></div><div class="builder-preview"><div class="builder-preview__bar"><span><bdi>nour-properties.com</bdi> · مثال توضيحي</span></div><div class="builder-preview__nav"><strong>نور العقارية</strong><span>الرئيسية</span><span>المشاريع</span><b>تواصل</b></div><div class="builder-preview__hero"><small>عقارات مختارة ليك</small><strong>ابدأ من المنطقة اللي بتدور فيها.</strong><div><span>القاهرة الجديدة</span><span>شقة</span><b>عرض النتائج</b></div></div><div class="builder-preview__grid builder-preview__grid--three"><article><i></i><span><strong>كمبوند في التجمع الخامس</strong><small>٣ غرف · من ٤.٨ مليون · ١٠٪ مقدم · ٧ سنين</small></span></article><article><i></i><span><strong>مشروع في الشيخ زايد</strong><small>شقق · من ٥.١ مليون · خطة سداد متاحة</small></span></article><article><i></i><span><strong>إعادة بيع — أضافتها نور</strong><small>٢ غرف · ٣.٢ مليون · تواصل مباشر</small></span></article></div><div class="builder-preview__contact"><span>سؤال عن اختيار؟</span><b>كلم نور على <bdi>WhatsApp</bdi></b></div></div></div><div class="sites-builder-mobile" data-reveal><div><small>من بيانات إستاڤو</small><strong>كمبوند التجمع · ٣ غرف</strong><span>من ٤.٨ مليون</span></div><i></i><div><small>أضافتها نور</small><strong>ريسيل الشيخ زايد · ٢ غرف</strong><span>٣.٢ مليون</span></div><i></i><div><small>التواصل</small><strong>كلم نور مباشرة</strong><span><bdi>WhatsApp</bdi></span></div></div><p class="sites-preview-note">المحتوى والأسعار في المعاينة مثال لطريقة العرض.</p><div class="sites-action"><a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--light" data-track="website_preview_started" data-position="preview">اعمل موقعك وشوفه باسمك</a></div></div></section>
 
         <div class="commercial-proof" data-commercial-proof aria-labelledby="proof-h"><div class="container commercial-proof__inner"><div class="commercial-proof__head"><p class="commercial-proof__kicker">ليه أصلًا موقع؟</p><h2 id="proof-h">كل شركة وساطة كبيرة عندها موقع. مش صدفة.</h2><p>عشان العميل يلاقي المعلومة، يثق في الاسم، ويرجع لنفس فريق البيع. الفرق إنهم بيدفعوا فريق تقني وفريق داتا عشان يفضل شغال.</p></div><div class="commercial-proof__grid"><article class="commercial-proof__item"><span class="commercial-proof__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8ZM4 21c.7-4.5 3.4-7 8-7s7.3 2.5 8 7"/></svg></span><strong class="commercial-proof__title">اسمك وهويتك</strong><span class="commercial-proof__detail">واجهة تحمل الاسم وبيانات التواصل اللي اخترتهم.</span></article><article class="commercial-proof__item"><span class="commercial-proof__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 9h16M8 7h.1M11 7h.1"/></svg></span><strong class="commercial-proof__title">لينك واحد</strong><span class="commercial-proof__detail">مكان واحد للمشاريع وعقاراتك والمعلومات اللي تعرضها.</span></article><article class="commercial-proof__item"><span class="commercial-proof__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5Zm4 5h8m-8 3h5"/></svg></span><strong class="commercial-proof__title">تواصل مباشر</strong><span class="commercial-proof__detail">العميل يرجعلك من نفس الموقع، من غير ما يضيع وسط منافسين.</span></article></div></div></div>
 
-        <section class="section-pad sites-social" aria-labelledby="social-h"><div class="container sites-social__grid"><div data-reveal><p class="eyebrow">موقعك بيكمّل قنواتك</p><h2 class="section-title" id="social-h">«عندي <bdi>Instagram</bdi> و<bdi>WhatsApp</bdi>… ليه أحتاج موقع؟»</h2></div><div class="sites-social__answer" data-reveal><strong><bdi>Instagram</bdi> و<bdi>WhatsApp</bdi> مهمين، والموقع بيكمّلهم.</strong><p>السوشيال ميديا بتخلي العميل يعرفك، و<bdi>WhatsApp</bdi> مهم في التواصل معاه. البوست بيختفي بعد يومين؛ الموقع موجود على طول. الستوري مفيهاش بحث؛ الموقع العميل بيدور فيه بنفسه. والواتساب بيشتغل أحسن لما العميل يكون شاف التفاصيل الأول.</p><p>موقعك بيديله مكان باسمك يقدر يدور فيه على المشاريع والعقارات، يشوف التفاصيل ويسأل الـ <bdi>AI</bdi>. والتواصل في الآخر بيرجع لك إنت.</p></div></div></section>
+        <section class="section-pad sites-social" aria-labelledby="social-h"><div class="container sites-social__grid"><div data-reveal><p class="eyebrow">سؤال منطقي</p><h2 class="section-title" id="social-h">«عندي <bdi>Instagram</bdi> و<bdi>WhatsApp</bdi>… ليه أحتاج موقع؟»</h2></div><div class="sites-social__answer" data-reveal><strong><bdi>Instagram</bdi> و<bdi>WhatsApp</bdi> مهمين، والموقع بيكمّلهم.</strong><p>السوشيال ميديا بتخلي العميل يعرفك، و<bdi>WhatsApp</bdi> مهم في التواصل معاه. البوست بيختفي بعد يومين؛ الموقع موجود على طول. الستوري مفيهاش بحث؛ الموقع العميل بيدور فيه بنفسه. والواتساب بيشتغل أحسن لما العميل يكون شاف التفاصيل الأول.</p><p>موقعك بيديله مكان باسمك يقدر يدور فيه على المشاريع والعقارات، يشوف التفاصيل ويسأل الـ <bdi>AI</bdi>. والتواصل في الآخر بيرجع لك إنت.</p></div></div></section>
 
-        <section class="section-pad sites-workflow" aria-labelledby="workflow-h"><div class="container"><div class="sites-section-head sites-section-head--center" data-reveal><p class="eyebrow">ثلاث خطوات، وبعدها عندك مكان ثابت لشغلك</p><h2 class="section-title" id="workflow-h">٣ خطوات، ويبقى عندك موقع باسمك لشغلك.</h2></div><ol class="sites-steps" data-reveal-stagger><li><span>١</span><div><strong>اختار هويتك</strong><p>الاسم، اللون ورقم <bdi>WhatsApp</bdi> اللي يظهروا لعميلك.</p></div></li><li><span>٢</span><div><strong>اختار اللي تعرضه</strong><p>مدن ومشاريع من إستاڤو، ووحداتك الخاصة جنبها.</p></div></li><li><span>٣</span><div><strong>شارك اللينك</strong><p>ابعت لينك موقعك للعميل يدور ويشوف التفاصيل ويرجع لك إنت.</p></div></li></ol><div class="sites-action"><a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="workflow">ابدأ موقعك مجانًا</a></div></div></section>
+        <section class="section-pad sites-workflow" aria-labelledby="workflow-h"><div class="container"><div class="sites-section-head sites-section-head--center" data-reveal><p class="eyebrow">بيشتغل إزاي</p><h2 class="section-title" id="workflow-h">٣ خطوات، ويبقى عندك موقع باسمك لشغلك.</h2></div><ol class="sites-steps" data-reveal-stagger><li><span>١</span><div><strong>اختار هويتك</strong><p>الاسم، اللون ورقم <bdi>WhatsApp</bdi> اللي يظهروا لعميلك.</p></div></li><li><span>٢</span><div><strong>اختار اللي تعرضه</strong><p>مدن ومشاريع من إستاڤو، ووحداتك الخاصة جنبها.</p></div></li><li><span>٣</span><div><strong>شارك اللينك</strong><p>ابعت لينك موقعك للعميل يدور ويشوف التفاصيل ويرجع لك إنت.</p></div></li></ol><div class="sites-action"><a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="workflow">ابدأ موقعك مجانًا</a></div></div></section>
 
-        <section class="section-pad sites-scope" aria-labelledby="scope-h"><div class="container sites-scope__grid"><div data-reveal><p class="eyebrow">ابدأ بالموقع، وضيف اللي تحتاجه بعدين</p><h2 class="section-title" id="scope-h">ابدأ بالموقع مجانًا. وضيف اللي تحتاجه بعدين.</h2><p class="section-body">كل إضافة بتظهر كاختيار منفصل بشروطها قبل ما توافق عليها.</p><a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="commercial">اعمل موقعك المجاني</a><p><a href="../pricing/" class="sites-text-link">راجع طريقة التسعير والإضافات</a></p></div><dl class="scope-list" data-reveal><div><dt>بداية مجانية</dt><dd>الموقع والهوية والصفحات الأساسية.</dd></div><div><dt>إضافات اختيارية</dt><dd>دومين خاص، مشاريع ووحدات مدن، استخدام <bdi>AI</bdi> أو إدخال بيانات مشاريع خاصة.</dd></div><div><dt>نطاق منفصل</dt><dd>طلبات مخصصة أو ربط المشاريع والـ <bdi>AI</bdi> على موقع أو منصة أو تطبيق يحتاج اتفاق واضح.</dd></div></dl></div><div class="container"><p class="sites-boundary">الأسعار وخطط السداد بتتحدث من مصادر السوق باستمرار. العقارات اللي تضيفها بنفسك إنت المسؤول عن تحديثها.</p></div></section>
+        <section class="section-pad sites-scope" aria-labelledby="scope-h"><div class="container sites-scope__grid"><div data-reveal><p class="eyebrow">الأسعار</p><h2 class="section-title" id="scope-h">ابدأ بالموقع مجانًا. وضيف اللي تحتاجه بعدين.</h2><p class="section-body">كل إضافة بتظهر كاختيار منفصل بشروطها قبل ما توافق عليها.</p><a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="commercial">اعمل موقعك المجاني</a><p><a href="../pricing/" class="sites-text-link">راجع طريقة التسعير والإضافات</a></p></div><dl class="scope-list" data-reveal><div><dt>بداية مجانية</dt><dd>الموقع والهوية والصفحات الأساسية، وأول مدينة من اختيارك بمشاريعها.</dd></div><div><dt>إضافات اختيارية</dt><dd>دومين خاص، مدن إضافية بعد الأولى، استخدام <bdi>AI</bdi> أو إدخال بيانات مشاريع خاصة.</dd></div><div><dt>نطاق منفصل</dt><dd>طلبات مخصصة أو ربط المشاريع والـ <bdi>AI</bdi> على موقع أو منصة أو تطبيق يحتاج اتفاق واضح.</dd></div></dl></div><div class="container"><p class="sites-boundary">الأسعار وخطط السداد بتتحدث من مصادر السوق باستمرار. العقارات اللي تضيفها بنفسك إنت المسؤول عن تحديثها.</p></div></section>
 
-        <section class="section-faq section-pad" aria-labelledby="faq-h"><div class="container"><div class="sites-section-head sites-section-head--center" data-reveal><p class="eyebrow">قبل ما تبدأ</p><h2 class="section-title" id="faq-h">أسئلة عن موقعك.</h2></div><div class="faq-list" data-exclusive-details data-reveal><details class="faq-item" open><summary class="faq-question"><h3>هل الموقع مجاني فعلًا؟</h3></summary><p class="faq-answer">آه. إنشاء الموقع نفسه مجاني، والاستضافة والسيرفر على إستاڤو. وتقدر تضيف مشاريعك وعقاراتك بنفسك مجانًا. الإضافات الاختيارية بتظهر بشروطها قبل ما تختارها.</p></details><details class="faq-item"><summary class="faq-question"><h3>إيه اللي بيكون موجود على موقعي؟</h3></summary><p class="faq-answer">المشاريع والعقارات اللي إنت مختار تعرضها، وبيانات التواصل والبراند بتوعك. وتقدر تضيف <bdi>AI</bdi> يساعد العميل يدور ويسأل عن الاختيارات الموجودة عندك.</p></details><details class="faq-item"><summary class="faq-question"><h3>الموقع باسم إستاڤو ولا باسمي؟</h3></summary><p class="faq-answer">الواجهة اللي يشوفها العميل عليها اسمك وهويتك وطرق التواصل اللي اخترتها.</p></details><details class="faq-item"><summary class="faq-question"><h3>هل العميل هيشوف اسم إستاڤو؟</h3></summary><p class="faq-answer">الموقع والـ <bdi>AI</bdi> بيظهروا كجزء من البراند بتاعك، مش باسم إستاڤو للعميل.</p></details><details class="faq-item"><summary class="faq-question"><h3>أقدر أضيف عقاراتي أول بيع أو إعادة بيع بنفسي؟</h3></summary><p class="faq-answer">آه. تقدر تضيف مشاريعك وعقاراتك الخاصة من صفحة الإدارة بنفسك، وإنت المسؤول عن دقة وتحديث المعلومات اللي تدخلها.</p></details><details class="faq-item"><summary class="faq-question"><h3>ينفع أربط دومين خاص بالموقع؟</h3></summary><p class="faq-answer">آه، تقدر تستخدم دومين خاص حسب النظام المناسب ليك، وبتظهر شروطه أثناء الإعداد قبل التأكيد.</p></details></div></div></section>
+        <section class="section-faq section-pad" aria-labelledby="faq-h"><div class="container"><div class="sites-section-head sites-section-head--center" data-reveal><p class="eyebrow">الأسئلة الشائعة</p><h2 class="section-title" id="faq-h">أسئلة عن موقعك.</h2></div><div class="faq-list" data-exclusive-details data-reveal><details class="faq-item" open><summary class="faq-question"><h3>هل الموقع مجاني فعلًا؟</h3></summary><p class="faq-answer">آه. إنشاء الموقع نفسه مجاني، والاستضافة والسيرفر على إستاڤو. وتقدر تضيف مشاريعك وعقاراتك بنفسك مجانًا. الإضافات الاختيارية بتظهر بشروطها قبل ما تختارها.</p></details><details class="faq-item"><summary class="faq-question"><h3>إيه اللي بيكون موجود على موقعي؟</h3></summary><p class="faq-answer">المشاريع والعقارات اللي إنت مختار تعرضها، وبيانات التواصل والبراند بتوعك. وتقدر تضيف <bdi>AI</bdi> يساعد العميل يدور ويسأل عن الاختيارات الموجودة عندك.</p></details><details class="faq-item"><summary class="faq-question"><h3>الموقع باسم إستاڤو ولا باسمي؟</h3></summary><p class="faq-answer">الواجهة اللي يشوفها العميل عليها اسمك وهويتك وطرق التواصل اللي اخترتها.</p></details><details class="faq-item"><summary class="faq-question"><h3>هل العميل هيشوف اسم إستاڤو؟</h3></summary><p class="faq-answer">الموقع والـ <bdi>AI</bdi> بيظهروا كجزء من البراند بتاعك، مش باسم إستاڤو للعميل.</p></details><details class="faq-item"><summary class="faq-question"><h3>أقدر أضيف عقاراتي أول بيع أو إعادة بيع بنفسي؟</h3></summary><p class="faq-answer">آه. تقدر تضيف مشاريعك وعقاراتك الخاصة من صفحة الإدارة بنفسك، وإنت المسؤول عن دقة وتحديث المعلومات اللي تدخلها.</p></details><details class="faq-item"><summary class="faq-question"><h3>ينفع أربط دومين خاص بالموقع؟</h3></summary><p class="faq-answer">آه، تقدر تستخدم دومين خاص حسب النظام المناسب ليك، وبتظهر شروطه أثناء الإعداد قبل التأكيد.</p></details></div></div></section>
 
-        <aside class="section-pad sites-market-bridge" aria-labelledby="market-bridge-h"><div class="container sites-market-bridge__inner" data-reveal><div><p class="eyebrow light">حساب واحد، منتجين</p><h2 class="section-title light" id="market-bridge-h">حساب واحد. <bdi>Estavo Market</bdi> + موقعك العقاري الذكي.</h2><p class="section-body light">من نفس تجربة إستاڤو تقدر تستخدم <bdi>Estavo Market</bdi> عشان تدور وتقارن في السوق، وفي نفس الوقت يبقى عندك موقع عقاري ذكي باسمك تعرض عليه شغلك لعملائك.</p></div><a href="../market/" class="btn btn-outline btn-lg" data-track="service_selected" data-position="sites_market_bridge">اعرف أكتر عن <bdi>Estavo Market</bdi></a></div></aside>
+        <aside class="section-pad sites-market-bridge" aria-labelledby="market-bridge-h"><div class="container sites-market-bridge__inner" data-reveal><div><p class="eyebrow light">نفس الحساب ونفس البيانات</p><h2 class="section-title light" id="market-bridge-h">حساب واحد. <bdi>Estavo Market</bdi> + موقعك العقاري الذكي.</h2><p class="section-body light">من نفس تجربة إستاڤو تقدر تستخدم <bdi>Estavo Market</bdi> عشان تدور وتقارن في السوق، وفي نفس الوقت يبقى عندك موقع عقاري ذكي باسمك تعرض عليه شغلك لعملائك.</p></div><a href="../market/" class="btn btn-outline btn-lg" data-track="service_selected" data-position="sites_market_bridge">اعرف أكتر عن <bdi>Estavo Market</bdi></a></div></aside>
 
-        <section class="section-cta section-pad sites-close" aria-labelledby="close-h"><div class="container"><div class="cta-inner"><div class="cta-character" aria-hidden="true">ن</div><h2 class="cta-title" id="close-h">خلي شغلك كله قدام عميلك في مكان واحد باسمك — حتى لو بتشتغل لوحدك.</h2><p class="cta-subtitle">اعمل موقعك العقاري الذكي، ضيف مشاريعك وعقاراتك، وابدأ ابعت لعملائك لينك باسمك بدل لينكات متفرقة.</p><div class="cta-buttons"><a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--light" data-track="website_preview_started" data-position="close">اعمل موقعك مجانًا</a><a href="https://wa.me/201069528393" class="btn btn-outline btn-lg" data-track="whatsapp_clicked" data-position="sites_close">كلمنا على <bdi>WhatsApp</bdi></a></div></div></div></section>
+        <section class="section-cta section-pad sites-close" aria-labelledby="close-h"><div class="container"><div class="cta-inner"><div class="cta-character" aria-hidden="true">ن</div><h2 class="cta-title" id="close-h">خلي شغلك كله قدام عميلك في مكان واحد باسمك — حتى لو بتشتغل لوحدك.</h2><p class="cta-subtitle">اعمل موقعك العقاري الذكي، ضيف مشاريعك وعقاراتك، وابدأ ابعت لعملائك لينك باسمك بدل لينكات متفرقة. موقعك بيبدأ مليان بـ<bdi>2,000</bdi> مشروع و<bdi>30,000</bdi> وحدة.</p><div class="cta-buttons"><a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--light" data-track="website_preview_started" data-position="close">اعمل موقعك مجانًا</a><a href="https://wa.me/201069528393" class="btn btn-outline btn-lg" data-track="whatsapp_clicked" data-position="sites_close">كلمنا على <bdi>WhatsApp</bdi></a></div></div></div></section>
 
+    
+        <!-- ============================================================
+             TESTIMONIALS — NOT LIVE. DO NOT UNWRAP UNTIL FILLED.
+             Held in a <template> so it renders nowhere and does not count
+             against the conversion section budget in tools/qa.js.
+
+             To ship:
+               1. Replace every REPLACE_ME with a real, attributable quote.
+                  Name + company are required; anonymous filler reads as
+                  fake and costs more trust than it earns.
+               2. Confirm written permission to publish each name.
+               3. Unwrap: delete the <template> tags, keeping the <section>.
+               4. Raise the page's budget in tools/qa.js by 1, then run
+                  `node tools/qa.js`.
+
+             Publishing invented quotes would breach the same rule that
+             forbids fabricated ratings (tools/qa.js FORBIDDEN).
+             ============================================================ -->
+        <template data-conversion-archive="testimonials-pending-real-quotes">
+            <section class="es-section" aria-labelledby="testimonials-h">
+                <div class="es-container">
+                    <span class="es-eyebrow">شهادات عملائنا</span>
+                    <h2 id="testimonials-h">بروكرز عندهم مواقع باسمهم.</h2>
+                    <ul class="es-testimonials">
+                        <li><blockquote>REPLACE_ME — quote</blockquote><cite>REPLACE_ME — name, company</cite></li>
+                        <li><blockquote>REPLACE_ME — quote</blockquote><cite>REPLACE_ME — name, company</cite></li>
+                        <li><blockquote>REPLACE_ME — quote</blockquote><cite>REPLACE_ME — name, company</cite></li>
+                    </ul>
+                </div>
+            </section>
+        </template>
     </main>
     <footer class="es-footer" role="contentinfo">
         <div class="es-container">
@@ -2686,6 +3614,11 @@
     <script src="../assets/js/referral.js" defer></script>
     <script src="../assets/js/commercial-page.js" defer></script>
     <script src="../assets/js/v3/estavo-v3.js" defer></script>
+
+    <div class="es-sticky-cta sticky-cta visible" aria-hidden="false">
+        <a href="https://estavo-brokers.com/website/" class="es-button es-button--primary"
+            data-track="website_preview_started" data-position="sticky_mobile">ابدأ موقعك مجانًا</a>
+    </div>
 </body>
 
 </html>

@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Build nine animated vector scenes with Plex typography and native geometry.
 
+Homepage surfaces are rendered in the clay material (see tools/clay.py and
+DESIGN-GUIDELINES.md §6); rect() maps flat fills onto clay bodies centrally.
+
 Run: python3 tools/build-illustrations.py
 Font subsetting: python3 -m pip install fonttools brotli
 The checked-in SVGs are standalone; browsers need no scripts or external fonts.
@@ -15,6 +18,9 @@ import re
 import math
 from fontTools import subset
 from fontTools.ttLib import TTFont
+import importlib.util as _ilu
+_cs=_ilu.spec_from_file_location('clay', Path(__file__).resolve().parent/'clay.py')
+clay=_ilu.module_from_spec(_cs); _cs.loader.exec_module(clay)
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'assets/img'
@@ -135,8 +141,46 @@ def plate(x,y,w=220,h=154,scale=1,blueprint=True):
 def text(x, y, value, cls='body', anchor='end'):
     return f'<text x="{x}" y="{y}" text-anchor="{anchor}" class="{cls}">{escape(value)}</text>'
 
-def rect(x, y, w, h, fill='url(#paper)', radius=16, extra=''):
-    return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{radius}" fill="{fill}" {extra}/>'
+# Flat fills map onto clay bodies so the whole illustration family inherits the
+# material from one place instead of 223 hand-edited call sites. Anything not
+# listed here (gradients, patterns, masks, energy strokes) passes through
+# untouched -- clay is a surface treatment, not a repaint of the line work.
+CLAY_MAP = {
+    '#ffffff':'paper', '#fff':'paper', 'url(#paper)':'paper',
+    '#fafcff':'paper', '#f7fafc':'paper', '#f5f9fc':'paper',
+    '#f1f5f8':'mist', '#f4f8fb':'mist', '#eef4f9':'mist',
+    '#e8f2f8':'pale', '#dcecf5':'pale', '#e6eff6':'pale', '#dce7ef':'pale',
+    '#d5e5ef':'blue', '#c3d5e8':'blue', '#a9c6e2':'blue',
+    '#102b45':'navy2', 'url(#navy)':'navy2', '#0b2239':'navy',
+    '#163e59':'navy2', '#173a55':'navy2', '#12334c':'navy',
+    '#28567f':'accent', '#285d8d':'accent', '#5c91c7':'accent',
+}
+# Surfaces smaller than these thresholds get proportionally tighter light,
+# otherwise the inner edges blur into mush at chip and bar sizes.
+def _clay_size(w, h):
+    m = min(w, h)
+    return 'md' if m >= 90 else ('sm' if m >= 34 else 'xs')
+
+def rect(x, y, w, h, fill='url(#paper)', radius=16, extra='', clay_body=None, flat=False):
+    body = clay_body or CLAY_MAP.get(str(fill).lower())
+    # Translucent overlays (fill-opacity) are glass sitting ON another surface,
+    # not clay bodies of their own. Inflating them would paint an opaque slab
+    # over whatever they were meant to tint -- and bury any text on top.
+    if 'fill-opacity' in extra or 'opacity' in extra:
+        return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{radius}" fill="{fill}" {extra}/>'
+    if flat or body is None or w <= 0 or h <= 0:
+        return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{radius}" fill="{fill}" {extra}/>'
+    # Clay corners scale with the box; keep an explicitly larger radius if the
+    # scene already asked for one (pills and tracks rely on it).
+    r = max(radius, clay.clay_radius(w, h))
+    # A stroke would fight the inner highlight, so clay surfaces drop it.
+    # Drop stroke and fill from `extra`: clay supplies both, and a leftover
+    # fill= would collide with the gradient fill into a duplicate attribute.
+    extra = re.sub(r'(stroke(-width|-opacity|-linecap|-linejoin|-dasharray)?|fill(-opacity)?)="[^"]*"', '', extra)
+    # Clay's ambient term replaces the old lift/contact/shadow filters, and two
+    # filter= attributes on one rect is invalid markup.
+    extra = re.sub(r'filter="url\(#(hero-lift|lift|contact|shadow)\)"', '', extra)
+    return clay.surface(x, y, w, h, body, r=r, size=_clay_size(w, h), extra=extra)
 
 def path(d, cls='structure', extra=''):
     return f'<path d="{d}" class="{cls}" {extra}/>'
@@ -175,7 +219,7 @@ def plan(x, y, scale=1, dark=False):
     s+='<g class="plan-scan">'+rect(10,70,200,9,'#72e0bb18',0)+'<path d="M10 79H210" fill="none" stroke="#72c9b2" stroke-width="1" stroke-opacity=".5"/></g>'
     return s+'</g>'
 
-DEFS = '''<defs>
+DEFS = '''<defs>'''+clay.defs()+'''
 <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#f1f5f8"/></linearGradient>
 <linearGradient id="navy" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#163e59"/><stop offset="1" stop-color="#0b2239"/></linearGradient>
 <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff0f"/><stop offset="1" stop-color="#ffffff03"/></linearGradient>
@@ -453,8 +497,8 @@ def reach():
 
 # Hero uses its own flat geometry and motion vocabulary. Shared scenes retain
 # their existing materials until they are individually redesigned.
-HERO_DEFS = r'''<defs>
-<linearGradient id="hero-route" x1="0" x2="1"><stop stop-color="#5c91c7" stop-opacity=".1"/><stop offset="1" stop-color="#5c91c7" stop-opacity=".65"/></linearGradient>
+HERO_DEFS = r'''<defs>'''+clay.defs()+r'''
+<linearGradient id="hero-route" x1="0" x2="1"><stop stop-color="#5c91c7" stop-opacity=".45"/><stop offset="1" stop-color="#5c91c7" stop-opacity=".82"/></linearGradient>
 <linearGradient id="hero-core" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#173a55"/><stop offset=".52" stop-color="#102b45"/><stop offset="1" stop-color="#0b2239"/></linearGradient>
 <radialGradient id="hero-aura"><stop stop-color="#dcecf5" stop-opacity=".92"/><stop offset=".58" stop-color="#e8f2f8" stop-opacity=".42"/><stop offset="1" stop-color="#f7fafc" stop-opacity="0"/></radialGradient>
 <pattern id="hero-blueprint-grid" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#a9c6e2" stroke-opacity=".07" stroke-width="1"/></pattern>
@@ -745,7 +789,9 @@ def premium_hero(include_supporting=True):
     s+=text(956,619,'Estavo Market','label')+text(956,647,'بحث ومقارنة للسوق','micro')
     s+=rect(604,666,356,38,'#f7fafc',9)+rect(616,677,104,16,'#e8f2f8',5)+rect(730,677,92,16,'#e8f2f8',5)+rect(836,675,110,20,'#28567f',6)
     for y,name,term in [(728,'مشروع أ','خطة سداد أ'),(766,'مشروع ب','خطة سداد ب')]:
-        s+=text(944,y,name,'label')+text(752,y,term,'micro')+rect(620,y-13,14,14,'#28567f',3)+f'<path d="m623 {y-6} 3 3 5-6" fill="none" stroke="#f5f9fc" stroke-width="1.5" stroke-linecap="round"/>'
+        # The checkbox keeps a fixed gutter: the English term ("Payment plan A")
+        # is wider than its Arabic counterpart and would otherwise run into it.
+        s+=text(944,y,name,'label')+text(762,y,term,'micro')+rect(618,y-13,14,14,'#28567f',3)+f'<path d="m621 {y-6} 3 3 5-6" fill="none" stroke="#f5f9fc" stroke-width="1.5" stroke-linecap="round"/>'
     s+=circle(580,674,5,'#28567f')+'</g>'
     s+='</g>'
 
@@ -879,7 +925,12 @@ if __name__ == '__main__':
     if args.hero_only:
         premium_hero(include_supporting=False)
     else:
-        signals(); client(); conversation(); brand(); roi(); reach(); premium_hero(); explorer(); updates()
+        # The eight scenes below are owned by tools/build-home-illustrations-v2.py,
+        # which renders them in the current product/clay system. Calling the
+        # legacy builders here silently reverted that work -- in English most
+        # visibly, because the v2 run is what regenerates the -en variants.
+        # Only the hero is still built from this file.
+        premium_hero()
     for asset in OUT.glob('estavo-*.svg'):
         ET.parse(asset)
     print('Built homepage hero variants; SVG parsing passed.' if args.hero_only else 'Built nine animated vector scenes and bilingual variants; SVG parsing passed.')

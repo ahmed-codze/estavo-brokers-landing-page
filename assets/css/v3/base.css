@@ -87,6 +87,7 @@
     font-size: var(--es-fs-body);
     line-height: 1.8;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
 
@@ -96,8 +97,10 @@
 
   a {
     color: inherit;
-    text-decoration-thickness: 0.08em;
+    text-decoration-thickness: from-font;
+    text-underline-position: from-font;
     text-underline-offset: 0.2em;
+    text-decoration-skip-ink: auto;
   }
 
   :focus-visible {

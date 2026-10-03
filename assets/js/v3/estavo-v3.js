@@ -89,6 +89,61 @@
     window.addEventListener("beforeprint", revealAll);
   }
 
+  /* The homepage promise resolves one word at a time. The original text stays
+     in the HTML for search, no-script and assistive technology support. */
+  function initWordReveal() {
+    var headings = all("[data-word-reveal]");
+    if (!headings.length) return;
+
+    function wrapWords(node, words) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) {
+          var fragment = document.createDocumentFragment();
+          child.nodeValue.split(/(\s+)/).forEach(function (token) {
+            if (!token) return;
+            if (/^\s+$/.test(token)) {
+              fragment.appendChild(document.createTextNode(token));
+              return;
+            }
+            var word = document.createElement("span");
+            word.className = "es-tagline-word";
+            word.textContent = token;
+            fragment.appendChild(word);
+            words.push(word);
+          });
+          child.parentNode.replaceChild(fragment, child);
+          return;
+        }
+        if (child.nodeType === 1) wrapWords(child, words);
+      });
+    }
+
+    headings.forEach(function (heading) {
+      var words = [];
+      all(".es-tagline-line", heading).forEach(function (line) {
+        wrapWords(line, words);
+      });
+
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        words.forEach(function (word) { word.classList.add("is-visible"); });
+        return;
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          words.forEach(function (word, index) {
+            word.style.transitionDelay = (index * 55) + "ms";
+            word.classList.add("is-visible");
+          });
+          observer.unobserve(entry.target);
+        });
+      }, { rootMargin: "0px 0px -28%", threshold: 0.35 });
+
+      observer.observe(heading);
+    });
+  }
+
   /* A small camera movement gives the vector layers physical depth.
      It is decoration only; touch and reduced-motion readers see a stable scene. */
   function initArtMotion() {
@@ -179,6 +234,7 @@
       drawer.hidden = false;
       document.body.style.overflow = "hidden";
       openBtn.setAttribute("aria-expanded", "true");
+      openBtn.classList.add("is-open");
       var f = focusables();
       if (f.length) f[0].focus();
     }
@@ -187,6 +243,7 @@
       drawer.hidden = true;
       document.body.style.overflow = "";
       openBtn.setAttribute("aria-expanded", "false");
+      openBtn.classList.remove("is-open");
       /* Focus returns to the trigger, never to the page top (§10). */
       if (lastFocus && lastFocus.focus) lastFocus.focus();
     }
@@ -377,6 +434,7 @@
 
   function init() {
     initReveal();
+    initWordReveal();
     initFlowReveal();
     initArtMotion();
     initHeader();

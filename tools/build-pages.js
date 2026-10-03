@@ -156,12 +156,68 @@ function header(route, lang) {
     ? 'اعمل موقعك مجانًا · حوالي ٥ دقايق'
     : 'Create your site free · ~5 min';
   const defaultShortLabel = isAr ? 'ابدأ مجانًا' : 'Start free';
+  const marketLabel = isAr
+    ? 'افتح <bdi>Estavo Market</bdi> مجانًا'
+    : 'Open Estavo Market free';
+  const marketShortLabel = isAr
+    ? 'افتح <bdi>Market</bdi>'
+    : 'Open Market';
 
-  return partial(`header.${lang}.html`)
+  const directRoutes = {
+    data: 'market',
+    market: 'market',
+    websites: 'websites',
+    ai: 'ai',
+    integrations: 'integrations',
+    marketing: 'marketing',
+    meta: 'meta',
+    insights: 'insights',
+    listings: 'listings',
+    enterprise: 'enterprise',
+    pricing: 'pricing',
+    examples: 'examples',
+  };
+  const activeKey = directRoutes[route.key];
+  const activeHref = activeKey
+    ? `/${activeKey}/${isAr ? '' : 'en.html'}`
+    : null;
+
+  let markup = partial(`header.${lang}.html`)
     .replaceAll(routes.cta.website, action.href)
+    .replaceAll(routes.cta.market, action.href)
     .replaceAll('website_preview_started', action.track)
+    .replaceAll('market_opened', action.track)
     .replaceAll(defaultLabel, action.label)
-    .replaceAll(defaultShortLabel, action.shortLabel);
+    .replaceAll(defaultShortLabel, action.shortLabel)
+    .replaceAll(marketLabel, action.label)
+    .replaceAll(marketShortLabel, action.shortLabel);
+
+  if (activeHref) {
+    markup = markup.replaceAll(`href="${activeHref}"`, `href="${activeHref}" aria-current="page"`);
+  }
+
+  return markup;
+}
+
+function decorateLandingBody(body, route, lang) {
+  if (body.includes('data-word-reveal')) return body;
+
+  const heading = /<h2([^>]*)>([\s\S]*?)<\/h2>/g;
+  const headings = Array.from(body.matchAll(heading));
+  if (headings.length) {
+    const minimum = lang === 'ar' ? 35 : 55;
+    const selected = headings.find((match) => match[2].replace(/<[^>]*>/g, '').trim().length >= minimum) || headings[0];
+    const attrs = selected[1];
+    const content = selected[2];
+    const classMatch = attrs.match(/\bclass="([^"]*)"/);
+    const nextAttrs = classMatch
+      ? attrs.replace(classMatch[0], `class="${classMatch[1]} es-tagline-reveal"`)
+      : `${attrs} class="es-tagline-reveal"`;
+    const replacement = `<h2${nextAttrs} data-word-reveal><span class="es-tagline-line">${content}</span></h2>`;
+    return body.slice(0, selected.index) + replacement + body.slice(selected.index + selected[0].length);
+  }
+
+  return body;
 }
 
 /* Published service pages live one directory below the site root.
@@ -187,7 +243,7 @@ function head(opts) {
     <meta charset="UTF-8" />
 ${GTAG}
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0b2239" />
+    <meta name="theme-color" content="#fafcff" />
     <meta name="author" content="Estavo" />
 
     <title>${title}</title>
@@ -260,7 +316,7 @@ function buildPage(route, lang) {
   })
     + header(route, lang)
     + '\n    <main id="main">\n'
-    + fs.readFileSync(bodyFile, 'utf8')
+    + decorateLandingBody(fs.readFileSync(bodyFile, 'utf8'), route, lang)
     + '\n    </main>\n'
     + partial(`footer.${lang}.html`)
     + `

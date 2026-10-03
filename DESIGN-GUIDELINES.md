@@ -33,8 +33,9 @@ shared scene vocabulary below. Rebuild this trial with
 `python3 tools/refresh-premium-design.py --home-hero-only` and
 `sh tools/build-css.sh`.
 
-The remaining homepage illustrations follow the same September 2026 system.
-They use only navy, Estavo blue, pale blue and paper; native line icons replace
+The remaining homepage illustrations follow the same September 2026 system,
+rendered in the clay material described in §6. They use only navy, Estavo blue,
+pale blue and paper; native line icons replace
 the dimensional icon pack; solid connectors replace dashed travel; and every
 scene depicts the actual product structure named by its section. Market is a
 search-and-compare workspace, updates are a review workflow, brand is a website
@@ -234,7 +235,46 @@ bar because it clarifies that the surface is the broker's live site. Other
 product surfaces use their own heading and a thin rule; do not add generic
 three-dot window bars as decoration.
 
-**Material:** `--es-art-paper` is a soft diagonal white-to-mist wash.
+**Material — claymorphism (September 2026 homepage revision).** The homepage
+illustrations use a clay material. This supersedes the flat treatment described
+above for the homepage scenes only; service-page scenes keep the flat system
+until they are migrated.
+
+A clay surface has four parts, and all four are required or it degrades into a
+plain rounded rectangle:
+
+1. a tinted body wash — never pure white, because clay carries hue;
+2. an inner highlight on the top-left edge;
+3. an inner shadow on the bottom-right edge;
+4. a wide, diffuse, palette-matched ambient shadow beneath.
+
+Light comes from the top-left on every surface, without exception. Clay corners
+scale with the box (`clay_radius()` = 30% of the smaller side, capped at 44)
+rather than using the `--es-radius-*` tokens, which is what makes the geometry
+read as squircle-adjacent rather than as a rounded card.
+
+Clay replaces the 1.5px panel border: the inner highlight/shadow pair is the
+edge. It also replaces the `lift`, `contact` and `shadow` filters, whose drop
+shadows would double the ambient term.
+
+Two rules constrain it:
+
+- **Translucent overlays stay flat.** Anything carrying `fill-opacity` is glass
+  sitting *on* another surface, not a clay body of its own. Inflating it paints
+  an opaque slab over what it was meant to tint, and buries any text above it.
+- **Small elements get tighter light.** Surfaces below 90px use `puff-sm`, and
+  below 34px `puff-xs`; the full-size blur turns chips and bars to mush.
+
+The material lives in `tools/clay.py` and is injected into all three `DEFS`
+blocks. Because these SVGs are standalone documents that may be inlined
+together, every gradient and filter id is scoped per instance.
+
+Palette, product structures, label sizes and the two-composition contract are
+unchanged. Clay is a surface treatment, not a new visual vocabulary: the pale
+blue `#c3d5e8` is promoted to a genuine surface fill, which is where the hue
+play comes from, but no new hues are introduced.
+
+**Material (flat system, service pages):** `--es-art-paper` is a soft diagonal white-to-mist wash.
 `--es-art-dark` adds a slate-lit edge within the navy palette. `--es-art-shadow` has a
 wide ambient layer and a small contact layer; `--es-art-inner` adds a 1px
 light edge on dark surfaces. Standalone SVGs mirror these approved tokens because
