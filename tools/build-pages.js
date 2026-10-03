@@ -140,10 +140,17 @@ function header(route, lang) {
         }
       : route.key === 'enterprise'
         ? {
-            href: routes.cta.website,
+            href: routes.cta.website_company,
             track: 'website_preview_started',
             label: isAr ? 'ابدأ موقع شركتك' : 'Start your company website',
             shortLabel: isAr ? 'موقع شركتك' : 'Company site',
+          }
+      : route.key === 'websites'
+        ? {
+            href: routes.cta.website_individual,
+            track: 'website_preview_started',
+            label: isAr ? 'اعمل موقعك مجانًا · حوالي ٥ دقايق' : 'Create your site free · ~5 min',
+            shortLabel: isAr ? 'ابدأ مجانًا' : 'Start free',
           }
       : {
           href: routes.cta.website,
@@ -301,6 +308,12 @@ function buildPage(route, lang) {
   const altUrl = isAr ? `${SITE}${canonicalPath}en.html` : `${SITE}${canonicalPath}`;
 
   const scripts = routeScripts(route.key);
+  const websiteDestination = route.key === 'enterprise'
+    ? routes.cta.website_company
+    : route.key === 'websites'
+      ? routes.cta.website_individual
+      : routes.cta.website;
+  const body = fs.readFileSync(bodyFile, 'utf8').replaceAll(routes.cta.website, websiteDestination);
   const doc = head({
     key: route.key,
     lang,
@@ -316,7 +329,7 @@ function buildPage(route, lang) {
   })
     + header(route, lang)
     + '\n    <main id="main">\n'
-    + decorateLandingBody(fs.readFileSync(bodyFile, 'utf8'), route, lang)
+    + decorateLandingBody(body, route, lang)
     + '\n    </main>\n'
     + partial(`footer.${lang}.html`)
     + `

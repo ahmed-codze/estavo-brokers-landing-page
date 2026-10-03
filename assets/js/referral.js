@@ -55,7 +55,8 @@
     // its optimiser is blind, so every downstream CPA figure is wrong.
     var ATTRIBUTION_PARAMS = [
         'fbclid', 'gclid', 'ttclid', 'msclkid', 'twclid', 'li_fat_id', 'igshid',
-        'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'
+        'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
+        'utm_adset', 'utm_ad'
     ];
     var ATTRIBUTION_KEY = 'est_attribution';
 

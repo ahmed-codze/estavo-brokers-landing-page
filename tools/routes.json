@@ -3,6 +3,8 @@
   "cta": {
     "market": "https://brokers.estavo.space/go/?ref=default-landing-page-market",
     "website": "https://estavo-brokers.com/website/",
+    "website_individual": "https://estavo-brokers.com/website/?audience=individual",
+    "website_company": "https://estavo-brokers.com/website/?audience=company",
     "whatsapp": "https://wa.me/201069528393",
     "_note": "referral.js rewrites any href starting with https://brokers.estavo.space to carry the active ?ref slug. Keep that origin on platform CTAs or referral attribution silently breaks."
   },

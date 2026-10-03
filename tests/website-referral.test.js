@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
+const { JSDOM } = require('jsdom');
 
 const referral = require('../assets/js/website-referral.js');
 
@@ -331,4 +332,47 @@ test('the Arabic and English website builders expose link and manual handoffs', 
         assert.doesNotMatch(html, /class="website-starter"/);
         assert.doesNotMatch(html, /assets\/js\/website-referral\.js/);
     });
+});
+
+test('generated campaign landing pages hand off to the matching website audience', () => {
+    const expectations = [
+        { route: 'websites', audience: 'individual' },
+        { route: 'enterprise', audience: 'company' },
+    ];
+
+    expectations.forEach(({ route, audience }) => {
+        ['index.html', 'en.html'].forEach((file) => {
+            const html = fs.readFileSync(path.join(__dirname, '..', route, file), 'utf8');
+            const destinations = [...html.matchAll(/href="(https:\/\/estavo-brokers\.com\/website\/[^\"]*)"/g)]
+                .map((match) => new URL(match[1].replaceAll('&amp;', '&')));
+
+            assert.ok(destinations.length > 1, `${route}/${file} should contain website CTAs`);
+            destinations.forEach((url) => {
+                assert.equal(url.searchParams.get('audience'), audience, url.toString());
+            });
+        });
+    });
+});
+
+test('landing referral tracking preserves audience and complete Meta attribution', () => {
+    const script = fs.readFileSync(path.join(__dirname, '../assets/js/referral.js'), 'utf8');
+    const query = new URLSearchParams({
+        utm_source: 'facebook',
+        utm_campaign: 'website-acquisition',
+        utm_adset: 'company-owners',
+        utm_ad: 'finished-site-demo',
+        fbclid: 'META_CLICK_123',
+    });
+    const dom = new JSDOM('<a id="cta" href="https://estavo-brokers.com/website/?audience=company">Start</a>', {
+        url: `https://estavo-brokers.com/enterprise/?${query}`,
+        runScripts: 'outside-only',
+    });
+
+    dom.window.eval(script);
+    dom.window.document.dispatchEvent(new dom.window.Event('DOMContentLoaded'));
+    const destination = new URL(dom.window.document.querySelector('#cta').href);
+
+    assert.equal(destination.searchParams.get('audience'), 'company');
+    query.forEach((value, key) => assert.equal(destination.searchParams.get(key), value, key));
+    dom.window.close();
 });

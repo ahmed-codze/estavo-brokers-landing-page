@@ -262,9 +262,13 @@ function checkFile(file) {
 
   const expectedDestination = ['data', 'market', 'insights'].includes(route)
     ? 'https://brokers.estavo.space/go/?ref=default-landing-page-market'
-    : ['websites', 'enterprise', 'ai', 'marketing', 'meta', 'listings'].includes(route)
-      ? 'https://estavo-brokers.com/website/'
-      : null;
+    : route === 'websites'
+      ? 'https://estavo-brokers.com/website/?audience=individual'
+      : route === 'enterprise'
+        ? 'https://estavo-brokers.com/website/?audience=company'
+        : ['ai', 'marketing', 'meta', 'listings'].includes(route)
+          ? 'https://estavo-brokers.com/website/'
+          : null;
   if (expectedDestination) {
     const conversionButtons = [...raw.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*class="[^"]*(?:es-button--primary|es-button--light)[^"]*"[^>]*data-position="(?:hero|workflow|close)"[^>]*>/gi)];
     if (!conversionButtons.length) {
