@@ -741,8 +741,8 @@
                 <h1 class="stage-title" id="audience-title">Who owns the <span class="accent">website?</span></h1>
                 <p class="stage-sub">One answer, then we’ll take you straight to the right setup.</p>
                 <div class="choice-grid">
-                    <button class="choice-card" type="button" data-audience="company" data-next-panel="link"><span class="choice-icon" aria-hidden="true">▦</span><span class="choice-title">A real-estate company</span><span class="choice-description">I have a company link</span></button>
-                    <button class="choice-card is-featured" type="button" data-audience="individual" data-next-panel="manual"><span class="choice-badge">Freelancer</span><span class="choice-icon" aria-hidden="true">♙</span><span class="choice-title">Me — an independent broker</span><span class="choice-description">I want the website in my name</span></button>
+                    <button class="choice-card" type="button" data-audience="company" data-next-panel="link" data-track="website_audience_company" data-position="owner_choice"><span class="choice-icon" aria-hidden="true">▦</span><span class="choice-title">A real-estate company</span><span class="choice-description">I have a company link</span></button>
+                    <button class="choice-card is-featured" type="button" data-audience="individual" data-next-panel="manual" data-track="website_audience_individual" data-position="owner_choice"><span class="choice-badge">Freelancer</span><span class="choice-icon" aria-hidden="true">♙</span><span class="choice-title">Me — an independent broker</span><span class="choice-description">I want the website in my name</span></button>
                 </div>
             </section>
             <section class="wizard-panel" data-panel="link" aria-labelledby="link-title" hidden>
@@ -807,7 +807,7 @@
                         <p class="contact-note">We’ll only use these as public contact details on your website. You can edit them later.</p>
                     </section>
                     <p class="manual-error" data-manual-error role="alert" aria-live="polite"></p>
-                    <div class="manual-actions"><button class="wizard-secondary" type="button" data-manual-prev hidden>Previous</button><button class="wizard-primary" type="button" data-manual-next>Next</button><button class="wizard-primary" type="submit" data-manual-submit hidden>Build my website free</button></div>
+                    <div class="manual-actions"><button class="wizard-secondary" type="button" data-manual-prev hidden>Previous</button><button class="wizard-primary" type="button" data-manual-next>Next</button><button class="wizard-primary" type="submit" data-manual-submit data-track="start_individual_website" data-position="manual_finish" hidden>Build my website free</button></div>
                 </form>
             </section>
             <p class="stage-micro">100% free — no credit card</p>
@@ -849,7 +849,7 @@
     </a>
 
     <!-- Handles URL validation + referral/UTM attribution on the form -->
-    <script src="../assets/js/website-referral.js?v=20260918-chat-ui" defer></script>
+    <script src="../assets/js/website-referral.js?v=20261003-meta-routing" defer></script>
 
     <script src="../assets/js/raghad.js?v=20260921-knowledge" defer
         data-disabled-hosts="estavo-brokers.com,www.estavo-brokers.com"

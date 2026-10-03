@@ -65,6 +65,9 @@ test('always builds the handoff on the fixed Estavo onboarding endpoint', () => 
             ref: 'Partner-42',
             utm_source: 'facebook',
             utm_campaign: 'enterprise-launch',
+            utm_adset: 'company-owners',
+            utm_ad: 'finished-site-demo',
+            fbclid: 'META_CLICK_123',
         },
     );
     const url = new URL(destination);
@@ -72,9 +75,13 @@ test('always builds the handoff on the fixed Estavo onboarding endpoint', () => 
     assert.equal(url.origin, 'https://brokers.estavo.space');
     assert.equal(url.pathname, '/website/create');
     assert.equal(url.searchParams.get('locale'), 'ar');
+    assert.equal(url.searchParams.get('audience'), 'company');
     assert.equal(url.searchParams.get('ref'), 'partner-42');
     assert.equal(url.searchParams.get('utm_source'), 'facebook');
     assert.equal(url.searchParams.get('utm_campaign'), 'enterprise-launch');
+    assert.equal(url.searchParams.get('utm_adset'), 'company-owners');
+    assert.equal(url.searchParams.get('utm_ad'), 'finished-site-demo');
+    assert.equal(url.searchParams.get('fbclid'), 'META_CLICK_123');
     assert.equal(
         url.searchParams.get('source'),
         'https://instagram.com/company?next=https://evil.example/redirect',
@@ -288,7 +295,7 @@ test('the Arabic and English website builders expose link and manual handoffs', 
         assert.match(html, new RegExp(`aria-describedby="${input}-hint ${input}-error"`));
         assert.match(html, new RegExp(`id="${input}-error" role="alert" aria-live="polite"`));
         assert.match(html, /maxlength="2048"/);
-        assert.match(html, /assets\/js\/website-referral\.js\?v=11/);
+        assert.match(html, /assets\/js\/website-referral\.js\?v=20261003-meta-routing/);
         assert.match(html, /assets\/css\/website-wizard\.css/);
         assert.match(html, /data-website-wizard/);
         assert.match(html, /data-panel="audience"/);

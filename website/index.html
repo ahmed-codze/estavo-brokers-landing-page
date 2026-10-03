@@ -779,12 +779,12 @@
                 <h1 class="stage-title" id="audience-title">مين صاحب <span class="accent">الموقع؟</span></h1>
                 <p class="stage-sub">إجابة واحدة وهندخلك على طول في الطريقة المناسبة.</p>
                 <div class="choice-grid">
-                    <button class="choice-card" type="button" data-audience="company" data-next-panel="link">
+                    <button class="choice-card" type="button" data-audience="company" data-next-panel="link" data-track="website_audience_company" data-position="owner_choice">
                         <span class="choice-icon" aria-hidden="true">▦</span>
                         <span class="choice-title">شركة عقارية</span>
                         <span class="choice-description">عندي لينك للشركة</span>
                     </button>
-                    <button class="choice-card is-featured" type="button" data-audience="individual" data-next-panel="manual">
+                    <button class="choice-card is-featured" type="button" data-audience="individual" data-next-panel="manual" data-track="website_audience_individual" data-position="owner_choice">
                         <span class="choice-badge">فريلانسر</span>
                         <span class="choice-icon" aria-hidden="true">♙</span>
                         <span class="choice-title">أنا — بروكر مستقل</span>
@@ -881,7 +881,7 @@
                     <div class="manual-actions">
                         <button class="wizard-secondary" type="button" data-manual-prev hidden>السابق</button>
                         <button class="wizard-primary" type="button" data-manual-next>التالي</button>
-                        <button class="wizard-primary" type="submit" data-manual-submit hidden>اعمل موقعي مجانًا</button>
+                        <button class="wizard-primary" type="submit" data-manual-submit data-track="start_individual_website" data-position="manual_finish" hidden>اعمل موقعي مجانًا</button>
                     </div>
                 </form>
             </section>
@@ -924,7 +924,7 @@
     </a>
 
     <!-- Handles URL validation + referral/UTM attribution on the form -->
-    <script src="../assets/js/website-referral.js?v=20260918-chat-ui" defer></script>
+    <script src="../assets/js/website-referral.js?v=20261003-meta-routing" defer></script>
 
     <script src="../assets/js/raghad.js?v=20260921-knowledge" defer
         data-disabled-hosts="estavo-brokers.com,www.estavo-brokers.com"
