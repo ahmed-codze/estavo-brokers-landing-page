@@ -31,8 +31,11 @@
         'utm_source',
         'utm_medium',
         'utm_campaign',
+        'utm_adset',
+        'utm_ad',
         'utm_content',
-        'utm_term'
+        'utm_term',
+        'fbclid'
     ];
     var MAX_SOURCE_LENGTH = 2048;
     var MAX_ATTRIBUTION_LENGTH = 160;
@@ -189,6 +192,10 @@
         var destination = new URL(ONBOARDING_PATH, PLATFORM_ORIGIN);
         destination.searchParams.set('source', normalizedSource);
         destination.searchParams.set('locale', normalizedLocale);
+        // This builder is used only by the company-link path. Preserve the
+        // visitor's explicit choice separately from the identity eventually
+        // verified from the supplied public profile.
+        destination.searchParams.set('audience', 'company');
 
         var referral = attribution && attribution.ref;
         if (isValidSlug(referral)) {
@@ -943,6 +950,13 @@
             }
             windowObject.location.assign(destination);
         });
+
+        // Campaigns may enter the matching path directly. Wait until the
+        // manual form and catalogue controls are initialized before opening
+        // that panel. Invalid or absent values retain the neutral chooser.
+        var requestedAudience = getQueryParameter(windowObject.location.search, 'audience');
+        if (requestedAudience === 'company') showPanel('link');
+        if (requestedAudience === 'individual') showPanel('manual');
     }
 
     function bootstrap(windowObject, documentObject) {
@@ -960,8 +974,11 @@
                 utm_source: getQueryParameter(search, 'utm_source') || 'referral',
                 utm_medium: getQueryParameter(search, 'utm_medium') || 'link',
                 utm_campaign: getQueryParameter(search, 'utm_campaign') || slug,
+                utm_adset: getQueryParameter(search, 'utm_adset'),
+                utm_ad: getQueryParameter(search, 'utm_ad'),
                 utm_content: getQueryParameter(search, 'utm_content'),
-                utm_term: getQueryParameter(search, 'utm_term')
+                utm_term: getQueryParameter(search, 'utm_term'),
+                fbclid: getQueryParameter(search, 'fbclid')
             };
 
             safeStorageSet(sessionStorage, SESSION_KEY, slug);
