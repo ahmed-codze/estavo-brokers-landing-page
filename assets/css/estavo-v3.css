@@ -1072,6 +1072,9 @@
     display: inline-flex;
     min-block-size: 2.75rem;
     align-items: center;
+    /* inline-flex drops the space before an isolated Latin run
+       ("ربط <bdi>Meta</bdi>"); restore it as a gap. */
+    column-gap: .3em;
     color: var(--es-on-dark-muted);
     font-size: var(--es-fs-ui);
     text-decoration: none;
@@ -6069,7 +6072,6 @@
   }
 }
 
-
 /* ============================================================
    Sticky mobile conversion bar
    ------------------------------------------------------------
@@ -6119,3 +6121,4 @@
 @media (prefers-reduced-motion: reduce) {
   .es-sticky-cta { backdrop-filter: none; }
 }
+

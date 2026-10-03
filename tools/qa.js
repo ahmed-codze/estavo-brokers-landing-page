@@ -111,11 +111,34 @@ function checkFile(file) {
     if (hits) failures.push(`${hits.length}x "${hits[0]}" — ${why}`);
   }
 
+  // Homepage proof strip: every figure must come from tools/data/home-proof.json,
+  // match its published floor, and never exceed the measured production count.
+  const isHome = rel === 'index.html' || rel === 'en.html';
+  if (isHome) {
+    const proof = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'home-proof.json'), 'utf8'));
+    const items = [...raw.matchAll(/<li\b[^>]*data-proof="([^"]+)"[^>]*data-value="(\d+)"[^>]*>[\s\S]*?<\/li>/g)];
+    if (items.length !== proof.figures.length) {
+      failures.push(`proof strip shows ${items.length} figure(s), tools/data/home-proof.json configures ${proof.figures.length}`);
+    }
+    for (const [markup, key, value] of items) {
+      const figure = proof.figures.find((f) => f.key === key);
+      const shown = (markup.match(/class="es-home-proof__value[^"]*"[^>]*>([^<]+)</) || [])[1] || '';
+      if (!figure) { failures.push(`proof figure "${key}" is not configured`); continue; }
+      if (Number(value) !== figure.display || shown.replace(/[,+\s]/g, '') !== String(figure.display)) {
+        failures.push(`proof figure "${key}" must show ${figure.display.toLocaleString('en-US')}+`);
+      }
+      if (figure.display > figure.verified) {
+        failures.push(`proof figure "${key}" rounds above its verified count (${figure.verified})`);
+      }
+    }
+  }
+
   // Scale-claim consistency. Allow up to two descriptive words between the
-  // number and noun (for example, "30,000 comparable units").
+  // number and noun (for example, "30,000 comparable units"). The homepage
+  // uses the verified proof configuration above instead of these figures.
   const number = '[+]?\\d{1,3}(?:,\\d{3})*(?:\\+)?';
   const word = '[A-Za-z؀-ۿ-]+';
-  for (const claim of APPROVED_SCALE_CLAIMS) {
+  for (const claim of isHome ? [] : APPROVED_SCALE_CLAIMS) {
     const pair = new RegExp(
       `(${number})(?:\\s+${word}){0,2}\\s+${claim.noun}|` +
       `${claim.noun}(?:\\s+${word}){0,2}\\s+(${number})`,

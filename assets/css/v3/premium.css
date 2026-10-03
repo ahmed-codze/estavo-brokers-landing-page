@@ -1430,3 +1430,53 @@
     .es-service-card__icon img { scale: 1 !important; transition: none !important; }
   }
 }
+
+/* ============================================================
+   Sticky mobile conversion bar
+   ------------------------------------------------------------
+   Paid social traffic is overwhelmingly mobile, and the primary
+   action otherwise scrolls out of reach after the hero. This
+   keeps it reachable without covering the Raghad launcher: the
+   bar sits under it in z-order and lifts it via --raghad-bottom,
+   and the footer reserves space so nothing is obscured at rest.
+   Phone only — on larger screens the header CTA stays visible.
+   ============================================================ */
+.es-sticky-cta {
+  position: fixed;
+  /* Beat the legacy .sticky-cta rules on pages that load styles.css. */
+  transform: none;
+  box-shadow: none;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 900;
+  display: none;
+  padding: .625rem .875rem calc(.625rem + env(safe-area-inset-bottom));
+  background: color-mix(in srgb, var(--es-surface, #fff) 94%, transparent);
+  backdrop-filter: blur(10px);
+  border-block-start: 1px solid var(--es-line, #dfe4ea);
+}
+
+.es-sticky-cta .es-button {
+  inline-size: 100%;
+  min-block-size: 3rem;
+  justify-content: center;
+}
+
+@media (max-width: 40rem) {
+  .es-sticky-cta { display: block; }
+
+  /* The launcher lift is handled by raghad.js, which measures this
+     bar via the .sticky-cta/.visible contract it already observes.
+     A CSS value here would be overridden by its inline style. */
+
+  /* Reserve resting space so the bar never covers the last row
+     of the footer, including on pages without the launcher. */
+  body:has(.es-sticky-cta) .es-footer { padding-block-end: 5.5rem; }
+  body:has(.es-sticky-cta):has(.raghad-support) .es-footer {
+    padding-block-end: calc(var(--es-space-9, 3rem) + 8rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .es-sticky-cta { backdrop-filter: none; }
+}

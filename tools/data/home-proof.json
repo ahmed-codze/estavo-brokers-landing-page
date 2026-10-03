@@ -1,0 +1,11 @@
+{
+  "_comment": "Homepage proof strip. 'verified' is the measured production count; 'display' is the published floor with a + marketing treatment and must never exceed 'verified'. Update both together from a fresh production count, and the date. Enforced by tools/qa.js and tests/homepage.test.js.",
+  "verified_at": "2026-10-03",
+  "source": "Production MySQL (estavo-brokers-api), soft-delete and is_active filters applied — recorded in HOMEPAGE-V2-GUIDE.md §1.0",
+  "figures": [
+    { "key": "projects", "verified": 2412, "display": 2400, "ar": "مشروع", "en": "projects", "basis": "active projects" },
+    { "key": "units", "verified": 26169, "display": 26000, "ar": "وحدة", "en": "units", "basis": "active unit models" },
+    { "key": "areas", "verified": 110, "display": 110, "ar": "منطقة", "en": "areas", "basis": "active areas across 16 cities" },
+    { "key": "brokers", "verified": 6696, "display": 6600, "ar": "بروكر مسجّل", "en": "registered brokers", "basis": "registered users of the Estavo Brokers app" }
+  ]
+}
