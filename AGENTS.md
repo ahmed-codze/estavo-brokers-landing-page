@@ -185,16 +185,21 @@ This sequence exists to prevent feature soup. It first creates one mental model,
 
 The current bilingual homepages are `index.html` and `en.html`. They are hand-maintained published files, not emitted by `tools/build-pages.js`.
 
-The intended homepage argument is:
+Since **3 October 2026** the homepage positions Estavo as a real-estate data intelligence system: **السوق + العقار + العميل, connected by Estavo AI**, answering «أنهي عقار مناسب لأنهي عميل؟». Headline: «معاك حد مذاكر السوق. وفاهم عميلك.»
 
-- **Hero:** lead with the parent Estavo proposition, “the real-estate market under your name,” but give the visitor one primary next step: open Estavo Market. Website creation is a secondary text link for visitors already ready to build their branded presence.
-- **Proof strip:** establish scale with the approved 30,000-unit and 7,000-broker figures, website-onboarding and update facts, and connect each fact to the broker task it enables. The other approved scale figures are 700 developers and 2,000 projects. Use these counts exactly, without a “+” qualifier. Do not put caveats inside the proof strip or use developer/project counts there.
-- **Differentiation:** explain that Estavo organises market information behind the broker while the broker remains in front of the buyer. The network visual demonstrates sources flowing into Estavo and then into customer-controlled surfaces.
-- **Market workflow:** start from a real buyer request, then show search, comparison, available updates and a branded offer as one working sequence. Estavo Market remains the primary conversion path.
-- **Outcome proof:** describe the three broker outcomes—reaching relevant options, comparing decision inputs and sending under the broker's name—rather than presenting six co-equal service cards.
-- **Website + Client AI:** present the branded website as the next stage for brokers who want buyers to browse and return under their brand. Keep the product illustration embedded and label it as an example rather than sending all proof to another page.
-- **Companies/platforms:** give brokerage companies a dedicated dark band using the approved “less than one data-entry employee's salary” economic framing, with separate company and existing-platform routes.
-- **FAQ and close:** place availability, network-reach and sales boundaries in the FAQ, then close with Estavo Market as the single primary action and website creation as a secondary link.
+It has exactly nine visible sections (`home-hero`, `home-market`, `home-request`, `home-website`, `home-client`, `home-growth`, `home-start-free`, `home-faq`, `home-closing`), enforced by `tests/homepage.test.js` and `tools/qa.js`:
+
+- **Two free doors, one order:** «اكتشف السوق مجانًا» (Market, primary) then «اعمل موقعك مجانًا» (website, secondary), with identical labels everywhere. The mobile sticky bar carries Market only.
+- **No proof strip.** No scale counts are rendered: the approved 30,000-unit figure overstates the live catalogue (see `HOMEPAGE-V2-GUIDE.md` §1.0.1). Reintroduce counts only from a verified current source, with a date.
+- **Illustrative fixture:** the hero, Market board, Request analysis, website and client visuals share one internally consistent example (projects أ/ب/ج, New Cairo, 3 bedrooms, budget 8M, max down payment 1.5M; ج is 8.3M = +300K over budget). Every surface carries «مثال توضيحي» / "Example". Change the numbers together or not at all.
+- **Client section** shows behaviour signals resolving into one interest insight, and one unit matched to anonymous client interests. No names, pipeline, statuses or scores.
+- **ROI and testimonials** live in `<template>` blocks and must not render until the calculator is live and real, permitted quotes exist.
+- **Mascot:** only the closing uses the guide character (`assets/img/mascot/`). The hero (studying pose) and website (presenting pose, outside the browser frame) slots are deliberately disabled until the custom poses exist.
+- **Mint** (`--es-art-mint`) on the homepage means "Estavo understood something": resolved results, the updated row, the best-fit relationship. It is never used on CTAs, badges or small text on light surfaces.
+- **Motion:** three signature sequences (hero flow, which is CSS-only on load; market chaos → board; Request → properties → reasons). Below-fold figures are armed by `assets/js/home.js` only while off-screen. Without JS, or with reduced motion, every figure renders its final state.
+- **Analytics:** CTAs keep their existing `data-track` events, and `data-home-event` adds `home_*` names on deliberate clicks. `data-home-view` sends passive section views, which are never conversions.
+
+Homepage-only styles and behaviour live in `assets/css/home.css` (unlayered, `.es-home-*` scope) and `assets/js/home.js`. Bump their `?v=` query on change.
 
 Price-history, inflation, purchase-cost and real-return analysis belong on the detailed Market page, not the homepage.
 
@@ -413,7 +418,7 @@ Use variables from `assets/css/v3/tokens.css`; do not introduce raw colors in pa
 | Secondary structure | `--es-mist-2` | `#e8eef3` |
 | Positive accent | `--es-positive` | `#27a06f` |
 
-Homepage illustrations use navy, Estavo blue, pale blue and paper. Green/mint is intentionally absent from the refreshed homepage art; it remains a restrained status accent in legacy service scenes until those are migrated. External brand color is allowed only where a third-party mark or recognizable interface genuinely requires it.
+Homepage illustrations use navy, Estavo blue, pale blue and paper. Since October 2026, `--es-art-mint` appears on the homepage only as the intelligence-result signal (see §5.2). It remains a restrained status accent in legacy service scenes. External brand color is allowed only where a third-party mark or recognizable interface genuinely requires it.
 
 Why: a limited palette makes many data-heavy scenes read as one system and keeps the site from looking like a collection of unrelated SaaS templates.
 
@@ -607,6 +612,7 @@ The site is static HTML with dependency-free build utilities. There is no packag
 | Illustration generation | `tools/build-illustrations.py`, `tools/build-home-illustrations-v2.py` |
 | Illustration translation strings | `tools/illustration-copy-en.json`, `tools/illustration-mobile-copy-en.json` |
 | Homepage published copy/layout | `index.html`, `en.html` |
+| Homepage-only styles / behaviour | `assets/css/home.css`, `assets/js/home.js` |
 | Detailed visual rules | `DESIGN-GUIDELINES.md` |
 | Planned commercial-page expansion and claims gate | `COMMERCIAL-SERVICE-PAGES-PLAN.md` |
 | Page-level copy, conversion and art briefs | `commercial-page-briefs/README.md` and its six linked briefs |

@@ -187,6 +187,8 @@ def refresh_home_heroes():
         page=ROOT/name
         source=page.read_text()
         match=re.search(r'<div class="es-hero__figure"[^>]*>',source)
+        if not match and 'class="es-home-main"' in source:
+            print('Skipped '+name+': the es-home-main homepage has no legacy hero figure.'); continue
         if not match: raise ValueError('Missing homepage hero: '+name)
         fragment=vector_pictures(hero_figure('assets',english))
         source=source[:match.start()]+fragment+source[div_end(source,match.start()):]

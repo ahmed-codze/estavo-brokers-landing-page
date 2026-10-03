@@ -65,6 +65,10 @@ def replace_div(source, start, replacement):
     raise ValueError('Unbalanced div')
 
 html=(ROOT/'index.html').read_text()
+# The October 2026 homepage (es-home-main) no longer carries these legacy
+# figures; this migration only applies to the previous homepage design.
+if 'class="es-home-main"' in html:
+    raise SystemExit('Homepage uses the es-home-main design; legacy mobile art refresh skipped.')
 for figure, composition in COMPOSITIONS.items():
     match=re.search(r'<div class="[^"]*\b'+figure+r'\b[^"]*"',html)
     if not match: raise ValueError('Missing figure '+figure)
