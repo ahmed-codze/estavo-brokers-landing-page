@@ -154,6 +154,27 @@ test('carries a validated CRM customer through manual website creation', () => {
     assert.equal(referral.normalizeOwnerUserId('6748x'), null);
 });
 
+test('carries an unregistered CRM lead through both website creation paths', () => {
+    const linked = new URL(referral.buildOnboardingUrl(
+        'https://www.facebook.com/new.broker',
+        'en',
+        {},
+        null,
+        91,
+    ));
+    const manual = new URL(referral.buildManualOnboardingUrl({
+        name: 'New Broker',
+        theme: 'modern_line',
+        cities: [NEW_CAIRO],
+        contact: CONTACT,
+    }, 'en', {}, null, 91));
+
+    assert.equal(linked.searchParams.get('for_lead'), '91');
+    assert.equal(linked.searchParams.has('for_user'), false);
+    assert.equal(manual.searchParams.get('for_lead'), '91');
+    assert.equal(manual.searchParams.has('for_user'), false);
+});
+
 test('normalizes Egyptian contacts and validates optional social profiles', () => {
     assert.equal(referral.normalizePhoneNumber('010 1234 5678'), '+201012345678');
     assert.equal(referral.normalizePhoneNumber('00201012345678'), '+201012345678');

@@ -190,10 +190,11 @@
         return Number.isSafeInteger(numeric) ? String(numeric) : null;
     }
 
-    function buildOnboardingUrl(source, locale, attribution, ownerUserId) {
+    function buildOnboardingUrl(source, locale, attribution, ownerUserId, ownerLeadId) {
         var normalizedSource = normalizeSourceUrl(source);
         var normalizedLocale = normalizeLocale(locale);
         var normalizedOwnerUserId = normalizeOwnerUserId(ownerUserId);
+        var normalizedOwnerLeadId = normalizeOwnerUserId(ownerLeadId);
         if (!normalizedSource || !normalizedLocale) return null;
 
         // The destination is deliberately constructed from constants. Neither
@@ -207,6 +208,8 @@
         destination.searchParams.set('audience', 'company');
         if (normalizedOwnerUserId) {
             destination.searchParams.set('for_user', normalizedOwnerUserId);
+        } else if (normalizedOwnerLeadId) {
+            destination.searchParams.set('for_lead', normalizedOwnerLeadId);
         }
 
         var referral = attribution && attribution.ref;
@@ -409,10 +412,11 @@
         }) : [];
     }
 
-    function buildManualOnboardingUrl(profile, locale, attribution, ownerUserId) {
+    function buildManualOnboardingUrl(profile, locale, attribution, ownerUserId, ownerLeadId) {
         var normalizedProfile = normalizeManualProfile(profile, true);
         var normalizedLocale = normalizeLocale(locale);
         var normalizedOwnerUserId = normalizeOwnerUserId(ownerUserId);
+        var normalizedOwnerLeadId = normalizeOwnerUserId(ownerLeadId);
         if (!normalizedProfile || !normalizedLocale) return null;
 
         // The existing onboarding service starts from a public source URL. Give
@@ -455,6 +459,8 @@
         destination.searchParams.set('locale', normalizedLocale);
         if (normalizedOwnerUserId) {
             destination.searchParams.set('for_user', normalizedOwnerUserId);
+        } else if (normalizedOwnerLeadId) {
+            destination.searchParams.set('for_lead', normalizedOwnerLeadId);
         }
 
         var referral = attribution && attribution.ref;
@@ -551,7 +557,7 @@
         errorElement.classList.remove('is-ok');
     }
 
-    function prepareWebsiteForm(windowObject, documentObject, form, ownerUserId, requestedSource) {
+    function prepareWebsiteForm(windowObject, documentObject, form, ownerUserId, ownerLeadId, requestedSource) {
         if (form.getAttribute('data-website-starter-ready') === 'true') return;
 
         var input = form.querySelector('input[name="source"]');
@@ -619,7 +625,8 @@
                 input.value,
                 locale,
                 readFormAttribution(form),
-                ownerUserId
+                ownerUserId,
+                ownerLeadId
             );
 
             if (!destination) {
@@ -633,7 +640,7 @@
         });
     }
 
-    function prepareWebsiteWizard(windowObject, documentObject, wizard, attribution, ownerUserId) {
+    function prepareWebsiteWizard(windowObject, documentObject, wizard, attribution, ownerUserId, ownerLeadId) {
         if (wizard.getAttribute('data-wizard-ready') === 'true') return;
         wizard.setAttribute('data-wizard-ready', 'true');
 
@@ -963,7 +970,7 @@
                     facebook: form.elements.facebook_url.value,
                     instagram: form.elements.instagram_url.value
                 }
-            }, locale, attribution, ownerUserId);
+            }, locale, attribution, ownerUserId, ownerLeadId);
             if (!destination) {
                 error.textContent = locale === 'ar'
                     ? 'تعذر تجهيز بيانات موقعك. راجع اختياراتك وحاول تاني.'
@@ -986,6 +993,7 @@
             var search = windowObject.location.search;
             var sessionStorage = getSessionStorage(windowObject);
             var ownerUserId = normalizeOwnerUserId(getQueryParameter(search, 'for_user'));
+            var ownerLeadId = normalizeOwnerUserId(getQueryParameter(search, 'for_lead'));
             var requestedSource = getQueryParameter(search, 'source');
             var candidateSlug = getQueryParameter(search, QUERY_PARAM)
                 || getCookie(documentObject, COOKIE_NAME)
@@ -1034,7 +1042,7 @@
                         sanitizeAttributionValue(attribution[field])
                     );
                 });
-                prepareWebsiteForm(windowObject, documentObject, form, ownerUserId, requestedSource);
+                prepareWebsiteForm(windowObject, documentObject, form, ownerUserId, ownerLeadId, requestedSource);
             }
 
             function preserveWebsiteContext(anchor) {
@@ -1043,6 +1051,7 @@
                     var url = new URL(anchor.getAttribute('href'), windowObject.location.href);
                     if (url.origin !== windowObject.location.origin || url.pathname.indexOf('/website/') !== 0) return;
                     if (ownerUserId) url.searchParams.set('for_user', ownerUserId);
+                    else if (ownerLeadId) url.searchParams.set('for_lead', ownerLeadId);
                     var source = classifySource(requestedSource || '');
                     if (source.ok) url.searchParams.set('source', source.url);
                     ['audience', QUERY_PARAM].concat(ATTRIBUTION_FIELDS).forEach(function (field) {
@@ -1059,7 +1068,7 @@
             documentObject.querySelectorAll('a[hreflang]').forEach(preserveWebsiteContext);
             documentObject.querySelectorAll('form.website-starter').forEach(prepareForm);
             documentObject.querySelectorAll('[data-website-wizard]').forEach(function (wizard) {
-                prepareWebsiteWizard(windowObject, documentObject, wizard, attribution, ownerUserId);
+                prepareWebsiteWizard(windowObject, documentObject, wizard, attribution, ownerUserId, ownerLeadId);
             });
 
             if (typeof windowObject.MutationObserver !== 'undefined' && documentObject.body) {
