@@ -158,6 +158,10 @@ Avoid internal abstractions such as “coverage,” “property record,” “da
 - AI pricing depends on the type and amount of use.
 - Integration cost and timing depend on the agreed platform, data and service scope.
 - A customer does not need a new website to use Market or to discuss an integration.
+- Estavo Sites visitors and enquiries submitted through a website are unlimited. A separate monthly allowance applies only to customer records that the website team deliberately creates and tracks in Estavo.
+- Every paid city includes 50 team-created tracked leads per month for an Individual site or 500 for a Company/Enterprise site. The free city is excluded from the paid-city allowance.
+- A new, unassigned website starts with zero cities and zero tracked-lead allowance. Estavo can apply a launch grant of one free city and a free monthly allowance; the standard grant is five tracked leads per month.
+- Approved monthly Individual top-ups are +25 / EGP 150, +50 / EGP 250, +100 / EGP 400 and +250 / EGP 800. Company/Enterprise top-ups are +500 / EGP 1,500, +1,000 / EGP 2,500, +2,500 / EGP 5,000 and +5,000 / EGP 8,500. A customer does not need to buy another city to add a lead pack.
 
 Do not add exact prices, limits, timeframes or inclusions unless a current approved commercial source is supplied. “Ready in around five minutes” is an existing website-onboarding proposition; preserve its explanation and do not silently generalize it to integration or data setup.
 
