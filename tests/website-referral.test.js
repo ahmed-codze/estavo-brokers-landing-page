@@ -69,6 +69,7 @@ test('always builds the handoff on the fixed Estavo onboarding endpoint', () => 
             utm_ad: 'finished-site-demo',
             fbclid: 'META_CLICK_123',
         },
+        6748,
     );
     const url = new URL(destination);
 
@@ -76,6 +77,7 @@ test('always builds the handoff on the fixed Estavo onboarding endpoint', () => 
     assert.equal(url.pathname, '/website/create');
     assert.equal(url.searchParams.get('locale'), 'ar');
     assert.equal(url.searchParams.get('audience'), 'company');
+    assert.equal(url.searchParams.get('for_user'), '6748');
     assert.equal(url.searchParams.get('ref'), 'partner-42');
     assert.equal(url.searchParams.get('utm_source'), 'facebook');
     assert.equal(url.searchParams.get('utm_campaign'), 'enterprise-launch');
@@ -134,6 +136,21 @@ test('rejects incomplete or tampered manual website profiles', () => {
     assert.equal(referral.buildManualOnboardingUrl({ name: 'Jane', theme: 'modern_line', cities: [{ id: '../../bad', name_en: 'Bad' }], contact: CONTACT }, 'en', {}), null);
     assert.equal(referral.buildManualOnboardingUrl({ name: 'Jane', theme: 'modern_line', cities: [NEW_CAIRO] }, 'en', {}), null);
     assert.equal(referral.buildManualOnboardingUrl({ name: 'Jane', theme: 'modern_line', cities: [NEW_CAIRO], contact: { ...CONTACT, facebook: 'https://evil.example/jane' } }, 'en', {}), null);
+});
+
+test('carries a validated CRM customer through manual website creation', () => {
+    const destination = referral.buildManualOnboardingUrl({
+        name: 'Rehab Reda',
+        theme: 'modern_line',
+        cities: [NEW_CAIRO],
+        contact: CONTACT,
+    }, 'en', {}, '6748');
+    const url = new URL(destination);
+
+    assert.equal(url.searchParams.get('for_user'), '6748');
+    assert.equal(url.searchParams.get('mode'), 'manual');
+    assert.equal(referral.normalizeOwnerUserId('0'), null);
+    assert.equal(referral.normalizeOwnerUserId('6748x'), null);
 });
 
 test('normalizes Egyptian contacts and validates optional social profiles', () => {
@@ -295,7 +312,7 @@ test('the Arabic and English website builders expose link and manual handoffs', 
         assert.match(html, new RegExp(`aria-describedby="${input}-hint ${input}-error"`));
         assert.match(html, new RegExp(`id="${input}-error" role="alert" aria-live="polite"`));
         assert.match(html, /maxlength="2048"/);
-        assert.match(html, /assets\/js\/website-referral\.js\?v=20261003-meta-routing/);
+        assert.match(html, /assets\/js\/website-referral\.js\?v=20261004-crm-owner/);
         assert.match(html, /assets\/css\/website-wizard\.css/);
         assert.match(html, /data-website-wizard/);
         assert.match(html, /data-panel="audience"/);
