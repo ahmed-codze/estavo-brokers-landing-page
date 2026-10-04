@@ -50,6 +50,20 @@
   color: var(--es-ink);
 }
 
+/* Keep below-fold layout out of the initial rendering budget. The remembered
+   intrinsic size prevents scroll jumps while the browser skips paint/layout. */
+@supports (content-visibility: auto) {
+  .es-home-main > section:not(#home-hero) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+  }
+
+  .es-home > .es-footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 560px;
+  }
+}
+
 .es-home-main :is(h1, h2, h3) {
   margin: 0;
   color: inherit;
@@ -547,217 +561,6 @@ html body.es-landing .es-home-main .es-home-free-card .es-home-h3 { font-size: c
   font-size: var(--fs-small);
 }
 
-/* Hero intelligence model: Request → Estavo → السوق/العقار/العميل → result. */
-.es-home-intel {
-  display: grid;
-  justify-items: center;
-  inline-size: 100%;
-  max-inline-size: 38rem;
-  justify-self: center;
-}
-
-.es-home-intel__request {
-  display: grid;
-  gap: .5rem;
-  inline-size: min(100%, 24rem);
-  padding: .9rem 1.1rem;
-}
-
-.es-home-intel__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.es-home-intel__tag {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  color: var(--es-blue-600);
-  font-size: .8125rem;
-  font-weight: 700;
-}
-
-.es-home-intel__ask {
-  color: var(--es-navy-950);
-  font-size: 1.0625rem;
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-
-.es-home-intel__nodes {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: .75rem;
-  inline-size: 100%;
-  padding-block-start: 1.5rem;
-}
-
-/* Branch rail: one horizontal relationship + three stubs. */
-.es-home-intel__nodes::before {
-  content: "";
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline: calc(100% / 6);
-  block-size: 2px;
-  background: var(--rail-c);
-}
-
-.es-home-intel__node {
-  position: relative;
-  display: grid;
-  align-content: start;
-  gap: .3rem;
-  padding: .85rem .9rem;
-  border: 1px solid var(--es-line);
-  border-radius: var(--home-card-radius);
-  background: var(--es-white);
-  text-align: center;
-}
-
-.es-home-intel__node::before {
-  content: "";
-  position: absolute;
-  inset-block-start: -1.5rem;
-  inset-inline-start: calc(50% - 1px);
-  inline-size: 2px;
-  block-size: 1.5rem;
-  background: var(--rail-c);
-}
-
-.es-home-intel__node .es-home-ic { justify-self: center; inline-size: 1.4rem; block-size: 1.4rem; }
-
-.es-home-intel__node b {
-  color: var(--es-navy-950);
-  font-size: 1.0625rem;
-  font-weight: 700;
-}
-
-.es-home-intel__node span {
-  color: var(--es-ink-72);
-  font-size: .8125rem;
-  line-height: 1.55;
-}
-
-.es-home-intel__merge {
-  position: relative;
-  inline-size: 100%;
-  block-size: 1.75rem;
-}
-
-.es-home-intel__merge::before,
-.es-home-intel__merge::after {
-  content: "";
-  position: absolute;
-  background: var(--rail-c);
-}
-
-.es-home-intel__merge::before {
-  inset-block-start: 0;
-  inset-inline: calc(100% / 6);
-  block-size: 2px;
-  transform: translateY(.6rem);
-}
-
-.es-home-intel__merge::after {
-  inset-block: .6rem 0;
-  inset-inline-start: calc(50% - 1px);
-  inline-size: 2px;
-}
-
-.es-home-intel__merge i {
-  position: absolute;
-  inset-block-start: 0;
-  inline-size: 2px;
-  block-size: .6rem;
-  background: var(--rail-c);
-}
-
-.es-home-intel__merge i:nth-child(1) { inset-inline-start: calc(100% / 6 - 1px); }
-.es-home-intel__merge i:nth-child(2) { inset-inline-start: calc(50% - 1px); }
-.es-home-intel__merge i:nth-child(3) { inset-inline-start: calc(500% / 6 - 1px); }
-
-.es-home-intel__result {
-  display: grid;
-  gap: .75rem;
-  inline-size: min(100%, 26rem);
-  padding: 1rem 1.1rem;
-  border-color: rgb(114 224 187 / 70%);
-  box-shadow: var(--home-mint-glow), 0 12px 32px rgb(11 34 57 / 9%);
-}
-
-.es-home-intel__title {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: .25rem 1rem;
-}
-
-.es-home-intel__title b { color: var(--es-navy-950); font-weight: 700; }
-.es-home-intel__title span { color: var(--es-ink-60); font-size: .8125rem; }
-
-.es-home-facts {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: .5rem;
-}
-
-.es-home-facts div {
-  display: grid;
-  gap: .1rem;
-  padding: .45rem .6rem;
-  border-radius: .5rem;
-  background: var(--es-mist);
-}
-
-.es-home-facts dt { color: var(--es-ink-60); font-size: .75rem; }
-.es-home-facts dd { color: var(--es-navy-950); font-size: .9375rem; font-weight: 700; }
-
-.es-home-intel__caption {
-  display: grid;
-  justify-items: center;
-  gap: .25rem;
-  margin-block-start: 1.5rem;
-  text-align: center;
-}
-
-.es-home-intel__caption span {
-  color: var(--es-ink-60);
-  font-size: var(--fs-small);
-  font-weight: 500;
-}
-
-.es-home-intel__caption b {
-  color: var(--es-navy-950);
-  font-size: clamp(1.15rem, 1.6vw, 1.375rem);
-  font-weight: 700;
-}
-
-/* Signature motion #1 — CSS only, once, ≤1.2s. H1 and CTAs never wait. */
-@media (prefers-reduced-motion: no-preference) {
-  .es-home-intel > *,
-  .es-home-intel__node {
-    animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both;
-  }
-
-  .es-home-intel__request { animation-delay: 60ms; }
-  .es-home-intel > .es-home-rail--v { animation-name: es-home-draw-y; animation-delay: 200ms; }
-  .es-home-intel .es-home-core { animation-name: es-home-pop; animation-delay: 260ms; }
-  .es-home-intel__nodes { animation-name: es-home-fade; animation-delay: 380ms; }
-  .es-home-intel__nodes::before { animation: es-home-draw-x var(--es-mo-base) var(--es-mo-ease) 380ms both; }
-  .es-home-intel__node:nth-child(1) { animation-delay: 480ms; }
-  .es-home-intel__node:nth-child(2) { animation-delay: 560ms; }
-  .es-home-intel__node:nth-child(3) { animation-delay: 640ms; }
-  .es-home-intel__merge { animation-name: es-home-fade; animation-delay: 700ms; }
-  .es-home-intel__result { animation-delay: 780ms; }
-  .es-home-intel__result .es-home-reason--best { animation: es-home-resolve var(--es-mo-base) var(--es-mo-ease) 1000ms both; }
-  .es-home-intel__caption { animation-name: es-home-fade; animation-delay: 900ms; }
-}
-
 /* Proof strip: verified counts (tools/data/home-proof.json), one rail
    running through the figures, no cards, no mint. */
 .es-home-proof {
@@ -895,186 +698,186 @@ html body.es-landing .es-home-main .es-home-free-card .es-home-h3 { font-size: c
 
 .es-home-board__head b { color: var(--es-navy-950); font-weight: 700; }
 
-/* Egypt map: real outline + Nile (Natural Earth via tools/build-egypt-map.py),
-   validated city coordinates, Greater Cairo lens. Geography is never
-   mirrored; labels sit at physical percentages because they are tied to
-   coordinates, not to reading direction. Filled nodes = Estavo markets
-   (API coverage config); hollow dots = main cities for orientation only. */
+/* Market map: a real map of Egypt (Natural Earth via tools/build-egypt-map.py)
+   with unlabelled points for the Estavo Brokers main markets; the selected
+   market (Sheikh Zayed) shows its projects.
+
+   Responsive by its own width (container query on the board):
+   - wide: the whole country; the projects card hangs from the pin;
+   - narrow: the frame crops to 4:3 and the stage zooms 1.7× around Cairo,
+     so all nine points stay visible and separated; the card drops below.
+   Points are HTML dots counter-scaled against the zoom, so they keep the
+   same on-screen size at every width. Geography is never mirrored. */
+.es-home-board { container-type: inline-size; }
+
 .es-home-map {
+  --zoom: 1;
   position: relative;
+}
+
+.es-home-map__frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 640 / 580;
+  border: 1px solid var(--es-line);
   border-radius: .75rem;
-  background: linear-gradient(180deg, var(--es-white), var(--es-mist));
+  background: #dceaf5;
+}
+
+.es-home-map__stage {
+  position: absolute;
+  inset-block-start: 0;
+  left: 0;
+  inline-size: 100%;
+  transform-origin: 0 0;
 }
 
 .es-home-map__svg { display: block; inline-size: 100%; block-size: auto; }
 
+.es-home-map__sea { fill: #dceaf5; }
+.es-home-map__neighbour { fill: #eef1f4; stroke: #c9d3dc; stroke-width: 1; vector-effect: non-scaling-stroke; }
+
 .es-home-map__land {
-  fill: var(--es-mist);
+  fill: var(--es-paper);
   stroke: var(--es-blue-500);
-  stroke-width: 1.25;
+  stroke-width: 1.4;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
 }
 
-.es-home-map__nile {
-  fill: none;
-  stroke: #9fbad3;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
+.es-home-map__water { fill: #dceaf5; stroke: #9fbad3; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.es-home-map__nile { fill: none; stroke: #8fb3d1; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+
+.es-home-map__pins { position: absolute; inset: 0; }
+
+.es-home-map__node {
+  position: absolute;
+  inline-size: .55rem;
+  block-size: .55rem;
+  border: 1.5px solid var(--es-white);
+  border-radius: 50%;
+  background: var(--es-blue-600);
+  translate: -50% -50%;
+  scale: calc(1 / var(--zoom));
 }
 
-.es-home-map__lens-box { fill: rgb(40 86 127 / 8%); stroke: var(--es-blue-600); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.es-home-map__inset { fill: var(--es-white); stroke: var(--es-line-strong); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.es-home-map__lens { stroke-dasharray: 3 4; }
-.es-home-map__leader { stroke-width: 1; opacity: .7; }
+/* Main cities: small secondary points for orientation. */
 
-.es-home-map__node { fill: var(--es-blue-600); stroke: var(--es-white); stroke-width: 1.25; }
-.es-home-map__node--ref { fill: var(--es-white); stroke: var(--es-ink-46); stroke-width: 1.25; }
-.es-home-map__node--selected { fill: var(--home-mint); stroke: var(--es-navy-950); stroke-width: 1.5; }
-.es-home-map__ring { fill: rgb(114 224 187 / 22%); stroke: var(--home-mint); stroke-width: 1.5; }
+/* Selected market: a custom map pin whose tip sits on the coordinate. */
+.es-home-map__node--selected {
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  border: 2px solid var(--es-white);
+  border-radius: 50% 50% 50% 0;
+  background: var(--es-navy-950);
+  box-shadow: 0 4px 10px rgb(11 34 57 / 30%);
+  translate: -50% -100%;
+  rotate: -45deg;
+  transform-origin: 50% 100%;
+  z-index: 2;
+}
 
-.es-home-map__labels {
+.es-home-map__node--selected b {
   position: absolute;
   inset: 0;
-  pointer-events: none;
-}
-
-.es-home-map__label {
-  position: absolute;
-  translate: -50% -50%;
-  padding: 0 .3rem;
-  border-radius: .3rem;
-  background: rgb(255 255 255 / 86%);
-  color: var(--es-navy-950);
-  font-size: .6875rem;
-  font-weight: 600;
-  line-height: 1.45;
-  white-space: nowrap;
-  inline-size: max-content;
-}
-
-.es-home-map__label--start { translate: 0 -50%; }
-.es-home-map__label--end { translate: -100% -50%; }
-.es-home-map__label--ref { background: none; color: var(--es-ink-60); font-weight: 500; font-size: .625rem; }
-.es-home-map__label--caption { translate: 0 0; background: none; color: var(--es-ink-46); font-weight: 500; }
-.es-home-map__label.is-selected { box-shadow: 0 0 0 1px var(--home-mint); background: var(--es-white); }
-
-.es-home-map__meta {
-  display: grid;
-  gap: .3rem;
-  margin-block-start: -.25rem;
-  font-size: .75rem;
-}
-
-.es-home-map__legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .25rem 1rem;
-  color: var(--es-ink-60);
-}
-
-.es-home-map__legend li::before {
-  content: "";
-  display: inline-block;
-  vertical-align: -.05em;
-  inline-size: .6rem;
-  block-size: .6rem;
-  margin-inline-end: .35rem;
-  border-radius: 50%;
-}
-
-.es-home-map__legend .is-market::before { background: var(--es-blue-600); }
-.es-home-map__legend .is-ref::before { border: 1.5px solid var(--es-ink-46); background: var(--es-white); }
-
-.es-home-map__selected {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .25rem .75rem;
-}
-
-.es-home-map__selected b {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  color: var(--es-navy-950);
-}
-
-.es-home-map__selected b::before {
-  content: "";
+  margin: auto;
   inline-size: .55rem;
   block-size: .55rem;
   border-radius: 50%;
   background: var(--home-mint);
-  box-shadow: 0 0 0 3px var(--home-mint-soft);
 }
 
-.es-home-map__selected span { color: var(--es-ink-60); }
-
-.es-home-rows__head {
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, .8fr) minmax(0, 1fr) minmax(0, 1fr);
-  gap: .5rem;
-  padding-inline: .8rem;
-  color: var(--es-ink-46);
-  font-size: .6875rem;
-  font-weight: 600;
+.es-home-map__node--selected::after {
+  content: "";
+  position: absolute;
+  inset-block-end: -.35rem;
+  inset-inline-start: -.35rem;
+  inline-size: .7rem;
+  block-size: .7rem;
+  border-radius: 50%;
+  background: rgb(114 224 187 / 45%);
+  rotate: 45deg;
+  z-index: -1;
 }
 
-.es-home-rows {
-  display: grid;
-  gap: .5rem;
-}
-
-.es-home-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, .8fr) minmax(0, 1fr) minmax(0, 1fr);
-  align-items: center;
-  gap: .5rem;
-  padding: .65rem .8rem;
-  border: 1px solid var(--es-line);
-  border-radius: .625rem;
-  background: var(--es-paper);
-  font-size: .8125rem;
-  line-height: 1.4;
-}
-
-.es-home-row b { color: var(--es-navy-950); font-size: .875rem; }
-.es-home-row small { display: block; color: var(--es-ink-60); font-size: .75rem; }
-.es-home-row > span { display: grid; gap: .1rem; }
-.es-home-row > span > em { display: none; color: var(--es-ink-60); font-size: .6875rem; font-style: normal; }
-.es-home-row > span > strong { color: var(--es-navy-950); font-weight: 600; }
-
-.es-home-row--updated {
-  border-color: rgb(114 224 187 / 85%);
+/* Projects of the selected market. Physical "right" because the card's
+   position is tied to the pin's geography, not to reading direction. */
+.es-home-map__card {
+  position: absolute;
+  inline-size: min(17rem, 52%);
+  padding: .8rem .9rem;
+  border: 1px solid var(--home-mint);
+  border-radius: .75rem;
   background: var(--es-white);
-  box-shadow: var(--home-mint-glow);
+  box-shadow: 0 0 0 4px rgb(114 224 187 / 12%), 0 14px 32px rgb(11 34 57 / 10%);
 }
 
-.es-home-update {
+.es-home-map__card-head {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: .35rem .6rem;
-  grid-column: 1 / -1;
-  padding-block-start: .45rem;
-  border-block-start: 1px dashed var(--es-line-strong);
-  color: var(--es-navy-950);
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-block-end: .5rem;
+}
+
+.es-home-map__card-head b { color: var(--es-navy-950); font-size: .9375rem; font-weight: 700; }
+.es-home-map__card-head span { color: var(--es-ink-46); font-size: .6875rem; }
+
+.es-home-map__card ul { display: grid; gap: .35rem; }
+
+.es-home-map__project {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: .05rem .75rem;
+  padding: .45rem .55rem;
+  border-radius: .5rem;
+  background: var(--es-mist);
   font-size: .75rem;
+}
+
+.es-home-map__project b { color: var(--es-navy-950); font-weight: 600; }
+.es-home-map__project strong { color: var(--es-navy-950); font-weight: 700; }
+.es-home-map__project small { grid-column: 1 / -1; color: var(--es-ink-60); font-size: .6875rem; }
+.es-home-map__project.is-updated { background: var(--es-white); box-shadow: inset 0 0 0 1px rgb(114 224 187 / 80%); }
+
+.es-home-map__update {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  grid-column: 1 / -1;
+  color: var(--es-navy-950);
+  font-size: .6875rem;
+  font-style: normal;
   font-weight: 600;
 }
 
-.es-home-update .es-home-ic {
-  inline-size: 1.25rem;
-  block-size: 1.25rem;
-  padding: .15rem;
+.es-home-map__update .es-home-ic {
+  inline-size: 1rem;
+  block-size: 1rem;
+  padding: .1rem;
   border-radius: 50%;
   background: var(--home-mint);
   color: var(--es-navy-950);
 }
 
-.es-home-update span { color: var(--es-ink-60); font-weight: 500; }
+/* Narrow boxes: crop to 4:3 and move the camera onto northern Egypt. */
+@container (max-width: 30rem) {
+  .es-home-map { --zoom: 1.7; }
+  .es-home-map__frame { aspect-ratio: 4 / 3; }
+  .es-home-map__stage {
+    /* Put the focus point (--focus-x/y, % of the map) at the frame centre. */
+    translate: calc(50% - var(--zoom) * var(--focus-x) * 1%) calc(41.4% - var(--zoom) * var(--focus-y) * 1%);
+    scale: var(--zoom);
+  }
+
+  .es-home-map__card {
+    position: static;
+    inline-size: auto;
+    margin-block-start: .5rem;
+  }
+  .es-home-map__project { grid-template-columns: minmax(0, 1fr) auto auto; align-items: baseline; }
+  .es-home-map__project small { grid-column: auto; }
+}
 
 /* Signature motion #2: fragments arrive scattered, settle, the board resolves. */
 @media (prefers-reduced-motion: no-preference) {
@@ -1088,15 +891,16 @@ html body.es-landing .es-home-main .es-home-free-card .es-home-h3 { font-size: c
 
   .es-home-market.is-playing .es-home-market__rail { animation: es-home-draw-y var(--es-mo-base) var(--es-mo-ease) 780ms both; }
   .es-home-market.is-playing .es-home-board { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 900ms both; }
-  .es-home-market.is-playing .es-home-row { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(1000ms + var(--i, 0) * var(--es-mo-stagger)); }
-  .es-home-market.is-armed :is(.es-home-map__land, .es-home-map__nile, .es-home-map__node, .es-home-map__lens, .es-home-map__lens-box, .es-home-map__inset, .es-home-map__leader, .es-home-map__link, .es-home-map__ring, .es-home-map__labels) { opacity: 0; }
-  .es-home-market.is-playing :is(.es-home-map__land, .es-home-map__nile) { animation: es-home-fade var(--es-mo-slow) var(--es-mo-ease) 1000ms both; }
-  .es-home-market.is-playing :is(.es-home-map__inset, .es-home-map__lens, .es-home-map__lens-box, .es-home-map__leader) { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 1250ms both; }
+  .es-home-market.is-armed :is(.es-home-map__land,
+.es-home-map__neighbour,
+.es-home-map__nile,
+.es-home-map__water,
+.es-home-map__node,
+.es-home-map__card) { opacity: 0; }
+  .es-home-market.is-playing :is(.es-home-map__land, .es-home-map__neighbour, .es-home-map__nile, .es-home-map__water) { animation: es-home-fade var(--es-mo-slow) var(--es-mo-ease) 1000ms both; }
+
   .es-home-market.is-playing .es-home-map__node { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(1300ms + var(--i, 0) * 12ms); }
-  .es-home-market.is-playing .es-home-map__labels { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 1500ms both; }
-  .es-home-market.is-playing :is(.es-home-map__ring, .es-home-map__link) { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 1700ms both; }
-  .es-home-market.is-playing .es-home-row { animation-delay: calc(1850ms + var(--i, 0) * var(--es-mo-stagger)); }
-  .es-home-market.is-playing .es-home-row--updated { animation-name: es-home-rise, es-home-glow-in; animation-duration: var(--es-mo-base), var(--es-mo-slow); animation-delay: 1930ms, 2200ms; }
+  .es-home-market.is-playing .es-home-map__card { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 1500ms both; }
 }
 
 /* ============================================================
@@ -1710,9 +1514,9 @@ html body.es-landing .es-home-main .es-home-free-card .es-home-h3 { font-size: c
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .es-home-signals.is-armed :is(.es-home-signal, .es-home-insight) { opacity: 0; }
+  .es-home-signals.is-armed :is(.es-home-signal, .es-home-step, .es-home-insight) { opacity: 0; }
   .es-home-signals.is-armed .es-home-rail-svg { opacity: 0; }
-  .es-home-signals.is-playing .es-home-signal { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(var(--i, 0) * var(--es-mo-stagger)); }
+  .es-home-signals.is-playing :is(.es-home-signal, .es-home-step) { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(var(--i, 0) * var(--es-mo-stagger)); }
   .es-home-signals.is-playing .es-home-rail-svg { animation: es-home-draw-x var(--es-mo-slow) var(--es-mo-ease) 450ms both; }
   .es-home-signals.is-playing .es-home-insight { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 1000ms both; }
 
@@ -1802,40 +1606,6 @@ html body.es-landing .es-home-main .es-home-free-card .es-home-h3 { font-size: c
 
 .es-home-dot--loose { background: var(--es-ink-46); opacity: .45; }
 
-.es-home-meta {
-  position: absolute;
-  inset-inline-end: 5%;
-  inset-block-end: 8%;
-  display: flex;
-  align-items: center;
-  gap: .45rem;
-  padding: .5rem .75rem;
-  border: 1px solid var(--es-line-strong);
-  border-radius: .625rem;
-  background: var(--es-white);
-  color: var(--es-navy-950);
-  font-size: .75rem;
-  font-weight: 700;
-  box-shadow: 0 8px 20px rgb(11 34 57 / 8%);
-}
-
-.es-home-meta svg { inline-size: 1rem; block-size: 1rem; color: var(--es-blue-600); }
-
-.es-home-clusters__flow {
-  position: absolute;
-  inset: 0;
-  inline-size: 100%;
-  block-size: 100%;
-  pointer-events: none;
-}
-
-.es-home-clusters__flow path {
-  fill: none;
-  stroke: var(--home-mint);
-  stroke-width: 2;
-  vector-effect: non-scaling-stroke;
-}
-
 .es-home-clusters__caption {
   position: absolute;
   inset-block-start: .75rem;
@@ -1844,15 +1614,12 @@ html body.es-landing .es-home-main .es-home-free-card .es-home-h3 { font-size: c
 
 @media (prefers-reduced-motion: no-preference) {
   .es-home-clusters.is-armed .es-home-dot { opacity: 0; }
-  .es-home-clusters.is-armed :is(.es-home-cluster, .es-home-meta) { opacity: 0; }
-  .es-home-clusters.is-armed .es-home-clusters__flow { opacity: 0; }
+  .es-home-clusters.is-armed :is(.es-home-cluster) { opacity: 0; }
 
   .es-home-clusters.is-playing .es-home-dot { animation: es-home-gather var(--es-mo-slow) var(--es-mo-ease) both; animation-delay: calc(var(--i, 0) * 30ms); }
   .es-home-clusters.is-playing .es-home-dot--loose { animation-name: es-home-fade; }
   .es-home-clusters.is-playing .es-home-cluster { animation: es-home-pop var(--es-mo-base) var(--es-mo-ease) 900ms both; }
   .es-home-clusters.is-playing .es-home-cluster--key { animation-name: es-home-pop, es-home-glow-in; animation-duration: var(--es-mo-base), var(--es-mo-slow); animation-delay: 900ms, 1200ms; }
-  .es-home-clusters.is-playing .es-home-clusters__flow { animation: es-home-fade var(--es-mo-slow) var(--es-mo-ease) 1300ms both; }
-  .es-home-clusters.is-playing .es-home-meta { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 1700ms both; }
 }
 
 /* ============================================================
@@ -2034,7 +1801,6 @@ html body.es-landing .es-home-main .es-home-free-card .es-home-h3 { font-size: c
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .es-home-intel { max-inline-size: 36rem; }
   .es-home-copy { max-inline-size: 44rem; }
   .es-home-build { max-inline-size: 42rem; margin-inline: auto; }
   .es-home-prop__facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -2105,62 +1871,19 @@ html body.es-landing .es-home-main .es-home-free-card .es-home-h3 { font-size: c
   .es-home-actions { inline-size: 100%; }
   .es-home-actions .es-home-btn { flex: 1 1 100%; }
 
-  /* Hero nodes stack: one readable row each, rail on the inline-start side. */
-  .es-home-intel__nodes {
-    grid-template-columns: minmax(0, 1fr);
-    gap: .5rem;
-    padding-block-start: 1.25rem;
-  }
-
-  /* One central spine instead of a branch: core → nodes → result. */
-  .es-home-intel__nodes::before {
-    inset-inline: auto;
-    inset-inline-start: calc(50% - 1px);
-    inset-block: 0 0;
-    inline-size: 2px;
-    block-size: auto;
-  }
-
-  .es-home-intel__node {
-    grid-template-columns: 1.4rem 4rem minmax(0, 1fr);
-    align-items: center;
-    column-gap: .6rem;
-    text-align: start;
-  }
-
-  .es-home-intel__node::before { display: none; }
-
-  .es-home-intel__merge { block-size: 1.25rem; }
-  .es-home-intel__merge::before,
-  .es-home-intel__merge i { display: none; }
-  .es-home-intel__merge::after { inset-block: 0; }
-
   .es-home-keys,
   .es-home-growth__keys { grid-template-columns: minmax(0, 1fr); }
   .es-home-growth__keys li:last-child { grid-column: auto; }
 
   .es-home-market__sources { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-  /* Map keeps its real geography; labels give way to the line below it. */
-  .es-home-map__labels { display: none; }
-  .es-home-map__meta { margin-block-start: .25rem; }
-  .es-home-rows__head { display: none; }
-  .es-home-row > span > em { display: block; }
-
   .es-home-proof__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 1rem; }
   .es-home-proof__list::before { display: none; }
   .es-home-proof__list li { padding-block-start: 1rem; border-block-start: var(--rail-w) solid var(--rail-c); }
   .es-home-proof__list li::before { inset-block-start: calc(-.425rem - 1px); }
 
-  .es-home-row {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .es-home-row > :first-child { grid-column: 1 / -1; }
-
   .es-home-prop__facts { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: .5rem; }
   .es-home-prop__rank { margin-inline-start: 0; }
-
 
   .es-home-match {
     grid-template-columns: minmax(0, 1fr);
@@ -2177,11 +1900,9 @@ html body.es-landing .es-home-main .es-home-free-card .es-home-h3 { font-size: c
 }
 
 @media (max-width: 22rem) {
-  .es-home-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .es-home-facts div:last-child { grid-column: 1 / -1; }
+
   .es-home-market__sources { grid-template-columns: minmax(0, 1fr); }
-  .es-home-intel__node { grid-template-columns: 1.4rem minmax(0, 1fr); }
-  .es-home-intel__node > span { grid-column: 1 / -1; }
+
 }
 
 /* Reduced motion: final state, immediately. No transitions. */
@@ -2198,4 +1919,943 @@ html body.es-landing .es-home-main .es-home-free-card .es-home-h3 { font-size: c
 @media print {
   .es-home-sticky { display: none !important; }
   .es-home-main .is-armed * { opacity: 1 !important; }
+}
+
+/* ============================================================
+   Labels are annotations, not controls
+   ------------------------------------------------------------
+   Only real links and buttons may look tappable. Tags, reasons,
+   tokens, badges and diagram labels are plain text with a small
+   marker — no pill borders, fills or shadows — so nothing in a
+   graphic reads as a button, especially on touch screens.
+   ============================================================ */
+.es-home-chips { gap: .3rem 1rem; }
+
+.es-home-chip,
+.es-home-band--navy .es-home-chip {
+  min-block-size: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font-weight: 600;
+}
+
+.es-home-chip::before {
+  content: "";
+  inline-size: .35rem;
+  block-size: .35rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--home-mint);
+}
+
+.es-home-reason,
+.es-home-reason--best,
+.es-home-reason--outside {
+  min-block-size: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--es-navy-950);
+}
+
+.es-home-reason .es-home-ic {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  padding: .2rem;
+  border-radius: 50%;
+  background: var(--es-mist);
+}
+
+.es-home-reason--best .es-home-ic { background: var(--home-mint); }
+.es-home-reason--outside .es-home-ic { background: var(--es-white); box-shadow: inset 0 0 0 1px var(--es-ink-46); }
+
+.es-home-prop__rank {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: 0;
+  background: none;
+  color: var(--es-navy-950);
+  font-weight: 700;
+}
+
+.es-home-prop__rank::before {
+  content: "";
+  inline-size: .45rem;
+  block-size: .45rem;
+  border-radius: 50%;
+  background: var(--home-mint);
+}
+
+/* Scattered information reads as paper slips, not buttons. */
+.es-home-frag {
+  min-block-size: 2.4rem;
+  padding: .35rem .6rem;
+  border: 0;
+  border-inline-start: 3px solid rgb(71 116 154 / 45%);
+  border-radius: .2rem;
+  background: var(--es-mist);
+  box-shadow: none;
+  font-size: .75rem;
+}
+
+.es-home-badge {
+  min-block-size: auto;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--es-blue-600);
+  gap: .4rem;
+}
+
+.es-home-badge::before {
+  content: "";
+  inline-size: .45rem;
+  block-size: .45rem;
+  border-radius: 50%;
+  background: var(--es-blue-500);
+}
+
+.es-home-control {
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.es-home-cluster__label,
+.es-home-cluster--key .es-home-cluster__label {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  text-shadow: 0 0 3px var(--es-white), 0 0 3px var(--es-white), 0 0 3px var(--es-white);
+}
+
+.es-home-signal {
+  border: 0;
+  border-inline-start: 2px solid var(--es-line-dark);
+  border-radius: 0;
+  background: none;
+}
+
+.es-home-signal--relevant {
+  border-inline-start-color: var(--home-mint);
+  background: rgb(114 224 187 / 7%);
+}
+
+/* The website mock shows a form being completed, not a button to press. */
+.es-home-build__go {
+  justify-content: start;
+  min-block-size: auto;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--es-ink-60);
+  font-weight: 600;
+}
+
+.es-home-build__go::after { content: " ←"; }
+[dir="ltr"] .es-home-build__go::after { content: " →"; }
+
+/* ============================================================
+   Every graphic fits one viewport
+   ------------------------------------------------------------
+   Measured against the visible height under the fixed header at
+   1440×900, 1280×720, 768×1024, 390×844 and 360×740. Narrow
+   layouts drop secondary detail; short screens tighten spacing.
+   ============================================================ */
+
+/* Short laptop screens: tighten the hero model and cap the map. */
+
+/* The map never makes its section taller than the screen. */
+.es-home-map {
+  inline-size: min(100%, calc((100svh - 22rem) * 640 / 580));
+  margin-inline: auto;
+}
+
+@container (max-width: 30rem) {
+  .es-home-map { inline-size: 100%; }
+}
+
+/* Request analysis, stacked: three key facts per option. The reason
+   line still names the trade-off (e.g. "+300K · more space"). */
+@media (max-width: 52rem) {
+  .es-home-ask { gap: .7rem; padding: 1rem; }
+  .es-home-ask blockquote { font-size: .9375rem; line-height: 1.65; }
+  .es-home-ask__parsed { padding-block-start: .7rem; }
+  .es-home-analysis .es-home-analysis__stem .es-home-rail,
+  .es-home-signals .es-home-signals__stem .es-home-rail { --rail-len: .6rem; }
+  .es-home-results { gap: .6rem; }
+  .es-home-prop { gap: .45rem; padding: .75rem .85rem; }
+  .es-home-prop__facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .es-home-prop__facts > div:nth-child(n + 4) { display: none; }
+
+  /* Website build, stacked: one-line details, compact browser. */
+  .es-home-build__form { gap: .45rem; padding: .7rem .8rem; }
+  .es-home-build__form dl { grid-template-columns: repeat(3, auto); justify-content: start; gap: .35rem; }
+  .es-home-build__form dl div { padding: .25rem .45rem; }
+  .es-home-build__form dt { display: none; }
+  .es-home-build__engine { grid-template-rows: .75rem auto .75rem; }
+  .es-home-build__engine .es-home-rail--h { block-size: .75rem; }
+  .es-home-build__engine .es-home-core { inline-size: 2.25rem; block-size: 2.25rem; }
+  .es-home-browser__search { display: none; }
+  .es-home-browser__body { gap: .6rem; padding: .75rem; }
+  .es-home-listing__plan { block-size: 2.25rem; }
+  .es-home-browser__contact { min-block-size: 2.2rem; }
+  .es-home-site__caption { margin-block-start: .5rem; }
+}
+
+@media (max-width: 40rem) {
+  /* Hero model. */
+
+  /* Market: slips in three columns, tighter board. */
+  .es-home-market__sources { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .35rem; }
+  .es-home-frag { min-block-size: 2.1rem; gap: .3rem; padding: .3rem .4rem; font-size: .6875rem; }
+  .es-home-frag .es-home-ic { display: none; }
+  .es-home-market__rail { --rail-len: 1rem; block-size: 1rem; }
+  .es-home-board { gap: .6rem; padding: .8rem; }
+  .es-home-map__card { padding: .6rem .7rem; }
+  .es-home-map__project { padding: .35rem .5rem; }
+
+  /* Client match: two columns of interests under the unit. */
+  .es-home-match {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: "unit unit" "i1 i2" "i3 i4";
+    gap: .5rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  .es-home-analysis__stem .es-home-core { display: none; }
+  .es-home-analysis .es-home-analysis__stem .es-home-rail { --rail-len: .5rem; }
+  .es-home-ask__parsed > span { display: none; }
+  .es-home-ask blockquote { font-size: .875rem; line-height: 1.55; }
+  .es-home-prop { gap: .35rem; padding: .6rem .75rem; }
+  .es-home-prop__head b { font-size: .9375rem; }
+  .es-home-prop__facts dd { font-size: .8125rem; }
+}
+
+/* Short phones: the parsed tokens carry the request; the quote steps aside. */
+@media (max-width: 40rem) and (max-height: 47rem) {
+  .es-home-ask blockquote { display: none; }
+  .es-home-ask__parsed { padding-block-start: 0; border-block-start: 0; }
+}
+
+@media (max-width: 40rem) {
+
+  .es-home-free-card { gap: .7rem; padding: 1.15rem; }
+}
+
+@media (max-width: 40rem) and (max-height: 47rem) {
+
+  .es-home-map__frame { aspect-ratio: 16 / 11; }
+  .es-home-map__card-head { margin-block-end: .35rem; }
+  .es-home-listing__plan { display: none; }
+  .es-home-browser__body { gap: .45rem; }
+}
+
+/* Inside the website mock, show the broker's brand without fake controls. */
+.es-home-build__go { display: block; }
+.es-home-browser__nav small { padding: 0; border: 0; opacity: .85; }
+.es-home-browser__contact {
+  border: 1px solid color-mix(in srgb, var(--broker) 35%, transparent);
+  background: color-mix(in srgb, var(--broker) 10%, var(--es-white));
+  color: var(--broker);
+}
+.es-home-browser__search b { background: none; color: var(--broker); padding: 0 .4rem; }
+
+/* Short desktop screens: the map is height-capped, so the projects card
+   moves beside it (using the board's spare width) instead of covering it. */
+@media (max-height: 50rem) and (min-width: 68.0625rem) {
+  .es-home-map {
+    display: grid;
+    grid-template-columns: minmax(0, min(calc((100svh - 22rem) * 640 / 580), 62%)) minmax(0, 1fr);
+    align-items: start;
+    gap: .75rem;
+    inline-size: 100%;
+  }
+
+  .es-home-map__card {
+    position: static;
+    inline-size: auto;
+  }
+
+}
+
+/* ============================================================
+   Client journey: mapped steps → what Estavo understood
+   ============================================================ */
+.es-home-journey__steps {
+  position: relative;
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: .3rem;
+}
+
+.es-home-journey__steps::before {
+  content: "";
+  position: absolute;
+  inset-block: 1.2rem;
+  inset-inline-start: calc(1.05rem - 1px);
+  inline-size: 2px;
+  background: var(--rail-c);
+}
+
+.es-home-step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  min-block-size: 2.6rem;
+  font-size: .875rem;
+  line-height: 1.4;
+}
+
+.es-home-step__icon {
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  inline-size: 2.1rem;
+  block-size: 2.1rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--es-navy-900);
+  box-shadow: 0 0 0 1px var(--es-line-dark);
+}
+
+.es-home-step__icon .es-home-ic { inline-size: 1.05rem; block-size: 1.05rem; }
+.es-home-step__icon:has(.es-home-brand) { background: var(--es-white); }
+
+.es-home-step__text {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .1rem .75rem;
+  min-inline-size: 0;
+}
+
+.es-home-step__text b { color: var(--es-on-dark); font-weight: 500; }
+.es-home-step__text small { color: var(--es-on-dark-muted); font-size: .6875rem; white-space: nowrap; }
+
+.es-home-step.is-relevant .es-home-step__icon { background: var(--home-mint); box-shadow: 0 0 0 4px rgb(114 224 187 / 18%); }
+.es-home-step.is-relevant .es-home-step__icon .es-home-ic { color: var(--es-navy-950); }
+.es-home-step.is-relevant .es-home-step__text b { color: var(--es-white); font-weight: 700; }
+.es-home-step.is-relevant .es-home-step__text small { color: var(--home-mint); }
+
+.es-home-insight__list { display: grid; gap: .45rem; }
+
+.es-home-insight__list li {
+  position: relative;
+  padding-inline-start: 1rem;
+  color: var(--es-white);
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.es-home-insight__list li::before {
+  content: "";
+  position: absolute;
+  inset-block-start: .6em;
+  inset-inline-start: 0;
+  inline-size: .45rem;
+  block-size: .45rem;
+  border-radius: 50%;
+  background: var(--home-mint);
+}
+
+.es-home-insight > span { display: flex; align-items: center; gap: .35rem; }
+
+/* Third-party marks keep their own brand colour. */
+.es-home-brand { display: inline-block; flex: none; inline-size: 1.15em; block-size: 1.15em; vertical-align: -.2em; }
+.es-home-brand--meta { color: #0081fb; }
+.es-home-brand--facebook { color: #0866ff; }
+
+/* ============================================================
+   Growth: client pattern → Meta campaign (integration panel)
+   ============================================================ */
+.es-home-growth-fig { container-type: inline-size; inline-size: 100%; }
+
+.es-home-growth-fig__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2.25rem minmax(0, 1.15fr);
+  align-items: center;
+}
+
+.es-home-growth-fig .es-home-clusters { aspect-ratio: 1; }
+.es-home-growth-fig .es-home-cluster__label { max-inline-size: 9.5rem; white-space: normal; text-align: center; }
+.es-home-growth-fig__link { display: grid; }
+
+.es-home-campaign {
+  display: grid;
+  gap: .7rem;
+  padding: .95rem;
+  border: 1px solid var(--es-line-strong);
+  border-radius: .875rem;
+  background: var(--es-white);
+  box-shadow: 0 1px 2px rgb(11 34 57 / 5%), 0 14px 32px rgb(11 34 57 / 8%);
+}
+
+.es-home-campaign__head { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.es-home-campaign__brand { display: inline-flex; align-items: center; gap: .45rem; color: var(--es-navy-950); font-size: 1rem; }
+.es-home-campaign__brand .es-home-brand { inline-size: 1.6rem; block-size: 1.6rem; }
+
+.es-home-campaign__status {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  color: var(--es-ink-72);
+  font-size: .75rem;
+  font-weight: 600;
+}
+
+.es-home-campaign__status::before {
+  content: "";
+  inline-size: .5rem;
+  block-size: .5rem;
+  border-radius: 50%;
+  background: var(--es-positive);
+}
+
+.es-home-campaign__info { display: grid; }
+
+.es-home-campaign__info div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .75rem;
+  padding-block: .35rem;
+  border-block-end: 1px dashed var(--es-line);
+  font-size: .75rem;
+}
+
+.es-home-campaign__info dt { color: var(--es-ink-60); }
+.es-home-campaign__info dd { color: var(--es-navy-950); font-weight: 600; text-align: end; }
+
+.es-home-campaign__info .is-resolved dd {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+}
+
+.es-home-campaign__info .is-resolved dd::before {
+  content: "";
+  inline-size: .45rem;
+  block-size: .45rem;
+  border-radius: 50%;
+  background: var(--home-mint);
+  box-shadow: 0 0 0 2px var(--home-mint-soft);
+}
+
+.es-home-campaign__ad {
+  display: grid;
+  gap: .45rem;
+  padding: .6rem;
+  border: 1px solid var(--es-line);
+  border-radius: .6rem;
+  background: var(--es-paper);
+}
+
+.es-home-campaign__page { display: flex; align-items: center; gap: .4rem; font-size: .75rem; }
+.es-home-campaign__page .es-home-brand { inline-size: 1.15rem; block-size: 1.15rem; }
+.es-home-campaign__page b { color: var(--es-navy-950); }
+.es-home-campaign__page small { color: var(--es-ink-46); font-size: .6875rem; }
+
+.es-home-campaign__creative {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: .55rem;
+  color: var(--es-ink-72);
+  font-size: .75rem;
+  line-height: 1.45;
+}
+
+.es-home-campaign__creative > span {
+  display: grid;
+  place-items: center;
+  block-size: 2.5rem;
+  border-radius: .4rem;
+  background: var(--es-mist);
+}
+
+@container (max-width: 34rem) {
+  .es-home-growth-fig__grid { grid-template-columns: minmax(0, 1fr); }
+  .es-home-growth-fig .es-home-clusters { aspect-ratio: 5 / 4; }
+  .es-home-growth-fig__link { justify-items: center; block-size: 1.5rem; }
+  .es-home-growth-fig__link .es-home-rail--h { inline-size: var(--rail-w); block-size: 100%; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .es-home-growth-fig:has(.es-home-clusters.is-armed) :is(.es-home-campaign, .es-home-growth-fig__link) { opacity: 0; }
+  .es-home-growth-fig:has(.es-home-clusters.is-playing) .es-home-growth-fig__link { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 1300ms both; }
+  .es-home-growth-fig:has(.es-home-clusters.is-playing) .es-home-campaign { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 1500ms both; }
+}
+
+@container (max-width: 34rem) {
+  .es-home-growth-fig .es-home-clusters { aspect-ratio: 3 / 2; }
+  .es-home-campaign { gap: .55rem; padding: .8rem; }
+  .es-home-campaign__info div { padding-block: .25rem; }
+}
+
+@media (max-width: 40rem) and (max-height: 47rem) {
+  .es-home-campaign__ad { display: none; }
+
+  .es-home-prop__head > span { display: none; }
+}
+
+/* Cluster labels size to their text (not to the small circle they sit under). */
+.es-home-growth-fig .es-home-cluster__label {
+  inline-size: max-content;
+  max-inline-size: none;
+  white-space: nowrap;
+}
+
+@container (max-width: 34rem) {
+  /* Narrow: only the recurring pattern is named; the panel below names the audience. */
+  .es-home-growth-fig .es-home-cluster:not(.es-home-cluster--key) .es-home-cluster__label { display: none; }
+}
+
+/* ============================================================
+   Hero model as a diagram (not a stack of cards)
+   ------------------------------------------------------------
+   Request (plain line) → Estavo core, flanked by السوق and العميل,
+   then العقار → the unit result. Nodes are an icon in a circle with
+   plain text under it — no boxes, so nothing reads as a button.
+   Positions are percentages of the diagram; the rails use the same
+   0–100 space, so they stay attached at every size.
+   ============================================================ */
+.es-home-intel {
+  display: grid;
+  justify-items: center;
+  inline-size: 100%;
+  max-inline-size: 36rem;
+  justify-self: center;
+}
+
+.es-home-intel__request {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: .25rem .75rem;
+  text-align: center;
+}
+
+.es-home-intel__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  color: var(--es-blue-600);
+  font-size: .8125rem;
+  font-weight: 700;
+}
+
+.es-home-intel__ask {
+  color: var(--es-navy-950);
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.es-home-tri {
+  position: relative;
+  inline-size: 100%;
+  aspect-ratio: 100 / 64;
+}
+
+.es-home-tri__rails {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+}
+
+.es-home-tri__rails path {
+  fill: none;
+  stroke: var(--home-rail);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.es-home-tri__rails path.is-resolved { stroke: var(--home-mint); stroke-width: 2; }
+
+.es-home-tri__core {
+  position: absolute;
+  inset-block-start: 30%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+.es-home-tri__nodes { position: absolute; inset: 0; }
+
+.es-home-tri__node {
+  position: absolute;
+  display: grid;
+  justify-items: center;
+  gap: .15rem;
+  inline-size: min(30%, 11rem);
+  text-align: center;
+  translate: -50% -1.4rem;
+}
+
+/* Market on the reading-start side, client on the reading-end side. */
+.es-home-tri__node--market { inset-block-start: 30%; left: 15%; }
+.es-home-tri__node--client { inset-block-start: 30%; left: 85%; }
+[dir="rtl"] .es-home-tri__node--market { left: 85%; }
+[dir="rtl"] .es-home-tri__node--client { left: 15%; }
+.es-home-tri__node--property { inset-block-start: 68%; left: 50%; }
+
+.es-home-tri__icon {
+  display: grid;
+  place-items: center;
+  inline-size: 2.8rem;
+  block-size: 2.8rem;
+  margin-block-end: .2rem;
+  border: 1.5px solid var(--es-blue-500);
+  border-radius: 50%;
+  background: var(--es-mist);
+}
+
+.es-home-tri__icon .es-home-ic { inline-size: 1.3rem; block-size: 1.3rem; }
+.es-home-tri__node b { color: var(--es-navy-950); font-size: 1rem; font-weight: 700; line-height: 1.3; }
+.es-home-tri__node span:not(.es-home-tri__icon) { color: var(--es-ink-72); font-size: .8125rem; line-height: 1.45; }
+
+.es-home-intel__result {
+  display: grid;
+  gap: .6rem;
+  inline-size: min(100%, 26rem);
+  padding: .9rem 1.1rem;
+  border: 1px solid rgb(114 224 187 / 75%);
+  border-radius: var(--home-card-radius);
+  background: var(--es-white);
+  box-shadow: var(--home-mint-glow), 0 12px 32px rgb(11 34 57 / 8%);
+}
+
+.es-home-intel__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .25rem 1rem;
+}
+
+.es-home-intel__title b { color: var(--es-navy-950); font-weight: 700; }
+.es-home-intel__title span { color: var(--es-ink-60); font-size: .8125rem; }
+
+/* Facts as a plain row with dividers — no tiles. */
+.es-home-intel__facts { display: flex; }
+
+.es-home-intel__facts div {
+  display: grid;
+  flex: 1;
+  gap: .05rem;
+  padding-inline: .75rem;
+  border-inline-start: 1px solid var(--es-line);
+}
+
+.es-home-intel__facts div:first-child { padding-inline-start: 0; border-inline-start: 0; }
+.es-home-intel__facts dt { color: var(--es-ink-60); font-size: .75rem; }
+.es-home-intel__facts dd { color: var(--es-navy-950); font-size: .9375rem; font-weight: 700; }
+
+.es-home-intel__caption {
+  display: grid;
+  justify-items: center;
+  gap: .25rem;
+  margin-block-start: 1.25rem;
+  text-align: center;
+}
+
+.es-home-intel__caption span { color: var(--es-ink-60); font-size: var(--fs-small); font-weight: 500; }
+.es-home-intel__caption b { color: var(--es-navy-950); font-size: clamp(1.1rem, 1.6vw, 1.375rem); font-weight: 700; }
+
+/* Signature motion #1 — CSS only, once, ≤1.2s. H1 and CTAs never wait. */
+@media (prefers-reduced-motion: no-preference) {
+  .es-home-intel__request { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 60ms both; }
+  .es-home-tri__rails { animation: es-home-fade var(--es-mo-slow) var(--es-mo-ease) 180ms both; }
+  .es-home-tri__core { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 260ms both; }
+  .es-home-tri__node { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; }
+  .es-home-tri__node--market { animation-delay: 420ms; }
+  .es-home-tri__node--client { animation-delay: 500ms; }
+  .es-home-tri__node--property { animation-delay: 580ms; }
+  .es-home-intel__result { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 720ms both; }
+  .es-home-intel__result .es-home-reason--best { animation: es-home-resolve var(--es-mo-base) var(--es-mo-ease) 980ms both; }
+  .es-home-intel__caption { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 900ms both; }
+}
+
+/* Phones: a taller diagram so the plain-text descriptions have room. */
+@media (max-width: 40rem) {
+  .es-home-intel__ask { font-size: 1rem; }
+  .es-home-tri { aspect-ratio: 100 / 86; }
+  .es-home-tri__node { inline-size: 31%; }
+  .es-home-tri__node--market { left: 17%; }
+  .es-home-tri__node--client { left: 83%; }
+  [dir="rtl"] .es-home-tri__node--market { left: 83%; }
+  [dir="rtl"] .es-home-tri__node--client { left: 17%; }
+  .es-home-tri__icon { inline-size: 2.4rem; block-size: 2.4rem; }
+  .es-home-tri__node b { font-size: .9375rem; }
+  .es-home-tri__node span:not(.es-home-tri__icon) { font-size: .75rem; }
+  .es-home-tri .es-home-core { inline-size: 3rem; block-size: 3rem; }
+  .es-home-tri .es-home-core img { inline-size: 1.5rem; }
+  .es-home-intel__result { padding: .75rem .9rem; gap: .5rem; }
+  .es-home-intel__caption { margin-block-start: .9rem; }
+}
+
+@media (max-width: 40rem) and (max-height: 47rem) {
+  .es-home-intel__title span { display: none; }
+  .es-home-intel__caption span { display: none; }
+}
+
+.es-home-intel__link { --rail-len: 1.1rem; }
+.es-home-tri { margin-block-end: -.25rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .es-home-intel__link { animation: es-home-draw-y var(--es-mo-base) var(--es-mo-ease) 660ms both; }
+}
+
+@media (max-width: 40rem) {
+  [lang="en"] .es-home-tri { aspect-ratio: 100 / 96; }
+}
+
+/* Client interests: plain text on the rail, not bordered boxes. */
+.es-home-interest {
+  padding: .25rem .1rem;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.es-home-interest--best { background: none; }
+
+.es-home-interest > span,
+.es-home-interest > em { display: flex; align-items: center; gap: .35rem; }
+
+.es-home-interest > span::before {
+  content: "";
+  inline-size: .4rem;
+  block-size: .4rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--es-on-dark-muted);
+}
+
+/* "Before Estavo": document icons with captions, not boxes. */
+.es-home-frag {
+  flex-direction: column;
+  justify-content: start;
+  gap: .3rem;
+  min-block-size: auto;
+  padding: .2rem;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--es-ink-60);
+  text-align: center;
+}
+
+.es-home-frag .es-home-ic {
+  inline-size: 2.4rem;
+  block-size: 2.4rem;
+  padding: .55rem;
+  border-radius: .45rem .9rem .45rem .45rem;
+  background: var(--es-mist);
+  color: var(--es-blue-500);
+}
+
+@media (max-width: 40rem) {
+  .es-home-frag .es-home-ic { display: block; inline-size: 2rem; block-size: 2rem; padding: .45rem; }
+}
+
+/* Key lists read as text, not as tappable menu rows. */
+.es-home-keys { gap: .55rem 1.5rem; }
+.es-home-keys li,
+.es-home-band--navy .es-home-keys li {
+  min-block-size: auto;
+  border-block-end: 0;
+}
+
+/* Fit pass after the diagram/document-icon changes. */
+.es-home-frag .es-home-ic { inline-size: 2.1rem; block-size: 2.1rem; padding: .45rem; }
+.es-home-map { inline-size: min(100%, calc((100svh - 24rem) * 640 / 580)); }
+@container (max-width: 30rem) { .es-home-map { inline-size: 100%; } }
+
+@media (max-height: 50rem) and (min-width: 68.0625rem) {
+  .es-home-tri { aspect-ratio: 100 / 54; }
+  .es-home-intel__result { gap: .45rem; padding: .7rem 1rem; }
+  .es-home-intel__caption { margin-block-start: .7rem; }
+  .es-home-intel__caption span { display: none; }
+}
+
+@media (max-width: 40rem) and (max-height: 47rem) {
+  [lang="en"] .es-home-tri { aspect-ratio: 100 / 86; }
+  .es-home-tri__node span:not(.es-home-tri__icon) { font-size: .6875rem; line-height: 1.35; }
+  /* Six document icons in one row on short phones. */
+  .es-home-market__sources { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .2rem; }
+  .es-home-frag { font-size: .625rem; line-height: 1.25; padding: 0; }
+  .es-home-frag .es-home-ic { inline-size: 1.7rem; block-size: 1.7rem; padding: .35rem; }
+}
+
+/* Short laptops keep the map + card side by side at full board width
+   (re-asserted after the general map width cap above). */
+@media (max-height: 50rem) and (min-width: 68.0625rem) {
+  .es-home-map {
+    inline-size: 100%;
+    grid-template-columns: minmax(0, min(calc((100svh - 24rem) * 640 / 580), 60%)) minmax(0, 1fr);
+  }
+}
+
+/* ============================================================
+   One CTA system
+   ------------------------------------------------------------
+   Every call to action on the homepage — header, hero, sections,
+   cards, closing and the mobile bar — shares one shape. Primary is
+   solid; secondary is a clearly visible outline (never a faint
+   border or an underlined text link).
+   ============================================================ */
+.es-home-btn {
+  min-block-size: 3rem;
+  padding: .7rem 1.4rem;
+  border: 1.5px solid transparent;
+  border-radius: .625rem;
+  box-shadow: none;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.es-home-btn--primary { border-color: var(--es-navy-950); background: var(--es-navy-950); color: var(--es-white); }
+.es-home-btn--primary:hover { border-color: var(--es-blue-700); background: var(--es-blue-700); }
+.es-home-btn--secondary { border-color: var(--es-navy-950); background: var(--es-white); color: var(--es-navy-950); }
+.es-home-btn--secondary:hover { background: var(--es-mist); }
+
+.es-home-band--navy .es-home-btn--primary { border-color: var(--es-white); background: var(--es-white); color: var(--es-navy-950); }
+.es-home-band--navy .es-home-btn--primary:hover { border-color: var(--es-mist); background: var(--es-mist); }
+.es-home-band--navy .es-home-btn--secondary { border-color: var(--es-white); background: transparent; color: var(--es-white); }
+.es-home-band--navy .es-home-btn--secondary:hover { background: rgb(255 255 255 / 10%); }
+
+.es-home .es-header .es-button--primary,
+.es-home .es-drawer .es-button--primary {
+  min-block-size: 2.75rem;
+  border: 1.5px solid var(--es-navy-950);
+  border-radius: .625rem;
+  background: var(--es-navy-950);
+  color: var(--es-white);
+  font-weight: 700;
+}
+
+.es-home-more-card .es-home-btn { justify-self: start; margin-block-start: .35rem; }
+.es-home-resale { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .6rem 1rem; }
+
+/* ============================================================
+   Market map: pins only, at true coordinates
+   ------------------------------------------------------------
+   The camera zooms 2.3× onto the region holding all nine markets
+   (Delta, Cairo, Sinai, Red Sea), so the Cairo pins separate
+   without being moved. Pins are counter-scaled against the zoom
+   and anchored by their tip. The projects card sits beside the
+   map (below it on narrow boards) instead of covering it.
+   ============================================================ */
+.es-home-map {
+  --zoom: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  align-items: start;
+  gap: .75rem;
+  inline-size: 100%;
+}
+
+.es-home-map__frame { aspect-ratio: 640 / 580; }
+
+.es-home-map__stage {
+  translate: calc(50% - var(--zoom) * var(--focus-x) * 1%) calc(var(--frame-mid, 50%) - var(--zoom) * var(--focus-y) * 1%);
+  scale: var(--zoom);
+}
+
+.es-home-map__card { position: static; inline-size: auto; }
+
+.es-home-map__node,
+.es-home-map__node--selected {
+  inline-size: 1rem;
+  block-size: 1.25rem;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--es-blue-600);
+  rotate: none;
+  translate: -50% -100%;
+  transform-origin: 50% 100%;
+  scale: calc(1 / var(--zoom));
+  filter: drop-shadow(0 1px 1.5px rgb(11 34 57 / 35%));
+}
+
+.es-home-map__node svg { display: block; inline-size: 100%; block-size: 100%; }
+
+.es-home-map__node--selected {
+  z-index: 2;
+  inline-size: 1.5rem;
+  block-size: 1.875rem;
+  color: var(--home-mint);
+  filter: drop-shadow(0 0 0 var(--es-navy-950)) drop-shadow(0 2px 3px rgb(11 34 57 / 45%));
+}
+
+.es-home-map__node--selected::after { content: none; }
+
+.es-home-map__card-head b { display: inline-flex; align-items: center; gap: .35rem; }
+.es-home-map__card-pin { inline-size: .85rem; block-size: 1.05rem; color: var(--home-mint); filter: drop-shadow(0 0 .5px var(--es-navy-950)); }
+
+@container (max-width: 30rem) {
+  .es-home-map { grid-template-columns: minmax(0, 1fr); }
+  .es-home-map__frame { aspect-ratio: 640 / 580; }
+  .es-home-map__stage {
+    translate: calc(50% - var(--zoom) * var(--focus-x) * 1%) calc(var(--frame-mid, 50%) - var(--zoom) * var(--focus-y) * 1%);
+    scale: var(--zoom);
+  }
+  .es-home-map__card { margin-block-start: 0; }
+}
+
+/* ============================================================
+   Client graphics: questions and unit facts are text, not buttons
+   ============================================================ */
+.es-home-outputs li {
+  min-block-size: auto;
+  padding: 0;
+  border: 0;
+  color: var(--es-on-dark);
+  font-weight: 500;
+}
+
+.es-home-outputs li::before {
+  content: "";
+  inline-size: .5rem;
+  block-size: .5rem;
+  flex: none;
+  border: 1.5px solid var(--es-on-dark-muted);
+  border-radius: 50%;
+}
+
+.es-home-match__unit dl div {
+  padding: 0 .55rem;
+  border-radius: 0;
+  background: none;
+  border-inline-start: 1px solid var(--es-line);
+}
+
+.es-home-match__unit dl div:nth-child(odd) { padding-inline-start: 0; border-inline-start: 0; }
+
+.es-home-brand-mark .es-home-ic { inline-size: 1rem; block-size: 1rem; color: currentColor; }
+
+/* Shortest phones: a wider map crop (focus stays centred) and tighter journey rows. */
+@media (max-width: 40rem) and (max-height: 47rem) {
+  .es-home-map__frame { aspect-ratio: 16 / 11; }
+  /* frame height ÷ stage height = (11/16) ÷ (580/640) */
+  .es-home-map { --frame-mid: 37.93%; }
+  .es-home-step { min-block-size: 2.2rem; }
+  .es-home-step__icon { inline-size: 1.85rem; block-size: 1.85rem; }
+  .es-home-journey__steps { gap: .15rem; }
 }

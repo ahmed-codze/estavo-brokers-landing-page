@@ -64,6 +64,7 @@
         figure.classList.add("is-playing");
         figure.classList.remove("is-armed");
         observer.disconnect();
+        window.removeEventListener("beforeprint", settle);
       });
     }, { rootMargin: "0px 0px -15%", threshold: 0.2 });
     observer.observe(figure);
@@ -71,15 +72,16 @@
     function settle() {
       figure.classList.remove("is-armed");
       observer.disconnect();
+      window.removeEventListener("beforeprint", settle);
     }
-    window.addEventListener("beforeprint", settle);
+    window.addEventListener("beforeprint", settle, { once: true });
   }
 
   function initHomeMarketAssembly() {
     var figure = document.querySelector("[data-home-market]");
     if (!figure) return;
     index(".es-home-frag", figure);
-    index(".es-home-row", figure);
+    index(".es-home-map__project", figure);
     index(".es-home-map__node:not(.es-home-map__node--hub):not(.es-home-map__node--selected)", figure);
     playOnEntry(figure);
   }
@@ -102,7 +104,7 @@
   function initHomeClientSignals() {
     var signals = document.querySelector("[data-home-signals]");
     if (signals) {
-      index(".es-home-signal", signals);
+      index(".es-home-signal, .es-home-step", signals);
       playOnEntry(signals);
     }
     var match = document.querySelector("[data-home-match]");

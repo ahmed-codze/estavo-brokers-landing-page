@@ -27,6 +27,29 @@ for (const [file, labels, labelKey] of [
     ['index.html', { market: 'اكتشف السوق مجانًا', website: 'اعمل موقعك مجانًا', example: 'مثال توضيحي' }, 'ar'],
     ['en.html', { market: 'Explore the market free', website: 'Create your website free', example: 'Example' }, 'en'],
 ]) {
+    test(`${file}: keeps the first-load performance contract`, () => {
+        const { html, doc } = load(file);
+        assert.ok(Buffer.byteLength(html) < 125000, 'homepage HTML must stay below 125 KB');
+        assert.equal(doc.querySelector('style#es-design-critical'), null, 'shared CSS must be cacheable, not duplicated inline');
+        assert.ok(doc.querySelector('link[rel="stylesheet"][href*="home-critical.css"]'));
+        assert.equal(doc.querySelector('link[href*="estavo-v3.css"]'), null, 'homepage must not download duplicate shared CSS');
+        assert.equal(doc.querySelector('link[rel="prefetch"][as="document"]'), null, 'alternate language must not consume first-load bandwidth');
+
+        const fontStylesheet = doc.querySelector('link[href*="fonts.googleapis.com/css2"]');
+        assert.ok(fontStylesheet);
+        assert.doesNotMatch(fontStylesheet.href, /ital,|wght@.*700|wght@.*300/, 'only the three used font weights may load');
+        assert.equal(fontStylesheet.href.includes('family=IBM+Plex+Sans'), labelKey === 'en');
+        assert.equal(fontStylesheet.href.includes('family=Cairo'), labelKey === 'ar');
+
+        const logo = doc.querySelector('.es-header__logo img');
+        assert.match(logo.getAttribute('src'), /estavo-brokers-logo-320\.webp$/);
+        assert.equal(logo.getAttribute('decoding'), 'async');
+        assert.ok(doc.querySelector('link[rel="preload"][as="image"][href$="estavo-brokers-logo-320.webp"]'));
+
+        assert.equal(doc.querySelector('script[src*="/raghad.js"]'), null, 'disabled production assistant must not download eagerly');
+        assert.ok(doc.querySelector('script[src*="raghad-loader.js"]'));
+    });
+
     test(`${file}: exactly the nine homepage sections, in order`, () => {
         const { doc } = load(file);
         const ids = [...doc.querySelectorAll('main > section')].map((s) => s.id);
@@ -95,32 +118,35 @@ for (const [file, labels, labelKey] of [
         assert.doesNotMatch(main.textContent, /شوف مثال لموقع|شوف موقع شغال|see an? (example|live) website/i);
     });
 
-    test(`${file}: market map is the real Egypt outline with validated city points`, () => {
+    test(`${file}: market map is a real map of Egypt with pins at the market coordinates only`, () => {
         const { doc } = load(file);
-        const land = doc.querySelector('#home-market .es-home-map__land');
-        assert.ok(land);
-        assert.equal(land.getAttribute('d'), MAP.path, 'map path must come from tools/data/egypt-map.json');
+        const map = doc.querySelector('#home-market .es-home-map');
+        assert.equal(map.querySelector('.es-home-map__land').getAttribute('d'), MAP.path, 'path from tools/data/egypt-map.json');
         assert.ok(MAP.points > 80, 'outline must be a real boundary, not a placeholder shape');
         assert.match(MAP.source, /Natural Earth/);
-        assert.ok(doc.querySelectorAll('#home-market .es-home-map__nile').length >= 1, 'Nile drawn from Natural Earth');
-        // Every city is drawn; markets and reference cities are visually distinct tiers.
-        const markets = MAP.nodes.filter((n) => n.tier === 'market');
-        const refs = MAP.nodes.filter((n) => n.tier === 'ref');
-        assert.ok(markets.length >= 10 && refs.length >= 15, 'main cities across Egypt are plotted');
-        assert.equal(doc.querySelectorAll('.es-home-map__node--ref').length, refs.length);
-        assert.equal(doc.querySelectorAll('.es-home-map__node:not(.es-home-map__node--ref)').length, markets.length);
-        assert.equal(doc.querySelectorAll('.es-home-map__node--selected').length, 1);
-        // Coordinates stay inside Egypt's real extent (the generator also checks them against the outline).
-        MAP.nodes.forEach((n) => {
-            assert.ok(n.lat > 22 && n.lat < 31.7 && n.lon > 24.6 && n.lon < 37, n.key);
-        });
-        const labels = [...doc.querySelectorAll('.es-home-map__label:not(.es-home-map__label--caption)')]
-            .map((li) => li.textContent.trim());
-        assert.deepEqual(labels.sort(), MAP.nodes.filter((n) => n.label).map((n) => n[labelKey]).sort());
-        // Every city name is available to assistive tech, labelled or not.
-        const aria = doc.querySelector('.es-home-map').getAttribute('aria-label');
+        // Real-map context: sea, neighbouring countries, the Nile and Lake Nasser.
+        assert.ok(map.querySelector('.es-home-map__sea'));
+        assert.ok(map.querySelectorAll('.es-home-map__neighbour').length >= 4);
+        assert.ok(map.querySelectorAll('.es-home-map__nile').length >= 1);
+        assert.ok(map.querySelectorAll('.es-home-map__water').length >= 1);
+        // Exactly the Estavo Brokers main markets, unlabelled, with Sheikh Zayed picked.
+        const keys = ['ain-sokhna', 'new-cairo', 'new-capital', 'north-coast', 'obour', 'october', 'red-sea', 'sheikh-zayed', 'shorouk'];
+        assert.deepEqual(MAP.nodes.map((n) => n.key).sort(), keys);
+        assert.equal(map.querySelectorAll('.es-home-map__node').length, keys.length);
+        assert.equal(map.querySelectorAll('.es-home-map__node--selected').length, 1);
+        assert.equal(MAP.nodes.find((n) => n.selected).key, 'sheikh-zayed');
+        assert.equal(map.querySelectorAll('.es-home-map__label, .es-home-map__areas').length, 0, 'no names on the points');
+        MAP.nodes.forEach((n) => assert.ok(n.lat > 21.3 && n.lat < 32.3 && n.lon > 24 && n.lon < 37.6, n.key));
+        // Picking Zayed shows its projects, attached to the pin.
+        const card = map.querySelector('.es-home-map__card');
+        assert.match(card.querySelector('.es-home-map__card-head').textContent, labelKey === 'ar' ? /الشيخ زايد/ : /Sheikh Zayed/);
+        assert.equal(card.querySelectorAll('.es-home-map__project').length, 3);
+        assert.equal(card.querySelectorAll('.es-home-map__project.is-updated').length, 1);
+        // Every point is a pin marker at its true coordinate; no secondary city points.
+        map.querySelectorAll('.es-home-map__node').forEach((pin) => assert.ok(pin.querySelector('use[href="#i-map-pin"]')));
+        assert.equal(map.querySelectorAll('.es-home-map__city').length, 0);
+        const aria = map.querySelector('svg[role="img"]').getAttribute('aria-label');
         MAP.nodes.forEach((n) => assert.ok(aria.includes(n[labelKey]), n.key));
-        assert.ok(doc.querySelector('.es-home-map__legend'));
     });
 
     test(`${file}: every demonstration is labelled as an example`, () => {
@@ -179,6 +205,20 @@ test('mint stays an intelligence colour, never a CTA or badge', () => {
     }
 });
 
+test('homepage defers below-fold rendering and uses compact image assets', () => {
+    const css = fs.readFileSync(path.join(__dirname, '../assets/css/home.css'), 'utf8');
+    assert.match(css, /content-visibility:\s*auto/);
+    assert.match(css, /contain-intrinsic-size:/);
+
+    for (const asset of [
+        'assets/logo/estavo-brokers-logo-320.webp',
+        'assets/logo/estavo-mark-white-128.webp',
+        'assets/logo/estavo-inverted-wordmark-400.webp',
+    ]) {
+        assert.ok(fs.statSync(path.join(__dirname, '..', asset)).size < 10000, `${asset} must stay below 10 KB`);
+    }
+});
+
 test('homepage CSS/JS carry no testimonial remnants; future art backlog is mascot-only', () => {
     for (const file of ['assets/css/home.css', 'assets/js/home.js']) {
         assert.doesNotMatch(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), /testimonial/i, file);
@@ -195,6 +235,43 @@ test('homepage CSS/JS carry no testimonial remnants; future art backlog is masco
     assert.equal(section.split('\n').length, 3, 'backlog lists exactly the three mascot poses');
     assert.doesNotMatch(section, /\b(map|icon|connector|rail|card|cluster|growth|signal|website visual|market visual)\b/i);
     assert.match(section, /pose/i);
+});
+
+test('graphics: map cities, custom Zayed pin, Meta integration, client journey, diagram hero', () => {
+    for (const [file, ar] of [['index.html', true], ['en.html', false]]) {
+        const { doc } = load(file);
+        // Map: only the Estavo market pins; Sheikh Zayed is the differently coloured selected pin.
+        assert.equal(MAP.cities.length, 0, 'no secondary city points');
+        assert.ok(doc.querySelector('#home-market .es-home-map__node--selected use[href="#i-map-pin"]'), 'selected pin marker');
+        // Growth: Meta + Facebook marks on an integration panel, no audience sizes.
+        const panel = doc.querySelector('#home-growth .es-home-campaign');
+        assert.ok(panel.querySelector('use[href="#i-brand-meta"]'));
+        assert.ok(panel.querySelector('use[href="#i-brand-facebook"]'));
+        assert.equal(panel.querySelectorAll('.es-home-campaign__info div').length, 5);
+        assert.doesNotMatch(panel.textContent, /\b\d{2,}(,\d{3})*\s*(people|users|شخص|مستخدم)/i);
+        // Client journey: seven mapped steps with icons; two resolve into insights.
+        const steps = doc.querySelectorAll('#home-client .es-home-step');
+        assert.equal(steps.length, 7);
+        steps.forEach((step) => assert.ok(step.querySelector('.es-home-step__icon svg')));
+        assert.equal(doc.querySelectorAll('#home-client .es-home-step.is-relevant').length, 2);
+        assert.equal(doc.querySelectorAll('#home-client .es-home-insight__list li').length, 2);
+        // Hero: a diagram of icon nodes, not a stack of boxed cards.
+        assert.equal(doc.querySelectorAll('#home-hero .es-home-tri__node').length, 3);
+        assert.equal(doc.querySelector('#home-hero .es-home-intel__request').tagName, 'P');
+        assert.match(doc.querySelector('#home-hero .es-home-intel').textContent, ar ? /مثال توضيحي/ : /Example/);
+    }
+});
+
+test('homepage icons are inlined so they render on any host or sub-folder', () => {
+    for (const file of ['index.html', 'en.html']) {
+        const html = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+        assert.doesNotMatch(html, /estavo-home\.svg#/, `${file} must not depend on an external sprite`);
+        const used = new Set([...html.matchAll(/href="#(i-[a-z0-9-]+)"/g)].map((m) => m[1]));
+        const defined = new Set([...html.matchAll(/<symbol id="(i-[a-z0-9-]+)"/g)].map((m) => m[1]));
+        assert.ok(used.size > 20);
+        used.forEach((id) => assert.ok(defined.has(id), `${file}: icon #${id} is not defined`));
+        assert.equal((html.match(/id="es-home-icons"/g) || []).length, 1);
+    }
 });
 
 test('built stylesheet is reproducible from its v3 modules (no build drift)', () => {

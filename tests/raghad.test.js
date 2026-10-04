@@ -240,9 +240,19 @@ test('all four landing routes load the same widget with correct relative assets'
         const dom = new JSDOM(html, { url: `https://estavo-brokers.com/${name}` });
         const script = dom.window.document.querySelector('script[src*="raghad.js"]');
         const style = dom.window.document.querySelector('link[href*="raghad.css"]');
-        assert.equal(new URL(script.src).pathname, '/assets/js/raghad.js');
-        assert.equal(new URL(style.href).pathname, '/assets/css/raghad.css');
-        assert.equal(script.dataset.endpoint, 'https://api-staging-brokers.estavo.space/api/public/support/chat');
+        const loader = dom.window.document.querySelector('script[src*="raghad-loader.js"]');
+
+        if (loader) {
+            assert.equal(new URL(loader.src).pathname, '/assets/js/raghad-loader.js');
+            const loaderSource = fs.readFileSync(path.join(__dirname, '../assets/js/raghad-loader.js'), 'utf8');
+            assert.match(loaderSource, /assets\/js\/raghad\.js/);
+            assert.match(loaderSource, /assets\/css\/raghad\.css/);
+            assert.match(loaderSource, /api-staging-brokers\.estavo\.space\/api\/public\/support\/chat/);
+        } else {
+            assert.equal(new URL(script.src).pathname, '/assets/js/raghad.js');
+            assert.equal(new URL(style.href).pathname, '/assets/css/raghad.css');
+            assert.equal(script.dataset.endpoint, 'https://api-staging-brokers.estavo.space/api/public/support/chat');
+        }
         dom.window.close();
     }
 });
