@@ -65,14 +65,20 @@ const FORBIDDEN = [
   { re: /\[(?:قيمة معتمدة|مدة معتمدة|أساس معتمد|اسم الشركة|من إدخالك)\]/g, why: 'visible bracket placeholder' },
 ];
 
-/* Product-owner scale figures, confirmed 2026-09-22. Any published claim
-   that pairs one of these nouns with a numeric value must use the same exact
-   figure across Arabic and English. A leading/trailing plus is intentionally
-   rejected: these are approved counts, not "more than" claims. */
+/* Scale figures. Any published claim that pairs one of these nouns with a
+   number must use the same figure across Arabic and English.
+   - Units and brokers use the verified production floor from
+     tools/data/home-proof.json (the 2026-09-22 approved 30,000 / 7,000
+     overstated production: 26,169 unit models, 6,696 registered users on
+     2026-10-03). They are "more than" floors, so the "+" is required.
+   - Projects and developers keep the approved exact counts (2,000 / 700),
+     which are below production and therefore safe; no plus. */
+const HOME_PROOF = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'home-proof.json'), 'utf8'));
+const proofFloor = (key) => String(HOME_PROOF.figures.find((f) => f.key === key).display);
 const APPROVED_SCALE_CLAIMS = [
-  { noun: '(?:units?|وحدات?|وحدة)', value: '30000', label: 'units / الوحدات' },
+  { noun: '(?:units?|وحدات?|وحدة)', value: proofFloor('units'), plus: true, label: 'units / الوحدات' },
   { noun: '(?:developers?|مطوّ?رين?|مطوّ?ر)', value: '700', label: 'developers / المطورين' },
-  { noun: '(?:brokers?|بروكرز?|بروكر)', value: '7000', label: 'brokers / البروكرز' },
+  { noun: '(?:brokers?|بروكرز?|بروكر)', value: proofFloor('brokers'), plus: true, label: 'brokers / البروكرز' },
   { noun: '(?:projects?|مشاريع|مشروع)', value: '2000', label: 'projects / المشاريع' },
 ];
 
@@ -147,9 +153,9 @@ function checkFile(file) {
     for (const match of body.matchAll(pair)) {
       const displayed = match[1] || match[2];
       const normalized = displayed.replaceAll(',', '').replaceAll('+', '');
-      if (normalized !== claim.value || displayed.includes('+')) {
+      if (normalized !== claim.value || displayed.includes('+') !== Boolean(claim.plus)) {
         failures.push(
-          `scale claim "${match[0].trim()}" must use ${Number(claim.value).toLocaleString('en-US')} ${claim.label}`
+          `scale claim "${match[0].trim()}" must use ${Number(claim.value).toLocaleString('en-US')}${claim.plus ? '+' : ''} ${claim.label}`
         );
       }
     }

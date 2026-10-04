@@ -1,0 +1,17 @@
+{
+  "_comment": "Single source for the homepage illustrative example (hero, Request, website preview, client signals, reverse matching). Every surface is labelled مثال توضيحي / Example. Prices and down payments in EGP millions. Change values here and in index.html/en.html together; tests/homepage.test.js checks the HTML against this file and recomputes the ranking.",
+  "request": {
+    "area": { "ar": "التجمع", "en": "New Cairo" },
+    "bedrooms": 3,
+    "budget_max": 8.0,
+    "down_payment_max": 1.5,
+    "priority": "lowest_down_payment",
+    "delivery": "flexible"
+  },
+  "units": [
+    { "key": "A", "ar": "مشروع أ", "en": "Project A", "price": 7.9, "down_payment": 1.4, "plan_years": 8, "delivery": "2028", "area_m2": 165, "finishing": "semi" },
+    { "key": "B", "ar": "مشروع ب", "en": "Project B", "price": 8.0, "down_payment": 1.2, "plan_years": 7, "delivery": "2027", "area_m2": 158, "finishing": "full" },
+    { "key": "C", "ar": "مشروع ج", "en": "Project C", "price": 8.3, "down_payment": 1.5, "plan_years": 6, "delivery": "ready", "area_m2": 180, "finishing": "full" }
+  ],
+  "selected": "B"
+}

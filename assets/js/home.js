@@ -11,8 +11,9 @@
         shared data-track events (estavo-v3.js keeps sending
         market_opened / website_preview_started as before);
      3. sends passive section-view events (never conversions);
-     4. shows the mobile sticky CTA only between the hero CTA
-        and the closing CTA.
+     4. shows the mobile Market bar only while no other Market
+        CTA, the footer, the menu, the support chat or the
+        on-screen keyboard needs that space.
 
    The hero sequence is CSS-only and needs nothing from here.
    Each initialiser is isolated so one failure cannot hide
@@ -81,8 +82,6 @@
     var figure = document.querySelector("[data-home-market]");
     if (!figure) return;
     index(".es-home-frag", figure);
-    index(".es-home-map__project", figure);
-    index(".es-home-map__node:not(.es-home-map__node--hub):not(.es-home-map__node--selected)", figure);
     playOnEntry(figure);
   }
 
@@ -90,27 +89,20 @@
     var figure = document.querySelector("[data-home-request]");
     if (!figure) return;
     index(".es-home-ask .es-home-chip", figure);
-    index(".es-home-prop", figure);
+    index(".es-home-alts li", figure);
     playOnEntry(figure);
   }
 
   function initHomeWebsite() {
     var figure = document.querySelector("[data-home-site]");
     if (!figure) return;
-    index(".es-home-listing", figure);
     playOnEntry(figure);
   }
 
   function initHomeClientSignals() {
     var signals = document.querySelector("[data-home-signals]");
     if (signals) {
-      index(".es-home-signal, .es-home-sig", signals);
       playOnEntry(signals);
-    }
-    var match = document.querySelector("[data-home-match]");
-    if (match) {
-      index(".es-home-interest", match);
-      playOnEntry(match);
     }
   }
 
@@ -172,35 +164,55 @@
     views.forEach(function (view) { observer.observe(view); });
   }
 
-  /* One restrained bar on phones: hidden while the hero CTA or the
-     closing CTA is on screen. raghad.js watches the .visible class
-     on .sticky-cta and lifts its launcher accordingly. */
+  /* One restrained bar on phones. It never sits on top of another
+     visible Market CTA (hero, market, start-free, closing) or the
+     footer, and steps aside while the menu drawer, the support chat
+     or the on-screen keyboard needs the space. raghad.js watches the
+     .visible class on .sticky-cta and lifts its launcher. Focused
+     controls are kept clear of it by scroll-padding in home.css. */
   function initHomeMobileCta() {
     var bar = document.querySelector("[data-home-sticky]");
-    var hero = document.querySelector("#home-hero .es-home-actions");
-    var closing = document.querySelector("#home-closing");
-    if (!bar || !hero || !closing || !canObserve) return;
+    if (!bar || !canObserve) return;
 
-    var heroVisible = true;
-    var closingVisible = false;
+    /* In-page Market CTAs only: the header button is always on screen and
+       sits at the opposite edge, so it does not compete with the bar. */
+    var blockers = all("main [data-track=\"market_opened\"]")
+      .concat(all(".es-footer"));
+    var onScreen = new Set();
+    var typing = false;
+
+    function overlayOpen() {
+      var drawer = document.querySelector("[data-drawer]");
+      return (drawer && !drawer.hidden) ||
+        !!document.querySelector("[data-raghad-open=\"true\"]");
+    }
 
     function update() {
-      var show = !heroVisible && !closingVisible;
+      var show = onScreen.size === 0 && !typing && !overlayOpen();
       bar.classList.toggle("visible", show);
       bar.setAttribute("aria-hidden", show ? "false" : "true");
       var link = bar.querySelector("a");
       if (link) link.tabIndex = show ? 0 : -1;
     }
 
-    new IntersectionObserver(function (entries) {
-      heroVisible = entries[0].isIntersecting;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) onScreen.add(entry.target);
+        else onScreen.delete(entry.target);
+      });
       update();
-    }).observe(hero);
+    });
+    blockers.forEach(function (el) { observer.observe(el); });
 
-    new IntersectionObserver(function (entries) {
-      closingVisible = entries[0].isIntersecting;
-      update();
-    }, { threshold: 0.15 }).observe(closing);
+    function isField(el) {
+      return el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName));
+    }
+    document.addEventListener("focusin", function (event) { typing = isField(event.target); update(); });
+    document.addEventListener("focusout", function () { typing = false; update(); });
+
+    new MutationObserver(update).observe(document.body, {
+      subtree: true, attributes: true, attributeFilter: ["hidden", "data-raghad-open"]
+    });
 
     update();
   }

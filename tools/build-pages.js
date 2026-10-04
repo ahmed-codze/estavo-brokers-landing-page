@@ -17,6 +17,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const ROOT = path.join(__dirname, '..');
 const routes = JSON.parse(fs.readFileSync(path.join(__dirname, 'routes.json'), 'utf8'));
@@ -53,15 +54,24 @@ const ROUTE_ASSETS = {
   },
 };
 
+/* Static assets are served with a long immutable cache, so every local
+   CSS/JS reference carries a deterministic content hash: a rebuilt file
+   gets a new URL, an unchanged one keeps its cached copy. */
+function versioned(url) {
+  const file = path.join(ROOT, url.replace(/^\//, ''));
+  const hash = crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex').slice(0, 10);
+  return `${url}?v=${hash}`;
+}
+
 function routeStyles(key) {
   return (ROUTE_ASSETS[key]?.styles || [])
-    .map((href) => `    <link rel="stylesheet" href="${href}" />`)
+    .map((href) => `    <link rel="stylesheet" href="${versioned(href)}" />`)
     .join('\n');
 }
 
 function routeScripts(key) {
   return (ROUTE_ASSETS[key]?.scripts || [])
-    .map((src) => `    <script src="${src}" defer></script>`)
+    .map((src) => `    <script src="${versioned(src)}" defer></script>`)
     .join('\n');
 }
 
@@ -288,10 +298,10 @@ ${GTAG}
 ${styles}
 ${criticalCss()}
 
-    <link rel="preload" as="style" href="/assets/css/estavo-v3.css"
+    <link rel="preload" as="style" href="${versioned('/assets/css/estavo-v3.css')}"
         onload="this.onload=null;this.rel='stylesheet'" />
     <noscript>
-        <link rel="stylesheet" href="/assets/css/estavo-v3.css" />
+        <link rel="stylesheet" href="${versioned('/assets/css/estavo-v3.css')}" />
     </noscript>
 </head>
 `;
@@ -333,8 +343,8 @@ function buildPage(route, lang) {
     + '\n    </main>\n'
     + partial(`footer.${lang}.html`)
     + `
-    <script src="/assets/js/referral.js" defer></script>
-${scripts ? `${scripts}\n` : ''}    <script src="/assets/js/v3/estavo-v3.js" defer></script>
+    <script src="${versioned('/assets/js/referral.js')}" defer></script>
+${scripts ? `${scripts}\n` : ''}    <script src="${versioned('/assets/js/v3/estavo-v3.js')}" defer></script>
 </body>
 
 </html>
