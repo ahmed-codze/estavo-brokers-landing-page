@@ -249,12 +249,26 @@ test('graphics: map cities, custom Zayed pin, Meta integration, client journey, 
         assert.ok(panel.querySelector('use[href="#i-brand-facebook"]'));
         assert.equal(panel.querySelectorAll('.es-home-campaign__info div').length, 5);
         assert.doesNotMatch(panel.textContent, /\b\d{2,}(,\d{3})*\s*(people|users|شخص|مستخدم)/i);
-        // Client journey: seven mapped steps with icons; two resolve into insights.
-        const steps = doc.querySelectorAll('#home-client .es-home-step');
-        assert.equal(steps.length, 7);
-        steps.forEach((step) => assert.ok(step.querySelector('.es-home-step__icon svg')));
-        assert.equal(doc.querySelectorAll('#home-client .es-home-step.is-relevant').length, 2);
+        // Client: independent signals → understanding (not a CRM timeline).
+        const signals = doc.querySelectorAll('#home-client .es-home-sig');
+        assert.equal(signals.length, 4);
+        signals.forEach((sig) => assert.ok(sig.querySelector('.es-home-sig__icon svg')));
+        assert.equal(doc.querySelectorAll('#home-client .es-home-understand path.is-resolved').length, 4, 'every signal connects to the understanding');
         assert.equal(doc.querySelectorAll('#home-client .es-home-insight__list li').length, 2);
+        assert.doesNotMatch(doc.querySelector('#home-client').textContent, ar ? /اليوم \d/ : /Day \d/, 'no day-by-day timeline');
+        assert.match(doc.querySelector('#home-client').textContent, ar ? /وعندك وحدة؟ اعرف مين ممكن تناسبه/ : /Have a unit\? Understand who it could suit/);
+        // Hero pillars are short keys.
+        const pillars = [...doc.querySelectorAll('#home-hero .es-home-tri__node > span:last-child')].map((n) => n.textContent.trim());
+        assert.deepEqual(pillars, ar ? ['الأسعار · المتاح · التحديثات', 'طلبه · اهتمامه · الأنسب له', 'السعر · السداد · الاستلام · الفرق']
+            : ['Prices · availability · updates', 'Requirement · interest · best fit', 'Price · payment · delivery · differences']);
+        // Website creation buttons share one label.
+        doc.querySelectorAll('a.es-home-btn--primary[href="https://estavo-brokers.com/website/"]')
+            .forEach((a) => assert.equal(a.textContent.trim(), ar ? 'اعمل موقعك مجانًا' : 'Create your website free'));
+        // Primary navigation: no Examples; the client page is "understanding".
+        const nav = doc.querySelector('.es-header').outerHTML + doc.querySelector('[data-drawer]').outerHTML;
+        assert.doesNotMatch(nav, /examples\//);
+        assert.match(nav, ar ? /فهم العميل/ : /Client understanding/);
+        assert.doesNotMatch(nav, ar ? /سياق العميل/ : /Buyer context/);
         // Hero: a diagram of icon nodes, not a stack of boxed cards.
         assert.equal(doc.querySelectorAll('#home-hero .es-home-tri__node').length, 3);
         assert.equal(doc.querySelector('#home-hero .es-home-intel__request').tagName, 'P');

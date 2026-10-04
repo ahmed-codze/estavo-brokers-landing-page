@@ -104,7 +104,7 @@
   function initHomeClientSignals() {
     var signals = document.querySelector("[data-home-signals]");
     if (signals) {
-      index(".es-home-signal, .es-home-step", signals);
+      index(".es-home-signal, .es-home-sig", signals);
       playOnEntry(signals);
     }
     var match = document.querySelector("[data-home-match]");

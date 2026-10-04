@@ -891,12 +891,7 @@ html body.es-landing .es-home-main .es-home-free-card .es-home-h3 { font-size: c
 
   .es-home-market.is-playing .es-home-market__rail { animation: es-home-draw-y var(--es-mo-base) var(--es-mo-ease) 780ms both; }
   .es-home-market.is-playing .es-home-board { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 900ms both; }
-  .es-home-market.is-armed :is(.es-home-map__land,
-.es-home-map__neighbour,
-.es-home-map__nile,
-.es-home-map__water,
-.es-home-map__node,
-.es-home-map__card) { opacity: 0; }
+  .es-home-market.is-armed :is(.es-home-map__land, .es-home-map__neighbour, .es-home-map__nile, .es-home-map__water, .es-home-map__node, .es-home-map__card) { opacity: 0; }
   .es-home-market.is-playing :is(.es-home-map__land, .es-home-map__neighbour, .es-home-map__nile, .es-home-map__water) { animation: es-home-fade var(--es-mo-slow) var(--es-mo-ease) 1000ms both; }
 
   .es-home-market.is-playing .es-home-map__node { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(1300ms + var(--i, 0) * 12ms); }
@@ -1514,9 +1509,9 @@ html body.es-landing .es-home-main .es-home-free-card .es-home-h3 { font-size: c
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .es-home-signals.is-armed :is(.es-home-signal, .es-home-step, .es-home-insight) { opacity: 0; }
+  .es-home-signals.is-armed :is(.es-home-signal, .es-home-sig, .es-home-insight) { opacity: 0; }
   .es-home-signals.is-armed .es-home-rail-svg { opacity: 0; }
-  .es-home-signals.is-playing :is(.es-home-signal, .es-home-step) { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(var(--i, 0) * var(--es-mo-stagger)); }
+  .es-home-signals.is-playing :is(.es-home-signal, .es-home-sig) { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(var(--i, 0) * var(--es-mo-stagger)); }
   .es-home-signals.is-playing .es-home-rail-svg { animation: es-home-draw-x var(--es-mo-slow) var(--es-mo-ease) 450ms both; }
   .es-home-signals.is-playing .es-home-insight { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 1000ms both; }
 
@@ -2189,64 +2184,6 @@ html body.es-landing .es-home-main .es-home-free-card .es-home-h3 { font-size: c
 /* ============================================================
    Client journey: mapped steps → what Estavo understood
    ============================================================ */
-.es-home-journey__steps {
-  position: relative;
-  display: grid;
-  grid-auto-rows: 1fr;
-  gap: .3rem;
-}
-
-.es-home-journey__steps::before {
-  content: "";
-  position: absolute;
-  inset-block: 1.2rem;
-  inset-inline-start: calc(1.05rem - 1px);
-  inline-size: 2px;
-  background: var(--rail-c);
-}
-
-.es-home-step {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: .7rem;
-  min-block-size: 2.6rem;
-  font-size: .875rem;
-  line-height: 1.4;
-}
-
-.es-home-step__icon {
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  inline-size: 2.1rem;
-  block-size: 2.1rem;
-  flex: none;
-  border-radius: 50%;
-  background: var(--es-navy-900);
-  box-shadow: 0 0 0 1px var(--es-line-dark);
-}
-
-.es-home-step__icon .es-home-ic { inline-size: 1.05rem; block-size: 1.05rem; }
-.es-home-step__icon:has(.es-home-brand) { background: var(--es-white); }
-
-.es-home-step__text {
-  display: flex;
-  flex: 1;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: .1rem .75rem;
-  min-inline-size: 0;
-}
-
-.es-home-step__text b { color: var(--es-on-dark); font-weight: 500; }
-.es-home-step__text small { color: var(--es-on-dark-muted); font-size: .6875rem; white-space: nowrap; }
-
-.es-home-step.is-relevant .es-home-step__icon { background: var(--home-mint); box-shadow: 0 0 0 4px rgb(114 224 187 / 18%); }
-.es-home-step.is-relevant .es-home-step__icon .es-home-ic { color: var(--es-navy-950); }
-.es-home-step.is-relevant .es-home-step__text b { color: var(--es-white); font-weight: 700; }
-.es-home-step.is-relevant .es-home-step__text small { color: var(--home-mint); }
 
 .es-home-insight__list { display: grid; gap: .45rem; }
 
@@ -2855,7 +2792,69 @@ html body.es-landing .es-home-main .es-home-free-card .es-home-h3 { font-size: c
   .es-home-map__frame { aspect-ratio: 16 / 11; }
   /* frame height ÷ stage height = (11/16) ÷ (580/640) */
   .es-home-map { --frame-mid: 37.93%; }
-  .es-home-step { min-block-size: 2.2rem; }
-  .es-home-step__icon { inline-size: 1.85rem; block-size: 1.85rem; }
-  .es-home-journey__steps { gap: .15rem; }
+
+}
+
+/* ============================================================
+   Client: independent signals → what Estavo understood
+   ------------------------------------------------------------
+   Four signals stand on their own (no timeline, no days, no
+   boxes); each rail converges on the understanding card.
+   ============================================================ */
+.es-home-understand__signals {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: .6rem;
+}
+
+.es-home-sig {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  color: var(--es-white);
+  font-size: .9375rem;
+  line-height: 1.45;
+}
+
+.es-home-sig b { font-weight: 600; }
+
+.es-home-sig__icon {
+  display: grid;
+  place-items: center;
+  inline-size: 2.4rem;
+  block-size: 2.4rem;
+  flex: none;
+  border-radius: 50%;
+  background: rgb(114 224 187 / 12%);
+  box-shadow: inset 0 0 0 1.5px var(--home-mint);
+}
+
+.es-home-sig__icon .es-home-ic { inline-size: 1.1rem; block-size: 1.1rem; color: var(--home-mint); }
+
+@media (max-width: 40rem) {
+  .es-home-understand__signals { gap: .5rem; }
+  .es-home-sig { font-size: .875rem; }
+  .es-home-sig__icon { inline-size: 2.1rem; block-size: 2.1rem; }
+}
+
+/* ============================================================
+   Growth: the client pattern leads; Meta is the secondary proof
+   ============================================================ */
+.es-home-growth-fig__grid { grid-template-columns: minmax(0, 1.55fr) 1.75rem minmax(0, 1fr); }
+
+.es-home-growth-fig .es-home-cluster__label { font-size: .75rem; color: var(--es-ink-60); }
+.es-home-growth-fig .es-home-cluster--key .es-home-cluster__label { color: var(--es-navy-950); font-size: .8125rem; font-weight: 700; }
+
+.es-home-campaign { gap: .5rem; padding: .75rem; box-shadow: 0 1px 2px rgb(11 34 57 / 5%), 0 8px 20px rgb(11 34 57 / 6%); }
+.es-home-campaign__brand { font-size: .875rem; }
+.es-home-campaign__brand .es-home-brand { inline-size: 1.3rem; block-size: 1.3rem; }
+.es-home-campaign__info div { padding-block: .25rem; font-size: .6875rem; }
+.es-home-campaign__ad { gap: .3rem; padding: .45rem; }
+.es-home-campaign__page,
+.es-home-campaign__creative { font-size: .6875rem; }
+.es-home-campaign__creative { grid-template-columns: 2rem minmax(0, 1fr); }
+.es-home-campaign__creative > span { block-size: 2rem; }
+
+@container (max-width: 34rem) {
+  .es-home-growth-fig__grid { grid-template-columns: minmax(0, 1fr); }
 }
