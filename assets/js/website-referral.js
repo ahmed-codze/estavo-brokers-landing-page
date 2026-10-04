@@ -182,9 +182,18 @@
         return value === 'ar' || value === 'en' ? value : null;
     }
 
-    function buildOnboardingUrl(source, locale, attribution) {
+    function normalizeOwnerUserId(value) {
+        if (typeof value !== 'string' && typeof value !== 'number') return null;
+        var normalized = String(value).trim();
+        if (!/^[1-9]\d{0,15}$/.test(normalized)) return null;
+        var numeric = Number(normalized);
+        return Number.isSafeInteger(numeric) ? String(numeric) : null;
+    }
+
+    function buildOnboardingUrl(source, locale, attribution, ownerUserId) {
         var normalizedSource = normalizeSourceUrl(source);
         var normalizedLocale = normalizeLocale(locale);
+        var normalizedOwnerUserId = normalizeOwnerUserId(ownerUserId);
         if (!normalizedSource || !normalizedLocale) return null;
 
         // The destination is deliberately constructed from constants. Neither
@@ -196,6 +205,9 @@
         // visitor's explicit choice separately from the identity eventually
         // verified from the supplied public profile.
         destination.searchParams.set('audience', 'company');
+        if (normalizedOwnerUserId) {
+            destination.searchParams.set('for_user', normalizedOwnerUserId);
+        }
 
         var referral = attribution && attribution.ref;
         if (isValidSlug(referral)) {
@@ -397,9 +409,10 @@
         }) : [];
     }
 
-    function buildManualOnboardingUrl(profile, locale, attribution) {
+    function buildManualOnboardingUrl(profile, locale, attribution, ownerUserId) {
         var normalizedProfile = normalizeManualProfile(profile, true);
         var normalizedLocale = normalizeLocale(locale);
+        var normalizedOwnerUserId = normalizeOwnerUserId(ownerUserId);
         if (!normalizedProfile || !normalizedLocale) return null;
 
         // The existing onboarding service starts from a public source URL. Give
@@ -440,6 +453,9 @@
         destination.searchParams.set('theme', normalizedProfile.theme);
         destination.searchParams.set('city_ids', normalizedProfile.cities.map(function (city) { return city.id; }).join(','));
         destination.searchParams.set('locale', normalizedLocale);
+        if (normalizedOwnerUserId) {
+            destination.searchParams.set('for_user', normalizedOwnerUserId);
+        }
 
         var referral = attribution && attribution.ref;
         if (isValidSlug(referral)) destination.searchParams.set(QUERY_PARAM, referral.toLowerCase());
@@ -535,7 +551,7 @@
         errorElement.classList.remove('is-ok');
     }
 
-    function prepareWebsiteForm(windowObject, documentObject, form) {
+    function prepareWebsiteForm(windowObject, documentObject, form, ownerUserId, requestedSource) {
         if (form.getAttribute('data-website-starter-ready') === 'true') return;
 
         var input = form.querySelector('input[name="source"]');
@@ -559,6 +575,11 @@
         form.setAttribute('action', PLATFORM_ORIGIN + ONBOARDING_PATH);
         form.setAttribute('method', 'get');
         form.setAttribute('data-website-starter-ready', 'true');
+
+        var initialSource = classifySource(requestedSource || '');
+        if (!input.value.trim() && initialSource.ok) {
+            input.value = initialSource.url;
+        }
 
         // Typing clears whatever verdict was on screen, so guidance never
         // contradicts what the broker is currently editing.
@@ -597,7 +618,8 @@
             var destination = buildOnboardingUrl(
                 input.value,
                 locale,
-                readFormAttribution(form)
+                readFormAttribution(form),
+                ownerUserId
             );
 
             if (!destination) {
@@ -611,7 +633,7 @@
         });
     }
 
-    function prepareWebsiteWizard(windowObject, documentObject, wizard, attribution) {
+    function prepareWebsiteWizard(windowObject, documentObject, wizard, attribution, ownerUserId) {
         if (wizard.getAttribute('data-wizard-ready') === 'true') return;
         wizard.setAttribute('data-wizard-ready', 'true');
 
@@ -941,7 +963,7 @@
                     facebook: form.elements.facebook_url.value,
                     instagram: form.elements.instagram_url.value
                 }
-            }, locale, attribution);
+            }, locale, attribution, ownerUserId);
             if (!destination) {
                 error.textContent = locale === 'ar'
                     ? 'تعذر تجهيز بيانات موقعك. راجع اختياراتك وحاول تاني.'
@@ -963,6 +985,8 @@
         function start() {
             var search = windowObject.location.search;
             var sessionStorage = getSessionStorage(windowObject);
+            var ownerUserId = normalizeOwnerUserId(getQueryParameter(search, 'for_user'));
+            var requestedSource = getQueryParameter(search, 'source');
             var candidateSlug = getQueryParameter(search, QUERY_PARAM)
                 || getCookie(documentObject, COOKIE_NAME)
                 || safeStorageGet(sessionStorage, SESSION_KEY);
@@ -1010,13 +1034,32 @@
                         sanitizeAttributionValue(attribution[field])
                     );
                 });
-                prepareWebsiteForm(windowObject, documentObject, form);
+                prepareWebsiteForm(windowObject, documentObject, form, ownerUserId, requestedSource);
+            }
+
+            function preserveWebsiteContext(anchor) {
+                if (!anchor.getAttribute('hreflang')) return;
+                try {
+                    var url = new URL(anchor.getAttribute('href'), windowObject.location.href);
+                    if (url.origin !== windowObject.location.origin || url.pathname.indexOf('/website/') !== 0) return;
+                    if (ownerUserId) url.searchParams.set('for_user', ownerUserId);
+                    var source = classifySource(requestedSource || '');
+                    if (source.ok) url.searchParams.set('source', source.url);
+                    ['audience', QUERY_PARAM].concat(ATTRIBUTION_FIELDS).forEach(function (field) {
+                        var value = getQueryParameter(search, field);
+                        if (value) url.searchParams.set(field, value);
+                    });
+                    anchor.setAttribute('href', url.toString());
+                } catch (error) {
+                    // Leave the static language link intact.
+                }
             }
 
             documentObject.querySelectorAll('a[href]').forEach(rewriteLink);
+            documentObject.querySelectorAll('a[hreflang]').forEach(preserveWebsiteContext);
             documentObject.querySelectorAll('form.website-starter').forEach(prepareForm);
             documentObject.querySelectorAll('[data-website-wizard]').forEach(function (wizard) {
-                prepareWebsiteWizard(windowObject, documentObject, wizard, attribution);
+                prepareWebsiteWizard(windowObject, documentObject, wizard, attribution, ownerUserId);
             });
 
             if (typeof windowObject.MutationObserver !== 'undefined' && documentObject.body) {
@@ -1049,6 +1092,7 @@
         ONBOARDING_PATH: ONBOARDING_PATH,
         buildOnboardingUrl: buildOnboardingUrl,
         buildManualOnboardingUrl: buildManualOnboardingUrl,
+        normalizeOwnerUserId: normalizeOwnerUserId,
         normalizeManualProfile: normalizeManualProfile,
         normalizePhoneNumber: normalizePhoneNumber,
         normalizeSocialProfile: normalizeSocialProfile,
