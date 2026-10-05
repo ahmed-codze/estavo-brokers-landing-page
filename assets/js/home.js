@@ -89,7 +89,7 @@
     var figure = document.querySelector("[data-home-request]");
     if (!figure) return;
     index(".es-home-ask .es-home-chip", figure);
-    index(".es-home-alts li", figure);
+    index(".es-home-opt--alt", figure);
     playOnEntry(figure);
   }
 
@@ -111,35 +111,6 @@
     if (!figure) return;
     index(".es-home-dot", figure);
     playOnEntry(figure);
-  }
-
-  /* Proof strip: the verified final values ship in the HTML. On entry the
-     numbers count up once from 85% (never from zero), then rest. */
-  function initHomeProof() {
-    var strip = document.querySelector("[data-home-proof]");
-    if (!strip || reduceMotion || !canObserve) return;
-    var values = all("[data-count]", strip);
-    var format = function (n) { return Math.round(n).toLocaleString("en-US") + "+"; };
-
-    var observer = new IntersectionObserver(function (entries) {
-      if (!entries[0].isIntersecting) return;
-      observer.disconnect();
-      strip.classList.add("is-playing");
-      var start = null;
-      function frame(now) {
-        if (start === null) start = now;
-        var t = Math.min(1, (now - start) / 900);
-        var eased = 1 - Math.pow(1 - t, 3);
-        values.forEach(function (el) {
-          var target = Number(el.getAttribute("data-count"));
-          el.textContent = format(target * (0.85 + 0.15 * eased));
-        });
-        if (t < 1) window.requestAnimationFrame(frame);
-        else values.forEach(function (el) { el.textContent = format(Number(el.getAttribute("data-count"))); });
-      }
-      window.requestAnimationFrame(frame);
-    }, { threshold: 0.5 });
-    observer.observe(strip);
   }
 
   function initHomeEvents() {
@@ -224,7 +195,6 @@
       initHomeWebsite,
       initHomeClientSignals,
       initHomeGrowthClusters,
-      initHomeProof,
       initHomeEvents,
       initHomeMobileCta
     ].forEach(safely);

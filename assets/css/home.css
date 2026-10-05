@@ -8,9 +8,9 @@
    layers, so these scoped .es-home-* rules win without
    specificity fights and never leak into service pages.
 
-   Reading contract (October 2026 refinement)
-     One short heading, one sentence, one graphic, one action per
-     feature section. Sections take their natural height — no
+   Reading contract (October 2026 balance pass)
+     One short heading, one compact explanatory paragraph, one
+     explanatory graphic and one action per feature section. Sections take their natural height — no
      viewport-height sections, no clipping, no line-clamp and no
      scaling of complete graphics. Secondary detail lives in native
      <details> (comparison, reverse matching, FAQ).
@@ -79,6 +79,15 @@
    would force sideways scrolling on a phone; cap it at the viewport. */
 body.es-home { min-inline-size: min(20rem, 100%); }
 
+/* Enlarged text on a phone (viewport under 20rem in text terms — e.g. 390px
+   at 200%): logo, CTA and menu button cannot share one row, and the menu
+   button was pushed off screen. The header CTA steps aside; Market stays
+   reachable from the menu drawer and the sticky bar. Never applies at
+   default text size (20rem = 320px). */
+@media (max-width: 19.99rem) {
+  .es-home .es-header__actions > .es-button { display: none; }
+}
+
 /* Mobile sticky bar: focused controls scroll into view above it. */
 @media (max-width: 40rem) {
   html:has(.es-home-sticky) { scroll-padding-block-end: 5.5rem; }
@@ -124,6 +133,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 [dir="rtl"] .es-home-num { text-align: right; }
 
 .es-home-center { text-align: center; }
+.es-home-nowrap { white-space: nowrap; }
 
 /* ── Bands: natural height ─────────────────────────────── */
 .es-home-band {
@@ -374,7 +384,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 }
 
 .es-home-band--navy .es-home-ic { color: var(--es-on-dark-muted); }
-.es-home-band--navy :is(.es-home-prop, .es-home-match__unit, .es-home-disclosure__body) .es-home-ic { color: var(--es-blue-500); }
+.es-home-band--navy :is(.es-home-opt--best, .es-home-match__unit, .es-home-disclosure__body) .es-home-ic { color: var(--es-blue-500); }
 
 /* ── Shared surfaces ───────────────────────────────────── */
 .es-home-card {
@@ -405,7 +415,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 .es-home-facts div {
   display: grid;
-  flex: 1;
+  flex: 1 1 5rem; /* wraps into rows under enlarged text instead of colliding */
   gap: .1rem;
   min-inline-size: 0;
   padding-inline: .75rem;
@@ -617,11 +627,17 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   position: relative;
   display: grid;
   justify-items: center;
-  gap: .35rem;
+  align-content: start;
+  gap: .3rem;
+  padding-inline: .25rem;
   color: var(--es-navy-950);
   font-size: 1rem;
   font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
 }
+
+.es-home-fw__nodes small { color: var(--es-ink-72); font-size: var(--fs-small); font-weight: 500; line-height: 1.4; }
 
 .es-home-fw__nodes li::before {
   content: "";
@@ -649,7 +665,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   display: grid;
   gap: .65rem;
   inline-size: 100%;
-  padding: 1rem 1.15rem;
+  padding: .9rem 1.15rem;
   border: 1px solid rgb(114 224 187 / 75%);
   border-radius: var(--home-card-radius);
   background: var(--es-white);
@@ -665,7 +681,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 }
 
 .es-home-intel__title b { color: var(--es-navy-950); font-size: 1.0625rem; font-weight: 600; }
-.es-home-intel__title span { color: var(--es-ink-60); font-size: var(--fs-small); }
+.es-home-intel__title > span { color: var(--es-ink-72); font-size: var(--fs-label); font-weight: 600; }
 
 /* Proof strip: verified counts (tools/data/home-proof.json), no cards, no mint. */
 .es-home-proof { margin-block-start: clamp(2.25rem, 5vw, 3.5rem); }
@@ -723,6 +739,26 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 /* ============================================================
    2. MARKET — sources → board on the real map of Egypt
    ============================================================ */
+/* What Estavo maintains: three plain groups, not cards or pills. */
+.es-home-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.4rem;
+  margin-block-start: .1rem;
+}
+
+.es-home-groups li {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  color: var(--es-navy-950);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.es-home-groups .es-home-ic { inline-size: 1.25rem; block-size: 1.25rem; }
+
 .es-home-market { display: grid; inline-size: 100%; }
 
 .es-home-market__sources {
@@ -732,7 +768,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   text-align: center;
 }
 
-.es-home-market__sources p { color: var(--es-ink-72); font-size: var(--fs-label); line-height: 1.5; }
+.es-home-market__sources p { color: var(--es-ink-72); font-size: var(--fs-small); line-height: 1.5; }
 
 .es-home-market__docs {
   display: flex;
@@ -744,15 +780,15 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 /* Document glyphs read as paper, not as buttons. */
 .es-home-frag .es-home-ic {
   display: block;
-  inline-size: 2.4rem;
-  block-size: 2.4rem;
-  padding: .55rem;
+  inline-size: 2rem;
+  block-size: 2rem;
+  padding: .45rem;
   border-radius: .35rem .8rem .35rem .35rem;
   background: var(--es-mist);
   color: var(--es-blue-500);
 }
 
-.es-home-market__rail { --rail-len: 1.5rem; margin-block: .6rem; }
+.es-home-market__rail { --rail-len: 1.25rem; margin-block: .5rem; }
 
 .es-home-board {
   display: grid;
@@ -777,10 +813,12 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
    are marked by a ring and shown in a Cairo inset over the empty
    Western Desert, so no pin is moved for spacing. */
 .es-home-map {
+  --map-gap: .9rem;
+  --map-w: 100cqi;
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-  align-items: center;
-  gap: .9rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--map-gap);
 }
 
 .es-home-map__frame {
@@ -848,8 +886,9 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 }
 
 .es-home-map__card {
+  position: relative;
   display: grid;
-  gap: .6rem;
+  gap: .55rem;
   padding: .9rem 1rem;
   border: 1px solid var(--home-mint);
   border-radius: .75rem;
@@ -871,50 +910,84 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-map__project {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: .15rem .75rem;
+  gap: .1rem .75rem;
   align-items: baseline;
   font-size: var(--fs-label);
 }
 
 .es-home-map__project b { color: var(--es-navy-950); font-weight: 600; }
 .es-home-map__project strong { color: var(--es-navy-950); font-size: 1.0625rem; font-weight: 600; }
-.es-home-map__project small { grid-column: 1 / -1; color: var(--es-ink-72); font-size: var(--fs-small); }
+.es-home-map__project small { grid-column: 1 / -1; color: var(--es-ink-72); font-size: var(--fs-label); }
 
 .es-home-map__update {
   display: flex;
   align-items: center;
-  gap: .4rem;
-  grid-column: 1 / -1;
-  margin-block-start: .2rem;
+  gap: .45rem;
+  padding-block-start: .55rem;
+  border-block-start: 1px solid var(--es-line);
   color: var(--es-navy-950);
-  font-size: var(--fs-small);
-  font-style: normal;
+  font-size: var(--fs-label);
   font-weight: 600;
 }
 
 .es-home-map__update .es-home-ic {
-  inline-size: 1.2rem;
-  block-size: 1.2rem;
-  padding: .15rem;
+  inline-size: 1.3rem;
+  block-size: 1.3rem;
+  padding: .17rem;
   border-radius: 50%;
   background: var(--home-mint);
   color: var(--es-navy-950);
 }
 
-/* Narrow boards: the project card drops below the map. */
-@container (max-width: 34rem) {
-  .es-home-map { grid-template-columns: minmax(0, 1fr); }
+/* The mint rail from the selected pin to its card. Geometry comes from the
+   pin's frame fractions (--sel-x/--sel-y, written by the map builder) and
+   the board width (cqi), so it follows resizing and text enlargement. */
+.es-home-map__link {
+  --frame-w: var(--map-w);
+  --frame-h: calc(var(--frame-w) * 580 / 640);
+  position: absolute;
+  z-index: 3;
+  inset-block-start: calc(var(--frame-h) * var(--sel-y));
+  left: calc(var(--frame-w) * var(--sel-x) - 1px);
+  inline-size: var(--rail-w);
+  block-size: calc(var(--frame-h) * (1 - var(--sel-y)) + var(--map-gap));
+  border-radius: var(--rail-w);
+  background: var(--home-mint);
+  box-shadow: 0 0 0 1px rgb(11 34 57 / 25%);
+  pointer-events: none;
+}
+
+@container (min-width: 34rem) {
+  .es-home-map {
+    direction: ltr; /* the map is geography: the card sits west of it in both languages */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    align-items: end;
+  }
+
+  .es-home-map__frame { align-self: start; }
+  .es-home-map__card { order: -1; }
+  [dir="rtl"] .es-home-map__card { direction: rtl; }
+
+  .es-home-map__link {
+    --frame-w: calc((var(--map-w) - var(--map-gap)) * .6);
+    --card-w: calc((var(--map-w) - var(--map-gap)) * .4);
+    inset-block-start: calc(var(--frame-h) * var(--sel-y) - 1.05rem);
+    left: var(--card-w);
+    inline-size: calc(var(--map-gap) + var(--frame-w) * var(--sel-x) - .75rem);
+    block-size: var(--rail-w);
+  }
 }
 
 /* Signature motion #2: documents arrive scattered, settle, the board resolves. */
 @media (prefers-reduced-motion: no-preference) {
-  .es-home-market.is-armed :is(.es-home-frag, .es-home-market__rail, .es-home-board, .es-home-map__node, .es-home-map__inset, .es-home-map__card) { opacity: 0; }
+  .es-home-market.is-armed :is(.es-home-frag, .es-home-market__rail, .es-home-board, .es-home-map__node, .es-home-map__inset, .es-home-map__link, .es-home-map__card) { opacity: 0; }
   .es-home-market.is-playing .es-home-frag { animation: es-home-settle var(--es-mo-slow) var(--es-mo-ease) both; animation-delay: calc(var(--i, 0) * var(--es-mo-stagger)); }
   .es-home-market.is-playing .es-home-market__rail { animation: es-home-draw-y var(--es-mo-base) var(--es-mo-ease) 760ms both; }
   .es-home-market.is-playing .es-home-board { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 880ms both; }
   .es-home-market.is-playing .es-home-map__node { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(1200ms + var(--i, 0) * 40ms); }
   .es-home-market.is-playing .es-home-map__inset { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 1300ms both; }
-  .es-home-market.is-playing .es-home-map__card { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 1500ms both; }
+  .es-home-market.is-playing .es-home-map__link { animation: es-home-fade var(--es-mo-fast) var(--es-mo-ease) 1450ms both; }
+  .es-home-market.is-playing .es-home-map__card { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 1550ms both; }
 }
 
 /* ============================================================
@@ -924,17 +997,17 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 .es-home-analysis {
   display: grid;
-  grid-template-columns: minmax(0, .8fr) auto minmax(0, 1.2fr);
-  align-items: center;
-  gap: 0 1.25rem;
-  inline-size: min(100%, 64rem);
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  inline-size: min(100%, 66rem);
   margin-inline: auto;
 }
 
 .es-home-ask {
   display: grid;
-  gap: .9rem;
-  padding: 1.15rem;
+  gap: .8rem;
+  inline-size: min(100%, 46rem);
+  padding: 1rem 1.15rem;
   border: 1px solid var(--es-line-dark);
   border-radius: var(--home-card-radius);
   background: var(--es-navy-900);
@@ -972,86 +1045,129 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   background: var(--es-on-dark-muted);
 }
 
-.es-home-chip--priority { flex-basis: 100%; color: var(--es-white); }
+.es-home-chip--priority { color: var(--es-white); }
 .es-home-chip--priority::before { background: var(--home-mint); box-shadow: 0 0 0 3px rgb(114 224 187 / 25%); }
 
 .es-home-analysis__stem {
   display: flex;
   flex-direction: column;
   align-items: center;
-  --rail-len: 1.25rem;
+  --rail-len: 1rem;
 }
 
-.es-home-pick { display: grid; gap: .75rem; }
-
-.es-home-prop {
+/* Options: one list for both layouts. Wide screens show the three side by
+   side with B in the middle and every fact visible; phones show B as the
+   card and A/C as short rows (name, price, reason). */
+.es-home-options {
+  position: relative;
   display: grid;
-  gap: .75rem;
-  padding: 1rem 1.15rem;
-  border: 2px solid var(--home-mint);
-  border-radius: var(--home-card-radius);
-  background: var(--es-white);
-  box-shadow: 0 0 0 5px rgb(114 224 187 / 16%);
-  color: var(--es-ink);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 1rem;
+  inline-size: 100%;
+  padding-block-start: 1rem;
 }
 
-.es-home-prop__head {
+/* One branch from the core to the three options. */
+.es-home-options::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 16.667%;
+  block-size: var(--rail-w);
+  background: var(--rail-c);
+}
+
+.es-home-opt {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: .75rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--es-line-dark);
+  border-radius: var(--home-card-radius);
+  background: var(--es-navy-900);
+  color: var(--es-on-dark);
+}
+
+.es-home-opt::before {
+  content: "";
+  position: absolute;
+  inset-block-start: calc(-1rem - 1px);
+  inset-inline-start: calc(50% - 1px);
+  inline-size: var(--rail-w);
+  block-size: 1rem;
+  background: var(--rail-c);
+}
+
+.es-home-opt:nth-child(2) { grid-column: 1; grid-row: 1; }
+.es-home-opt--best { grid-column: 2; grid-row: 1; }
+.es-home-opt:nth-child(3) { grid-column: 3; grid-row: 1; }
+
+.es-home-opt__head {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
+  justify-content: space-between;
   gap: .2rem .75rem;
 }
 
-.es-home-prop__head b { color: var(--es-navy-950); font-size: 1.125rem; font-weight: 600; }
-.es-home-prop__head > span { color: var(--es-ink-60); font-size: var(--fs-small); }
+.es-home-opt__head b { color: var(--es-white); font-size: 1.125rem; font-weight: 600; }
+.es-home-opt__head strong { color: var(--es-white); font-size: 1.125rem; font-weight: 600; }
 
-.es-home-prop__rank {
+.es-home-opt__rank {
   display: inline-flex;
+  flex-basis: 100%;
   align-items: center;
   gap: .4rem;
-  margin-inline-start: auto;
+  order: -1;
   color: var(--es-navy-950);
   font-size: var(--fs-small);
   font-style: normal;
   font-weight: 600;
 }
 
-.es-home-prop__rank::before {
+.es-home-opt__rank::before {
   content: "";
   inline-size: .5rem;
   block-size: .5rem;
   border-radius: 50%;
   background: var(--home-mint);
+  box-shadow: 0 0 0 2px var(--es-navy-950);
 }
 
-/* Alternatives: two short rows, a name, a price and the trade-off. */
-.es-home-alts { display: grid; }
+.es-home-opt .es-home-facts div { align-content: space-between; border-inline-start-color: var(--es-line-dark); } /* values share a baseline when a label wraps */
+.es-home-opt .es-home-facts dt { color: var(--es-on-dark-muted); }
+.es-home-opt .es-home-facts dd { color: var(--es-white); }
+.es-home-opt .es-home-reason { color: var(--es-on-dark); }
 
-.es-home-alts li {
-  display: grid;
-  grid-template-columns: auto auto minmax(0, 1fr);
-  align-items: baseline;
-  gap: .2rem .9rem;
-  padding: .7rem .25rem;
-  border-block-end: 1px solid var(--es-line-dark);
-  color: var(--es-on-dark-muted);
-  font-size: var(--fs-label);
-  line-height: 1.5;
+.es-home-reason--warn .es-home-ic { background: rgb(255 255 255 / 12%); color: var(--es-white); }
+
+/* The selected option: the one light, mint-edged card. */
+.es-home-opt--best {
+  border: 2px solid var(--home-mint);
+  background: var(--es-white);
+  box-shadow: 0 0 0 5px rgb(114 224 187 / 16%);
+  color: var(--es-ink);
 }
 
-.es-home-alts li:last-child { border-block-end: 0; }
-.es-home-alts b { color: var(--es-white); font-weight: 600; }
-.es-home-alts .es-home-num { color: var(--es-white); font-size: 1rem; font-weight: 600; }
-.es-home-alts .es-home-ic { margin-inline-end: .35rem; color: var(--es-on-dark-muted); }
+.es-home-opt--best::before { background: var(--home-mint); }
+.es-home-opt--best .es-home-opt__head :is(b, strong) { color: var(--es-navy-950); }
+.es-home-opt--best .es-home-facts div { border-inline-start-color: var(--es-line); }
+.es-home-opt--best .es-home-facts dt { color: var(--es-ink-60); }
+.es-home-opt--best .es-home-facts dd { color: var(--es-navy-950); }
+.es-home-opt--best .es-home-reason { color: var(--es-navy-950); }
 
-/* Signature motion #3: the request, the core, then the selected unit; the reason resolves. */
+/* Signature motion #3: the request, the core, the selected option; alternatives follow. */
 @media (prefers-reduced-motion: no-preference) {
-  .es-home-analysis.is-armed :is(.es-home-ask, .es-home-chip, .es-home-analysis__stem, .es-home-prop, .es-home-alts li) { opacity: 0; }
+  .es-home-analysis.is-armed :is(.es-home-ask, .es-home-chip, .es-home-analysis__stem, .es-home-opt) { opacity: 0; }
+  .es-home-analysis.is-armed .es-home-options::before { opacity: 0; }
   .es-home-analysis.is-playing .es-home-ask { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both; }
   .es-home-analysis.is-playing .es-home-chip { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(240ms + var(--i, 0) * var(--es-mo-stagger)); }
   .es-home-analysis.is-playing .es-home-analysis__stem { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 700ms both; }
-  .es-home-analysis.is-playing .es-home-prop { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 900ms both, es-home-glow-in var(--es-mo-slow) var(--es-mo-ease) 1300ms both; }
-  .es-home-analysis.is-playing .es-home-alts li { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(1250ms + var(--i, 0) * 120ms); }
+  .es-home-analysis.is-playing .es-home-options::before { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 850ms both; }
+  .es-home-analysis.is-playing .es-home-opt--best { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 900ms both, es-home-glow-in var(--es-mo-slow) var(--es-mo-ease) 1300ms both; }
+  .es-home-analysis.is-playing .es-home-opt--alt { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(1250ms + var(--i, 0) * 120ms); }
 }
 
 /* ============================================================
@@ -1060,7 +1176,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-build {
   display: grid;
   justify-items: center;
-  inline-size: min(100%, 30rem);
+  inline-size: min(100%, 32rem);
   justify-self: center;
 }
 
@@ -1113,7 +1229,12 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 }
 
 .es-home-browser__nav {
-  padding: .75rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .4rem 1rem;
+  padding: .7rem 1rem;
   background: var(--broker);
   color: var(--broker-ink);
 }
@@ -1132,49 +1253,87 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 .es-home-brand-mark .es-home-ic { inline-size: 1rem; block-size: 1rem; color: currentColor; }
 
-.es-home-browser__body { display: grid; gap: .8rem; padding: 1rem; }
-
-/* Static content of the depicted site: no input field, no fake button. */
-.es-home-browser__search {
-  display: flex;
+/* Where enquiries go: the broker's own contact, shown as information. */
+.es-home-browser__contact {
+  display: inline-flex;
   align-items: center;
-  gap: .45rem;
-  color: var(--es-navy-950);
-  font-size: var(--fs-label);
+  gap: .35rem;
+  font-size: var(--fs-small);
   font-weight: 600;
 }
 
-.es-home-browser__search .es-home-ic { color: var(--broker); }
+.es-home-browser__contact .es-home-ic { color: currentColor; }
 
-.es-home-listings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+/* Static content of the depicted site: no input field, no fake button. */
+.es-home-browser__body { display: grid; gap: .85rem; padding: 1rem; }
 
 .es-home-listing {
   display: grid;
-  gap: .2rem;
-  padding: .6rem;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  align-items: start;
+  gap: .85rem;
+  padding: .7rem;
   border: 1px solid var(--es-line);
-  border-radius: .7rem;
+  border-radius: .75rem;
+}
+
+.es-home-listing__art { display: block; overflow: hidden; border-radius: .5rem; }
+.es-home-listing__art svg { display: block; inline-size: 100%; block-size: auto; }
+.es-home-listing__sky { fill: #e4eef7; }
+.es-home-listing__block { fill: #b9cde0; }
+.es-home-listing__block--tall { fill: var(--broker); opacity: .78; }
+.es-home-listing__win { fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; opacity: .85; }
+
+.es-home-listing__info { display: grid; gap: .5rem; min-inline-size: 0; }
+.es-home-listing__name { display: flex; flex-wrap: wrap; align-items: baseline; gap: .1rem .6rem; }
+.es-home-listing__name b { color: var(--es-navy-950); font-size: 1rem; font-weight: 600; }
+.es-home-listing__name span { color: var(--es-ink-60); font-size: var(--fs-small); }
+
+.es-home-listing__facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .35rem .9rem; }
+.es-home-listing__facts div { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 .4rem; }
+.es-home-listing__facts dt { color: var(--es-ink-60); font-size: var(--fs-small); }
+.es-home-listing__facts dd { color: var(--es-navy-950); font-size: var(--fs-label); font-weight: 600; }
+
+/* Narrow previews: thumbnail beside the name, facts across the full width. */
+.es-home-browser { container-type: inline-size; }
+
+@container (max-width: 26rem) {
+  .es-home-listing { grid-template-columns: 5.5rem minmax(0, 1fr); align-items: center; row-gap: .6rem; }
+  .es-home-listing__info { display: contents; }
+  .es-home-listing__facts { grid-column: 1 / -1; }
+}
+
+/* The site's own assistant: broker-branded, a clarifying question. */
+.es-home-chat {
+  display: grid;
+  gap: .45rem;
+  padding: .75rem;
+  border-radius: .75rem;
+  background: var(--es-mist);
+}
+
+.es-home-chat__label {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
   color: var(--es-ink-72);
   font-size: var(--fs-small);
+  font-weight: 600;
 }
 
-.es-home-listing__plan { display: grid; place-items: center; block-size: 3rem; margin-block-end: .25rem; border-radius: .45rem; background: var(--es-mist); }
-.es-home-listing__plan .es-home-ic { inline-size: 1.6rem; block-size: 1.6rem; color: var(--es-blue-500); }
-.es-home-listing b { color: var(--es-navy-950); font-size: var(--fs-label); }
+.es-home-chat__label .es-home-ic { color: var(--broker); }
 
-.es-home-bubble--ai {
-  display: flex;
-  align-items: center;
-  gap: .45rem;
-  inline-size: fit-content;
+.es-home-bubble {
+  max-inline-size: 88%;
   padding: .5rem .8rem;
-  border: 1px solid var(--es-line);
   border-radius: .85rem;
-  color: var(--es-ink);
-  font-size: var(--fs-small);
+  font-size: var(--fs-label);
+  line-height: 1.5;
 }
 
-.es-home-bubble--ai .es-home-ic { color: var(--broker); }
+.es-home-bubble--client { justify-self: end; border-end-end-radius: .25rem; background: var(--broker); color: var(--broker-ink); }
+.es-home-bubble--ai { justify-self: start; border: 1px solid var(--es-line); border-end-start-radius: .25rem; background: var(--es-white); color: var(--es-ink); }
+
 .es-home-site__caption { margin-block-start: .75rem; }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1193,10 +1352,35 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   justify-self: center;
 }
 
+/* Evidence kept apart: what the client said, what the site recorded.
+   Neutral styling; only Estavo's reading below resolves in mint. */
+.es-home-understand__inputs { display: grid; gap: .65rem; inline-size: 100%; }
+
+.es-home-evidence {
+  display: grid;
+  gap: .6rem;
+  padding: .85rem 1rem;
+  border: 1px solid var(--es-line-dark);
+  border-radius: .75rem;
+  background: rgb(255 255 255 / 3%);
+}
+
+.es-home-evidence__label {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  color: var(--es-on-dark-muted);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.es-home-evidence__said { color: var(--es-white); font-size: 1rem; font-weight: 600; line-height: 1.5; }
+
 .es-home-understand__signals {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: .75rem;
+  gap: .65rem .75rem;
   inline-size: 100%;
 }
 
@@ -1213,23 +1397,24 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-sig__icon {
   display: grid;
   place-items: center;
-  inline-size: 2.4rem;
-  block-size: 2.4rem;
+  inline-size: 2.2rem;
+  block-size: 2.2rem;
   flex: none;
   border-radius: 50%;
-  background: rgb(114 224 187 / 12%);
-  box-shadow: inset 0 0 0 1.5px var(--home-mint);
+  background: rgb(255 255 255 / 6%);
+  box-shadow: inset 0 0 0 1.5px var(--home-rail-dark);
 }
 
-.es-home-sig__icon .es-home-ic { inline-size: 1.1rem; block-size: 1.1rem; color: var(--home-mint); }
+.es-home-sig__icon .es-home-ic { inline-size: 1.05rem; block-size: 1.05rem; color: var(--es-on-dark); }
 
 .es-home-signals__stem {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-block: .4rem;
   --rail-len: 1rem;
 }
+
+.es-home-signals__join { inline-size: var(--rail-w); block-size: 1rem; background: var(--rail-c); }
 
 .es-home-insight {
   display: grid;
@@ -1275,7 +1460,20 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   font-weight: 600;
 }
 
-.es-home-reverse { margin-block-start: clamp(2rem, 5vw, 3rem); }
+.es-home-both-ways {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  margin-block-start: clamp(2rem, 5vw, 3rem);
+  color: var(--es-white);
+  font-size: var(--fs-body-lg);
+  font-weight: 600;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.es-home-reverse { margin-block-start: .9rem; }
 
 .es-home-match {
   display: grid;
@@ -1314,6 +1512,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 .es-home-interest em {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: .35rem;
   color: var(--es-on-dark-muted);
@@ -1327,8 +1526,8 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-interest.is-none { color: var(--es-on-dark-muted); }
 
 @media (prefers-reduced-motion: no-preference) {
-  .es-home-signals.is-armed :is(.es-home-sig, .es-home-signals__stem, .es-home-insight) { opacity: 0; }
-  .es-home-signals.is-playing :is(.es-home-sig, .es-home-signals__stem) { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; }
+  .es-home-signals.is-armed :is(.es-home-evidence, .es-home-signals__stem, .es-home-insight) { opacity: 0; }
+  .es-home-signals.is-playing :is(.es-home-evidence, .es-home-signals__stem) { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; }
   .es-home-signals.is-playing .es-home-signals__stem { animation-delay: 240ms; }
   .es-home-signals.is-playing .es-home-insight { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 420ms both; }
 }
@@ -1435,39 +1634,43 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 .es-home-campaign {
   display: grid;
-  gap: .4rem;
-  inline-size: min(100%, 20rem);
-  padding: .85rem 1rem;
+  gap: .7rem;
+  inline-size: min(100%, 24rem);
+  padding: .95rem 1.1rem;
   border: 1px solid var(--es-line-strong);
   border-radius: .75rem;
   background: var(--es-white);
+  box-shadow: 0 1px 2px rgb(11 34 57 / 5%), 0 10px 24px rgb(11 34 57 / 6%);
 }
 
-.es-home-campaign__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .25rem .75rem; }
-.es-home-campaign__head b { color: var(--es-navy-950); font-size: 1rem; font-weight: 600; }
-.es-home-campaign__head span { color: var(--es-ink-60); font-size: var(--fs-small); }
-.es-home-campaign__aud { display: grid; gap: .1rem; }
-.es-home-campaign__aud > span { color: var(--es-ink-60); font-size: var(--fs-small); }
-
-.es-home-campaign__aud b {
+.es-home-campaign__title {
   display: inline-flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: .45rem;
   color: var(--es-navy-950);
-  font-size: var(--fs-label);
+  font-size: 1rem;
   font-weight: 600;
 }
 
-.es-home-campaign__aud b::before {
-  content: "";
-  inline-size: .5rem;
-  block-size: .5rem;
-  flex: none;
-  border-radius: 50%;
-  background: var(--home-mint);
-  box-shadow: 0 0 0 2px var(--home-mint-soft);
+.es-home-campaign__list { display: grid; gap: .55rem; }
+.es-home-campaign__list div { display: grid; gap: .05rem; padding-inline-start: .8rem; border-inline-start: 2px solid var(--home-mint); }
+.es-home-campaign__list dt { color: var(--es-ink-60); font-size: var(--fs-small); line-height: 1.4; }
+.es-home-campaign__list dd { color: var(--es-navy-950); font-size: var(--fs-label); font-weight: 600; line-height: 1.5; }
+
+/* Meta stays a small destination, not the subject. */
+.es-home-campaign__dest {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .2rem .75rem;
+  padding-block-start: .6rem;
+  border-block-start: 1px solid var(--es-line);
+  color: var(--es-ink-60);
+  font-size: var(--fs-small);
 }
+
+.es-home-campaign__dest b { color: var(--es-navy-950); font-size: var(--fs-label); font-weight: 600; }
 
 @media (prefers-reduced-motion: no-preference) {
   .es-home-clusters.is-armed :is(.es-home-dot, .es-home-cluster) { opacity: 0; }
@@ -1503,6 +1706,17 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-free-card .es-home-btn { margin-block-start: .25rem; }
 
 .es-home-scope { margin-block-start: 1.1rem; }
+
+/* The company / existing-platform profile: one line, not another card. */
+.es-home-business {
+  max-inline-size: 44rem;
+  margin: 1.25rem auto 0;
+  color: var(--es-navy-950);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.7;
+  text-align: center;
+}
 
 .es-home-routes {
   display: flex;
@@ -1617,9 +1831,22 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 }
 
 @media (max-width: 52rem) {
-  /* Request flow becomes vertical: request ↓ Estavo ↓ selected unit. */
-  .es-home-analysis { grid-template-columns: minmax(0, 1fr); inline-size: min(100%, 34rem); }
-  .es-home-analysis__stem { padding-block: .4rem; --rail-len: .9rem; }
+  /* Request ↓ Estavo ↓ the selected card, then A and C as short rows:
+     name, price and the trade-off. Their facts stay in the comparison table. */
+  .es-home-analysis { inline-size: min(100%, 34rem); }
+  .es-home-ask { inline-size: 100%; }
+  .es-home-chip--priority { flex-basis: 100%; }
+  .es-home-options { grid-template-columns: minmax(0, 1fr); gap: 0; padding-block-start: 0; }
+  .es-home-options::before,
+  .es-home-opt::before { display: none; }
+  .es-home-opt, .es-home-opt--best, .es-home-opt:nth-child(2), .es-home-opt:nth-child(3) { grid-column: 1; grid-row: auto; }
+  .es-home-opt--best { margin-block-end: .5rem; }
+  .es-home-opt--alt { gap: .2rem; padding: .7rem .25rem; border: 0; border-block-end: 1px solid var(--es-line-dark); border-radius: 0; background: none; }
+  .es-home-opt--alt:last-child { border-block-end: 0; }
+  .es-home-opt--alt .es-home-facts { display: none; }
+  .es-home-opt--alt .es-home-opt__head { justify-content: start; }
+  .es-home-opt--alt .es-home-opt__head :is(b, strong) { font-size: 1rem; }
+  .es-home-opt--alt .es-home-reason { color: var(--es-on-dark-muted); font-weight: 500; }
 }
 
 @media (max-width: 40rem) {
@@ -1630,9 +1857,6 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   .es-home-free-card .es-home-btn { inline-size: 100%; }
 
   .es-home-free { grid-template-columns: minmax(0, 1fr); }
-
-  .es-home-alts li { grid-template-columns: auto auto; }
-  .es-home-alts li > span:last-child { grid-column: 1 / -1; }
 
   .es-home-table :is(th, td) { padding: .5rem .4rem; }
   .es-home-disclosure__body { padding-inline: .75rem; }

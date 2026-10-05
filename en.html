@@ -169,7 +169,7 @@
               "name": "What's free?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Search and comparison in Estavo Market, and your basic website. City data on your website and AI depend on your plan or credits."
+                "text": "Search and comparison in Estavo Market, and the basic website. City data and AI depend on your plan or credits; review the inclusions before choosing."
               }
             },
             {
@@ -177,7 +177,7 @@
               "name": "Do I need a website?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "No. You can use Estavo Market for research and comparison on its own."
+                "text": "No. Estavo Market works on its own. A website lets you present your properties and offer the available client-facing services under your own name."
               }
             },
             {
@@ -185,7 +185,7 @@
               "name": "Where do the data and AI answers come from?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "From the project and unit information available to Estavo. Availability varies by city and project; confirm prices and unit availability before booking."
+                "text": "From the project and unit information available to Estavo. On your website, the assistant uses properties authorised for that site. Confirm prices and availability before booking."
               }
             },
             {
@@ -193,7 +193,7 @@
               "name": "How does Estavo understand client interest?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "From information clients share and activity recorded on your website. This helps interpret interest; it does not confirm that someone will buy."
+                "text": "From information clients share and activity recorded on your website. Analysis helps interpret interest and identify useful information to share; it does not confirm a purchase decision."
               }
             }
           ]
@@ -233,7 +233,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet" />
 <link rel="preload" as="image" href="assets/logo/estavo-brokers-logo-320.webp" type="image/webp" fetchpriority="high" />
 <link rel="stylesheet" href="assets/css/home-critical.css?v=20261003-perf1" />
-<link rel="stylesheet" href="assets/css/home.css?v=20261004-home13" />
+<link rel="stylesheet" href="assets/css/home.css?v=7f8d221f17" />
 </head>
 
 <body class="es es-home es-landing">
@@ -342,9 +342,10 @@
     <main id="main" class="es-home-main">
 
         <!-- ══════════════════════════════════════════════════════
-             1. HERO — proposition, two free doors, one compact model.
-             Request → Estavo (Market · Property · Client) → one selected
-             result. Shared fixture: tools/data/home-fixture.json.
+             1. HERO — proposition, two free doors, one overview model.
+             Request → Estavo connects Market · Property · Client → one
+             short result and its reason. The full comparison belongs to
+             #home-request. Shared fixture: tools/data/home-fixture.json.
              H1, CTAs and proof numbers are never animated or delayed.
              Mascot backlog: studying pose (no slot reserved).
              ══════════════════════════════════════════════════════ -->
@@ -352,9 +353,9 @@
             <div class="es-container">
                 <div class="es-home-hero__grid">
                     <div class="es-home-hero__copy">
-                        <p class="es-home-eyebrow">Real-estate intelligence for brokers in Egypt</p>
+                        <p class="es-home-eyebrow">Real-estate intelligence for brokers and brokerages in Egypt</p>
                         <h1 id="home-hero-h" class="es-home-display"><span>The market, studied.</span> <span>Your client, understood.</span></h1>
-                        <p class="es-home-lead">Estavo connects market data with your client's needs, helping you compare properties and understand what fits—and why.</p>
+                        <p class="es-home-lead">Estavo is your AI real-estate intelligence partner. It connects market data, property details and client interests from your website, helping you understand which option fits each request—and why.</p>
                         <div class="es-home-actions">
                             <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-home-btn es-home-btn--primary"
                                 data-track="market_opened" data-position="hero" data-home-event="home_market_free_click">Explore the market free</a>
@@ -364,17 +365,20 @@
                         <p class="es-home-micro">Your partner in every detail behind the deal.</p>
                     </div>
 
-                    <figure class="es-home-intel" aria-label="Example: a client request analysed into the best-fit property">
+                    <figure class="es-home-intel" aria-label="Example: Estavo connects market, property and client information to recommend a property for a client request">
                         <p class="es-home-intel__request"><span class="es-home-intel__tag"><svg class="es-home-ic" aria-hidden="true"><use href="#i-request" /></svg>Client request</span><span class="es-home-intel__ask">New Cairo · 3 bedrooms · up to <span class="es-home-num">EGP 8M</span> · lowest down payment first</span><span class="es-home-example">Example</span></p>
                         <span class="es-home-rail es-home-rail--v" aria-hidden="true"></span>
                         <div class="es-home-fw">
                             <span class="es-home-core es-home-fw__core" role="img" aria-label="Estavo"><img src="assets/logo/estavo-mark-white-128.webp" width="128" height="128" alt="" decoding="async" /></span>
-                            <ul class="es-home-fw__nodes"><li><svg class="es-home-ic" aria-hidden="true"><use href="#i-location" /></svg>Market</li><li class="is-resolved"><svg class="es-home-ic" aria-hidden="true"><use href="#i-unit" /></svg>Property</li><li><svg class="es-home-ic" aria-hidden="true"><use href="#i-client-interest" /></svg>Client</li></ul>
+                            <ul class="es-home-fw__nodes">
+                                <li><svg class="es-home-ic" aria-hidden="true"><use href="#i-location" /></svg><b>Market</b><small>Prices and payment plans</small></li>
+                                <li class="is-resolved"><svg class="es-home-ic" aria-hidden="true"><use href="#i-unit" /></svg><b>Property</b><small>Units and their details</small></li>
+                                <li><svg class="es-home-ic" aria-hidden="true"><use href="#i-client-interest" /></svg><b>Client</b><small>Request and interests</small></li>
+                            </ul>
                         </div>
                         <span class="es-home-rail es-home-rail--v is-resolved" aria-hidden="true"></span>
                         <div class="es-home-intel__result">
-                            <p class="es-home-intel__title"><b>Project B · 3-bed apartment</b><span>New Cairo</span></p>
-                            <dl class="es-home-facts"><div><dt>Price</dt><dd class="es-home-num">EGP 8.0M</dd></div><div><dt>Down payment</dt><dd class="es-home-num">1.2M</dd></div><div><dt>Plan</dt><dd>7 years</dd></div></dl>
+                            <p class="es-home-intel__title"><b>Project B · 3-bed apartment</b><span><span class="es-home-num">EGP 8.0M</span> · <span class="es-home-num">1.2M</span> down</span></p>
                             <p class="es-home-reason es-home-reason--best"><svg class="es-home-ic" aria-hidden="true"><use href="#i-check" /></svg>Lowest down payment among the in-budget options</p>
                         </div>
                     </figure>
@@ -382,54 +386,58 @@
 
                 <div class="es-home-proof" data-home-proof>
                     <ul class="es-home-proof__list" aria-label="Estavo in numbers">
-                        <li data-proof="projects" data-value="2400"><strong class="es-home-proof__value es-home-num" data-count="2400">2,400+</strong><span>projects</span></li>
-                        <li data-proof="units" data-value="26000"><strong class="es-home-proof__value es-home-num" data-count="26000">26,000+</strong><span>units in our data</span></li>
-                        <li data-proof="areas" data-value="110"><strong class="es-home-proof__value es-home-num" data-count="110">110+</strong><span>areas</span></li>
-                        <li data-proof="brokers" data-value="6600"><strong class="es-home-proof__value es-home-num" data-count="6600">6,600+</strong><span>registered brokers</span></li>
+                        <li data-proof="projects" data-value="2400"><strong class="es-home-proof__value es-home-num">2,400+</strong><span>projects</span></li>
+                        <li data-proof="units" data-value="26000"><strong class="es-home-proof__value es-home-num">26,000+</strong><span>unit types</span></li>
+                        <li data-proof="areas" data-value="110"><strong class="es-home-proof__value es-home-num">110+</strong><span>areas</span></li>
+                        <li data-proof="brokers" data-value="6600"><strong class="es-home-proof__value es-home-num">6,600+</strong><span>registered brokers</span></li>
                     </ul>
-                    <p class="es-home-proof__note">Estavo figures as of 3 October 2026</p>
+                    <p class="es-home-proof__note">Estavo figures as of <span class="es-home-num">3</span> October <span class="es-home-num">2026</span></p>
                 </div>
             </div>
         </section>
 
         <!-- ══════════════════════════════════════════════════════
-             2. MARKET — the data foundation, first free door.
-             Signature motion #2: source documents → Estavo board on the
-             real Egypt map (Natural Earth via tools/build-egypt-map.py),
-             with a Cairo inset. Pins are the Estavo Brokers main
-             markets at their true coordinates; no names on points.
+             2. MARKET — what Estavo maintains, first free door.
+             Signature motion #2: a small group of sources → the Estavo
+             board on the real Egypt map (Natural Earth via
+             tools/build-egypt-map.py) with a Cairo inset. A mint rail
+             connects the selected pin to its project card. Pins are the
+             Estavo Brokers main markets at their true coordinates; no
+             names on points.
              ══════════════════════════════════════════════════════ -->
         <section id="home-market" class="es-home-band es-home-band--paper" aria-labelledby="home-market-h" data-home-view="home_market_view">
             <div class="es-container es-home-split es-home-split--market">
                 <div class="es-home-copy">
-                    <p class="es-home-eyebrow">Market</p>
-                    <h2 id="home-market-h" class="es-home-h2">The market you sell in. One place.</h2>
-                    <p class="es-home-lead">Projects, available units, prices and payment plans—brought together and kept updated by Estavo.</p>
+                    <p class="es-home-eyebrow">Market · Estavo Market</p>
+                    <h2 id="home-market-h" class="es-home-h2">Stay on top of the areas you sell in.</h2>
+                    <p class="es-home-lead">Projects, units, prices and payment plans on one platform. Estavo maintains the information it covers, so you can check the details without going back through price lists and group messages.</p>
+                    <ul class="es-home-groups">
+                        <li><svg class="es-home-ic" aria-hidden="true"><use href="#i-price" /></svg>Availability and prices</li>
+                        <li><svg class="es-home-ic" aria-hidden="true"><use href="#i-payment-period" /></svg>Payment plans and handover</li>
+                        <li><svg class="es-home-ic" aria-hidden="true"><use href="#i-finishing" /></svg>Finishing, maintenance and amenities</li>
+                    </ul>
                     <div class="es-home-actions">
                         <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-home-btn es-home-btn--primary"
                             data-track="market_opened" data-position="market" data-home-event="home_market_free_click">Open Estavo Market free</a>
                     </div>
                 </div>
 
-                <figure class="es-home-market" data-home-market aria-label="Example: scattered files and price lists organised in Estavo Market on a map of Egypt">
+                <figure class="es-home-market" data-home-market aria-label="Example: price lists and update messages collected in Estavo Market, and a Sheikh Zayed project whose payment plan was updated">
                     <div class="es-home-market__sources">
                         <ul class="es-home-market__docs" aria-hidden="true">
-                            <li class="es-home-frag" style="--sx:-38px;--sy:26px;--sr:-7deg"><svg class="es-home-ic"><use href="#i-pdf" /></svg></li>
-                            <li class="es-home-frag" style="--sx:22px;--sy:40px;--sr:6deg"><svg class="es-home-ic"><use href="#i-price-list" /></svg></li>
-                            <li class="es-home-frag" style="--sx:44px;--sy:-18px;--sr:-5deg"><svg class="es-home-ic"><use href="#i-availability" /></svg></li>
-                            <li class="es-home-frag" style="--sx:-30px;--sy:-34px;--sr:8deg"><svg class="es-home-ic"><use href="#i-sheet" /></svg></li>
-                            <li class="es-home-frag" style="--sx:18px;--sy:-46px;--sr:-9deg"><svg class="es-home-ic"><use href="#i-message" /></svg></li>
-                            <li class="es-home-frag" style="--sx:-46px;--sy:12px;--sr:5deg"><svg class="es-home-ic"><use href="#i-launch" /></svg></li>
+                            <li class="es-home-frag" style="--sx:-30px;--sy:22px;--sr:-7deg"><svg class="es-home-ic"><use href="#i-pdf" /></svg></li>
+                            <li class="es-home-frag" style="--sx:18px;--sy:32px;--sr:6deg"><svg class="es-home-ic"><use href="#i-price-list" /></svg></li>
+                            <li class="es-home-frag" style="--sx:-22px;--sy:-26px;--sr:8deg"><svg class="es-home-ic"><use href="#i-sheet" /></svg></li>
+                            <li class="es-home-frag" style="--sx:28px;--sy:-18px;--sr:-6deg"><svg class="es-home-ic"><use href="#i-message" /></svg></li>
                         </ul>
-                        <p>Brochures, price lists, sheets and update messages</p>
+                        <p>Price lists, brochures and update messages</p>
                     </div>
                     <span class="es-home-rail es-home-rail--v es-home-market__rail" aria-hidden="true"></span>
                     <div class="es-home-board es-home-card">
                         <div class="es-home-board__head">
                             <b>Estavo Market</b>
-                            <span class="es-home-example">Example</span>
                         </div>
-                        <div class="es-home-map">
+                        <div class="es-home-map" style="--sel-x:0.1108;--sel-y:0.8108">
                             <div class="es-home-map__frame">
                                 <svg class="es-home-map__svg" viewBox="0 0 640 580" role="img" aria-label="Map of Egypt. Estavo main markets: Sheikh Zayed، 6th of October، New Cairo، New Capital، Shorouk، Obour، North Coast، Ain Sokhna، Red Sea. Selected: Sheikh Zayed." focusable="false">
                                     <rect class="es-home-map__sea" width="640" height="580" />
@@ -457,9 +465,11 @@
                                     <b>Cairo</b>
                                 </span>
                             </div>
+                            <i class="es-home-map__link" aria-hidden="true"></i>
                             <div class="es-home-map__card">
                                 <p class="es-home-map__card-head"><b><svg class="es-home-map__card-pin" aria-hidden="true"><use href="#i-map-pin" /></svg>Sheikh Zayed</b><span class="es-home-example">Example</span></p>
-                                <p class="es-home-map__project"><b>Project E</b><strong class="es-home-num">EGP 10.5M</strong><small><span class="es-home-num">1.6M</span> down · 7 years</small><em class="es-home-map__update"><svg class="es-home-ic" aria-hidden="true"><use href="#i-update" /></svg>Payment plan updated</em></p>
+                                <p class="es-home-map__project"><b>Project E</b><strong class="es-home-num">EGP 10.5M</strong><small><span class="es-home-num">1.6M</span> down · 7 years</small></p>
+                                <p class="es-home-map__update"><svg class="es-home-ic" aria-hidden="true"><use href="#i-update" /></svg>Payment plan updated</p>
                             </div>
                         </div>
                     </div>
@@ -468,22 +478,24 @@
         </section>
 
         <!-- ══════════════════════════════════════════════════════
-             3. REQUEST — property analysis.
-             Signature motion #3: request → Estavo → the selected unit;
-             the reason resolves in mint. Priority is explicit (lowest
-             down payment within budget), so the ranking follows from the
-             request. Full facts live in a native <details>.
+             3. REQUEST — property analysis with visible reasons.
+             Signature motion #3: request → Estavo → the three options;
+             the selected one resolves in mint. Priority is explicit
+             (lowest down payment within budget), so the ranking follows
+             from the request. Desktop shows B with both alternatives and
+             their facts; phones show B and two short rows (the facts are
+             the same markup, hidden below 52rem). Full table in <details>.
              Fixture: tools/data/home-fixture.json.
              ══════════════════════════════════════════════════════ -->
         <section id="home-request" class="es-home-band es-home-band--navy" aria-labelledby="home-request-h" data-home-view="home_request_view">
             <div class="es-container">
                 <div class="es-home-copy es-home-copy--center es-home-request__head">
                     <p class="es-home-eyebrow">Property</p>
-                    <h2 id="home-request-h" class="es-home-h2">Find the right fit for your client.</h2>
-                    <p class="es-home-lead">Give Estavo the brief. See suitable properties and what makes each option different.</p>
+                    <h2 id="home-request-h" class="es-home-h2">Find the right fit—and understand the differences.</h2>
+                    <p class="es-home-lead">Give Estavo the brief, or let the client explain it through the AI on your website. Compare suitable units by price, down payment, payment plan and handover, with a clear reason behind each recommendation.</p>
                 </div>
 
-                <figure class="es-home-analysis" data-home-request aria-label="Example of a client request analysis">
+                <figure class="es-home-analysis" data-home-request aria-label="Example of a client request analysis comparing three units">
                     <div class="es-home-ask">
                         <p class="es-home-ask__head"><b><svg class="es-home-ic" aria-hidden="true"><use href="#i-request" /></svg>Client request</b><span class="es-home-example">Example</span></p>
                         <ul class="es-home-chips">
@@ -497,17 +509,23 @@
 
                     <div class="es-home-analysis__stem" aria-hidden="true"><span class="es-home-rail es-home-rail--v"></span><span class="es-home-core"><img src="assets/logo/estavo-mark-white-128.webp" width="128" height="128" alt="" decoding="async" /></span><span class="es-home-rail es-home-rail--v is-resolved"></span></div>
 
-                    <div class="es-home-pick">
-                        <div class="es-home-prop es-home-prop--best">
-                            <p class="es-home-prop__head"><b>Project B</b><span>3-bed apartment · New Cairo</span><em class="es-home-prop__rank">Best fit for this request</em></p>
-                            <dl class="es-home-facts"><div><dt>Price</dt><dd class="es-home-num">EGP 8.0M</dd></div><div><dt>Down payment</dt><dd class="es-home-num">1.2M</dd></div><div><dt>Plan</dt><dd>7 years</dd></div></dl>
+                    <ul class="es-home-options">
+                        <li class="es-home-opt es-home-opt--best">
+                            <p class="es-home-opt__head"><b>Project B</b><strong class="es-home-num">EGP 8.0M</strong><em class="es-home-opt__rank">Best fit for this request</em></p>
+                            <dl class="es-home-facts"><div><dt>Down payment</dt><dd class="es-home-num">1.2M</dd></div><div><dt>Plan</dt><dd>7 years</dd></div><div><dt>Handover</dt><dd class="es-home-num">2027</dd></div></dl>
                             <p class="es-home-reason es-home-reason--best"><svg class="es-home-ic" aria-hidden="true"><use href="#i-check" /></svg>Lowest down payment among the in-budget options</p>
-                        </div>
-                        <ul class="es-home-alts">
-                            <li><b>Project A</b><span class="es-home-num">EGP 7.9M</span><span>Lower total price · longer payment plan</span></li>
-                            <li class="is-outside"><b>Project C</b><span class="es-home-num">EGP 8.3M</span><span><svg class="es-home-ic" aria-hidden="true"><use href="#i-outside" /></svg><span class="es-home-num">EGP 300K</span> over budget · more space</span></li>
-                        </ul>
-                    </div>
+                        </li>
+                        <li class="es-home-opt es-home-opt--alt">
+                            <p class="es-home-opt__head"><b>Project A</b><strong class="es-home-num">EGP 7.9M</strong></p>
+                            <dl class="es-home-facts"><div><dt>Down payment</dt><dd class="es-home-num">1.4M</dd></div><div><dt>Plan</dt><dd>8 years</dd></div><div><dt>Handover</dt><dd class="es-home-num">2028</dd></div></dl>
+                            <p class="es-home-reason">Lower total price · longer payment plan</p>
+                        </li>
+                        <li class="es-home-opt es-home-opt--alt is-outside">
+                            <p class="es-home-opt__head"><b>Project C</b><strong class="es-home-num">EGP 8.3M</strong></p>
+                            <dl class="es-home-facts"><div><dt>Down payment</dt><dd class="es-home-num">1.5M</dd></div><div><dt>Plan</dt><dd>6 years</dd></div><div><dt>Handover</dt><dd>Ready</dd></div></dl>
+                            <p class="es-home-reason es-home-reason--warn"><svg class="es-home-ic" aria-hidden="true"><use href="#i-outside" /></svg><span><span class="es-home-num">EGP 300K</span> over budget · more space</span></p>
+                        </li>
+                    </ul>
                 </figure>
 
                 <details class="es-home-disclosure es-home-compare">
@@ -520,7 +538,7 @@
                                 <tr><th scope="row">Price</th><td class="es-home-num">EGP 7.9M</td><td class="es-home-num is-best">EGP 8.0M</td><td><span class="es-home-num">EGP 8.3M</span> <small>over budget</small></td></tr>
                                 <tr><th scope="row">Down payment</th><td class="es-home-num">EGP 1.4M</td><td class="es-home-num is-best">EGP 1.2M</td><td class="es-home-num">EGP 1.5M</td></tr>
                                 <tr><th scope="row">Payment plan</th><td>8 years</td><td class="is-best">7 years</td><td>6 years</td></tr>
-                                <tr><th scope="row">Delivery</th><td class="es-home-num">2028</td><td class="es-home-num is-best">2027</td><td>Ready</td></tr>
+                                <tr><th scope="row">Handover</th><td class="es-home-num">2028</td><td class="es-home-num is-best">2027</td><td>Ready</td></tr>
                                 <tr><th scope="row">Area</th><td class="es-home-num">165 m²</td><td class="es-home-num is-best">158 m²</td><td class="es-home-num">180 m²</td></tr>
                                 <tr><th scope="row">Finishing</th><td>Semi-finished</td><td class="is-best">Fully finished</td><td>Fully finished</td></tr>
                             </tbody>
@@ -531,16 +549,19 @@
 
                 <div class="es-home-section-foot">
                     <a href="market/en.html#ai-expert" class="es-home-btn es-home-btn--secondary"
-                        data-track="service_selected" data-position="request" data-home-event="home_ai_request_demo_click">Explore client-request analysis</a>
-                    <p class="es-home-note">Send the options as a PDF offer under your name. AI and PDF use credits.</p>
+                        data-track="service_selected" data-position="request" data-home-event="home_ai_request_demo_click">See how Estavo analyses a request</a>
+                    <p class="es-home-note">Send the shortlist as a PDF offer under your name. AI and PDF tools use credits.</p>
                 </div>
             </div>
         </section>
 
         <!-- ══════════════════════════════════════════════════════
-             4. WEBSITE — one action; the visitor's own site is the proof.
-             The commercial note sits beside the action. Timing copy
-             matches the approved onboarding claim (about 5 minutes).
+             4. WEBSITE — one action; a preview modelled on the real
+             Estavo Sites template (brand header, contact, featured
+             property facts, the site's assistant). Static, labelled
+             content: no input, no button. The commercial note sits
+             beside the action; timing matches the approved onboarding
+             claim (about 5 minutes).
              Mascot backlog: presenting pose (no slot reserved).
              ══════════════════════════════════════════════════════ -->
         <section id="home-website" class="es-home-band es-home-band--paper" aria-labelledby="home-website-h" data-home-view="home_website_view">
@@ -548,11 +569,11 @@
                 <div class="es-home-copy">
                     <p class="es-home-eyebrow">Your website</p>
                     <h2 id="home-website-h" class="es-home-h2">The property market, under your name.</h2>
-                    <p class="es-home-lead">Present your properties, let clients ask the AI, and bring enquiries directly to you.</p>
+                    <p class="es-home-lead">Create a branded website for the projects you sell and your own listings. Add a property assistant so clients can explain what they need, ask questions and explore suitable options from the properties on your site.</p>
                     <div class="es-home-cta-block">
                         <a href="https://estavo-brokers.com/website/" class="es-home-btn es-home-btn--primary"
                             data-track="website_preview_started" data-position="website" data-home-event="home_website_free_click">Create your website free</a>
-                        <p class="es-home-micro">See your own website in about 5 minutes.</p>
+                        <p class="es-home-micro">See your own website in about <span class="es-home-num">5</span> minutes.</p>
                         <p class="es-home-note">The basic website is free. City data and AI depend on your plan or credits.</p>
                     </div>
                 </div>
@@ -561,15 +582,24 @@
                     <p class="es-home-build__src"><svg class="es-home-ic" aria-hidden="true"><use href="#i-details" /></svg><b>Your details</b><span>Name · logo · cities</span></p>
                     <span class="es-home-rail es-home-rail--v is-resolved" aria-hidden="true"></span>
                     <div class="es-home-browser">
-                        <div class="es-home-browser__bar" aria-hidden="true"><i></i><i></i><i></i><span class="es-home-browser__url"><svg class="es-home-ic"><use href="#i-website" /></svg>your-company website</span></div>
-                        <div class="es-home-browser__nav"><span class="es-home-brand"><i class="es-home-brand-mark" aria-hidden="true"><svg class="es-home-ic"><use href="#i-project" /></svg></i>Your company</span></div>
+                        <div class="es-home-browser__bar" aria-hidden="true"><i></i><i></i><i></i><span class="es-home-browser__url">yourbrand.estavo.site</span></div>
+                        <div class="es-home-browser__nav">
+                            <span class="es-home-brand"><i class="es-home-brand-mark" aria-hidden="true"><svg class="es-home-ic"><use href="#i-project" /></svg></i>Your company</span>
+                            <span class="es-home-browser__contact"><svg class="es-home-ic" aria-hidden="true"><use href="#i-message" /></svg>Your WhatsApp number</span>
+                        </div>
                         <div class="es-home-browser__body">
-                            <p class="es-home-browser__search"><svg class="es-home-ic" aria-hidden="true"><use href="#i-location" /></svg>New Cairo · 3 bedrooms</p>
-                            <div class="es-home-listings">
-                                <p class="es-home-listing"><span class="es-home-listing__plan" aria-hidden="true"><svg class="es-home-ic"><use href="#i-unit" /></svg></span><b>Project B</b><span><span class="es-home-num">8.0M</span> · <span class="es-home-num">1.2M</span> down</span></p>
-                                <p class="es-home-listing"><span class="es-home-listing__plan" aria-hidden="true"><svg class="es-home-ic"><use href="#i-project" /></svg></span><b>Project A</b><span><span class="es-home-num">7.9M</span> · <span class="es-home-num">1.4M</span> down</span></p>
+                            <div class="es-home-listing">
+                                <span class="es-home-listing__art" aria-hidden="true"><svg viewBox="0 0 120 64" focusable="false"><rect class="es-home-listing__sky" width="120" height="64" /><rect class="es-home-listing__block" x="14" y="18" width="34" height="46" rx="2" /><rect class="es-home-listing__block es-home-listing__block--tall" x="54" y="8" width="30" height="56" rx="2" /><rect class="es-home-listing__block" x="90" y="26" width="20" height="38" rx="2" /><path class="es-home-listing__win" d="M20 26h6M32 26h6M20 36h6M32 36h6M20 46h6M32 46h6M60 16h6M72 16h6M60 26h6M72 26h6M60 36h6M72 36h6M60 46h6M72 46h6M95 34h4M102 34h4M95 44h4M102 44h4" /></svg></span>
+                                <div class="es-home-listing__info">
+                                    <p class="es-home-listing__name"><b>Project B · 3-bed apartment</b><span>New Cairo</span></p>
+                                    <dl class="es-home-listing__facts"><div><dt>Price</dt><dd class="es-home-num">EGP 8.0M</dd></div><div><dt>Down payment</dt><dd class="es-home-num">1.2M</dd></div><div><dt>Plan</dt><dd>7 years</dd></div><div><dt>Handover</dt><dd class="es-home-num">2027</dd></div></dl>
+                                </div>
                             </div>
-                            <p class="es-home-bubble es-home-bubble--ai"><svg class="es-home-ic" aria-hidden="true"><use href="#i-analysis" /></svg>Ask about any unit</p>
+                            <div class="es-home-chat">
+                                <p class="es-home-chat__label"><svg class="es-home-ic" aria-hidden="true"><use href="#i-analysis" /></svg>Your company's assistant</p>
+                                <p class="es-home-bubble es-home-bubble--client">I'm looking for a three-bedroom apartment in New Cairo.</p>
+                                <p class="es-home-bubble es-home-bubble--ai">What's your budget and available down payment?</p>
+                            </div>
                         </div>
                     </div>
                     <figcaption id="home-build-caption" class="es-home-site__caption es-home-example">Example · your website under your company's name</figcaption>
@@ -578,49 +608,59 @@
         </section>
 
         <!-- ══════════════════════════════════════════════════════
-             5. CLIENT — insight first, reverse matching on demand.
-             Four observed signals → one interest + one labelled
-             suggestion. The unit → anonymous needs view is inside a
-             native <details>. No names, timelines, scores or
-             purchase-readiness claims.
+             5. CLIENT — what was said + what was observed → Estavo's
+             reading and a labelled suggestion. The reverse view
+             (unit → anonymous needs) is stated in a visible line and
+             opened from a native <details>. No names, timelines,
+             statuses, scores or purchase-readiness claims.
              ══════════════════════════════════════════════════════ -->
         <section id="home-client" class="es-home-band es-home-band--navy" aria-labelledby="home-client-h" data-home-view="home_client_view">
             <div class="es-container">
                 <div class="es-home-split">
                     <div class="es-home-copy">
                         <p class="es-home-eyebrow">Client</p>
-                        <h2 id="home-client-h" class="es-home-h2">Understand their interest. Send what matters.</h2>
-                        <p class="es-home-lead">Estavo analyses activity on your website to help you choose the property or information most relevant to each client.</p>
+                        <h2 id="home-client-h" class="es-home-h2">Understand your client. Know what to send next.</h2>
+                        <p class="es-home-lead">Estavo connects what clients tell you with their website activity and the properties you offer. Understand their interests, choose useful information to share, and see which known clients could be a fit for a unit.</p>
                         <div class="es-home-actions">
                             <a href="marketing/en.html" class="es-home-btn es-home-btn--secondary"
                                 data-track="service_selected" data-position="client" data-home-event="home_client_insights_click">Explore client understanding</a>
                         </div>
                     </div>
 
-                    <figure class="es-home-signals es-home-understand" data-home-signals aria-label="Example: a client's activity on your website turned into understanding">
-                        <ul class="es-home-understand__signals">
-                            <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-unit" /></svg></span>Returned to B twice</li>
-                            <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-compare" /></svg></span>Compared A and B</li>
-                            <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-delivery" /></svg></span>Asked about handover</li>
-                            <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-details" /></svg></span>Requested B's details</li>
-                        </ul>
-                        <div class="es-home-signals__stem" aria-hidden="true"><span class="es-home-rail es-home-rail--v is-resolved"></span><span class="es-home-core"><img src="assets/logo/estavo-mark-white-128.webp" width="128" height="128" alt="" decoding="async" /></span><span class="es-home-rail es-home-rail--v is-resolved"></span></div>
+                    <figure class="es-home-signals es-home-understand" data-home-signals aria-label="Example: a client's stated request and website activity turned into an interpretation and a suggestion">
+                        <div class="es-home-understand__inputs">
+                            <div class="es-home-evidence es-home-evidence--said">
+                                <p class="es-home-evidence__label"><svg class="es-home-ic" aria-hidden="true"><use href="#i-request" /></svg>Said</p>
+                                <p class="es-home-evidence__said">New Cairo · 3 bedrooms · down payment up to <span class="es-home-num">EGP 1.5M</span></p>
+                            </div>
+                            <div class="es-home-evidence es-home-evidence--seen">
+                                <p class="es-home-evidence__label"><svg class="es-home-ic" aria-hidden="true"><use href="#i-website" /></svg>On your website</p>
+                                <ul class="es-home-understand__signals">
+                                    <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-unit" /></svg></span>Returned to B twice</li>
+                                    <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-compare" /></svg></span>Compared A and B</li>
+                                    <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-delivery" /></svg></span>Asked about handover</li>
+                                    <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-details" /></svg></span>Requested B's details</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="es-home-signals__stem" aria-hidden="true"><span class="es-home-signals__join"></span><span class="es-home-core"><img src="assets/logo/estavo-mark-white-128.webp" width="128" height="128" alt="" decoding="async" /></span><span class="es-home-rail es-home-rail--v is-resolved"></span></div>
                         <div class="es-home-insight">
                             <p class="es-home-insight__label"><svg class="es-home-ic" aria-hidden="true"><use href="#i-analysis" /></svg>What Estavo understood<span class="es-home-example">Example</span></p>
-                            <ul class="es-home-insight__list"><li>Interest in Project B</li><li><em>Suggested next information</em>Handover details</li></ul>
+                            <ul class="es-home-insight__list"><li>Interest in Project B, compared with A</li><li><em>Suggested next information</em>A handover comparison of A and B</li></ul>
                         </div>
                     </figure>
                 </div>
 
+                <p class="es-home-both-ways"><svg class="es-home-ic" aria-hidden="true"><use href="#i-compare" /></svg>From a client's needs to suitable properties—and from a property to relevant clients.</p>
                 <details class="es-home-disclosure es-home-reverse">
                     <summary>Have a unit? See who it could suit</summary>
                     <div class="es-home-disclosure__body">
                         <figure class="es-home-match" data-home-match aria-labelledby="home-match-caption">
-                            <p class="es-home-match__unit"><b>Project B · 3-bed apartment</b><span>New Cairo · <span class="es-home-num">EGP 8.0M</span> · <span class="es-home-num">1.2M</span> down · delivery <span class="es-home-num">2027</span></span></p>
+                            <p class="es-home-match__unit"><b>Project B · 3-bed apartment</b><span>New Cairo · <span class="es-home-num">EGP 8.0M</span> · <span class="es-home-num">1.2M</span> down · handover <span class="es-home-num">2027</span></span></p>
                             <ul class="es-home-match__list">
-                                <li class="es-home-interest is-fit"><span>New Cairo · 3 bedrooms · low down payment</span><em><svg class="es-home-ic" aria-hidden="true"><use href="#i-check" /></svg>Compatible</em></li>
-                                <li class="es-home-interest is-partial"><span>New Cairo · ready to move</span><em>Partly: delivery <span class="es-home-num">2027</span></em></li>
-                                <li class="es-home-interest is-none"><span>Sheikh Zayed · villa</span><em>Not compatible</em></li>
+                                <li class="es-home-interest is-fit"><span>New Cairo · 3 bedrooms · down payment up to <span class="es-home-num">1.5M</span></span><em><svg class="es-home-ic" aria-hidden="true"><use href="#i-check" /></svg>Compatible: <span class="es-home-num">1.2M</span> down is within it</em></li>
+                                <li class="es-home-interest is-partial"><span>New Cairo · ready to move</span><em>Partly: right area, handover <span class="es-home-num">2027</span></em></li>
+                                <li class="es-home-interest is-none"><span>Sheikh Zayed · villa</span><em>Not compatible: different area and type</em></li>
                             </ul>
                             <figcaption id="home-match-caption" class="es-home-example">Anonymous client requests · Example</figcaption>
                         </figure>
@@ -630,18 +670,18 @@
         </section>
 
         <!-- ══════════════════════════════════════════════════════
-             6. GROWTH — one pattern, one practical consequence.
-             One prominent example pattern, two secondary clusters, one
-             small Meta destination (plain text label: official Meta
-             brand assets are not yet cleared for this page). No
-             audience sizes, statuses or performance claims.
+             6. GROWTH — client patterns → information for a campaign →
+             a small Meta destination (plain text label: official Meta
+             brand assets are not cleared for this page). Patterns are
+             illustrative and may overlap. No audience sizes, statuses,
+             automatic-audience claims or performance claims.
              ══════════════════════════════════════════════════════ -->
         <section id="home-growth" class="es-home-band es-home-band--mist" aria-labelledby="home-growth-h" data-home-view="home_growth_view">
             <div class="es-container es-home-split">
                 <div class="es-home-copy">
                     <p class="es-home-eyebrow">Marketing</p>
                     <h2 id="home-growth-h" class="es-home-h2">Learn from your clients. Reach better-fit buyers.</h2>
-                    <p class="es-home-lead">Understand what suitable clients have in common, and use eligible website signals to inform your Meta campaigns.</p>
+                    <p class="es-home-lead">Understand the areas, budgets and property types your suitable clients have in common. Use those insights to choose what to promote, and put supported website interactions to work through your Meta connection.</p>
                     <div class="es-home-actions">
                         <a href="meta/en.html" class="es-home-btn es-home-btn--secondary"
                             data-track="service_selected" data-position="growth" data-home-event="home_meta_click">Explore the Meta connection</a>
@@ -649,20 +689,24 @@
                     <p class="es-home-control"><svg class="es-home-ic" aria-hidden="true"><use href="#i-control" /></svg>Your ad account and budget stay under your control.</p>
                 </div>
 
-                <figure class="es-home-growth-fig" aria-label="Example: a recurring pattern among your clients becomes a campaign audience in your own Meta account">
+                <figure class="es-home-growth-fig" aria-label="Example: recurring interests among your clients become information you can use in a campaign">
                     <div class="es-home-clusters" data-home-clusters>
                         <div class="es-home-cluster es-home-cluster--key"><i class="es-home-dot" style="--x:30%;--y:34%;--sx:-60px;--sy:70px"></i><i class="es-home-dot" style="--x:52%;--y:24%;--sx:90px;--sy:110px"></i><i class="es-home-dot" style="--x:70%;--y:44%;--sx:150px;--sy:20px"></i><i class="es-home-dot" style="--x:40%;--y:60%;--sx:40px;--sy:160px"></i><i class="es-home-dot" style="--x:60%;--y:72%;--sx:-30px;--sy:120px"></i><i class="es-home-dot" style="--x:24%;--y:64%;--sx:120px;--sy:-20px"></i></div>
-                        <p class="es-home-cluster__label es-home-cluster__label--key"><b>Recurring pattern</b>New Cairo · <span class="es-home-num">EGP 8–10M</span> · 3 bedrooms</p>
+                        <p class="es-home-cluster__label es-home-cluster__label--key"><b>Recurring interest</b>New Cairo · <span class="es-home-num">EGP 8–10M</span> · 3 bedrooms</p>
                         <div class="es-home-cluster es-home-cluster--a"><i class="es-home-dot" style="--x:34%;--y:40%;--sx:-140px;--sy:60px"></i><i class="es-home-dot" style="--x:62%;--y:36%;--sx:-90px;--sy:140px"></i><i class="es-home-dot" style="--x:50%;--y:66%;--sx:-170px;--sy:10px"></i></div>
-                        <p class="es-home-cluster__label es-home-cluster__label--a">North Coast · investment</p>
+                        <p class="es-home-cluster__label es-home-cluster__label--a">Lower down payment · longer plan</p>
                         <div class="es-home-cluster es-home-cluster--b"><i class="es-home-dot" style="--x:38%;--y:40%;--sx:-110px;--sy:-80px"></i><i class="es-home-dot" style="--x:62%;--y:52%;--sx:80px;--sy:-120px"></i><i class="es-home-dot" style="--x:44%;--y:68%;--sx:-40px;--sy:-150px"></i></div>
-                        <p class="es-home-cluster__label es-home-cluster__label--b">Lower down payment · longer plan</p>
+                        <p class="es-home-cluster__label es-home-cluster__label--b">North Coast · investment</p>
                         <span class="es-home-example es-home-clusters__caption">Example</span>
                     </div>
                     <span class="es-home-rail es-home-rail--v is-resolved es-home-growth-fig__link" aria-hidden="true"></span>
                     <div class="es-home-campaign">
-                        <p class="es-home-campaign__head"><b>Meta</b><span>Your ad account</span></p>
-                        <p class="es-home-campaign__aud"><span>Campaign audience</span><b>New Cairo · <span class="es-home-num">EGP 8–10M</span> · 3 bedrooms</b></p>
+                        <p class="es-home-campaign__title"><svg class="es-home-ic" aria-hidden="true"><use href="#i-marketing" /></svg>Insights for your campaign</p>
+                        <dl class="es-home-campaign__list">
+                            <div><dt>Promote</dt><dd>3-bed apartments in New Cairo, <span class="es-home-num">EGP 8–10M</span></dd></div>
+                            <div><dt>Lead the message with</dt><dd>Down payment and payment plan</dd></div>
+                        </dl>
+                        <p class="es-home-campaign__dest"><span>Use them in your campaigns on</span><b>Meta</b></p>
                     </div>
                 </figure>
             </div>
@@ -670,7 +714,8 @@
 
         <!-- ══════════════════════════════════════════════════════
              7. START FREE — a decision point. Two free doors lead;
-             paid scope is one line; other routes are compact links.
+             paid scope is one line; the company/platform profile is one
+             line; other routes are compact links to existing pages.
              ══════════════════════════════════════════════════════ -->
         <section id="home-start-free" class="es-home-band es-home-band--white" aria-labelledby="home-start-h">
             <div class="es-container">
@@ -679,25 +724,26 @@
                 <div class="es-home-free">
                     <article class="es-home-free-card">
                         <p class="es-home-free-card__head"><b class="es-home-h3">Estavo Market</b><span class="es-home-badge">Free</span></p>
-                        <p>Search and compare projects and units.</p>
+                        <p>Search and compare projects, units and payment plans in one place.</p>
                         <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-home-btn es-home-btn--primary"
                             data-track="market_opened" data-position="start_free" data-home-event="home_market_free_click">Open Estavo Market free</a>
                     </article>
                     <article class="es-home-free-card">
                         <p class="es-home-free-card__head"><b class="es-home-h3">Your website</b><span class="es-home-badge">Free</span></p>
-                        <p>Present your properties and receive enquiries under your name.</p>
+                        <p>Present your projects and listings under your name, with enquiries coming directly to you.</p>
                         <a href="https://estavo-brokers.com/website/" class="es-home-btn es-home-btn--primary"
                             data-track="website_preview_started" data-position="start_free" data-home-event="home_website_free_click">Create your website free</a>
                     </article>
                 </div>
 
                 <p class="es-home-note es-home-center es-home-scope">City data on your website and AI depend on your plan or credits.</p>
+                <p class="es-home-business">Running a company or an existing platform? Use Estavo's data and AI under your brand or inside your current system.</p>
 
                 <ul class="es-home-routes">
                     <li><a href="pricing/en.html" class="es-home-link" data-track="service_selected" data-position="pricing" data-home-event="home_pricing_click">See pricing</a></li>
-                    <li><a href="enterprise/en.html" class="es-home-link" data-track="service_selected" data-position="enterprise" data-home-event="home_enterprise_click">Running a company?</a></li>
-                    <li><a href="integrations/en.html" class="es-home-link" data-track="service_selected" data-position="integrations" data-home-event="home_integrations_click">Have a platform?</a></li>
-                    <li><a href="listings/en.html" class="es-home-link" data-track="service_selected" data-position="resale" data-home-event="home_resale_click">Have resale units?</a></li>
+                    <li><a href="enterprise/en.html" class="es-home-link" data-track="service_selected" data-position="enterprise" data-home-event="home_enterprise_click">Company solutions</a></li>
+                    <li><a href="integrations/en.html" class="es-home-link" data-track="service_selected" data-position="integrations" data-home-event="home_integrations_click">Platform integrations</a></li>
+                    <li><a href="listings/en.html" class="es-home-link" data-track="service_selected" data-position="resale" data-home-event="home_resale_click">Resale network</a></li>
                 </ul>
             </div>
         </section>
@@ -712,19 +758,19 @@
                 <div class="es-faq es-home-faq" data-exclusive-details>
                     <details>
                         <summary>What's free?</summary>
-                        <p>Search and comparison in Estavo Market, and your basic website. City data on your website and AI depend on your plan or credits.</p>
+                        <p>Search and comparison in Estavo Market, and the basic website. City data and AI depend on your plan or credits; review the inclusions before choosing.</p>
                     </details>
                     <details>
                         <summary>Do I need a website?</summary>
-                        <p>No. You can use Estavo Market for research and comparison on its own.</p>
+                        <p>No. Estavo Market works on its own. A website lets you present your properties and offer the available client-facing services under your own name.</p>
                     </details>
                     <details>
                         <summary>Where do the data and AI answers come from?</summary>
-                        <p>From the project and unit information available to Estavo. Availability varies by city and project; confirm prices and unit availability before booking.</p>
+                        <p>From the project and unit information available to Estavo. On your website, the assistant uses properties authorised for that site. Confirm prices and availability before booking.</p>
                     </details>
                     <details>
                         <summary>How does Estavo understand client interest?</summary>
-                        <p>From information clients share and activity recorded on your website. This helps interpret interest; it does not confirm that someone will buy. <a href="privacy-en.html" class="es-home-link">Privacy policy</a></p>
+                        <p>From information clients share and activity recorded on your website. Analysis helps interpret interest and identify useful information to share; it does not confirm a purchase decision. <a href="privacy-en.html" class="es-home-link">Privacy policy</a></p>
                     </details>
                 </div>
             </div>
@@ -860,7 +906,7 @@
     <!-- referral.js must load before the page scripts so CTA links are tagged before tracking fires -->
     <script src="assets/js/referral.js?v=20260918-chat-ui" defer></script>
     <script src="assets/js/v3/estavo-v3.js?v=e26608a3f2" defer></script>
-    <script src="assets/js/home.js?v=20261004-home13" defer></script>
+    <script src="assets/js/home.js?v=974bf26bf2" defer></script>
     <script src="assets/js/raghad-loader.js?v=20261003-perf1" defer></script>
 
     <div class="es-sticky-cta sticky-cta es-home-sticky visible" data-home-sticky aria-hidden="false">

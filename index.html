@@ -170,7 +170,7 @@
               "name": "إيه المجاني؟",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "البحث والمقارنة في Estavo Market، والموقع الأساسي. بيانات المدن على موقعك والـAI حسب الباقة أو الرصيد."
+                "text": "البحث والمقارنة في Estavo Market، والموقع الأساسي. بيانات المدن على موقعك واستخدام الـAI حسب الباقة أو الرصيد؛ شوف التفاصيل قبل ما تختار."
               }
             },
             {
@@ -178,7 +178,7 @@
               "name": "لازم أعمل موقع؟",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "لأ. تقدر تستخدم Estavo Market للبحث والمقارنة من غير موقع."
+                "text": "لأ. تقدر تستخدم Estavo Market لوحده. الموقع بيديك طريقة تعرض بيها شغلك وتستخدم الخدمات المتاحة لعملائك باسمك."
               }
             },
             {
@@ -186,7 +186,7 @@
               "name": "البيانات وإجابات الـAI جاية منين؟",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "من بيانات المشاريع والوحدات المتاحة لإستاڤو. المتاح بيختلف حسب المدينة والمشروع، والسعر والتوافر بيتأكدوا قبل الحجز."
+                "text": "من بيانات المشاريع والوحدات المتاحة لإستاڤو. وعلى موقعك، من العقارات المسموح بعرضها عندك. السعر والتوافر بيتأكدوا قبل الحجز."
               }
             },
             {
@@ -194,7 +194,7 @@
               "name": "إستاڤو بيفهم اهتمام العميل إزاي؟",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "من اللي يشاركه والتفاعل اللي يتسجّل على موقعك. التحليل يساعدك تفهم اهتمامه، ومش تأكيد إنه هيشتري."
+                "text": "من اللي العميل يشاركه والتفاعل اللي يتسجّل على موقعك. التحليل يساعدك تفهم اهتمامه وتختار معلومة مناسبة؛ مش تأكيد إنه هيشتري."
               }
             }
           ]
@@ -237,7 +237,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600&amp;display=swap" rel="stylesheet" />
 <link rel="preload" as="image" href="assets/logo/estavo-brokers-logo-320.webp" type="image/webp" fetchpriority="high" />
 <link rel="stylesheet" href="assets/css/home-critical.css?v=20261003-perf1" />
-<link rel="stylesheet" href="assets/css/home.css?v=20261004-home13" />
+<link rel="stylesheet" href="assets/css/home.css?v=7f8d221f17" />
 </head>
 
 <body class="es es-home es-landing">
@@ -346,9 +346,10 @@
     <main id="main" class="es-home-main">
 
         <!-- ══════════════════════════════════════════════════════
-             1. HERO — proposition, two free doors, one compact model.
-             Request → Estavo (السوق · العقار · العميل) → one selected
-             result. Shared fixture: tools/data/home-fixture.json.
+             1. HERO — proposition, two free doors, one overview model.
+             Request → Estavo connects السوق · العقار · العميل → one
+             short result and its reason. The full comparison belongs to
+             #home-request. Shared fixture: tools/data/home-fixture.json.
              H1, CTAs and proof numbers are never animated or delayed.
              Mascot backlog: studying pose (no slot reserved).
              ══════════════════════════════════════════════════════ -->
@@ -358,7 +359,7 @@
                     <div class="es-home-hero__copy">
                         <p class="es-home-eyebrow">إستاڤو للبروكرز وشركات الوساطة العقارية</p>
                         <h1 id="home-hero-h" class="es-home-display"><span>معاك حد مذاكر السوق.</span> <span>وفاهم عميلك.</span></h1>
-                        <p class="es-home-lead">إستاڤو يربط بيانات السوق بطلب عميلك، ويحلل العقارات عشان تعرف الأنسب وليه.</p>
+                        <p class="es-home-lead">إستاڤو خبيرك العقاري بالـ<bdi>AI</bdi>. بيتابع بيانات السوق، ويحلل الوحدات واهتمامات عملاءك على موقعك، عشان تعرف أنهي عقار يناسب كل طلب وليه.</p>
                         <div class="es-home-actions">
                             <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-home-btn es-home-btn--primary"
                                 data-track="market_opened" data-position="hero" data-home-event="home_market_free_click">اكتشف السوق مجانًا</a>
@@ -368,17 +369,20 @@
                         <p class="es-home-micro">شريكك في كل معلومة في شغلك العقاري.</p>
                     </div>
 
-                    <figure class="es-home-intel" aria-label="مثال توضيحي: طلب عميل بيتحلل لأنسب عقار">
+                    <figure class="es-home-intel" aria-label="مثال توضيحي: إستاڤو بيربط السوق والعقار والعميل عشان يرشح عقار لطلب عميل">
                         <p class="es-home-intel__request"><span class="es-home-intel__tag"><svg class="es-home-ic" aria-hidden="true"><use href="#i-request" /></svg>طلب العميل</span><span class="es-home-intel__ask">التجمع · 3 غرف · حتى <span class="es-home-num">8M</span> · الأولوية لأقل مقدم</span><span class="es-home-example">مثال توضيحي</span></p>
                         <span class="es-home-rail es-home-rail--v" aria-hidden="true"></span>
                         <div class="es-home-fw">
                             <span class="es-home-core es-home-fw__core" role="img" aria-label="إستاڤو"><img src="assets/logo/estavo-mark-white-128.webp" width="128" height="128" alt="" decoding="async" /></span>
-                            <ul class="es-home-fw__nodes"><li><svg class="es-home-ic" aria-hidden="true"><use href="#i-location" /></svg>السوق</li><li class="is-resolved"><svg class="es-home-ic" aria-hidden="true"><use href="#i-unit" /></svg>العقار</li><li><svg class="es-home-ic" aria-hidden="true"><use href="#i-client-interest" /></svg>العميل</li></ul>
+                            <ul class="es-home-fw__nodes">
+                                <li><svg class="es-home-ic" aria-hidden="true"><use href="#i-location" /></svg><b>السوق</b><small>الأسعار والسداد</small></li>
+                                <li class="is-resolved"><svg class="es-home-ic" aria-hidden="true"><use href="#i-unit" /></svg><b>العقار</b><small>الوحدات ومواصفاتها</small></li>
+                                <li><svg class="es-home-ic" aria-hidden="true"><use href="#i-client-interest" /></svg><b>العميل</b><small>طلبه واهتمامه</small></li>
+                            </ul>
                         </div>
                         <span class="es-home-rail es-home-rail--v is-resolved" aria-hidden="true"></span>
                         <div class="es-home-intel__result">
-                            <p class="es-home-intel__title"><b>مشروع ب · شقة 3 غرف</b><span>التجمع</span></p>
-                            <dl class="es-home-facts"><div><dt>السعر</dt><dd class="es-home-num">8.0M</dd></div><div><dt>المقدم</dt><dd class="es-home-num">1.2M</dd></div><div><dt>التقسيط</dt><dd>7 سنين</dd></div></dl>
+                            <p class="es-home-intel__title"><b>مشروع ب · شقة 3 غرف</b><span><span class="es-home-num">8.0M</span> · مقدم <span class="es-home-num">1.2M</span></span></p>
                             <p class="es-home-reason es-home-reason--best"><svg class="es-home-ic" aria-hidden="true"><use href="#i-check" /></svg>أقل مقدم بين الاختيارات داخل الميزانية</p>
                         </div>
                     </figure>
@@ -386,10 +390,10 @@
 
                 <div class="es-home-proof" data-home-proof>
                     <ul class="es-home-proof__list" aria-label="إستاڤو بالأرقام">
-                        <li data-proof="projects" data-value="2400"><strong class="es-home-proof__value es-home-num" data-count="2400">2,400+</strong><span>مشروع</span></li>
-                        <li data-proof="units" data-value="26000"><strong class="es-home-proof__value es-home-num" data-count="26000">26,000+</strong><span>وحدة في بياناتنا</span></li>
-                        <li data-proof="areas" data-value="110"><strong class="es-home-proof__value es-home-num" data-count="110">110+</strong><span>منطقة</span></li>
-                        <li data-proof="brokers" data-value="6600"><strong class="es-home-proof__value es-home-num" data-count="6600">6,600+</strong><span>بروكر مسجّل</span></li>
+                        <li data-proof="projects" data-value="2400"><strong class="es-home-proof__value es-home-num">2,400+</strong><span>مشروع</span></li>
+                        <li data-proof="units" data-value="26000"><strong class="es-home-proof__value es-home-num">26,000+</strong><span>نموذج وحدة</span></li>
+                        <li data-proof="areas" data-value="110"><strong class="es-home-proof__value es-home-num">110+</strong><span>منطقة</span></li>
+                        <li data-proof="brokers" data-value="6600"><strong class="es-home-proof__value es-home-num">6,600+</strong><span>بروكر مسجّل</span></li>
                     </ul>
                     <p class="es-home-proof__note">أرقام إستاڤو في <span class="es-home-num">3</span> أكتوبر <span class="es-home-num">2026</span></p>
                 </div>
@@ -397,43 +401,47 @@
         </section>
 
         <!-- ══════════════════════════════════════════════════════
-             2. MARKET — the data foundation, first free door.
-             Signature motion #2: source documents → Estavo board on the
-             real Egypt map (Natural Earth via tools/build-egypt-map.py),
-             with a Cairo inset. Pins are the Estavo Brokers main
-             markets at their true coordinates; no names on points.
+             2. MARKET — what Estavo maintains, first free door.
+             Signature motion #2: a small group of sources → the Estavo
+             board on the real Egypt map (Natural Earth via
+             tools/build-egypt-map.py) with a Cairo inset. A mint rail
+             connects the selected pin to its project card. Pins are the
+             Estavo Brokers main markets at their true coordinates; no
+             names on points.
              ══════════════════════════════════════════════════════ -->
         <section id="home-market" class="es-home-band es-home-band--paper" aria-labelledby="home-market-h" data-home-view="home_market_view">
             <div class="es-container es-home-split es-home-split--market">
                 <div class="es-home-copy">
-                    <p class="es-home-eyebrow">السوق</p>
-                    <h2 id="home-market-h" class="es-home-h2">السوق اللي بتبيع فيه، في مكان واحد.</h2>
-                    <p class="es-home-lead">مشاريع، متاح، أسعار وخطط سداد. إستاڤو يجمعها ويتابع تحديثاتها.</p>
+                    <p class="es-home-eyebrow">السوق · <bdi>Estavo Market</bdi></p>
+                    <h2 id="home-market-h" class="es-home-h2">تابع تفاصيل المناطق اللي بتبيع فيها.</h2>
+                    <p class="es-home-lead">المشاريع والوحدات والأسعار وخطط السداد في منصة واحدة. إستاڤو يجمع بيانات المشاريع اللي بيغطيها ويتابع تحديثاتها، بدل ما ترجع كل مرة للبرايس ليست والجروبات.</p>
+                    <ul class="es-home-groups">
+                        <li><svg class="es-home-ic" aria-hidden="true"><use href="#i-price" /></svg>المتاح والأسعار</li>
+                        <li><svg class="es-home-ic" aria-hidden="true"><use href="#i-payment-period" /></svg>السداد والاستلام</li>
+                        <li><svg class="es-home-ic" aria-hidden="true"><use href="#i-finishing" /></svg>التشطيب والصيانة والخدمات</li>
+                    </ul>
                     <div class="es-home-actions">
                         <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-home-btn es-home-btn--primary"
                             data-track="market_opened" data-position="market" data-home-event="home_market_free_click">افتح <bdi>Estavo Market</bdi> مجانًا</a>
                     </div>
                 </div>
 
-                <figure class="es-home-market" data-home-market aria-label="مثال: ملفات وأسعار متفرقة بتتجمع في Estavo Market على خريطة مصر">
+                <figure class="es-home-market" data-home-market aria-label="مثال توضيحي: برايس ليستات ورسايل تحديث بتتجمع في Estavo Market، ومشروع في الشيخ زايد اتحدّثت خطة سداده">
                     <div class="es-home-market__sources">
                         <ul class="es-home-market__docs" aria-hidden="true">
-                            <li class="es-home-frag" style="--sx:-38px;--sy:26px;--sr:-7deg"><svg class="es-home-ic"><use href="#i-pdf" /></svg></li>
-                            <li class="es-home-frag" style="--sx:22px;--sy:40px;--sr:6deg"><svg class="es-home-ic"><use href="#i-price-list" /></svg></li>
-                            <li class="es-home-frag" style="--sx:44px;--sy:-18px;--sr:-5deg"><svg class="es-home-ic"><use href="#i-availability" /></svg></li>
-                            <li class="es-home-frag" style="--sx:-30px;--sy:-34px;--sr:8deg"><svg class="es-home-ic"><use href="#i-sheet" /></svg></li>
-                            <li class="es-home-frag" style="--sx:18px;--sy:-46px;--sr:-9deg"><svg class="es-home-ic"><use href="#i-message" /></svg></li>
-                            <li class="es-home-frag" style="--sx:-46px;--sy:12px;--sr:5deg"><svg class="es-home-ic"><use href="#i-launch" /></svg></li>
+                            <li class="es-home-frag" style="--sx:-30px;--sy:22px;--sr:-7deg"><svg class="es-home-ic"><use href="#i-pdf" /></svg></li>
+                            <li class="es-home-frag" style="--sx:18px;--sy:32px;--sr:6deg"><svg class="es-home-ic"><use href="#i-price-list" /></svg></li>
+                            <li class="es-home-frag" style="--sx:-22px;--sy:-26px;--sr:8deg"><svg class="es-home-ic"><use href="#i-sheet" /></svg></li>
+                            <li class="es-home-frag" style="--sx:28px;--sy:-18px;--sr:-6deg"><svg class="es-home-ic"><use href="#i-message" /></svg></li>
                         </ul>
-                        <p>بروشورات، برايس ليستات، شيتات ورسايل تحديث</p>
+                        <p>برايس ليستات وبروشورات ورسايل تحديث</p>
                     </div>
                     <span class="es-home-rail es-home-rail--v es-home-market__rail" aria-hidden="true"></span>
                     <div class="es-home-board es-home-card">
                         <div class="es-home-board__head">
                             <b><bdi>Estavo Market</bdi></b>
-                            <span class="es-home-example">مثال توضيحي</span>
                         </div>
-                        <div class="es-home-map">
+                        <div class="es-home-map" style="--sel-x:0.1108;--sel-y:0.8108">
                             <div class="es-home-map__frame">
                                 <svg class="es-home-map__svg" viewBox="0 0 640 580" role="img" aria-label="خريطة مصر. أسواق إستاڤو الرئيسية: الشيخ زايد، 6 أكتوبر، القاهرة الجديدة، العاصمة الإدارية، الشروق، العبور، الساحل الشمالي، العين السخنة، البحر الأحمر. المختار: الشيخ زايد." focusable="false">
                                     <rect class="es-home-map__sea" width="640" height="580" />
@@ -461,9 +469,11 @@
                                     <b>القاهرة</b>
                                 </span>
                             </div>
+                            <i class="es-home-map__link" aria-hidden="true"></i>
                             <div class="es-home-map__card">
                                 <p class="es-home-map__card-head"><b><svg class="es-home-map__card-pin" aria-hidden="true"><use href="#i-map-pin" /></svg>الشيخ زايد</b><span class="es-home-example">مثال توضيحي</span></p>
-                                <p class="es-home-map__project"><b>مشروع هـ</b><strong class="es-home-num">10.5M</strong><small>مقدم <span class="es-home-num">1.6M</span> · 7 سنين</small><em class="es-home-map__update"><svg class="es-home-ic" aria-hidden="true"><use href="#i-update" /></svg>خطة السداد اتحدّثت</em></p>
+                                <p class="es-home-map__project"><b>مشروع هـ</b><strong class="es-home-num">10.5M</strong><small>مقدم <span class="es-home-num">1.6M</span> · 7 سنين</small></p>
+                                <p class="es-home-map__update"><svg class="es-home-ic" aria-hidden="true"><use href="#i-update" /></svg>خطة السداد اتحدّثت</p>
                             </div>
                         </div>
                     </div>
@@ -472,22 +482,24 @@
         </section>
 
         <!-- ══════════════════════════════════════════════════════
-             3. REQUEST — property analysis.
-             Signature motion #3: request → Estavo → the selected unit;
-             the reason resolves in mint. Priority is explicit (lowest
-             down payment within budget), so the ranking follows from the
-             request. Full facts live in a native <details>.
+             3. REQUEST — property analysis with visible reasons.
+             Signature motion #3: request → Estavo → the three options;
+             the selected one resolves in mint. Priority is explicit
+             (lowest down payment within budget), so the ranking follows
+             from the request. Desktop shows B with both alternatives and
+             their facts; phones show B and two short rows (the facts are
+             the same markup, hidden below 52rem). Full table in <details>.
              Fixture: tools/data/home-fixture.json.
              ══════════════════════════════════════════════════════ -->
         <section id="home-request" class="es-home-band es-home-band--navy" aria-labelledby="home-request-h" data-home-view="home_request_view">
             <div class="es-container">
                 <div class="es-home-copy es-home-copy--center es-home-request__head">
                     <p class="es-home-eyebrow">العقار</p>
-                    <h2 id="home-request-h" class="es-home-h2">اختار الأنسب لطلب عميلك.</h2>
-                    <p class="es-home-lead">قول لإستاڤو الطلب. يحلل الوحدات ويشرح الفرق بين الاختيارات.</p>
+                    <h2 id="home-request-h" class="es-home-h2">اختار الأنسب لاحتياج عميلك.</h2>
+                    <p class="es-home-lead">قول لإستاڤو طلب العميل، أو خلي العميل يشرحه بنفسه على موقعك. يحلل احتياجه ويقارن الوحدات، عشان تعرف الفرق في السعر والمقدم والسداد والاستلام، وسبب كل ترشيح.</p>
                 </div>
 
-                <figure class="es-home-analysis" data-home-request aria-label="مثال توضيحي لتحليل طلب عميل">
+                <figure class="es-home-analysis" data-home-request aria-label="مثال توضيحي لتحليل طلب عميل ومقارنة تلات وحدات">
                     <div class="es-home-ask">
                         <p class="es-home-ask__head"><b><svg class="es-home-ic" aria-hidden="true"><use href="#i-request" /></svg>طلب العميل</b><span class="es-home-example">مثال توضيحي</span></p>
                         <ul class="es-home-chips">
@@ -501,17 +513,23 @@
 
                     <div class="es-home-analysis__stem" aria-hidden="true"><span class="es-home-rail es-home-rail--v"></span><span class="es-home-core"><img src="assets/logo/estavo-mark-white-128.webp" width="128" height="128" alt="" decoding="async" /></span><span class="es-home-rail es-home-rail--v is-resolved"></span></div>
 
-                    <div class="es-home-pick">
-                        <div class="es-home-prop es-home-prop--best">
-                            <p class="es-home-prop__head"><b>مشروع ب</b><span>شقة 3 غرف · التجمع</span><em class="es-home-prop__rank">الأنسب للطلب</em></p>
-                            <dl class="es-home-facts"><div><dt>السعر</dt><dd class="es-home-num">8.0M</dd></div><div><dt>المقدم</dt><dd class="es-home-num">1.2M</dd></div><div><dt>التقسيط</dt><dd>7 سنين</dd></div></dl>
+                    <ul class="es-home-options">
+                        <li class="es-home-opt es-home-opt--best">
+                            <p class="es-home-opt__head"><b>مشروع ب</b><strong class="es-home-num">8.0M</strong><em class="es-home-opt__rank">الأنسب للطلب</em></p>
+                            <dl class="es-home-facts"><div><dt>المقدم</dt><dd class="es-home-num">1.2M</dd></div><div><dt>التقسيط</dt><dd>7 سنين</dd></div><div><dt>الاستلام</dt><dd class="es-home-num">2027</dd></div></dl>
                             <p class="es-home-reason es-home-reason--best"><svg class="es-home-ic" aria-hidden="true"><use href="#i-check" /></svg>أقل مقدم بين الاختيارات داخل الميزانية</p>
-                        </div>
-                        <ul class="es-home-alts">
-                            <li><b>مشروع أ</b><span class="es-home-num">7.9M</span><span>سعر إجمالي أقل · تقسيط أطول</span></li>
-                            <li class="is-outside"><b>مشروع ج</b><span class="es-home-num">8.3M</span><span><svg class="es-home-ic" aria-hidden="true"><use href="#i-outside" /></svg>فوق الميزانية بـ<span class="es-home-num">300</span> ألف · مساحة أكبر</span></li>
-                        </ul>
-                    </div>
+                        </li>
+                        <li class="es-home-opt es-home-opt--alt">
+                            <p class="es-home-opt__head"><b>مشروع أ</b><strong class="es-home-num">7.9M</strong></p>
+                            <dl class="es-home-facts"><div><dt>المقدم</dt><dd class="es-home-num">1.4M</dd></div><div><dt>التقسيط</dt><dd>8 سنين</dd></div><div><dt>الاستلام</dt><dd class="es-home-num">2028</dd></div></dl>
+                            <p class="es-home-reason">سعر إجمالي أقل · تقسيط أطول</p>
+                        </li>
+                        <li class="es-home-opt es-home-opt--alt is-outside">
+                            <p class="es-home-opt__head"><b>مشروع ج</b><strong class="es-home-num">8.3M</strong></p>
+                            <dl class="es-home-facts"><div><dt>المقدم</dt><dd class="es-home-num">1.5M</dd></div><div><dt>التقسيط</dt><dd>6 سنين</dd></div><div><dt>الاستلام</dt><dd>فوري</dd></div></dl>
+                            <p class="es-home-reason es-home-reason--warn"><svg class="es-home-ic" aria-hidden="true"><use href="#i-outside" /></svg>فوق الميزانية <span class="es-home-nowrap">بـ<span class="es-home-num">300</span> ألف</span> · مساحة أكبر</p>
+                        </li>
+                    </ul>
                 </figure>
 
                 <details class="es-home-disclosure es-home-compare">
@@ -535,16 +553,19 @@
 
                 <div class="es-home-section-foot">
                     <a href="market/#ai-expert" class="es-home-btn es-home-btn--secondary"
-                        data-track="service_selected" data-position="request" data-home-event="home_ai_request_demo_click">جرّب تحليل طلب عميلك</a>
-                    <p class="es-home-note">وابعت الاختيارات في عرض <bdi>PDF</bdi> باسمك. الـ<bdi>AI</bdi> والـ<bdi>PDF</bdi> بالرصيد.</p>
+                        data-track="service_selected" data-position="request" data-home-event="home_ai_request_demo_click">شوف إزاي إستاڤو يحلل الطلب</a>
+                    <p class="es-home-note">وتقدر تبعت الاختيارات في عرض <bdi>PDF</bdi> باسمك. الـ<bdi>AI</bdi> والـ<bdi>PDF</bdi> بالرصيد.</p>
                 </div>
             </div>
         </section>
 
         <!-- ══════════════════════════════════════════════════════
-             4. WEBSITE — one action; the visitor's own site is the proof.
-             The commercial note sits beside the action. Timing copy
-             matches the approved onboarding claim (about 5 minutes).
+             4. WEBSITE — one action; a preview modelled on the real
+             Estavo Sites template (brand header, contact, featured
+             property facts, the site's assistant). Static, labelled
+             content: no input, no button. The commercial note sits
+             beside the action; timing matches the approved onboarding
+             claim (about 5 minutes).
              Mascot backlog: presenting pose (no slot reserved).
              ══════════════════════════════════════════════════════ -->
         <section id="home-website" class="es-home-band es-home-band--paper" aria-labelledby="home-website-h" data-home-view="home_website_view">
@@ -552,7 +573,7 @@
                 <div class="es-home-copy">
                     <p class="es-home-eyebrow">موقعك</p>
                     <h2 id="home-website-h" class="es-home-h2">السوق العقاري كله تحت اسمك.</h2>
-                    <p class="es-home-lead">اعرض مشاريعك ووحداتك، وخلي العميل يسأل الـ<bdi>AI</bdi> ويتواصل معاك.</p>
+                    <p class="es-home-lead">اعمل موقع باسمك للمشاريع اللي بتبيع فيها ووحداتك الخاصة. وتقدر تضيف مساعد عقاري يخلي العميل يشرح طلبه، يسأل عن التفاصيل، ويشوف الاختيارات المناسبة من عقارات موقعك.</p>
                     <div class="es-home-cta-block">
                         <a href="https://estavo-brokers.com/website/" class="es-home-btn es-home-btn--primary"
                             data-track="website_preview_started" data-position="website" data-home-event="home_website_free_click">اعمل موقعك مجانًا</a>
@@ -565,15 +586,24 @@
                     <p class="es-home-build__src"><svg class="es-home-ic" aria-hidden="true"><use href="#i-details" /></svg><b>بياناتك</b><span>الاسم · اللوجو · المدن</span></p>
                     <span class="es-home-rail es-home-rail--v is-resolved" aria-hidden="true"></span>
                     <div class="es-home-browser">
-                        <div class="es-home-browser__bar" aria-hidden="true"><i></i><i></i><i></i><span class="es-home-browser__url"><svg class="es-home-ic"><use href="#i-website" /></svg>موقع شركتك</span></div>
-                        <div class="es-home-browser__nav"><span class="es-home-brand"><i class="es-home-brand-mark" aria-hidden="true"><svg class="es-home-ic"><use href="#i-project" /></svg></i>اسم شركتك</span></div>
+                        <div class="es-home-browser__bar" aria-hidden="true"><i></i><i></i><i></i><span class="es-home-browser__url"><bdi>yourbrand.estavo.site</bdi></span></div>
+                        <div class="es-home-browser__nav">
+                            <span class="es-home-brand"><i class="es-home-brand-mark" aria-hidden="true"><svg class="es-home-ic"><use href="#i-project" /></svg></i>اسم شركتك</span>
+                            <span class="es-home-browser__contact"><svg class="es-home-ic" aria-hidden="true"><use href="#i-message" /></svg>رقمك على واتساب</span>
+                        </div>
                         <div class="es-home-browser__body">
-                            <p class="es-home-browser__search"><svg class="es-home-ic" aria-hidden="true"><use href="#i-location" /></svg>التجمع · 3 غرف</p>
-                            <div class="es-home-listings">
-                                <p class="es-home-listing"><span class="es-home-listing__plan" aria-hidden="true"><svg class="es-home-ic"><use href="#i-unit" /></svg></span><b>مشروع ب</b><span><span class="es-home-num">8.0M</span> · مقدم <span class="es-home-num">1.2M</span></span></p>
-                                <p class="es-home-listing"><span class="es-home-listing__plan" aria-hidden="true"><svg class="es-home-ic"><use href="#i-project" /></svg></span><b>مشروع أ</b><span><span class="es-home-num">7.9M</span> · مقدم <span class="es-home-num">1.4M</span></span></p>
+                            <div class="es-home-listing">
+                                <span class="es-home-listing__art" aria-hidden="true"><svg viewBox="0 0 120 64" focusable="false"><rect class="es-home-listing__sky" width="120" height="64" /><rect class="es-home-listing__block" x="14" y="18" width="34" height="46" rx="2" /><rect class="es-home-listing__block es-home-listing__block--tall" x="54" y="8" width="30" height="56" rx="2" /><rect class="es-home-listing__block" x="90" y="26" width="20" height="38" rx="2" /><path class="es-home-listing__win" d="M20 26h6M32 26h6M20 36h6M32 36h6M20 46h6M32 46h6M60 16h6M72 16h6M60 26h6M72 26h6M60 36h6M72 36h6M60 46h6M72 46h6M95 34h4M102 34h4M95 44h4M102 44h4" /></svg></span>
+                                <div class="es-home-listing__info">
+                                    <p class="es-home-listing__name"><b>مشروع ب · شقة 3 غرف</b><span>التجمع</span></p>
+                                    <dl class="es-home-listing__facts"><div><dt>السعر</dt><dd class="es-home-num">8.0M</dd></div><div><dt>المقدم</dt><dd class="es-home-num">1.2M</dd></div><div><dt>التقسيط</dt><dd>7 سنين</dd></div><div><dt>الاستلام</dt><dd class="es-home-num">2027</dd></div></dl>
+                                </div>
                             </div>
-                            <p class="es-home-bubble es-home-bubble--ai"><svg class="es-home-ic" aria-hidden="true"><use href="#i-analysis" /></svg>اسأل عن أي وحدة</p>
+                            <div class="es-home-chat">
+                                <p class="es-home-chat__label"><svg class="es-home-ic" aria-hidden="true"><use href="#i-analysis" /></svg>مساعد اسم شركتك</p>
+                                <p class="es-home-bubble es-home-bubble--client">عايز شقة 3 غرف في التجمع.</p>
+                                <p class="es-home-bubble es-home-bubble--ai">ميزانيتك والمقدم في حدود كام؟</p>
+                            </div>
                         </div>
                     </div>
                     <figcaption id="home-build-caption" class="es-home-site__caption es-home-example">مثال توضيحي · موقعك باسم شركتك</figcaption>
@@ -582,49 +612,59 @@
         </section>
 
         <!-- ══════════════════════════════════════════════════════
-             5. CLIENT — insight first, reverse matching on demand.
-             Four observed signals → one interest + one labelled
-             suggestion. The unit → anonymous needs view is inside a
-             native <details>. No names, timelines, scores or
-             purchase-readiness claims.
+             5. CLIENT — what was said + what was observed → Estavo's
+             reading and a labelled suggestion. The reverse view
+             (unit → anonymous needs) is stated in a visible line and
+             opened from a native <details>. No names, timelines,
+             statuses, scores or purchase-readiness claims.
              ══════════════════════════════════════════════════════ -->
         <section id="home-client" class="es-home-band es-home-band--navy" aria-labelledby="home-client-h" data-home-view="home_client_view">
             <div class="es-container">
                 <div class="es-home-split">
                     <div class="es-home-copy">
                         <p class="es-home-eyebrow">العميل</p>
-                        <h2 id="home-client-h" class="es-home-h2">افهم اهتمامه. وابعتله الأنسب.</h2>
-                        <p class="es-home-lead">إستاڤو يحلل تفاعله على موقعك، ويساعدك تختار العقار أو المعلومة الأقرب لاهتمامه.</p>
+                        <h2 id="home-client-h" class="es-home-h2">افهم عميلك. واعرف تبعت له إيه.</h2>
+                        <p class="es-home-lead">إستاڤو يربط اللي العميل قاله بتفاعله على موقعك وبمواصفات الوحدات. عشان يوضح اهتمامه، يقترح معلومة مناسبة تبعتهاله، ويبين أنهي عملاء ممكن يهتموا بوحدة عندك.</p>
                         <div class="es-home-actions">
                             <a href="marketing/" class="es-home-btn es-home-btn--secondary"
                                 data-track="service_selected" data-position="client" data-home-event="home_client_insights_click">شوف إزاي إستاڤو يفهم عميلك</a>
                         </div>
                     </div>
 
-                    <figure class="es-home-signals es-home-understand" data-home-signals aria-label="مثال توضيحي: تفاعل عميل على موقعك بيتحول لفهم">
-                        <ul class="es-home-understand__signals">
-                            <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-unit" /></svg></span>رجع لمشروع ب مرتين</li>
-                            <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-compare" /></svg></span>قارن أ وب</li>
-                            <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-delivery" /></svg></span>سأل عن الاستلام</li>
-                            <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-details" /></svg></span>طلب تفاصيل ب</li>
-                        </ul>
-                        <div class="es-home-signals__stem" aria-hidden="true"><span class="es-home-rail es-home-rail--v is-resolved"></span><span class="es-home-core"><img src="assets/logo/estavo-mark-white-128.webp" width="128" height="128" alt="" decoding="async" /></span><span class="es-home-rail es-home-rail--v is-resolved"></span></div>
+                    <figure class="es-home-signals es-home-understand" data-home-signals aria-label="مثال توضيحي: طلب العميل وتفاعله على موقعك بيتحولوا لفهم واقتراح">
+                        <div class="es-home-understand__inputs">
+                            <div class="es-home-evidence es-home-evidence--said">
+                                <p class="es-home-evidence__label"><svg class="es-home-ic" aria-hidden="true"><use href="#i-request" /></svg>قال</p>
+                                <p class="es-home-evidence__said">التجمع · 3 غرف · مقدم حتى <span class="es-home-num">1.5M</span></p>
+                            </div>
+                            <div class="es-home-evidence es-home-evidence--seen">
+                                <p class="es-home-evidence__label"><svg class="es-home-ic" aria-hidden="true"><use href="#i-website" /></svg>على موقعك</p>
+                                <ul class="es-home-understand__signals">
+                                    <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-unit" /></svg></span>رجع لمشروع ب مرتين</li>
+                                    <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-compare" /></svg></span>قارن أ وب</li>
+                                    <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-delivery" /></svg></span>سأل عن الاستلام</li>
+                                    <li class="es-home-sig"><span class="es-home-sig__icon"><svg class="es-home-ic" aria-hidden="true"><use href="#i-details" /></svg></span>طلب تفاصيل ب</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="es-home-signals__stem" aria-hidden="true"><span class="es-home-signals__join"></span><span class="es-home-core"><img src="assets/logo/estavo-mark-white-128.webp" width="128" height="128" alt="" decoding="async" /></span><span class="es-home-rail es-home-rail--v is-resolved"></span></div>
                         <div class="es-home-insight">
                             <p class="es-home-insight__label"><svg class="es-home-ic" aria-hidden="true"><use href="#i-analysis" /></svg>اللي إستاڤو فهمه<span class="es-home-example">مثال توضيحي</span></p>
-                            <ul class="es-home-insight__list"><li>مهتم بمشروع ب</li><li><em>اقتراح</em>ابعتله تفاصيل الاستلام</li></ul>
+                            <ul class="es-home-insight__list"><li>مهتم بمشروع ب، ومقارن بينه وبين أ</li><li><em>اقتراح</em>ابعتله مقارنة الاستلام بين أ وب</li></ul>
                         </div>
                     </figure>
                 </div>
 
+                <p class="es-home-both-ways"><svg class="es-home-ic" aria-hidden="true"><use href="#i-compare" /></svg>من العميل للعقار، ومن العقار للعملاء المناسبين.</p>
                 <details class="es-home-disclosure es-home-reverse">
                     <summary>عندك وحدة؟ شوف مين ممكن تناسبه</summary>
                     <div class="es-home-disclosure__body">
                         <figure class="es-home-match" data-home-match aria-labelledby="home-match-caption">
                             <p class="es-home-match__unit"><b>مشروع ب · شقة 3 غرف</b><span>التجمع · <span class="es-home-num">8.0M</span> · مقدم <span class="es-home-num">1.2M</span> · استلام <span class="es-home-num">2027</span></span></p>
                             <ul class="es-home-match__list">
-                                <li class="es-home-interest is-fit"><span>التجمع · 3 غرف · مقدم قليل</span><em><svg class="es-home-ic" aria-hidden="true"><use href="#i-check" /></svg>متوافق</em></li>
-                                <li class="es-home-interest is-partial"><span>التجمع · استلام فوري</span><em>جزئيًا: الاستلام <span class="es-home-num">2027</span></em></li>
-                                <li class="es-home-interest is-none"><span>الشيخ زايد · فيلا</span><em>مش متوافق</em></li>
+                                <li class="es-home-interest is-fit"><span>التجمع · 3 غرف · مقدم حتى <span class="es-home-num">1.5M</span></span><em><svg class="es-home-ic" aria-hidden="true"><use href="#i-check" /></svg>متوافق: المقدم <span class="es-home-num">1.2M</span> في حدوده</em></li>
+                                <li class="es-home-interest is-partial"><span>التجمع · استلام فوري</span><em>جزئيًا: المنطقة مناسبة، والاستلام <span class="es-home-num">2027</span></em></li>
+                                <li class="es-home-interest is-none"><span>الشيخ زايد · فيلا</span><em>مش متوافق: منطقة ونوع مختلفين</em></li>
                             </ul>
                             <figcaption id="home-match-caption" class="es-home-example">طلبات عملاء من غير أسماء · مثال توضيحي</figcaption>
                         </figure>
@@ -634,18 +674,18 @@
         </section>
 
         <!-- ══════════════════════════════════════════════════════
-             6. GROWTH — one pattern, one practical consequence.
-             One prominent example pattern, two secondary clusters, one
-             small Meta destination (plain text label: official Meta
-             brand assets are not yet cleared for this page). No
-             audience sizes, statuses or performance claims.
+             6. GROWTH — client patterns → information for a campaign →
+             a small Meta destination (plain text label: official Meta
+             brand assets are not cleared for this page). Patterns are
+             illustrative and may overlap. No audience sizes, statuses,
+             automatic-audience claims or performance claims.
              ══════════════════════════════════════════════════════ -->
         <section id="home-growth" class="es-home-band es-home-band--mist" aria-labelledby="home-growth-h" data-home-view="home_growth_view">
             <div class="es-container es-home-split">
                 <div class="es-home-copy">
                     <p class="es-home-eyebrow">التسويق</p>
                     <h2 id="home-growth-h" class="es-home-h2">افهم عملاءك. ووصل لناس أنسب.</h2>
-                    <p class="es-home-lead">اعرف المشترك بين العملاء المناسبين لشغلك، واستفيد من اهتمامهم في إعلاناتك على <bdi>Meta</bdi>.</p>
+                    <p class="es-home-lead">اعرف المناطق والميزانيات وأنواع الوحدات اللي بتجمع العملاء المناسبين لشغلك. استخدم الصورة دي في اختيار العقارات والرسائل اللي تعلن بيها، واستفيد من ربط موقعك بـ<bdi>Meta</bdi> في حملاتك.</p>
                     <div class="es-home-actions">
                         <a href="meta/" class="es-home-btn es-home-btn--secondary"
                             data-track="service_selected" data-position="growth" data-home-event="home_meta_click">شوف ربط <bdi>Meta</bdi></a>
@@ -653,20 +693,24 @@
                     <p class="es-home-control"><svg class="es-home-ic" aria-hidden="true"><use href="#i-control" /></svg>حسابك الإعلاني وميزانيتك تحت تحكمك.</p>
                 </div>
 
-                <figure class="es-home-growth-fig" aria-label="مثال توضيحي: نمط متكرر بين عملائك بيبقى جمهور حملة على حسابك في Meta">
+                <figure class="es-home-growth-fig" aria-label="مثال توضيحي: اهتمامات متكررة بين عملائك بتتحول لمعلومات تستخدمها في حملتك">
                     <div class="es-home-clusters" data-home-clusters>
                         <div class="es-home-cluster es-home-cluster--key"><i class="es-home-dot" style="--x:30%;--y:34%;--sx:-60px;--sy:70px"></i><i class="es-home-dot" style="--x:52%;--y:24%;--sx:90px;--sy:110px"></i><i class="es-home-dot" style="--x:70%;--y:44%;--sx:150px;--sy:20px"></i><i class="es-home-dot" style="--x:40%;--y:60%;--sx:40px;--sy:160px"></i><i class="es-home-dot" style="--x:60%;--y:72%;--sx:-30px;--sy:120px"></i><i class="es-home-dot" style="--x:24%;--y:64%;--sx:120px;--sy:-20px"></i></div>
-                        <p class="es-home-cluster__label es-home-cluster__label--key"><b>نمط متكرر</b>التجمع · <span class="es-home-num">8–10M</span> · 3 غرف</p>
+                        <p class="es-home-cluster__label es-home-cluster__label--key"><b>اهتمام متكرر</b>التجمع · <span class="es-home-num">8–10M</span> · 3 غرف</p>
                         <div class="es-home-cluster es-home-cluster--a"><i class="es-home-dot" style="--x:34%;--y:40%;--sx:-140px;--sy:60px"></i><i class="es-home-dot" style="--x:62%;--y:36%;--sx:-90px;--sy:140px"></i><i class="es-home-dot" style="--x:50%;--y:66%;--sx:-170px;--sy:10px"></i></div>
-                        <p class="es-home-cluster__label es-home-cluster__label--a">الساحل · استثمار</p>
+                        <p class="es-home-cluster__label es-home-cluster__label--a">مقدم أقل · تقسيط أطول</p>
                         <div class="es-home-cluster es-home-cluster--b"><i class="es-home-dot" style="--x:38%;--y:40%;--sx:-110px;--sy:-80px"></i><i class="es-home-dot" style="--x:62%;--y:52%;--sx:80px;--sy:-120px"></i><i class="es-home-dot" style="--x:44%;--y:68%;--sx:-40px;--sy:-150px"></i></div>
-                        <p class="es-home-cluster__label es-home-cluster__label--b">مقدم أقل · تقسيط أطول</p>
+                        <p class="es-home-cluster__label es-home-cluster__label--b">الساحل · استثمار</p>
                         <span class="es-home-example es-home-clusters__caption">مثال توضيحي</span>
                     </div>
                     <span class="es-home-rail es-home-rail--v is-resolved es-home-growth-fig__link" aria-hidden="true"></span>
                     <div class="es-home-campaign">
-                        <p class="es-home-campaign__head"><b><bdi>Meta</bdi></b><span>حسابك الإعلاني</span></p>
-                        <p class="es-home-campaign__aud"><span>جمهور الحملة</span><b>التجمع · <span class="es-home-num">8–10M</span> · 3 غرف</b></p>
+                        <p class="es-home-campaign__title"><svg class="es-home-ic" aria-hidden="true"><use href="#i-marketing" /></svg>معلومات لحملتك</p>
+                        <dl class="es-home-campaign__list">
+                            <div><dt>اعلن عن</dt><dd>شقق 3 غرف في التجمع · <span class="es-home-num">8–10M</span></dd></div>
+                            <div><dt>ركّز في الرسالة على</dt><dd>المقدم وخطة السداد</dd></div>
+                        </dl>
+                        <p class="es-home-campaign__dest"><span>تستخدمها في حملتك على</span><b><bdi>Meta</bdi></b></p>
                     </div>
                 </figure>
             </div>
@@ -674,7 +718,8 @@
 
         <!-- ══════════════════════════════════════════════════════
              7. START FREE — a decision point. Two free doors lead;
-             paid scope is one line; other routes are compact links.
+             paid scope is one line; the company/platform profile is one
+             line; other routes are compact links to existing pages.
              ══════════════════════════════════════════════════════ -->
         <section id="home-start-free" class="es-home-band es-home-band--white" aria-labelledby="home-start-h">
             <div class="es-container">
@@ -683,25 +728,26 @@
                 <div class="es-home-free">
                     <article class="es-home-free-card">
                         <p class="es-home-free-card__head"><b class="es-home-h3"><bdi>Estavo Market</bdi></b><span class="es-home-badge">مجاني</span></p>
-                        <p>دور وقارن المشاريع والوحدات.</p>
+                        <p>دور وقارن المشاريع والوحدات وخطط السداد، من مكان واحد.</p>
                         <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-home-btn es-home-btn--primary"
                             data-track="market_opened" data-position="start_free" data-home-event="home_market_free_click">افتح <bdi>Estavo Market</bdi> مجانًا</a>
                     </article>
                     <article class="es-home-free-card">
                         <p class="es-home-free-card__head"><b class="es-home-h3">موقعك</b><span class="es-home-badge">مجاني</span></p>
-                        <p>اعرض شغلك باسمك واستقبل استفسارات العملاء.</p>
+                        <p>اعرض مشاريعك ووحداتك باسمك، وخلي العميل يتواصل معاك مباشرة.</p>
                         <a href="https://estavo-brokers.com/website/" class="es-home-btn es-home-btn--primary"
                             data-track="website_preview_started" data-position="start_free" data-home-event="home_website_free_click">اعمل موقعك مجانًا</a>
                     </article>
                 </div>
 
                 <p class="es-home-note es-home-center es-home-scope">بيانات المدن على موقعك والـ<bdi>AI</bdi> حسب الباقة أو الرصيد.</p>
+                <p class="es-home-business">عندك شركة أو منصة؟ استخدم بيانات إستاڤو والـ<bdi>AI</bdi> باسم شركتك أو جوه نظامك.</p>
 
                 <ul class="es-home-routes">
                     <li><a href="pricing/" class="es-home-link" data-track="service_selected" data-position="pricing" data-home-event="home_pricing_click">شوف الأسعار</a></li>
-                    <li><a href="enterprise/" class="es-home-link" data-track="service_selected" data-position="enterprise" data-home-event="home_enterprise_click">عندك شركة؟</a></li>
-                    <li><a href="integrations/" class="es-home-link" data-track="service_selected" data-position="integrations" data-home-event="home_integrations_click">عندك منصة؟</a></li>
-                    <li><a href="listings/" class="es-home-link" data-track="service_selected" data-position="resale" data-home-event="home_resale_click">عندك وحدات ريسيل؟</a></li>
+                    <li><a href="enterprise/" class="es-home-link" data-track="service_selected" data-position="enterprise" data-home-event="home_enterprise_click">حلول الشركات</a></li>
+                    <li><a href="integrations/" class="es-home-link" data-track="service_selected" data-position="integrations" data-home-event="home_integrations_click">الربط بمنصتك</a></li>
+                    <li><a href="listings/" class="es-home-link" data-track="service_selected" data-position="resale" data-home-event="home_resale_click">شبكة الريسيل</a></li>
                 </ul>
             </div>
         </section>
@@ -716,19 +762,19 @@
                 <div class="es-faq es-home-faq" data-exclusive-details>
                     <details>
                         <summary>إيه المجاني؟</summary>
-                        <p>البحث والمقارنة في <bdi>Estavo Market</bdi>، والموقع الأساسي. بيانات المدن على موقعك والـ<bdi>AI</bdi> حسب الباقة أو الرصيد.</p>
+                        <p>البحث والمقارنة في <bdi>Estavo Market</bdi>، والموقع الأساسي. بيانات المدن على موقعك واستخدام الـ<bdi>AI</bdi> حسب الباقة أو الرصيد؛ شوف التفاصيل قبل ما تختار.</p>
                     </details>
                     <details>
                         <summary>لازم أعمل موقع؟</summary>
-                        <p>لأ. تقدر تستخدم <bdi>Estavo Market</bdi> للبحث والمقارنة من غير موقع.</p>
+                        <p>لأ. تقدر تستخدم <bdi>Estavo Market</bdi> لوحده. الموقع بيديك طريقة تعرض بيها شغلك وتستخدم الخدمات المتاحة لعملائك باسمك.</p>
                     </details>
                     <details>
                         <summary>البيانات وإجابات الـ<bdi>AI</bdi> جاية منين؟</summary>
-                        <p>من بيانات المشاريع والوحدات المتاحة لإستاڤو. المتاح بيختلف حسب المدينة والمشروع، والسعر والتوافر بيتأكدوا قبل الحجز.</p>
+                        <p>من بيانات المشاريع والوحدات المتاحة لإستاڤو. وعلى موقعك، من العقارات المسموح بعرضها عندك. السعر والتوافر بيتأكدوا قبل الحجز.</p>
                     </details>
                     <details>
                         <summary>إستاڤو بيفهم اهتمام العميل إزاي؟</summary>
-                        <p>من اللي يشاركه والتفاعل اللي يتسجّل على موقعك. التحليل يساعدك تفهم اهتمامه، ومش تأكيد إنه هيشتري. <a href="privacy.html" class="es-home-link">سياسة الخصوصية</a></p>
+                        <p>من اللي العميل يشاركه والتفاعل اللي يتسجّل على موقعك. التحليل يساعدك تفهم اهتمامه وتختار معلومة مناسبة؛ مش تأكيد إنه هيشتري. <a href="privacy.html" class="es-home-link">سياسة الخصوصية</a></p>
                     </details>
                 </div>
             </div>
@@ -864,7 +910,7 @@
     <!-- referral.js must load before the page scripts so CTA links are tagged before tracking fires -->
     <script src="assets/js/referral.js?v=20260918-chat-ui" defer></script>
     <script src="assets/js/v3/estavo-v3.js?v=e26608a3f2" defer></script>
-    <script src="assets/js/home.js?v=20261004-home13" defer></script>
+    <script src="assets/js/home.js?v=974bf26bf2" defer></script>
     <script src="assets/js/raghad-loader.js?v=20261003-perf1" defer></script>
 
     <div class="es-sticky-cta sticky-cta es-home-sticky visible" data-home-sticky aria-hidden="false">

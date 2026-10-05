@@ -85,9 +85,10 @@ for (const [file, labels, labelKey] of [
             assert.ok(figure, item.dataset.proof);
             assert.ok(figure.display <= figure.verified, `${figure.key} rounds above ${figure.verified}`);
             const value = item.querySelector('.es-home-proof__value');
-            // The final value ships in the HTML so no-JS readers see the real proof.
+            // The final value ships in the HTML and is never animated through
+            // intermediate (unverified) numbers.
             assert.equal(value.textContent.trim(), `${figure.display.toLocaleString('en-US')}+`);
-            assert.equal(Number(value.dataset.count), figure.display);
+            assert.equal(value.dataset.count, undefined, 'no count-up hook');
         }
         // The snapshot date shown is the verified date in the config.
         const [y, , d] = PROOF.verified_at.split('-').map(Number);
@@ -95,8 +96,11 @@ for (const [file, labels, labelKey] of [
         assert.match(note, new RegExp(`${d}`));
         assert.match(note, new RegExp(`${y}`));
         assert.match(note, labelKey === 'ar' ? /أكتوبر/ : /October/);
-        // Units are presented as records in Estavo's data, not as live availability.
-        assert.doesNotMatch(doc.querySelector('[data-proof="units"]').textContent, /متاح|available/i);
+        // The units figure counts unit models (types with price ranges), so it is
+        // labelled as such — never as individual or available units.
+        const units = doc.querySelector('[data-proof="units"] > span').textContent.trim();
+        assert.equal(units, labelKey === 'ar' ? 'نموذج وحدة' : 'unit types');
+        assert.doesNotMatch(units, /متاح|available/i);
         // Superseded / overstated figures must not reappear anywhere visible.
         const visible = doc.querySelector('main').cloneNode(true);
         visible.querySelectorAll('template').forEach((t) => t.remove());
@@ -209,17 +213,30 @@ for (const [file, labels, labelKey] of [
         assert.deepEqual(chips, L === 'ar'
             ? ['التجمع', '3 غرف', 'حتى 8M', 'مقدم حتى 1.5M', 'الأولوية لأقل مقدم']
             : ['New Cairo', '3 bedrooms', 'Up to EGP 8M', 'Down payment up to EGP 1.5M', 'Lowest down payment first']);
-        // One selected card and two short alternatives by default — not three expanded cards.
-        assert.equal(request.querySelectorAll('.es-home-prop').length, 1);
-        const pick = request.querySelector('.es-home-prop--best');
+        // One option list for both layouts: B (selected) first, then A and C.
+        const options = [...request.querySelectorAll('.es-home-options > .es-home-opt')];
+        assert.equal(options.length, 3);
+        assert.equal(request.querySelectorAll('.es-home-opt--best').length, 1);
+        const pick = request.querySelector('.es-home-opt--best');
+        assert.equal(options[0], pick, 'the selected option leads the list (first on phones)');
         assert.match(pick.textContent, new RegExp(unit('B')[L]));
         assert.match(pick.textContent, new RegExp(money(unit('B').price).replace('.', '\\.')));
         assert.match(pick.textContent, new RegExp(money(unit('B').down_payment).replace('.', '\\.')));
         const reason = pick.querySelector('.es-home-reason').textContent.trim();
         assert.equal(reason, L === 'ar' ? 'أقل مقدم بين الاختيارات داخل الميزانية' : 'Lowest down payment among the in-budget options');
         assert.doesNotMatch(reason, /استلام|delivery/i, 'delivery is flexible, so it is not the ranking reason');
-        const alts = [...request.querySelectorAll('.es-home-alts li')].map((li) => li.textContent.replace(/\s+/g, ' '));
+        const alts = [...request.querySelectorAll('.es-home-opt--alt')].map((li) => li.textContent.replace(/\s+/g, ' '));
         assert.equal(alts.length, 2);
+        // Each option carries its own facts (shown side by side on wide screens) and a reason.
+        for (const [el, key] of options.map((o, i) => [o, ['B', 'A', 'C'][i]])) {
+            const u = unit(key);
+            const t = el.textContent.replace(/\s+/g, ' ');
+            assert.match(t, new RegExp(money(u.price).replace('.', '\\.')), `${key} price`);
+            assert.match(t, new RegExp(money(u.down_payment).replace('.', '\\.')), `${key} down payment`);
+            assert.match(t, new RegExp(`${u.plan_years} `), `${key} plan`);
+            assert.ok(el.querySelector('.es-home-reason'), `${key} has a visible reason`);
+        }
+        assert.ok(options[2].classList.contains('is-outside'));
         assert.match(alts[0], /7\.9M/);
         assert.match(alts[0], L === 'ar' ? /سعر إجمالي أقل · تقسيط أطول/ : /Lower total price · longer payment plan/);
         assert.match(alts[1], /8\.3M/);
@@ -243,7 +260,7 @@ for (const [file, labels, labelKey] of [
     test(`${file}: every surface that shows the example uses the same numbers`, () => {
         const { doc } = load(file);
         const B = unit('B');
-        for (const selector of ['#home-hero .es-home-intel__result', '#home-request .es-home-prop--best',
+        for (const selector of ['#home-hero .es-home-intel__result', '#home-request .es-home-opt--best',
             '#home-website .es-home-listing', '#home-client .es-home-match__unit']) {
             const text = doc.querySelector(selector).textContent;
             assert.match(text, new RegExp(B[labelKey]), selector);
@@ -286,7 +303,7 @@ for (const [file, labels, labelKey] of [
         // Unofficial Meta/Facebook marks are not used until official assets are cleared.
         assert.doesNotMatch(html, /i-brand-meta|i-brand-facebook/);
         // Superseded components.
-        assert.equal(main.querySelector('.es-home-signature, .es-home-outputs, .es-home-keys:not(template *), .es-home-tri, blockquote, .es-home-build__form, .es-home-closing__triangle, .es-home-lockup'), null);
+        assert.equal(main.querySelector('.es-home-signature, .es-home-outputs, .es-home-keys:not(template *), .es-home-tri, blockquote, .es-home-build__form, .es-home-closing__triangle, .es-home-lockup, .es-home-prop, .es-home-alts'), null);
         assert.doesNotMatch(main.textContent, /Tracking|Budget Range|Client Intelligence/);
         // A visit is not proof of growing interest: no unqualified "increased" claim.
         assert.doesNotMatch(main.querySelector('#home-client').textContent, /زاد|increased/i);
@@ -328,6 +345,94 @@ for (const [file, labels, labelKey] of [
         assert.ok(doc.querySelector('#home-faq a[href^="privacy"]'), 'privacy policy linked from the FAQ');
     });
 }
+
+test('balance pass: each section answers its question visibly, without opening anything', () => {
+    for (const [file, ar] of [['index.html', true], ['en.html', false]]) {
+        const { doc } = load(file);
+        const lead = (id) => doc.querySelector(`#${id} .es-home-lead`).textContent.replace(/\s+/g, ' ');
+        // Hero: names the AI, the market data, the properties and client interest on the website.
+        assert.match(lead('home-hero'), ar ? /بالـ ?AI.*بيانات السوق.*الوحدات.*عملاءك على موقعك/ : /AI.*market data.*property details.*client interests from your website/);
+        // Market: what Estavo maintains, in three compact groups, and the work it replaces.
+        assert.match(lead('home-market'), ar ? /يجمع.*ويتابع تحديثاتها.*برايس ليست/ : /maintains the information it covers.*price lists/);
+        assert.equal(doc.querySelectorAll('#home-market .es-home-groups li').length, 3);
+        // Request: the client can explain it on the broker's site; reasons are explained.
+        assert.match(lead('home-request'), ar ? /خلي العميل يشرحه بنفسه على موقعك.*وسبب كل ترشيح/ : /let the client explain it through the AI on your website.*reason behind each recommendation/);
+        // Website: what the site provides, including the assistant.
+        assert.match(lead('home-website'), ar ? /وحداتك الخاصة.*مساعد عقاري/ : /your own listings.*property assistant/);
+        // Client: both directions stated in visible text, not only inside the disclosure.
+        assert.match(lead('home-client'), ar ? /أنهي عملاء ممكن يهتموا بوحدة/ : /which known clients could be a fit for a unit/);
+        const both = doc.querySelector('#home-client .es-home-both-ways');
+        assert.ok(both && !both.closest('details'));
+        // Growth: understanding → what to promote → Meta.
+        assert.match(lead('home-growth'), ar ? /اختيار العقارات والرسائل.*Meta/ : /choose what to promote.*Meta/);
+        // Start free: the company / platform profile is one line beside the free doors.
+        assert.match(doc.querySelector('#home-start-free .es-home-business').textContent, ar ? /شركة أو منصة/ : /company or an existing platform/);
+        const routes = [...doc.querySelectorAll('#home-start-free .es-home-routes a')].map((a) => a.textContent.trim());
+        assert.deepEqual(routes, ar ? ['شوف الأسعار', 'حلول الشركات', 'الربط بمنصتك', 'شبكة الريسيل']
+            : ['See pricing', 'Company solutions', 'Platform integrations', 'Resale network']);
+        // Leads stay compact paragraphs: no lists or rhetorical questions inside them.
+        doc.querySelectorAll('main .es-home-lead').forEach((p) => {
+            assert.doesNotMatch(p.textContent, /[؟?]/);
+            assert.ok(p.textContent.trim().split(/\s+/).length <= 45, p.textContent.slice(0, 40));
+        });
+        // No retired vocabulary.
+        assert.doesNotMatch(doc.querySelector('main').textContent, /مصدر الـ ?Intelligence|Client Intelligence|Budget Range|CRM|مش مجرد/);
+    }
+});
+
+test('the Request action names what its destination is', () => {
+    for (const [file, ar] of [['index.html', true], ['en.html', false]]) {
+        const { doc } = load(file);
+        const a = doc.querySelector('#home-request .es-home-section-foot a');
+        // /market/#ai-expert explains Brokers AI; it is not a working analysis entry.
+        assert.match(a.getAttribute('href'), /^market\/(en\.html)?#ai-expert$/);
+        assert.equal(a.textContent.trim(), ar ? 'شوف إزاي إستاڤو يحلل الطلب' : 'See how Estavo analyses a request');
+    }
+});
+
+test('market map: the selected pin is joined to its card by geometry from the map data', () => {
+    for (const file of ['index.html', 'en.html']) {
+        const { doc } = load(file);
+        const map = doc.querySelector('#home-market .es-home-map');
+        const x = parseFloat(map.style.getPropertyValue('--sel-x'));
+        const y = parseFloat(map.style.getPropertyValue('--sel-y'));
+        assert.ok(x > 0 && x < 1 && y > 0 && y < 1, `${file}: selected pin fractions`);
+        // Matches the rendered inset pin: inset box + pin offset inside it.
+        const inset = map.querySelector('.es-home-map__inset');
+        const pin = inset.querySelector('.es-home-map__node--selected');
+        const fx = (parseFloat(inset.style.left) + parseFloat(pin.style.left) * parseFloat(inset.style.width) / 100) / 100;
+        assert.ok(Math.abs(fx - x) < 0.002, `${file}: connector x follows the pin (${fx} vs ${x})`);
+        assert.ok(map.querySelector('.es-home-map__link[aria-hidden="true"]'));
+        assert.match(map.querySelector('.es-home-map__update').textContent, /خطة السداد اتحدّثت|Payment plan updated/);
+    }
+});
+
+test('website and client figures: illustrative, non-interactive, evidence kept apart', () => {
+    for (const [file, ar] of [['index.html', true], ['en.html', false]]) {
+        const { doc } = load(file);
+        const site = doc.querySelector('#home-website figure');
+        // A real-looking site: brand, contact destination, property facts, the site's assistant.
+        assert.ok(site.querySelector('.es-home-brand'));
+        assert.ok(site.querySelector('.es-home-browser__contact'));
+        assert.equal(site.querySelectorAll('.es-home-listing__facts div').length, 4);
+        assert.equal(site.querySelectorAll('.es-home-bubble--client').length, 1);
+        assert.match(site.querySelector('.es-home-bubble--ai').textContent, ar ? /ميزانيتك والمقدم/ : /budget and available down payment/);
+        // Nothing in an illustration invites input it cannot handle.
+        for (const fig of doc.querySelectorAll('main figure')) {
+            assert.equal(fig.querySelector('input, textarea, select, button, a, [contenteditable], [tabindex]'), null);
+        }
+        assert.equal((site.textContent.match(ar ? /مثال توضيحي/g : /Example/g) || []).length, 1, 'labelled once');
+        // Client: what was said, what was observed, then Estavo's reading.
+        const fig = doc.querySelector('#home-client [data-home-signals]');
+        assert.ok(fig.querySelector('.es-home-evidence--said'));
+        assert.equal(fig.querySelectorAll('.es-home-evidence--seen .es-home-sig').length, 4);
+        assert.match(fig.querySelector('.es-home-insight__list').textContent, ar ? /مقارنة الاستلام بين أ وب/ : /handover comparison of A and B/);
+        assert.doesNotMatch(fig.textContent, /جاهز|عاجل|ready to buy|urgent|%/i);
+        // Reverse matching gives concrete reasons; the immediate-handover need is only partly compatible.
+        const partial = doc.querySelector('#home-client .es-home-interest.is-partial').textContent;
+        assert.match(partial, /2027/);
+    }
+});
 
 test('mint stays an intelligence colour, never a CTA or badge', () => {
     const css = fs.readFileSync(path.join(__dirname, '../assets/css/home.css'), 'utf8');
@@ -380,8 +485,12 @@ test('graphics: compact hero model, client insight, growth pattern, consistent C
     for (const [file, ar] of [['index.html', true], ['en.html', false]]) {
         const { doc } = load(file);
         // Hero: a compact market/property/client model — three labels, no sub-paragraphs.
-        const nodes = [...doc.querySelectorAll('#home-hero .es-home-fw__nodes li')].map((n) => n.textContent.trim());
+        const nodes = [...doc.querySelectorAll('#home-hero .es-home-fw__nodes li > b')].map((n) => n.textContent.trim());
         assert.deepEqual(nodes, ar ? ['السوق', 'العقار', 'العميل'] : ['Market', 'Property', 'Client']);
+        // Each area names what it holds in one short line, not a paragraph.
+        doc.querySelectorAll('#home-hero .es-home-fw__nodes small').forEach((n) => assert.ok(n.textContent.trim().split(/\s+/).length <= 4));
+        // The hero is an overview: one result line and its reason, not the full fact grid.
+        assert.equal(doc.querySelector('#home-hero .es-home-facts'), null);
         assert.equal(doc.querySelector('#home-hero figcaption'), null, 'no second explanation under the model');
         assert.equal(doc.querySelectorAll('#home-hero .es-home-micro').length, 1, 'positioning signature appears once');
         // Client: four signals (2×2) → one insight panel with an interest and a labelled suggestion.
@@ -399,6 +508,9 @@ test('graphics: compact hero model, client insight, growth pattern, consistent C
         assert.equal(doc.querySelectorAll('#home-growth .es-home-cluster').length, 3);
         const panel = doc.querySelector('#home-growth .es-home-campaign');
         assert.match(panel.textContent, /Meta/);
+        // The panel is information for a campaign, not an automatically created audience.
+        assert.equal(panel.querySelector('.es-home-campaign__title').textContent.trim(), ar ? 'معلومات لحملتك' : 'Insights for your campaign');
+        assert.doesNotMatch(panel.textContent, /جمهور|audience/i);
         assert.doesNotMatch(panel.textContent, /\b\d{2,}(,\d{3})*\s*(people|users|شخص|مستخدم)/i);
         assert.match(doc.querySelector('#home-growth .es-home-control').textContent, ar ? /تحت تحكمك/ : /under your control/);
         // Website creation buttons share one label everywhere.

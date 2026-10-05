@@ -4,7 +4,7 @@ This is the durable context document for any agent working in this directory. It
 
 Read this file before changing public copy, information architecture, layouts, illustrations, motion, routes, or generated pages. For the detailed illustration specification, also read `DESIGN-GUIDELINES.md`.
 
-Last consolidated from the working site: **19 September 2026**; homepage sections updated **4 October 2026**.
+Last consolidated from the working site: **19 September 2026**; homepage sections updated **5 October 2026**.
 
 ---
 
@@ -191,7 +191,7 @@ The current bilingual homepages are `index.html` and `en.html`. They are hand-ma
 
 Since **3 October 2026** the homepage positions Estavo as a real-estate data intelligence system: **السوق + العقار + العميل, connected by Estavo**. Headline: «معاك حد مذاكر السوق. وفاهم عميلك.» / "The market, studied. Your client, understood."
 
-Since **4 October 2026** it is a **compact, visual-first parent page**. Each feature section has one short heading, one sentence, one useful graphic and one action. The graphic is the proof, so no caption or paragraph repeats it. Secondary detail lives in native `<details>`. The measured default view at 390×844 is about 470 (Arabic) and 585 (English) painted words inside `<main>`, with FAQ and disclosures closed. Do not grow it back with slogans, signature lines, key lists or recaps.
+Since **4 October 2026** it is a **compact, visual-first parent page**; the **5 October balance pass** restored the explanation the one-sentence rule had cut. Each feature section has one short heading, **one compact paragraph (normally two short sentences) that says why the capability matters**, one explanatory graphic, a few meaningful labels or one disclosure, and one action with any price/usage boundary beside it. One complete explanation stays visible without opening anything; disclosures hold full comparisons or secondary demonstrations, never the main promise or offer conditions. There is **no word-count or percentage target**: counts and heights are diagnostics only (5 Oct, 390×844, closed disclosures: ~632 AR / ~805 EN painted words in `<main>`). Do not grow it with slogans, rhetorical questions, recaps or stacked lists, and do not cut the sentence that explains a feature to hit a number. A broker should be able to answer, without opening anything: what Estavo maintains, what its AI does with a request, whether clients can talk to the assistant, what a site under their name provides, how client interest is understood, how that informs advertising, and what is free.
 
 It has exactly nine visible sections (`home-hero`, `home-market`, `home-request`, `home-website`, `home-client`, `home-growth`, `home-start-free`, `home-faq`, `home-closing`), enforced by `tests/homepage.test.js` and `tools/qa.js`:
 
@@ -203,8 +203,8 @@ It has exactly nine visible sections (`home-hero`, `home-market`, `home-request`
 - **Free/paid boundary (every place it is stated):** Estavo Market search/comparison and the basic website are free; city data on the website and AI depend on the plan or credits; Brokers AI and PDF offers use credits. Never say "free website" in a way that implies free data, all cities or unlimited AI.
 - **Proof strip (hero):**
   - Figures come only from `tools/data/home-proof.json`: the measured production count (`verified`), its source and date, and the published floor (`display`, shown with "+"). `display` may never exceed `verified`; `tools/qa.js` and the tests enforce both.
-  - Units are labelled «وحدة في بياناتنا» / "units in our data". They are active unit models, not live availability.
-  - Shown on a 2×2 grid on phones, with the snapshot date. The final number is in the HTML; JS only counts up from 85%.
+  - Units are labelled «نموذج وحدة» / "unit types": the count is active **unit models** (types with price ranges), not individual or available units. Never relabel it «وحدة» / "units" without a count of individual units.
+  - Shown on a 2×2 grid on phones, with the snapshot date. The final number is in the HTML and is **never animated** (a count-up paints unverified intermediate values). `data-value` on each item is the figure `tools/qa.js` checks.
   - Refreshing requires a new production count. Run the queries in `HOMEPAGE-V2-GUIDE.md` §1.0 on the production API database (owner: product/engineering lead, with production access). Then update `verified`, `display` (round down) and `verified_at` together. Service pages read the units/brokers floors from the same file through `tools/qa.js`.
 - **Illustrative fixture — `tools/data/home-fixture.json`:**
   - This is the single source for the hero, Request, website preview and client visuals.
@@ -219,14 +219,16 @@ It has exactly nine visible sections (`home-hero`, `home-market`, `home-request`
   - **Product coverage** is a separate decision: the nine Estavo Brokers main markets in `PINS` (`coverage_source`). A full-country outline is not a claim of coverage everywhere.
   - North Coast, Ain Sokhna and Red Sea pins sit at their true coordinates. The six Greater Cairo markets are marked by a ring and drawn in a Cairo inset (same paths via `<use>`), because at country scale they would overlap.
   - Never move a coordinate for spacing, and never put names on points.
-  - The selected market (Sheikh Zayed) shows one example project card. Its update is labelled as an example and carries no live-looking date.
-- **Website section:** the visitor's own site is the demo: «بياناتك» → one branded browser preview with static content (no fake input or button). Never link an examples gallery from the homepage.
+  - The selected market (Sheikh Zayed) shows one example project card, joined to the selected inset pin by a mint rail (`.es-home-map__link`). The rail's geometry comes from `--sel-x`/`--sel-y` (selected-pin fractions of the frame, written by the map builder) and the board's `cqi`, so it survives resizing and enlarged text; on wide boards the card sits on the map's west side in both languages. The update («خطة السداد اتحدّثت») is labelled as an example and carries no live-looking date.
+  - The copy column names what is maintained in three plain groups: availability and prices; payment plans and handover; finishing, maintenance and amenities.
+- **Request section:** one `.es-home-options` list for both layouts (B first in the DOM). At ≥52rem the three options sit side by side with B in the middle, each with down payment, plan, handover and a reason tag; below that B is the card and A/C are short rows (name, price, reason; their facts are hidden and live in the comparison table). The action links to the `/market/#ai-expert` explainer, so it reads «شوف إزاي إستاڤو يحلل الطلب» / "See how Estavo analyses a request" — use a "Try" label only for a working analysis entry.
+- **Website section:** the visitor's own site is the demo: «بياناتك» → one browser preview modelled on the real Estavo Sites template (brand header with the broker's WhatsApp as the contact destination, a featured property with price/down payment/plan/handover, and the site's own assistant asking a clarifying question). Static, labelled once, no input, button or link. Never link an examples gallery from the homepage.
 - **Client section:**
-  - Four observed signals resolve into one insight panel: an interest («مهتم بمشروع ب») and a labelled suggestion («اقتراح: ابعتله تفاصيل الاستلام»). The panel never claims interest "increased" without a defined baseline.
-  - Reverse matching (inside the disclosure) shows compatibility with anonymous needs.
+  - Evidence is kept apart: what the client said («قال» / "Said") and what the site recorded («على موقعك», four neutral signals) feed one mint insight panel: an interest («مهتم بمشروع ب، ومقارن بينه وبين أ») and a labelled suggestion («اقتراح: ابعتله مقارنة الاستلام بين أ وب»). The panel never claims interest "increased", urgency or readiness.
+  - The reverse direction is stated in a visible line («من العميل للعقار، ومن العقار للعملاء المناسبين.») above the disclosure, which shows one unit against anonymous needs with concrete reasons (the immediate-handover need is only partly compatible with B's 2027 handover).
   - No names, pipeline, statuses, timelines or scores.
 - **Growth section:**
-  - One prominent example pattern, two secondary clusters, and one small Meta destination ("your ad account", campaign audience).
+  - One prominent example pattern, two secondary clusters, then «معلومات لحملتك» / "Insights for your campaign" (what to promote, what to lead the message with), then a small Meta destination. Never present a pattern as an automatically created ad audience unless that workflow is verified end to end.
   - Meta appears as a **plain text label**. Meta's brand resource centre requires officially provided, unmodified assets, and the previous marks were Simple Icons redraws. Add a logo only after downloading the official asset and confirming its use rules.
   - No audience sizes, connection statuses, objective/budget fields or performance claims.
 - **Icons and rails:** one sprite (`assets/img/icons/estavo-home.svg`, 24px grid, 1.75px stroke, `currentColor`) and one rail system (`.es-home-rail--v`, `.is-resolved` = mint).
@@ -235,7 +237,9 @@ It has exactly nine visible sections (`home-hero`, `home-market`, `home-request`
 - **Mascot:** the closing uses the approved guide character's waving pose (`assets/img/mascot/estavo-guide-waving-200.webp`, from the product app's `estavo_guide_waving_right_transparent` asset). No other slot is reserved, so a missing pose never leaves a blank area.
 - **Mint** (`--es-art-mint`) on the homepage means "Estavo understood something": resolved results, the selected unit, the best-fit relationship. It is never used on CTAs, badges or small text on light surfaces.
 - **Typography:** Cairo at the three loaded weights (400/500/600 — never declare 700, which renders as synthetic bold). Body 16–18px, useful diagram text 14–16px, key values ≥16px; only example/date/legal captions go to 13px. Sections take their natural height (no `100vh` sections, no clipping or line-clamp, no scaling of complete graphics).
-- **Motion:** three signature sequences (hero, CSS-only on load; market documents → board; request → Estavo → selected unit). Everything else is at most a short fade, with no idle or autoplay animation. Below-fold figures are armed by `assets/js/home.js` only while off-screen. Without JS, or with reduced motion, every figure renders its final state.
+- **Header at enlarged text:** below 20rem of viewport in text terms (e.g. 390px at 200% text) the homepage header hides its Market button so the menu button stays on screen; Market remains in the drawer and the sticky bar. It never applies at default text size.
+- **Asset versions:** `home.css` / `home.js` carry content hashes (`?v=<sha256[:10]>`), stamped by the splice step like the service pages.
+- **Motion:** three signature sequences (hero, CSS-only on load; market documents → board; request → Estavo → the three options). Everything else is at most a short fade, with no idle or autoplay animation. Below-fold figures are armed by `assets/js/home.js` only while off-screen. Without JS, or with reduced motion, every figure renders its final state.
 - **Analytics:** CTAs keep their existing `data-track` events, and `data-home-event` adds a diagnostic `home_*` name on the same deliberate click (one each; tested). Mark only the legacy events as GA4 key events so a click is never counted twice. `data-home-view` sends passive section views, which are never conversions. Disclosures and the FAQ send nothing.
 
 ### Remaining homepage art backlog
@@ -245,7 +249,7 @@ Only custom mascot poses remain; every other homepage graphic is implemented in 
 1. Hero — studying pose (faces inward; mirrored/re-rendered for English).
 2. Website — presenting / step-back pose, outside the browser frame.
 
-Homepage-only styles and behaviour live in `assets/css/home.css` (unlayered, `.es-home-*` scope) and `assets/js/home.js`. Bump their `?v=` query on change. The homepage `<main>` is edited as a fragment and installed with the splice step that also regenerates the FAQ JSON-LD from the visible FAQ. If you edit `index.html`/`en.html` directly, keep the JSON-LD FAQ identical to the visible questions and answers.
+Homepage-only styles and behaviour live in `assets/css/home.css` (unlayered, `.es-home-*` scope) and `assets/js/home.js`. Their `?v=` query is a content hash; refresh it on change. The homepage `<main>` is edited as a fragment and installed with the splice step that also regenerates the FAQ JSON-LD from the visible FAQ. If you edit `index.html`/`en.html` directly, keep the JSON-LD FAQ identical to the visible questions and answers.
 
 Price-history, inflation, purchase-cost and real-return analysis belong on the detailed Market page, not the homepage.
 
