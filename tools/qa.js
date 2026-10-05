@@ -71,15 +71,16 @@ const FORBIDDEN = [
      tools/data/home-proof.json (the 2026-09-22 approved 30,000 / 7,000
      overstated production: 26,169 unit models, 6,696 registered users on
      2026-10-03). They are "more than" floors, so the "+" is required.
-   - Projects and developers keep the approved exact counts (2,000 / 700),
-     which are below production and therefore safe; no plus. */
+   - Projects also use the verified floor (2,412 active projects on
+     2026-10-03 → 2,400+). Developers keep the approved exact 700 (below
+     production's 721), no plus. */
 const HOME_PROOF = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'home-proof.json'), 'utf8'));
 const proofFloor = (key) => String(HOME_PROOF.figures.find((f) => f.key === key).display);
 const APPROVED_SCALE_CLAIMS = [
   { noun: '(?:units?|وحدات?|وحدة)', value: proofFloor('units'), plus: true, label: 'units / الوحدات' },
   { noun: '(?:developers?|مطوّ?رين?|مطوّ?ر)', value: '700', label: 'developers / المطورين' },
   { noun: '(?:brokers?|بروكرز?|بروكر)', value: proofFloor('brokers'), plus: true, label: 'brokers / البروكرز' },
-  { noun: '(?:projects?|مشاريع|مشروع)', value: '2000', label: 'projects / المشاريع' },
+  { noun: '(?:projects?|مشاريع|مشروع)', value: proofFloor('projects'), plus: true, label: 'projects / المشاريع' },
 ];
 
 /* A sample/demo surface must say so, in the page language. */
@@ -130,6 +131,11 @@ function checkFile(file) {
       const figure = proof.figures.find((f) => f.key === key);
       const shown = (markup.match(/class="es-home-proof__value[^"]*"[^>]*>([^<]+)</) || [])[1] || '';
       if (!figure) { failures.push(`proof figure "${key}" is not configured`); continue; }
+      // "+" marks a rounded-down floor; an exact count (display === verified) carries none.
+      const wantsPlus = figure.display < figure.verified;
+      if (shown.trim().endsWith('+') !== wantsPlus) {
+        failures.push(`proof figure "${key}" must ${wantsPlus ? 'end with "+"' : 'not use "+"'} (shows ${figure.display}, verified ${figure.verified})`);
+      }
       if (Number(value) !== figure.display || shown.replace(/[,+\s]/g, '') !== String(figure.display)) {
         failures.push(`proof figure "${key}" must show ${figure.display.toLocaleString('en-US')}+`);
       }

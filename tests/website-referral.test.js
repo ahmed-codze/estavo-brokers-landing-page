@@ -334,7 +334,7 @@ test('the Arabic and English website builders expose link and manual handoffs', 
         assert.match(html, new RegExp(`aria-describedby="${input}-hint ${input}-error"`));
         assert.match(html, new RegExp(`id="${input}-error" role="alert" aria-live="polite"`));
         assert.match(html, /maxlength="2048"/);
-        assert.match(html, /assets\/js\/website-referral\.js\?v=20261004-crm-owner/);
+        assert.match(html, /assets\/js\/website-referral\.js\?v=20261005-crm-lead-owner/);
         assert.match(html, /assets\/css\/website-wizard\.css\?v=10/);
         assert.match(html, /data-website-wizard/);
         assert.match(html, /data-panel="audience"/);
@@ -413,4 +413,20 @@ test('landing referral tracking preserves audience and complete Meta attribution
     assert.equal(destination.searchParams.get('audience'), 'company');
     query.forEach((value, key) => assert.equal(destination.searchParams.get(key), value, key));
     dom.window.close();
+});
+
+test('the website builders state the free/paid city truth (creation preview vs. activation)', () => {
+    // Creation is free and the selected cities populate a preview (demo) site.
+    // Activation clears that preview scope and grants one free city; more cities
+    // depend on the plan (WebsiteDemoLifecycleService::activate + grantLiveScope).
+    for (const [file, ar] of [['website/index.html', true], ['website/en.html', false]]) {
+        const html = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+        const step = html.match(/aria-labelledby="cities-title"[\s\S]*?<p class="step-copy">([\s\S]*?)<\/p>/)[1];
+        assert.match(step, ar ? /معاينة لموقعك/ : /preview of your website/);
+        assert.match(step, ar ? /بتبدأ بمدينة واحدة مجانًا، وباقي المدن حسب الباقة/ : /one free city; more cities depend on your plan/);
+        // Never promise every unit of every selected city on the free site.
+        assert.doesNotMatch(html, ar ? /هنملأ موقعك بكل الوحدات/ : /fill your website with every unit/);
+        assert.doesNotMatch(html, /مجاني 100%|100% free|مجاني بالكامل|completely free|كامل مجانًا|5 دقايق بس/);
+        assert.match(html, ar ? /إنشاء الموقع مجاني/ : /Free to create/);
+    }
 });

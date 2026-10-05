@@ -87,7 +87,9 @@ for (const [file, labels, labelKey] of [
             const value = item.querySelector('.es-home-proof__value');
             // The final value ships in the HTML and is never animated through
             // intermediate (unverified) numbers.
-            assert.equal(value.textContent.trim(), `${figure.display.toLocaleString('en-US')}+`);
+            // "+" only when the shown floor is below the measured count (110 areas is exact).
+            const plus = figure.display < figure.verified ? '+' : '';
+            assert.equal(value.textContent.trim(), `${figure.display.toLocaleString('en-US')}${plus}`);
             assert.equal(value.dataset.count, undefined, 'no count-up hook');
         }
         // The snapshot date shown is the verified date in the config.
@@ -308,7 +310,7 @@ for (const [file, labels, labelKey] of [
         // A visit is not proof of growing interest: no unqualified "increased" claim.
         assert.doesNotMatch(main.querySelector('#home-client').textContent, /زاد|increased/i);
         // The suggestion is labelled as a suggestion.
-        assert.match(main.querySelector('.es-home-insight__list').textContent, labelKey === 'ar' ? /اقتراح/ : /Suggested/);
+        assert.match(main.querySelector('#home-client .es-home-suggest').textContent, labelKey === 'ar' ? /اقتراح/ : /Suggested/);
     });
 
     test(`${file}: homepage events are attached to deliberate links only`, () => {
@@ -351,20 +353,21 @@ test('balance pass: each section answers its question visibly, without opening a
         const { doc } = load(file);
         const lead = (id) => doc.querySelector(`#${id} .es-home-lead`).textContent.replace(/\s+/g, ' ');
         // Hero: names the AI, the market data, the properties and client interest on the website.
-        assert.match(lead('home-hero'), ar ? /بالـ ?AI.*بيانات السوق.*الوحدات.*عملاءك على موقعك/ : /AI.*market data.*property details.*client interests from your website/);
+        assert.match(lead('home-hero'), ar ? /داتا السوق والعقارات واهتمام عملاءك.*بالـ ?AI.*لكل طلب وليه/ : /market data, the properties you sell and client interest.*AI.*why/);
         // Market: what Estavo maintains, in three compact groups, and the work it replaces.
-        assert.match(lead('home-market'), ar ? /يجمع.*ويتابع تحديثاتها.*برايس ليست/ : /maintains the information it covers.*price lists/);
-        assert.equal(doc.querySelectorAll('#home-market .es-home-groups li').length, 3);
+        assert.match(lead('home-market'), ar ? /يجمع.*ويتابع تحديثاتها.*برايس ليست/ : /maintains the project information it covers.*price list/);
+        assert.equal(doc.querySelector('#home-market ul:not(.es-home-market__docs)'), null, 'no extra key list in Market');
         // Request: the client can explain it on the broker's site; reasons are explained.
-        assert.match(lead('home-request'), ar ? /خلي العميل يشرحه بنفسه على موقعك.*وسبب كل ترشيح/ : /let the client explain it through the AI on your website.*reason behind each recommendation/);
+        assert.match(lead('home-request'), ar ? /الفرق في السعر والمقدم والسداد والاستلام.*وليه كل اختيار مناسب أو لأ/ : /differences in price, down payment, payment plan and delivery.*fits or doesn't/);
         // Website: what the site provides, including the assistant.
-        assert.match(lead('home-website'), ar ? /وحداتك الخاصة.*مساعد عقاري/ : /your own listings.*property assistant/);
+        assert.match(lead('home-website'), ar ? /وحداتك الخاصة.*يشرح طلبه للـ ?AI.*ويتواصل معاك/ : /your own properties.*explain what they need to the AI.*contact you/);
         // Client: both directions stated in visible text, not only inside the disclosure.
-        assert.match(lead('home-client'), ar ? /أنهي عملاء ممكن يهتموا بوحدة/ : /which known clients could be a fit for a unit/);
+        assert.match(lead('home-client'), ar ? /اللي العميل قاله بتفاعله على موقعك وبمواصفات العقارات/ : /what the client told you with their activity on your website and the properties/);
         const both = doc.querySelector('#home-client .es-home-both-ways');
         assert.ok(both && !both.closest('details'));
+        assert.equal(both.textContent.trim(), ar ? 'من العميل للعقار. ومن العقار للعملاء المناسبين.' : 'From client to property. From property to the clients it may suit.');
         // Growth: understanding → what to promote → Meta.
-        assert.match(lead('home-growth'), ar ? /اختيار العقارات والرسائل.*Meta/ : /choose what to promote.*Meta/);
+        assert.match(lead('home-growth'), ar ? /اختيار العقارات والرسائل.*Meta/ : /choose what you advertise and how you message it.*Meta/);
         // Start free: the company / platform profile is one line beside the free doors.
         assert.match(doc.querySelector('#home-start-free .es-home-business').textContent, ar ? /شركة أو منصة/ : /company or an existing platform/);
         const routes = [...doc.querySelectorAll('#home-start-free .es-home-routes a')].map((a) => a.textContent.trim());
@@ -426,7 +429,10 @@ test('website and client figures: illustrative, non-interactive, evidence kept a
         const fig = doc.querySelector('#home-client [data-home-signals]');
         assert.ok(fig.querySelector('.es-home-evidence--said'));
         assert.equal(fig.querySelectorAll('.es-home-evidence--seen .es-home-sig').length, 4);
-        assert.match(fig.querySelector('.es-home-insight__list').textContent, ar ? /مقارنة الاستلام بين أ وب/ : /handover comparison of A and B/);
+        assert.match(fig.querySelector('.es-home-suggest').textContent, ar ? /مقارنة الاستلام بين أ وب/ : /handover comparison of A and B/);
+        // The finished website is the visual; setup details live in the caption only.
+        assert.equal(site.querySelector('.es-home-build__src'), null);
+        assert.match(site.querySelector('figcaption').textContent, ar ? /الاسم واللوجو والمدن/ : /name, logo and the cities/);
         assert.doesNotMatch(fig.textContent, /جاهز|عاجل|ready to buy|urgent|%/i);
         // Reverse matching gives concrete reasons; the immediate-handover need is only partly compatible.
         const partial = doc.querySelector('#home-client .es-home-interest.is-partial').textContent;
@@ -498,10 +504,13 @@ test('graphics: compact hero model, client insight, growth pattern, consistent C
         assert.equal(signals.length, 4);
         signals.forEach((sig) => assert.ok(sig.querySelector('.es-home-sig__icon svg')));
         assert.equal(doc.querySelectorAll('#home-client .es-home-insight').length, 1);
-        const insight = [...doc.querySelectorAll('#home-client .es-home-insight__list li')].map((li) => li.textContent.trim());
-        assert.equal(insight.length, 2);
-        assert.match(insight[0], ar ? /مهتم بمشروع ب/ : /Interest in Project B/);
-        assert.match(insight[1], ar ? /اقتراح/ : /Suggested next information/);
+        // Three layers: what happened (evidence) → what Estavo understood → what it suggests.
+        const read = doc.querySelectorAll('#home-client .es-home-insight .es-home-insight__read');
+        assert.equal(read.length, 1);
+        assert.match(read[0].textContent, ar ? /مهتم بمشروع ب/ : /Interest in Project B/);
+        const suggest = doc.querySelector('#home-client .es-home-suggest');
+        assert.ok(suggest && !suggest.closest('.es-home-insight'), 'the suggestion is its own layer');
+        assert.match(suggest.textContent, ar ? /^اقتراح/ : /^Suggested next information/);
         assert.doesNotMatch(doc.querySelector('#home-client').textContent, ar ? /اليوم \d/ : /Day \d/, 'no day-by-day timeline');
         // Growth: one prominent pattern, two secondary, a small Meta destination with no audience size.
         assert.equal(doc.querySelectorAll('#home-growth .es-home-cluster--key').length, 1);
@@ -583,7 +592,7 @@ test('homepage icons are inlined so they render on any host or sub-folder', () =
         assert.doesNotMatch(html, /estavo-home\.svg#/, `${file} must not depend on an external sprite`);
         const used = new Set([...html.matchAll(/href="#(i-[a-z0-9-]+)"/g)].map((m) => m[1]));
         const defined = new Set([...html.matchAll(/<symbol id="(i-[a-z0-9-]+)"/g)].map((m) => m[1]));
-        assert.ok(used.size > 20);
+        assert.ok(used.size >= 15, "sprite is wired (every used id is checked below)");
         used.forEach((id) => assert.ok(defined.has(id), `${file}: icon #${id} is not defined`));
         assert.equal((html.match(/id="es-home-icons"/g) || []).length, 1);
     }

@@ -557,119 +557,129 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-display span { display: block; }
 .es-home-display span + span { color: var(--es-blue-600); }
 
-/* The model: request → Estavo (market · property · client) → result. */
+/* The model: market · property · client → Estavo → one best-fit result.
+   Inputs sit on top and converge into the core, so the eye reads the
+   cause before the answer. Blue rails relate; the mint rail resolves. */
 .es-home-intel {
   display: grid;
   justify-items: center;
   inline-size: 100%;
-  max-inline-size: 32rem;
+  max-inline-size: 36rem;
   justify-self: center;
-}
-
-.es-home-intel__request {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: .3rem .75rem;
-  text-align: center;
-}
-
-.es-home-intel__tag {
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
-  color: var(--es-blue-600);
-  font-size: var(--fs-small);
-  font-weight: 600;
-}
-
-.es-home-intel__ask { color: var(--es-navy-950); font-size: 1.0625rem; font-weight: 600; line-height: 1.5; }
-
-.es-home-fw {
-  display: grid;
-  justify-items: center;
-  inline-size: 100%;
 }
 
 .es-home-fw__nodes {
   position: relative;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .75rem;
   inline-size: 100%;
-  margin-block-start: 1rem;
-  padding-block-start: 1rem;
+  padding-block-end: 1.1rem;
 }
 
-/* One branch line from the core to the three nodes. */
-.es-home-fw__nodes::before {
-  content: "";
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline: 16.667%;
-  block-size: var(--rail-w);
-  background: var(--rail-c);
-}
-
-.es-home-fw::before {
-  content: "";
-  grid-row: 2;
-  inline-size: var(--rail-w);
-  block-size: 1rem;
-  margin-block-end: -2rem;
-  background: var(--rail-c);
-}
-
-.es-home-fw__core { grid-row: 1; }
-.es-home-fw__nodes { grid-row: 3; }
-
+/* Each input is a small card: icon + name, then what Estavo reads from it. */
 .es-home-fw__nodes li {
   position: relative;
   display: grid;
-  justify-items: center;
+  grid-template-columns: auto minmax(0, 1fr);
   align-content: start;
-  gap: .3rem;
-  padding-inline: .25rem;
+  align-items: center;
+  gap: .2rem .5rem;
+  padding: .8rem .85rem .85rem;
+  border: 1px solid var(--es-line);
+  border-radius: var(--home-card-radius);
+  background: var(--es-white);
+  box-shadow: 0 1px 2px rgb(11 34 57 / 5%), 0 8px 20px rgb(11 34 57 / 5%);
   color: var(--es-navy-950);
-  font-size: 1rem;
-  font-weight: 600;
   line-height: 1.35;
-  text-align: center;
-}
-
-.es-home-fw__nodes small { color: var(--es-ink-72); font-size: var(--fs-small); font-weight: 500; line-height: 1.4; }
-
-.es-home-fw__nodes li::before {
-  content: "";
-  position: absolute;
-  inset-block-start: -1rem;
-  inline-size: var(--rail-w);
-  block-size: 1rem;
-  background: var(--rail-c);
 }
 
 .es-home-fw__nodes .es-home-ic {
-  inline-size: 2.6rem;
-  block-size: 2.6rem;
-  padding: .65rem;
-  border: 1.5px solid var(--es-blue-500);
+  inline-size: 1.9rem;
+  block-size: 1.9rem;
+  padding: .42rem;
   border-radius: 50%;
   background: var(--es-mist);
 }
 
-.es-home-fw__nodes li.is-resolved .es-home-ic { border-color: var(--home-mint); box-shadow: var(--home-mint-glow); }
+.es-home-fw__nodes b { font-size: 1rem; font-weight: 600; }
+
+.es-home-fw__nodes :is(small, .es-home-fw__data) {
+  grid-column: 1 / -1;
+  font-size: var(--fs-small);
+  line-height: 1.45;
+}
+
+.es-home-fw__nodes small { margin-block-start: .3rem; color: var(--es-navy-950); font-weight: 600; }
+.es-home-fw__data { color: var(--es-ink-72); font-weight: 500; }
+
+/* Rails: a stub under each card, one bar joining them, one line into the core. */
+.es-home-fw__nodes li::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline-start: calc(50% - var(--rail-w) / 2);
+  inline-size: var(--rail-w);
+  block-size: 1.1rem;
+  background: var(--rail-c);
+}
+
+.es-home-fw__nodes::after {
+  content: "";
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: calc((100% - 1.5rem) / 6);
+  block-size: var(--rail-w);
+  background: var(--rail-c);
+}
+
+.es-home-fw__merge {
+  inline-size: var(--rail-w);
+  block-size: 1rem;
+  background: var(--rail-c);
+}
+
+.es-home-fw__core { inline-size: 3.75rem; block-size: 3.75rem; }
+.es-home-fw__core img { inline-size: 1.9rem; }
 
 .es-home-intel > .es-home-rail--v { --rail-len: 1.25rem; }
 
 .es-home-intel__result {
   display: grid;
-  gap: .65rem;
-  inline-size: 100%;
-  padding: .9rem 1.15rem;
+  gap: .55rem;
+  inline-size: min(100%, 26rem);
+  padding: .9rem 1.15rem 1rem;
   border: 1px solid rgb(114 224 187 / 75%);
+  border-inline-start: 3px solid var(--home-mint);
   border-radius: var(--home-card-radius);
   background: var(--es-white);
   box-shadow: var(--home-mint-glow), 0 12px 32px rgb(11 34 57 / 8%);
+}
+
+.es-home-intel__verdict {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .25rem 1rem;
+}
+
+.es-home-intel__fit {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  color: var(--es-navy-950);
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+
+.es-home-intel__fit::before {
+  content: "";
+  inline-size: .55rem;
+  block-size: .55rem;
+  border-radius: 50%;
+  background: var(--home-mint);
+  box-shadow: 0 0 0 3px var(--home-mint-soft);
 }
 
 .es-home-intel__title {
@@ -680,24 +690,67 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   gap: .25rem 1rem;
 }
 
-.es-home-intel__title b { color: var(--es-navy-950); font-size: 1.0625rem; font-weight: 600; }
+.es-home-intel__title b { color: var(--es-navy-950); font-size: 1.125rem; font-weight: 600; }
 .es-home-intel__title > span { color: var(--es-ink-72); font-size: var(--fs-label); font-weight: 600; }
+
+/* Phones: the same vertical story, recomposed: three compact inputs (name +
+   one line) ↓ Estavo ↓ the answer and its reason. */
+@media (max-width: 40rem) {
+  .es-home-fw__nodes { gap: .5rem; }
+  .es-home-fw__nodes li { grid-template-columns: minmax(0, 1fr); justify-items: center; padding: .65rem .45rem .7rem; text-align: center; }
+  .es-home-fw__nodes .es-home-ic { inline-size: 1.75rem; block-size: 1.75rem; padding: .38rem; }
+  .es-home-fw__nodes::after { inset-inline: calc((100% - 1rem) / 6); }
+  .es-home-fw__nodes .es-home-fw__data { display: none; } /* the result's reason carries the priority */
+  .es-home-fw__nodes small { margin-block-start: .1rem; font-weight: 500; color: var(--es-ink-72); }
+  .es-home-fw__core { inline-size: 3.25rem; block-size: 3.25rem; }
+  .es-home-fw__core img { inline-size: 1.6rem; }
+}
 
 /* Proof strip: verified counts (tools/data/home-proof.json), no cards, no mint. */
 .es-home-proof { margin-block-start: clamp(2.25rem, 5vw, 3.5rem); }
 
 .es-home-proof__list {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 7.5rem), 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.25rem 1.5rem;
 }
 
+/* One rail through all four figures: proof, not four dashboard cards. */
+.es-home-proof__list::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: var(--rail-w);
+  background: var(--rail-c);
+}
+
 .es-home-proof__list li {
+  position: relative;
   display: grid;
   justify-items: start;
   gap: .1rem;
-  padding-block-start: .85rem;
-  border-block-start: var(--rail-w) solid var(--rail-c);
+  padding-block-start: 1.1rem;
+}
+
+.es-home-proof__list li::before {
+  content: "";
+  position: absolute;
+  inset-block-start: calc(var(--rail-w) / 2 - .3rem);
+  inset-inline-start: 0;
+  inline-size: .6rem;
+  block-size: .6rem;
+  border: var(--rail-w) solid var(--es-blue-500);
+  border-radius: 50%;
+  background: var(--es-mist);
+}
+
+@media (max-width: 40rem) {
+  .es-home-proof__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .es-home-proof__list::before { display: none; }
+  .es-home-proof__list li { border-block-start: var(--rail-w) solid var(--rail-c); }
+  .es-home-proof__list li::before { display: none; }
 }
 
 .es-home-proof__value {
@@ -716,14 +769,18 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   font-size: var(--fs-caption);
 }
 
-/* Signature motion #1 — CSS only, once, ≤1.2s. H1, CTAs and proof never wait. */
+/* Signature motion #1 — CSS only, once, ≤1.2s: inputs → rails → core → mint result.
+   H1, CTAs and proof never wait. */
 @media (prefers-reduced-motion: no-preference) {
-  .es-home-intel__request { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 60ms both; }
-  .es-home-intel > .es-home-rail--v:first-of-type { animation: es-home-draw-y var(--es-mo-base) var(--es-mo-ease) 180ms both; }
-  .es-home-fw__core { animation: es-home-pop var(--es-mo-base) var(--es-mo-ease) 300ms both; }
-  .es-home-fw__nodes { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 460ms both; }
-  .es-home-intel > .es-home-rail--v.is-resolved { animation: es-home-draw-y var(--es-mo-base) var(--es-mo-ease) 640ms both; }
-  .es-home-intel__result { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 760ms both; }
+  .es-home-fw__nodes li { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both; }
+  .es-home-fw__nodes li:nth-child(1) { animation-delay: 60ms; }
+  .es-home-fw__nodes li:nth-child(2) { animation-delay: 140ms; }
+  .es-home-fw__nodes li:nth-child(3) { animation-delay: 220ms; }
+  .es-home-fw__nodes::after { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 380ms both; }
+  .es-home-fw__merge { transform-origin: top; animation: es-home-draw-y var(--es-mo-base) var(--es-mo-ease) 460ms both; }
+  .es-home-fw__core { animation: es-home-pop var(--es-mo-base) var(--es-mo-ease) 560ms both; }
+  .es-home-intel > .es-home-rail--v.is-resolved { animation: es-home-draw-y var(--es-mo-base) var(--es-mo-ease) 700ms both; }
+  .es-home-intel__result { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 800ms both, es-home-glow-in 400ms var(--es-mo-ease) 1000ms both; }
 }
 
 /* ============================================================
@@ -739,26 +796,6 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 /* ============================================================
    2. MARKET — sources → board on the real map of Egypt
    ============================================================ */
-/* What Estavo maintains: three plain groups, not cards or pills. */
-.es-home-groups {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .5rem 1.4rem;
-  margin-block-start: .1rem;
-}
-
-.es-home-groups li {
-  display: inline-flex;
-  align-items: center;
-  gap: .45rem;
-  color: var(--es-navy-950);
-  font-size: var(--fs-label);
-  font-weight: 600;
-  line-height: 1.45;
-}
-
-.es-home-groups .es-home-ic { inline-size: 1.25rem; block-size: 1.25rem; }
-
 .es-home-market { display: grid; inline-size: 100%; }
 
 .es-home-market__sources {
@@ -852,6 +889,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 }
 
 .es-home-map__node svg { display: block; inline-size: 100%; block-size: 100%; }
+.es-home-map__node:not(.es-home-map__node--selected) { color: var(--es-blue-500); opacity: .7; }
 
 .es-home-map__node--selected {
   z-index: 2;
@@ -1136,12 +1174,21 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   box-shadow: 0 0 0 2px var(--es-navy-950);
 }
 
+/* Four facts on one even row: price-related values line up across A/B/C. */
+.es-home-opt .es-home-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.es-home-opt .es-home-facts div { padding-inline: .55rem; }
+@media (max-width: 23rem) { /* narrow or enlarged text: 2 × 2 */
+  .es-home-opt .es-home-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .es-home-opt .es-home-facts div:nth-child(3) { padding-inline-start: 0; border-inline-start: 0; }
+}
 .es-home-opt .es-home-facts div { align-content: space-between; border-inline-start-color: var(--es-line-dark); } /* values share a baseline when a label wraps */
 .es-home-opt .es-home-facts dt { color: var(--es-on-dark-muted); }
 .es-home-opt .es-home-facts dd { color: var(--es-white); }
 .es-home-opt .es-home-reason { color: var(--es-on-dark); }
 
-.es-home-reason--warn .es-home-ic { background: rgb(255 255 255 / 12%); color: var(--es-white); }
+/* A budget exception is a constraint, not a result: warm marker + dashed edge, never mint. */
+.es-home-reason--warn .es-home-ic { background: var(--home-warn, #f2c46d); color: var(--es-navy-950); }
+.es-home-opt.is-outside { border-style: dashed; border-color: rgb(242 196 109 / 45%); }
 
 /* The selected option: the one light, mint-edged card. */
 .es-home-opt--best {
@@ -1176,22 +1223,9 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-build {
   display: grid;
   justify-items: center;
-  inline-size: min(100%, 32rem);
+  inline-size: min(100%, 42rem);
   justify-self: center;
 }
-
-.es-home-build__src {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: .25rem .6rem;
-  color: var(--es-ink-72);
-  font-size: var(--fs-label);
-}
-
-.es-home-build__src b { color: var(--es-navy-950); }
-.es-home-build > .es-home-rail--v { --rail-len: 1.25rem; margin-block: .5rem; }
 
 .es-home-browser {
   --broker: #1f5fbf;
@@ -1218,9 +1252,12 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-browser__bar i { inline-size: .55rem; block-size: .55rem; border-radius: 50%; background: var(--es-line-strong); }
 
 .es-home-browser__url {
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
+  overflow: hidden; /* decorative, aria-hidden address bar */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  direction: ltr;
+  text-align: start;
   flex: 1;
   min-inline-size: 0;
   padding: .15rem .7rem;
@@ -1258,50 +1295,97 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   display: inline-flex;
   align-items: center;
   gap: .35rem;
+  padding: .3rem .75rem;
+  border-radius: 999px;
+  background: var(--broker-ink);
+  color: var(--broker);
   font-size: var(--fs-small);
   font-weight: 600;
+  line-height: 1.4;
 }
 
 .es-home-browser__contact .es-home-ic { color: currentColor; }
 
-/* Static content of the depicted site: no input field, no fake button. */
-.es-home-browser__body { display: grid; gap: .85rem; padding: 1rem; }
+/* The finished site is the visual: the broker's own headline, a large featured
+   property, and the site's assistant beside it. Static — no input, no fake button. */
+.es-home-split--site { grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); }
+
+.es-home-site-hero {
+  padding: .9rem 1rem 1rem;
+  background: color-mix(in srgb, var(--broker) 8%, var(--es-white));
+  color: var(--es-navy-950);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.es-home-browser__body { display: grid; gap: .85rem; padding: 1rem; align-items: start; }
 
 .es-home-listing {
   display: grid;
-  grid-template-columns: 7.5rem minmax(0, 1fr);
-  align-items: start;
-  gap: .85rem;
-  padding: .7rem;
+  gap: .75rem;
+  padding: 0 0 .85rem;
+  overflow: hidden;
   border: 1px solid var(--es-line);
   border-radius: .75rem;
 }
 
-.es-home-listing__art { display: block; overflow: hidden; border-radius: .5rem; }
+.es-home-listing__art { position: relative; display: block; overflow: hidden; }
 .es-home-listing__art svg { display: block; inline-size: 100%; block-size: auto; }
-.es-home-listing__sky { fill: #e4eef7; }
-.es-home-listing__block { fill: #b9cde0; }
-.es-home-listing__block--tall { fill: var(--broker); opacity: .78; }
-.es-home-listing__win { fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; opacity: .85; }
+.es-home-listing__sky { fill: #dfeaf6; }
+.es-home-listing__haze { fill: #eaf1f9; }
+.es-home-listing__sun { fill: #fff; opacity: .8; }
+.es-home-listing__block { fill: #b3c8de; }
+.es-home-listing__block--far { fill: #cddbea; }
+.es-home-listing__block--tall { fill: var(--broker); opacity: .85; }
+.es-home-listing__win { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; opacity: .85; }
+.es-home-listing__ground { fill: #c9d8e8; }
+.es-home-listing__tree { fill: #9fc3b4; }
 
-.es-home-listing__info { display: grid; gap: .5rem; min-inline-size: 0; }
+.es-home-listing__where {
+  position: absolute;
+  inset-block-start: .6rem;
+  inset-inline-start: .6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  padding: .2rem .6rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 92%);
+  color: var(--es-navy-950);
+  font-size: var(--fs-small);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.es-home-listing__where .es-home-ic { inline-size: .95rem; block-size: .95rem; color: var(--broker); }
+
+.es-home-listing__info { display: grid; gap: .6rem; min-inline-size: 0; padding-inline: .85rem; }
 .es-home-listing__name { display: flex; flex-wrap: wrap; align-items: baseline; gap: .1rem .6rem; }
-.es-home-listing__name b { color: var(--es-navy-950); font-size: 1rem; font-weight: 600; }
+.es-home-listing__name b { color: var(--es-navy-950); font-size: 1.0625rem; font-weight: 600; }
 .es-home-listing__name span { color: var(--es-ink-60); font-size: var(--fs-small); }
 
-.es-home-listing__facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .35rem .9rem; }
-.es-home-listing__facts div { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 .4rem; }
+.es-home-listing__facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .45rem .9rem; }
+.es-home-listing__facts div { display: grid; gap: 0; }
 .es-home-listing__facts dt { color: var(--es-ink-60); font-size: var(--fs-small); }
-.es-home-listing__facts dd { color: var(--es-navy-950); font-size: var(--fs-label); font-weight: 600; }
+.es-home-listing__facts dd { color: var(--es-navy-950); font-size: 1rem; font-weight: 600; }
 
-/* Narrow previews: thumbnail beside the name, facts across the full width. */
 .es-home-browser { container-type: inline-size; }
 
-@container (max-width: 26rem) {
-  .es-home-listing { grid-template-columns: 5.5rem minmax(0, 1fr); align-items: center; row-gap: .6rem; }
-  .es-home-listing__info { display: contents; }
-  .es-home-listing__facts { grid-column: 1 / -1; }
+.es-home-listing__facts dt { overflow-wrap: anywhere; }
+
+/* Narrow or enlarged-text previews: one fact per row, nothing clipped. */
+@container (max-width: 20rem) {
+  .es-home-listing__facts { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Wide previews: property and assistant side by side, like the real template. */
+@container (min-width: 34rem) {
+  .es-home-browser__body { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+  .es-home-chat { align-self: start; }
+}
+
+.es-home-listing__name b { overflow-wrap: anywhere; }
 
 /* The site's own assistant: broker-branded, a clarifying question. */
 .es-home-chat {
@@ -1324,7 +1408,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-chat__label .es-home-ic { color: var(--broker); }
 
 .es-home-bubble {
-  max-inline-size: 88%;
+  max-inline-size: 92%;
   padding: .5rem .8rem;
   border-radius: .85rem;
   font-size: var(--fs-label);
@@ -1337,9 +1421,8 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-site__caption { margin-block-start: .75rem; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .es-home-build.is-armed :is(.es-home-browser, .es-home-build > .es-home-rail--v) { opacity: 0; }
-  .es-home-build.is-playing .es-home-build > .es-home-rail--v { animation: es-home-draw-y var(--es-mo-base) var(--es-mo-ease) both; }
-  .es-home-build.is-playing .es-home-browser { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 200ms both; }
+  .es-home-build.is-armed .es-home-browser { opacity: 0; }
+  .es-home-build.is-playing .es-home-browser { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both; }
 }
 
 /* ============================================================
@@ -1440,11 +1523,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-insight__label .es-home-ic { color: var(--home-mint); }
 .es-home-insight__label .es-home-example { margin-inline-start: auto; }
 
-.es-home-insight__list { display: grid; gap: .55rem; }
-
-.es-home-insight__list li {
-  display: grid;
-  gap: .1rem;
+.es-home-insight__read {
   padding-inline-start: 1rem;
   border-inline-start: 2px solid var(--home-mint);
   color: var(--es-white);
@@ -1453,8 +1532,24 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   line-height: 1.45;
 }
 
-.es-home-insight__list em {
-  color: var(--es-on-dark-muted);
+/* The suggestion: an action for the broker, set apart from the reading. */
+.es-home-suggest__rail { --rail-len: 1rem; }
+
+.es-home-suggest {
+  display: grid;
+  gap: .15rem;
+  inline-size: 100%;
+  padding: .85rem 1.1rem;
+  border: 1.5px dashed var(--home-mint);
+  border-radius: var(--home-card-radius);
+  color: var(--es-white);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.es-home-suggest em {
+  color: var(--home-mint);
   font-size: var(--fs-small);
   font-style: normal;
   font-weight: 600;
@@ -1526,7 +1621,8 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-interest.is-none { color: var(--es-on-dark-muted); }
 
 @media (prefers-reduced-motion: no-preference) {
-  .es-home-signals.is-armed :is(.es-home-evidence, .es-home-signals__stem, .es-home-insight) { opacity: 0; }
+  .es-home-signals.is-armed :is(.es-home-evidence, .es-home-signals__stem, .es-home-insight, .es-home-suggest__rail, .es-home-suggest) { opacity: 0; }
+  .es-home-signals.is-playing :is(.es-home-suggest__rail, .es-home-suggest) { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 640ms both; }
   .es-home-signals.is-playing :is(.es-home-evidence, .es-home-signals__stem) { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; }
   .es-home-signals.is-playing .es-home-signals__stem { animation-delay: 240ms; }
   .es-home-signals.is-playing .es-home-insight { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 420ms both; }
@@ -1847,6 +1943,8 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   .es-home-opt--alt .es-home-opt__head { justify-content: start; }
   .es-home-opt--alt .es-home-opt__head :is(b, strong) { font-size: 1rem; }
   .es-home-opt--alt .es-home-reason { color: var(--es-on-dark-muted); font-weight: 500; }
+  .es-home-opt--alt .es-home-reason--warn { color: var(--es-on-dark); }
+  .es-home-opt.is-outside { border-style: solid; border-color: var(--es-line-dark); }
 }
 
 @media (max-width: 40rem) {

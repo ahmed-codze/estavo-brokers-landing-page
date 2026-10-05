@@ -4,7 +4,7 @@ This is the durable context document for any agent working in this directory. It
 
 Read this file before changing public copy, information architecture, layouts, illustrations, motion, routes, or generated pages. For the detailed illustration specification, also read `DESIGN-GUIDELINES.md`.
 
-Last consolidated from the working site: **19 September 2026**; homepage sections updated **5 October 2026**.
+Last consolidated from the working site: **19 September 2026**; homepage sections updated **6 October 2026**.
 
 ---
 
@@ -160,6 +160,7 @@ Avoid internal abstractions such as “coverage,” “property record,” “da
 - A customer does not need a new website to use Market or to discuss an integration.
 - Estavo Sites visitors and enquiries submitted through a website are unlimited. A separate monthly allowance applies only to customer records that the website team deliberately creates and tracks in Estavo.
 - Every paid city includes 50 team-created tracked leads per month for an Individual site or 500 for a Company/Enterprise site. The free city is excluded from the paid-city allowance.
+- Website creation produces a free **preview** populated from the cities chosen in the wizard. Activation clears that preview scope (`WebsiteDemoLifecycleService::activate`); self- and sales-led activation then grant one free city and the monthly allowance (`WebsiteSelfActivationService::grantLiveScope`). The wizard and `/websites/` say exactly this; never promise every selected city's inventory on the free site (test-enforced in `tests/website-referral.test.js`).
 - A new, unassigned website starts with zero cities and zero tracked-lead allowance. Estavo can apply a launch grant of one free city and a free monthly allowance; the standard grant is five tracked leads per month.
 - Approved monthly Individual top-ups are +25 / EGP 150, +50 / EGP 250, +100 / EGP 400 and +250 / EGP 800. Company/Enterprise top-ups are +500 / EGP 1,500, +1,000 / EGP 2,500, +2,500 / EGP 5,000 and +5,000 / EGP 8,500. A customer does not need to buy another city to add a lead pack.
 
@@ -187,7 +188,7 @@ This sequence exists to prevent feature soup. It first creates one mental model,
 
 ### 5.2 Homepage story
 
-The current bilingual homepages are `index.html` and `en.html`. They are hand-maintained published files, not emitted by `tools/build-pages.js`.
+The current bilingual homepages are `index.html` and `en.html`. The 6 October consistency pass set the section leads to the reviewer-approved copy (hero: «إستاڤو بيجمع داتا السوق والعقارات واهتمام عملاءك، ويحللهم بالـAI…»); change them only with the same review. They are hand-maintained published files, not emitted by `tools/build-pages.js`.
 
 Since **3 October 2026** the homepage positions Estavo as a real-estate data intelligence system: **السوق + العقار + العميل, connected by Estavo**. Headline: «معاك حد مذاكر السوق. وفاهم عميلك.» / "The market, studied. Your client, understood."
 
@@ -205,7 +206,7 @@ It has exactly nine visible sections (`home-hero`, `home-market`, `home-request`
   - Figures come only from `tools/data/home-proof.json`: the measured production count (`verified`), its source and date, and the published floor (`display`, shown with "+"). `display` may never exceed `verified`; `tools/qa.js` and the tests enforce both.
   - Units are labelled «نموذج وحدة» / "unit types": the count is active **unit models** (types with price ranges), not individual or available units. Never relabel it «وحدة» / "units" without a count of individual units.
   - Shown on a 2×2 grid on phones, with the snapshot date. The final number is in the HTML and is **never animated** (a count-up paints unverified intermediate values). `data-value` on each item is the figure `tools/qa.js` checks.
-  - Refreshing requires a new production count. Run the queries in `HOMEPAGE-V2-GUIDE.md` §1.0 on the production API database (owner: product/engineering lead, with production access). Then update `verified`, `display` (round down) and `verified_at` together. Service pages read the units/brokers floors from the same file through `tools/qa.js`.
+  - Refreshing requires a new production count. Run the queries in `HOMEPAGE-V2-GUIDE.md` §1.0 on the production API database (owner: product/engineering lead, with production access). Then update `verified`, `display` (round down) and `verified_at` together. A "+" is shown **only when `display` < `verified`** (110 areas is the exact count, so it shows "110"); `tools/qa.js` and the tests enforce it. Service pages read the units, brokers and projects floors from the same file through `tools/qa.js` (projects: 2,400+ since 6 Oct 2026, replacing the older approved 2,000).
 - **Illustrative fixture — `tools/data/home-fixture.json`:**
   - This is the single source for the hero, Request, website preview and client visuals.
   - The request is New Cairo, 3 bedrooms, up to 8M, down payment up to 1.5M, priority lowest down payment, delivery flexible.
@@ -220,11 +221,13 @@ It has exactly nine visible sections (`home-hero`, `home-market`, `home-request`
   - North Coast, Ain Sokhna and Red Sea pins sit at their true coordinates. The six Greater Cairo markets are marked by a ring and drawn in a Cairo inset (same paths via `<use>`), because at country scale they would overlap.
   - Never move a coordinate for spacing, and never put names on points.
   - The selected market (Sheikh Zayed) shows one example project card, joined to the selected inset pin by a mint rail (`.es-home-map__link`). The rail's geometry comes from `--sel-x`/`--sel-y` (selected-pin fractions of the frame, written by the map builder) and the board's `cqi`, so it survives resizing and enlarged text; on wide boards the card sits on the map's west side in both languages. The update («خطة السداد اتحدّثت») is labelled as an example and carries no live-looking date.
-  - The copy column names what is maintained in three plain groups: availability and prices; payment plans and handover; finishing, maintenance and amenities.
-- **Request section:** one `.es-home-options` list for both layouts (B first in the DOM). At ≥52rem the three options sit side by side with B in the middle, each with down payment, plan, handover and a reason tag; below that B is the card and A/C are short rows (name, price, reason; their facts are hidden and live in the comparison table). The action links to the `/market/#ai-expert` explainer, so it reads «شوف إزاي إستاڤو يحلل الطلب» / "See how Estavo analyses a request" — use a "Try" label only for a working analysis entry.
-- **Website section:** the visitor's own site is the demo: «بياناتك» → one browser preview modelled on the real Estavo Sites template (brand header with the broker's WhatsApp as the contact destination, a featured property with price/down payment/plan/handover, and the site's own assistant asking a clarifying question). Static, labelled once, no input, button or link. Never link an examples gallery from the homepage.
+  - The lead explains what is maintained and the work it saves («بدل ما كل Request يرجعك لبرايس ليست أو جروب»). There is no extra key list; the map and card carry the rest. Non-selected pins recede (lighter, 70% opacity) so the eye goes country → selected market → project/update.
+- **Hero model (6 Oct graphics pass):** inputs first — three small cards (السوق / العقار / العميل, each `b` + one `small` line ≤4 words + a `.es-home-fw__data` line) converge through blue rails into the Estavo core, then a mint rail resolves to one result card («أنسب لأولويته», Project B, its reason). The client card carries the request and its priority. On phones (≤40rem) the cards keep name + one line and the data lines hide; the result's reason carries the priority. Never repeat the A/B/C comparison in the hero.
+- **Proof strip:** one continuous rail with a node per figure on wide screens; 2×2 with per-item rules on phones.
+- **Request section:** one `.es-home-options` list for both layouts (B first in the DOM). At ≥52rem the three options sit side by side with B in the middle, each with down payment, plan, handover, area and a reason tag (B: «أنسب لأولويته» / "Best fit for their priority"; C: dashed edge and a warm marker for the budget exception — never mint); below that B is the card and A/C are short rows (name, price, reason; their facts are hidden and live in the comparison table). The action links to the `/market/#ai-expert` explainer, so it reads «شوف إزاي إستاڤو يحلل الطلب» / "See how Estavo analyses a request" — use a "Try" label only for a working analysis entry.
+- **Website section:** the finished site is the visual hero (wider figure column via `.es-home-split--site`; the site shows the broker's own headline band, a large featured-property image with an area tag, and — on wide previews — the assistant beside the listing); the setup inputs (name, logo, cities) appear only in the caption. One browser preview modelled on the real Estavo Sites template (brand header with the broker's WhatsApp as the contact destination, a featured property with price/down payment/plan/handover, and the site's own assistant asking a clarifying question). Static, labelled once, no input, button or link. Never link an examples gallery from the homepage.
 - **Client section:**
-  - Evidence is kept apart: what the client said («قال» / "Said") and what the site recorded («على موقعك», four neutral signals) feed one mint insight panel: an interest («مهتم بمشروع ب، ومقارن بينه وبين أ») and a labelled suggestion («اقتراح: ابعتله مقارنة الاستلام بين أ وب»). The panel never claims interest "increased", urgency or readiness.
+  - Three layers stay visually distinct: what happened (what the client said «قال» / "Said" and what the site recorded «على موقعك», neutral styling) → what Estavo understood (mint panel: «مهتم بمشروع ب، ومقارن بينه وبين أ») → what it suggests (a separate dashed-mint box: «اقتراح: ابعتله مقارنة الاستلام بين أ وب»). Never claim interest "increased", urgency or readiness.
   - The reverse direction is stated in a visible line («من العميل للعقار، ومن العقار للعملاء المناسبين.») above the disclosure, which shows one unit against anonymous needs with concrete reasons (the immediate-handover need is only partly compatible with B's 2027 handover).
   - No names, pipeline, statuses, timelines or scores.
 - **Growth section:**
