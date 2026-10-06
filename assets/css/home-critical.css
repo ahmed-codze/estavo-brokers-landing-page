@@ -32,11 +32,12 @@
     --es-art-shadow: 0 16px 36px rgb(11 34 57 / 9%), 0 2px 4px rgb(11 34 57 / 7%);
     --es-art-inner: inset 0 1px 0 rgb(255 255 255 / 16%);
     /* The positive-signal accent: marks "resolved", "best", "priority"
-       and "fit" across the illustrations. Named -mint for history; it
-       now carries the brand purple. It must stay LIGHT because almost
-       every use sits on the navy band, where the brand --es-plum
-       itself measures 1.01:1 and would vanish. */
-    --es-art-mint: #c890d5;
+       and "fit". Named -mint for history. Almost every use sits on the
+       navy band, where the brand --es-plum measures 1.13:1 and would be
+       invisible — and no LIGHT purple is wanted either. So the dark band
+       carries a neutral near-white instead, and the purple does its work
+       on the light bands via --home-accent-ink. */
+    --es-art-mint: #a8b8cc;
     /* Secondary brand accent. Drives the website-mock chrome via
        --broker and the skyline artwork, so the illustrations read as
        brand rather than as another blue. Deliberately NOT wired to
@@ -3017,7 +3018,7 @@
     to { opacity: 1; transform: none; }
   }
   @keyframes es-surface-arrive { from { opacity: .5; transform: translateY(12px) scale(.97); } to { opacity: 1; transform: none; } }
-  @keyframes es-segment-breathe { 50% { border-color: rgb(199 144 213 / 50%); transform: scale(1.04); } }
+  @keyframes es-segment-breathe { 50% { border-color: rgb(168 184 204 / 50%); transform: scale(1.04); } }
   @keyframes es-vector-transfer { 0% { stroke-dashoffset: 100; opacity: 0; } 8%,88% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
   @keyframes es-plan-scan { 0%,100% { transform: translateY(-55px); } 50% { transform: translateY(55px); } }
   @keyframes es-waterfall-grow { from { transform: scaleY(.04); } to { transform: none; } }
