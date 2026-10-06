@@ -58,7 +58,7 @@
   --home-mint-glow: 0 0 0 4px rgb(168 184 204 / 18%);
   --home-rail: rgb(71 116 154 / 55%);
   --home-rail-dark: rgb(255 255 255 / 32%);
-  --home-badge-bg: #ece9ed;
+  --home-badge-bg: #e8eef3;
   --home-card-radius: .875rem;
 
   background: var(--es-paper);
@@ -947,15 +947,15 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   overflow: hidden;
   border: 1px solid var(--es-line);
   border-radius: .75rem;
-  background: #e5e2e6;
+  background: #e8eef3;
 }
 
 .es-home-map__svg { display: block; inline-size: 100%; block-size: auto; }
-.es-home-map__sea { fill: #e5e2e6; }
-.es-home-map__neighbour { fill: #f2f1f3; stroke: #bfb7c1; stroke-width: 1; vector-effect: non-scaling-stroke; }
-.es-home-map__land { fill: var(--es-paper); stroke: #8a7b8d; stroke-width: 1.4; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.es-home-map__water { fill: #e5e2e6; stroke: #8a7b8d; stroke-width: 1; vector-effect: non-scaling-stroke; }
-.es-home-map__nile { fill: none; stroke: #7b6a7f; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.es-home-map__sea { fill: #e8eef3; }
+.es-home-map__neighbour { fill: #f1f5f8; stroke: #ccd6e0; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.es-home-map__land { fill: var(--es-paper); stroke: #8fa2b5; stroke-width: 1.4; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.es-home-map__water { fill: #e8eef3; stroke: #8fa2b5; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.es-home-map__nile { fill: none; stroke: #7d93a8; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .es-home-map__ring { fill: rgb(168 184 204 / 14%); stroke: var(--es-navy-950); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 .es-home-map__leader { fill: none; stroke: var(--es-navy-950); stroke-width: 1.25; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
 
@@ -1521,15 +1521,15 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 .es-home-listing__art { position: relative; display: block; overflow: hidden; }
 .es-home-listing__art svg { display: block; inline-size: 100%; block-size: auto; }
-.es-home-listing__sky { fill: #ddd9de; }
-.es-home-listing__haze { fill: #eeecee; }
+.es-home-listing__sky { fill: #e8eef3; }
+.es-home-listing__haze { fill: #f1f5f8; }
 .es-home-listing__sun { fill: #fff; opacity: .8; }
-.es-home-listing__block { fill: #66526a; }
-.es-home-listing__block--far { fill: #9d91a0; }
+.es-home-listing__block { fill: #a8b8c8; }
+.es-home-listing__block--far { fill: #ccd6e0; }
 .es-home-listing__block--tall { fill: var(--broker); }
 .es-home-listing__win { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; opacity: .85; }
-.es-home-listing__ground { fill: #837487; }
-.es-home-listing__tree { fill: #5d4a61; }
+.es-home-listing__ground { fill: #bcc8d4; }
+.es-home-listing__tree { fill: #9aabbd; }
 
 .es-home-listing__where {
   position: absolute;
@@ -2037,13 +2037,13 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-campaign__art { position: relative; display: block; overflow: hidden; border-start-start-radius: 1rem; border-end-start-radius: 1rem; }
 .es-home-campaign__art svg { position: absolute; inset: 0; display: block; inline-size: 100%; block-size: 100%; }
 .es-home-campaign__art { min-block-size: 9rem; }
-.es-home-campaign__sky { fill: #ddd9de; }
-.es-home-campaign__haze { fill: #eeecee; }
-.es-home-campaign__bld { fill: #66526a; }
-.es-home-campaign__bld--far { fill: #9d91a0; }
+.es-home-campaign__sky { fill: #e8eef3; }
+.es-home-campaign__haze { fill: #f1f5f8; }
+.es-home-campaign__bld { fill: #a8b8c8; }
+.es-home-campaign__bld--far { fill: #ccd6e0; }
 .es-home-campaign__bld--key { fill: var(--es-plum); }
 .es-home-campaign__win { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; opacity: .85; }
-.es-home-campaign__ground { fill: #837487; }
+.es-home-campaign__ground { fill: #bcc8d4; }
 
 .es-home-campaign__tag {
   position: absolute;
