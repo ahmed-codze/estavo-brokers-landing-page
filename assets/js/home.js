@@ -89,7 +89,7 @@
     var figure = document.querySelector("[data-home-request]");
     if (!figure) return;
     index(".es-home-ask .es-home-chip", figure);
-    index(".es-home-opt--alt", figure);
+    index(".es-home-opt", figure);
     playOnEntry(figure);
   }
 
@@ -102,6 +102,7 @@
   function initHomeClientSignals() {
     var signals = document.querySelector("[data-home-signals]");
     if (signals) {
+      index(".es-home-sig", signals);
       playOnEntry(signals);
     }
   }

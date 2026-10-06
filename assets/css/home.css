@@ -613,6 +613,37 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-fw__nodes small { margin-block-start: .3rem; color: var(--es-navy-950); font-weight: 600; }
 .es-home-fw__data { color: var(--es-ink-72); font-weight: 500; }
 
+/* Three kinds of information, three forms — not three identical cards:
+   the market is an open, geographic mark; the property is a record;
+   the client is something said. */
+.es-home-fw__nodes li:nth-child(1) {
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+}
+
+.es-home-fw__nodes li:nth-child(1) .es-home-ic {
+  position: relative;
+  background:
+    radial-gradient(circle at 1px 1px, rgb(46 108 170 / 35%) 1px, transparent 0) 0 0 / 5px 5px,
+    var(--es-white);
+  box-shadow: inset 0 0 0 1.5px var(--es-blue-500), 0 0 0 5px rgb(46 108 170 / 10%);
+}
+
+.es-home-fw__nodes li:nth-child(2) { border-block-start: 3px solid var(--es-blue-500); }
+
+.es-home-fw__nodes li.es-home-fw__client {
+  border-color: transparent;
+  border-end-start-radius: .3rem;
+  background: var(--es-navy-950);
+  box-shadow: 0 10px 24px rgb(11 34 57 / 16%);
+  color: var(--es-white);
+}
+
+.es-home-fw__client .es-home-ic { background: rgb(255 255 255 / 12%); color: var(--es-white); }
+.es-home-fw__nodes .es-home-fw__client small { color: var(--es-white); }
+.es-home-fw__client .es-home-fw__data { color: var(--es-on-dark-muted); }
+
 /* Rails: a stub under each card, one bar joining them, one line into the core. */
 .es-home-fw__nodes li::after {
   content: "";
@@ -706,6 +737,50 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   .es-home-fw__core img { inline-size: 1.6rem; }
 }
 
+/* Enlarged text on a phone: the three inputs stack as rows. */
+@media (max-width: 18rem) {
+  .es-home-fw__nodes { grid-template-columns: minmax(0, 1fr); }
+  .es-home-fw__nodes li { grid-template-columns: auto minmax(0, 1fr); justify-items: start; text-align: start; }
+  .es-home-fw__nodes::after, .es-home-fw__nodes li::after { display: none; }
+  .es-home-fw__merge { block-size: 1rem; }
+}
+
+/* Mascot slot — hero "studying" pose (art pending; see AGENTS.md §5.2).
+   The markup is added only with the final asset, so nothing is reserved
+   until then. Every child gets an explicit row so the mascot can share
+   the core → result rows at the outer edge without adding height; the
+   image is absolutely placed and may rise beside the merge line. */
+.es-home-intel > * { grid-column: 1; } /* shared cells, never an implicit second column */
+.es-home-intel > .es-home-fw__nodes { grid-row: 1; }
+.es-home-intel > .es-home-fw__merge { grid-row: 2; }
+.es-home-intel > .es-home-fw__core { grid-row: 3; }
+.es-home-intel > .es-home-rail--v { grid-row: 4; }
+.es-home-intel > .es-home-intel__result { grid-row: 5; }
+
+.es-home-mascot { position: relative; pointer-events: none; }
+.es-home-mascot img { position: absolute; inset-block-end: 0; inset-inline-end: 0; inline-size: auto; max-inline-size: none; }
+
+.es-home-intel > .es-home-mascot {
+  grid-row: 3 / 6;
+  grid-column: 1;
+  justify-self: end;
+  align-self: stretch;
+  inline-size: 9.5rem;
+}
+
+.es-home-intel > .es-home-mascot img { block-size: 15rem; }
+.es-home-intel:has(> .es-home-mascot) > .es-home-intel__result { justify-self: start; inline-size: min(100% - 9.5rem, 26rem); }
+
+/* Art faces right (toward the data in RTL); English mirrors unless an
+   -en asset is supplied. */
+:root[dir="ltr"] .es-home-mascot--mirror img { transform: scaleX(-1); }
+
+@media (max-width: 40rem) {
+  .es-home-intel > .es-home-mascot { grid-row: 3 / 5; inline-size: 5.5rem; }
+  .es-home-intel > .es-home-mascot img { block-size: 6.5rem; }
+  .es-home-intel:has(> .es-home-mascot) > .es-home-intel__result { justify-self: stretch; inline-size: 100%; }
+}
+
 /* Proof strip: verified counts (tools/data/home-proof.json), no cards, no mint. */
 .es-home-proof { margin-block-start: clamp(2.25rem, 5vw, 3.5rem); }
 
@@ -744,6 +819,10 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   border: var(--rail-w) solid var(--es-blue-500);
   border-radius: 50%;
   background: var(--es-mist);
+}
+
+@media (max-width: 18rem) {
+  .es-home-proof__list.es-home-proof__list { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 40rem) {
@@ -827,10 +906,10 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 .es-home-market__rail { --rail-len: 1.25rem; margin-block: .5rem; }
 
+/* The map is the graphic: no card around it, just the geography. */
 .es-home-board {
   display: grid;
-  gap: .9rem;
-  padding: 1rem;
+  gap: .6rem;
   container-type: inline-size;
 }
 
@@ -842,7 +921,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   gap: .5rem 1rem;
 }
 
-.es-home-board__head b { color: var(--es-navy-950); font-weight: 600; }
+.es-home-board__head b { color: var(--es-ink-60); font-size: var(--fs-small); font-weight: 600; }
 
 /* Map: the whole country at true scale (Natural Earth via
    tools/build-egypt-map.py), never mirrored. Pins are anchored by
@@ -1205,17 +1284,123 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-opt--best .es-home-facts dd { color: var(--es-navy-950); }
 .es-home-opt--best .es-home-reason { color: var(--es-navy-950); }
 
-/* Signature motion #3: the request, the core, the selected option; alternatives follow. */
-@media (prefers-reduced-motion: no-preference) {
-  .es-home-analysis.is-armed :is(.es-home-ask, .es-home-chip, .es-home-analysis__stem, .es-home-opt) { opacity: 0; }
-  .es-home-analysis.is-armed .es-home-options::before { opacity: 0; }
-  .es-home-analysis.is-playing .es-home-ask { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both; }
-  .es-home-analysis.is-playing .es-home-chip { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(240ms + var(--i, 0) * var(--es-mo-stagger)); }
-  .es-home-analysis.is-playing .es-home-analysis__stem { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 700ms both; }
-  .es-home-analysis.is-playing .es-home-options::before { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 850ms both; }
-  .es-home-analysis.is-playing .es-home-opt--best { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 900ms both, es-home-glow-in var(--es-mo-slow) var(--es-mo-ease) 1300ms both; }
-  .es-home-analysis.is-playing .es-home-opt--alt { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(1250ms + var(--i, 0) * 120ms); }
+/* ── Decision board (wide screens) ─────────────────────────
+   Criteria are columns, options are rows: Estavo evaluating conditions,
+   not cards moving around. Price and down payment carry a small track
+   with the client's limit marked; a dot past the limit turns amber, the
+   winning criterion (B's down payment) resolves mint. */
+.es-home-track { display: none; }
+
+@media (min-width: 60rem) {
+  .es-home-analysis { --board: minmax(0, 1.2fr) minmax(0, 1.1fr) minmax(0, 1.2fr) minmax(0, .7fr) minmax(0, .7fr) minmax(0, .7fr) minmax(0, 2.4fr); }
+  .es-home-ask { inline-size: 100%; margin-block-end: 1.5rem; }
+
+  .es-home-criteria {
+    display: grid;
+    grid-template-columns: var(--board);
+    column-gap: 1.25rem;
+    inline-size: 100%;
+    padding: 0 1.25rem .6rem;
+    border-block-end: 1px solid var(--es-line-dark);
+    color: var(--es-on-dark-muted);
+    font-size: var(--fs-small);
+    font-weight: 600;
+  }
+
+  .es-home-criteria span { display: grid; align-content: end; gap: .1rem; }
+  .es-home-criteria small { color: var(--es-on-dark-muted); font-size: var(--fs-caption); font-weight: 500; }
+  .es-home-criteria .is-priority { color: var(--es-white); }
+  .es-home-criteria .is-priority small { color: var(--home-mint); font-weight: 600; }
+
+  .es-home-options { grid-template-columns: minmax(0, 1fr); gap: .5rem; padding-block-start: .6rem; }
+  .es-home-options::before, .es-home-opt::before { display: none; }
+
+  .es-home-opt, .es-home-opt--best, .es-home-opt:nth-child(2), .es-home-opt:nth-child(3) {
+    grid-column: 1;
+    grid-row: auto;
+    grid-template-columns: var(--board);
+    align-items: center;
+    gap: .15rem 1.25rem;
+    padding: .9rem 1.25rem;
+  }
+
+  .es-home-opt:nth-child(2) { order: 1; }
+  .es-home-opt--best { order: 2; }
+  .es-home-opt:nth-child(3) { order: 3; }
+
+  .es-home-opt__head, .es-home-opt .es-home-facts, .es-home-opt .es-home-facts div { display: contents; }
+  .es-home-opt__head b { grid-column: 1; grid-row: 1; }
+  .es-home-opt__head strong { grid-column: 2; grid-row: 1 / span 2; }
+  .es-home-opt__rank { grid-column: 1; grid-row: 2; flex-basis: auto; order: 0; }
+  .es-home-opt .es-home-facts dt { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .es-home-opt .es-home-facts dd { grid-row: 1 / span 2; font-size: 1.0625rem; }
+  .es-home-opt .es-home-facts div:nth-child(1) dd { grid-column: 3; }
+  .es-home-opt .es-home-facts div:nth-child(2) dd { grid-column: 4; }
+  .es-home-opt .es-home-facts div:nth-child(3) dd { grid-column: 5; }
+  .es-home-opt .es-home-facts div:nth-child(4) dd { grid-column: 6; }
+  .es-home-opt .es-home-reason { grid-column: 7; grid-row: 1 / span 2; }
+  .es-home-opt__head :is(b, strong) { font-size: 1.0625rem; }
+
+  .es-home-track { /* numeric scale: left → right in both languages, like the figures */
+    position: relative;
+    display: block;
+    direction: ltr;
+    inline-size: min(100%, 6.5rem);
+    block-size: .75rem;
+    margin-block-start: .3rem;
+  }
+
+  .es-home-track::before { /* the range */
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: calc(50% - 1px);
+    block-size: 2px;
+    border-radius: 2px;
+    background: var(--es-line-dark);
+  }
+
+  .es-home-track::after { /* the client's limit */
+    content: "";
+    position: absolute;
+    inset-inline-start: calc(var(--lim) * 100% - 1px);
+    inset-block: 0;
+    inline-size: 2px;
+    border-radius: 2px;
+    background: var(--es-on-dark-muted);
+  }
+
+  .es-home-track span {
+    position: absolute;
+    z-index: 1;
+    inset-inline-start: calc(var(--v) * 100% - .3rem);
+    inset-block-start: calc(50% - .3rem);
+    inline-size: .6rem;
+    block-size: .6rem;
+    border-radius: 50%;
+    background: var(--es-blue-500);
+  }
+
+  .es-home-track.is-over span { background: var(--home-warn, #f2c46d); }
+  .es-home-track.is-best span { background: var(--home-mint); box-shadow: 0 0 0 3px var(--home-mint-soft); }
+  .es-home-opt--best .es-home-track::before { background: var(--es-line); }
+  .es-home-opt--best .es-home-track::after { background: var(--es-ink-60); }
+  .es-home-opt--best .es-home-track span:not(.is-best span) { background: var(--es-blue-600); }
 }
+
+/* Signature motion #3 — evaluate: the criteria arrive, each option is
+   placed against the client's limits, then B resolves. */
+@media (prefers-reduced-motion: no-preference) {
+  .es-home-analysis.is-armed :is(.es-home-ask, .es-home-chip, .es-home-criteria, .es-home-opt) { opacity: 0; }
+  .es-home-analysis.is-playing .es-home-ask { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both; }
+  .es-home-analysis.is-playing .es-home-chip { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(200ms + var(--i, 0) * var(--es-mo-stagger)); }
+  .es-home-analysis.is-playing .es-home-criteria { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 600ms both; }
+  .es-home-analysis.is-playing .es-home-opt { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(750ms + var(--i, 0) * 120ms); }
+  .es-home-analysis.is-playing .es-home-track span { animation: es-home-place 600ms var(--es-mo-ease) 950ms both; }
+  .es-home-analysis.is-playing .es-home-opt--best { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 750ms both, es-home-glow-in var(--es-mo-slow) var(--es-mo-ease) 1500ms both; }
+}
+
+@keyframes es-home-place { from { inset-inline-start: -.3rem; opacity: 0; } }
 
 /* ============================================================
    4. WEBSITE — your details → your website
@@ -1420,6 +1605,17 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 .es-home-site__caption { margin-block-start: .75rem; }
 
+/* Mascot slot — website "presenting / stepping back" pose (art pending).
+   Outside and slightly behind the browser frame at its outer edge, never
+   inside the broker's site; dropped below 60rem where it would crowd it. */
+.es-home-build { position: relative; isolation: isolate; }
+.es-home-build > .es-home-mascot { position: absolute; z-index: -1; inset-block-end: 2.5rem; inset-inline-end: -6.5rem; inline-size: 11rem; block-size: 18rem; }
+.es-home-build > .es-home-mascot img { block-size: 18rem; }
+
+@media (max-width: 59.99rem) {
+  .es-home-build > .es-home-mascot { display: none; }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .es-home-build.is-armed .es-home-browser { opacity: 0; }
   .es-home-build.is-playing .es-home-browser { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both; }
@@ -1431,22 +1627,15 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-signals {
   display: grid;
   justify-items: center;
-  inline-size: min(100%, 30rem);
+  gap: 1rem;
+  inline-size: min(100%, 32rem);
   justify-self: center;
 }
 
-/* Evidence kept apart: what the client said, what the site recorded.
-   Neutral styling; only Estavo's reading below resolves in mint. */
-.es-home-understand__inputs { display: grid; gap: .65rem; inline-size: 100%; }
-
-.es-home-evidence {
-  display: grid;
-  gap: .6rem;
-  padding: .85rem 1rem;
-  border: 1px solid var(--es-line-dark);
-  border-radius: .75rem;
-  background: rgb(255 255 255 / 3%);
-}
+/* Three layers, three treatments:
+   what happened (plain text and an open constellation, no boxes),
+   what Estavo understood (mint rule), what it suggests (dashed). */
+.es-home-evidence { display: grid; gap: .5rem; inline-size: 100%; }
 
 .es-home-evidence__label {
   display: inline-flex;
@@ -1458,56 +1647,134 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   line-height: 1.4;
 }
 
-.es-home-evidence__said { color: var(--es-white); font-size: 1rem; font-weight: 600; line-height: 1.5; }
+.es-home-evidence__said { color: var(--es-white); font-size: 1.0625rem; font-weight: 600; line-height: 1.5; }
 
-.es-home-understand__signals {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: .65rem .75rem;
+/* The interest constellation: each observed signal is a point; lines say
+   which topic it concerns. Three point at Project B, so B becomes the
+   centre; the handover question attaches through its own satellite. */
+.es-home-orbit__field {
+  position: relative;
   inline-size: 100%;
+  aspect-ratio: 3 / 2;
+  min-block-size: 15rem;
 }
+
+.es-home-orbit__lines {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+}
+
+:root[dir="rtl"] .es-home-orbit__lines { transform: scaleX(-1); }
+
+.es-home-orbit__lines line,
+.es-home-orbit__ring { fill: none; stroke: var(--home-rail-dark); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.es-home-orbit__ring { stroke-dasharray: 2 5; opacity: .7; }
+.es-home-orbit__lines .es-home-orbit__out { stroke: var(--home-mint); stroke-width: 2; }
+
+.es-home-understand__signals { position: absolute; inset: 0; }
 
 .es-home-sig {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: calc(var(--y) * 1%);
+  inset-inline-start: calc(var(--x) * 1%);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: .6rem;
+  gap: .35rem;
+  inline-size: 9rem;
+  margin-inline-start: -4.5rem;
   color: var(--es-white);
-  font-size: var(--fs-label);
+  font-size: var(--fs-small);
   font-weight: 600;
   line-height: 1.4;
+  text-align: center;
+  transform: translateY(-1.05rem); /* icon centre on the point, label below */
 }
+
+/* Upper points carry their label above, so no line crosses text. */
+.es-home-sig:nth-child(-n + 2) { flex-direction: column-reverse; transform: translateY(calc(-100% + 1.05rem)); }
 
 .es-home-sig__icon {
   display: grid;
   place-items: center;
-  inline-size: 2.2rem;
-  block-size: 2.2rem;
+  inline-size: 2.1rem;
+  block-size: 2.1rem;
   flex: none;
   border-radius: 50%;
-  background: rgb(255 255 255 / 6%);
+  background: var(--es-navy-950);
   box-shadow: inset 0 0 0 1.5px var(--home-rail-dark);
 }
 
-.es-home-sig__icon .es-home-ic { inline-size: 1.05rem; block-size: 1.05rem; color: var(--es-on-dark); }
+.es-home-sig__icon .es-home-ic { inline-size: 1rem; block-size: 1rem; color: var(--es-on-dark); }
 
-.es-home-signals__stem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  --rail-len: 1rem;
+.es-home-orbit__hub,
+.es-home-orbit__sat {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--es-white);
+  font-weight: 600;
+  text-align: center;
 }
 
-.es-home-signals__join { inline-size: var(--rail-w); block-size: 1rem; background: var(--rail-c); }
+.es-home-orbit__hub {
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  inline-size: 5.5rem;
+  block-size: 5.5rem;
+  margin: -2.75rem 0 0 -2.75rem;
+  background: var(--es-navy-950);
+  box-shadow: inset 0 0 0 2px var(--home-mint), 0 0 0 8px rgb(114 224 187 / 10%);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+:root[dir="rtl"] .es-home-orbit__hub { margin: -2.75rem -2.75rem 0 0; }
+
+.es-home-orbit__sat {
+  inset-block-start: 59%;
+  inset-inline-start: 66%;
+  min-inline-size: 4.5rem;
+  padding: .2rem .65rem;
+  border-radius: 999px;
+  background: var(--es-navy-950);
+  box-shadow: inset 0 0 0 1.5px var(--home-rail-dark);
+  color: var(--es-on-dark);
+  font-size: var(--fs-caption);
+  transform: translate(-50%, -50%);
+}
+
+:root[dir="rtl"] .es-home-orbit__sat { transform: translate(50%, -50%); }
+
+/* Too narrow for a constellation (enlarged text, very small screens): the
+   same signals as a plain list; the reading and suggestion follow. */
+.es-home-evidence--seen { container-type: inline-size; }
+
+@container (max-width: 20rem) {
+  .es-home-orbit__field { aspect-ratio: auto; min-block-size: 0; }
+  .es-home-understand__signals { position: static; display: grid; gap: .6rem; }
+  .es-home-sig, .es-home-sig:nth-child(-n + 2) { position: static; flex-direction: row; inline-size: auto; margin: 0; text-align: start; transform: none; }
+  .es-home-orbit__lines, .es-home-orbit__hub, .es-home-orbit__sat { display: none; }
+}
+
+@media (max-width: 40rem) {
+  .es-home-orbit__hub { inline-size: 4.5rem; block-size: 4.5rem; margin: -2.25rem 0 0 -2.25rem; font-size: var(--fs-small); }
+  :root[dir="rtl"] .es-home-orbit__hub { margin: -2.25rem -2.25rem 0 0; }
+}
+
 
 .es-home-insight {
   display: grid;
-  gap: .7rem;
+  gap: .5rem;
   inline-size: 100%;
-  padding: 1.15rem 1.25rem;
-  border: 1px solid var(--home-mint);
-  border-radius: var(--home-card-radius);
-  background: var(--es-navy-900);
-  box-shadow: 0 0 0 5px rgb(114 224 187 / 10%);
+  padding-inline-start: 1rem;
+  border-inline-start: 3px solid var(--home-mint);
 }
 
 .es-home-insight__label {
@@ -1523,27 +1790,18 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-insight__label .es-home-ic { color: var(--home-mint); }
 .es-home-insight__label .es-home-example { margin-inline-start: auto; }
 
-.es-home-insight__read {
-  padding-inline-start: 1rem;
-  border-inline-start: 2px solid var(--home-mint);
-  color: var(--es-white);
-  font-size: 1.125rem;
-  font-weight: 600;
-  line-height: 1.45;
-}
+.es-home-insight__read { color: var(--es-white); font-size: 1.25rem; font-weight: 600; line-height: 1.45; }
 
 /* The suggestion: an action for the broker, set apart from the reading. */
-.es-home-suggest__rail { --rail-len: 1rem; }
-
 .es-home-suggest {
   display: grid;
   gap: .15rem;
   inline-size: 100%;
-  padding: .85rem 1.1rem;
+  padding: .8rem 1.05rem;
   border: 1.5px dashed var(--home-mint);
   border-radius: var(--home-card-radius);
   color: var(--es-white);
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1.5;
 }
@@ -1621,11 +1879,16 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-interest.is-none { color: var(--es-on-dark-muted); }
 
 @media (prefers-reduced-motion: no-preference) {
-  .es-home-signals.is-armed :is(.es-home-evidence, .es-home-signals__stem, .es-home-insight, .es-home-suggest__rail, .es-home-suggest) { opacity: 0; }
-  .es-home-signals.is-playing :is(.es-home-suggest__rail, .es-home-suggest) { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 640ms both; }
-  .es-home-signals.is-playing :is(.es-home-evidence, .es-home-signals__stem) { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; }
-  .es-home-signals.is-playing .es-home-signals__stem { animation-delay: 240ms; }
-  .es-home-signals.is-playing .es-home-insight { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 420ms both; }
+  /* Signature: accumulate → understand. Points arrive one by one, their
+     lines draw, B lights up, then the reading and the suggestion. */
+  .es-home-signals.is-armed :is(.es-home-evidence--said, .es-home-sig, .es-home-orbit__lines, .es-home-orbit__hub, .es-home-orbit__sat, .es-home-insight, .es-home-suggest) { opacity: 0; }
+  .es-home-signals.is-playing .es-home-evidence--said { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; }
+  .es-home-signals.is-playing .es-home-sig { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(200ms + var(--i, 0) * 140ms); }
+  .es-home-signals.is-playing .es-home-orbit__lines { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 700ms both; }
+  .es-home-signals.is-playing .es-home-orbit__sat { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 800ms both; }
+  .es-home-signals.is-playing .es-home-orbit__hub { animation: es-home-pop var(--es-mo-base) var(--es-mo-ease) 900ms both, es-home-glow-in var(--es-mo-slow) var(--es-mo-ease) 1100ms both; }
+  .es-home-signals.is-playing .es-home-insight { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 1150ms both; }
+  .es-home-signals.is-playing .es-home-suggest { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 1350ms both; }
 }
 
 /* ============================================================
@@ -1652,6 +1915,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 .es-home-clusters {
   position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
   grid-template-areas:
@@ -1662,12 +1926,19 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   align-items: center;
   gap: .35rem 1.25rem;
   inline-size: 100%;
-  padding: 2.25rem 1.25rem 1.25rem;
-  border: 1px solid var(--es-line);
-  border-radius: 1rem;
-  background:
-    radial-gradient(circle at 1px 1px, rgb(19 40 60 / 9%) 1px, transparent 0) 0 0 / 22px 22px,
-    var(--es-white);
+  padding: 2.25rem .5rem 1rem;
+}
+
+/* An open canvas, not a card: a faint field of points that fades out at
+   the edges, so the clusters read as patterns in the page itself. */
+.es-home-clusters::before {
+  content: "";
+  position: absolute;
+  inset: -1rem;
+  z-index: -1;
+  background: radial-gradient(circle at 1px 1px, rgb(19 40 60 / 12%) 1px, transparent 0) 0 0 / 20px 20px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 35%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, #000 35%, transparent 75%);
 }
 
 .es-home-clusters__caption { position: absolute; inset-block-start: .7rem; inset-inline-start: .9rem; }
@@ -1676,15 +1947,18 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   position: relative;
   justify-self: center;
   aspect-ratio: 1;
-  border: 1px dashed var(--es-line-strong);
   border-radius: 50%;
+  background: radial-gradient(circle, rgb(46 108 170 / 12%), rgb(46 108 170 / 0%) 70%);
 }
+
+/* Unsorted behaviour around the patterns. */
+.es-home-dot--stray { inline-size: .45rem; block-size: .45rem; margin: -.225rem; background: var(--es-line-strong); }
 
 .es-home-cluster--key {
   grid-area: key;
-  inline-size: min(100%, 11rem);
-  border: 2px solid var(--home-mint);
-  background: rgb(114 224 187 / 10%);
+  inline-size: min(100%, 12rem);
+  background: radial-gradient(circle, rgb(114 224 187 / 22%), rgb(114 224 187 / 6%) 68%, transparent 70%);
+  box-shadow: inset 0 0 0 2px var(--home-mint);
 }
 
 .es-home-cluster--a { grid-area: a; inline-size: min(100%, 4.75rem); }
@@ -1728,15 +2002,11 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 .es-home-growth-fig__link { --rail-len: 1.25rem; margin-block: .5rem; }
 
+/* The insight is text on the page, not another card. */
 .es-home-campaign {
   display: grid;
   gap: .7rem;
   inline-size: min(100%, 24rem);
-  padding: .95rem 1.1rem;
-  border: 1px solid var(--es-line-strong);
-  border-radius: .75rem;
-  background: var(--es-white);
-  box-shadow: 0 1px 2px rgb(11 34 57 / 5%), 0 10px 24px rgb(11 34 57 / 6%);
 }
 
 .es-home-campaign__title {
@@ -1757,16 +2027,16 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-campaign__dest {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: .2rem .75rem;
-  padding-block-start: .6rem;
-  border-block-start: 1px solid var(--es-line);
+  align-items: center;
+  gap: .2rem .6rem;
   color: var(--es-ink-60);
   font-size: var(--fs-small);
 }
 
-.es-home-campaign__dest b { color: var(--es-navy-950); font-size: var(--fs-label); font-weight: 600; }
+.es-home-campaign__dest::before { content: ""; inline-size: 1.5rem; block-size: var(--rail-w); background: var(--rail-c); }
+.es-home-campaign__dest b { padding: .1rem .6rem; border: 1px solid var(--es-line-strong); border-radius: .4rem; background: var(--es-white); }
+
+.es-home-campaign__dest b { color: var(--es-navy-950); font-size: var(--fs-small); font-weight: 600; }
 
 @media (prefers-reduced-motion: no-preference) {
   .es-home-clusters.is-armed :is(.es-home-dot, .es-home-cluster) { opacity: 0; }
@@ -1800,6 +2070,42 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-free-card__head .es-home-h3 { color: var(--es-navy-950); font-weight: 600; }
 .es-home-free-card > p:not(.es-home-free-card__head) { color: var(--es-ink-72); font-size: 1rem; line-height: 1.7; }
 .es-home-free-card .es-home-btn { margin-block-start: .25rem; }
+
+/* Editorial panels: a big "free" and one quiet motif each — a dotted map
+   for the market, a browser outline for the site. No rails here. */
+.es-home-free-card { position: relative; overflow: hidden; isolation: isolate; border-color: var(--es-line); padding-block-start: clamp(1.5rem, 4vw, 2.25rem); }
+.es-home-free-card__head { flex-direction: column; align-items: start; gap: .2rem; }
+.es-home-free-card__head .es-home-badge { order: -1; padding: 0; background: none; color: var(--es-blue-600); font-size: clamp(1.75rem, 3.2vw, 2.25rem); font-weight: 600; line-height: 1.1; }
+.es-home-free-card__head .es-home-badge::before { display: none; }
+
+.es-home-free-card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset-block-start: 1.25rem;
+  inset-inline-end: 1.25rem;
+  inline-size: 6.5rem;
+  block-size: 5rem;
+  opacity: .55;
+}
+
+.es-home-free-card:nth-child(1)::after {
+  border-radius: 50%;
+  background: radial-gradient(circle at 1px 1px, var(--es-blue-500) 1.2px, transparent 0) 0 0 / 9px 9px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 72%);
+  mask-image: radial-gradient(ellipse at center, #000 40%, transparent 72%);
+}
+
+.es-home-free-card:nth-child(2)::after {
+  border: 1.5px solid var(--es-blue-500);
+  border-radius: .5rem;
+  background:
+    linear-gradient(var(--es-blue-500), var(--es-blue-500)) 0 .9rem / 100% 1.5px no-repeat,
+    radial-gradient(circle, var(--es-blue-500) 2px, transparent 2.5px) .35rem .2rem / .6rem .6rem repeat-x;
+  background-size: 100% 1.5px, .6rem .6rem;
+  background-repeat: no-repeat, repeat-x;
+  opacity: .35;
+}
 
 .es-home-scope { margin-block-start: 1.1rem; }
 
@@ -1926,8 +2232,8 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   .es-home-copy { max-inline-size: 44rem; }
 }
 
-@media (max-width: 52rem) {
-  /* Request ↓ Estavo ↓ the selected card, then A and C as short rows:
+@media (max-width: 59.99rem) {
+  /* Request criteria ↓ the selected card, then A and C as short rows:
      name, price and the trade-off. Their facts stay in the comparison table. */
   .es-home-analysis { inline-size: min(100%, 34rem); }
   .es-home-ask { inline-size: 100%; }
@@ -1945,6 +2251,8 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   .es-home-opt--alt .es-home-reason { color: var(--es-on-dark-muted); font-weight: 500; }
   .es-home-opt--alt .es-home-reason--warn { color: var(--es-on-dark); }
   .es-home-opt.is-outside { border-style: solid; border-color: var(--es-line-dark); }
+  .es-home-criteria, .es-home-track { display: none; }
+  .es-home-ask { margin-block-end: 1rem; }
 }
 
 @media (max-width: 40rem) {
@@ -1964,7 +2272,6 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 /* Very narrow or enlarged text: one column of signals, cluster labels under clusters. */
 @media (max-width: 22.5rem) {
-  .es-home-understand__signals { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* Reduced motion: final state, immediately. No transitions. */

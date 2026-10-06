@@ -610,3 +610,31 @@ test('built stylesheet is reproducible from its v3 modules (no build drift)', ()
     assert.equal(normalise(built), normalise(modules), 'estavo-v3.css differs from its sources — run sh tools/build-css.sh');
     assert.match(fs.readFileSync(path.join(__dirname, '../assets/css/v3/premium.css'), 'utf8'), /\.es-sticky-cta \{/);
 });
+
+test('graphics refactor: decision board, interest constellation, open growth canvas', () => {
+    for (const [file, ar] of [['index.html', true], ['en.html', false]]) {
+        const { doc } = load(file);
+        // Request: criteria columns (decorative, aria-hidden) and one limit track per budget criterion.
+        const criteria = doc.querySelector('#home-request .es-home-criteria');
+        assert.equal(criteria.getAttribute('aria-hidden'), 'true');
+        assert.equal(criteria.children.length, 7);
+        assert.equal(criteria.querySelectorAll('.is-priority').length, 1, 'the stated priority is the one marked column');
+        const tracks = [...doc.querySelectorAll('#home-request .es-home-track')];
+        assert.equal(tracks.length, 6);
+        tracks.forEach((t) => assert.equal(t.getAttribute('aria-hidden'), 'true'));
+        // Only C's price passes the limit; only B's down payment resolves.
+        assert.deepEqual([...doc.querySelectorAll('#home-request .es-home-track.is-over')].map((t) => t.closest('.es-home-opt').classList.contains('is-outside')), [true]);
+        assert.ok(doc.querySelector('#home-request .es-home-track.is-best').closest('.es-home-opt--best'));
+        assert.equal(doc.querySelector('#home-request .es-home-analysis__stem'), null, 'no core/stem chain in the board');
+        // Client: an open constellation (decorative hub/lines) — no Estavo core chain.
+        const fig = doc.querySelector('#home-client [data-home-signals]');
+        assert.equal(fig.querySelector('.es-home-core'), null);
+        assert.equal(fig.querySelector('.es-home-orbit__hub').getAttribute('aria-hidden'), 'true');
+        assert.equal(fig.querySelector('.es-home-orbit__lines').getAttribute('aria-hidden'), 'true');
+        fig.querySelectorAll('.es-home-sig').forEach((sig) => assert.match(sig.getAttribute('style'), /--x:\d+;--y:\d+/));
+        // Growth and Market: the graphic is not wrapped in a generic card.
+        assert.equal(doc.querySelector('#home-market .es-home-board.es-home-card'), null);
+        // Mascot slots stay empty until the final art exists (no reserved gap, no stand-in).
+        assert.equal(doc.querySelectorAll('main .es-home-mascot').length, 0);
+    }
+});
