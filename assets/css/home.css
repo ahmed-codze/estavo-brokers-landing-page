@@ -1649,125 +1649,157 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 .es-home-evidence__said { color: var(--es-white); font-size: 1.0625rem; font-weight: 600; line-height: 1.5; }
 
-/* The interest constellation: each observed signal is a point; lines say
-   which topic it concerns. Three point at Project B, so B becomes the
-   centre; the handover question attaches through its own satellite. */
-.es-home-orbit__field {
+/* Where the client's behaviour lands: two properties from the example,
+   with each observed signal pinned to what it concerns. Signals about B
+   sit above B; signals about both sit on a bracket joining A and B. The
+   handover fact is marked on both because that is what was asked. B is
+   the focus (mint) because that is where the signals converge. */
+.es-home-trail__board {
+  --trail-gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas: ". on" "a b" "pair pair";
+  column-gap: var(--trail-gap);
+  inline-size: 100%;
+}
+
+.es-home-trail__on,
+.es-home-trail__pair { display: flex; flex-wrap: wrap; gap: .45rem; }
+
+.es-home-trail__on {
+  grid-area: on;
   position: relative;
-  inline-size: 100%;
-  aspect-ratio: 3 / 2;
-  min-block-size: 15rem;
+  justify-content: center;
+  padding-block-end: 1.1rem;
 }
 
-.es-home-orbit__lines {
+/* One leader from the B signals into B. */
+.es-home-trail__on::after {
+  content: "";
   position: absolute;
-  inset: 0;
-  inline-size: 100%;
-  block-size: 100%;
-  overflow: visible;
+  inset-block-end: 0;
+  inset-inline-start: calc(50% - 1px);
+  inline-size: 2px;
+  block-size: 1.1rem;
+  background: linear-gradient(var(--home-rail-dark), var(--home-mint));
 }
 
-:root[dir="rtl"] .es-home-orbit__lines { transform: scaleX(-1); }
+.es-home-trail__unit:nth-of-type(1) { grid-area: a; }
+.es-home-trail__unit.is-focus { grid-area: b; }
 
-.es-home-orbit__lines line,
-.es-home-orbit__ring { fill: none; stroke: var(--home-rail-dark); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
-.es-home-orbit__ring { stroke-dasharray: 2 5; opacity: .7; }
-.es-home-orbit__lines .es-home-orbit__out { stroke: var(--home-mint); stroke-width: 2; }
+.es-home-trail__pair {
+  grid-area: pair;
+  position: relative;
+  justify-content: center;
+  padding-block-start: 1.75rem;
+}
 
-.es-home-understand__signals { position: absolute; inset: 0; }
+/* The bracket joining A and B: up from each tile's centre, meeting below. */
+.es-home-trail__pair::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: calc((100% - var(--trail-gap)) / 4);
+  block-size: 1.1rem;
+  border: 2px solid var(--home-rail-dark);
+  border-block-start: 0;
+  border-radius: 0 0 .7rem .7rem;
+}
 
+.es-home-trail__pair::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 1.1rem;
+  inset-inline-start: calc(50% - 1px);
+  inline-size: 2px;
+  block-size: .65rem;
+  background: var(--home-rail-dark);
+}
+
+/* Observed signals: quiet chips — facts, not conclusions. */
 .es-home-sig {
-  position: absolute;
-  z-index: 1;
-  inset-block-start: calc(var(--y) * 1%);
-  inset-inline-start: calc(var(--x) * 1%);
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
-  gap: .35rem;
-  inline-size: 9rem;
-  margin-inline-start: -4.5rem;
+  gap: .45rem;
+  padding: .3rem .75rem .3rem .35rem;
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-radius: 999px;
+  background: var(--es-navy-950);
   color: var(--es-white);
   font-size: var(--fs-small);
   font-weight: 600;
-  line-height: 1.4;
-  text-align: center;
-  transform: translateY(-1.05rem); /* icon centre on the point, label below */
+  line-height: 1.35;
 }
 
-/* Upper points carry their label above, so no line crosses text. */
-.es-home-sig:nth-child(-n + 2) { flex-direction: column-reverse; transform: translateY(calc(-100% + 1.05rem)); }
+:root[dir="rtl"] .es-home-sig { padding: .3rem .35rem .3rem .75rem; }
 
 .es-home-sig__icon {
   display: grid;
   place-items: center;
-  inline-size: 2.1rem;
-  block-size: 2.1rem;
+  inline-size: 1.65rem;
+  block-size: 1.65rem;
   flex: none;
   border-radius: 50%;
-  background: var(--es-navy-950);
-  box-shadow: inset 0 0 0 1.5px var(--home-rail-dark);
+  background: rgb(255 255 255 / 8%);
 }
 
-.es-home-sig__icon .es-home-ic { inline-size: 1rem; block-size: 1rem; color: var(--es-on-dark); }
+.es-home-sig__icon .es-home-ic { inline-size: .95rem; block-size: .95rem; color: var(--es-on-dark); }
 
-.es-home-orbit__hub,
-.es-home-orbit__sat {
-  position: absolute;
-  z-index: 1;
+/* The two properties. */
+.es-home-trail__unit {
   display: grid;
-  place-items: center;
-  border-radius: 50%;
-  color: var(--es-white);
-  font-weight: 600;
-  text-align: center;
+  align-content: start;
+  gap: .3rem;
+  overflow: hidden;
+  padding-block-end: .75rem;
+  border: 1px solid var(--es-line-dark);
+  border-radius: .85rem;
+  background: var(--es-navy-900);
+  opacity: .82;
 }
 
-.es-home-orbit__hub {
-  inset-block-start: 50%;
-  inset-inline-start: 50%;
-  inline-size: 5.5rem;
-  block-size: 5.5rem;
-  margin: -2.75rem 0 0 -2.75rem;
-  background: var(--es-navy-950);
-  box-shadow: inset 0 0 0 2px var(--home-mint), 0 0 0 8px rgb(114 224 187 / 10%);
-  font-size: 1rem;
-  line-height: 1.3;
+.es-home-trail__unit.is-focus {
+  border-color: var(--home-mint);
+  box-shadow: 0 0 0 4px rgb(114 224 187 / 12%), 0 18px 40px rgb(0 0 0 / 28%);
+  opacity: 1;
 }
 
-:root[dir="rtl"] .es-home-orbit__hub { margin: -2.75rem -2.75rem 0 0; }
+.es-home-trail__art { display: block; margin-block-end: .35rem; }
+.es-home-trail__art svg { display: block; inline-size: 100%; block-size: auto; }
+.es-home-trail__sky { fill: rgb(255 255 255 / 5%); }
+.es-home-trail__bld { fill: rgb(255 255 255 / 12%); }
+.es-home-trail__bld--key { fill: rgb(125 179 230 / 45%); }
+.is-focus .es-home-trail__bld--key { fill: rgb(114 224 187 / 55%); }
+.es-home-trail__win { fill: none; stroke: rgb(255 255 255 / 30%); stroke-width: 2; stroke-linecap: round; }
 
-.es-home-orbit__sat {
-  inset-block-start: 59%;
-  inset-inline-start: 66%;
-  min-inline-size: 4.5rem;
-  padding: .2rem .65rem;
-  border-radius: 999px;
-  background: var(--es-navy-950);
-  box-shadow: inset 0 0 0 1.5px var(--home-rail-dark);
-  color: var(--es-on-dark);
-  font-size: var(--fs-caption);
-  transform: translate(-50%, -50%);
+.es-home-trail__name,
+.es-home-trail__facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .1rem .75rem;
+  padding-inline: .85rem;
 }
 
-:root[dir="rtl"] .es-home-orbit__sat { transform: translate(50%, -50%); }
+.es-home-trail__name b { color: var(--es-white); font-size: 1rem; font-weight: 600; }
+.es-home-trail__name span { color: var(--es-white); font-size: 1rem; font-weight: 600; }
+.es-home-trail__facts { color: var(--es-on-dark-muted); font-size: var(--fs-small); }
+.es-home-trail__facts b { color: var(--es-on-dark); font-weight: 600; }
 
-/* Too narrow for a constellation (enlarged text, very small screens): the
-   same signals as a plain list; the reading and suggestion follow. */
+/* What was asked about, marked on both properties. */
+.es-home-trail__facts .is-asked { padding-block-end: .1rem; border-block-end: 1.5px dashed var(--es-blue-500); color: var(--es-on-dark); }
+
+/* Narrow (phones, enlarged text): the properties stack and every signal
+   group sits with what it concerns, without brackets. */
+@container (max-width: 22rem) {
+  .es-home-trail__board { grid-template-columns: minmax(0, 1fr); grid-template-areas: "on" "b" "pair" "a"; row-gap: 0; }
+  .es-home-trail__pair { justify-content: start; padding-block: .75rem; }
+  .es-home-trail__pair::before, .es-home-trail__pair::after { display: none; }
+  .es-home-trail__on { justify-content: start; }
+  .es-home-trail__on::after { inset-inline-start: 1.5rem; }
+}
+
 .es-home-evidence--seen { container-type: inline-size; }
-
-@container (max-width: 20rem) {
-  .es-home-orbit__field { aspect-ratio: auto; min-block-size: 0; }
-  .es-home-understand__signals { position: static; display: grid; gap: .6rem; }
-  .es-home-sig, .es-home-sig:nth-child(-n + 2) { position: static; flex-direction: row; inline-size: auto; margin: 0; text-align: start; transform: none; }
-  .es-home-orbit__lines, .es-home-orbit__hub, .es-home-orbit__sat { display: none; }
-}
-
-@media (max-width: 40rem) {
-  .es-home-orbit__hub { inline-size: 4.5rem; block-size: 4.5rem; margin: -2.25rem 0 0 -2.25rem; font-size: var(--fs-small); }
-  :root[dir="rtl"] .es-home-orbit__hub { margin: -2.25rem -2.25rem 0 0; }
-}
-
 
 .es-home-insight {
   display: grid;
@@ -1879,16 +1911,16 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-interest.is-none { color: var(--es-on-dark-muted); }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Signature: accumulate → understand. Points arrive one by one, their
-     lines draw, B lights up, then the reading and the suggestion. */
-  .es-home-signals.is-armed :is(.es-home-evidence--said, .es-home-sig, .es-home-orbit__lines, .es-home-orbit__hub, .es-home-orbit__sat, .es-home-insight, .es-home-suggest) { opacity: 0; }
+  /* Signature: accumulate → understand. The properties appear, the
+     signals land on them one by one, B takes the focus, then the reading. */
+  .es-home-signals.is-armed :is(.es-home-evidence--said, .es-home-trail__unit, .es-home-sig, .es-home-insight, .es-home-suggest) { opacity: 0; }
   .es-home-signals.is-playing .es-home-evidence--said { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; }
-  .es-home-signals.is-playing .es-home-sig { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(200ms + var(--i, 0) * 140ms); }
-  .es-home-signals.is-playing .es-home-orbit__lines { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 700ms both; }
-  .es-home-signals.is-playing .es-home-orbit__sat { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 800ms both; }
-  .es-home-signals.is-playing .es-home-orbit__hub { animation: es-home-pop var(--es-mo-base) var(--es-mo-ease) 900ms both, es-home-glow-in var(--es-mo-slow) var(--es-mo-ease) 1100ms both; }
-  .es-home-signals.is-playing .es-home-insight { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 1150ms both; }
-  .es-home-signals.is-playing .es-home-suggest { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 1350ms both; }
+  .es-home-signals.is-playing .es-home-trail__unit { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 150ms both; }
+  .es-home-signals.is-playing .es-home-sig { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(450ms + var(--i, 0) * 160ms); }
+  .es-home-signals.is-playing .es-home-trail__unit.is-focus { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 150ms both, es-home-glow-in var(--es-mo-slow) var(--es-mo-ease) 1150ms both; }
+  .es-home-signals.is-playing .es-home-insight { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 1300ms both; }
+  .es-home-signals.is-playing .es-home-suggest { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 1500ms both; }
+}
 }
 
 /* ============================================================
@@ -1908,106 +1940,122 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 .es-home-growth-fig {
   display: grid;
-  justify-items: center;
-  inline-size: min(100%, 30rem);
+  justify-items: stretch;
+  gap: 0;
+  inline-size: min(100%, 36rem);
   justify-self: center;
+  container-type: inline-size;
 }
 
-.es-home-clusters {
-  position: relative;
-  isolation: isolate;
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-  grid-template-areas:
-    "key a"
-    "key al"
-    "key b"
-    "kl bl";
+/* Patterns: what keeps repeating among your clients, as tags — no dots,
+   no sizes. The recurring one is marked; the others stay quiet. */
+.es-home-patterns { display: grid; gap: .7rem; }
+
+.es-home-patterns__label {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: .35rem 1.25rem;
-  inline-size: 100%;
-  padding: 2.25rem .5rem 1rem;
-}
-
-/* An open canvas, not a card: a faint field of points that fades out at
-   the edges, so the clusters read as patterns in the page itself. */
-.es-home-clusters::before {
-  content: "";
-  position: absolute;
-  inset: -1rem;
-  z-index: -1;
-  background: radial-gradient(circle at 1px 1px, rgb(19 40 60 / 12%) 1px, transparent 0) 0 0 / 20px 20px;
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 35%, transparent 75%);
-  mask-image: radial-gradient(ellipse at center, #000 35%, transparent 75%);
-}
-
-.es-home-clusters__caption { position: absolute; inset-block-start: .7rem; inset-inline-start: .9rem; }
-
-.es-home-cluster {
-  position: relative;
-  justify-self: center;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgb(46 108 170 / 12%), rgb(46 108 170 / 0%) 70%);
-}
-
-/* Unsorted behaviour around the patterns. */
-.es-home-dot--stray { inline-size: .45rem; block-size: .45rem; margin: -.225rem; background: var(--es-line-strong); }
-
-.es-home-cluster--key {
-  grid-area: key;
-  inline-size: min(100%, 12rem);
-  background: radial-gradient(circle, rgb(114 224 187 / 22%), rgb(114 224 187 / 6%) 68%, transparent 70%);
-  box-shadow: inset 0 0 0 2px var(--home-mint);
-}
-
-.es-home-cluster--a { grid-area: a; inline-size: min(100%, 4.75rem); }
-.es-home-cluster--b { grid-area: b; inline-size: min(100%, 4.25rem); }
-
-.es-home-cluster__label {
-  justify-self: center;
+  gap: .35rem .5rem;
   color: var(--es-ink-72);
   font-size: var(--fs-small);
   font-weight: 600;
-  line-height: 1.4;
-  text-align: center;
 }
 
-.es-home-cluster__label--key { grid-area: kl; color: var(--es-navy-950); font-size: 1rem; font-weight: 600; }
-.es-home-cluster__label--key b { display: block; color: var(--es-ink-60); font-size: var(--fs-caption); font-weight: 600; }
-.es-home-cluster__label--a { grid-area: al; }
-.es-home-cluster__label--b { grid-area: bl; }
+.es-home-patterns__label .es-home-example { margin-inline-start: auto; }
+.es-home-patterns__list { display: grid; gap: .5rem; }
 
-.es-home-dot {
-  position: absolute;
-  inset-inline-start: var(--x);
-  inset-block-start: var(--y);
-  inline-size: .7rem;
-  block-size: .7rem;
-  margin: -.35rem;
-  border-radius: 50%;
-  background: var(--es-blue-500);
-}
-
-/* Narrow in rem terms (320px screens, enlarged text): the prominent pattern
-   on top, the two secondary clusters side by side under it. */
-.es-home-growth-fig { container-type: inline-size; }
-
-@container (max-width: 21rem) {
-  .es-home-clusters {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-areas: "key key" "kl kl" "a b" "al bl";
-  }
-}
-
-.es-home-growth-fig__link { --rail-len: 1.25rem; margin-block: .5rem; }
-
-/* The insight is text on the page, not another card. */
-.es-home-campaign {
+.es-home-cluster {
   display: grid;
-  gap: .7rem;
-  inline-size: min(100%, 24rem);
+  justify-self: start;
+  max-inline-size: 100%;
+  gap: .4rem;
+  padding: .6rem .8rem;
+  border-inline-start: 3px solid var(--es-line);
 }
+
+.es-home-cluster:not(.es-home-cluster--key) .es-home-pattern > span { background: transparent; color: var(--es-ink-72); font-weight: 500; }
+
+.es-home-cluster--key {
+  padding-block: .8rem;
+  border-inline-start-color: var(--home-mint);
+  border-radius: 0 .75rem .75rem 0;
+  background: var(--es-white);
+  box-shadow: 0 1px 2px rgb(11 34 57 / 5%), 0 10px 24px rgb(11 34 57 / 7%);
+}
+
+:root[dir="rtl"] .es-home-cluster--key { border-radius: .75rem 0 0 .75rem; }
+
+.es-home-cluster em { color: var(--es-ink-60); font-size: var(--fs-caption); font-style: normal; font-weight: 600; }
+.es-home-pattern { display: flex; flex-wrap: wrap; gap: .4rem; }
+
+.es-home-pattern > span {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .25rem .65rem;
+  border: 1px solid var(--es-line);
+  border-radius: 999px;
+  background: var(--es-white);
+  color: var(--es-navy-950);
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+
+.es-home-cluster--key .es-home-pattern > span { border-color: var(--es-line-strong); font-size: var(--fs-label); }
+.es-home-pattern .es-home-ic { inline-size: 1rem; block-size: 1rem; }
+
+/* The insight, as the campaign it informs: a property image, what to
+   advertise and what to lead with, and where it runs — Meta, shown with
+   its official lockup (assets/img/brand, unmodified; see AGENTS.md). */
+.es-home-campaign {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  margin-block-start: 1.5rem;
+  overflow: visible;
+  border: 1px solid var(--es-line-strong);
+  border-radius: 1rem;
+  background: var(--es-white);
+  box-shadow: 0 2px 4px rgb(11 34 57 / 5%), 0 24px 56px rgb(11 34 57 / 12%);
+}
+
+/* The recurring pattern feeds the campaign. */
+.es-home-campaign::before {
+  content: "";
+  position: absolute;
+  inset-block-end: 100%;
+  inset-inline-start: 2.5rem;
+  inline-size: 2px;
+  block-size: 1.5rem;
+  background: var(--home-mint);
+}
+
+.es-home-campaign__art { position: relative; display: block; overflow: hidden; border-start-start-radius: 1rem; border-end-start-radius: 1rem; }
+.es-home-campaign__art svg { position: absolute; inset: 0; display: block; inline-size: 100%; block-size: 100%; }
+.es-home-campaign__art { min-block-size: 9rem; }
+.es-home-campaign__sky { fill: #dfeaf6; }
+.es-home-campaign__haze { fill: #eaf1f9; }
+.es-home-campaign__bld { fill: #b3c8de; }
+.es-home-campaign__bld--far { fill: #cddbea; }
+.es-home-campaign__bld--key { fill: var(--es-blue-600); opacity: .85; }
+.es-home-campaign__win { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; opacity: .85; }
+.es-home-campaign__ground { fill: #c9d8e8; }
+
+.es-home-campaign__tag {
+  position: absolute;
+  inset-block-end: .6rem;
+  inset-inline-start: .6rem;
+  max-inline-size: calc(100% - 1.2rem);
+  padding: .2rem .6rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 94%);
+  color: var(--es-navy-950);
+  font-size: var(--fs-caption);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.es-home-campaign__body { display: grid; align-content: start; gap: .7rem; padding: 1rem 1.1rem; min-inline-size: 0; }
 
 .es-home-campaign__title {
   display: inline-flex;
@@ -2023,25 +2071,36 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-campaign__list dt { color: var(--es-ink-60); font-size: var(--fs-small); line-height: 1.4; }
 .es-home-campaign__list dd { color: var(--es-navy-950); font-size: var(--fs-label); font-weight: 600; line-height: 1.5; }
 
-/* Meta stays a small destination, not the subject. */
 .es-home-campaign__dest {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: .2rem .6rem;
+  justify-content: space-between;
+  gap: .25rem .75rem;
+  padding-block-start: .5rem;
+  border-block-start: 1px solid var(--es-line);
   color: var(--es-ink-60);
   font-size: var(--fs-small);
 }
 
-.es-home-campaign__dest::before { content: ""; inline-size: 1.5rem; block-size: var(--rail-w); background: var(--rail-c); }
-.es-home-campaign__dest b { padding: .1rem .6rem; border: 1px solid var(--es-line-strong); border-radius: .4rem; background: var(--es-white); }
+/* Meta's minimum: symbol ≥ 12px. The file carries its own clear space
+   (one symbol height each side), so 48px tall = a 16px symbol. */
+.es-home-meta-logo { display: block; inline-size: auto; block-size: 3rem; margin-block: -.5rem; }
 
-.es-home-campaign__dest b { color: var(--es-navy-950); font-size: var(--fs-small); font-weight: 600; }
+@container (max-width: 30rem) {
+  .es-home-campaign { grid-template-columns: minmax(0, 1fr); }
+  .es-home-campaign__art { inline-size: 100%; min-block-size: 0; aspect-ratio: 2 / 1; border-radius: 1rem 1rem 0 0; }
+  .es-home-campaign__art svg { block-size: 100%; }
+}
 
+@container (max-width: 18rem) { .es-home-campaign__tag { display: none; } }
+
+/* Signature: cluster — the patterns arrive, the recurring one resolves,
+   then the campaign it informs. */
 @media (prefers-reduced-motion: no-preference) {
-  .es-home-clusters.is-armed :is(.es-home-dot, .es-home-cluster) { opacity: 0; }
-  .es-home-clusters.is-playing .es-home-dot { animation: es-home-gather var(--es-mo-slow) var(--es-mo-ease) both; animation-delay: calc(var(--i, 0) * 30ms); }
-  .es-home-clusters.is-playing .es-home-cluster { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 700ms both; }
+  .es-home-clusters.is-armed .es-home-cluster { opacity: 0; }
+  .es-home-clusters.is-playing .es-home-cluster { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(var(--i, 0) * 140ms); }
+  .es-home-clusters.is-playing .es-home-cluster--key { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both, es-home-glow-in var(--es-mo-slow) var(--es-mo-ease) 600ms both; }
 }
 
 /* ============================================================
@@ -2217,11 +2276,6 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   to { opacity: 1; transform: none; }
 }
 
-@keyframes es-home-gather {
-  from { opacity: 0; transform: translate(var(--sx, 0), var(--sy, 0)); }
-  30% { opacity: 1; }
-  to { opacity: 1; transform: none; }
-}
 
 /* ============================================================
    Responsive — recompose, never shrink

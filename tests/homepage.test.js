@@ -516,7 +516,11 @@ test('graphics: compact hero model, client insight, growth pattern, consistent C
         assert.equal(doc.querySelectorAll('#home-growth .es-home-cluster--key').length, 1);
         assert.equal(doc.querySelectorAll('#home-growth .es-home-cluster').length, 3);
         const panel = doc.querySelector('#home-growth .es-home-campaign');
-        assert.match(panel.textContent, /Meta/);
+        // Meta is shown with its official lockup (unmodified file, alt text) as the destination.
+        const meta = panel.querySelector('.es-home-campaign__dest img.es-home-meta-logo');
+        assert.equal(meta.getAttribute('alt'), 'Meta');
+        assert.match(meta.getAttribute('src'), /^assets\/img\/brand\/meta-lockup-positive-\d+\.png$/);
+        assert.equal(doc.querySelectorAll('#home-growth .es-home-dot').length, 0, 'no dot clusters');
         // The panel is information for a campaign, not an automatically created audience.
         assert.equal(panel.querySelector('.es-home-campaign__title').textContent.trim(), ar ? 'معلومات لحملتك' : 'Insights for your campaign');
         assert.doesNotMatch(panel.textContent, /جمهور|audience/i);
@@ -626,12 +630,18 @@ test('graphics refactor: decision board, interest constellation, open growth can
         assert.deepEqual([...doc.querySelectorAll('#home-request .es-home-track.is-over')].map((t) => t.closest('.es-home-opt').classList.contains('is-outside')), [true]);
         assert.ok(doc.querySelector('#home-request .es-home-track.is-best').closest('.es-home-opt--best'));
         assert.equal(doc.querySelector('#home-request .es-home-analysis__stem'), null, 'no core/stem chain in the board');
-        // Client: an open constellation (decorative hub/lines) — no Estavo core chain.
+        // Client: signals pinned to the properties they concern — two about B above B,
+        // two about both on the A–B bracket; the handover fact is marked on both.
         const fig = doc.querySelector('#home-client [data-home-signals]');
-        assert.equal(fig.querySelector('.es-home-core'), null);
-        assert.equal(fig.querySelector('.es-home-orbit__hub').getAttribute('aria-hidden'), 'true');
-        assert.equal(fig.querySelector('.es-home-orbit__lines').getAttribute('aria-hidden'), 'true');
-        fig.querySelectorAll('.es-home-sig').forEach((sig) => assert.match(sig.getAttribute('style'), /--x:\d+;--y:\d+/));
+        assert.equal(fig.querySelector('.es-home-core, .es-home-orbit__hub'), null);
+        assert.equal(fig.querySelectorAll('.es-home-trail__on .es-home-sig').length, 2);
+        assert.equal(fig.querySelectorAll('.es-home-trail__pair .es-home-sig').length, 2);
+        const units = fig.querySelectorAll('.es-home-trail__unit');
+        assert.equal(units.length, 2);
+        assert.ok(units[1].classList.contains('is-focus'));
+        assert.match(units[1].textContent, /8\.0M/);
+        assert.match(units[0].textContent, /7\.9M/);
+        units.forEach((u) => assert.ok(u.querySelector('.is-asked')));
         // Growth and Market: the graphic is not wrapped in a generic card.
         assert.equal(doc.querySelector('#home-market .es-home-board.es-home-card'), null);
         // Mascot slots stay empty until the final art exists (no reserved gap, no stand-in).

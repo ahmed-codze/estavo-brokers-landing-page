@@ -110,7 +110,7 @@
   function initHomeGrowthClusters() {
     var figure = document.querySelector("[data-home-clusters]");
     if (!figure) return;
-    index(".es-home-dot", figure);
+    index(".es-home-cluster", figure);
     playOnEntry(figure);
   }
 
