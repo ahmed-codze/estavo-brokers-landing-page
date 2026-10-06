@@ -1413,7 +1413,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 }
 
 .es-home-browser {
-  --broker: #1f5fbf;
+  --broker: var(--es-plum);
   --broker-ink: #ffffff;
   inline-size: 100%;
   overflow: hidden;
@@ -1517,14 +1517,14 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 .es-home-listing__art { position: relative; display: block; overflow: hidden; }
 .es-home-listing__art svg { display: block; inline-size: 100%; block-size: auto; }
-.es-home-listing__sky { fill: #dfeaf6; }
-.es-home-listing__haze { fill: #eaf1f9; }
+.es-home-listing__sky { fill: #ece5ee; }
+.es-home-listing__haze { fill: #f2eff3; }
 .es-home-listing__sun { fill: #fff; opacity: .8; }
-.es-home-listing__block { fill: #b3c8de; }
-.es-home-listing__block--far { fill: #cddbea; }
+.es-home-listing__block { fill: #c5a8cc; }
+.es-home-listing__block--far { fill: #d3c1d7; }
 .es-home-listing__block--tall { fill: var(--broker); opacity: .85; }
 .es-home-listing__win { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; opacity: .85; }
-.es-home-listing__ground { fill: #c9d8e8; }
+.es-home-listing__ground { fill: #ceb8d3; }
 .es-home-listing__tree { fill: #9fc3b4; }
 
 .es-home-listing__where {

@@ -32,6 +32,12 @@
     --es-art-shadow: 0 16px 36px rgb(11 34 57 / 9%), 0 2px 4px rgb(11 34 57 / 7%);
     --es-art-inner: inset 0 1px 0 rgb(255 255 255 / 16%);
     --es-art-mint: #72e0bb;
+    /* Secondary brand accent. Drives the website-mock chrome via
+       --broker and the skyline artwork, so the illustrations read as
+       brand rather than as another blue. Deliberately NOT wired to
+       --es-blue-*, which carry eyebrows, buttons, focus rings and
+       body ink across the whole page. */
+    --es-plum: #33123b;
 
     /* Derived ink/line values. Percentages keep contrast
        predictable when a component moves between surfaces. */
