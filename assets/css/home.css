@@ -890,12 +890,24 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 .es-home-market__sources p { color: var(--es-ink-72); font-size: var(--fs-small); line-height: 1.5; }
 
+/* The sources are the "before" in chaos → order, so they rest slightly
+   scattered and overlapping rather than in a tidy row. The tilt is static,
+   so the argument survives reduced motion and mid-scroll entry — the
+   assembly animation then resolves them from --sx/--sy to this state. */
 .es-home-market__docs {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: .5rem;
 }
+
+/* position + z-index: the overlap needs a stacking order, or each tilted
+   sheet is clipped by the one after it. */
+.es-home-frag { position: relative; --tilt: 0deg; transform: rotate(var(--tilt)); }
+.es-home-frag:nth-child(1) { --tilt: -5deg; z-index: 4; }
+.es-home-frag:nth-child(2) { --tilt: 3.5deg; margin-inline-start: -.45rem; z-index: 3; }
+.es-home-frag:nth-child(3) { --tilt: -2.5deg; margin-inline-start: -.45rem; z-index: 2; }
+.es-home-frag:nth-child(4) { --tilt: 5deg; margin-inline-start: -.45rem; }
 
 /* Document glyphs read as paper, not as buttons. */
 .es-home-frag .es-home-ic {
@@ -1176,6 +1188,9 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   --rail-len: 1rem;
 }
 
+/* Scale legend. Hidden until the scales themselves exist (≥60rem). */
+.es-home-scalekey { display: none; }
+
 /* Options: one list for both layouts. Wide screens show the three side by
    side with B in the middle and every fact visible; phones show B as the
    card and A/C as short rows (name, price, reason). */
@@ -1319,6 +1334,41 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   .es-home-options { grid-template-columns: minmax(0, 1fr); gap: .5rem; padding-block-start: .6rem; }
   .es-home-options::before, .es-home-opt::before { display: none; }
 
+  .es-home-scalekey {
+    display: flex;
+    flex-wrap: wrap;
+    /* Sits under the scale columns, which start at the inline start in
+       both directions — flex-end would strand it on the wrong side in LTR. */
+    justify-content: flex-start;
+    gap: .35rem 1.1rem;
+    inline-size: 100%;
+    padding-inline: 1.25rem;
+    margin-block-start: .5rem;
+    color: var(--es-on-dark-muted);
+    font-size: var(--fs-caption);
+  }
+
+  .es-home-scalekey__item { display: inline-flex; align-items: center; gap: .35rem; }
+
+  .es-home-scalekey__item::before {
+    content: "";
+    flex: none;
+    inline-size: .55rem;
+    block-size: .55rem;
+    border-radius: 50%;
+  }
+
+  .es-home-scalekey__item--val::before { background: var(--es-blue-500); }
+  .es-home-scalekey__item--over::before { background: var(--home-warn, #f2c46d); }
+
+  /* The limit is a bar in the scale, so the key shows a bar too. */
+  .es-home-scalekey__item--lim::before {
+    inline-size: 2px;
+    block-size: .75rem;
+    border-radius: 2px;
+    background: var(--es-on-dark-muted);
+  }
+
   .es-home-opt, .es-home-opt--best, .es-home-opt:nth-child(2), .es-home-opt:nth-child(3) {
     grid-column: 1;
     grid-row: auto;
@@ -1395,7 +1445,8 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 /* Signature motion #3 — evaluate: the criteria arrive, each option is
    placed against the client's limits, then B resolves. */
 @media (prefers-reduced-motion: no-preference) {
-  .es-home-analysis.is-armed :is(.es-home-ask, .es-home-chip, .es-home-criteria, .es-home-opt) { opacity: 0; }
+  .es-home-analysis.is-armed :is(.es-home-ask, .es-home-chip, .es-home-criteria, .es-home-opt, .es-home-scalekey) { opacity: 0; }
+  .es-home-analysis.is-playing .es-home-scalekey { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 1200ms both; }
   .es-home-analysis.is-playing .es-home-ask { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both; }
   .es-home-analysis.is-playing .es-home-chip { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(200ms + var(--i, 0) * var(--es-mo-stagger)); }
   .es-home-analysis.is-playing .es-home-criteria { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 600ms both; }
@@ -1404,7 +1455,8 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   .es-home-analysis.is-playing .es-home-opt--best { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 750ms both, es-home-glow-in var(--es-mo-slow) var(--es-mo-ease) 1500ms both; }
 }
 
-@keyframes es-home-place { from { inset-inline-start: -.3rem; opacity: 0; } }
+/* Transform-only: animating inset-inline-start laid out every frame. */
+@keyframes es-home-place { from { transform: translateX(-.6rem); opacity: 0; } }
 
 /* ============================================================
    4. WEBSITE — your details → your website
@@ -1771,10 +1823,21 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-trail__art { display: block; margin-block-end: .35rem; }
 .es-home-trail__art svg { display: block; inline-size: 100%; block-size: auto; }
 .es-home-trail__sky { fill: rgb(255 255 255 / 5%); }
-.es-home-trail__bld { fill: rgb(255 255 255 / 12%); }
-.es-home-trail__bld--key { fill: rgb(168 184 204 / 30%); }
-.is-focus .es-home-trail__bld--key { fill: rgb(255 255 255 / 55%); }
-.es-home-trail__win { fill: none; stroke: rgb(255 255 255 / 30%); stroke-width: 2; stroke-linecap: round; }
+
+/* Skyline depth. A single flat alpha made every tower the same slab, so
+   the art read as a placeholder. Each building carries a top edge and the
+   nth-of-type steps vary the fill, which is what separates one mass from
+   the next at this size — shadows would be too soft at 56px tall. */
+.es-home-trail__bld { fill: rgb(255 255 255 / 10%); stroke: rgb(255 255 255 / 16%); stroke-width: 1; }
+.es-home-trail__bld:nth-of-type(3) { fill: rgb(255 255 255 / 14%); }
+.es-home-trail__bld:nth-of-type(4) { fill: rgb(255 255 255 / 8%); }
+.es-home-trail__bld--key { fill: rgb(168 184 204 / 32%); stroke: rgb(168 184 204 / 45%); }
+.is-focus .es-home-trail__bld--key { fill: rgb(255 255 255 / 58%); stroke: rgb(255 255 255 / 70%); }
+.es-home-trail__win { fill: none; stroke: rgb(255 255 255 / 28%); stroke-width: 2; stroke-linecap: round; }
+
+/* The focused unit's own windows read brighter — it is the one being
+   compared, and the brightness is the only cue at this scale. */
+.is-focus .es-home-trail__win { stroke: rgb(255 255 255 / 42%); }
 
 .es-home-trail__name,
 .es-home-trail__facts {
@@ -2274,10 +2337,12 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 @keyframes es-home-draw-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 @keyframes es-home-glow-in { from { box-shadow: 0 0 0 0 rgb(168 184 204 / 0%); } }
 
+/* Resolves to the resting tilt, not to none — the fragments keep the
+   scattered-paper look the static layout establishes. */
 @keyframes es-home-settle {
   from { opacity: 0; transform: translate(var(--sx, 0), var(--sy, 0)) rotate(var(--sr, 0deg)); }
   35% { opacity: 1; }
-  to { opacity: 1; transform: none; }
+  to { opacity: 1; transform: rotate(var(--tilt, 0deg)); }
 }
 
 
