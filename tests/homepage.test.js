@@ -49,7 +49,7 @@ for (const [file, labels, labelKey] of [
         assert.equal(logo.getAttribute('decoding'), 'async');
         assert.ok(doc.querySelector('link[rel="preload"][as="image"][href$="estavo-brokers-logo-320.webp"]'));
 
-        assert.equal(doc.querySelector('script[src*="/raghad.js"]'), null, 'disabled production assistant must not download eagerly');
+        assert.equal(doc.querySelector('script[src*="/raghad.js"]'), null, 'assistant must keep its deferred loader');
         assert.ok(doc.querySelector('script[src*="raghad-loader.js"]'));
     });
 

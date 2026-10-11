@@ -6,7 +6,7 @@ Static Arabic/English landing pages for Brokers and Sites. Publish the HTML and 
 
 Raghad appears on `index.html`, `en.html`, `website/index.html`, and `website/en.html`. The shared `assets/js/raghad.js` and `assets/css/raghad.css` use the page language, preserve the existing design, and keep the launcher above the bottom call-to-action bar.
 
-The widget calls the Laravel API at `https://api-brokers.estavo.space/api/public/support/chat`. Configure a different environment with the script's `data-endpoint` attribute. `data-support-url` is the approved human-contact link; keep it in sync with the API's `RAGHAD_SUPPORT_URL`.
+All four routes use `assets/js/raghad-loader.js`, which enables guest access without sign-in. The public `estavo-brokers.com` and `www.estavo-brokers.com` hosts call `https://api-brokers.estavo.space/api/public/support/chat`; preview/staging hosts keep the staging API. Configure a local test API with the loader's `data-endpoint` attribute. The loader keeps the approved support link in sync with the API's `RAGHAD_SUPPORT_URL`.
 
 Deploy the corresponding API change and its private FAQ resources first. The API needs `CLOUD_FLARE_AI_GATE_WAY` and `CLOUDFLARE_ACCOUNT_ID` (see the API release guide). **Never add model credentials to this repository or the browser.** No npm dependency is needed to serve the site; jsdom is used only for tests.
 
@@ -23,4 +23,4 @@ npm test
 
 The interaction tests cover Arabic keyboard navigation, retries, expired conversation tokens, new-chat cancellation, safe message rendering, duplicate submissions, and all four page integrations. Backend behavior and setup are documented in the API repository's `docs/RAGHAD_SUPPORT.md`.
 
-For a local page preview, serve this directory over HTTP. Override `data-endpoint` to your local API when testing sends; otherwise the widget targets the production API. Do not publish local mock servers or test credentials.
+For a local page preview, serve this directory over HTTP. Override the loader's `data-endpoint` to your local API when testing sends; otherwise preview hosts target the staging API. Do not publish local mock servers or test credentials.

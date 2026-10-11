@@ -234,27 +234,65 @@ test('rate limits and malformed success responses preserve a path to human suppo
     }
 });
 
-test('all four landing routes load the same widget with correct relative assets', () => {
+test('all four landing routes defer the same public widget with versioned relative assets', () => {
     for (const name of ['index.html', 'en.html', 'website/index.html', 'website/en.html']) {
         const html = fs.readFileSync(path.join(__dirname, '..', name), 'utf8');
         const dom = new JSDOM(html, { url: `https://estavo-brokers.com/${name}` });
-        const script = dom.window.document.querySelector('script[src*="raghad.js"]');
-        const style = dom.window.document.querySelector('link[href*="raghad.css"]');
         const loader = dom.window.document.querySelector('script[src*="raghad-loader.js"]');
-
-        if (loader) {
-            assert.equal(new URL(loader.src).pathname, '/assets/js/raghad-loader.js');
-            const loaderSource = fs.readFileSync(path.join(__dirname, '../assets/js/raghad-loader.js'), 'utf8');
-            assert.match(loaderSource, /assets\/js\/raghad\.js/);
-            assert.match(loaderSource, /assets\/css\/raghad\.css/);
-            assert.match(loaderSource, /api-staging-brokers\.estavo\.space\/api\/public\/support\/chat/);
-        } else {
-            assert.equal(new URL(script.src).pathname, '/assets/js/raghad.js');
-            assert.equal(new URL(style.href).pathname, '/assets/css/raghad.css');
-            assert.equal(script.dataset.endpoint, 'https://api-staging-brokers.estavo.space/api/public/support/chat');
-        }
+        assert.equal(new URL(loader.src).pathname, '/assets/js/raghad-loader.js');
+        assert.equal(new URL(loader.src).searchParams.get('v'), '20261011-public');
+        assert.equal(loader.hasAttribute('defer'), true);
+        assert.equal(dom.window.document.querySelector('script[src*="/raghad.js"]'), null);
         dom.window.close();
     }
+});
+
+function loadDeferredWidget(url, idle = true, endpoint) {
+    const dom = new JSDOM('<!doctype html><html lang="en"><body></body></html>', { url, runScripts: 'outside-only' });
+    const { window } = dom;
+    const loader = window.document.createElement('script');
+    loader.src = new URL(url.includes('/website/') ? '../assets/js/raghad-loader.js' : 'assets/js/raghad-loader.js', url).href;
+    if (endpoint) loader.dataset.endpoint = endpoint;
+    window.document.body.append(loader);
+    Object.defineProperty(window.document, 'currentScript', { value: loader, configurable: true });
+    let scheduled;
+    if (idle) window.requestIdleCallback = (callback) => { scheduled = callback; };
+    else window.setTimeout = (callback) => { scheduled = callback; };
+    window.eval(fs.readFileSync(path.join(__dirname, '../assets/js/raghad-loader.js'), 'utf8'));
+    assert.equal(window.document.querySelector('script[src*="/raghad.js"]'), null);
+    assert.equal(typeof scheduled, 'function');
+    scheduled();
+    scheduled();
+    const widgets = window.document.querySelectorAll('script[src*="/raghad.js"]');
+    assert.equal(widgets.length, 1, 'repeated idle callbacks must not create duplicate widgets');
+    Object.defineProperty(window.document, 'currentScript', { value: widgets[0] });
+    window.eval(source);
+    assert.ok(window.document.querySelector('.raghad-launcher'), 'guest launcher must initialize');
+    return { dom, widget: widgets[0] };
+}
+
+test('guest landing routes initialize Raghad on both public hosts using the production API', () => {
+    for (const host of ['estavo-brokers.com', 'www.estavo-brokers.com']) {
+        for (const route of ['/', '/en.html', '/website/', '/website/en.html']) {
+            const { dom, widget } = loadDeferredWidget(`https://${host}${route}`);
+            assert.equal(widget.dataset.endpoint, 'https://api-brokers.estavo.space/api/public/support/chat');
+            assert.equal(new URL(widget.src).pathname, '/assets/js/raghad.js');
+            assert.equal(widget.dataset.disabledHosts, undefined);
+            for (const link of dom.window.document.querySelectorAll('link[rel="stylesheet"]')) {
+                assert.ok(new URL(link.href).pathname.startsWith('/assets/css/'));
+            }
+            dom.window.close();
+        }
+    }
+});
+
+test('staging retains its API, timer fallback initializes guests, and local tests can override the endpoint', () => {
+    const { dom, widget } = loadDeferredWidget('https://landing-staging.estavo.space/website/en.html', false);
+    assert.equal(widget.dataset.endpoint, 'https://api-staging-brokers.estavo.space/api/public/support/chat');
+    dom.window.close();
+    const local = loadDeferredWidget('http://127.0.0.1:3018/', true, 'http://127.0.0.1:81/api/public/support/chat');
+    assert.equal(local.widget.dataset.endpoint, 'http://127.0.0.1:81/api/public/support/chat');
+    local.dom.window.close();
 });
 
 test('only approved answer URLs become links, punctuation and hostile markup remain safe', async () => {

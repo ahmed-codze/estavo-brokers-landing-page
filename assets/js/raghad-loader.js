@@ -1,24 +1,28 @@
 (function () {
   "use strict";
 
-  var disabledHosts = ["estavo-brokers.com", "www.estavo-brokers.com"];
-  if (disabledHosts.indexOf(window.location.hostname) !== -1) return;
+  var loader = document.currentScript;
+  if (!loader) return;
+  var assets = new URL("../", loader.src);
+  var production = ["estavo-brokers.com", "www.estavo-brokers.com"].indexOf(window.location.hostname) !== -1;
+  var endpoint = loader.dataset.endpoint || (production
+    ? "https://api-brokers.estavo.space/api/public/support/chat"
+    : "https://api-staging-brokers.estavo.space/api/public/support/chat");
 
   function loadAssistant() {
     if (document.querySelector('script[src*="/raghad.js"]')) return;
 
     var sharedStyle = document.createElement("link");
     sharedStyle.rel = "stylesheet";
-    sharedStyle.href = "assets/css/chatbot-shared.css?v=20260918-chat-ui";
+    sharedStyle.href = new URL("css/chatbot-shared.css?v=20260918-chat-ui", assets).href;
 
     var assistantStyle = document.createElement("link");
     assistantStyle.rel = "stylesheet";
-    assistantStyle.href = "assets/css/raghad.css?v=20260918-chat-feedback";
+    assistantStyle.href = new URL("css/raghad.css?v=20260918-chat-feedback", assets).href;
 
     var assistantScript = document.createElement("script");
-    assistantScript.src = "assets/js/raghad.js?v=20260921-knowledge";
-    assistantScript.dataset.disabledHosts = disabledHosts.join(",");
-    assistantScript.dataset.endpoint = "https://api-staging-brokers.estavo.space/api/public/support/chat";
+    assistantScript.src = new URL("js/raghad.js?v=20260921-knowledge", assets).href;
+    assistantScript.dataset.endpoint = endpoint;
     assistantScript.dataset.supportUrl = "https://wa.me/201069528393";
 
     document.head.append(sharedStyle, assistantStyle);
