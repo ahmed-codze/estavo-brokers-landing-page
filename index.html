@@ -237,7 +237,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600&amp;display=swap" rel="stylesheet" />
 <link rel="preload" as="image" href="assets/logo/estavo-brokers-logo-320.webp" type="image/webp" fetchpriority="high" />
 <link rel="stylesheet" href="assets/css/home-critical.css?v=968d61f0a7" />
-<link rel="stylesheet" href="assets/css/home.css?v=9fc532a08a" />
+<link rel="stylesheet" href="assets/css/home.css?v=003705d063" />
 </head>
 
 <body class="es es-home es-landing">
@@ -505,6 +505,15 @@
                     </div>
 
                     <div class="es-home-criteria" aria-hidden="true"><span>المشروع</span><span>السعر<small>حتى <bdi>8M</bdi></small></span><span class="is-priority">المقدم<small>الأولوية · حتى <bdi>1.5M</bdi></small></span><span>التقسيط</span><span>الاستلام</span><span>المساحة</span><span>النتيجة</span></div>
+
+                    <!-- Legend for the scales in the price/down-payment
+                         columns: without it the dot and the tick read as
+                         decoration rather than "value against the limit". -->
+                    <p class="es-home-scalekey" aria-hidden="true">
+                        <span class="es-home-scalekey__item es-home-scalekey__item--val">القيمة</span>
+                        <span class="es-home-scalekey__item es-home-scalekey__item--lim">حد العميل</span>
+                        <span class="es-home-scalekey__item es-home-scalekey__item--over">فوق الحد</span>
+                    </p>
                     <ul class="es-home-options">
                         <li class="es-home-opt es-home-opt--best">
                             <p class="es-home-opt__head"><b>مشروع ب</b><strong class="es-home-num">8.0M<i class="es-home-track" style="--v:.5;--lim:.5" aria-hidden="true"><span></span></i></strong><em class="es-home-opt__rank">أنسب لأولويته</em></p>
