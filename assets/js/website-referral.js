@@ -412,7 +412,7 @@
         }) : [];
     }
 
-    function buildManualOnboardingUrl(profile, locale, attribution, ownerUserId, ownerLeadId) {
+    function buildManualOnboardingUrl(profile, locale, attribution, ownerUserId, ownerLeadId, parentWebsiteId, parentCustomerUserId) {
         var normalizedProfile = normalizeManualProfile(profile, true);
         var normalizedLocale = normalizeLocale(locale);
         var normalizedOwnerUserId = normalizeOwnerUserId(ownerUserId);
@@ -450,6 +450,10 @@
 
         var destination = new URL(ONBOARDING_PATH, PLATFORM_ORIGIN);
         destination.searchParams.set('source', profileUrl.toString());
+        if (normalizeOwnerUserId(parentWebsiteId) && normalizeOwnerUserId(parentCustomerUserId)) {
+            destination.searchParams.set('parent_website', normalizeOwnerUserId(parentWebsiteId));
+            destination.searchParams.set('parent_customer', normalizeOwnerUserId(parentCustomerUserId));
+        }
         destination.searchParams.set('mode', 'manual');
         destination.searchParams.set('fresh_start', '1');
         destination.searchParams.set('audience', 'individual');
@@ -970,7 +974,7 @@
                     facebook: form.elements.facebook_url.value,
                     instagram: form.elements.instagram_url.value
                 }
-            }, locale, attribution, ownerUserId, ownerLeadId);
+            }, locale, attribution, ownerUserId, ownerLeadId, getQueryParameter(windowObject.location.search, 'parent_website'), getQueryParameter(windowObject.location.search, 'parent_customer'));
             if (!destination) {
                 error.textContent = locale === 'ar'
                     ? 'تعذر تجهيز بيانات موقعك. راجع اختياراتك وحاول تاني.'
@@ -1054,7 +1058,7 @@
                     else if (ownerLeadId) url.searchParams.set('for_lead', ownerLeadId);
                     var source = classifySource(requestedSource || '');
                     if (source.ok) url.searchParams.set('source', source.url);
-                    ['audience', QUERY_PARAM].concat(ATTRIBUTION_FIELDS).forEach(function (field) {
+                    ['audience', 'parent_website', 'parent_customer', QUERY_PARAM].concat(ATTRIBUTION_FIELDS).forEach(function (field) {
                         var value = getQueryParameter(search, field);
                         if (value) url.searchParams.set(field, value);
                     });

@@ -334,7 +334,7 @@ test('the Arabic and English website builders expose link and manual handoffs', 
         assert.match(html, new RegExp(`aria-describedby="${input}-hint ${input}-error"`));
         assert.match(html, new RegExp(`id="${input}-error" role="alert" aria-live="polite"`));
         assert.match(html, /maxlength="2048"/);
-        assert.match(html, /assets\/js\/website-referral\.js\?v=20261005-crm-lead-owner/);
+        assert.match(html, /assets\/js\/website-referral\.js\?v=20261013-company-agents/);
         assert.match(html, /assets\/css\/website-wizard\.css\?v=10/);
         assert.match(html, /data-website-wizard/);
         assert.match(html, /data-panel="audience"/);
@@ -430,3 +430,12 @@ test('the website builders state the free/paid city truth (creation preview vs. 
         assert.match(html, ar ? /إنشاء الموقع مجاني/ : /Free to create/);
     }
 });
+
+ test('keeps authorized company context separate from the new agent owner', () => {
+    const result = new URL(referral.buildManualOnboardingUrl({ name: 'Mona Agent', theme: 'modern_line', cities: [NEW_CAIRO], contact: CONTACT }, 'en', {}, null, '71', '23', '45'));
+    assert.equal(result.searchParams.get('for_lead'), '71');
+    assert.equal(result.searchParams.get('for_user'), null);
+    assert.equal(result.searchParams.get('parent_website'), '23');
+    assert.equal(result.searchParams.get('parent_customer'), '45');
+    assert.equal(result.searchParams.get('audience'), 'individual');
+ });
