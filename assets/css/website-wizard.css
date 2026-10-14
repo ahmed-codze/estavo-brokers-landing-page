@@ -213,6 +213,39 @@ body { background: #fff; }
 .contact-same { grid-column: 1 / -1; display: inline-flex; width: fit-content; align-items: center; gap: 8px; margin-top: -4px; color: rgba(2, 29, 57, .66); font-size: 11px; font-weight: 700; cursor: pointer; }
 .contact-same input { width: 16px; height: 16px; accent-color: var(--estavo-navy); }
 .contact-note { margin-top: 16px; padding: 10px 12px; border-radius: 8px; background: #f4f7f9; color: rgba(2, 29, 57, .58); font-size: 11px; line-height: 1.5; }
+
+/* Step 6 — where the broker's photo lands. The file itself is chosen after
+   sign-in, so this panel only shows the three frames it has to survive and
+   sets the expectation; nothing here uploads. */
+.photo-promise {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    /* These are illustrations of three crops, not the editor. Capped so they
+       stay a hint on a wide screen instead of dominating the step. */
+    max-width: 520px;
+    margin-bottom: 16px;
+}
+/* The three frames are deliberately different shapes, so align them on their
+   captions rather than their tops — otherwise the row reads as misaligned
+   rather than as three sizes of the same photo. */
+.photo-frame { display: flex; min-width: 0; flex-direction: column; justify-content: flex-end; }
+.photo-frame > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed rgba(2, 29, 57, .18);
+    border-radius: 12px;
+    background: #f4f7f9;
+    color: rgba(2, 29, 57, .3);
+}
+.photo-frame[data-frame="desktop"] > span { aspect-ratio: 2 / 1; }
+.photo-frame[data-frame="mobile"] > span { aspect-ratio: 4 / 3; }
+.photo-frame[data-frame="social"] > span { aspect-ratio: 452 / 630; }
+.photo-frame svg { width: 26px; height: 26px; }
+.photo-frame small { display: block; margin-top: 6px; color: rgba(2, 29, 57, .5); font-size: 10px; font-weight: 700; line-height: 1.4; }
+.photo-note { padding: 11px 13px; border-radius: 9px; background: #f4f7f9; color: rgba(2, 29, 57, .6); font-size: 11.5px; line-height: 1.55; }
+
 .manual-error { min-height: 20px; margin-top: 10px; color: #b42318; font-size: 12.5px; font-weight: 700; }
 .manual-actions { display: flex; justify-content: space-between; gap: 9px; margin-top: 18px; }
 .manual-actions [hidden] { display: none !important; }
@@ -247,6 +280,9 @@ body { background: #fff; }
     .provider-choice strong { padding-inline-end: 28px; font-size: 13.5px; }
     .provider-choice small { margin-top: 3px; }
     .provider-url-field { margin-top: 14px; padding: 13px; }
+    .photo-promise { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .photo-frame[data-frame="social"] { grid-column: 1 / -1; }
+    .photo-frame[data-frame="social"] > span { aspect-ratio: 16 / 7; }
     .contact-grid { grid-template-columns: 1fr; gap: 12px; }
     .manual-shell { padding: 20px 16px; border-radius: 14px; }
     .manual-actions > * { flex: 1; padding-inline: 10px; }

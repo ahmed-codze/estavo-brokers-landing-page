@@ -675,7 +675,10 @@
         var form = wizard.querySelector('[data-manual-form]');
         if (!form) return;
         var currentStep = 1;
-        var stepCount = 5;
+        // Step 6 sets the expectation for the photo and collects nothing, so
+        // it needs no validateStep case — the file is chosen after sign-in,
+        // where there is an authenticated session to upload against.
+        var stepCount = 6;
         var error = form.querySelector('[data-manual-error]');
         var next = form.querySelector('[data-manual-next]');
         var previous = form.querySelector('[data-manual-prev]');

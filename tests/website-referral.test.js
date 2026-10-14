@@ -334,8 +334,8 @@ test('the Arabic and English website builders expose link and manual handoffs', 
         assert.match(html, new RegExp(`aria-describedby="${input}-hint ${input}-error"`));
         assert.match(html, new RegExp(`id="${input}-error" role="alert" aria-live="polite"`));
         assert.match(html, /maxlength="2048"/);
-        assert.match(html, /assets\/js\/website-referral\.js\?v=20261013-company-agents/);
-        assert.match(html, /assets\/css\/website-wizard\.css\?v=10/);
+        assert.match(html, /assets\/js\/website-referral\.js\?v=20261014-photo-step/);
+        assert.match(html, /assets\/css\/website-wizard\.css\?v=11/);
         assert.match(html, /data-website-wizard/);
         assert.match(html, /data-panel="audience"/);
         assert.doesNotMatch(html, /data-panel="personal-choice"/);
@@ -353,7 +353,13 @@ test('the Arabic and English website builders expose link and manual handoffs', 
         assert.match(html, /name="facebook_url"/);
         assert.match(html, /name="instagram_url"/);
         assert.doesNotMatch(html, /name="cities"/);
-        assert.equal((html.match(/data-manual-step=/g) || []).length, 5, `${file} should expose the optional provider step`);
+        assert.equal((html.match(/data-manual-step=/g) || []).length, 6, `${file} should expose the optional provider and photo steps`);
+        // Step 6 sets the expectation for the photo but must never collect the
+        // file: this wizard is anonymous and cross-origin, and the onboarding
+        // upload endpoints require a verified account.
+        assert.match(html, /data-manual-step="6"/);
+        assert.match(html, /class="photo-promise"/);
+        assert.doesNotMatch(html, /type="file"/);
         const themes = [...html.matchAll(/name="theme" value="([^"]+)"/g)].map((match) => match[1]);
         assert.deepEqual(themes, ESTAVO_PERSONAL_THEMES, `${file} should offer the exact Estavo theme catalog`);
         assert.doesNotMatch(html, /data-review-name/);
