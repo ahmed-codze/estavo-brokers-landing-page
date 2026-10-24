@@ -153,6 +153,27 @@ test('carries a validated CRM customer through manual website creation', () => {
     assert.equal(referral.normalizeOwnerUserId('6748x'), null);
 });
 
+test('carries an unregistered CRM lead through both website creation paths', () => {
+    const linked = new URL(referral.buildOnboardingUrl(
+        'https://www.facebook.com/new.broker',
+        'en',
+        {},
+        null,
+        91,
+    ));
+    const manual = new URL(referral.buildManualOnboardingUrl({
+        name: 'New Broker',
+        theme: 'modern_line',
+        cities: [NEW_CAIRO],
+        contact: CONTACT,
+    }, 'en', {}, null, 91));
+
+    assert.equal(linked.searchParams.get('for_lead'), '91');
+    assert.equal(linked.searchParams.has('for_user'), false);
+    assert.equal(manual.searchParams.get('for_lead'), '91');
+    assert.equal(manual.searchParams.has('for_user'), false);
+});
+
 test('normalizes Egyptian contacts and validates optional social profiles', () => {
     assert.equal(referral.normalizePhoneNumber('010 1234 5678'), '+201012345678');
     assert.equal(referral.normalizePhoneNumber('00201012345678'), '+201012345678');
@@ -312,8 +333,8 @@ test('the Arabic and English website builders expose link and manual handoffs', 
         assert.match(html, new RegExp(`aria-describedby="${input}-hint ${input}-error"`));
         assert.match(html, new RegExp(`id="${input}-error" role="alert" aria-live="polite"`));
         assert.match(html, /maxlength="2048"/);
-        assert.match(html, /assets\/js\/website-referral\.js\?v=20261004-crm-owner/);
-        assert.match(html, /assets\/css\/website-wizard\.css/);
+        assert.match(html, /assets\/js\/website-referral\.js\?v=20261024-campaign-recovery/);
+        assert.match(html, /assets\/css\/website-wizard\.css\?v=12/);
         assert.match(html, /data-website-wizard/);
         assert.match(html, /data-panel="audience"/);
         assert.doesNotMatch(html, /data-panel="personal-choice"/);
@@ -331,7 +352,13 @@ test('the Arabic and English website builders expose link and manual handoffs', 
         assert.match(html, /name="facebook_url"/);
         assert.match(html, /name="instagram_url"/);
         assert.doesNotMatch(html, /name="cities"/);
-        assert.equal((html.match(/data-manual-step=/g) || []).length, 5, `${file} should expose the optional provider step`);
+        assert.equal((html.match(/data-manual-step=/g) || []).length, 6, `${file} should expose the optional provider and photo steps`);
+        // Step 6 sets the expectation for the photo but must never collect the
+        // file: this wizard is anonymous and cross-origin, and the onboarding
+        // upload endpoints require a verified account.
+        assert.match(html, /data-manual-step="6"/);
+        assert.match(html, /class="photo-promise"/);
+        assert.doesNotMatch(html, /type="file"/);
         const themes = [...html.matchAll(/name="theme" value="([^"]+)"/g)].map((match) => match[1]);
         assert.deepEqual(themes, ESTAVO_PERSONAL_THEMES, `${file} should offer the exact Estavo theme catalog`);
         assert.doesNotMatch(html, /data-review-name/);
@@ -348,4 +375,29 @@ test('the Arabic and English website builders expose link and manual handoffs', 
         assert.doesNotMatch(html, /class="website-starter"/);
         assert.doesNotMatch(html, /assets\/js\/website-referral\.js/);
     });
+});
+
+test('the website builders state the free/paid city truth (creation preview vs. activation)', () => {
+    // Creation is free and the selected cities populate a preview (demo) site.
+    // Activation clears that preview scope and grants one free city; more cities
+    // depend on the plan (WebsiteDemoLifecycleService::activate + grantLiveScope).
+    for (const [file, ar] of [['website/index.html', true], ['website/en.html', false]]) {
+        const html = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+        const step = html.match(/aria-labelledby="cities-title"[\s\S]*?<p class="step-copy">([\s\S]*?)<\/p>/)[1];
+        assert.match(step, ar ? /معاينة لموقعك/ : /preview of your website/);
+        assert.match(step, ar ? /بتبدأ بمدينة واحدة مجانًا، وباقي المدن حسب الباقة/ : /one free city; more cities depend on your plan/);
+        // Never promise every unit of every selected city on the free site.
+        assert.doesNotMatch(html, ar ? /هنملأ موقعك بكل الوحدات/ : /fill your website with every unit/);
+        assert.doesNotMatch(html, /مجاني 100%|100% free|مجاني بالكامل|completely free|كامل مجانًا|5 دقايق بس/);
+        assert.match(html, ar ? /إنشاء الموقع مجاني/ : /Free to create/);
+    }
+});
+
+test('keeps authorized company context separate from the new agent owner', () => {
+    const result = new URL(referral.buildManualOnboardingUrl({ name: 'Mona Agent', theme: 'modern_line', cities: [NEW_CAIRO], contact: CONTACT }, 'en', {}, null, '71', '23', '45'));
+    assert.equal(result.searchParams.get('for_lead'), '71');
+    assert.equal(result.searchParams.get('for_user'), null);
+    assert.equal(result.searchParams.get('parent_website'), '23');
+    assert.equal(result.searchParams.get('parent_customer'), '45');
+    assert.equal(result.searchParams.get('audience'), 'individual');
 });
