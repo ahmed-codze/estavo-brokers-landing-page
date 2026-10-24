@@ -667,6 +667,7 @@
         }
         function showPanel(name, focus) {
             currentPanel = name;
+            documentObject.body.setAttribute('data-website-wizard-active', name === 'audience' ? 'false' : 'true');
             panels.forEach(function (panel) {
                 panel.hidden = panel.getAttribute('data-panel') !== name;
             });

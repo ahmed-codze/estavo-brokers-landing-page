@@ -288,6 +288,8 @@ body { background: #fff; }
     .manual-shell { padding: 20px 16px; border-radius: 14px; }
     .manual-actions > * { flex: 1; padding-inline: 10px; }
     .help-fab { z-index: 20; }
+    body[data-website-wizard-active="true"] .help-fab,
+    body[data-website-wizard-active="true"] #raghad-support .raghad-launcher,
     body[data-website-controls-visible="true"] .help-fab,
     body[data-website-controls-visible="true"] #raghad-support .raghad-launcher { visibility: hidden; }
 }

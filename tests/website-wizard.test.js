@@ -200,3 +200,22 @@ test('manual profile JSON-LD cannot escape its script element through the broker
     assert.equal(JSON.parse(dom.window.document.scripts[0].textContent).name, name);
     assert.equal(dom.window.document.querySelector('h1').textContent, name);
 });
+
+
+test('floating help follows active wizard panels without scroll observers', async t => {
+    for (const locale of ['ar', 'en']) {
+        const wizard = await openWizard(t, { locale });
+        const active = () => wizard.document.body.getAttribute('data-website-wizard-active');
+        assert.notEqual(active(), 'true');
+        await reachContacts(wizard);
+        assert.equal(active(), 'true');
+        wizard.document.querySelector('[data-panel="manual"] [data-back-panel]').click();
+        assert.equal(active(), 'false');
+        wizard.document.querySelector('[data-next-panel="link"]').click();
+        assert.equal(active(), 'true');
+        wizard.document.querySelector('[data-panel="link"] [data-back-panel]').click();
+        assert.equal(active(), 'false');
+        const restored = await openWizard(t, { locale, query: '?audience=individual' });
+        assert.equal(restored.document.body.getAttribute('data-website-wizard-active'), 'true');
+    }
+});

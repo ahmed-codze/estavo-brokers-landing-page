@@ -333,8 +333,8 @@ test('the Arabic and English website builders expose link and manual handoffs', 
         assert.match(html, new RegExp(`aria-describedby="${input}-hint ${input}-error"`));
         assert.match(html, new RegExp(`id="${input}-error" role="alert" aria-live="polite"`));
         assert.match(html, /maxlength="2048"/);
-        assert.match(html, /assets\/js\/website-referral\.js\?v=20261024-five-step-setup/);
-        assert.match(html, /assets\/css\/website-wizard\.css\?v=12/);
+        assert.match(html, /assets\/js\/website-referral\.js\?v=20261024-mobile-wizard-help/);
+        assert.match(html, /assets\/css\/website-wizard\.css\?v=13/);
         assert.match(html, /data-website-wizard/);
         assert.match(html, /data-panel="audience"/);
         assert.doesNotMatch(html, /data-panel="personal-choice"/);
