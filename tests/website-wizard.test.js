@@ -66,14 +66,17 @@ test('both languages complete the keyboard flow and produce one validated handof
     for (const locale of ['ar', 'en']) {
         const wizard = await openWizard(t, { locale, query: '?ref=campaign&for_lead=71&parent_website=23&parent_customer=45&utm_source=facebook' });
         await reachContacts(wizard);
-        wizard.next();
+        wizard.submit();
         assert.equal(wizard.step(), 5);
         assert.equal(wizard.form.elements.public_phone.getAttribute('aria-invalid'), 'true');
         wizard.input('public_phone', '٠١٠ ١٢٣٤ ٥٦٧٨');
         wizard.form.querySelector('[data-whatsapp-same]').click();
         wizard.enter('public_phone');
-        assert.equal(wizard.step(), 6);
-        assert.equal(wizard.document.activeElement.id, 'photo-title');
+        assert.equal(wizard.step(), 5);
+        assert.equal(wizard.form.querySelectorAll('[data-manual-step]').length, 5);
+        assert.equal(wizard.document.querySelector('#photo-title'), null);
+        assert.equal(wizard.document.querySelector('[data-manual-next]').hidden, true);
+        assert.equal(wizard.document.querySelector('[data-manual-submit]').hidden, false);
         wizard.submit();
         wizard.submit();
         assert.equal(wizard.destinations.length, 1);
@@ -92,7 +95,6 @@ test('final validation returns to the invalid visible step and focuses the field
     await reachContacts(wizard);
     wizard.input('public_phone', '01012345678');
     wizard.input('whatsapp_phone', '01012345678');
-    wizard.next();
     wizard.input('display_name', '');
     wizard.submit();
     assert.equal(wizard.step(), 1);
