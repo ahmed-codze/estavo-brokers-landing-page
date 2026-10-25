@@ -733,6 +733,14 @@
             getQueryParameter(windowObject.location.search, 'parent_customer'),
             getQueryParameter(windowObject.location.search, 'source')
         ]);
+        // Seed only a new CRM handoff. A restored draft keeps the user's edits.
+        var defaultContactPhone = (ownerUserId || ownerLeadId)
+            ? normalizePhoneNumber(getQueryParameter(windowObject.location.search, 'contact_phone'))
+            : null;
+        if (defaultContactPhone) {
+            form.elements.public_phone.value = defaultContactPhone;
+            form.elements.whatsapp_phone.value = defaultContactPhone;
+        }
         var draftFields = ['display_name', 'property_finder_url', 'public_phone', 'whatsapp_phone', 'facebook_url', 'instagram_url'];
         var pendingCityIds = [];
         var restoredDraft = null;

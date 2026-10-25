@@ -219,3 +219,28 @@ test('floating help follows active wizard panels without scroll observers', asyn
         assert.equal(restored.document.body.getAttribute('data-website-wizard-active'), 'true');
     }
 });
+
+
+test('CRM contact defaults are editable and saved edits take priority in both languages', async t => {
+    for (const locale of ['ar', 'en']) {
+        const query = '?for_user=71&contact_phone=%2B201011112222';
+        const wizard = await openWizard(t, { locale, query });
+        assert.equal(wizard.form.elements.public_phone.value, '+201011112222');
+        assert.equal(wizard.form.elements.whatsapp_phone.value, '+201011112222');
+        await reachContacts(wizard);
+        wizard.input('public_phone', '01155556666');
+        wizard.input('whatsapp_phone', '01155556666');
+        const restored = await openWizard(t, { locale, query, storage: wizard.storage() });
+        assert.equal(restored.form.elements.public_phone.value, '01155556666');
+        assert.equal(restored.form.elements.whatsapp_phone.value, '01155556666');
+        wizard.next();
+        wizard.submit();
+        const destination = new URL(wizard.destinations[0]);
+        const profile = new URL(destination.searchParams.get('source'));
+        assert.equal(profile.searchParams.get('phone'), '+201155556666');
+    }
+    const lead = await openWizard(t, { query: '?for_lead=72&contact_phone=01011112222' });
+    assert.equal(lead.form.elements.public_phone.value, '+201011112222');
+    const invalid = await openWizard(t, { query: '?for_user=71&contact_phone=invalid' });
+    assert.equal(invalid.form.elements.public_phone.value, '');
+});
