@@ -1,144 +1,177 @@
-/* Estavo Market commercial page motion and prepared product demonstrations. */
+/* Estavo Market landing page — progressive enhancement only.
+   Without JS every step, the default comparison and the whole chat are
+   visible; this file adds the tabbed workflow, the priority switch, the
+   staged chat reveal and the mobile sticky action. */
 (function () {
   'use strict';
 
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const heroBubbles = [...document.querySelectorAll('.hero .chat-bubble')];
-  const heroThinking = document.querySelector('.hero .chat-thinking');
-  if (heroBubbles.length) {
-    const showHero = () => {
-      heroBubbles.forEach((bubble) => bubble.classList.remove('show'));
-      if (heroThinking) heroThinking.classList.remove('show');
-      const sequence = [
-        [heroBubbles[0], 250],
-        [heroThinking, 850],
-        [heroBubbles[1], 1550],
-        [heroBubbles[2], 2300],
-        [heroBubbles[3], 3050],
-      ];
-      sequence.forEach(([item, delay], index) => {
-        window.setTimeout(() => {
-          if (index === 2 && heroThinking) heroThinking.classList.remove('show');
-          if (item) item.classList.add('show');
-        }, reduced ? 0 : delay);
+  var root = document.querySelector('[data-mk]');
+  if (!root) return;
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
+  var all = function (sel, scope) { return Array.prototype.slice.call((scope || document).querySelectorAll(sel)); };
+
+  /* ── Workflow tabs ─────────────────────────────────────────── */
+  all('[data-mk-tabs]', root).forEach(function (wrap) {
+    var list = wrap.querySelector('[data-mk-tablist]');
+    var tabs = all('[data-mk-tab]', wrap);
+    var panels = all('[data-mk-panel]', wrap);
+    if (!list || tabs.length !== panels.length) return;
+
+    var STEP_MS = 6500;
+    var timer = null;
+    var current = 0;
+    var autoDone = reduced;
+
+    wrap.classList.add('is-enhanced');
+    wrap.style.setProperty('--mk-step-ms', STEP_MS + 'ms');
+    list.setAttribute('role', 'tablist');
+
+    tabs.forEach(function (tab, i) {
+      var key = tab.getAttribute('data-mk-tab');
+      var panel = panels[i];
+      tab.id = 'mk-tab-' + key;
+      tab.setAttribute('role', 'tab');
+      tab.setAttribute('aria-controls', 'mk-panel-' + key);
+      panel.id = 'mk-panel-' + key;
+      panel.setAttribute('role', 'tabpanel');
+      panel.setAttribute('aria-labelledby', tab.id);
+      panel.setAttribute('tabindex', '0');
+    });
+
+    function stopAuto() {
+      autoDone = true;
+      wrap.classList.remove('is-auto');
+      if (timer) { window.clearTimeout(timer); timer = null; }
+    }
+
+    function select(index, focus) {
+      current = index;
+      tabs.forEach(function (tab, i) {
+        var on = i === index;
+        tab.setAttribute('aria-selected', String(on));
+        tab.tabIndex = on ? 0 : -1;
+        panels[i].hidden = !on;
+        panels[i].classList.toggle('is-active', on);
       });
-    };
-    showHero();
-    if (!reduced) window.setInterval(showHero, 7800);
-  }
+      if (focus) tabs[index].focus();
+      if (!autoDone) schedule();
+    }
 
-  const demo = document.querySelector('.ai-demo-body');
-  if (demo) {
-    const isArabic = document.documentElement.lang === 'ar';
-    const conversations = isArabic ? [
-      {
-        user: 'عميل عايز شقة ٣ غرف في القاهرة الجديدة، والمقدم عنده محدود.',
-        answer: 'لقيت اختيارين مطابقين في المثال:',
-        rows: [['اختيار أ', '١٤٥ م² · مقدم ٢٠٪ · ٦ سنين'], ['اختيار ب', '١٥٠ م² · مقدم ٥٪ · ٨ سنين']],
-        summary: 'نفس المساحة تقريبًا، بس اختيار ب مقدمه أقل بـ١٥٪ وسداده أطول سنتين.',
-        actions: ['شوف المقارنة', 'جهّز العرض'],
-      },
-      {
-        user: 'قارن اختيار أ واختيار ب في المقدم ومدة السداد.',
-        answer: 'دي المقارنة من بيانات المثال:',
-        rows: [['اختيار أ', '١٤٥ م² · مقدم ٢٠٪ · ٦ سنين'], ['اختيار ب', '١٥٠ م² · مقدم ٥٪ · ٨ سنين']],
-        summary: 'اختيار أ مقدمه أعلى وسداده أقصر؛ اختيار ب يبدأ بكاش أقل على مدة أطول.',
-        actions: ['جهّز العرض', 'اسأل سؤال مكمل'],
-      },
-    ] : [
-      {
-        user: 'My client wants three bedrooms in New Cairo but has a limited down payment.',
-        answer: 'I found two matches in this example:',
-        rows: [['Option A', '145 m² · 20% down · 6 years'], ['Option B', '150 m² · 5% down · 8 years']],
-        summary: 'Nearly the same area, but B needs 15% less upfront and pays over two more years.',
-        actions: ['View comparison', 'Prepare a PDF'],
-      },
-      {
-        user: 'Compare Option A and Option B for down payment and term.',
-        answer: 'Here is the comparison from the example data:',
-        rows: [['Option A', '145 m² · 20% down · 6 years'], ['Option B', '150 m² · 5% down · 8 years']],
-        summary: 'A costs more upfront over a shorter term; B starts with less cash over a longer one.',
-        actions: ['Prepare a PDF', 'Ask a follow-up'],
-      },
-    ];
-    let conversationIndex = 0;
+    /* One pass through the three steps, then it rests on the last. */
+    function schedule() {
+      if (timer) window.clearTimeout(timer);
+      if (current >= tabs.length - 1) { stopAuto(); return; }
+      wrap.classList.remove('is-auto');
+      void wrap.offsetWidth; // restart the progress bar
+      wrap.classList.add('is-auto');
+      timer = window.setTimeout(function () { select(current + 1, false); }, STEP_MS);
+    }
 
-    const renderConversation = () => {
-      const item = conversations[conversationIndex];
-      conversationIndex = (conversationIndex + 1) % conversations.length;
-      demo.replaceChildren();
-
-      const user = document.createElement('div');
-      user.className = 'demo-bubble user-msg';
-      user.textContent = item.user;
-
-      const thinking = document.createElement('div');
-      thinking.className = 'demo-thinking';
-      thinking.innerHTML = '<span></span><span></span><span></span>';
-
-      const answer = document.createElement('div');
-      answer.className = 'demo-bubble ai-msg';
-      const label = document.createElement('span');
-      label.className = 'ai-msg-label';
-      if (isArabic) {
-        const isolatedName = document.createElement('bdi');
-        isolatedName.textContent = 'Brokers AI';
-        label.appendChild(isolatedName);
-      } else {
-        label.textContent = 'Brokers AI';
-      }
-      answer.append(label, document.createTextNode(item.answer));
-
-      const comparison = document.createElement('div');
-      comparison.className = 'demo-comparison';
-      item.rows.forEach(([name, value]) => {
-        const row = document.createElement('span');
-        const title = document.createElement('b');
-        const detail = document.createElement('em');
-        title.textContent = name;
-        detail.textContent = value;
-        row.append(title, detail);
-        comparison.appendChild(row);
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { stopAuto(); select(i, false); });
+      tab.addEventListener('keydown', function (event) {
+        var rtl = document.documentElement.dir === 'rtl';
+        var next = { ArrowRight: rtl ? -1 : 1, ArrowLeft: rtl ? 1 : -1, ArrowDown: 1, ArrowUp: -1 }[event.key];
+        if (event.key === 'Home') next = -i;
+        if (event.key === 'End') next = tabs.length - 1 - i;
+        if (next === undefined) return;
+        event.preventDefault();
+        stopAuto();
+        select((i + next + tabs.length) % tabs.length, true);
       });
-      const summary = document.createElement('strong');
-      summary.className = 'demo-summary';
-      summary.textContent = item.summary;
-      answer.append(comparison, summary);
+    });
 
-      const actions = document.createElement('div');
-      actions.className = 'demo-actions';
-      item.actions.forEach((text) => {
-        const chip = document.createElement('span');
-        chip.className = 'demo-action-chip';
-        chip.textContent = text;
-        actions.appendChild(chip);
+    ['pointerenter', 'focusin'].forEach(function (name) {
+      wrap.addEventListener(name, function () {
+        if (!autoDone && timer) { window.clearTimeout(timer); timer = null; wrap.classList.remove('is-auto'); }
       });
-
-      demo.append(user, thinking, answer, actions);
-      const stages = [[user, 100], [thinking, 750], [answer, 1500], [actions, 2050]];
-      stages.forEach(([node, delay], index) => {
-        window.setTimeout(() => {
-          if (index === 2) thinking.remove();
-          node.classList.add('show');
-        }, reduced ? 0 : delay);
+    });
+    ['pointerleave', 'focusout'].forEach(function (name) {
+      wrap.addEventListener(name, function (event) {
+        if (autoDone || (event.relatedTarget && wrap.contains(event.relatedTarget))) return;
+        schedule();
       });
-    };
+    });
 
-    renderConversation();
-    if (!reduced) window.setInterval(renderConversation, 7200);
-  }
+    autoDone = true;
+    select(0, false);
 
-  document.querySelectorAll('.ba-tabs').forEach((tabs) => {
-    const section = tabs.closest('.section-ba');
-    tabs.querySelectorAll('.ba-tab').forEach((button) => {
-      button.addEventListener('click', () => {
-        tabs.querySelectorAll('.ba-tab').forEach((item) => {
-          const selected = item === button;
-          item.classList.toggle('active', selected);
-          item.setAttribute('aria-selected', String(selected));
+    /* Start the auto pass only when the visitor can actually see it. */
+    if (!reduced && hasIO) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          io.disconnect();
+          autoDone = false;
+          schedule();
         });
-        if (section) section.dataset.ba = button.dataset.tab;
+      }, { threshold: 0.45 });
+      io.observe(wrap);
+    }
+  });
+
+  /* ── Comparison priority ───────────────────────────────────── */
+  all('[data-mk-board]', root).forEach(function (board) {
+    var buttons = all('[data-mk-prio]', board);
+    var reasons = all('[data-mk-reason]', board);
+    board.classList.add('is-enhanced');
+    buttons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var key = button.getAttribute('data-mk-prio');
+        board.setAttribute('data-priority', key);
+        buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b === button)); });
+        reasons.forEach(function (r) { r.hidden = r.getAttribute('data-mk-reason') !== key; });
       });
     });
   });
+
+  /* ── Chat: reveal the exchange once when it scrolls into view ─ */
+  all('[data-mk-chat]', root).forEach(function (chat) {
+    if (reduced || !hasIO) return;
+    var steps = all('[data-mk-step]', chat);
+    if (!steps.length) return;
+    var bounds = chat.getBoundingClientRect();
+    if (bounds.top < window.innerHeight * 0.8) return; // already in view: leave it complete
+    chat.classList.add('is-staged');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        io.disconnect();
+        var delays = [150, 900, 1900, 2600];
+        steps.forEach(function (step, i) {
+          window.setTimeout(function () { step.classList.add('is-in'); }, delays[i] || 600 * (i + 1));
+        });
+      });
+    }, { threshold: 0.4 });
+    io.observe(chat);
+    /* Never leave content hidden: printing or a missed callback shows it all. */
+    window.addEventListener('beforeprint', function () { steps.forEach(function (s) { s.classList.add('is-in'); }); });
+  });
+
+  /* ── Mobile sticky action ──────────────────────────────────── */
+  var sticky = root.querySelector('[data-mk-sticky]');
+  if (sticky && hasIO) {
+    var blockers = all('[data-position="hero"], [data-position="close"], .es-footer', document);
+    var visible = new Set();
+    var hero = document.getElementById('hero');
+    var pastHero = false;
+    var update = function () {
+      sticky.classList.toggle('is-shown', pastHero && visible.size === 0);
+    };
+    var blockIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) visible.add(entry.target); else visible.delete(entry.target);
+      });
+      update();
+    });
+    blockers.forEach(function (el) { blockIO.observe(el); });
+    if (hero) {
+      new IntersectionObserver(function (entries) {
+        pastHero = !entries[0].isIntersecting;
+        update();
+      }, { rootMargin: '-35% 0px 0px 0px' }).observe(hero);
+    }
+  }
 }());

@@ -28,9 +28,11 @@ const SITE = 'https://estavo-brokers.com';
    manifest here prevents every commercial route from inheriting Market's
    browser, AI and PDF payload. */
 const ROUTE_ASSETS = {
+  /* Market is a self-contained page system (.mk-*): it no longer uses the
+     shared commercial card layer. */
   market: {
-    styles: ['/assets/css/commercial.css', '/assets/css/market.css'],
-    scripts: ['/assets/js/commercial-page.js', '/assets/js/market-landing.js'],
+    styles: ['/assets/css/market.css'],
+    scripts: ['/assets/js/market-landing.js'],
   },
   websites: {
     styles: ['/assets/css/commercial.css', '/assets/css/pages/websites.css'],
@@ -213,11 +215,24 @@ function header(route, lang) {
     markup = markup.replaceAll(`href="${activeHref}"`, `href="${activeHref}" aria-current="page"`);
   }
 
+  /* The Market page is a single-conversion page: its desktop nav moves
+     through the page instead of offering the other products (they stay in
+     the drawer and footer). */
+  if (route.key === 'market') {
+    const links = isAr
+      ? [['#how-it-works', 'إزاي بيشتغل'], ['#compare', 'المقارنة'], ['#ai-expert', '<bdi>Brokers AI</bdi>'], ['#data', 'بيانات السوق'], ['#faq', 'الأسئلة']]
+      : [['#how-it-works', 'How it works'], ['#compare', 'Compare'], ['#ai-expert', 'Brokers AI'], ['#data', 'Market data'], ['#faq', 'FAQ']];
+    const nav = links.map(([href, label]) => `                <a href="${href}">${label}</a>`).join('\n');
+    markup = markup
+      .replace(/(<nav class="es-header__nav"[^>]*>)[\s\S]*?(<\/nav>)/, `$1\n${nav}\n            $2`)
+      .replace('<body class="es es-landing">', '<body class="es es-landing es-route-market">');
+  }
+
   return markup;
 }
 
 function decorateLandingBody(body, route, lang) {
-  if (body.includes('data-word-reveal')) return body;
+  if (route.key === 'market' || body.includes('data-word-reveal')) return body;
 
   const heading = /<h2([^>]*)>([\s\S]*?)<\/h2>/g;
   const headings = Array.from(body.matchAll(heading));

@@ -151,7 +151,7 @@ Avoid internal abstractions such as “coverage,” “property record,” “da
 
 ### Current commercial truths reflected by the site
 
-- Estavo Market is positioned as free for brokers; the exact boundary of free browsing/tools must remain current and approved.
+- Estavo Market is **completely free** (owner instruction, 29 October 2026): search, comparison, Brokers AI and branded PDF offers. Say «مجاني بالكامل» / "completely free" or «مجاني دلوقتي» / "free for now"; never "free forever", and never reintroduce Credits wording for Market until a new approved commercial source says so. (Website AI and city data on Estavo Sites still follow the Sites packages.)
 - Website creation is free.
 - Market data collection and updates for brokers belong to the Estavo Market story, not a separate data product.
 - Estavo Sites may have optional paid data, domain, AI, entry or integration services; exact terms require a current approved commercial source.
@@ -201,7 +201,7 @@ It has exactly nine visible sections (`home-hero`, `home-market`, `home-request`
   - Each feature section has one action. The website section has exactly one creation button. Its timing line («في حوالي 5 دقايق» / "about 5 minutes", the approved onboarding claim) and the free/paid note sit beside it as text, not as a second button.
   - Start-free has two equal free cards, one paid-scope line and compact text links (pricing, company, platform, resale) to their own destinations.
   - The mobile sticky bar carries Market only. It hides while any other Market CTA or the footer is on screen, and while the drawer, the support chat or the keyboard is in use.
-- **Free/paid boundary (every place it is stated):** Estavo Market search/comparison and the basic website are free; city data on the website and AI depend on the plan or credits; Brokers AI and PDF offers use credits. Never say "free website" in a way that implies free data, all cities or unlimited AI.
+- **Free/paid boundary (every place it is stated):** Estavo Market is completely free, including Brokers AI and PDF offers (since 29 Oct 2026), and the basic website is free; city data on the website and website AI depend on the plan or credits. Never say "free website" in a way that implies free data, all cities or unlimited AI.
 - **Proof strip (hero):**
   - Figures come only from `tools/data/home-proof.json`: the measured production count (`verified`), its source and date, and the published floor (`display`, shown with "+"). `display` may never exceed `verified`; `tools/qa.js` and the tests enforce both.
   - Units are labelled «نموذج وحدة» / "unit types": the count is active **unit models** (types with price ranges), not individual or available units. Never relabel it «وحدة» / "units" without a count of individual units.
@@ -278,6 +278,19 @@ Homepage-only styles and behaviour live in `assets/css/home.css` (unlayered, `.e
 Price-history, inflation, purchase-cost and real-return analysis belong on the detailed Market page, not the homepage.
 
 English and Arabic do not need literal sentence-by-sentence translation, but they must preserve the same product truth, information hierarchy, promise strength and CTA destination.
+
+### 5.2.1 Market page (/market/) — rebuilt 29 October 2026
+
+`tools/pages/market.{ar,en}.html` → `market/`, styled only by `assets/css/market.css` (scoped `.mk-*`, no `commercial.css`) and driven by `assets/js/market-landing.js`. It is a single-conversion page for real-estate professionals.
+
+- **Nine sections** (the qa.js budget): hero workspace · market depth (`#data`) · 3-step workflow (`#how-it-works`, tabs) · priority comparison (`#compare`) · Brokers AI (`#ai-expert`, linked from the homepage) · branded PDF · data source · FAQ (+ matching FAQPage JSON-LD) · closing.
+- **Colour:** Estavo navy for ink and the two dark bands, Estavo blue `#163e69` for actions and highlights, pale-blue tints. The owner briefly asked for the dark purple, then asked for Estavo blue instead (29 Oct); do not switch to plum.
+- **Header:** `build-pages.js` gives this route an in-page nav (how it works, compare, Brokers AI, market data, FAQ) and the `es-route-market` body class; other products stay in the drawer and footer.
+- **Example data** is the homepage fixture (`tools/data/home-fixture.json`): B best on lowest down payment, A longest plan, C ready but 300K over budget and always labelled an alternative. The priority switch re-ranks the board; without JS the default priority, all three steps and the whole chat stay visible.
+- **Figures:** hero/depth/close use the `home-proof.json` floors (2,400+ projects, 26,000+ unit types, 700 developers, 110 areas in 16 cities, 6,600+ registered brokers). The PDF band cites 1,700+ PDF offers (1,729 measured on 2026-10-03, `HOMEPAGE-V2-GUIDE.md` §1.0); refresh both with the next production count.
+- **Mixed-direction trap:** never make an element holding text + `<bdi>` a flex/grid container; the spaces around the Latin run collapse. Icons beside such text are positioned instead.
+- **Illustrations are vector files, not HTML mock-ups** (29 Oct 2026): `tools/build-market-art.py` draws every product scene as a standalone SVG in `assets/img/market/` (hero animated + `-still`, record, step-ask/find/send, chat, pdf, change; `-mobile` compositions for phones; Arabic and English). They mirror the real Estavo Brokers app (ProjectCard, project page price card + payment plan, chatbot window and result cards, the PDF "Unit Details" page) with embedded property photos (`tools/data/market-photos/`, sources and licences in its `provenance.json`: Unsplash License photos, an Estavo app asset, and the app's AI-generated fictional demo agent «Omar»). Layouts are logical and mirrored for Arabic; text is measured with HarfBuzz (`pip install fonttools brotli uharfbuzz`); Plex Arabic subsets are embedded. Change copy in the script's `C` dict and re-run it, never hand-edit the SVGs. The comparison board stays live HTML because the priority switch re-ranks it.
+- **Guide character:** only the app's "Project A / Project B" pose (`assets/img/mascot/estavo-guide-compare-*.webp`) beside the comparison heading, desktop only.
 
 ### 5.3 Route map and purpose
 

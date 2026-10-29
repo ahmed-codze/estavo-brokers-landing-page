@@ -1,5 +1,7 @@
 # Landing Page Brief — Estavo Market
 
+> **Update 29 October 2026:** Estavo Market is now completely free, including Brokers AI and PDF offers. Section 8 (Credits) and the credit claims below are superseded; the live page is described in `AGENTS.md` §5.2.1.
+
 ## Route and conversion
 
 - Arabic route: `/market/`
