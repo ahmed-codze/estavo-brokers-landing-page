@@ -40,6 +40,7 @@
     var MAX_SOURCE_LENGTH = 2048;
     var MAX_ATTRIBUTION_LENGTH = 160;
     var CATALOG_TIMEOUT_MS = 15000;
+    var CATALOG_MAX_ATTEMPTS = 3;
     var DRAFT_MAX_AGE_MS = 2 * 60 * 60 * 1000;
 
     function getCookie(documentObject, name) {
@@ -928,27 +929,48 @@
             }
             cityCatalogLoading = true;
             cityGrid.setAttribute('aria-busy', 'true');
-            var controller = typeof windowObject.AbortController === 'function' ? new windowObject.AbortController() : null;
-            var timeoutId;
-            var timeout = new Promise(function (resolve, reject) {
-                timeoutId = windowObject.setTimeout(function () {
-                    if (controller) controller.abort();
-                    reject(new Error('City catalog timed out.'));
-                }, CATALOG_TIMEOUT_MS);
-            });
-            Promise.race([Promise.resolve().then(function () { return windowObject.fetch(CATALOG_ENDPOINT, {
-                headers: { Accept: 'application/json' },
-                cache: 'no-store',
-                signal: controller ? controller.signal : undefined
-            }).then(function (response) {
-                if (!response.ok) throw new Error('City catalog request failed.');
-                return response.json();
-            }); }), timeout])
+            // Keep one loading operation across retries so repeated panel opens
+            // cannot start competing requests or expose an error between attempts.
+            if (currentStep === 3) error.textContent = '';
+            function requestCatalog(attempt) {
+                var controller = typeof windowObject.AbortController === 'function' ? new windowObject.AbortController() : null;
+                var timeoutId;
+                var timeout = new Promise(function (resolve, reject) {
+                    timeoutId = windowObject.setTimeout(function () {
+                        if (controller) controller.abort();
+                        reject(new Error('City catalog timed out.'));
+                    }, CATALOG_TIMEOUT_MS);
+                });
+                return Promise.race([Promise.resolve().then(function () {
+                    return windowObject.fetch(CATALOG_ENDPOINT, {
+                        headers: { Accept: 'application/json' },
+                        // Honor the API's five-minute public cache on repeat visits.
+                        cache: 'default',
+                        signal: controller ? controller.signal : undefined
+                    }).then(function (response) {
+                        if (!response.ok) {
+                            var failure = new Error('City catalog request failed.');
+                            failure.retryable = response.status === 408 || response.status >= 500;
+                            throw failure;
+                        }
+                        return response.json();
+                    });
+                }), timeout]).finally(function () {
+                    windowObject.clearTimeout(timeoutId);
+                }).catch(function (failure) {
+                    if (failure.retryable === false || attempt >= CATALOG_MAX_ATTEMPTS) throw failure;
+                    return new Promise(function (resolve) {
+                        windowObject.setTimeout(resolve, 500 * attempt);
+                    }).then(function () { return requestCatalog(attempt + 1); });
+                });
+            }
+            requestCatalog(1)
                 .then(function (payload) {
                     var cities = normalizeCityCatalog(payload);
                     if (!cities.length) throw new Error('City catalog is empty.');
                     renderCities(cities);
                     cityCatalogLoaded = true;
+                    if (currentStep === 3) error.textContent = '';
                     pendingCityIds = [];
                     var countsKnown = cities.every(function (city) {
                         return Number.isInteger(city.units_count);
@@ -968,7 +990,6 @@
                     cityRetry.hidden = false;
                 })
                 .finally(function () {
-                    windowObject.clearTimeout(timeoutId);
                     cityCatalogLoading = false;
                     cityGrid.removeAttribute('aria-busy');
                 });
