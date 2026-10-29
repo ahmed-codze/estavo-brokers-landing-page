@@ -152,6 +152,7 @@ Avoid internal abstractions such as “coverage,” “property record,” “da
 ### Current commercial truths reflected by the site
 
 - Estavo Market is **completely free** (owner instruction, 29 October 2026): search, comparison, Brokers AI and branded PDF offers. Say «مجاني بالكامل» / "completely free" or «مجاني دلوقتي» / "free for now"; never "free forever", and never reintroduce Credits wording for Market until a new approved commercial source says so. (Website AI and city data on Estavo Sites still follow the Sites packages.)
+- Estavo takes no cut of the broker's commission on clients they work through Estavo Market (owner statement, 29 Oct 2026). Say «من غير نسبة من عمولتك» / "no cut of your commission"; never the unbounded "keep 100% of your commission" form (qa.js forbids it because the broker-network product involves commission sharing between brokers).
 - Website creation is free.
 - Market data collection and updates for brokers belong to the Estavo Market story, not a separate data product.
 - Estavo Sites may have optional paid data, domain, AI, entry or integration services; exact terms require a current approved commercial source.
