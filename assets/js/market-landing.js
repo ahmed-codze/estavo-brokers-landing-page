@@ -177,6 +177,90 @@
     window.addEventListener('beforeprint', function () { arts.forEach(function (pic) { setAll(pic, 'still'); }); });
   }
 
+  /* ── Try-it popup ──────────────────────────────────────────────
+     Shown once, only after real engagement: ~45% scrolled and 12s on the
+     page, or (desktop) the pointer leaving through the top after 8s.
+     Never after a Market click, never twice in a visit, and not again for
+     3 days once closed. Storage access is guarded (private mode etc.). */
+  var pop = root.querySelector('[data-mk-pop]');
+  if (pop) {
+    var store = function (kind, key, value) {
+      try {
+        var s = kind === 'local' ? window.localStorage : window.sessionStorage;
+        if (value === undefined) return s.getItem(key);
+        s.setItem(key, value);
+      } catch (e) { return null; }
+      return null;
+    };
+    var DAY = 864e5;
+    var dismissed = Number(store('local', 'mk-pop-closed') || 0);
+    var eligible = !store('session', 'mk-pop-shown') && !store('session', 'mk-market-opened') && (Date.now() - dismissed > 3 * DAY);
+    var started = Date.now();
+    var opened = false;
+    var lastFocus = null;
+    var card = pop.querySelector('.mk-pop__card');
+    var gtagEvent = function (name, extra) {
+      if (typeof window.gtag === 'function') window.gtag('event', name, Object.assign({ page: 'market', lang: document.documentElement.lang }, extra || {}));
+    };
+
+    all('a[data-track="market_opened"]').forEach(function (a) {
+      a.addEventListener('click', function () { store('session', 'mk-market-opened', '1'); eligible = false; });
+    });
+
+    var focusables = function () { return all('a[href], button:not([disabled])', card); };
+    var onKey = function (e) {
+      if (e.key === 'Escape') { close('escape'); return; }
+      if (e.key !== 'Tab') return;
+      var f = focusables(); var first = f[0]; var last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
+    var open = function (why) {
+      if (opened || !eligible) return;
+      var drawer = document.querySelector('[data-drawer]');
+      if (drawer && !drawer.hidden) return;
+      opened = true;
+      store('session', 'mk-pop-shown', '1');
+      lastFocus = document.activeElement;
+      pop.hidden = false;
+      pop.classList.add('is-open');
+      document.documentElement.classList.add('has-mk-pop');
+      document.addEventListener('keydown', onKey);
+      window.setTimeout(function () { var cta = pop.querySelector('.mk-pop__cta'); if (cta) cta.focus({ preventScroll: true }); }, 60);
+      gtagEvent('market_popup_shown', { trigger: why });
+    };
+    var close = function (how) {
+      if (pop.hidden) return;
+      pop.hidden = true;
+      pop.classList.remove('is-open');
+      document.documentElement.classList.remove('has-mk-pop');
+      document.removeEventListener('keydown', onKey);
+      store('local', 'mk-pop-closed', String(Date.now()));
+      if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+      gtagEvent('market_popup_closed', { how: how || 'button' });
+    };
+    all('[data-mk-pop-close]', pop).forEach(function (el) {
+      el.addEventListener('click', function () { close(el.classList.contains('mk-pop__backdrop') ? 'backdrop' : 'button'); });
+    });
+
+    if (eligible) {
+      var onScroll = function () {
+        var doc = document.documentElement;
+        var depth = (window.scrollY + window.innerHeight) / doc.scrollHeight;
+        if (depth >= 0.45 && Date.now() - started >= 12000) {
+          window.removeEventListener('scroll', onScroll);
+          open('scroll');
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      if (window.matchMedia('(pointer: fine)').matches) {
+        document.addEventListener('mouseout', function (e) {
+          if (!e.relatedTarget && e.clientY <= 0 && Date.now() - started >= 8000) open('exit');
+        });
+      }
+    }
+  }
+
   /* ── Mobile sticky action ──────────────────────────────────── */
   var sticky = root.querySelector('[data-mk-sticky]');
   if (sticky && hasIO) {
