@@ -140,8 +140,8 @@ function header(route, lang) {
     ? {
         href: routes.cta.market,
         track: 'market_opened',
-        label: isAr ? 'افتح السوق مجانًا' : 'Open Estavo Market free',
-        shortLabel: isAr ? 'افتح السوق' : 'Open Market',
+        label: isAr ? 'تصفح السوق مجانًا' : 'Open Estavo Market free',
+        shortLabel: isAr ? 'تصفح السوق' : 'Open Market',
       }
     : route.key === 'integrations'
       ? {
@@ -176,10 +176,10 @@ function header(route, lang) {
     : 'Create your site free · ~5 min';
   const defaultShortLabel = isAr ? 'ابدأ مجانًا' : 'Start free';
   const marketLabel = isAr
-    ? 'افتح <bdi>Estavo Market</bdi> مجانًا'
+    ? 'تصفح <bdi>Estavo Market</bdi> مجانًا'
     : 'Open Estavo Market free';
   const marketShortLabel = isAr
-    ? 'افتح <bdi>Market</bdi>'
+    ? 'تصفح <bdi>Market</bdi>'
     : 'Open Market';
 
   const directRoutes = {
