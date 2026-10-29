@@ -231,8 +231,14 @@ class Art:
             runs = [(t.replace(' · ', '\u200f · \u200f'), w) for t, w in runs]
         for t, w in runs:
             self.chars[w].update(t)
+        joined = ''.join(t_ for t_, _ in runs)
+        latin_only = self.rtl and not re.search('[\u0600-\u06FF]', joined)
+        if latin_only:
+            # numbers like "2,400+" must keep their sign on the right: lay the run out LTR
+            # and swap the anchor so it still hugs the same logical edge
+            anchor = {'start': 'end', 'end': 'start'}.get(anchor, anchor)
         a = f'<text x="{self.px(x)}" y="{round(y, 2)}" font-size="{size}" fill="{fill}" text-anchor="{anchor}"'
-        if self.rtl:
+        if self.rtl and not latin_only:
             a += ' direction="rtl"'
         if opacity is not None:
             a += f' opacity="{opacity}"'
@@ -376,6 +382,20 @@ def font_css(chars):
 C = {
     'ar': {
         'brand': 'Estavo Market', 'example': 'مثال توضيحي',
+        'dash_search': 'ابحث في المشاريع والمطورين والأخبار', 't_news': 'جديد السوق', 'today': 'النهارده',
+        'news': [('إطلاق', 'مشروع ب يطرح مرحلة جديدة في التجمع'), ('تحديث', 'خطة سداد مشروع ب بقت على 7 سنين'),
+                 ('اقتصاد', 'قراءة سريعة في أثر الفايدة على الشراء')],
+        't_launch': 'الإطلاقات الجديدة', 'launch_badge': 'قيد الإطلاق', 'launch_name': 'مشروع ب · مرحلة جديدة', 'launch_meta': 'التجمع · سكني',
+        't_update': 'تحديث مشروع', 'upd_sub': 'مشروع ب · خطة السداد',
+        't_calc': 'احسبها', 'calc_q': 'الكاش ولا التقسيط؟', 'calc_a': 'كاش بخصم', 'calc_b': 'تقسيط 7 سنين', 'calc_note': 'مقارنة بالقيمة الحالية',
+        't_data': 'داتا المشاريع', 'd_units': [('2,400+', 'مشروع'), ('26,000+', 'نموذج وحدة')],
+        'ask_bar': 'اسأل إستاڤو عن مشروع أو مطور أو طلب عميل...', 'ask_bar_m': 'اسأل إستاڤو عن أي مشروع أو مطور...',
+        'daily_title': 'إستاڤو ديلي', 'daily_sub': 'موجزك اليومي عن السوق', 'issue': 'عدد اليوم',
+        'daily_items': [('إطلاق', 'مشروع ب يطرح مرحلة جديدة في التجمع', 'الإطلاقات'),
+                        ('تحديث', 'خطة سداد مشروع ب بقت على 7 سنين', 'تحديثات المشاريع'),
+                        ('مطورين', 'مطور يعلن عن مشروع جديد في الشيخ زايد', 'أخبار المطورين'),
+                        ('اقتصاد', 'قراءة سريعة في أثر الفايدة على قرار الشراء', 'اقتصاد وسوق')],
+        'read_today': 'اقرأ عدد اليوم',
         'city': 'التجمع', 'start_from': 'تبدأ من', 'unit_chip': 'شقة 3 غرف',
         'f_delivery': 'التسليم', 'f_area': 'مساحة الوحدة', 'f_down': 'المقدم', 'f_inst': 'التقسيط',
         'inst': 'حتى {n} سنين', 'inst_short': '7 سنين', 'area_v': '{n} م²', 'period': 'المدة',
@@ -445,6 +465,20 @@ C = {
     },
     'en': {
         'brand': 'Estavo Market', 'example': 'Example',
+        'dash_search': 'Search projects, developers and news', 't_news': "What's new", 'today': 'Today',
+        'news': [('Launch', 'Project B opens a new phase'), ('Update', "Project B's plan is now 7 years"),
+                 ('Economy', 'A quick read on rates and buying')],
+        't_launch': 'New launches', 'launch_badge': 'Launching', 'launch_name': 'Project B · New phase', 'launch_meta': 'New Cairo · Residential',
+        't_update': 'Project update', 'upd_sub': 'Project B · Payment plan',
+        't_calc': 'Calculate', 'calc_q': 'Cash or installments?', 'calc_a': 'Cash with discount', 'calc_b': '7-year installments', 'calc_note': 'Compared by present value',
+        't_data': 'Project data', 'd_units': [('2,400+', 'projects'), ('26,000+', 'unit types')],
+        'ask_bar': 'Ask Estavo about a project, developer or client request...', 'ask_bar_m': 'Ask Estavo about any project...',
+        'daily_title': 'Estavo Daily', 'daily_sub': 'Your daily market brief', 'issue': "Today's issue",
+        'daily_items': [('Launch', 'Project B opens a new phase', 'Launches'),
+                        ('Update', "Project B's plan is now 7 years", 'Project updates'),
+                        ('Developers', 'New project announced in Sheikh Zayed', 'Developer news'),
+                        ('Economy', 'How interest rates affect buyers', 'Economy & market')],
+        'read_today': "Read today's issue",
         'city': 'New Cairo', 'start_from': 'Starting from', 'unit_chip': '3-bed apartment',
         'f_delivery': 'Delivery', 'f_area': 'Unit area', 'f_down': 'Down payment', 'f_inst': 'Installments',
         'inst': 'Up to {n} years', 'inst_short': '7 years', 'area_v': '{n} m²', 'period': 'Period',
@@ -861,6 +895,280 @@ def hero_mobile(lang, animated):
     a.text(ax + 46, ai_y + 29, c['ai_label'], 13, INK, 600)
     for i, ln in enumerate(ai_lines):
         a.text(ax + 18, ai_y + 58 + i * 19, ln, 12.5, BLUE)
+    a.close()
+    return a
+
+
+
+# ── Hero: the broker's daily market dashboard ────────────────────────
+TAGC = {0: ('#e7f0fb', BLUE), 1: ('#e8f6ee', '#1f7a45'), 2: ('#f6efe6', WARN), 3: ('#efeaf7', '#5b3f8c')}
+
+
+def tile(a, x, y, w, h, title, icon, side=None):
+    a.rect(x, y, w, h, r=16, fill=WHITE, stroke=LINE)
+    a.rect(x + 12, y + 12, 28, 28, r=8, fill=SOFT)
+    a.icon(icon, x + 18, y + 18, 16, BLUE)
+    a.text(x + 48, y + 31, title, 13.5, INK, 600)
+    if side:
+        sw = tw(side, 11, 600) + 34
+        a.rect(x + w - 12 - sw, y + 15, sw, 22, r=11, fill='#e8f6ee')
+        a.circle(x + w - 12 - sw + 12, y + 26, 3.2, fill='#22c55e')
+        a.fx(f'<circle class="ring" cx="{a.px(x + w - 12 - sw + 12)}" cy="{y + 26}" r="6" fill="none" stroke="#22c55e" stroke-width="1.4" style="animation-delay:1400ms;animation-duration:2.2s"/>')
+        a.text(x + w - 12 - sw + 22, y + 30, side, 11, '#1f7a45', 600)
+    return y + 52
+
+
+def news_row(a, x, y, w, k, tag_, headline, size=13):
+    bg, fg = TAGC[k % 4]
+    tw_ = tw(tag_, 10.5, 600) + 16
+    a.rect(x, y, tw_, 22, r=11, fill=bg)
+    a.text(x + tw_ / 2, y + 15, tag_, 10.5, fg, 600, anchor='middle')
+    room = w - tw_ - 10
+    txt = headline
+    while tw(txt, size, 500) > room and len(txt) > 6:
+        txt = txt[:-2]
+    if txt != headline:
+        txt = txt.rstrip() + '…'
+    a.text(x + tw_ + 10, y + 16, txt, size, INK, 500)
+
+
+def dash(lang, compact):
+    c = C[lang]
+    if compact:
+        return dash_mobile(lang)
+    W, cw = 720, 676
+    top, pad, gap = 24, 20, 12
+    bw = cw - 2 * pad
+    lw = 384
+    rw = bw - lw - gap
+    rowA = 200
+    rowB = 156
+    frame_h = 64 + pad + rowA + gap + rowB + gap + 58 + pad
+    H = top + frame_h + 44
+    a = Art(W, H, lang, f'd{lang}')
+    blueprint(a, 88, 96, W - 88, H - 96, 30)
+    a.seq('r', 60)
+    a.rect(0, top, cw, frame_h, r=24, fill=MIST, stroke=LINE, filt='sh')
+    a.rect(1, top + 1, cw - 2, 63, r=23, fill=WHITE)
+    a.rect(1, top + 40, cw - 2, 24, fill=WHITE)
+    a.line(1, top + 64, cw - 1, top + 64)
+    mark(a, 22, top + 22, 22)
+    a.text(52, top + 38, c['brand'], 15, BLUE, 600)
+    a.rect(196, top + 13, cw - 196 - 120, 38, r=19, fill=MIST, stroke=LINE)
+    a.icon('request', 210, top + 23, 18, MID)
+    a.text(236, top + 37, c['dash_search'], 13, T3, 500)
+    tag(a, cw - 18, top + 20, c)
+    a.close()
+    y0 = top + 64 + pad
+    # news tile
+    a.seq('r', 300)
+    ny = tile(a, pad, y0, lw, rowA, c['t_news'], 'update', c['today'])
+    a.close()
+    for k, (tg, hl) in enumerate(c['news']):
+        a.seq('r', 520 + k * 160)
+        news_row(a, pad + 14, ny + k * 46, lw - 28, k, tg, hl)
+        if k < 2:
+            a.line(pad + 14, ny + k * 46 + 34, pad + lw - 14, ny + k * 46 + 34)
+        a.close()
+    # launch tile
+    lx = pad + lw + gap
+    a.seq('r', 420)
+    a.rect(lx, y0, rw, rowA, r=16, fill=WHITE, stroke=LINE)
+    photo(a, lx + 1, y0 + 1, rw - 2, 112, 0, r=15, sweep=1900)
+    badge(a, lx + rw - 10, y0 + 10, c['launch_badge'], 10.5, BLUE, WHITE, h=22)
+    a.rect(lx + 10, y0 + 10, tw(c['t_launch'], 10.5, 600) + 18, 22, r=11, fill=NAVY, opacity=.85)
+    a.text(lx + 19, y0 + 25, c['t_launch'], 10.5, WHITE, 600)
+    a.text(lx + 14, y0 + 140, c['launch_name'], 13.5, INK, 600)
+    a.text(lx + 14, y0 + 162, c['launch_meta'], 11.5, T3)
+    a.text(lx + 14, y0 + 185, c['launch_badge'], 11, BLUE, 600)
+    a.close()
+    # row B: update · calc · data
+    yb = y0 + rowA + gap
+    w3 = (bw - 2 * gap)
+    wu, wc_, wd = round(w3 * .36), round(w3 * .38), 0
+    wd = w3 - wu - wc_
+    a.seq('r', 820)
+    uy = tile(a, pad, yb, wu, rowB, c['t_update'], 'update')
+    a.text(pad + 14, uy + 8, c['upd_sub'], 11.5, T3)
+    bxw = (wu - 28 - 24) / 2
+    a.rect(pad + 14, uy + 22, bxw, 52, r=10, fill=MIST)
+    a.text(pad + 24, uy + 54, c['old'], 14, T3, 600)
+    ow = tw(c['old'], 14, 600)
+    a.line(pad + 22, uy + 49, pad + 26 + ow, uy + 49, T3, 1.4)
+    a.arrow(pad + 14 + bxw + 4, uy + 38, 18, ELEC if a.anim else MUTE)
+    a.ring(pad + 14 + bxw + 22, uy + 22, bxw, 52, 10, 1600)
+    a.rect(pad + 14 + bxw + 24, uy + 22, bxw, 52, r=10, fill=BLUE)
+    a.text(pad + 24 + bxw + 24, uy + 54, c['new'], 14, WHITE, 600)
+    a.close()
+    cx = pad + wu + gap
+    a.seq('r', 940)
+    cy = tile(a, cx, yb, wc_, rowB, c['t_calc'], 'instalment')
+    a.text(cx + 14, cy + 8, c['calc_q'], 12.5, INK, 600)
+    for k, (lab, frac) in enumerate([(c['calc_a'], .62), (c['calc_b'], .84)]):
+        by = cy + 22 + k * 32
+        a.text(cx + 14, by + 10, lab, 10.5, T3)
+        a.rect(cx + 14, by + 15, wc_ - 28, 8, r=4, fill=WASH)
+        bwid = (wc_ - 28) * frac
+        a.seq('f', 1200 + k * 200)
+        a.rect(cx + 14, by + 15, bwid, 8, r=4, fill=BLUE if k else MID)
+        a.close()
+    a.text(cx + 14, cy + 92, c['calc_note'], 10, MID, 500)
+    a.close()
+    dx = cx + wc_ + gap
+    a.seq('r', 1060)
+    dy = tile(a, dx, yb, wd, rowB, c['t_data'], 'project')
+    for k, (num, lab) in enumerate(c['d_units']):
+        a.text(dx + 14, dy + 20 + k * 44, num, 19, BLUE, 600)
+        a.text(dx + 14, dy + 38 + k * 44, lab, 10.5, T3)
+    a.close()
+    # Brokers AI bar
+    ay = yb + rowB + gap
+    a.seq('r', 1250)
+    a.rect(pad, ay, bw, 58, r=18, fill=WHITE, stroke=LINE, filt='ss')
+    a.fx(f'<circle class="gl" cx="{a.px(pad + 30)}" cy="{ay + 29}" r="21" fill="{ELEC}"/>')
+    a.circle(pad + 30, ay + 29, 15, fill=BLUE)
+    a.spark(pad + 30, ay + 29, 16)
+    atw = tw(c['ask_bar'], 13, 500)
+    a.type_open(pad + 54, ay + 16, atw + 6, 26, 1500, 1300)
+    a.text(pad + 56, ay + 34, c['ask_bar'], 13, T3, 500)
+    a.close()
+    a.caret(pad + 59 + atw, ay + 19, 20, 2900)
+    a.rect(pad + bw - 50, ay + 9, 40, 40, r=12, fill=BLUE)
+    sx = a.px(pad + bw - 50, 40)
+    a.add(f'<path d="M{sx + 12} {ay + 31}l15-7-5 15-3-5z" fill="#fff" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/>')
+    a.close()
+    return a
+
+
+def dash_mobile(lang):
+    c = C[lang]
+    W, cw, pad, gap = 360, 344, 12, 10
+    bw = cw - 2 * pad
+    newsH = 52 + 3 * 44 + 6
+    launchH = 96
+    rowB = 150
+    frame_h = 58 + pad + newsH + gap + launchH + gap + rowB + gap + 52 + pad
+    H = frame_h + 40
+    a = Art(W, H, lang, f'dm{lang}')
+    blueprint(a, 24, 70, W - 24, H - 70, 24)
+    a.seq('r', 60)
+    a.rect(0, 0, cw, frame_h, r=20, fill=MIST, stroke=LINE, filt='sh')
+    a.rect(1, 1, cw - 2, 57, r=19, fill=WHITE)
+    a.rect(1, 34, cw - 2, 24, fill=WHITE)
+    a.line(1, 58, cw - 1, 58)
+    a.rect(12, 11, cw - 24, 36, r=18, fill=MIST, stroke=LINE)
+    a.icon('request', 24, 20, 17, MID)
+    a.text(48, 34, c['dash_search'], 12, T3, 500)
+    a.close()
+    y = 58 + pad
+    a.seq('r', 280)
+    ny = tile(a, pad, y, bw, newsH, c['t_news'], 'update', c['today'])
+    a.close()
+    for k, (tg, hl) in enumerate(c['news']):
+        a.seq('r', 480 + k * 150)
+        news_row(a, pad + 12, ny + k * 44, bw - 24, k, tg, hl, 12.5)
+        a.close()
+    y += newsH + gap
+    a.seq('r', 900)
+    a.rect(pad, y, bw, launchH, r=16, fill=WHITE, stroke=LINE)
+    photo(a, pad + 10, y + 10, 110, launchH - 20, 0, r=10, rtop_only=False, sweep=1700)
+    a.text(pad + 132, y + 28, c['t_launch'], 11, BLUE, 600)
+    a.text(pad + 132, y + 50, c['launch_name'], 13.5, INK, 600)
+    a.text(pad + 132, y + 72, c['launch_meta'], 11, T3)
+    a.close()
+    y += launchH + gap
+    half = (bw - gap) / 2
+    a.seq('r', 1050)
+    uy = tile(a, pad, y, half, rowB, c['t_update'], 'update')
+    a.text(pad + 12, uy + 6, c['upd_sub'], 10.5, T3)
+    a.rect(pad + 12, uy + 18, half - 24, 30, r=8, fill=MIST)
+    a.text(pad + 22, uy + 38, c['old'], 12.5, T3, 600)
+    a.line(pad + 20, uy + 33, pad + 24 + tw(c['old'], 12.5, 600), uy + 33, T3, 1.3)
+    a.ring(pad + 10, uy + 54, half - 20, 34, 10, 1600)
+    a.rect(pad + 12, uy + 56, half - 24, 30, r=8, fill=BLUE)
+    a.text(pad + 22, uy + 76, c['new'], 12.5, WHITE, 600)
+    a.close()
+    cx = pad + half + gap
+    a.seq('r', 1180)
+    cy = tile(a, cx, y, half, rowB, c['t_calc'], 'instalment')
+    a.text(cx + 12, cy + 6, c['calc_q'], 11.5, INK, 600)
+    for k, (lab, frac) in enumerate([(c['calc_a'], .62), (c['calc_b'], .84)]):
+        by = cy + 16 + k * 30
+        a.text(cx + 12, by + 10, lab, 9.5, T3)
+        a.rect(cx + 12, by + 15, half - 24, 7, r=3.5, fill=WASH)
+        a.seq('f', 1400 + k * 200)
+        a.rect(cx + 12, by + 15, (half - 24) * frac, 7, r=3.5, fill=BLUE if k else MID)
+        a.close()
+    a.close()
+    y += rowB + gap
+    a.seq('r', 1350)
+    a.rect(pad, y, bw, 52, r=16, fill=WHITE, stroke=LINE, filt='ss')
+    a.circle(pad + 26, y + 26, 13, fill=BLUE)
+    a.spark(pad + 26, y + 26, 14)
+    a.text(pad + 48, y + 31, c['ask_bar_m'], 12, T3, 500)
+    a.close()
+    return a
+
+
+# ── Estavo Daily: the market brief ───────────────────────────────────
+def daily(lang, compact):
+    c = C[lang]
+    W = 360 if compact else 560
+    p = 16 if compact else 24
+    cw = W - 2 * p
+    rowh = 66 if compact else 62
+    items = c['daily_items']
+    card_h = 70 + len(items) * rowh + 54
+    H = p + card_h + (120 if compact else 70) + p
+    a = Art(W, H, lang, f'dy{lang}{int(compact)}')
+    canvas(a, H)
+    a.seq('r', 60)
+    a.rect(p, p, cw, card_h, r=18, fill=WHITE, stroke=LINE, filt='ss')
+    a.rect(p + 16, p + 16, 40, 40, r=12, fill=BLUE)
+    a.icon('details', p + 26, p + 26, 20, WHITE)
+    a.text(p + 68, p + 34, c['daily_title'], 16, INK, 600)
+    a.text(p + 68, p + 53, c['daily_sub'], 12, T3)
+    tag(a, cw + p - 14, p + 22, c)
+    a.line(p + 14, p + 70, p + cw - 14, p + 70)
+    a.close()
+    for k, (tg, hl, cat) in enumerate(items):
+        y = p + 70 + k * rowh
+        a.seq('r', 350 + k * 180)
+        bg, fg = TAGC[k % 4]
+        a.rect(p + 16, y + 14, 36, 36, r=10, fill=bg)
+        a.icon(['launch', 'update', 'project', 'investment'][k % 4], p + 24, y + 22, 20, fg)
+        size = 13 if compact else 14
+        room = cw - 16 - 36 - 12 - 16
+        txt = hl
+        while tw(txt, size, 600) > room and len(txt) > 6:
+            txt = txt[:-2]
+        if txt != hl:
+            txt = txt.rstrip() + '…'
+        a.text(p + 64, y + 30, txt, size, INK, 600)
+        a.text(p + 64, y + 49, cat, 11, T3)
+        if k < len(items) - 1:
+            a.line(p + 64, y + rowh, p + cw - 16, y + rowh)
+        a.close()
+    by = p + 70 + len(items) * rowh + 10
+    a.seq('p', 350 + len(items) * 180 + 100)
+    bw_ = tw(c['read_today'], 12.5, 600) + 44
+    a.rect(p + 16, by, bw_, 34, r=17, fill=BLUE)
+    a.text(p + 16 + bw_ / 2 - 6, by + 22, c['read_today'], 12.5, WHITE, 600, anchor='middle')
+    a.arrow(p + 16 + bw_ - 26, by + 9, 16, WHITE)
+    a.close()
+    # launch card peeking out
+    lw = 210 if compact else 230
+    lx = W - p - lw + (0 if compact else 8)
+    ly = p + card_h - (10 if compact else 40)
+    a.seq('r', 1300)
+    a.rect(lx, ly, lw, 112, r=16, fill=WHITE, stroke=LINE, filt='sh')
+    photo(a, lx + 8, ly + 8, 84, 96, 2, r=10, rtop_only=False, sweep=2000)
+    a.text(lx + 102, ly + 30, c['t_launch'], 10.5, BLUE, 600)
+    a.text(lx + 102, ly + 52, c['launch_name'].split(' · ')[0], 13, INK, 600)
+    a.text(lx + 102, ly + 72, c['launch_meta'].split(' · ')[0], 11, T3)
+    bwl = tw(c['launch_badge'], 10, 600) + 16
+    a.rect(lx + 102, ly + 82, bwl, 20, r=10, fill='#e7f0fb')
+    a.text(lx + 102 + bwl / 2, ly + 96, c['launch_badge'], 10, BLUE, 600, anchor='middle')
     a.close()
     return a
 
@@ -1408,8 +1716,9 @@ def change(lang, compact):
 
 
 TITLES = {
-    'hero': {'ar': 'مثال توضيحي: طلب عميل ونتايج مرتبة حسب أولويته في Estavo Market',
-             'en': 'Example: a client request and results ranked by its priority in Estavo Market'},
+    'hero': {'ar': 'مثال توضيحي: شاشة Estavo Market اليومية بجديد السوق والإطلاقات وتحديثات المشاريع',
+             'en': 'Example: the Estavo Market daily screen with market news, launches and project updates'},
+    'daily': {'ar': 'مثال توضيحي: موجز إستاڤو ديلي اليومي عن السوق', 'en': 'Example: the Estavo Daily market brief'},
     'record': {'ar': 'مثال توضيحي: بيانات مشروع في Estavo Market', 'en': 'Example: project data in Estavo Market'},
     'step-ask': {'ar': 'مثال توضيحي: رسالة عميل والشروط اللي اتفهمت منها', 'en': 'Example: a client message and the criteria understood'},
     'step-find': {'ar': 'مثال توضيحي: نتيجتين مطابقتين وبديل', 'en': 'Example: two matches and one alternative'},
@@ -1437,8 +1746,10 @@ def main():
         ANIM = False
 
     for lang in ('ar', 'en'):
-        build(f'hero-{lang}', hero, (lang, True), TITLES['hero'][lang])
-        build(f'hero-mobile-{lang}', hero_mobile, (lang, True), TITLES['hero'][lang])
+        build(f'hero-{lang}', dash, (lang, False), TITLES['hero'][lang])
+        build(f'hero-mobile-{lang}', dash, (lang, True), TITLES['hero'][lang])
+        build(f'daily-{lang}', daily, (lang, False), TITLES['daily'][lang])
+        build(f'daily-mobile-{lang}', daily, (lang, True), TITLES['daily'][lang])
         for key, fn in [('record', record), ('step-ask', step_ask), ('step-find', step_find),
                         ('step-send', step_send), ('chat', chat), ('pdf', pdf)]:
             build(f'{key}-{lang}', fn, (lang, False), TITLES[key][lang])

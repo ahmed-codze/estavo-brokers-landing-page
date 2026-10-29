@@ -31,7 +31,7 @@
 <g class="f" style="animation-delay:850ms;">
 <rect x="102.0" y="218" width="336" height="34" fill="#ffffff"/>
 <text x="426.0" y="239.5" font-size="12" fill="#4b5e72" text-anchor="start" direction="rtl" font-weight="400">السعر</text>
-<text x="264.72" y="239.5" font-size="12.5" fill="#163e69" text-anchor="start" direction="rtl" font-weight="600">8.0M</text>
+<text x="264.72" y="239.5" font-size="12.5" fill="#163e69" text-anchor="end" font-weight="600">8.0M</text>
 </g>
 <g class="f" style="animation-delay:980ms;">
 <rect x="102.0" y="252" width="336" height="34" fill="#f4f6f9"/>
@@ -41,7 +41,7 @@
 <g class="f" style="animation-delay:1110ms;">
 <rect x="102.0" y="286" width="336" height="34" fill="#ffffff"/>
 <text x="426.0" y="307.5" font-size="12" fill="#4b5e72" text-anchor="start" direction="rtl" font-weight="400">الغرف</text>
-<text x="264.72" y="307.5" font-size="12" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="600">3</text>
+<text x="264.72" y="307.5" font-size="12" fill="#0f2236" text-anchor="end" font-weight="600">3</text>
 </g>
 <g class="f" style="animation-delay:1240ms;">
 <rect x="102.0" y="320" width="336" height="34" fill="#f4f6f9"/>
@@ -56,7 +56,7 @@
 <g class="f" style="animation-delay:1500ms;">
 <rect x="102.0" y="388" width="336" height="34" fill="#f4f6f9"/>
 <text x="426.0" y="409.5" font-size="12" fill="#4b5e72" text-anchor="start" direction="rtl" font-weight="400">الاستلام</text>
-<text x="264.72" y="409.5" font-size="12" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="600">2027</text>
+<text x="264.72" y="409.5" font-size="12" fill="#0f2236" text-anchor="end" font-weight="600">2027</text>
 </g>
 <line x1="276.72" y1="184" x2="276.72" y2="422" stroke="#dde1ea" stroke-width="1" stroke-linecap="round"/>
 <rect class="sc" x="102.0" y="162" width="336" height="24" fill="url(#gpdfar01)" style="--sd:238px;animation-delay:720ms;animation-duration:4.4s"/>

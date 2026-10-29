@@ -14,7 +14,7 @@
 <rect class="sw" x="185.2" y="49.6" width="40.32" height="100.8" fill="url(#swgfindar1p0)" style="--sw:182px;animation-delay:1500ms"/>
 </g>
 <text x="226" y="84" font-size="14.5" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="600">مشروع ب</text>
-<text x="226" y="108" font-size="15" fill="#163e69" text-anchor="start" direction="rtl" font-weight="600">8.0M</text>
+<text x="226" y="108" font-size="15" fill="#163e69" text-anchor="end" font-weight="600">8.0M</text>
 <text x="226" y="130" font-size="11.5" fill="#6c7e92" text-anchor="start" direction="rtl" font-weight="400">المقدم 1.2M‏ · ‏حتى 7 سنين</text>
 <rect x="26.0" y="64" width="79.39" height="22" rx="11.0" fill="#163e69"/>
 <text x="65.7" y="78.78" font-size="10.5" fill="#ffffff" text-anchor="middle" direction="rtl" font-weight="600">أنسب لأولويته</text>
@@ -26,7 +26,7 @@
 <rect x="238" y="168" width="96" height="72" fill="url(#shfindar1p3)"/>
 </g>
 <text x="226" y="188" font-size="14.5" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="600">مشروع أ</text>
-<text x="226" y="212" font-size="15" fill="#163e69" text-anchor="start" direction="rtl" font-weight="600">7.9M</text>
+<text x="226" y="212" font-size="15" fill="#163e69" text-anchor="end" font-weight="600">7.9M</text>
 <text x="226" y="234" font-size="11.5" fill="#6c7e92" text-anchor="start" direction="rtl" font-weight="400">المقدم 1.4M‏ · ‏حتى 8 سنين</text>
 <rect x="26.0" y="168" width="48.6" height="22" rx="11.0" fill="#f3f6f9"/>
 <text x="50.3" y="182.78" font-size="10.5" fill="#4b5e72" text-anchor="middle" direction="rtl" font-weight="600">مطابق</text>
@@ -38,7 +38,7 @@
 <rect x="238" y="272" width="96" height="72" fill="url(#shfindar1p5)"/>
 </g>
 <text x="226" y="292" font-size="14.5" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="600">مشروع ج</text>
-<text x="226" y="316" font-size="15" fill="#9a4d0b" text-anchor="start" direction="rtl" font-weight="600">8.3M</text>
+<text x="226" y="316" font-size="15" fill="#9a4d0b" text-anchor="end" font-weight="600">8.3M</text>
 <text x="226" y="338" font-size="11.5" fill="#6c7e92" text-anchor="start" direction="rtl" font-weight="400">المقدم 1.5M‏ · ‏حتى 6 سنين</text>
 <rect x="26.0" y="272" width="82.51" height="22" rx="11.0" fill="#ffffff" stroke="#e5c39b" stroke-width="1"/>
 <text x="67.26" y="286.78" font-size="10.5" fill="#9a4d0b" text-anchor="middle" direction="rtl" font-weight="600">بديل‏ · ‏+300K</text>

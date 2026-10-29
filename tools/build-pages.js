@@ -220,8 +220,8 @@ function header(route, lang) {
      the drawer and footer). */
   if (route.key === 'market') {
     const links = isAr
-      ? [['#how-it-works', 'إزاي بيشتغل'], ['#compare', 'المقارنة'], ['#ai-expert', '<bdi>Brokers AI</bdi>'], ['#data', 'بيانات السوق'], ['#faq', 'الأسئلة الشائعة']]
-      : [['#how-it-works', 'How it works'], ['#compare', 'Compare'], ['#ai-expert', 'Brokers AI'], ['#data', 'Market data'], ['#faq', 'FAQ']];
+      ? [['#daily', 'جديد السوق'], ['#data', 'بيانات المشاريع'], ['#compare', 'المقارنة'], ['#ai-expert', '<bdi>Brokers AI</bdi>'], ['#faq', 'الأسئلة الشائعة']]
+      : [['#daily', "What's new"], ['#data', 'Project data'], ['#compare', 'Compare'], ['#ai-expert', 'Brokers AI'], ['#faq', 'FAQ']];
     const nav = links.map(([href, label]) => `                <a href="${href}">${label}</a>`).join('\n');
     markup = markup
       .replace(/(<nav class="es-header__nav"[^>]*>)[\s\S]*?(<\/nav>)/, `$1\n${nav}\n            $2`)

@@ -18,10 +18,10 @@
 <text x="503.0" y="87.5" font-size="10.5" fill="#ffffff" text-anchor="start" direction="rtl" font-weight="600">التجمع</text>
 <text x="526.0" y="178" font-size="14.5" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="600">مشروع ب</text>
 <text x="526.0" y="200" font-size="10.5" fill="#6c7e92" text-anchor="start" direction="rtl" font-weight="400">الوحدات تبدأ من</text>
-<text x="526.0" y="224" font-size="18" fill="#163e69" text-anchor="start" direction="rtl" font-weight="600">8.0M</text>
+<text x="526.0" y="224" font-size="18" fill="#163e69" text-anchor="end" font-weight="600">8.0M</text>
 <rect x="384.0" y="236" width="144.0" height="38" rx="9" fill="#f0f5fa"/>
 <text x="518.0" y="251" font-size="9.5" fill="#47749a" text-anchor="start" direction="rtl" font-weight="500">المقدم</text>
-<text x="518.0" y="267" font-size="12.5" fill="#163e69" text-anchor="start" direction="rtl" font-weight="600">1.2M</text>
+<text x="518.0" y="267" font-size="12.5" fill="#163e69" text-anchor="end" font-weight="600">1.2M</text>
 <rect x="384.0" y="280" width="144.0" height="38" rx="9" fill="#f0f5fa"/>
 <text x="518.0" y="295" font-size="9.5" fill="#47749a" text-anchor="start" direction="rtl" font-weight="500">التقسيط</text>
 <text x="518.0" y="311" font-size="12.5" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="600">حتى 7 سنين</text>
@@ -39,10 +39,10 @@
 <text x="327.0" y="87.5" font-size="10.5" fill="#ffffff" text-anchor="start" direction="rtl" font-weight="600">التجمع</text>
 <text x="350.0" y="178" font-size="14.5" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="600">مشروع أ</text>
 <text x="350.0" y="200" font-size="10.5" fill="#6c7e92" text-anchor="start" direction="rtl" font-weight="400">الوحدات تبدأ من</text>
-<text x="350.0" y="224" font-size="18" fill="#163e69" text-anchor="start" direction="rtl" font-weight="600">7.9M</text>
+<text x="350.0" y="224" font-size="18" fill="#163e69" text-anchor="end" font-weight="600">7.9M</text>
 <rect x="208.0" y="236" width="144.0" height="38" rx="9" fill="#f0f5fa"/>
 <text x="342.0" y="251" font-size="9.5" fill="#47749a" text-anchor="start" direction="rtl" font-weight="500">المقدم</text>
-<text x="342.0" y="267" font-size="12.5" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="600">1.4M</text>
+<text x="342.0" y="267" font-size="12.5" fill="#0f2236" text-anchor="end" font-weight="600">1.4M</text>
 <rect x="208.0" y="280" width="144.0" height="38" rx="9" fill="#f0f5fa"/>
 <text x="342.0" y="295" font-size="9.5" fill="#47749a" text-anchor="start" direction="rtl" font-weight="500">التقسيط</text>
 <text x="342.0" y="311" font-size="12.5" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="600">حتى 8 سنين</text>
@@ -60,10 +60,10 @@
 <text x="151.0" y="87.5" font-size="10.5" fill="#ffffff" text-anchor="start" direction="rtl" font-weight="600">التجمع</text>
 <text x="174.0" y="178" font-size="14.5" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="600">مشروع ج</text>
 <text x="174.0" y="200" font-size="10.5" fill="#6c7e92" text-anchor="start" direction="rtl" font-weight="400">الوحدات تبدأ من</text>
-<text x="174.0" y="224" font-size="18" fill="#9a4d0b" text-anchor="start" direction="rtl" font-weight="600">8.3M</text>
+<text x="174.0" y="224" font-size="18" fill="#9a4d0b" text-anchor="end" font-weight="600">8.3M</text>
 <rect x="32.0" y="236" width="144.0" height="38" rx="9" fill="#f0f5fa"/>
 <text x="166.0" y="251" font-size="9.5" fill="#47749a" text-anchor="start" direction="rtl" font-weight="500">المقدم</text>
-<text x="166.0" y="267" font-size="12.5" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="600">1.5M</text>
+<text x="166.0" y="267" font-size="12.5" fill="#0f2236" text-anchor="end" font-weight="600">1.5M</text>
 <rect x="32.0" y="280" width="144.0" height="38" rx="9" fill="#f0f5fa"/>
 <text x="166.0" y="295" font-size="9.5" fill="#47749a" text-anchor="start" direction="rtl" font-weight="500">التقسيط</text>
 <text x="166.0" y="311" font-size="12.5" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="600">حتى 6 سنين</text>
