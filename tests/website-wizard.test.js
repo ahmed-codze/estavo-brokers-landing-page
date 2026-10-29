@@ -103,11 +103,16 @@ test('final validation returns to the invalid visible step and focuses the field
     assert.equal(wizard.destinations.length, 0);
 });
 
-test('city timeout exposes retry, deduplicates pending requests, and recovers', async t => {
+test('city timeout retries automatically and deduplicates pending requests', async t => {
     let timeout;
+    let retry;
     let calls = 0;
     const wizard = await openWizard(t, {
-        setTimeout(callback, delay) { if (delay === 15000) timeout = callback; return 1; },
+        setTimeout(callback, delay) {
+            if (delay === 15000) timeout = callback;
+            else retry = callback;
+            return 1;
+        },
         fetch() {
             calls += 1;
             return calls === 1 ? new Promise(() => {}) : Promise.resolve({ ok: true, json: async () => catalog });
@@ -120,13 +125,83 @@ test('city timeout exposes retry, deduplicates pending requests, and recovers', 
     assert.equal(calls, 1);
     timeout();
     await tick();
-    assert.equal(wizard.document.querySelector('[data-city-retry]').hidden, false);
-    assert.match(wizard.document.querySelector('[data-city-status]').textContent, /Could not load/);
-    wizard.document.querySelector('[data-city-retry]').click();
+    assert.equal(wizard.document.querySelector('[data-city-retry]').hidden, true);
+    assert.equal(wizard.document.querySelector('[data-city-grid]').getAttribute('aria-busy'), 'true');
+    open();
+    assert.equal(calls, 1);
+    retry();
     await tick();
     assert.equal(calls, 2);
     assert.equal(wizard.form.querySelectorAll('input[name="cities"]').length, 2);
     assert.equal(wizard.document.querySelector('[data-city-grid]').hasAttribute('aria-busy'), false);
+});
+
+test('two transient city failures recover without clicks and clear stale step errors in both languages', async t => {
+    for (const locale of ['ar', 'en']) {
+        let calls = 0;
+        const delays = [];
+        const wizard = await openWizard(t, {
+            locale,
+            setTimeout(callback, delay) {
+                if (delay === 15000) return 1;
+                delays.push(delay);
+                callback();
+                return 2;
+            },
+            fetch(url, options) {
+                calls += 1;
+                assert.equal(options.cache, 'default');
+                if (calls === 1) return Promise.reject(new TypeError('Network connection lost'));
+                return Promise.resolve(calls === 2
+                    ? { ok: false, status: 503 }
+                    : { ok: true, json: async () => catalog });
+            },
+        });
+        wizard.document.querySelector('[data-next-panel="manual"]').click();
+        wizard.input('display_name', 'Mona Broker');
+        wizard.next();
+        wizard.next();
+        wizard.next();
+        assert.ok(wizard.form.querySelector('[data-manual-error]').textContent);
+        await tick();
+        assert.equal(calls, 3);
+        assert.deepEqual(delays, [500, 1000]);
+        assert.equal(wizard.form.querySelectorAll('input[name="cities"]').length, 2);
+        assert.equal(wizard.form.querySelector('[data-manual-error]').textContent, '');
+        assert.equal(wizard.document.querySelector('[data-city-retry]').hidden, true);
+    }
+});
+
+test('city retries stop after three failures and manual retry starts a fresh operation', async t => {
+    let calls = 0;
+    const wizard = await openWizard(t, {
+        setTimeout(callback, delay) { if (delay !== 15000) callback(); return 1; },
+        fetch() {
+            calls += 1;
+            return Promise.resolve(calls <= 3 ? { ok: false, status: 502 } : { ok: true, json: async () => catalog });
+        },
+    });
+    wizard.document.querySelector('[data-next-panel="manual"]').click();
+    await tick();
+    assert.equal(calls, 3);
+    assert.equal(wizard.document.querySelector('[data-city-retry]').hidden, false);
+    assert.match(wizard.document.querySelector('[data-city-status]').textContent, /Could not load/);
+    assert.equal(wizard.document.querySelector('[data-city-grid]').hasAttribute('aria-busy'), false);
+    wizard.document.querySelector('[data-city-retry]').click();
+    await tick();
+    assert.equal(calls, 4);
+    assert.equal(wizard.form.querySelectorAll('input[name="cities"]').length, 2);
+});
+
+test('city requests do not automatically retry access denials', async t => {
+    let calls = 0;
+    const wizard = await openWizard(t, {
+        fetch() { calls += 1; return Promise.resolve({ ok: false, status: 403 }); },
+    });
+    wizard.document.querySelector('[data-next-panel="manual"]').click();
+    await tick();
+    assert.equal(calls, 1);
+    assert.equal(wizard.document.querySelector('[data-city-retry]').hidden, false);
 });
 
 test('reload/language changes restore the same-tab draft without crossing customer contexts', async t => {
