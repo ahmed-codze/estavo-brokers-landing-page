@@ -95,17 +95,24 @@
                 + '; SameSite=Lax'
                 + (location.protocol === 'https:' ? '; Secure' : '');
 
-            /* ── Redirect to landing page root with ?ref= so referral.js
-                   can immediately rewrite all CTA links ── */
-            /* Also forward any UTM parameters so Meta/Google attribution is preserved */
+            /* Keep existing Market acquisition links focused on the Market page.
+               Other referral links retain their original homepage destination. */
+            var marketCampaigns = ['creative-1-trial-event', 'creative-2-trial-event', 'creative-3-trial-event', 'outbound-free-v01', 'outbound-free-v02', 'outbound-free-v03', 'outbound-free-v04'];
+            var landingPath = marketCampaigns.indexOf(slug) !== -1 ? '/market/' : '/';
+
+            /* Preserve click IDs before the landing page pixel executes. */
             var forwardParams = new URLSearchParams();
             forwardParams.set('ref', slug);
-            var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
-            utmKeys.forEach(function (key) {
+            var attributionKeys = [
+                'fbclid', 'gclid', 'ttclid', 'msclkid', 'twclid', 'li_fat_id', 'igshid',
+                'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
+                'utm_adset', 'utm_ad'
+            ];
+            attributionKeys.forEach(function (key) {
                 var val = params.get(key);
                 if (val) forwardParams.set(key, val);
             });
-            window.location.replace(LANDING_ROOT + '/?' + forwardParams.toString());
+            window.location.replace(LANDING_ROOT + landingPath + '?' + forwardParams.toString());
         })();
     </script>
 </head>
