@@ -49,6 +49,9 @@ WARNBG = '#fdf5ec'
 WARNLN = '#e5c39b'
 ONDARK = '#d6e3f0'
 
+ELEC = '#4f9cf0'   # electric accent: glows, flows and scans only (animated layer)
+ANIM = False      # set per build: animated file or still companion
+
 FONTS = {w: TTFont(ROOT / f'assets/fonts/plex-arabic-{w}.ttf', recalcTimestamp=False) for w in (400, 500, 600)}
 CMAPS = {w: f.getBestCmap() for w, f in FONTS.items()}
 
@@ -123,6 +126,8 @@ class Art:
         self.chars = {400: set(), 500: set(), 600: set()}
         self.css = ''
         self.defs = []
+        self.anim = ANIM
+        self.n = 0
 
     # logical → physical
     def px(self, x, w=0):
@@ -142,6 +147,50 @@ class Art:
         self.add(f'<g{attrs}>')
 
     def close(self):
+        self.add('</g>')
+
+    # ── motion helpers (no-ops in the still companion) ──
+    def seq(self, cls, delay, style=''):
+        if self.anim:
+            self.open(cls, f'animation-delay:{delay}ms;{style}')
+        else:
+            self.open()
+
+    def fx(self, s):
+        if self.anim:
+            self.add(s)
+
+    def nid(self, p='i'):
+        self.n += 1
+        return f'{p}{self.uid}{self.n}'
+
+    def type_open(self, x, y, w, h, delay, dur=900):
+        """Typing reveal for a text run starting at logical x (mask grows from the reading start)."""
+        if not self.anim:
+            self.open()
+            return
+        mid = self.nid('m')
+        origin = 'right' if self.rtl else 'left'
+        self.defs.append(f'<mask id="{mid}"><rect class="ty" x="{self.px(x, w)}" y="{y}" width="{w}" height="{h}" fill="#fff" '
+                         f'style="transform-origin:{origin} center;animation-delay:{delay}ms;animation-duration:{dur}ms"/></mask>')
+        self.add(f'<g mask="url(#{mid})">')
+
+    def ring(self, x, y, w, h, r, delay, color=None, sw=2):
+        """Pulsing halo around a 'best' surface."""
+        self.fx(f'<rect class="ring" x="{self.px(x, w)}" y="{y}" width="{w}" height="{h}" rx="{r}" fill="none" '
+                f'stroke="{color or ELEC}" stroke-width="{sw}" style="animation-delay:{delay}ms"/>')
+
+    def caret(self, x, y, h, delay, color=None):
+        self.fx(f'<rect class="bl" x="{self.px(x, 2)}" y="{y}" width="2" height="{h}" rx="1" fill="{color or BLUE}" style="animation-delay:{delay}ms"/>')
+
+    def dots(self, x, y, delay, hide_after=900):
+        """'Brokers AI is typing' bubble that shows, then gives way to the answer."""
+        if not self.anim:
+            return
+        self.add(f'<g class="th" style="animation-delay:{delay}ms;animation-duration:{hide_after}ms">')
+        self.rect(x, y, 58, 30, r=15, fill='#edf3f9', stroke='#d9e4ef')
+        for k in range(3):
+            self.add(f'<circle class="db" cx="{self.px(x + 17 + k * 12)}" cy="{y + 15}" r="3.2" fill="{MID}" style="animation-delay:{k * 150}ms"/>')
         self.add('</g>')
 
     def rect(self, x, y, w, h, r=0, fill='none', stroke=None, sw=1, dash=None, opacity=None, filt=None, extra=''):
@@ -243,7 +292,7 @@ class Art:
         self.text(x + w / 2, y + h / 2 + size * 0.36, label, size, color, weight, anchor='middle')
         return w
 
-    def svg(self, title, animated=False):
+    def svg(self, title):
         defs = ''.join(
             SYMBOLS[n].replace(f'id="{n}"', f'id="ic-{n}"') for n in sorted(self.icons))
         defs += (
@@ -260,15 +309,38 @@ class Art:
         defs += ''.join(self.defs)
         css = 'text{font-family:MkPlex,"IBM Plex Sans Arabic",Arial,sans-serif;font-variant-numeric:tabular-nums}'
         css += font_css(self.chars)
-        if animated:
+        if self.anim:
+            E = 'cubic-bezier(.22,.61,.36,1)'
             css += (
                 '@keyframes r{from{opacity:0;transform:translateY(14px)}}'
                 '@keyframes p{from{opacity:0;transform:scale(.86)}}'
-                '@keyframes g{from{opacity:0}}'
-                '.r{animation:r .62s cubic-bezier(.22,.61,.36,1) both}'
-                '.p{animation:p .42s cubic-bezier(.22,.61,.36,1) both;transform-box:fill-box;transform-origin:center}'
-                '.g{animation:g .9s ease-out both}'
-                '@media (prefers-reduced-motion:reduce){.r,.p,.g{animation:none}}'
+                '@keyframes f{from{opacity:0}}'
+                '@keyframes sw{0%{transform:translateX(0) skewX(-18deg);opacity:0}6%{opacity:1}40%{transform:translateX(var(--sw)) skewX(-18deg);opacity:1}41%,100%{transform:translateX(var(--sw)) skewX(-18deg);opacity:0}}'
+                '@keyframes ring{0%{opacity:.75;transform:scale(1)}70%,100%{opacity:0;transform:scale(1.045)}}'
+                '@keyframes pu{0%,100%{opacity:.4}50%{opacity:1}}'
+                '@keyframes fl{to{stroke-dashoffset:-24}}'
+                '@keyframes bl{0%,49%{opacity:1}50%,100%{opacity:0}}'
+                '@keyframes ty{from{transform:scaleX(0)}}'
+                '@keyframes pk{0%{transform:translate(0,0);opacity:0}12%{opacity:1}88%{opacity:1}100%{transform:translate(var(--dx),var(--dy));opacity:0}}'
+                '@keyframes sc{0%{transform:translateY(0);opacity:0}10%{opacity:1}80%{opacity:1}100%{transform:translateY(var(--sd));opacity:0}}'
+                '@keyframes th{0%{opacity:0}12%,80%{opacity:1}100%{opacity:0}}'
+                '@keyframes db{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}'
+                '@keyframes gl{0%,100%{opacity:.25}50%{opacity:.7}}'
+                f'.r{{animation:r .62s {E} both}}'
+                f'.p{{animation:p .42s {E} both;transform-box:fill-box;transform-origin:center}}'
+                '.f{animation:f .6s ease-out both}'
+                f'.sw{{animation:sw 7s {E} infinite both}}'
+                '.ring{animation:ring 2.8s ease-out infinite both;transform-box:fill-box;transform-origin:center}'
+                '.pu{animation:pu 2.4s ease-in-out infinite both}'
+                '.fl{animation:fl 1.1s linear infinite}'
+                '.bl{animation:bl 1.05s steps(1) infinite both}'
+                '.ty{animation:ty .9s steps(30) both;transform-box:fill-box}'
+                '.pk{animation:pk 5.5s linear infinite both}'
+                f'.sc{{animation:sc 4.6s {E} infinite both}}'
+                '.th{animation:th .9s ease both}'
+                '.db{animation:db .9s ease-in-out infinite;transform-box:fill-box}'
+                '.gl{animation:gl 3.2s ease-in-out infinite both}'
+                '@media (prefers-reduced-motion:reduce){*{animation:none!important}.th{display:none}}'
             )
         body = '\n'.join(self.parts)
         return (
@@ -454,7 +526,7 @@ def photo_uri(key):
 PHOTO_FOR = {0: 'project-b', 1: 'project-a', 2: 'project-c'}
 
 
-def photo(a, x, y, w, h, variant=0, r=0, rtop_only=True, key=None):
+def photo(a, x, y, w, h, variant=0, r=0, rtop_only=True, key=None, sweep=0):
     """Embedded property photo (see tools/data/market-photos/provenance.json), clipped like the app's cards."""
     key = key or PHOTO_FOR[variant % 3]
     uid = f'{a.uid}p{len(a.defs)}'
@@ -468,6 +540,11 @@ def photo(a, x, y, w, h, variant=0, r=0, rtop_only=True, key=None):
     # soft bottom shade so pills and badges stay legible, like the app's image overlay
     a.defs.append(f'<linearGradient id="sh{uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#021d39" stop-opacity=".28"/><stop offset=".35" stop-color="#021d39" stop-opacity="0"/></linearGradient>')
     a.add(f'<rect x="{gx}" y="{y}" width="{w}" height="{h}" fill="url(#sh{uid})"/>')
+    if sweep and a.anim:
+        a.defs.append(f'<linearGradient id="swg{uid}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/>'
+                      f'<stop offset=".5" stop-color="#fff" stop-opacity=".42"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>')
+        a.add(f'<rect class="sw" x="{gx - w * .55}" y="{y - h * .2}" width="{w * .42}" height="{h * 1.4}" fill="url(#swg{uid})" '
+              f'style="--sw:{w * 1.9:.0f}px;animation-delay:{sweep}ms"/>')
     if r:
         a.add('</g>')
 
@@ -542,9 +619,21 @@ def blueprint(a, x, y, w, h, r):
     a.add(f'<path d="M{a.px(x + w * .15)} {y + h} C {a.px(x + w * .35)} {y + h * .55}, {a.px(x + w * .55)} {y + h * .5}, {a.px(x + w)} {y + h * .22}" stroke="#fff" stroke-width="7" opacity=".06"/>')
     a.add(f'<path d="M{a.px(x + w * .62)} {y} C {a.px(x + w * .6)} {y + h * .4}, {a.px(x + w * .8)} {y + h * .7}, {a.px(x + w * .74)} {y + h}" stroke="#fff" stroke-width="4" opacity=".05"/>')
     a.add('</g>')
-    for (fx, fy) in [(.86, .25), (.92, .6), (.78, .9)]:
+    for i, (fx, fy) in enumerate([(.86, .25), (.92, .6), (.78, .9)]):
         a.circle(x + w * fx, y + h * fy, 9, fill='#ffffff', opacity=.07)
         a.circle(x + w * fx, y + h * fy, 3.2, fill='#ffffff', opacity=.35)
+        a.fx(f'<circle class="ring" cx="{a.px(x + w * fx)}" cy="{y + h * fy}" r="9" fill="none" stroke="{ELEC}" stroke-width="1.5" style="animation-delay:{900 + i * 700}ms;animation-duration:3.2s"/>')
+    if a.anim:
+        # data pulses running along the street grid
+        a.add(f'<g clip-path="url(#{cid})">')
+        lanes = [(x + 20 + 44 * k, y, 0, h) for k in (2, 5, 8)] + [(x, y + 20 + 44 * k, w, 0) for k in (3, 7, 10)]
+        for i, (lx, ly, dx, dy) in enumerate(lanes):
+            if (dx and ly > y + h) or (dy and lx > x + w):
+                continue
+            sdx = -dx if a.rtl else dx
+            a.add(f'<circle class="pk" cx="{a.px(lx)}" cy="{ly}" r="2.6" fill="{ELEC}" '
+                  f'style="--dx:{sdx:.0f}px;--dy:{dy:.0f}px;animation-delay:{600 + i * 830}ms;animation-duration:{4.6 + (i % 3) * 1.1:.1f}s"/>')
+        a.add('</g>')
 
 
 def badge(a, x_end, y, label, size=12, fill=BLUE, color=WHITE, stroke=None, h=24):
@@ -583,8 +672,9 @@ def project_card(a, x, y, w, c, key, variant, state='', img_h=None, compact=Fals
     h = img_h + body + 22 + 8 + 18 + 30 + 14 + 30 + 14 + facts_h + body
     if state == 'best':
         a.rect(x - 5, y - 5, w + 10, h + 10, r=24, fill='none', stroke=BLUE, sw=5, opacity=.12)
+        a.ring(x - 3, y - 3, w + 6, h + 6, 23, 1500)
     a.rect(x, y, w, h, r=20, fill=WHITE, stroke=BLUE if state == 'best' else LINE, sw=1.5 if state == 'best' else 1, filt='ss')
-    photo(a, x + 1, y + 1, w - 2, img_h, variant, r=19)
+    photo(a, x + 1, y + 1, w - 2, img_h, variant, r=19, sweep=(1700 if state == 'best' else 0))
     city_pill(a, x + 12, y + 12, c['city'])
     if state == 'best':
         badge(a, x + w - 12, y + 12, c['best_short'], 11.5, BLUE, WHITE, h=24)
@@ -636,7 +726,7 @@ def hero(lang, animated):
     blueprint(a, 88, 96, W - 88, H - 96, 30)
 
     def grp(cls, delay):
-        a.open(cls, f'animation-delay:{delay}ms') if animated else a.open()
+        a.seq(cls, delay)
 
     grp('r', 60)
     a.rect(0, top, cw, frame_h, r=24, fill=MIST, stroke=LINE, filt='sh')
@@ -648,7 +738,11 @@ def hero(lang, animated):
     sx = 200
     a.rect(sx, top + 13, cw - sx - 70, 38, r=19, fill=MIST, stroke=LINE)
     a.icon('request', sx + 14, top + 23, 18, MID)
+    stw = tw(c['search'], 13.5, 500)
+    a.type_open(sx + 38, top + 20, stw + 6, 24, 420, 1100)
     a.text(sx + 40, top + 37, c['search'], 13.5, INK, 500)
+    a.close()
+    a.caret(sx + 43 + stw, top + 23, 18, 1550)
     a.circle(cw - 38, top + 32, 19, fill=SOFT)
     a.icon('control', cw - 47, top + 23, 18, BLUE)
     a.close()
@@ -671,11 +765,20 @@ def hero(lang, animated):
     project_card(a, 24 + cardw + 18, cards_y, cardw, c, 'A', 1, '')
     a.close()
 
-    # Brokers AI bubble floating out of the frame
-    grp('r', 1100)
+    # Brokers AI bubble floating out of the frame, linked to the card it recommends
     aw = 360
     ax = W - aw - 6
+    if a.anim:
+        bx = 24 + cardw * .62
+        d = (f'M{a.px(ax)} {ai_y + 30} C {a.px(ax - 70)} {ai_y + 30}, {a.px(bx)} {ai_y + 56}, {a.px(bx)} {ai_y + 2}')
+        a.seq('f', 1350)
+        a.add(f'<path d="{d}" fill="none" stroke="{ELEC}" stroke-width="2" stroke-linecap="round" stroke-dasharray="5 7" class="fl"/>')
+        a.add(f'<circle cx="{a.px(bx)}" cy="{ai_y + 2}" r="4" fill="{ELEC}"/>')
+        a.add(f'<circle class="ring" cx="{a.px(bx)}" cy="{ai_y + 2}" r="8" fill="none" stroke="{ELEC}" stroke-width="1.5" style="animation-delay:1600ms;animation-duration:2.2s"/>')
+        a.close()
+    grp('r', 1100)
     a.rect(ax, ai_y, aw, ai_h, r=20, fill=WHITE, stroke=LINE, filt='sh')
+    a.fx(f'<circle class="gl" cx="{a.px(ax + 30)}" cy="{ai_y + 28}" r="22" fill="{ELEC}"/>')
     a.circle(ax + 30, ai_y + 28, 15, fill=BLUE)
     a.spark(ax + 30, ai_y + 28, 16)
     a.text(ax + 54, ai_y + 33, c['ai_label'], 14, INK, 600)
@@ -713,7 +816,7 @@ def hero_mobile(lang, animated):
     blueprint(a, 24, 70, W - 24, H - 70, 24)
 
     def grp(cls, delay):
-        a.open(cls, f'animation-delay:{delay}ms') if animated else a.open()
+        a.seq(cls, delay)
 
     grp('r', 60)
     a.rect(0, 0, cw, frame_h, r=20, fill=MIST, stroke=LINE, filt='sh')
@@ -722,7 +825,11 @@ def hero_mobile(lang, animated):
     a.line(1, 60, cw - 1, 60)
     a.rect(14, 12, cw - 28, 36, r=18, fill=MIST, stroke=LINE)
     a.icon('request', 26, 21, 17, MID)
+    mtw = tw(c['search_m'], 12.5, 500)
+    a.type_open(48, 20, mtw + 6, 22, 380, 950)
     a.text(50, 35, c['search_m'], 12.5, INK, 500)
+    a.close()
+    a.caret(53 + mtw, 22, 17, 1350)
     a.close()
     x, y = 14, 72
     for i, chip in enumerate(chips):
@@ -748,6 +855,7 @@ def hero_mobile(lang, animated):
     aw = 300
     ax = W - aw - 4
     a.rect(ax, ai_y, aw, ai_h, r=18, fill=WHITE, stroke=LINE, filt='sh')
+    a.fx(f'<circle class="gl" cx="{a.px(ax + 26)}" cy="{ai_y + 24}" r="19" fill="{ELEC}"/>')
     a.circle(ax + 26, ai_y + 24, 13, fill=BLUE)
     a.spark(ax + 26, ai_y + 24, 14)
     a.text(ax + 46, ai_y + 29, c['ai_label'], 13, INK, 600)
@@ -774,39 +882,54 @@ def record(lang, compact):
     a.defs.append(f'<clipPath id="pb-{a.uid}"><rect x="0" y="0" width="{W}" height="{H}" rx="22"/></clipPath>')
     a.rect(0, 0, W, H, r=22, fill=MIST, stroke=LINE)
     a.add(f'<g clip-path="url(#pb-{a.uid})">')
+    a.seq('f', 40)
     a.rect(0, 0, W, band_h, fill=NAVY)
     a.add(f'<rect x="0" y="0" width="{W}" height="{band_h}" fill="url(#wd-{a.uid})"/>')
+    if a.anim:
+        a.defs.append(f'<linearGradient id="bs-{a.uid}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="{ELEC}" stop-opacity="0"/><stop offset=".5" stop-color="{ELEC}" stop-opacity=".22"/><stop offset="1" stop-color="{ELEC}" stop-opacity="0"/></linearGradient>')
+        a.add(f'<rect class="sw" x="{-W * .5}" y="0" width="{W * .4}" height="{band_h}" fill="url(#bs-{a.uid})" style="--sw:{W * 1.6:.0f}px;animation-delay:1200ms;animation-duration:9s"/>')
+    a.close()
     a.add('</g>')
     a.defs.append(f'<pattern id="wd-{a.uid}" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#fff" opacity=".08"/></pattern>')
     x = pad
     for i, p_ in enumerate(c['pills']):
         w = tw(p_, 11.5, 600) + 24 + (16 if i == 0 else 0)
+        a.seq('p', 220 + i * 90)
         a.rect(x, pad, w, 26, r=13, fill=WHITE, opacity=.12)
         if i == 0:
             a.icon('location', x + 9, pad + 6, 14, WHITE)
         a.text(x + (27 if i == 0 else 12), pad + 17.5, p_, 11.5, WHITE, 600)
+        a.close()
         x += w + 8
     tag(a, W - pad, pad + 1, c)
+    a.seq('r', 380)
     a.text(pad, pad + 66, c['rec_title'], 26 if not compact else 23, WHITE, 600)
     a.text(pad, pad + 92, c['phase'], 12.5, ONDARK)
+    a.close()
     # price card
     pcx, pcw = pad, W - 2 * pad
+    a.seq('r', 600)
     a.rect(pcx, pc_y, pcw, price_card_h, r=18, fill=WHITE, filt='sh')
     a.text(pcx + 18, pc_y + 28, c['start_from'], 11.5, T3, 500)
     a.text(pcx + 18, pc_y + 58, '8.0M', 26, BLUE, 600)
     st_badge = c['available']
-    badge(a, pcx + pcw - 16, pc_y + 16, st_badge, 11, '#e7f4ec', '#1f7a45', h=24)
+    bw_ = badge(a, pcx + pcw - 16, pc_y + 16, st_badge, 11, '#e7f4ec', '#1f7a45', h=24)
+    a.fx(f'<circle class="ring" cx="{a.px(pcx + pcw - 16 - bw_ - 10)}" cy="{pc_y + 28}" r="5" fill="none" stroke="#22c55e" stroke-width="1.6" style="animation-delay:1300ms;animation-duration:2s"/>')
+    a.fx(f'<circle cx="{a.px(pcx + pcw - 16 - bw_ - 10)}" cy="{pc_y + 28}" r="3" fill="#22c55e"/>')
+    a.close()
     stats = [('delivery', c['f_delivery'], '2027'), ('area', c['f_area'], c['area_v'].format(n='158')),
              ('down-payment', c['f_down'], '1.2M'), ('instalment', c['f_inst'], c['inst'].format(n=7))]
     for i, (ic, lab, val) in enumerate(stats):
         r_, k = divmod(i, 2)
         sx = pcx + 12 + k * (statw + 10)
         sy = pc_y + 74 + r_ * 66
+        a.seq('r', 780 + i * 90)
         a.rect(sx, sy, statw, 58, r=12, fill=MIST)
         a.rect(sx + 10, sy + 13, 32, 32, r=9, fill=SOFT)
         a.icon(ic, sx + 18, sy + 21, 16, BLUE)
         a.text(sx + 52, sy + 24, lab, 11, T3)
         a.text(sx + 52, sy + 44, val, 14.5, INK, 600)
+        a.close()
     # section nav
     x = pad
     for i, lab in enumerate(c['nav'][:4 if compact else 5]):
@@ -814,10 +937,14 @@ def record(lang, compact):
         if x + w > W - pad:
             break
         on = i == 1
+        a.seq('p', 1150 + i * 70)
         a.rect(x, nav_y, w, 32, r=9, fill=BLUE if on else WHITE, stroke=None if on else LINE)
         a.text(x + w / 2, nav_y + 20.5, lab, 12, WHITE if on else T2, 600, anchor='middle')
+        a.close()
         x += w + 6
     # payment plan card
+    a.ring(pad - 2, plan_y - 2, W - 2 * pad + 4, 120, 20, 2000)
+    a.seq('r', 1450)
     a.rect(pad, plan_y, W - 2 * pad, 116, r=18, fill=WHITE, stroke=BLUE, sw=1.4)
     tw_t = tw(c['plan_tag'], 10.5, 600) + 16
     a.rect(pad + 16, plan_y + 14, tw_t, 22, r=6, fill=SOFT)
@@ -828,6 +955,7 @@ def record(lang, compact):
     a.line(pad + half, plan_y + 50, pad + half, plan_y + 102)
     a.text(pad + half + 18, plan_y + 76, c['inst_short'], 28, BLUE, 600)
     a.text(pad + half + 18, plan_y + 99, c['period'], 12, T3)
+    a.close()
     return a
 
 
@@ -861,36 +989,55 @@ def step_ask(lang, compact):
     H = round(q_y + 38 + p)
     a = Art(W, H, lang, f'ask{lang}{int(compact)}')
     canvas(a, H)
+    a.seq('r', 80)
     a.rect(p, p, bw, msg_h, r=18, fill=WHITE, filt='ss')
     a.rect(p, p + msg_h - 16, 16, 16, fill=WHITE)
     a.icon('message', p + 16, p + 13, 15, '#1f9d55')
     a.text(p + 38, p + 25, c['msg_from'], 12, T3, 600)
     for i, ln in enumerate(msg_lines):
         a.text(p + 18, p + 52 + i * size * 1.62, ln, size, INK)
+    a.close()
+    if a.anim:  # reading scan over the client's words
+        cid = a.nid('k')
+        a.defs.append(f'<clipPath id="{cid}"><rect x="{a.px(p, bw)}" y="{p}" width="{bw}" height="{msg_h}" rx="18"/></clipPath>'
+                      f'<linearGradient id="g{cid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{ELEC}" stop-opacity="0"/>'
+                      f'<stop offset=".7" stop-color="{ELEC}" stop-opacity=".18"/><stop offset="1" stop-color="{ELEC}" stop-opacity=".55"/></linearGradient>')
+        a.add(f'<g clip-path="url(#{cid})"><rect class="sc" x="{a.px(p, bw)}" y="{p - 26}" width="{bw}" height="28" fill="url(#g{cid})" '
+              f'style="--sd:{msg_h + 20:.0f}px;animation-delay:500ms;animation-duration:3.8s"/></g>')
     # assistant bubble (app style)
+    a.seq('r', 850)
     a.rect(p, card_y, cw, card_h, r=18, fill='#edf3f9', stroke='#d9e4ef')
     a.circle(p + 30, card_y + 27, 13, fill=BLUE)
     a.spark(p + 30, card_y + 27, 14)
     a.text(p + 52, card_y + 32, c['parsed'], 14.5, BLUE, 600)
+    a.close()
+    k_ = 0
     for r_, row in enumerate(rows):
         for ic, lab, kind, x, w in row:
             y = card_y + 50 + r_ * 42
+            a.seq('p', 1150 + k_ * 150)
+            k_ += 1
             if kind == 'prio':
+                a.ring(p + x - 2, y - 2, w + 4, 38, 19, 2300)
                 a.rect(p + x, y, w, 34, r=17, fill=BLUE)
                 col = WHITE
             elif kind == 'open':
                 a.rect(p + x, y, w, 34, r=17, fill='none', stroke=MUTE, dash='4 3')
+                a.fx(f'<rect class="fl" x="{a.px(p + x, w)}" y="{y}" width="{w}" height="34" rx="17" fill="none" stroke="{ELEC}" stroke-width="1.4" stroke-dasharray="4 8"/>')
                 col = MID
             else:
                 a.rect(p + x, y, w, 34, r=17, fill=WHITE, stroke='#d6e1ec')
                 col = BLUE
             a.icon(ic, p + x + 12, y + 9, 16, col)
             a.text(p + x + 34, y + 22, lab, 12.5, col, 600)
+            a.close()
     # suggestion chip (app ActionChips)
     qw = min(cw, tw(c['ask_chip'], 12.5, 600) + 48)
+    a.seq('r', 1150 + k_ * 150 + 250)
     a.rect(p, q_y, qw, 38, r=19, fill=WHITE, stroke='#d6e1ec', filt='ss')
     a.icon('message', p + 14, q_y + 11, 16, BLUE)
     a.text(p + 38, q_y + 24, c['ask_chip'], 12.5, BLUE, 600)
+    a.close()
     return a
 
 
@@ -900,8 +1047,9 @@ def mini_card(a, x, y, w, c, key, variant, state):
     h = img_h + 14 + 22 + 18 + 26 + 12 + 2 * 44 + 10
     if state == 'best':
         a.rect(x - 4, y - 4, w + 8, h + 8, r=20, fill='none', stroke=BLUE, sw=5, opacity=.12)
+        a.ring(x - 2, y - 2, w + 4, h + 4, 18, 1400)
     a.rect(x, y, w, h, r=16, fill=WHITE, stroke=BLUE if state == 'best' else (WARNLN if state == 'over' else LINE), sw=1.5 if state == 'best' else 1, dash='5 4' if state == 'over' else None)
-    photo(a, x + 1, y + 1, w - 2, img_h, variant, r=15)
+    photo(a, x + 1, y + 1, w - 2, img_h, variant, r=15, sweep=(1600 if state == 'best' else 0))
     city_pill(a, x + 9, y + 9, c['city'], 10.5)
     yy = y + img_h + 24
     a.text(x + 12, yy, v['name'], 14.5, INK, 600)
@@ -931,20 +1079,25 @@ def step_find(lang, compact):
         H = p + 36 + 3 * (rh + 12) + p - 12
         a = Art(W, H, lang, f'find{lang}1')
         canvas(a, H)
+        a.seq('f', 60)
         a.text(p + 4, p + 22, [(c['res_n'], 600), ('  ·  ' + c['res_s'], 400)], 14, INK)
+        a.close()
         y = p + 38
-        for key, var, st in items:
+        for i_, (key, var, st) in enumerate(items):
             v = unit_vals(c, key)
+            a.seq('r', 300 + i_ * 170)
             if st == 'best':
                 a.rect(p - 4, y - 4, W - 2 * p + 8, rh + 8, r=20, fill='none', stroke=BLUE, sw=5, opacity=.12)
+                a.ring(p - 2, y - 2, W - 2 * p + 4, rh + 4, 18, 1300)
             a.rect(p, y, W - 2 * p, rh, r=16, fill=WARNBG if st == 'over' else WHITE, stroke=BLUE if st == 'best' else (WARNLN if st == 'over' else LINE), sw=1.5 if st == 'best' else 1, dash='5 4' if st == 'over' else None)
-            photo(a, p + 10, y + 10, 96, rh - 20, var, r=10, rtop_only=False)
+            photo(a, p + 10, y + 10, 96, rh - 20, var, r=10, rtop_only=False, sweep=(1500 if st == 'best' else 0))
             a.text(p + 118, y + 30, v['name'], 14.5, INK, 600)
             a.text(p + 118, y + 54, [(v['price'], 600)], 15, WARN if st == 'over' else BLUE)
             a.text(p + 118, y + 76, c['f_down'] + ' ' + v['down'] + ' · ' + v['inst'], 11.5, T3)
             lab = {'best': c['best_short'], 'plain': c['match'], 'over': c['alt_short']}[st]
             fill, color, stroke = {'best': (BLUE, WHITE, None), 'plain': (MIST, T2, None), 'over': (WHITE, WARN, WARNLN)}[st]
             badge(a, W - p - 10, y + 10, lab, 10.5, fill, color, stroke, h=22)
+            a.close()
             y += rh + 12
         return a
     cw = (W - 2 * p - 2 * 12) / 3
@@ -953,9 +1106,13 @@ def step_find(lang, compact):
     H = round(p + 40 + ch + p + 4)
     a = Art(W, H, lang, f'find{lang}0')
     canvas(a, H)
+    a.seq('f', 60)
     a.text(p + 4, p + 22, [(c['res_n'], 600), ('  ·  ' + c['res_s'], 400)], 15, INK)
+    a.close()
     for i, (key, var, st) in enumerate(items):
+        a.seq('r', 300 + i * 170)
         mini_card(a, p + i * (cw + 12), p + 40, cw, c, key, var, st)
+        a.close()
     return a
 
 
@@ -979,22 +1136,31 @@ def step_send(lang, compact):
     a = Art(W, H, lang, f'send{lang}{int(compact)}')
     canvas(a, H)
     fx = W - p - fw
+    a.seq('r', 100)
     a.rect(fx, p, fw, 90, r=16, fill=BLUE, filt='ss')
     pdf_page_thumb(a, fx + 14, p + 14, 48, 62)
     a.text(fx + 76, p + 36, c['file_t'], 15, WHITE, 600)
     a.text(fx + 76, p + 58, c['file_s'], 12, ONDARK)
     a.text(fx + 76, p + 76, 'PDF', 10.5, ONDARK, 600)
+    a.close()
     dy = p + 104
     dx = W - p - dw
+    a.seq('r', 650)
     a.rect(dx, dy, dw, d_h, r=18, fill=WHITE, stroke=LINE)
     a.rect(dx + dw - 16, dy + d_h - 16, 16, 16, fill=WHITE)
     a.line(dx + dw, dy + d_h - 16, dx + dw, dy + d_h, LINE)
     a.line(dx + dw - 16, dy + d_h, dx + dw, dy + d_h, LINE)
+    a.close()
     for i, ln in enumerate(d_lines):
+        lw = runs_width(ln, size)
+        a.type_open(dx + 16, dy + 12 + i * size * 1.62, lw + 6, size * 1.62, 900 + i * 520, 520)
         a.text(dx + 18, dy + 28 + i * size * 1.62, ln, size, INK)
+        a.close()
     sy = dy + d_h + 26
+    a.seq('p', 900 + len(d_lines) * 520 + 200)
     a.ticks(W - p - 15, sy - 10, '#1f9d55')
     a.text(W - p - 22, sy, c['sent'], 12.5, T3, 500, anchor='end')
+    a.close()
     return a
 
 
@@ -1032,6 +1198,7 @@ def chat(lang, compact):
     H = round(head + body_h + 60 + p)
     a = Art(W, H, lang, f'chat{lang}{int(compact)}')
     a.rect(0, 0, W, H, r=28, fill='#fbfcfe', stroke='#dbe4ee')
+    a.seq('f', 40)
     a.text(W / 2, 28, c['chat_title'], 13, BLUE, 600, anchor='middle')
     a.text(W / 2, 46, c['chat_sub'], 10.5, T3, anchor='middle')
     for k, ic in enumerate(['details', 'close']):
@@ -1042,9 +1209,16 @@ def chat(lang, compact):
     a.rect(p, 20, cr, 24, r=12, fill=WHITE, stroke='#d6e1ec')
     a.text(p + cr / 2, 36, c['free_pill'], 10.5, BLUE, 600, anchor='middle')
     a.line(0, head, W, head, '#e3eaf2')
+    a.close()
     y = head + p
+    clock = 250
     for b in blocks:
         kind = b[0]
+        if kind == 'ai':
+            a.dots(p, y, clock, 900)
+            clock += 850
+        a.seq('p' if kind == 'chips' else 'r', clock)
+        clock += {'me': 650, 'ai': 400, 'cards': 600, 'chips': 300}[kind]
         if kind == 'me':
             _, ls, w, h = b
             x = W - p - w
@@ -1077,10 +1251,12 @@ def chat(lang, compact):
                 a.icon(ic, x + 13, y + 11, 16, BLUE)
                 a.text(x + 35, y + 24, act, 12, BLUE, 600)
                 x += aw + 8
+        a.close()
         y += b[3] + 12
     iy = H - p - 58
     a.rect(p, iy, W - 2 * p, 58, r=20, fill=WHITE, stroke='#d6e1ec')
     a.text(p + 18, iy + 34, c['input'], 12.5, T3)
+    a.caret(p + 14, iy + 20, 18, clock + 200)
     a.rect(W - p - 52, iy + 7, 44, 44, r=12, fill=BLUE)
     sx = a.px(W - p - 52, 44)
     a.add(f'<path d="M{sx + 14} {iy + 29}l17-8-6 17-3-6z" fill="#fff" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>')
@@ -1103,13 +1279,16 @@ def pdf(lang, compact):
     cxp = a.px(dx + dw / 2)
     # back page: cover with property render
     rot_b = -6 if a.rtl else 5
+    a.seq('f', 60)
     a.add(f'<g transform="rotate({rot_b} {cxp} {top + dh / 2}) translate({30 if a.rtl else -30} 10)">')
     a.rect(dx + 14, top + 16, dw - 28, dh - 32, r=6, fill=WHITE, filt='ss')
     photo(a, dx + 14, top + 16, dw - 28, (dh - 32) * .62, 0, r=6)
     a.rect(dx + 14, top + 16 + (dh - 32) * .62, dw - 28, 52, fill=BLUE)
     a.text(dx + 30, top + 16 + (dh - 32) * .62 + 32, c['rec_title'], 16, WHITE, 600)
     a.close()
+    a.close()
     # front page: Unit Details
+    a.seq('r', 260)
     a.add(f'<g transform="rotate(-1.2 {cxp} {top + dh / 2})">')
     a.rect(dx, top, dw, dh, r=6, fill=WHITE, filt='sh')
     a.defs.append(f'<clipPath id="dc-{a.uid}"><rect x="{a.px(dx, dw)}" y="{top}" width="{dw}" height="{dh}" rx="6"/></clipPath>')
@@ -1120,18 +1299,30 @@ def pdf(lang, compact):
     ty = top + 64 + 22
     tx, tw_ = dx + 18, dw - 36
     half = tw_ * .48
+    a.seq('f', 600)
     a.rect(tx, ty, tw_, 34, fill=BLUE)
     a.text(tx + 12, ty + 22, c['ud_head'][0], 12, WHITE, 600)
     a.text(tx + half + 12, ty + 22, c['ud_head'][1], 12, WHITE, 600)
+    a.close()
     for i, (k, v) in enumerate(rows):
         ry = ty + 34 + i * row_h
+        a.seq('f', 720 + i * 130)
         a.rect(tx, ry, tw_, row_h, fill='#f4f6f9' if i % 2 == 0 else WHITE)
         a.text(tx + 12, ry + row_h / 2 + 4.5, k, 12, T2)
         hi = i == 1
         a.text(tx + half + 12, ry + row_h / 2 + 4.5, v, 12.5 if hi else 12, BLUE if hi else INK, 600)
+        a.close()
     a.line(tx + half, ty + 34, tx + half, ty + 34 + len(rows) * row_h, '#dde1ea')
+    if a.anim:  # generation scan running down the table
+        gid = a.nid('g')
+        a.defs.append(f'<linearGradient id="{gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{ELEC}" stop-opacity="0"/>'
+                      f'<stop offset=".8" stop-color="{ELEC}" stop-opacity=".16"/><stop offset="1" stop-color="{ELEC}" stop-opacity=".7"/></linearGradient>')
+        a.add(f'<rect class="sc" x="{a.px(tx, tw_)}" y="{ty + 34 - 22}" width="{tw_}" height="24" fill="url(#{gid})" '
+              f'style="--sd:{len(rows) * row_h:.0f}px;animation-delay:{720}ms;animation-duration:4.4s"/>')
     # broker strip (closing details on the offer)
     by = ty + 34 + len(rows) * row_h + 22
+    t_strip = 720 + len(rows) * 130 + 120
+    a.seq('p', t_strip)
     a.rect(tx, by, tw_, 64, r=10, fill=SOFT)
     photo(a, tx + 12, by + 14, 36, 36, r=18, rtop_only=False, key='agent-omar')
     a.text(tx + 58, by + 28, c['broker'], 14, INK, 600)
@@ -1139,9 +1330,12 @@ def pdf(lang, compact):
     a.circle(tx + tw_ - 26, by + 32, 15, fill='#25d366')
     a.icon('message', tx + tw_ - 34, by + 24, 16, WHITE)
     a.close()
+    a.close()
+    a.close()
     # callout pointing at the broker strip
     cl_w = tw(c['callout'], 13, 600) + 28
     clx = W - cl_w - (6 if compact else 18)
+    a.seq('p', t_strip + 300)
     if compact:
         # below the broker strip, pointing up, so it never covers table values
         cly = by + 58
@@ -1155,7 +1349,9 @@ def pdf(lang, compact):
         a.text(clx + cl_w / 2, cly - 31, c['callout'], 13, BLUE, 600, anchor='middle')
         a.line(clx + cl_w / 2, cly - 20, clx + cl_w / 2, cly + 4, BLUE, 1.5)
         a.circle(clx + cl_w / 2, cly + 6, 3.5, fill=WHITE, stroke=BLUE, sw=1.5)
+    a.close()
     # WhatsApp file bubble
+    a.seq('r', t_strip + 600)
     ww = max(tw(c['wa_t'], 13.5, 600), tw(c['wa_s'], 11.5)) + 90
     wx = 6 if compact else 20
     wy = H - 96
@@ -1166,6 +1362,7 @@ def pdf(lang, compact):
     a.text(wx + 58, wy + 50, c['wa_s'], 11.5, T3)
     a.ticks(wx + ww - 27, wy + 63, '#1f9d55')
     a.text(wx + ww - 32, wy + 73, c['wa_m'], 11, T3, anchor='end')
+    a.close()
     return a
 
 
@@ -1177,24 +1374,35 @@ def change(lang, compact):
     H = 236
     a = Art(W, H, lang, f'chg{lang}{int(compact)}')
     a.rect(0, 0, W, H, r=20, fill=WHITE, stroke=LINE)
+    a.seq('f', 40)
     a.icon('update', p, p + 2, 18, BLUE)
     a.text(p + 26, p + 16, c['ch_t'], 15, BLUE, 600)
     tag(a, W - p, p - 2, c)
     a.text(p, p + 52, c['ch_f'], 13, T3)
+    a.close()
     bw = (W - 2 * p - 44) / 2
     by = p + 68
+    a.seq('r', 250)
     a.rect(p, by, bw, 72, r=12, fill=MIST)
     a.text(p + 14, by + 24, c['before'], 12, T3, 500)
     a.text(p + 14, by + 52, c['old'], 19, T3, 600)
     ow = tw(c['old'], 19, 600)
     a.line(p + 12, by + 46, p + 16 + ow, by + 46, T3, 1.6)
-    a.arrow(p + bw + 10, by + 24, 24, MUTE)
+    a.close()
+    a.seq('p', 650)
+    a.arrow(p + bw + 10, by + 24, 24, ELEC if a.anim else MUTE)
+    a.close()
     nx = p + bw + 44
+    a.ring(nx - 2, by - 2, bw + 4, 76, 14, 1500)
+    a.seq('p', 950)
     a.rect(nx, by, bw, 72, r=12, fill=BLUE)
     a.text(nx + 14, by + 24, c['after'], 12, ONDARK, 500)
     a.text(nx + 14, by + 52, c['new'], 19, WHITE, 600)
+    a.close()
+    a.seq('f', 1300)
     a.icon('check', p, H - p - 16, 16, BLUE)
     a.text(p + 24, H - p - 3, c['state'], 13, T2, 500)
+    a.close()
     return a
 
 
@@ -1212,27 +1420,32 @@ TITLES = {
 
 
 def main():
+    global ANIM
     OUT.mkdir(parents=True, exist_ok=True)
     written = []
 
-    def save(name, art, title, animated=False):
-        path = OUT / name
-        path.write_text(art.svg(title, animated))
-        written.append((name, art.W, art.H, path.stat().st_size))
+    def build(name, fn, args, title):
+        """Animated file plus its '-still' companion (no-JS, reduced motion, print)."""
+        global ANIM
+        for animated, suffix in ((True, ''), (False, '-still')):
+            ANIM = animated
+            art = fn(*args)
+            path = OUT / f'{name}{suffix}.svg'
+            path.write_text(art.svg(title))
+            written.append((path.name, art.W, art.H, path.stat().st_size))
+        ANIM = False
 
     for lang in ('ar', 'en'):
-        save(f'hero-{lang}.svg', hero(lang, True), TITLES['hero'][lang], True)
-        save(f'hero-{lang}-still.svg', hero(lang, False), TITLES['hero'][lang])
-        save(f'hero-mobile-{lang}.svg', hero_mobile(lang, True), TITLES['hero'][lang], True)
-        save(f'hero-mobile-{lang}-still.svg', hero_mobile(lang, False), TITLES['hero'][lang])
+        build(f'hero-{lang}', hero, (lang, True), TITLES['hero'][lang])
+        build(f'hero-mobile-{lang}', hero_mobile, (lang, True), TITLES['hero'][lang])
         for key, fn in [('record', record), ('step-ask', step_ask), ('step-find', step_find),
                         ('step-send', step_send), ('chat', chat), ('pdf', pdf)]:
-            save(f'{key}-{lang}.svg', fn(lang, False), TITLES[key][lang])
-            save(f'{key}-mobile-{lang}.svg', fn(lang, True), TITLES[key][lang])
-        save(f'change-{lang}.svg', change(lang, False), TITLES['change'][lang])
+            build(f'{key}-{lang}', fn, (lang, False), TITLES[key][lang])
+            build(f'{key}-mobile-{lang}', fn, (lang, True), TITLES[key][lang])
+        build(f'change-{lang}', change, (lang, False), TITLES['change'][lang])
 
     for name, w, h, size in written:
-        print(f'  {name:32} {w}x{h}  {size / 1024:.1f} KB')
+        print(f'  {name:36} {w}x{h}  {size / 1024:.1f} KB')
     print(f'\n{len(written)} SVG(s) written to {OUT.relative_to(ROOT)}')
 
 

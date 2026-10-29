@@ -41,7 +41,9 @@
 <line x1="359" y1="60" x2="17" y2="60" stroke="#d3dfea" stroke-width="1" stroke-linecap="round"/>
 <rect x="30" y="12" width="316" height="36" rx="18" fill="#f3f6f9" stroke="#d3dfea" stroke-width="1"/>
 <use href="#ic-request" x="317" y="21" width="17" height="17" style="color:#47749a"/>
+<g>
 <text x="310" y="35" font-size="12.5" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="500">شقة 3 غرف في التجمع، أقل مقدم</text>
+</g>
 </g>
 <g>
 <rect x="285.23" y="72" width="60.77" height="28" rx="14.0" fill="#ffffff" stroke="#d3dfea" stroke-width="1"/>

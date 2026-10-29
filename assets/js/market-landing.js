@@ -120,35 +120,62 @@
     buttons.forEach(function (button) {
       button.addEventListener('click', function () {
         var key = button.getAttribute('data-mk-prio');
+        var rows = all('.mk-board__row[data-unit]', board);
+        var before = rows.map(function (row) { return row.getBoundingClientRect().top; });
         board.setAttribute('data-priority', key);
+        if (!reduced) {
+          rows.forEach(function (row, i) {
+            var shift = before[i] - row.getBoundingClientRect().top;
+            if (!shift) return;
+            row.animate([{ transform: 'translateY(' + shift + 'px)' }, { transform: 'none' }],
+              { duration: 520, easing: 'cubic-bezier(.22,.61,.36,1)' });
+          });
+        }
         buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b === button)); });
         reasons.forEach(function (r) { r.hidden = r.getAttribute('data-mk-reason') !== key; });
       });
     });
   });
 
-  /* ── Chat: reveal the exchange once when it scrolls into view ─ */
-  all('[data-mk-chat]', root).forEach(function (chat) {
-    if (reduced || !hasIO) return;
-    var steps = all('[data-mk-step]', chat);
-    if (!steps.length) return;
-    var bounds = chat.getBoundingClientRect();
-    if (bounds.top < window.innerHeight * 0.8) return; // already in view: leave it complete
-    chat.classList.add('is-staged');
-    var io = new IntersectionObserver(function (entries) {
+  /* ── Illustrations: assemble when they come into view ────────
+     The HTML ships the complete still SVGs (no-JS, reduced motion, print).
+     With motion allowed, each picture is blanked until it scrolls into
+     view, then its animated twin loads, so the scene assembles in front of
+     the visitor instead of finishing off-screen. */
+  var BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+  var arts = all('picture[data-mk-anim]', root);
+  if (arts.length && !reduced && hasIO) {
+    var setAll = function (pic, mode) {
+      all('source, img', pic).forEach(function (el) {
+        var attr = el.tagName === 'IMG' ? 'src' : 'srcset';
+        if (!el.dataset.still) el.dataset.still = el.getAttribute(attr);
+        var still = el.dataset.still;
+        /* A transparent placeholder with the art's own proportions keeps the
+           reserved box identical, so swapping in the animated file never shifts layout. */
+        var blank = BLANK;
+        var w = el.getAttribute('width'), h = el.getAttribute('height');
+        if (w && h) blank = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + w + ' ' + h + '"/>');
+        el.setAttribute(attr, mode === 'blank' ? blank : mode === 'anim' ? still.replace('-still.svg', '.svg') : still);
+      });
+    };
+    var artIO = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        io.disconnect();
-        var delays = [150, 900, 1900, 2600];
-        steps.forEach(function (step, i) {
-          window.setTimeout(function () { step.classList.add('is-in'); }, delays[i] || 600 * (i + 1));
-        });
+        artIO.unobserve(entry.target);
+        setAll(entry.target, 'anim');
       });
-    }, { threshold: 0.4 });
-    io.observe(chat);
-    /* Never leave content hidden: printing or a missed callback shows it all. */
-    window.addEventListener('beforeprint', function () { steps.forEach(function (s) { s.classList.add('is-in'); }); });
-  });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.2 });
+    arts.forEach(function (pic) {
+      var box = pic.getBoundingClientRect();
+      if (box.top < window.innerHeight && box.bottom > 0 && box.height > 0) {
+        setAll(pic, 'anim');
+        return;
+      }
+      setAll(pic, 'blank');
+      artIO.observe(pic);
+    });
+    window.addEventListener('beforeprint', function () { arts.forEach(function (pic) { setAll(pic, 'still'); }); });
+  }
 
   /* ── Mobile sticky action ──────────────────────────────────── */
   var sticky = root.querySelector('[data-mk-sticky]');
