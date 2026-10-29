@@ -2,7 +2,7 @@
    referral.js — Estavo Brokers Referral Tracking
    ============================================================
    Resolves the active referral slug (from ?ref= query param
-   or the est_ref first-party cookie set by go.php), persists
+   or the est_ref first-party cookie), persists
    it in sessionStorage, and rewrites every platform CTA link
    so the referral is carried through to the sign-up page.
    Falls back to "default-landing-page" when no referral is present,
@@ -42,11 +42,23 @@
     // ── Resolve active referral slug ─────────────────────────────────────────
     // Priority:  ?ref= param  >  est_ref cookie  >  sessionStorage  >  default
     var DEFAULT_SLUG = 'default-landing-page';
-    var slug = getQP(QUERY_PARAM) || getCookie(COOKIE_NAME) || sessionStorage.getItem(SESSION_KEY);
+    var querySlug = getQP(QUERY_PARAM);
+    var storedSlug = null;
+    try { storedSlug = sessionStorage.getItem(SESSION_KEY); } catch (e) { /* storage blocked */ }
+    var slug = querySlug || getCookie(COOKIE_NAME) || storedSlug;
     slug = isValidSlug(slug) ? slug.toLowerCase() : DEFAULT_SLUG;
 
     // Persist for the lifetime of this browser tab.
-    sessionStorage.setItem(SESSION_KEY, slug);
+    try { sessionStorage.setItem(SESSION_KEY, slug); } catch (e) { /* storage blocked */ }
+
+    // Direct campaign landings must retain the same 30-day referral as /go/.
+    // Only an explicit, valid referral refreshes the cookie.
+    if (isValidSlug(querySlug)) {
+        document.cookie = COOKIE_NAME + '=' + encodeURIComponent(slug)
+            + '; Path=/; Max-Age=' + (30 * 24 * 60 * 60)
+            + '; SameSite=Lax'
+            + (window.location.protocol === 'https:' ? '; Secure' : '');
+    }
 
     // ── Capture ad click ids and campaign params ─────────────────────────────
     // These arrive on the LANDING url (e.g. /?fbclid=...), not on the outbound
@@ -55,7 +67,7 @@
     // its optimiser is blind, so every downstream CPA figure is wrong.
     var ATTRIBUTION_PARAMS = [
         'fbclid', 'gclid', 'ttclid', 'msclkid', 'twclid', 'li_fat_id', 'igshid',
-        'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
+        'utm_source', 'utm_medium', 'utm_campaign', 'utm_id', 'utm_content', 'utm_term',
         'utm_adset', 'utm_ad'
     ];
     var ATTRIBUTION_KEY = 'est_attribution';
