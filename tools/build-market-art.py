@@ -1190,8 +1190,9 @@ def chat(lang, compact):
     me(c['me1'])
     ai(c['ai1'])
     blocks.append(('cards', None, W, mch + (22 if compact else 0)))
-    me(c['me2'])
-    ai([(c['ai2'], 400)])
+    if not compact:  # phones keep one exchange so the scene stays scannable
+        me(c['me2'])
+        ai([(c['ai2'], 400)])
     blocks.append(('chips', None, W, 40))
     head = 64
     body_h = sum(b[3] for b in blocks) + 12 * (len(blocks) - 1) + 2 * p
