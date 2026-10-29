@@ -441,6 +441,37 @@ GREEN = '#7fa68c'
 GREEN_D = '#5f8a70'
 
 
+PHOTOS = {}
+
+
+def photo_uri(key):
+    if key not in PHOTOS:
+        data = (ROOT / f'tools/data/market-photos/{key}.webp').read_bytes()
+        PHOTOS[key] = 'data:image/webp;base64,' + base64.b64encode(data).decode()
+    return PHOTOS[key]
+
+
+PHOTO_FOR = {0: 'project-b', 1: 'project-a', 2: 'project-c'}
+
+
+def photo(a, x, y, w, h, variant=0, r=0, rtop_only=True, key=None):
+    """Embedded property photo (see tools/data/market-photos/provenance.json), clipped like the app's cards."""
+    key = key or PHOTO_FOR[variant % 3]
+    uid = f'{a.uid}p{len(a.defs)}'
+    gx = a.px(x, w)
+    if r:
+        shape = (f'<path d="M{gx} {y + h}V{y + r}a{r} {r} 0 0 1 {r} -{r}h{w - 2 * r}a{r} {r} 0 0 1 {r} {r}V{y + h}z"/>' if rtop_only
+                 else f'<rect x="{gx}" y="{y}" width="{w}" height="{h}" rx="{r}"/>')
+        a.defs.append(f'<clipPath id="c{uid}">{shape}</clipPath>')
+        a.add(f'<g clip-path="url(#c{uid})">')
+    a.add(f'<image href="{photo_uri(key)}" x="{gx}" y="{y}" width="{w}" height="{h}" preserveAspectRatio="xMidYMid slice"/>')
+    # soft bottom shade so pills and badges stay legible, like the app's image overlay
+    a.defs.append(f'<linearGradient id="sh{uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#021d39" stop-opacity=".28"/><stop offset=".35" stop-color="#021d39" stop-opacity="0"/></linearGradient>')
+    a.add(f'<rect x="{gx}" y="{y}" width="{w}" height="{h}" fill="url(#sh{uid})"/>')
+    if r:
+        a.add('</g>')
+
+
 def scene(a, x, y, w, h, variant=0, r=0, rtop_only=True):
     """Vector property 'photo': sky, buildings, trees. Drawn unmirrored inside a logical box."""
     uid = f'{a.uid}s{len(a.defs)}'
@@ -553,7 +584,7 @@ def project_card(a, x, y, w, c, key, variant, state='', img_h=None, compact=Fals
     if state == 'best':
         a.rect(x - 5, y - 5, w + 10, h + 10, r=24, fill='none', stroke=BLUE, sw=5, opacity=.12)
     a.rect(x, y, w, h, r=20, fill=WHITE, stroke=BLUE if state == 'best' else LINE, sw=1.5 if state == 'best' else 1, filt='ss')
-    scene(a, x + 1, y + 1, w - 2, img_h, variant, r=19)
+    photo(a, x + 1, y + 1, w - 2, img_h, variant, r=19)
     city_pill(a, x + 12, y + 12, c['city'])
     if state == 'best':
         badge(a, x + w - 12, y + 12, c['best_short'], 11.5, BLUE, WHITE, h=24)
@@ -709,7 +740,7 @@ def hero_mobile(lang, animated):
     grp('r', 700)
     v = unit_vals(c, 'A')
     a.rect(14, a_row_y, cw - 28, 76, r=16, fill=WHITE, stroke=LINE)
-    scene(a, 24, a_row_y + 10, 76, 56, 1, r=10, rtop_only=False)
+    photo(a, 24, a_row_y + 10, 76, 56, 1, r=10, rtop_only=False)
     a.text(112, a_row_y + 30, v['name'], 14.5, INK, 600)
     a.text(112, a_row_y + 54, [(v['price'], 600), ('  ·  ' + c['f_down'] + ' ' + v['down'], 400)], 12.5, T2)
     a.close()
@@ -870,7 +901,7 @@ def mini_card(a, x, y, w, c, key, variant, state):
     if state == 'best':
         a.rect(x - 4, y - 4, w + 8, h + 8, r=20, fill='none', stroke=BLUE, sw=5, opacity=.12)
     a.rect(x, y, w, h, r=16, fill=WHITE, stroke=BLUE if state == 'best' else (WARNLN if state == 'over' else LINE), sw=1.5 if state == 'best' else 1, dash='5 4' if state == 'over' else None)
-    scene(a, x + 1, y + 1, w - 2, img_h, variant, r=15)
+    photo(a, x + 1, y + 1, w - 2, img_h, variant, r=15)
     city_pill(a, x + 9, y + 9, c['city'], 10.5)
     yy = y + img_h + 24
     a.text(x + 12, yy, v['name'], 14.5, INK, 600)
@@ -907,7 +938,7 @@ def step_find(lang, compact):
             if st == 'best':
                 a.rect(p - 4, y - 4, W - 2 * p + 8, rh + 8, r=20, fill='none', stroke=BLUE, sw=5, opacity=.12)
             a.rect(p, y, W - 2 * p, rh, r=16, fill=WARNBG if st == 'over' else WHITE, stroke=BLUE if st == 'best' else (WARNLN if st == 'over' else LINE), sw=1.5 if st == 'best' else 1, dash='5 4' if st == 'over' else None)
-            scene(a, p + 10, y + 10, 96, rh - 20, var, r=10, rtop_only=False)
+            photo(a, p + 10, y + 10, 96, rh - 20, var, r=10, rtop_only=False)
             a.text(p + 118, y + 30, v['name'], 14.5, INK, 600)
             a.text(p + 118, y + 54, [(v['price'], 600)], 15, WARN if st == 'over' else BLUE)
             a.text(p + 118, y + 76, c['f_down'] + ' ' + v['down'] + ' · ' + v['inst'], 11.5, T3)
@@ -1074,7 +1105,7 @@ def pdf(lang, compact):
     rot_b = -6 if a.rtl else 5
     a.add(f'<g transform="rotate({rot_b} {cxp} {top + dh / 2}) translate({30 if a.rtl else -30} 10)">')
     a.rect(dx + 14, top + 16, dw - 28, dh - 32, r=6, fill=WHITE, filt='ss')
-    scene(a, dx + 14, top + 16, dw - 28, (dh - 32) * .62, 0, r=6)
+    photo(a, dx + 14, top + 16, dw - 28, (dh - 32) * .62, 0, r=6)
     a.rect(dx + 14, top + 16 + (dh - 32) * .62, dw - 28, 52, fill=BLUE)
     a.text(dx + 30, top + 16 + (dh - 32) * .62 + 32, c['rec_title'], 16, WHITE, 600)
     a.close()
@@ -1102,8 +1133,7 @@ def pdf(lang, compact):
     # broker strip (closing details on the offer)
     by = ty + 34 + len(rows) * row_h + 22
     a.rect(tx, by, tw_, 64, r=10, fill=SOFT)
-    a.circle(tx + 30, by + 32, 18, fill=BLUE)
-    a.text(tx + 30, by + 38, c['broker'][0], 15, WHITE, 600, anchor='middle')
+    photo(a, tx + 12, by + 14, 36, 36, r=18, rtop_only=False, key='agent-omar')
     a.text(tx + 58, by + 28, c['broker'], 14, INK, 600)
     a.text(tx + 58, by + 47, c['role'], 11, T3)
     a.circle(tx + tw_ - 26, by + 32, 15, fill='#25d366')

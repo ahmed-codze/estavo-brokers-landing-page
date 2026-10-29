@@ -1,0 +1,10 @@
+{
+  "usage": "Illustrative photography inside the /market/ example scenes (labelled مثال توضيحي / Example). Not developer inventory; no real project is named.",
+  "files": {
+    "project-b.webp": "Crop of estavo-brokers/src/assets/login/auth-resort-background.webp (Estavo app asset).",
+    "project-a.webp": "Unsplash photo-1545324418-cc1a3fa10c00 (Unsplash License: free commercial use, no attribution required).",
+    "project-c.webp": "Unsplash photo-1512917774080-9991f1c4c750 (Unsplash License).",
+    "agent-omar.webp": "Crop of estavo-brokers/public/assets/offers/demo-agent-omar.webp — AI-generated fictional demo portrait (see enterprise-agents.provenance.json there)."
+  },
+  "processing": "Cropped with PIL ImageOps.fit to 640x400 (agent 160x160), WebP q72/q80; embedded as data URIs by tools/build-market-art.py."
+}
