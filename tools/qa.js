@@ -295,6 +295,18 @@ function checkFile(file) {
     }
   }
 
+  // Owner rule (2026-10-29): a section subtitle stays about two lines on
+  // desktop, so it reads as a subtitle and the phone page stays short.
+  // Roughly 140 Arabic / 170 English characters of visible text.
+  if (route === 'market') {
+    const cap = isRtl ? 140 : 170;
+    const leads = [...raw.matchAll(/<p class="(?:mk-lead|mk-hero__lead|mk-close__sub)[^"]*">([\s\S]*?)<\/p>/g)];
+    for (const [, inner] of leads) {
+      const text = inner.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+      if (text.length > cap) failures.push(`subtitle is ${text.length} chars (max ${cap}, about two lines): "${text.slice(0, 50)}…"`);
+    }
+  }
+
   const expectedDestination = ['data', 'market', 'insights'].includes(route)
     ? 'https://brokers.estavo.space/go/?ref=default-landing-page-market'
     : route === 'websites'

@@ -1076,3 +1076,33 @@ dd) { color: #fff; }
 @media (max-width: 47.999rem) {
   :lang(en) .es-landing .mk .mk-hero__title { font-size: clamp(1.875rem, 1.2rem + 2.6vw, 2.25rem); line-height: 1.1; }
 }
+
+/* ══ Phone experience: compact comparison + data steps (29 Oct) ══ */
+@media (max-width: 47.999rem) {
+  .es-landing .mk { --mk-pad: 3rem; }
+  .es-landing .mk .mk-head { margin-block-end: 1.5rem; }
+  /* comparison: name row, then one strip of the four numbers that decide */
+  .es-landing .mk .mk-board__row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: .625rem .5rem;
+    padding: .875rem .875rem 1rem;
+  }
+  .es-landing .mk .mk-board__row > [role="cell"]:not([data-col]):not(.mk-board__name) { display: none; }
+  .es-landing .mk .mk-board__row .mk-track { display: none; }
+  .es-landing .mk .mk-board__name { grid-template-columns: auto auto 1fr; column-gap: .5rem; }
+  .es-landing .mk .mk-board__name i { grid-row: auto; inline-size: 2rem; block-size: 2rem; }
+  .es-landing .mk .mk-board__name .mk-board__badge { justify-self: start; }
+  .es-landing .mk .mk-board__row > [data-label]::before { font-size: .6875rem; margin-block-end: .2rem; }
+  .es-landing .mk .mk-board__row b { font-size: .9375rem; }
+  /* data steps: 2 x 2 cards instead of a long vertical list */
+  .es-landing .mk .mk-pipe { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 1rem; padding: 1.125rem; }
+  .es-landing .mk .mk-pipe li { padding-inline-start: 0; min-block-size: 0; }
+  .es-landing .mk .mk-pipe li::after { display: none; }
+  .es-landing .mk .mk-pipe__ico { position: static; inline-size: 2.5rem; block-size: 2.5rem; }
+  .es-landing .mk .mk-pipe b { margin-block-start: .625rem; font-size: 1.0625rem; }
+  .es-landing .mk .mk-pipe p { font-size: .875rem; line-height: 1.65; }
+  /* lists under subtitles stay tight */
+  .es-landing .mk :is(.mk-checks, .mk-ai__list) { gap: .625rem; margin-block-start: 1.25rem; font-size: 1rem; }
+  .es-landing .mk .mk-pdf__proof { margin-block: 1.25rem; }
+  .es-landing .mk .mk-markets { margin-block-start: 2rem; padding-block-start: 1.25rem; }
+}
