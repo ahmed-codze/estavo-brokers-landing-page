@@ -41,7 +41,9 @@
 <line x1="1" y1="60" x2="343" y2="60" stroke="#d3dfea" stroke-width="1" stroke-linecap="round"/>
 <rect x="14" y="12" width="316" height="36" rx="18" fill="#f3f6f9" stroke="#d3dfea" stroke-width="1"/>
 <use href="#ic-request" x="26" y="21" width="17" height="17" style="color:#47749a"/>
+<g>
 <text x="50" y="35" font-size="12.5" fill="#0f2236" text-anchor="start" font-weight="500">3-bed, New Cairo, lowest down payment</text>
+</g>
 </g>
 <g>
 <rect x="14" y="72" width="71.07" height="28" rx="14.0" fill="#ffffff" stroke="#d3dfea" stroke-width="1"/>

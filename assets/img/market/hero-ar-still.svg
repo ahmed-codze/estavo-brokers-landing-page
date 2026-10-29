@@ -49,7 +49,9 @@
 <text x="668" y="62" font-size="15" fill="#163e69" text-anchor="start" direction="rtl" font-weight="600">Estavo Market</text>
 <rect x="114" y="37" width="406" height="38" rx="19" fill="#f3f6f9" stroke="#d3dfea" stroke-width="1"/>
 <use href="#ic-request" x="488" y="47" width="18" height="18" style="color:#47749a"/>
+<g>
 <text x="480" y="61" font-size="13.5" fill="#0f2236" text-anchor="start" direction="rtl" font-weight="500">شقة 3 غرف في التجمع لحد 8M، والأهم أقل مقدم</text>
+</g>
 <circle cx="82" cy="56" r="19" fill="#f0f5fa"/>
 <use href="#ic-control" x="73" y="47" width="18" height="18" style="color:#163e69"/>
 </g>
