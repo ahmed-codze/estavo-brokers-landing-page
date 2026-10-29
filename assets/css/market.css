@@ -1037,3 +1037,12 @@ dd) { color: #fff; }
   .es-landing .mk .mk-btn--light::after { animation: mk-shine 5.5s ease-in-out infinite; }
   .es-landing .mk .mk-btn:hover::after { animation-duration: 1.4s; }
 }
+
+/* Copy review (29 Oct 2026) additions */
+.es-landing .mk .mk-lead--sub { margin-block-start: .75rem; font-size: 1rem; color: var(--mk-ink-3); }
+.es-landing .mk .mk-board__foot { margin-block-start: .875rem; color: var(--mk-ink-3); font-size: .8125rem; }
+.es-landing .mk .mk-ai__cta { margin-block-start: 2rem; }
+.es-landing .mk .mk-qa p + p { margin-block-start: -.625rem; }
+.es-landing .mk :is(.mk-checks, .mk-ai__list) b { font-weight: 600; color: var(--mk-ink); }
+.es-landing .mk-ai .mk-ai__list b { color: #fff; }
+.es-landing .mk .mk-honest b { font-weight: 600; color: var(--mk-ink); }

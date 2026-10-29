@@ -48,15 +48,15 @@
       "key": "market",
       "ar": {
         "nav": "Estavo Market",
-        "title": "Estavo Market — مرجع محترفي العقارات · ابحث وقارن مجانًا",
+        "title": "Estavo Market | بيانات المشاريع وأسعار العقارات للبروكرز",
         "blurb": "ادخل سوق العقارات للبروكر.",
-        "description": "Estavo Market مجاني بالكامل لمحترفي العقارات: 2,400+ مشروع و26,000+ نموذج وحدة وخطط سداد من 700 مطور. دوّر بطلب العميل، قارن، وابعت عرض PDF باسمك، ومعاك Brokers AI."
+        "description": "إستاڤو ماركت بيجمع بيانات المشاريع والمطورين وأنظمة السداد للبروكرز في مصر. ابحث بطلب العميل، قارن السعر والمقدم والاستلام، وجهّز عرض PDF باسمك مجانًا."
       },
       "en": {
         "nav": "Estavo Market",
-        "title": "Estavo Market — the market workspace for real-estate professionals",
+        "title": "Estavo Market | Project data and property prices for brokers",
         "blurb": "Enter the property marketplace for brokers.",
-        "description": "Estavo Market is completely free for real-estate professionals: 2,400+ projects and 26,000+ unit types with payment plans from 700 developers. Search by client request, compare, use Brokers AI and send branded PDF offers."
+        "description": "Estavo Market brings together project, developer and payment-plan data for brokers in Egypt. Search by the client's request, compare price, down payment and handover, and prepare a PDF offer under your name, free."
       },
       "in_header": false,
       "in_solutions": true

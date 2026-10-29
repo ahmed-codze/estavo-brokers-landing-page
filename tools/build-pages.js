@@ -140,7 +140,7 @@ function header(route, lang) {
     ? {
         href: routes.cta.market,
         track: 'market_opened',
-        label: isAr ? 'جرّب <bdi>Estavo Market</bdi> مجانًا' : 'Try Estavo Market free',
+        label: isAr ? 'افتح السوق مجانًا' : 'Open Estavo Market free',
         shortLabel: isAr ? 'افتح السوق' : 'Open Market',
       }
     : route.key === 'integrations'
@@ -220,7 +220,7 @@ function header(route, lang) {
      the drawer and footer). */
   if (route.key === 'market') {
     const links = isAr
-      ? [['#how-it-works', 'إزاي بيشتغل'], ['#compare', 'المقارنة'], ['#ai-expert', '<bdi>Brokers AI</bdi>'], ['#data', 'بيانات السوق'], ['#faq', 'الأسئلة']]
+      ? [['#how-it-works', 'إزاي بيشتغل'], ['#compare', 'المقارنة'], ['#ai-expert', '<bdi>Brokers AI</bdi>'], ['#data', 'بيانات السوق'], ['#faq', 'الأسئلة الشائعة']]
       : [['#how-it-works', 'How it works'], ['#compare', 'Compare'], ['#ai-expert', 'Brokers AI'], ['#data', 'Market data'], ['#faq', 'FAQ']];
     const nav = links.map(([href, label]) => `                <a href="${href}">${label}</a>`).join('\n');
     markup = markup
