@@ -89,9 +89,6 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="format-detection" content="telephone=no" />
 
-    <!-- Prefetch alternate language for instant switching -->
-    <link rel="prefetch" href="en.html" as="document" />
-
     <!-- DNS prefetch for all third-party origins -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
@@ -745,7 +742,7 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="../assets/css/website-wizard.css?v=11" />
+    <link rel="stylesheet" href="../assets/css/website-wizard.css?v=13" />
     <link rel="stylesheet" href="../assets/css/chatbot-shared.css?v=20260918-chat-ui" />
     <link rel="stylesheet" href="../assets/css/raghad.css?v=20260918-chat-feedback" />
 </head>
@@ -778,6 +775,7 @@
                 <span class="wizard-kicker">إستاڤو ويبسايت</span>
                 <h1 class="stage-title" id="audience-title">مين صاحب <span class="accent">الموقع؟</span></h1>
                 <p class="stage-sub">إجابة واحدة وهندخلك على طول في الطريقة المناسبة.</p>
+                <noscript><style>.choice-grid { display: none; }</style><p class="step-copy">فعّل JavaScript علشان تكمّل إنشاء موقعك، أو <a href="https://wa.me/201069528393" target="_blank" rel="noopener noreferrer">كلمنا على واتساب للمساعدة</a>.</p></noscript>
                 <div class="choice-grid">
                     <button class="choice-card" type="button" data-audience="company" data-next-panel="link" data-track="website_audience_company" data-position="owner_choice">
                         <span class="choice-icon" aria-hidden="true">▦</span>
@@ -818,8 +816,8 @@
                 <button class="wizard-back" type="button" data-back-panel="audience">→ ارجع</button>
                 <form class="manual-shell" data-manual-form novalidate>
                     <div class="progress-row" aria-label="تقدم الإعداد">
-                        <span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span><span class="progress-dot" data-progress="4"></span><span class="progress-dot" data-progress="5"></span><span class="progress-dot" data-progress="6"></span>
-                        <span class="step-count" data-step-count>1 من 6</span>
+                        <span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span><span class="progress-dot" data-progress="4"></span><span class="progress-dot" data-progress="5"></span>
+                        <span class="step-count" data-step-count aria-live="polite">1 من 5</span>
                     </div>
                     <section class="manual-step" data-manual-step="1" aria-labelledby="name-title">
                         <h2 id="name-title">إيه الاسم اللي يظهر على موقعك؟</h2>
@@ -852,7 +850,7 @@
                         <h2 id="cities-title">اختار المدن اللي بتشتغل فيها</h2>
                         <p class="step-copy">كل مدينة موضح عليها عدد الوحدات المتاحة. هنستخدم المدن اللي تختارها عشان نجهزلك معاينة لموقعك بوحداتها وأسعار Estavo الحالية، باسمك. لما تفعّل الموقع بتبدأ بمدينة واحدة مجانًا، وباقي المدن حسب الباقة.</p>
                         <div class="city-grid" data-city-grid aria-live="polite"></div>
-                        <p class="city-load-status" data-city-status>بنحمّل مدن Estavo…</p>
+                        <p class="city-load-status" data-city-status role="status">بنحمّل مدن Estavo…</p>
                         <button class="city-retry" type="button" data-city-retry hidden>حاول تاني</button>
                     </section>
                     <section class="manual-step" data-manual-step="4" aria-labelledby="property-finder-title" hidden>
@@ -876,16 +874,6 @@
                             <label class="contact-field" for="manual-instagram-ar"><span>Instagram <em>اختياري</em></span><input class="manual-input" id="manual-instagram-ar" name="instagram_url" type="url" inputmode="url" autocomplete="url" maxlength="300" dir="ltr" placeholder="instagram.com/your.name" /><small>لينك حسابك المهني</small></label>
                         </div>
                         <p class="contact-note">هنستخدم البيانات دي للتواصل على موقعك فقط، وتقدر تعدّلها بعد إنشاء الموقع.</p>
-                    </section>
-                    <section class="manual-step" data-manual-step="6" aria-labelledby="photo-title" hidden>
-                        <h2 id="photo-title">صورتك الشخصية على الموقع</h2>
-                        <p class="step-copy">اختياري. بعد تسجيل الدخول هنطلب منك الصورة وتظبط مكانها بنفسك، وهتشوف شكلها في كل مقاس قبل النشر.</p>
-                        <div class="photo-promise">
-                            <span class="photo-frame" data-frame="desktop"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><small>الصفحة الرئيسية على الكمبيوتر</small></span>
-                            <span class="photo-frame" data-frame="mobile"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><small>الصفحة الرئيسية على الهاتف</small></span>
-                            <span class="photo-frame" data-frame="social"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><small>لينك المشاركة على واتساب</small></span>
-                        </div>
-                        <p class="photo-note">لو مش جاهز بصورة دلوقتي، كمّل عادي — موقعك هيظهر باسمك وشعارك، وتقدر تضيف الصورة في أي وقت بعد كده.</p>
                     </section>
                     <p class="manual-error" data-manual-error role="alert" aria-live="polite"></p>
                     <div class="manual-actions">
@@ -934,7 +922,7 @@
     </a>
 
     <!-- Handles URL validation + referral/UTM attribution on the form -->
-    <script src="../assets/js/website-referral.js?v=20261014-photo-step" defer></script>
+    <script src="../assets/js/website-referral.js?v=20261025-crm-contact-default" defer></script>
 
     <script src="../assets/js/raghad-loader.js?v=20261011-public" defer></script>
 </body>

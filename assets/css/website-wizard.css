@@ -70,7 +70,8 @@ body { background: #fff; }
 .manual-input:focus { border-color: var(--estavo-navy); box-shadow: 0 0 0 3px rgba(2, 29, 57, .07); }
 
 .palette-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; padding: 3px; }
-.palette-option input, .city-option input { position: absolute; opacity: 0; pointer-events: none; }
+.palette-option, .city-option { position: relative; min-width: 0; }
+.palette-option input, .city-option input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); opacity: 0; }
 .palette-card { position: relative; display: block; min-height: 148px; padding: 7px; border: 1px solid rgba(2, 29, 57, .12); border-radius: 13px; background: #fff; cursor: pointer; transition: .16s ease; }
 .palette-swatches { display: flex; height: 4px; overflow: hidden; border-radius: 4px; margin: 7px 1px 6px; }
 .palette-swatches i { flex: 1; }
@@ -207,7 +208,7 @@ body { background: #fff; }
 .contact-field { display: block; }
 .contact-field > span { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; color: var(--estavo-navy); font-size: 12px; font-weight: 800; }
 .contact-field > span em { color: rgba(2, 29, 57, .42); font-size: 9px; font-style: normal; font-weight: 700; }
-.contact-field .manual-input { padding: 12px 13px; font-size: 14px; text-align: left; }
+.contact-field .manual-input { padding: 12px 13px; font-size: 16px; text-align: left; }
 .contact-field .manual-input[aria-invalid="true"] { border-color: #b42318; box-shadow: 0 0 0 3px rgba(180, 35, 24, .07); }
 .contact-field small { display: block; margin-top: 5px; color: rgba(2, 29, 57, .48); font-size: 10px; }
 .contact-same { grid-column: 1 / -1; display: inline-flex; width: fit-content; align-items: center; gap: 8px; margin-top: -4px; color: rgba(2, 29, 57, .66); font-size: 11px; font-weight: 700; cursor: pointer; }
@@ -287,6 +288,10 @@ body { background: #fff; }
     .manual-shell { padding: 20px 16px; border-radius: 14px; }
     .manual-actions > * { flex: 1; padding-inline: 10px; }
     .help-fab { z-index: 20; }
+    body[data-website-wizard-active="true"] .help-fab,
+    body[data-website-wizard-active="true"] #raghad-support .raghad-launcher,
+    body[data-website-controls-visible="true"] .help-fab,
+    body[data-website-controls-visible="true"] #raghad-support .raghad-launcher { visibility: hidden; }
 }
 
 @media (max-width: 390px) {
@@ -297,4 +302,9 @@ body { background: #fff; }
 
 @media (hover: none) {
     .provider-choice:hover > span { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wizard-panel { animation: none; }
+    .choice-card, .palette-card, .city-chip, .provider-choice > span { transition: none; }
 }

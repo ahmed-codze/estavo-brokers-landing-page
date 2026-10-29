@@ -936,3 +936,12 @@ Before shipping, an agent should be able to answer all five questions in one sho
 5. What exact action should the visitor take next?
 
 If those answers are vague, the idea is not ready for the site.
+
+## Production branch and deployment
+
+`main` is the production branch. Keep the production server checkout on `main`;
+fetch and fast-forward it from `origin/main` after validation. Promote work from
+`develop` by merging both histories and preserving production hotfixes. Do not
+replace `main` with a snapshot or force-push to reconcile branches. Back up and
+review any server-local edits before switching or pulling; keep application fixes
+committed so the repository and deployed files stay in sync.

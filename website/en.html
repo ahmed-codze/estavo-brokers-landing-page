@@ -60,9 +60,6 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="format-detection" content="telephone=no" />
 
-    <!-- Prefetch alternate language for instant switching -->
-    <link rel="prefetch" href="index.html" as="document" />
-
     <!-- DNS prefetch for all third-party origins -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
@@ -708,7 +705,7 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="../assets/css/website-wizard.css?v=11" />
+    <link rel="stylesheet" href="../assets/css/website-wizard.css?v=13" />
     <link rel="stylesheet" href="../assets/css/chatbot-shared.css?v=20260918-chat-ui" />
     <link rel="stylesheet" href="../assets/css/raghad.css?v=20260918-chat-feedback" />
 </head>
@@ -740,6 +737,7 @@
                 <span class="wizard-kicker">Estavo Website</span>
                 <h1 class="stage-title" id="audience-title">Who owns the <span class="accent">website?</span></h1>
                 <p class="stage-sub">One answer, then we’ll take you straight to the right setup.</p>
+                <noscript><style>.choice-grid { display: none; }</style><p class="step-copy">Enable JavaScript to create your website, or <a href="https://wa.me/201069528393" target="_blank" rel="noopener noreferrer">contact us on WhatsApp for help</a>.</p></noscript>
                 <div class="choice-grid">
                     <button class="choice-card" type="button" data-audience="company" data-next-panel="link" data-track="website_audience_company" data-position="owner_choice"><span class="choice-icon" aria-hidden="true">▦</span><span class="choice-title">A real-estate company</span><span class="choice-description">I have a company link</span></button>
                     <button class="choice-card is-featured" type="button" data-audience="individual" data-next-panel="manual" data-track="website_audience_individual" data-position="owner_choice"><span class="choice-badge">Freelancer</span><span class="choice-icon" aria-hidden="true">♙</span><span class="choice-title">Me — an independent broker</span><span class="choice-description">I want the website in my name</span></button>
@@ -764,7 +762,7 @@
             <section class="wizard-panel" data-panel="manual" hidden>
                 <button class="wizard-back" type="button" data-back-panel="audience">← Back</button>
                 <form class="manual-shell" data-manual-form novalidate>
-                    <div class="progress-row" aria-label="Setup progress"><span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span><span class="progress-dot" data-progress="4"></span><span class="progress-dot" data-progress="5"></span><span class="progress-dot" data-progress="6"></span><span class="step-count" data-step-count>1 of 6</span></div>
+                    <div class="progress-row" aria-label="Setup progress"><span class="progress-dot is-active" data-progress="1"></span><span class="progress-dot" data-progress="2"></span><span class="progress-dot" data-progress="3"></span><span class="progress-dot" data-progress="4"></span><span class="progress-dot" data-progress="5"></span><span class="step-count" data-step-count aria-live="polite">1 of 5</span></div>
                     <section class="manual-step" data-manual-step="1" aria-labelledby="name-title"><h2 id="name-title">What name should appear on your website?</h2><p class="step-copy">Write it exactly as you want clients to see it, in Arabic or English.</p><label class="sr-only" for="manual-name-en">Website display name</label><input class="manual-input" id="manual-name-en" name="display_name" type="text" autocomplete="name" maxlength="80" placeholder="For example: Ahmed Mansour" /></section>
                     <section class="manual-step" data-manual-step="2" aria-labelledby="theme-title" hidden><h2 id="theme-title">Choose your website style</h2><p class="step-copy">See your name on every design, then choose the website look and colours that feel like you.</p><div class="palette-grid">
                         <label class="palette-option"><input type="radio" name="theme" value="modern_line" checked /><span class="palette-card"><span class="palette-swatches"><i style="background:#17324D"></i><i style="background:#E8EEF3"></i><i style="background:#2F6F8F"></i></span><span class="palette-name">Modern Line</span><small>Clean and direct</small></span></label>
@@ -783,7 +781,7 @@
                         <label class="palette-option"><input type="radio" name="theme" value="serif_column" /><span class="palette-card"><span class="palette-swatches"><i style="background:#263238"></i><i style="background:#E6E2DA"></i><i style="background:#9A5B3E"></i></span><span class="palette-name">Serif Column</span><small>Factual and analytical</small></span></label>
                         <label class="palette-option"><input type="radio" name="theme" value="serif_masthead" /><span class="palette-card"><span class="palette-swatches"><i style="background:#3B2431"></i><i style="background:#E9DED7"></i><i style="background:#B46A3C"></i></span><span class="palette-name">Serif Masthead</span><small>Cinematic and bold</small></span></label>
                     </div></section>
-                    <section class="manual-step" data-manual-step="3" aria-labelledby="cities-title" hidden><h2 id="cities-title">Choose the cities you work in</h2><p class="step-copy">Each city shows its available unit count. We’ll use the cities you select to prepare a preview of your website with their units and current Estavo prices, under your name. When you activate the site, you start with one free city; more cities depend on your plan.</p><div class="city-grid" data-city-grid aria-live="polite"></div><p class="city-load-status" data-city-status>Loading Estavo cities…</p><button class="city-retry" type="button" data-city-retry hidden>Try again</button></section>
+                    <section class="manual-step" data-manual-step="3" aria-labelledby="cities-title" hidden><h2 id="cities-title">Choose the cities you work in</h2><p class="step-copy">Each city shows its available unit count. We’ll use the cities you select to prepare a preview of your website with their units and current Estavo prices, under your name. When you activate the site, you start with one free city; more cities depend on your plan.</p><div class="city-grid" data-city-grid aria-live="polite"></div><p class="city-load-status" data-city-status role="status">Loading Estavo cities…</p><button class="city-retry" type="button" data-city-retry hidden>Try again</button></section>
                     <section class="manual-step" data-manual-step="4" aria-labelledby="property-finder-title" hidden>
                         <h2 id="property-finder-title">Do you have a Property Finder page?</h2>
                         <p class="step-copy">Optional. We will only connect a page you paste here—we will never select one automatically.</p>
@@ -805,16 +803,6 @@
                             <label class="contact-field" for="manual-instagram-en"><span>Instagram <em>Optional</em></span><input class="manual-input" id="manual-instagram-en" name="instagram_url" type="url" inputmode="url" autocomplete="url" maxlength="300" placeholder="instagram.com/your.name" /><small>Your professional profile link</small></label>
                         </div>
                         <p class="contact-note">We’ll only use these as public contact details on your website. You can edit them later.</p>
-                    </section>
-                    <section class="manual-step" data-manual-step="6" aria-labelledby="photo-title" hidden>
-                        <h2 id="photo-title">Your photo on the website</h2>
-                        <p class="step-copy">Optional. After you sign in we ask for your photo and you position it yourself, seeing every size before anything is published.</p>
-                        <div class="photo-promise">
-                            <span class="photo-frame" data-frame="desktop"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><small>Home page on a computer</small></span>
-                            <span class="photo-frame" data-frame="mobile"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><small>Home page on a phone</small></span>
-                            <span class="photo-frame" data-frame="social"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><small>Shared link on WhatsApp</small></span>
-                        </div>
-                        <p class="photo-note">No photo to hand? Carry on — your website launches with your name and logo, and you can add the photo whenever you like.</p>
                     </section>
                     <p class="manual-error" data-manual-error role="alert" aria-live="polite"></p>
                     <div class="manual-actions"><button class="wizard-secondary" type="button" data-manual-prev hidden>Previous</button><button class="wizard-primary" type="button" data-manual-next>Next</button><button class="wizard-primary" type="submit" data-manual-submit data-track="start_individual_website" data-position="manual_finish" hidden>Build my website free</button></div>
@@ -859,7 +847,7 @@
     </a>
 
     <!-- Handles URL validation + referral/UTM attribution on the form -->
-    <script src="../assets/js/website-referral.js?v=20261014-photo-step" defer></script>
+    <script src="../assets/js/website-referral.js?v=20261025-crm-contact-default" defer></script>
 
     <script src="../assets/js/raghad-loader.js?v=20261011-public" defer></script>
 </body>

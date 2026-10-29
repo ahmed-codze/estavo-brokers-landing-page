@@ -1,1 +1,4 @@
 node_modules/
+
+# Local visual review and private release evidence
+.impeccable/review/

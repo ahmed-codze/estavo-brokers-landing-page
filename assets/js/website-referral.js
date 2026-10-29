@@ -39,6 +39,8 @@
     ];
     var MAX_SOURCE_LENGTH = 2048;
     var MAX_ATTRIBUTION_LENGTH = 160;
+    var CATALOG_TIMEOUT_MS = 15000;
+    var DRAFT_MAX_AGE_MS = 2 * 60 * 60 * 1000;
 
     function getCookie(documentObject, name) {
         var match = documentObject.cookie.match('(?:^|;\\s*)' + name + '=([^;]*)');
@@ -227,7 +229,12 @@
 
     function normalizePhoneNumber(value) {
         if (typeof value !== 'string') return null;
-        var compact = value.trim().replace(/[\s().-]/g, '');
+        var compact = value.trim()
+            .replace(/[\u0660-\u0669\u06f0-\u06f9]/g, function (digit) {
+                var code = digit.charCodeAt(0);
+                return String(code - (code >= 0x06f0 ? 0x06f0 : 0x0660));
+            })
+            .replace(/[\s().\-\u200e\u200f\u202a-\u202e\u2066-\u2069]/g, '');
         if (!compact) return null;
 
         if (/^00\d+$/.test(compact)) compact = '+' + compact.slice(2);
@@ -524,13 +531,13 @@
             empty: 'حط لينك الصفحة الأول — Facebook أو Instagram أو Property Finder أو Bayut أو موقعك.',
             malformed: 'اللينك ده مش واضح. جرّب لينك صفحتك على Facebook أو Instagram، أو لينك موقعك.',
             'platform-root': 'محتاجين لينك صفحتك نفسها، مش الموقع الرئيسي.',
-            ok: '✓ تمام، لقينا الصفحة — نقدر نبدأ منها.'
+            ok: '✓ صيغة اللينك سليمة — نقدر نبدأ منها.'
         },
         en: {
             empty: 'Add your page link first — Facebook, Instagram, Property Finder, Bayut, or your website.',
             malformed: 'That link is not clear. Try your Facebook or Instagram page, or your website.',
             'platform-root': 'We need a link to your page itself, not the platform homepage.',
-            ok: '✓ Got it, we found the page — we can start from here.'
+            ok: '✓ The link format looks good — ready to start.'
         }
     };
 
@@ -538,13 +545,13 @@
         return SOURCE_MESSAGES[locale] || SOURCE_MESSAGES.en;
     }
 
-    function showSourceError(input, errorElement, locale, reason) {
+    function showSourceError(input, errorElement, locale, reason, focus) {
         var copy = messagesFor(locale);
         input.setAttribute('aria-invalid', 'true');
         errorElement.textContent = copy[reason] || copy.malformed;
         errorElement.hidden = false;
         errorElement.classList.remove('is-ok');
-        input.focus();
+        if (focus !== false) input.focus();
     }
 
     function showSourceSuccess(input, errorElement, locale) {
@@ -607,7 +614,7 @@
                 input.value = verdict.url;
                 showSourceSuccess(input, errorElement, locale);
             } else {
-                showSourceError(input, errorElement, locale, verdict.reason);
+                showSourceError(input, errorElement, locale, verdict.reason, false);
             }
         }
 
@@ -650,14 +657,26 @@
 
         var locale = normalizeLocale(wizard.getAttribute('data-locale')) || 'en';
         var panels = Array.prototype.slice.call(wizard.querySelectorAll('[data-panel]'));
-        function showPanel(name) {
+        var currentPanel = 'audience';
+        function focusHeading(section) {
+            var heading = section && section.querySelector('h1, h2');
+            if (heading) {
+                heading.setAttribute('tabindex', '-1');
+                heading.focus();
+            }
+        }
+        function showPanel(name, focus) {
+            currentPanel = name;
+            documentObject.body.setAttribute('data-website-wizard-active', name === 'audience' ? 'false' : 'true');
             panels.forEach(function (panel) {
                 panel.hidden = panel.getAttribute('data-panel') !== name;
             });
             var active = wizard.querySelector('[data-panel="' + name + '"]');
-            var focusTarget = active && active.querySelector('input:not([type="hidden"]), button');
-            if (focusTarget) windowObject.setTimeout(function () { focusTarget.focus(); }, 0);
+            if (focus !== false) focusHeading(name === 'manual'
+                ? active.querySelector('[data-manual-step="' + currentStep + '"]')
+                : active);
             if (name === 'manual') loadCityCatalog();
+            saveDraft();
         }
 
         wizard.querySelectorAll('[data-next-panel]').forEach(function (button) {
@@ -675,10 +694,7 @@
         var form = wizard.querySelector('[data-manual-form]');
         if (!form) return;
         var currentStep = 1;
-        // Step 6 sets the expectation for the photo and collects nothing, so
-        // it needs no validateStep case — the file is chosen after sign-in,
-        // where there is an authenticated session to upload against.
-        var stepCount = 6;
+        var stepCount = form.querySelectorAll('[data-manual-step]').length;
         var error = form.querySelector('[data-manual-error]');
         var next = form.querySelector('[data-manual-next]');
         var previous = form.querySelector('[data-manual-prev]');
@@ -687,11 +703,83 @@
         var cityStatus = form.querySelector('[data-city-status]');
         var cityRetry = form.querySelector('[data-city-retry]');
         var cityCatalogLoaded = false;
+        var cityCatalogLoading = false;
         var displayName = form.elements.display_name;
         var propertyFinderInputs = Array.prototype.slice.call(
             form.querySelectorAll('input[name="property_finder_choice"]')
         );
         var propertyFinderUrl = form.elements.property_finder_url;
+        var sourceInput = wizard.querySelector('input[name="source"]');
+        // On phones, floating help must never cover setup actions or footer
+        // links. An already-open support conversation remains available.
+        if (typeof windowObject.IntersectionObserver === 'function') {
+            var visibleControls = new Set();
+            var controlsObserver = new windowObject.IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) visibleControls.add(entry.target);
+                    else visibleControls.delete(entry.target);
+                });
+                documentObject.body.setAttribute('data-website-controls-visible', visibleControls.size ? 'true' : 'false');
+            });
+            documentObject.querySelectorAll('.manual-actions, .starter-field, .footer').forEach(function (node) {
+                controlsObserver.observe(node);
+            });
+        }
+        var draftStorage = getSessionStorage(windowObject);
+        // Keep drafts in this tab only and separate CRM/customer handoffs.
+        var draftKey = 'est_website_draft_v1:' + JSON.stringify([
+            ownerUserId, ownerLeadId,
+            getQueryParameter(windowObject.location.search, 'parent_website'),
+            getQueryParameter(windowObject.location.search, 'parent_customer'),
+            getQueryParameter(windowObject.location.search, 'source')
+        ]);
+        // Seed only a new CRM handoff. A restored draft keeps the user's edits.
+        var defaultContactPhone = (ownerUserId || ownerLeadId)
+            ? normalizePhoneNumber(getQueryParameter(windowObject.location.search, 'contact_phone'))
+            : null;
+        if (defaultContactPhone) {
+            form.elements.public_phone.value = defaultContactPhone;
+            form.elements.whatsapp_phone.value = defaultContactPhone;
+        }
+        var draftFields = ['display_name', 'property_finder_url', 'public_phone', 'whatsapp_phone', 'facebook_url', 'instagram_url'];
+        var pendingCityIds = [];
+        var restoredDraft = null;
+        try {
+            var saved = JSON.parse(safeStorageGet(draftStorage, draftKey));
+            if (saved && typeof saved.savedAt === 'number'
+                && Date.now() - saved.savedAt >= 0 && Date.now() - saved.savedAt < DRAFT_MAX_AGE_MS
+                && ['audience', 'manual', 'link'].indexOf(saved.panel) !== -1) {
+                restoredDraft = saved;
+                draftFields.forEach(function (name) {
+                    if (typeof saved[name] === 'string') {
+                        form.elements[name].value = saved[name].slice(0, form.elements[name].maxLength);
+                    }
+                });
+                ['theme', 'property_finder_choice'].forEach(function (name) {
+                    form.querySelectorAll('input[name="' + name + '"]').forEach(function (input) {
+                        if (input.value === saved[name]) input.checked = true;
+                    });
+                });
+                if (sourceInput && typeof saved.source === 'string' && !sourceInput.value) {
+                    sourceInput.value = saved.source.slice(0, MAX_SOURCE_LENGTH);
+                }
+                pendingCityIds = (Array.isArray(saved.cities) ? saved.cities : [])
+                    .filter(function (id) { return /^[1-9]\d{0,9}$/.test(String(id)); }).map(String).slice(0, 50);
+            }
+        } catch (ignored) { /* A stale or unavailable draft never blocks setup. */ }
+
+        function saveDraft() {
+            var draft = { savedAt: Date.now(), panel: currentPanel, step: currentStep };
+            draftFields.forEach(function (name) { draft[name] = form.elements[name].value; });
+            ['theme', 'property_finder_choice'].forEach(function (name) {
+                var selected = form.querySelector('input[name="' + name + '"]:checked');
+                draft[name] = selected && selected.value;
+            });
+            draft.cities = cityCatalogLoaded ? selectedCities().map(function (input) { return input.value; }) : pendingCityIds;
+            draft.source = sourceInput ? sourceInput.value : '';
+            draft.sameWhatsapp = !!(sameWhatsapp && sameWhatsapp.checked);
+            safeStorageSet(draftStorage, draftKey, JSON.stringify(draft));
+        }
 
         function updatePropertyFinderChoice() {
             var selected = form.querySelector('input[name="property_finder_choice"]:checked');
@@ -775,6 +863,7 @@
         displayName.addEventListener('input', updateThemePreviewName);
 
         var sameWhatsapp = form.querySelector('[data-whatsapp-same]');
+        if (sameWhatsapp && restoredDraft) sameWhatsapp.checked = restoredDraft.sameWhatsapp === true;
         function syncWhatsappNumber() {
             if (sameWhatsapp && sameWhatsapp.checked) {
                 form.elements.whatsapp_phone.value = form.elements.public_phone.value;
@@ -784,6 +873,9 @@
         if (sameWhatsapp) {
             sameWhatsapp.addEventListener('change', syncWhatsappNumber);
             form.elements.public_phone.addEventListener('input', syncWhatsappNumber);
+            form.elements.whatsapp_phone.addEventListener('input', function () {
+                if (form.elements.whatsapp_phone.value !== form.elements.public_phone.value) sameWhatsapp.checked = false;
+            });
         }
         ['public_phone', 'whatsapp_phone', 'facebook_url', 'instagram_url'].forEach(function (field) {
             form.elements[field].addEventListener('input', function () {
@@ -800,6 +892,7 @@
                 input.type = 'checkbox';
                 input.name = 'cities';
                 input.value = String(city.id);
+                input.checked = pendingCityIds.indexOf(input.value) !== -1;
                 input.dataset.nameEn = city.name_en;
                 input.dataset.nameAr = city.name_ar;
                 var chip = documentObject.createElement('span');
@@ -825,7 +918,7 @@
         }
 
         function loadCityCatalog() {
-            if (cityCatalogLoaded) return;
+            if (cityCatalogLoaded || cityCatalogLoading) return;
             cityStatus.textContent = locale === 'ar' ? 'بنحمّل مدن Estavo…' : 'Loading Estavo cities…';
             cityRetry.hidden = true;
             if (typeof windowObject.fetch !== 'function') {
@@ -833,19 +926,30 @@
                 cityRetry.hidden = false;
                 return;
             }
-            windowObject.fetch(CATALOG_ENDPOINT, {
+            cityCatalogLoading = true;
+            cityGrid.setAttribute('aria-busy', 'true');
+            var controller = typeof windowObject.AbortController === 'function' ? new windowObject.AbortController() : null;
+            var timeoutId;
+            var timeout = new Promise(function (resolve, reject) {
+                timeoutId = windowObject.setTimeout(function () {
+                    if (controller) controller.abort();
+                    reject(new Error('City catalog timed out.'));
+                }, CATALOG_TIMEOUT_MS);
+            });
+            Promise.race([Promise.resolve().then(function () { return windowObject.fetch(CATALOG_ENDPOINT, {
                 headers: { Accept: 'application/json' },
-                cache: 'no-store'
-            })
-                .then(function (response) {
-                    if (!response.ok) throw new Error('City catalog request failed.');
-                    return response.json();
-                })
+                cache: 'no-store',
+                signal: controller ? controller.signal : undefined
+            }).then(function (response) {
+                if (!response.ok) throw new Error('City catalog request failed.');
+                return response.json();
+            }); }), timeout])
                 .then(function (payload) {
                     var cities = normalizeCityCatalog(payload);
                     if (!cities.length) throw new Error('City catalog is empty.');
                     renderCities(cities);
                     cityCatalogLoaded = true;
+                    pendingCityIds = [];
                     var countsKnown = cities.every(function (city) {
                         return Number.isInteger(city.units_count);
                     });
@@ -857,10 +961,16 @@
                             ? new Intl.NumberFormat('ar-EG').format(total) + ' وحدة متاحة في المدن دي بأسعار Estavo الحالية.'
                             : total + ' available units across these cities, with current Estavo prices.')
                         : '';
+                    saveDraft();
                 })
                 .catch(function () {
                     cityStatus.textContent = locale === 'ar' ? 'تعذر تحميل المدن. حاول تاني.' : 'Could not load cities. Try again.';
                     cityRetry.hidden = false;
+                })
+                .finally(function () {
+                    windowObject.clearTimeout(timeoutId);
+                    cityCatalogLoading = false;
+                    cityGrid.removeAttribute('aria-busy');
                 });
         }
 
@@ -870,15 +980,29 @@
             return Array.prototype.slice.call(form.querySelectorAll('input[name="cities"]:checked'));
         }
 
+        function setInvalid(input, invalid) {
+            if (invalid) input.setAttribute('aria-invalid', 'true');
+            else input.removeAttribute('aria-invalid');
+        }
+
         function validateStep(step) {
             error.textContent = '';
-            if (step === 1 && form.elements.display_name.value.trim().length < 2) {
+            if (step === 1 && form.elements.display_name.value.replace(/[\u0000-\u001f\u007f]/g, '').trim().length < 2) {
                 error.textContent = locale === 'ar' ? 'اكتب الاسم اللي تحب يظهر على موقعك.' : 'Enter the name you want displayed on your website.';
+                setInvalid(form.elements.display_name, true);
                 form.elements.display_name.focus();
                 return false;
             }
+            if (step === 2 && !form.querySelector('input[name="theme"]:checked')) {
+                error.textContent = locale === 'ar' ? 'اختار ستايل لموقعك.' : 'Choose a style for your website.';
+                return false;
+            }
             if (step === 3 && !selectedCities().length) {
-                error.textContent = locale === 'ar' ? 'اختار مدينة واحدة على الأقل.' : 'Choose at least one city.';
+                error.textContent = cityCatalogLoading
+                    ? (locale === 'ar' ? 'استنى تحميل المدن لحظة، وبعدين اختار المدن اللي بتشتغل فيها.' : 'Cities are loading. Choose your cities when they appear.')
+                    : !cityCatalogLoaded
+                        ? (locale === 'ar' ? 'تعذر تحميل المدن. اضغط حاول تاني.' : 'Could not load cities. Use Try again.')
+                        : (locale === 'ar' ? 'اختار مدينة واحدة على الأقل.' : 'Choose at least one city.');
                 return false;
             }
             if (step === 4) {
@@ -891,7 +1015,7 @@
                 }
                 if (propertyFinderChoice.value === 'connect') {
                     var normalizedPropertyFinder = normalizePropertyFinderProfile(propertyFinderUrl.value);
-                    propertyFinderUrl.toggleAttribute('aria-invalid', !normalizedPropertyFinder);
+                    setInvalid(propertyFinderUrl, !normalizedPropertyFinder);
                     if (!normalizedPropertyFinder) {
                         error.textContent = locale === 'ar'
                             ? 'حط لينك صفحة البروكر الصحيحة على Property Finder.'
@@ -907,10 +1031,10 @@
                 var whatsappPhone = normalizePhoneNumber(form.elements.whatsapp_phone.value);
                 var facebook = normalizeSocialProfile(form.elements.facebook_url.value, 'facebook');
                 var instagram = normalizeSocialProfile(form.elements.instagram_url.value, 'instagram');
-                form.elements.public_phone.toggleAttribute('aria-invalid', !publicPhone);
-                form.elements.whatsapp_phone.toggleAttribute('aria-invalid', !whatsappPhone);
-                form.elements.facebook_url.toggleAttribute('aria-invalid', facebook === null);
-                form.elements.instagram_url.toggleAttribute('aria-invalid', instagram === null);
+                setInvalid(form.elements.public_phone, !publicPhone);
+                setInvalid(form.elements.whatsapp_phone, !whatsappPhone);
+                setInvalid(form.elements.facebook_url, facebook === null);
+                setInvalid(form.elements.instagram_url, instagram === null);
                 if (!publicPhone || !whatsappPhone) {
                     error.textContent = locale === 'ar'
                         ? 'اكتب رقم الموبايل ورقم واتساب صحيحين. تقدر تكتب الرقم المصري بصيغة 01012345678.'
@@ -933,7 +1057,7 @@
             return true;
         }
 
-        function showStep(step) {
+        function showStep(step, focus) {
             currentStep = Math.max(1, Math.min(stepCount, step));
             form.querySelectorAll('[data-manual-step]').forEach(function (section) {
                 section.hidden = Number(section.getAttribute('data-manual-step')) !== currentStep;
@@ -948,15 +1072,41 @@
             next.hidden = currentStep === stepCount;
             submit.hidden = currentStep !== stepCount;
             error.textContent = '';
+            if (focus !== false) focusHeading(form.querySelector('[data-manual-step="' + currentStep + '"]'));
+            saveDraft();
         }
 
-        next.addEventListener('click', function () {
+        function advanceStep() {
             if (validateStep(currentStep)) showStep(currentStep + 1);
+        }
+        next.addEventListener('click', advanceStep);
+        form.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' && !event.isComposing && event.target.tagName === 'INPUT' && currentStep < stepCount) {
+                event.preventDefault();
+                advanceStep();
+            }
         });
         previous.addEventListener('click', function () { showStep(currentStep - 1); });
+        var handingOff = false;
+        windowObject.addEventListener('pageshow', function () {
+            handingOff = false;
+            submit.disabled = false;
+            form.removeAttribute('aria-busy');
+        });
         form.addEventListener('submit', function (event) {
             event.preventDefault();
-            if (!validateStep(1) || !validateStep(3) || !validateStep(4) || !validateStep(5)) return;
+            if (currentStep < stepCount) { advanceStep(); return; }
+            if (handingOff) return;
+            for (var step = 1; step <= stepCount; step += 1) {
+                if (!validateStep(step)) {
+                    var message = error.textContent;
+                    showStep(step);
+                    error.textContent = message;
+                    var invalid = form.querySelector('[data-manual-step="' + step + '"] [aria-invalid="true"]');
+                    if (invalid) invalid.focus();
+                    return;
+                }
+            }
             var theme = form.querySelector('input[name="theme"]:checked');
             var propertyFinderChoice = form.querySelector('input[name="property_finder_choice"]:checked');
             var destination = buildManualOnboardingUrl({
@@ -984,15 +1134,29 @@
                     : 'We could not prepare your website details. Review your choices and try again.';
                 return;
             }
+            saveDraft();
+            handingOff = true;
+            submit.disabled = true;
+            form.setAttribute('aria-busy', 'true');
             windowObject.location.assign(destination);
         });
+
+        wizard.addEventListener('input', saveDraft);
+        wizard.addEventListener('change', saveDraft);
+        displayName.addEventListener('input', function () { setInvalid(displayName, false); });
+        windowObject.addEventListener('pagehide', saveDraft);
+        if (restoredDraft) {
+            currentPanel = restoredDraft.panel;
+            showStep(Number.isInteger(restoredDraft.step) ? restoredDraft.step : 1, false);
+        }
 
         // Campaigns may enter the matching path directly. Wait until the
         // manual form and catalogue controls are initialized before opening
         // that panel. Invalid or absent values retain the neutral chooser.
         var requestedAudience = getQueryParameter(windowObject.location.search, 'audience');
-        if (requestedAudience === 'company') showPanel('link');
-        if (requestedAudience === 'individual') showPanel('manual');
+        if (requestedAudience === 'company') showPanel('link', false);
+        else if (requestedAudience === 'individual') showPanel('manual', false);
+        else if (restoredDraft) showPanel(restoredDraft.panel, false);
     }
 
     function bootstrap(windowObject, documentObject) {
