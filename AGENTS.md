@@ -264,6 +264,10 @@ It has exactly nine visible sections (`home-hero`, `home-market`, `home-request`
     - Request: glass rows on navy, with the best row lit and slightly raised (≥60rem).
     - Client: glass signal chips. The non-focus tile photo is desaturated.
     - The signal colour stays the owner's neutral `#a8b8cc` (the Oct 6 decision); the light-surface accent is `#163e69`.
+  - **Signature graphics (3 Nov 2026, same day):**
+    - **Hero:** the model sits in a frosted «Estavo Market» window. The `.es-home-intel__bar` is decorative, `aria-hidden` and absolutely positioned, so it stays outside the grid rows. The result card has a Project B photo banner, with two faint cards stacked behind it via box-shadows, to show that several options were weighed. The A/B/C comparison itself still lives only in Request.
+    - **Client:** one glass panel read top to bottom along a single rail, with one node per reading: what happened (quiet) → what Estavo understood (filled, signal colour) → the suggestion (ring). The pinned signals, the bracket and the two tiles are unchanged.
+    - **Growth:** at ≥68rem the patterns and the campaign sit side by side. The recurring row stretches and runs into an ad-style campaign card (image on top, Meta lockup at the foot). Narrower screens keep the stacked layout.
 - **Analytics:** CTAs keep their existing `data-track` events, and `data-home-event` adds a diagnostic `home_*` name on the same deliberate click (one each; tested). Mark only the legacy events as GA4 key events so a click is never counted twice. `data-home-view` sends passive section views, which are never conversions. Disclosures and the FAQ send nothing.
 
 ### Remaining homepage art backlog
