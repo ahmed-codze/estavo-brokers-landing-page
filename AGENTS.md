@@ -10,6 +10,11 @@ Last consolidated from the working site: **19 September 2026**; homepage section
 
 ## 1. The short version
 
+> **Repositioned 3 November 2026 (owner direction): Estavo is the AI-powered professional home for real-estate brokers in Egypt.**
+> Everything a professional broker needs in one place — maintained inventory and developers, market news and launches, payment-plan maths, real-estate jobs, the «إكسكلوسيف» game, selling tips and Brokers AI — plus Estavo Sites (the broker's personal brand and marketing) and a separate B2B data-integration offer.
+> Arabic master line: «كل اللي محتاجه كبروكر. في مكان واحد، بالذكاء الاصطناعي.» · English: "Everything you need as a broker. In one place, with AI."
+> The maintained primary-market data is why brokers trust Estavo; news, jobs, the game and the AI are why they come back daily; websites and business tools are how that turns into revenue. "Community" means a shared professional destination with daily useful content and activities — never promise a social feed, messaging, posts or member profiles. See §5.5 for the community pages and the product-truth table. The two-product model below still describes the commercial products underneath.
+
 Estavo has **two main products**:
 
 1. **Estavo Market** — the free broker-facing market product. It brings market data, Estavo's collection/update process, search, comparison, Brokers AI and branded PDF offers into one working experience.
@@ -191,6 +196,8 @@ This sequence exists to prevent feature soup. It first creates one mental model,
 
 The current bilingual homepages are `index.html` and `en.html`. The 6 October consistency pass set the section leads to the reviewer-approved copy (hero: «إستاڤو بيجمع داتا السوق والعقارات واهتمام عملاءك، ويحللهم بالـAI…»); change them only with the same review. They are hand-maintained published files, not emitted by `tools/build-pages.js`.
 
+**4 November 2026:** the hero's tabbed «إيه اللي محتاجه النهارده؟» window was replaced by the animated command-deck illustration (§9.0), and the market map, request board, browser preview and integrations flow by signal-stage illustrations; `tests/homepage.test.js` asserts the new structure. The detailed notes below describe the October layouts and are history where they conflict.
+
 Since **3 October 2026** the homepage positions Estavo as a real-estate data intelligence system: **السوق + العقار + العميل, connected by Estavo**. Headline: «معاك حد مذاكر السوق. وفاهم عميلك.» / "The market, studied. Your client, understood."
 
 Since **4 October 2026** it is a **compact, visual-first parent page**; the **5 October balance pass** restored the explanation the one-sentence rule had cut. Each feature section has one short heading, **one compact paragraph (normally two short sentences) that says why the capability matters**, one explanatory graphic, a few meaningful labels or one disclosure, and one action with any price/usage boundary beside it. One complete explanation stays visible without opening anything; disclosures hold full comparisons or secondary demonstrations, never the main promise or offer conditions. There is **no word-count or percentage target**: counts and heights are diagnostics only (5 Oct, 390×844, closed disclosures: ~632 AR / ~805 EN painted words in `<main>`). Do not grow it with slogans, rhetorical questions, recaps or stacked lists, and do not cut the sentence that explains a feature to hit a number. A broker should be able to answer, without opening anything: what Estavo maintains, what its AI does with a request, whether clients can talk to the assistant, what a site under their name provides, how client interest is understood, how that informs advertising, and what is free.
@@ -333,6 +340,13 @@ Metadata, navigation labels and route-level descriptions live in `tools/routes.j
 | `/pricing/` | What is free and what determines cost? | Market and Sites commercial terms organized under the two-product model. | Try Market or create a Site. |
 | `/enterprise/` | Can my brokerage company have an Estavo Site? | A company-branded website with shared inventory, team context and Sites capabilities. | Create a website at `/website/`. |
 | `/examples/` | Can I see the product before choosing? | Prepared Market and Sites demonstrations. | Open the matching product. |
+| `/developers/` | Who is this developer and what are they building? | Developer profiles in the app: overview, projects, news, sales contacts where available; 700 developers. | Free sign-up → `/developers` in the app. |
+| `/roi/` | Cash or installments, in numbers? | The NPV cash-vs-installments check, side-by-side payment-plan comparison and the chat quarterly schedule. ROI/rental-yield calculators are admin-only and never claimed. | Free sign-up → `/projects`. |
+| `/jobs/` | Where are the open real-estate jobs? | The app's jobs board: refreshed daily from job sites and employer careers pages; apply on the original listing. | Free sign-up → `/jobs`. |
+| `/challenges/` | Can I test my market knowledge with other brokers? | The public «إكسكلوسيف» multiplayer game: nickname only, no account. | `/games/exclusive` in the app. |
+| `/broker-ai/` | What can I ask Estavo's AI about my work? | Brokers AI (the broker's assistant, not the website Client AI at `/ai/`). | Open Estavo Market free. |
+
+Since 3 Nov 2026 `/insights/` is «جديد السوق» / "Market news" (Estavo Daily + launches in the app, CTA → `/estavo-daily`), and `/integrations/` is a B2B data page. Global nav groups: Market (market, developers, roi) · Broker community (insights, jobs, challenges, guides) · Your website & marketing (Sites pages + pricing) · Data integrations · Ask Estavo (broker-ai).
 
 ### 5.4 Page anatomy
 
@@ -346,6 +360,24 @@ A service page normally contains:
 - a closing CTA whose label accurately names its destination.
 
 Do not force every page into the exact same number of sections. Shared structure should create comprehension, not sameness.
+
+### 5.5 Broker-community pages (3 November 2026)
+
+**Page system.** `/developers/`, `/roi/`, `/jobs/`, `/challenges/`, `/broker-ai/`, `/insights/` and `/integrations/` reuse the Market page system (`assets/css/market.css`, `.mk-*`, `market-landing.js`) plus the shared layer `assets/css/pages/community.css` (`.cm-*`: sections, split, product window, example label, cards, steps, honest scope box, related destinations). `tools/build-pages.js` (`COMMUNITY_ROUTES`) auto-loads `assets/css/pages/<key>.css` and `assets/js/pages/<key>.js` when they exist, adds the `es-route-mk` body class and sets each page's header action. qa.js applies the ≤140 AR / ≤170 EN subtitle cap to all of them and a section budget (8; insights 7; integrations 7).
+
+**Deep links.** Community CTAs open the matching app screen: `https://brokers.estavo.space/register?redirect=%2F{developers|jobs|estavo-daily|projects}` (the app keeps `redirect` through sign-up) and the public game `https://brokers.estavo.space/games/exclusive`. They carry `data-keep-path`, which makes `assets/js/referral.js` keep the path and add `?ref=` plus click ids instead of routing through `/go/` (the app's `/go` page drops destinations). qa.js fails any non-`/go/` platform link without `data-keep-path` (Credits links excepted).
+
+**Product truth (verified against app/API `origin/main`, 3 Nov 2026).** Only advertise what a broker can use today:
+
+| Pillar | Reality | Never claim |
+|---|---|---|
+| Developers | Directory + profile (overview, projects, developer news, sales contacts where available); Brokers AI knows the open developer; sign-in required | ratings, rankings, trust scores, partnerships |
+| News & launches | Estavo Daily (sections, sources linked, Estavo summarises), launches of the last 90 days, entity news on project/developer/city pages; sign-in required; no public feed/API | "every news", full details for every launch |
+| Payment maths (`/roi/`) | NPV cash-vs-installments check, side-by-side plan comparison with "value today", chat quarterly schedule → PDF; fixed 19% rate; app UI for these is English-only today | ROI / rental yield / appreciation / returns for brokers (admin-only), monthly schedules, custom rates, advice |
+| Jobs | App board `/jobs`, refreshed daily from job sites and employer careers pages, filters with counts, organised details where available, apply on the original site; sign-in required | applying through Estavo, CVs, alerts, employer posting, verified employers, job counts, real employer logos |
+| «إكسكلوسيف» game | Public multiplayer game (2–10 players incl. optional Estavo AI), 5 rounds, AI judge + host decides, 100 fixed Arabic questions from a 3 Nov 2026 primary-market snapshot; nickname only. The app marked it noindex/unpromoted before the owner asked to feature it here | accounts, global leaderboards, prizes, new weekly questions, player counts, current prices |
+| Brokers AI | Project search for a client request, 2–4 project comparison, project/developer details, launches, assets, quarterly schedule, PDF offers, AR/EN; free for now (no credits wording) | jobs/news/investment tools, live availability, investment advice |
+| Integrations | See `/integrations/` source comments for the verified delivery method and fields | public docs, self-service keys, webhooks/feeds or real-time guarantees unless the API proves them |
 
 ---
 
@@ -504,7 +536,19 @@ Treat `tools/routes.json` as canonical for routes, contact details, social links
 
 ## 9. Visual identity
 
-### 9.1 Overall direction
+### 9.0 Estavo Signal — current art direction (4 November 2026, owner direction)
+
+The owner asked: "make it more visualized and more icons and futuristic designs and illustrations … refactor the art direction too", then corrected: "refactor the graphics completely — **not cards and tabs** — use better cool animations and illustrations". This **overrides** the calmer rules in §9.1–§11 and the matching anti-patterns in §16 wherever they conflict. Product truth, bilingual quality, accessibility and no-JS/reduced-motion completeness still win (§17).
+
+- **Idea:** a luminous command deck for the broker. Pages stay daylight paper and readable; every graphic is an animated illustration on a deep-navy **signal stage** (`.fx-stage`) — holographic glass plates, light beams, orbit rings, glowing nodes and grid floors carrying real product fragments (project card, payment ribbon, job card, game round, chat answer, PDF, website).
+- **Graphics are illustrations, never HTML cards, tabs or mock windows.** No tabbed product windows, no `cm-window`/browser-chrome mock-ups as the picture of a feature, no card grids as a section's visual. Real interactive things stay HTML (forms, FAQ, the /roi/ calculator, the /market/ comparison board). Card grids that hold copy are flattened into icon-led lists by `assets/css/fx-site.css`.
+- **Files:** visual kit `assets/css/fx.css` (`--fx-*` tokens, `.fx-stage`, `.fx-orb`, `.fx-chip`, labels…), site layer `assets/css/fx-site.css` (hero stages for all page families, label rules, card flattening, atmosphere) and `assets/js/fx.js` (swaps each stage's art: animated on first view, `-loop` on re-entry, `-still` off screen; pointer light). `tools/build-pages.js` and `scripts/build_knowledge.py` load them on every route; the homepage links them by hand. Icons: `assets/img/icons/estavo-fx.svg` (94 symbols `i-*`, 24px grid, 1.6 stroke).
+- **Illustrations:** `python3 tools/build-fx-art.py [key …]` runs `tools/fx_art/<key>.py` (shared kit `tools/fx_art/kit.py`, compositions `tools/fx_art/_lib.py`) and writes `assets/img/fx/<scene>.svg` (intro assembly + ambient loops), `-loop.svg`, `-still.svg`, plus `-rtl` twins and `anchors.json` (label positions in %). Scenes are word-free; words are HTML `.fx-stage__label`s over the stage, so AR and EN share art. ≤60 KB per file, ≤7 looping animations, no SVG blur filters, transform/opacity/dash only, off under reduced motion. Never hand-edit the SVGs.
+- **One scene per page, distinct silhouettes:** home command deck (labels link to the 8 pillars, separate phone composition), developers constellation, roi payment ribbon (time runs left→right in both languages), jobs radar feed, challenges arena (amber), broker-ai answer console, insights news stream, integrations data pipeline, guides playbook, market map, data strata, websites site hologram, examples carousel, ai site assistant, marketing buyer trail, meta signal-to-audience, listings network, enterprise HQ + team, pricing three plinths (no prices in art). Homepage sections reuse market, broker-ai, websites and integrations scenes, each with an «مثال توضيحي» / "Example" chip.
+- **Colour:** navy/Estavo blue ground, electric `#4f9cf0` glows, cyan highlights, mint = live/best result, amber only for the game. No purple. Electric/cyan/mint are fills and glows, never body text on paper.
+- **Labels:** stage labels are `inline-block`, never flex (the mixed-direction trap scrambled «3 غرف … 8 مليون»). Phones show at most three labels per stage except the homepage deck, which has its own phone label set (`is-wide-only` / `is-narrow-only`, switch at 47.99rem).
+
+### 9.1 Overall direction (September 2026 — superseded where §9.0 conflicts)
 
 The September 2026 direction is **Estavo products in motion**: recognizable product surfaces, precise line geometry, restrained depth and visible data relationships, built from the Estavo palette.
 
@@ -734,7 +778,7 @@ The site is static HTML with dependency-free build utilities. There is no packag
 ### Generated outputs—do not hand-edit
 
 - `assets/css/estavo-v3.css` is concatenated from `assets/css/v3/*.css`.
-- Service outputs in `data/`, `market/`, `websites/`, `ai/`, `integrations/`, `marketing/`, `insights/`, `listings/`, `enterprise/`, `pricing/` and `examples/` are generated from `tools/pages/` plus shared partials.
+- Service outputs in `data/`, `market/`, `developers/`, `roi/`, `jobs/`, `challenges/`, `broker-ai/`, `websites/`, `ai/`, `integrations/`, `marketing/`, `meta/`, `insights/`, `listings/`, `enterprise/`, `pricing/` and `examples/` are generated from `tools/pages/` plus shared partials.
 - Most `assets/img/estavo-*.svg` files are generated by the illustration builders.
 - `tools/partials/critical.css` and the inline critical styles are refreshed from the source modules by the premium refresh process.
 
@@ -742,10 +786,10 @@ If an output must change, find and change its source first. A direct edit will b
 
 ### Route and repository boundaries
 
-The current v3 marketing system consists of two homepages plus 22 generated service pages:
+The current v3 marketing system consists of two homepages plus 34 generated service pages:
 
 - `/index.html` and `/en.html` are the Arabic and English homepages;
-- each of the 11 service directories in the route table contains Arabic `index.html` and English `en.html`.
+- each of the 17 service directories in the route table contains Arabic `index.html` and English `en.html`.
 
 Other files in this repository have related but different responsibilities:
 
@@ -890,7 +934,7 @@ Use `tools/shot.js` and `tools/measure.js` when appropriate. Measurements confir
 
 ### Feature-card wallpaper
 
-**Do not:** turn every idea into a bordered icon card.
+**Do not:** turn every idea into a bordered icon card, or use cards, tabs or HTML mock windows as a section's graphic (4 Nov 2026: graphics are illustrations, §9.0).
 
 **Why:** repeated card anatomy makes the page feel like a menu and prevents the visitor from seeing relationships or workflow.
 

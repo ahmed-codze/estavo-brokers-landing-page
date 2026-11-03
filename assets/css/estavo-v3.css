@@ -1011,6 +1011,7 @@
     }
     .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(2) { animation-delay: 100ms; }
     .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(3) { animation-delay: 150ms; }
+    .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(4) { animation-delay: 200ms; }
     .es-home .es-drawer:not([hidden]) .es-drawer__foot { animation-delay: 200ms; }
   }
 
@@ -6120,5 +6121,14 @@
 
 @media (prefers-reduced-motion: reduce) {
   .es-sticky-cta { backdrop-filter: none; }
+}
+
+/* Five top-level nav items (Nov 2026): tighter gap and the short CTA label
+   until the header has room for the long one. */
+@media (min-width: 64rem) and (max-width: 87.499rem) {
+  .es-landing .es-header__nav,
+  .es-home .es-header__nav { gap: 1.25rem; }
+  .es-header__actions .es-header-cta-long { display: none; }
+  .es-header__actions .es-header-cta-short { display: inline; }
 }
 

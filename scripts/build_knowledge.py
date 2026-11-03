@@ -15,47 +15,128 @@ ARTICLES = json.loads((ROOT / 'content/knowledge.json').read_text(encoding='utf8
 BY_SLUG = {a['slug']: a for a in ARTICLES}
 CSS = (ROOT / 'content/knowledge.css').read_bytes()
 CSS_NAME = 'knowledge-' + hashlib.sha256(CSS).hexdigest()[:12] + '.css'
+for stale in (ROOT / 'assets/css').glob('knowledge-*.css'):
+    if stale.name != CSS_NAME:
+        stale.unlink()
 (ROOT / 'assets/css' / CSS_NAME).write_bytes(CSS)
 
+# The guides share the main site shell. Header, drawer, footer, critical CSS
+# and the analytics snippet are read from the same sources tools/build-pages.js
+# uses, so a nav or tracking change lands here on the next build.
+TOOLS = ROOT / 'tools'
+PARTIALS = TOOLS / 'partials'
+CRITICAL_CSS = (PARTIALS / 'critical.css').read_text(encoding='utf8')
+_gtag = re.search(r'const GTAG = `([\s\S]*?)`;', (TOOLS / 'build-pages.js').read_text(encoding='utf8'))
+if not _gtag or 'fbq(' not in _gtag.group(1):
+    raise SystemExit('build_knowledge: GTAG (gtag + Meta Pixel) not found in tools/build-pages.js')
+GTAG = _gtag.group(1)
+MARKET_GO = 'https://brokers.estavo.space/go/?ref=default-landing-page-market'
+
+def versioned(url):
+    """Content-hashed asset URL, matching versioned() in tools/build-pages.js."""
+    digest = hashlib.sha256((ROOT / url.lstrip('/')).read_bytes()).hexdigest()[:10]
+    return f'{url}?v={digest}'
+
 LABELS = {
-    'en': dict(home='Home', hub='Broker guides', cta='Explore Estavo', switch='العربية', skip='Skip to content',
-               contents='On this page', faq='Questions brokers ask', sources='Sources and evidence', related='Keep reading',
-               by='By Estavo Brokers', date='Published 2 October 2026', editorial='How we research and write',
-               editorial_title='Useful answers, clear evidence', editorial_body='These guides are practical editorial checklists, not promises of sales or investment returns. Product descriptions follow our reviewed support documentation. Research pages distinguish observed records from conclusions, name the collection date and link public sources. We publish aggregate findings, not raw customer or listing data. Illustrative examples are labeled. Send corrections to',
+    'en': dict(home='Home', hub='Selling tips & broker guides', hub_short='Selling tips',
+               cta='Open Estavo Market free', contents='On this page', faq='Questions brokers ask',
+               sources='Sources and evidence', related='Keep reading',
+               by='By Estavo', date='Published 2 October 2026', editorial='How we research and write',
+               editorial_title='Useful answers, clear evidence', editorial_body='These guides are practical editorial checklists, not promises of sales or investment returns. Product descriptions follow our reviewed support documentation. Research pages distinguish observed records from conclusions, name the collection date and link public sources. We publish aggregate findings, not raw customer or listing data. Examples are labeled. Send corrections to',
                guide='Practical guide', case_study='Research case study', report='Market evidence report',
-               hub_title='Better answers for your next property conversation.', hub_intro='Practical guides for brokers in Egypt: find suitable inventory, understand the buyer and send an offer they can decide from.',
-               guide_heading='Solve the everyday questions', study_heading='See the evidence behind the method', report_heading='Understand the limits of price data',
-               product_title='Put the research into your next offer.', product_body='Estavo Market helps you research projects and units, compare available information and prepare a branded PDF Offer. Confirm current availability and final terms before booking.',
-               summary='Read the aggregate evidence', rights='Original analysis by Estavo Brokers. Public source links do not imply a partnership or endorsement.', privacy='Privacy',terms='Terms'),
-    'ar': dict(home='الرئيسية', hub='أدلة البروكر', cta='اكتشف استافو', switch='English', skip='انتقل للمحتوى',
-               contents='في الدليل ده', faq='أسئلة البروكرز', sources='المصادر والأدلة', related='كمّل القراءة',
-               by='إعداد استافو بروكرز', date='نُشر في 2 أكتوبر 2026', editorial='إزاي بنبحث ونكتب؟',
-               editorial_title='إجابات مفيدة ودليل واضح', editorial_body='الأدلة دي قوائم عملية من إعدادنا، مش وعود بمبيعات أو عوائد. وصف المنتج مبني على وثائق الدعم المراجعة. صفحات البحث بتفصل السجلات المرصودة عن الاستنتاجات، وتوضح تاريخ الجمع وتربط بالمصادر العامة. بننشر نتائج مجمعة، مش بيانات عملاء أو إعلانات خام. الأمثلة التوضيحية متسمية بوضوح. ابعت التصحيحات على',
+               eyebrow='Broker community', hub_intro='Practical guides for brokers in Egypt: find suitable inventory, understand the buyer and send an offer they can decide from.',
+               jump='Browse topics', breadcrumb='Breadcrumb',
+               product_title='Put the research into your next offer.', product_body='Research projects and unit types and prepare a PDF offer under your name in Estavo Market. Completely free for now; confirm availability before booking.',
+               summary='Read the aggregate evidence', example='Template · Example', more='More on Estavo', rights='Original analysis by Estavo. Public source links do not imply a partnership or endorsement.'),
+    'ar': dict(home='الرئيسية', hub='نصايح البيع وأدلة البروكر', hub_short='نصايح البيع',
+               cta='تصفح <bdi>Estavo Market</bdi> مجانًا', contents='في الدليل ده', faq='أسئلة البروكرز',
+               sources='المصادر والأدلة', related='كمّل القراءة',
+               by='إعداد إستاڤو', date='نُشر في 2 أكتوبر 2026', editorial='إزاي بنبحث ونكتب؟',
+               editorial_title='إجابات مفيدة ودليل واضح', editorial_body='الأدلة دي قوائم عملية من إعدادنا، مش وعود بمبيعات أو عوائد. وصف المنتج مبني على وثائق الدعم المراجعة. صفحات البحث بتفصل السجلات المرصودة عن الاستنتاجات، وتوضح تاريخ الجمع وتربط بالمصادر العامة. بننشر نتائج مجمعة، مش بيانات عملاء أو إعلانات خام. الأمثلة متسمية بوضوح. ابعت التصحيحات على',
                guide='دليل عملي', case_study='دراسة بحثية', report='تقرير أدلة السوق',
-               hub_title='إجابات أوضح لمكالمة العميل الجاية.', hub_intro='أدلة عملية للبروكر في مصر: تلاقي المتاح المناسب، تفهم طلب العميل وتجهز عرض يساعده يقرر.',
-               guide_heading='حل أسئلة الشغل اليومية', study_heading='شوف الدليل وراء طريقة البحث', report_heading='افهم حدود بيانات الأسعار',
-               product_title='استخدم البحث في عرضك الجاي.', product_body='استافو ماركت يساعدك تبحث في المشاريع والوحدات، تقارن المعلومات المتاحة وتجهز PDF Offer باسمك. أكد المتاح الحالي والشروط النهائية قبل الحجز.',
-               summary='اقرأ ملخص الأدلة المجمعة', rights='تحليل أصلي من استافو بروكرز. روابط المصادر العامة مش معناها شراكة أو تزكية.', privacy='الخصوصية',terms='الشروط')
+               eyebrow='مجتمع البروكرز', hub_intro='أدلة عملية للبروكر في مصر: تلاقي المتاح المناسب، تفهم طلب العميل وتجهز عرض يساعده يقرر.',
+               jump='تصفح الموضوعات', breadcrumb='مسار الصفحة',
+               product_title='استخدم البحث في عرضك الجاي.', product_body='ابحث في المشاريع ونماذج الوحدات وجهّز عرض <bdi>PDF</bdi> باسمك على <bdi>Estavo Market</bdi>. مجاني بالكامل حاليًا، وأكّد المتاح قبل الحجز.',
+               summary='اقرأ ملخص الأدلة المجمعة', example='قالب جاهز · مثال توضيحي', more='كمان في إستاڤو', rights='تحليل أصلي من إستاڤو. روابط المصادر العامة مش معناها شراكة أو تزكية.')
 }
+
+# Hub grouping: what a broker is trying to do, not the content type.
+GROUP_ICONS = {'selling-tips': 'client-interest', 'developers-inventory': 'project', 'research': 'analysis'}
+
+# Sibling community destinations shown before the hub's closing box.
+RELATED = {
+    'ar': [('/insights/', 'جديد السوق', 'أخبار وإطلاقات كل يوم'), ('/jobs/', 'الوظائف', 'وظائف القطاع العقاري'),
+           ('/challenges/', 'تحدّي إكسكلوسيف', 'لعبة البروكرز'), ('/developers/', 'المطورين', 'ملفات المطورين ومشاريعهم')],
+    'en': [('/insights/en.html', 'Market news', 'Daily news and launches'), ('/jobs/en.html', 'Jobs', 'Real-estate jobs in Egypt'),
+           ('/challenges/en.html', 'Exclusive challenge', 'The brokers’ game'), ('/developers/en.html', 'Developers', 'Developer profiles and projects')],
+}
+
+GROUPS = [
+    ('selling-tips', ['sell-more-properties', 'find-property-clients', 'match-client-property', 'property-pdf-offer'],
+     {'ar': ('نصايح البيع', 'خطوات عملية من أول طلب العميل لحد عرض واضح يقرر منه.', '4 أدلة'),
+      'en': ('Selling tips', 'Practical steps from the client’s first request to an offer they can decide from.', '4 guides')}),
+    ('developers-inventory', ['find-developer-inventory', 'compare-payment-plans'],
+     {'ar': ('المطورين والإنفنتوري', 'تلاقي المتاح وتتأكد منه، وتقارن خطط السداد بأمانة.', 'دليلين'),
+      'en': ('Developers & inventory', 'Find and verify what is available, and compare payment plans honestly.', '2 guides')}),
+    ('research', ['archived-listing-evidence', 'developer-offer-evidence', 'property-price-evidence-september-2026'],
+     {'ar': ('أبحاث وتقارير', 'الأدلة اللي ورا طريقتنا في البحث، وحدود بيانات الأسعار.', 'دراستين وتقرير'),
+      'en': ('Research', 'The evidence behind our method, and the limits of price data.', '2 studies and a report')}),
+]
+_grouped = [slug for _, slugs, _ in GROUPS for slug in slugs]
+assert sorted(_grouped) == sorted(BY_SLUG), 'every article must sit in exactly one hub group'
+HUB_ORDER = [BY_SLUG[slug] for slug in _grouped]
 
 def esc(value):
     return html.escape(str(value), quote=True)
 
+# Arabic pages: isolate Latin runs and percentages that sit in text nodes, so
+# "PDF", "Estavo Market" or "84.5%" keep their order inside RTL prose.
+_ENT = r'&(?:[A-Za-z]+|#\d+|#x[0-9A-Fa-f]+);'
+_CH = rf"(?:[A-Za-z0-9@./’'-]|{_ENT})"
+_BIDI = re.compile(rf"((?<![&#A-Za-z0-9])[A-Za-z]{_CH}*(?:\s+[A-Za-z0-9]{_CH}*)*)|(\d[\d,.]*%)")
+_TRAIL = re.compile(rf"(?:[.,:;/’'-]|&#x27;|&#39;)+$")
+
+def _isolate(match):
+    if match.group(2):
+        return f'<bdi dir="ltr">{match.group(2)}</bdi>'
+    run = match.group(1)
+    tail = _TRAIL.search(run)
+    cut = tail.start() if tail else len(run)
+    return f'<bdi>{run[:cut]}</bdi>{run[cut:]}' if cut else run
+
+def isolate_latin(markup):
+    out = []; skip = 0
+    for part in re.split(r'(<[^>]*>)', markup):
+        if part.startswith('<'):
+            tag = re.match(r'</?\s*([a-zA-Z0-9]+)', part)
+            if tag and tag.group(1).lower() in ('bdi', 'script', 'style'):
+                skip += -1 if part.startswith('</') else 1
+            out.append(part)
+        else:
+            out.append(part if skip else _BIDI.sub(_isolate, part))
+    return ''.join(out)
+
 def route(lang, slug=''):
     return '/guides/' + ('en/' if lang == 'en' else '') + (slug + '/' if slug else '')
 
+def relativize(doc, depth):
+    """Root-style paths → depth-relative, like relativizeForServicePage() in build-pages.js."""
+    up = '../' * depth
+    doc = re.sub(r'\b(href|src|action)="/(?!/)', lambda m: f'{m.group(1)}="{up}', doc)
+    return re.sub(r"url\((['\"]?)/(?!/)", lambda m: f'url({m.group(1)}{up}', doc)
+
 def organization():
-    return {'@type': 'Organization', '@id': BASE + '/#organization', 'name': 'Estavo Brokers',
-            'alternateName': ['إستاڤو بروكرز'], 'url': BASE + '/',
-            'logo': BASE + '/assets/logo/Estavo%20Icon.png', 'description': 'AI tools for real estate brokers in Egypt.',
+    return {'@type': 'Organization', '@id': BASE + '/#organization', 'name': 'Estavo',
+            'alternateName': ['إستاڤو'], 'url': BASE + '/',
+            'logo': BASE + '/assets/logo/Estavo%20Icon.png', 'description': 'Everything a real-estate broker in Egypt needs, in one place, with AI.',
             'email': 'support@estavo.space', 'areaServed': {'@type':'Country','name':'Egypt'}}
 
 def schema(lang, article=None):
     url = BASE + route(lang, article['slug'] if article else '')
     labels = LABELS[lang]
     breadcrumbs = [{'@type':'ListItem','position':1,'name':labels['home'],'item':BASE+('/en.html' if lang=='en' else '/')},
-                   {'@type':'ListItem','position':2,'name':labels['hub'],'item':BASE+route(lang)}]
-    graph = [organization(), {'@type':'WebSite','@id':BASE+'/#website','url':BASE+'/', 'name':'Estavo Brokers','publisher':{'@id':BASE+'/#organization'},'inLanguage':['ar-EG','en']}]
+                   {'@type':'ListItem','position':2,'name':labels['hub_short'],'item':BASE+route(lang)}]
+    graph = [organization(), {'@type':'WebSite','@id':BASE+'/#website','url':BASE+'/', 'name':'Estavo','publisher':{'@id':BASE+'/#organization'},'inLanguage':['ar-EG','en']}]
     if article:
         a=article[lang]
         breadcrumbs.append({'@type':'ListItem','position':3,'name':a['title'],'item':url})
@@ -69,74 +150,134 @@ def schema(lang, article=None):
                       'mainEntity':[{'@type':'Question','name':f['question'],'acceptedAnswer':{'@type':'Answer','text':f['answer']}} for f in a['faq']]})
     else:
         graph.append({'@type':'CollectionPage','@id':url,'url':url,'name':labels['hub'],'inLanguage':'ar-EG' if lang=='ar' else 'en',
-                      'mainEntity':{'@type':'ItemList','itemListElement':[{'@type':'ListItem','position':i+1,'name':a[lang]['title'],'url':BASE+route(lang,a['slug'])} for i,a in enumerate(ARTICLES)]}})
+                      'mainEntity':{'@type':'ItemList','itemListElement':[{'@type':'ListItem','position':i+1,'name':a[lang]['title'],'url':BASE+route(lang,a['slug'])} for i,a in enumerate(HUB_ORDER)]}})
     graph.append({'@type':'BreadcrumbList','itemListElement':breadcrumbs})
     return json.dumps({'@context':'https://schema.org','@graph':graph},ensure_ascii=False).replace('<','\\u003c')
 
+def shell_header(lang, slug):
+    """Global header + drawer, with the language switch pointing at this guide's twin."""
+    markup = (PARTIALS / f'header.{lang}.html').read_text(encoding='utf8')
+    markup = markup.replace('<body class="es es-landing">', '<body class="es es-landing es-route-guides">', 1)
+    hub = route(lang)
+    current = 'page' if not slug else 'true'
+    markup = markup.replace(f'href="{hub}"', f'href="{hub}" aria-current="{current}"')
+    return switch_language(markup, lang, slug)
+
+def shell_footer(lang, slug):
+    return switch_language((PARTIALS / f'footer.{lang}.html').read_text(encoding='utf8'), lang, slug)
+
+def switch_language(markup, lang, slug):
+    # The partials hardcode the switch for /x/ ↔ /x/en.html pages.
+    other = 'en' if lang == 'ar' else 'ar'
+    old = 'href="en.html"' if lang == 'ar' else 'href="index.html"'
+    return markup.replace(old, f'href="{route(other, slug)}"')
+
+def market_button(lang, position):
+    return (f'<a class="es-button es-button--primary kn-cta" href="{MARKET_GO}" data-track="market_opened" '
+            f'data-position="{position}"><span>{LABELS[lang]["cta"]}</span></a>')
+
 def layout(lang, body, article=None):
-    l=LABELS[lang]; slug=article['slug'] if article else ''; other='en' if lang=='ar' else 'ar'
+    l=LABELS[lang]; slug=article['slug'] if article else ''
     a=article[lang] if article else {'title':l['hub'],'description':l['hub_intro']}
     url=BASE+route(lang,slug); dir='rtl' if lang=='ar' else 'ltr'
-    home='/en.html' if lang=='en' else '/'
-    # Existing first-party analytics configuration; no new account IDs or tracking dependencies.
-    return f'''<!doctype html>
+    depth=route(lang,slug).count('/')-1
+    doc = f'''<!DOCTYPE html>
 <html lang="{lang}" dir="{dir}">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(a['title'])} | Estavo Brokers</title>
-<meta name="description" content="{esc(a['description'])}"><meta name="author" content="Estavo Brokers">
+<meta charset="utf-8">
+{GTAG}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fafcff">
+<title>{esc(a['title'])} | Estavo</title>
+<meta name="description" content="{esc(a['description'])}"><meta name="author" content="Estavo">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-<meta name="theme-color" content="#021d39">
 <link rel="canonical" href="{url}">
 <link rel="alternate" hreflang="ar" href="{BASE+route('ar',slug)}">
 <link rel="alternate" hreflang="ar-EG" href="{BASE+route('ar',slug)}">
 <link rel="alternate" hreflang="en" href="{BASE+route('en',slug)}">
 <link rel="alternate" hreflang="x-default" href="{BASE+route('ar',slug)}">
-<meta property="og:type" content="{'article' if article else 'website'}"><meta property="og:site_name" content="Estavo Brokers">
+<meta property="og:type" content="{'article' if article else 'website'}"><meta property="og:site_name" content="Estavo">
 <meta property="og:title" content="{esc(a['title'])}"><meta property="og:description" content="{esc(a['description'])}">
 <meta property="og:url" content="{url}"><meta property="og:image" content="{BASE}/assets/og/og-{lang}.jpg">
-<meta property="og:image:alt" content="Estavo Brokers — AI tools for real estate brokers in Egypt">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{'إستاڤو — كل اللي محتاجه كبروكر في مكان واحد' if lang=='ar' else 'Estavo — everything you need as a broker, in one place'}">
 <meta property="og:locale" content="{'ar_EG' if lang=='ar' else 'en_US'}"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/assets/logo/Estavo%20Icon.png"><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<meta name="twitter:site" content="@estavospace">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/Estavo%20Icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/Estavo%20Icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="stylesheet" href="/assets/css/{CSS_NAME}">
+{CRITICAL_CSS}
+<link rel="preload" as="style" href="{versioned('/assets/css/estavo-v3.css')}" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{versioned('/assets/css/estavo-v3.css')}"></noscript>
 <script type="application/ld+json">{schema(lang,article)}</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NVFZMXPPLF"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','G-NVFZMXPPLF');</script>
-<script src="/assets/js/referral.js?v=20260918-chat-ui" defer></script>
 </head>
-<body>
-<a class="skip-link" href="#main">{l['skip']}</a>
-<header class="site-header"><div class="header-inner"><a class="brand" href="{home}" aria-label="Estavo Brokers — {l['home']}"><img src="/assets/logo/Estavo%20Brokers%20Logo%20transparent.png" width="240" height="55" alt="Estavo Brokers"></a><nav aria-label="{'Main navigation' if lang=='en' else 'التنقل الرئيسي'}"><a href="{route(lang)}">{l['hub']}</a><a href="{route(other,slug)}" lang="{other}" hreflang="{other}">{l['switch']}</a><a class="button header-cta" href="https://brokers.estavo.space/go/?ref=default-landing-page">{l['cta']}</a></nav></div></header>
-{body}
-<footer class="site-footer"><div><p>Estavo Brokers · {'AI tools for real estate brokers in Egypt' if lang=='en' else 'أدوات الذكاء الاصطناعي للبروكرز العقاريين في مصر'}</p><nav aria-label="{'Footer' if lang=='en' else 'روابط الصفحة'}"><a href="{route(lang)}#editorial">{l['editorial']}</a><a href="/privacy{'-en' if lang=='en' else ''}.html">{l['privacy']}</a><a href="/terms{'-en' if lang=='en' else ''}.html">{l['terms']}</a><a href="mailto:support@estavo.space">support@estavo.space</a></nav><p class="small">© 2026 Estavo Brokers</p></div></footer>
-</body></html>'''
+{shell_header(lang, slug)}
+{isolate_latin(body) if lang == 'ar' else body}
+{shell_footer(lang, slug)}
+<script src="{versioned('/assets/js/referral.js')}" defer></script>
+<script src="{versioned('/assets/js/v3/estavo-v3.js')}" defer></script>
+<link rel="stylesheet" href="{versioned('/assets/css/fx.css')}">
+<link rel="stylesheet" href="{versioned('/assets/css/fx-site.css')}">
+<script src="{versioned('/assets/js/fx.js')}" defer></script>
+</body>
+</html>
+'''
+    return relativize(doc, depth)
 
-def product(lang):
+def product(lang, position):
     l=LABELS[lang]
-    return f'<section class="product-note"><h2>{l["product_title"]}</h2><p>{l["product_body"]}</p><a class="button" href="https://brokers.estavo.space/go/?ref=default-landing-page">{l["cta"]}</a></section>'
+    return f'<section class="product-note"><h2>{l["product_title"]}</h2><p>{l["product_body"]}</p>{market_button(lang, position)}</section>'
+
+def breadcrumbs(lang, current=None):
+    l=LABELS[lang]
+    here=' aria-current="page"' if current=='hub' else ''
+    trail=f'<a href="{"/en.html" if lang=="en" else "/"}">{l["home"]}</a><span aria-hidden="true">/</span><a href="{route(lang)}"{here}>{l["hub_short"]}</a>'
+    return f'<nav class="breadcrumbs" aria-label="{l["breadcrumb"]}">{trail}</nav>'
 
 def article_page(article,lang):
     a=article[lang];l=LABELS[lang]
     sections=[(f'section-{i+1}',s['title'],s['html']) for i,s in enumerate(a['sections'])]
     toc=''.join(f'<li><a href="#{id}">{esc(title)}</a></li>' for id,title,_ in sections)
     toc+=f'<li><a href="#questions">{l["faq"]}</a></li><li><a href="#sources">{l["sources"]}</a></li>'
-    prose=''.join(f'<section id="{id}"><h2>{esc(title)}</h2>{body}</section>' for id,title,body in sections)
+    tag=f'<span class="kn-example">{l["example"]}</span><blockquote>'
+    prose=''.join(f'<section id="{id}"><h2>{esc(title)}</h2>{body.replace("<blockquote>", tag)}</section>' for id,title,body in sections)
     faq=''.join(f'<details><summary>{esc(f["question"])}</summary><p>{esc(f["answer"])}</p></details>' for f in a['faq'])
     sources=''.join(f'<li><a href="{esc(s["url"])}">{esc(s[lang])}</a></li>' for s in article['sources'])
     related=''.join(f'<li><a href="{route(lang,s)}">{esc(BY_SLUG[s][lang]["title"])}</a></li>' for s in article['related'])
-    body=f'''<main id="main" class="article-shell"><nav class="breadcrumbs" aria-label="{'Breadcrumb' if lang=='en' else 'مسار الصفحة'}"><a href="{'/en.html' if lang=='en' else '/'}">{l['home']}</a><span aria-hidden="true">/</span><a href="{route(lang)}">{l['hub']}</a></nav>
-<header class="article-header"><h1>{esc(a['title'])}</h1><p class="byline">{l['by']} · <time datetime="{DATE}">{l['date']}</time> · {l[article['kind'].replace('-','_')]}</p><p class="answer">{esc(a['answer'])}</p></header>
-<div class="article-layout"><aside class="contents"><details open><summary>{l['contents']}</summary><nav aria-label="{l['contents']}"><ol>{toc}</ol></nav></details></aside><article class="prose" aria-label="{esc(a['title'])}">{prose}<section id="questions"><h2>{l['faq']}</h2>{faq}</section><section id="sources" class="sources"><h2>{l['sources']}</h2><ul>{sources}</ul><p class="small">{l['rights']}</p><p class="small"><a href="{route(lang)}#editorial">{l['editorial']}</a></p></section>{product(lang)}<section class="related"><h2>{l['related']}</h2><ul>{related}</ul></section></article></div></main>'''
+    body=f'''<main id="main" class="kn kn-article"><div class="article-shell">{breadcrumbs(lang)}
+<header class="article-header"><p class="kn-kind">{l[article['kind'].replace('-','_')]}</p><h1>{esc(a['title'])}</h1><p class="byline">{l['by']} · <time datetime="{DATE}">{l['date']}</time></p><p class="answer">{esc(a['answer'])}</p></header>
+<div class="article-layout"><aside class="contents"><details open><summary>{l['contents']}</summary><nav aria-label="{l['contents']}"><ol>{toc}</ol></nav></details></aside><article class="prose" aria-label="{esc(a['title'])}">{prose}<section id="questions"><h2>{l['faq']}</h2>{faq}</section><section id="sources" class="sources"><h2>{l['sources']}</h2><ul>{sources}</ul><p class="small">{l['rights']}</p><p class="small"><a href="{route(lang)}#editorial">{l['editorial']}</a></p></section>{product(lang, 'article')}<section class="related"><h2>{l['related']}</h2><ul>{related}</ul></section></article></div></div></main>'''
     return layout(lang,body,article)
 
+def hub_stage(lang):
+    """Estavo Signal playbook illustration (tools/fx_art/guides.py); labels are real text."""
+    import json as _j
+    name = 'guides-hero' + ('-rtl' if lang == 'ar' else '')
+    a = _j.loads((ROOT / 'assets/img/fx/anchors.json').read_text())[name]['anchors']
+    words = {'ar': ['دوّر', 'قارن', 'ابعت عرض', 'اقفل'], 'en': ['Find', 'Compare', 'Send an offer', 'Close']}[lang]
+    labels = ''.join(f'<span class="fx-stage__label fx-stage__label--below" style="--x:{a[f"s{i+1}"]["x"]}%;--y:{a[f"s{i+1}"]["y"]}%">{w}</span>' for i, w in enumerate(words))
+    src = f'/assets/img/fx/{name}'
+    return (f'<div class="fxp-hero-art fxp-hero-art--below"><div class="fx-stage fx-stage--deck fx-stage--own-floor fxp-stage" aria-hidden="true">'
+            f'<div class="fx-stage__art"><picture data-fx-swap="loop"><source media="(prefers-reduced-motion: reduce)" srcset="{src}-still.svg">'
+            f'<img src="{src}.svg" width="1200" height="900" alt="" decoding="async"></picture></div>{labels}</div></div>')
+
+
 def hub_page(lang):
-    l=LABELS[lang];sections=''
-    for kind,heading in [('guide','guide_heading'),('case-study','study_heading'),('report','report_heading')]:
-        rows=''.join(f'<li><div><h3><a href="{route(lang,a["slug"])}">{esc(a[lang]["title"])}</a></h3><p>{esc(a[lang]["description"])}</p></div><span class="read-link" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span></li>' for a in ARTICLES if a['kind']==kind)
-        sections+=f'<section class="topic-group"><h2>{l[heading]}</h2><ul class="topic-list">{rows}</ul></section>'
-    body=f'''<main id="main" class="hub-shell"><header class="hub-header"><h1>{l['hub_title']}</h1><p>{l['hub_intro']}</p><nav class="hub-jump" aria-label="{'Browse topics' if lang=='en' else 'تصفح الموضوعات'}"><a href="{route(lang,'find-developer-inventory')}">{'Find inventory' if lang=='en' else 'تلاقي المتاح'}</a><a href="{route(lang,'sell-more-properties')}">{'Improve your sales workflow' if lang=='en' else 'تحسّن خطوات البيع'}</a><a href="{route(lang,'property-price-evidence-september-2026')}">{'Read the research' if lang=='en' else 'تقرأ البحث'}</a></nav></header>{sections}<section id="editorial" class="editorial"><h2>{l['editorial_title']}</h2><p>{l['editorial_body']} <a href="mailto:support@estavo.space">support@estavo.space</a>.</p><p><a href="/guides/evidence/september-2026.json">{l['summary']}</a></p></section>{product(lang)}</main>'''
+    l=LABELS[lang];sections='';jump=''
+    arrow='<span class="read-link" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>'
+    for gid,slugs,copy in GROUPS:
+        title,lead,count=copy[lang]
+        rows=''
+        for slug in slugs:
+            a=BY_SLUG[slug]
+            kind='' if a['kind']=='guide' else f'<span class="kn-kind">{l[a["kind"].replace("-","_")]}</span>'
+            rows+=f'<li><div>{kind}<h3><a href="{route(lang,slug)}">{esc(a[lang]["title"])}</a></h3><p>{esc(a[lang]["description"])}</p></div>{arrow}</li>'
+        sections+=f'<section class="topic-group" id="{gid}" aria-labelledby="{gid}-title"><div class="topic-head"><h2 id="{gid}-title">{title}</h2><p>{lead}</p></div><ul class="topic-list">{rows}</ul></section>'
+        icon=f'<svg class="kn-ico" aria-hidden="true"><use href="/assets/img/icons/estavo-home.svg#{GROUP_ICONS[gid]}"/></svg>'
+        jump+=f'<a href="#{gid}">{icon}<b>{title}</b><small class="hub-jump__count">{count}</small><small class="hub-jump__lead">{lead}</small></a>'
+    related=''.join(f'<a href="{href}"><b>{name}</b><small>{sub}</small></a>' for href,name,sub in RELATED[lang])
+    body=f'''<main id="main" class="kn kn-hub"><header class="hub-header"><div class="hub-shell">{breadcrumbs(lang, 'hub')}<div class="hub-hero"><div class="hub-intro"><p class="kn-eyebrow">{l['eyebrow']}</p><h1>{l['hub']}</h1><p>{l['hub_intro']}</p></div><nav class="hub-jump" aria-label="{l['jump']}">{jump}</nav></div>{hub_stage(lang)}</div></header><div class="hub-shell">{sections}<section id="editorial" class="editorial"><h2>{l['editorial_title']}</h2><p>{l['editorial_body']} <a href="mailto:support@estavo.space">support@estavo.space</a>.</p><p><a href="/guides/evidence/september-2026.json">{l['summary']}</a></p></section><nav class="kn-more" aria-labelledby="kn-more-title"><h2 class="kn-more__title" id="kn-more-title">{l['more']}</h2><div class="kn-related">{related}</div></nav>{product(lang, 'hub')}</div></main>'''
     return layout(lang,body)
 
 def write_page(route_name,body):

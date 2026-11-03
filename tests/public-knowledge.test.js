@@ -32,6 +32,11 @@ test('all six guides, two research studies and report have complete bilingual pu
             const faq = graph.find(node => node['@type'] === 'FAQPage');
             assert.deepEqual(faq.mainEntity.map(q => q.name), [...document.querySelectorAll('#questions summary')].map(s => s.textContent));
             assert.ok(document.querySelectorAll('.prose > section').length >= 9);
+            // Guides use the global site shell; the language switch opens the same guide in the other language.
+            assert.ok(document.querySelector('.es-header .es-header__nav') && document.querySelector('.es-drawer') && document.querySelector('.es-footer'));
+            const twin = origin + route(lang === 'ar' ? 'en' : 'ar', article.slug);
+            for (const sw of document.querySelectorAll('.es-header__lang')) assert.equal(new URL(sw.getAttribute('href'), origin + url).href, twin);
+            assert.ok(document.querySelector('.es-header a[href="https://brokers.estavo.space/go/?ref=default-landing-page-market"][data-track="market_opened"][data-position="header"]'));
             for (const link of document.querySelectorAll('a[href],link[rel=stylesheet],script[src],img[src]')) {
                 const target = new URL(link.href || link.src, origin + url);
                 if (target.origin !== origin) continue;

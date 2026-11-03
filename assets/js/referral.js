@@ -119,6 +119,21 @@
                 return;
             }
 
+            // Deep links (jobs, developers, Estavo Daily, the game) keep their
+            // path: /go/ always lands on sign-up or home and drops the
+            // destination. The app reads ?ref at sign-up and honours
+            // ?redirect= through registration, so attribution survives.
+            if (anchor.hasAttribute('data-keep-path')) {
+                var keep = new URLSearchParams(url.search);
+                keep.set(QUERY_PARAM, slug);
+                Object.keys(attribution).forEach(function (key) {
+                    if (attribution[key] && !keep.has(key)) keep.set(key, attribution[key]);
+                });
+                url.search = '?' + keep.toString();
+                anchor.setAttribute('href', url.toString());
+                return;
+            }
+
             // Route through /go/?ref=<slug> — works for both named referrers
             // and the default fallback so every visit is tracked.
             url.pathname = '/go/';

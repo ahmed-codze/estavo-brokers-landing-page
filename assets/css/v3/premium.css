@@ -1480,3 +1480,12 @@
 @media (prefers-reduced-motion: reduce) {
   .es-sticky-cta { backdrop-filter: none; }
 }
+
+/* Five top-level nav items (Nov 2026): tighter gap and the short CTA label
+   until the header has room for the long one. */
+@media (min-width: 64rem) and (max-width: 87.499rem) {
+  .es-landing .es-header__nav,
+  .es-home .es-header__nav { gap: 1.25rem; }
+  .es-header__actions .es-header-cta-long { display: none; }
+  .es-header__actions .es-header-cta-short { display: inline; }
+}

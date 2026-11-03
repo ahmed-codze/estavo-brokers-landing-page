@@ -188,3 +188,10 @@
 }
 
 .mx-boundary__cta { display: flex; justify-content: center; margin-block-start: 2.75rem; }
+
+/* One-line pointer to the B2B data integration page (Nov 2026). */
+.mx-integrations-line { margin: 1.75rem auto 0; max-width: 46rem; text-align: center; color: var(--es-muted, #4a5b6e); font-size: .95rem; }
+.mx-integrations-line a { display: inline; padding: .7rem .25rem; color: #163e69; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Light eyebrows on navy: the global .es-landing eyebrow reset (estavo-v3.css) outranks .eyebrow.light. */
+.es-landing .eyebrow.light { color: var(--es-on-dark-muted); }

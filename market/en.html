@@ -67,7 +67,9 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/logo/Estavo%20Icon.png" />
     <link rel="manifest" href="../site.webmanifest" />
 
-    <link rel="stylesheet" href="../assets/css/market.css?v=4c0e780661" />
+    <link rel="stylesheet" href="../assets/css/market.css?v=911c717b29" />
+    <link rel="stylesheet" href="../assets/css/fx.css?v=1e92256c4d" />
+    <link rel="stylesheet" href="../assets/css/fx-site.css?v=412e62d9bd" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap" rel="stylesheet" />
@@ -1073,6 +1075,7 @@
     }
     .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(2) { animation-delay: 100ms; }
     .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(3) { animation-delay: 150ms; }
+    .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(4) { animation-delay: 200ms; }
     .es-home .es-drawer:not([hidden]) .es-drawer__foot { animation-delay: 200ms; }
   }
 
@@ -3352,15 +3355,24 @@
   }
 }
 
+
+/* Five top-level nav items (Nov 2026): tighter gap and the short CTA label
+   until the header has room for the long one. */
+@media (min-width: 64rem) and (max-width: 87.499rem) {
+  .es-landing .es-header__nav,
+  .es-home .es-header__nav { gap: 1.25rem; }
+  .es-header__actions .es-header-cta-long { display: none; }
+  .es-header__actions .es-header-cta-short { display: inline; }
+}
 </style>
 
-    <link rel="preload" as="style" href="../assets/css/estavo-v3.css?v=a02a40ffda"
+    <link rel="preload" as="style" href="../assets/css/estavo-v3.css?v=c6f4efff72"
         onload="this.onload=null;this.rel='stylesheet'" />
     <noscript>
-        <link rel="stylesheet" href="../assets/css/estavo-v3.css?v=a02a40ffda" />
+        <link rel="stylesheet" href="../assets/css/estavo-v3.css?v=c6f4efff72" />
     </noscript>
 </head>
-<body class="es es-landing es-route-market">
+<body class="es es-landing es-route-mk es-route-market">
 
     <a class="es-skip-link" href="#main">Skip to content</a>
 
@@ -3413,24 +3425,32 @@
 
         <div class="es-drawer__body">
             <div class="es-drawer__group">
-                <h2>Estavo Market</h2>
-                <a href="../market/en.html" aria-current="page">Market data and units</a>
-                <a href="../insights/en.html">Insights</a>
-                <a href="../guides/en/">Broker guides</a>
+                <h2>Market &amp; developers</h2>
+                <a href="../market/en.html" aria-current="page">Estavo Market</a>
+                <a href="../developers/en.html">Developers</a>
+                <a href="../roi/en.html">Cash or installments?</a>
+                <a href="../broker-ai/en.html">Ask Estavo</a>
             </div>
             <div class="es-drawer__group">
-                <h2>Your website</h2>
-                <a href="../websites/en.html">Site for brokers</a>
-                <a href="../enterprise/en.html">Site for companies</a>
+                <h2>Broker community</h2>
+                <a href="../insights/en.html">Market news</a>
+                <a href="../jobs/en.html">Jobs</a>
+                <a href="../challenges/en.html">Exclusive challenge</a>
+                <a href="../guides/en/">Selling tips</a>
+            </div>
+            <div class="es-drawer__group">
+                <h2>Your website &amp; marketing</h2>
+                <a href="../websites/en.html">Sites for brokers</a>
+                <a href="../enterprise/en.html">Sites for companies</a>
                 <a href="../ai/en.html">Client AI</a>
                 <a href="../marketing/en.html">Client understanding</a>
                 <a href="../meta/en.html">Meta connection</a>
                 <a href="../listings/en.html">Broker network</a>
+                <a href="../pricing/en.html">Website plans and pricing</a>
             </div>
             <div class="es-drawer__group">
-                <h2>More</h2>
-                <a href="../pricing/en.html">Pricing</a>
-                <a href="../integrations/en.html">Have a platform? Integrations</a>
+                <h2>For companies &amp; platforms</h2>
+                <a href="../integrations/en.html">Connect your platform to our data</a>
             </div>
         </div>
 
@@ -3465,9 +3485,15 @@
                     <p class="mk-hero__social"><strong>6,600+</strong> brokers registered on Estavo</p>
                 </div>
 
-                <figure class="mk-hero__stage">
-                    <picture class="mk-art mk-art--hero"><source media="(max-width: 47.999rem) and (prefers-reduced-motion: reduce)" srcset="/assets/img/market/hero-mobile-en-still.svg" width="360" height="640"><source media="(max-width: 47.999rem)" srcset="/assets/img/market/hero-mobile-en.svg" width="360" height="640"><source media="(prefers-reduced-motion: reduce)" srcset="/assets/img/market/hero-en-still.svg"><img src="../assets/img/market/hero-en.svg" width="720" height="610" alt="Example: the Estavo Market daily screen with market news, launches and project updates" fetchpriority="high" decoding="async"></picture>
-                </figure>
+                <div class="fxp-hero-art">
+<div class="fx-stage fx-stage--deck fx-stage--own-floor fxp-stage" aria-hidden="true">
+  <div class="fx-stage__art"><picture data-fx-swap="loop"><source media="(prefers-reduced-motion: reduce)" srcset="../assets/img/fx/market-hero-still.svg"><img src="../assets/img/fx/market-hero.svg" width="1200" height="900" alt="" decoding="async"></picture></div>
+  <span class="fx-stage__label fx-stage__label--above" style="--x:22.5%;--y:17.69%">Search projects</span>
+  <span class="fx-stage__label fx-stage__label--above" style="--x:50.0%;--y:11.03%">Compare</span>
+  <span class="fx-stage__label fx-stage__label--above" style="--x:77.5%;--y:17.69%">Market news</span>
+  <span class="fx-stage__label fx-stage__label--below" style="--x:50.0%;--y:88.89%">2,400+ projects</span>
+</div>
+</div>
             </div>
         </section>
 
@@ -3483,6 +3509,7 @@
                         <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#check"/></svg><b>New launches:</b> new offerings and phases from developers.</li>
                         <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#check"/></svg><b>Project and developer news</b> right on their pages, next to their data.</li>
                     </ul>
+                    <p class="mk-note">More on <a href="../insights/en.html" data-track="service_selected" data-position="market_daily_insights">market news</a> and <a href="../developers/en.html" data-track="service_selected" data-position="market_daily_developers">developer pages</a>.</p>
                     <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="mk-btn mk-btn--outline" data-track="market_opened" data-position="daily">Open Estavo Market free<svg class="mk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a>
                 </div>
                 <figure class="mk-daily__art" data-reveal><picture class="mk-art" data-mk-anim><source media="(max-width: 47.999rem)" srcset="/assets/img/market/daily-mobile-en-still.svg" width="360" height="540"><img src="../assets/img/market/daily-en-still.svg" width="560" height="490" alt="Example: the Estavo Daily market brief and new launches" loading="lazy" decoding="async"></picture></figure>
@@ -3505,8 +3532,8 @@
                         </ul>
                         <p class="mk-note">Figures from Estavo data as of 3 October 2026. Unit types are not necessarily units available to book right now.</p>
                         <ul class="mk-tools">
-                            <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#check"/></svg><b>Monthly installment</b> for every unit type.</li>
-                            <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#check"/></svg><b>Cash or installments?</b> A present-value (NPV) calculator.</li>
+                            <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#check"/></svg><b>Payment plans side by side</b>: down payment and quarterly installment.</li>
+                            <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#check"/></svg><b>Cash or installments?</b> A present-value (NPV) calculator. <a href="../roi/en.html" data-track="service_selected" data-position="market_tools_roi">How it works</a></li>
                         </ul>
                     </div>
 
@@ -3658,6 +3685,7 @@
                         <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#check"/></svg><b>Says when something isn't available</b> instead of guessing.</li>
                     </ul>
                     <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="mk-btn mk-btn--light mk-ai__cta" data-track="market_opened" data-position="ai">Open Estavo Market free<svg class="mk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a>
+                    <p class="mk-close__team" style="margin-block-start:1.25rem;padding-block-start:0;border-block-start:0"><a href="../broker-ai/en.html" data-track="service_selected" data-position="market_ai_more">More about Brokers AI</a></p>
                 </div>
 
                 <figure class="mk-chat" data-reveal><picture class="mk-art" data-mk-anim><source media="(max-width: 47.999rem)" srcset="/assets/img/market/chat-mobile-en-still.svg" width="360" height="749"><img src="../assets/img/market/chat-en-still.svg" width="540" height="874" alt="Example: a Brokers AI conversation about a client request" loading="lazy" decoding="async"></picture></figure>
@@ -3742,7 +3770,7 @@
                 <p class="mk-close__sub">What's new, data on 2,400+ projects, comparison tools and Brokers AI, in one place and free.</p>
                 <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="mk-btn mk-btn--light es-button--light" data-track="market_opened" data-position="close">Open Estavo Market free<svg class="mk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a>
                 <p class="mk-close__assure">No paid subscription · No cut of your commission · Search, comparison, Brokers AI and PDF offers</p>
-                <p class="mk-close__team">Running a broker team or a real-estate marketing company? <a href="../enterprise/en.html" data-track="service_selected" data-position="market_close_enterprise">See Estavo for companies</a></p>
+                <p class="mk-close__team">Also on Estavo: <a href="../developers/en.html" data-track="service_selected" data-position="market_close_developers">Developers</a> · <a href="../insights/en.html" data-track="service_selected" data-position="market_close_insights">Market&nbsp;news</a> · <a href="../roi/en.html" data-track="service_selected" data-position="market_close_roi">Cash&nbsp;or&nbsp;installments?</a> · <a href="../jobs/en.html" data-track="service_selected" data-position="market_close_jobs">Jobs</a><br>Running a broker team or a real-estate marketing company? <a href="../enterprise/en.html" data-track="service_selected" data-position="market_close_enterprise">See Estavo for companies</a></p>
             </div>
         </section>
 
@@ -3778,8 +3806,8 @@
                     <img src="../assets/logo/Estavo%20Inverted%20full%20word%20logo.png" alt="Estavo"
                         width="4884" height="4884" loading="lazy" decoding="async" />
                     <p class="es-footer__tagline">
-                        Two products on one data foundation: Estavo Market for broker work,
-                        and Estavo Sites to present it under your brand.
+                        The professional home for Egypt's brokers: market and developer data,
+                        news, jobs and challenges, and an AI assistant for your work.
                     </p>
                     <p class="es-footer__tagline">The next generation of real-estate business.</p>
 
@@ -3800,25 +3828,30 @@
                 </div>
 
                 <div>
-                    <h2>Products</h2>
-                    <nav class="es-footer__links" aria-label="Service links">
+                    <h2>Market &amp; community</h2>
+                    <nav class="es-footer__links" aria-label="Market and community links">
                         <a href="../market/en.html">Estavo Market</a>
-                        <a href="../websites/en.html">Estavo Sites for brokers</a>
-                        <a href="../enterprise/en.html">Estavo Sites for companies</a>
-                        <a href="../ai/en.html">Client AI</a>
-                        <a href="../meta/en.html">Meta connection</a>
-                        <a href="../listings/en.html">Broker network</a>
+                        <a href="../developers/en.html">Developers</a>
+                        <a href="../roi/en.html">Cash or installments?</a>
+                        <a href="../broker-ai/en.html">Ask Estavo</a>
+                        <a href="../insights/en.html">Market news</a>
+                        <a href="../jobs/en.html">Jobs</a>
+                        <a href="../challenges/en.html">Exclusive challenge</a>
+                        <a href="../guides/en/">Selling tips</a>
                     </nav>
                 </div>
 
                 <div>
-                    <h2>Company</h2>
-                    <nav class="es-footer__links" aria-label="Company links">
-                        <a href="../integrations/en.html">Existing-platform integration</a>
-                        <a href="../pricing/en.html">Pricing</a>
-                        <a href="../insights/en.html">Insights</a>
-                        <a href="../marketing/en.html">Buyers &amp; marketing</a>
-                        <a href="../examples/en.html">Examples</a>
+                    <h2>Website &amp; marketing</h2>
+                    <nav class="es-footer__links" aria-label="Website links">
+                        <a href="../websites/en.html">Sites for brokers</a>
+                        <a href="../enterprise/en.html">Sites for companies</a>
+                        <a href="../ai/en.html">Client AI</a>
+                        <a href="../marketing/en.html">Client understanding</a>
+                        <a href="../meta/en.html">Meta connection</a>
+                        <a href="../listings/en.html">Broker network</a>
+                        <a href="../pricing/en.html">Website plans and pricing</a>
+                        <a href="../integrations/en.html">Data integrations</a>
                     </nav>
                 </div>
 
@@ -3846,9 +3879,10 @@
         </div>
     </footer>
 
-    <script src="../assets/js/referral.js?v=781ea94124" defer></script>
+    <script src="../assets/js/referral.js?v=2148998f84" defer></script>
     <script src="../assets/js/market-landing.js?v=9e58f3c06b" defer></script>
-    <script src="../assets/js/v3/estavo-v3.js?v=e26608a3f2" defer></script>
+    <script src="../assets/js/fx.js?v=c9c2a47a2d" defer></script>
+    <script src="../assets/js/v3/estavo-v3.js?v=bb425e08c2" defer></script>
 </body>
 
 </html>

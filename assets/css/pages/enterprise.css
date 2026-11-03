@@ -259,3 +259,6 @@
   .co-steps,
   .co-output__grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Light eyebrows on navy: the global .es-landing eyebrow reset (estavo-v3.css) outranks .eyebrow.light. */
+.es-landing .eyebrow.light { color: var(--es-on-dark-muted); }

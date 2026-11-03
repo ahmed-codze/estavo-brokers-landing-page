@@ -236,14 +236,14 @@
 [dir="ltr"] .es-landing .mk .mk-btn:hover .mk-arrow { transform: scaleX(-1) translateX(-3px); }
 
 /* Header and drawer action use the page's action blue. */
-.es-route-market .es-header .es-button--primary,
-.es-route-market .es-drawer .es-button--primary {
+.es-route-mk .es-header .es-button--primary,
+.es-route-mk .es-drawer .es-button--primary {
   border-color: #163e69;
   background: #163e69;
   color: #fff;
 }
-.es-route-market .es-header .es-button--primary:hover,
-.es-route-market .es-drawer .es-button--primary:hover { border-color: #1d5189; background: #1d5189; }
+.es-route-mk .es-header .es-button--primary:hover,
+.es-route-mk .es-drawer .es-button--primary:hover { border-color: #1d5189; background: #1d5189; }
 .es-route-market .es-header__nav a[href^="#"] { white-space: nowrap; }
 
 /* ══ 1 · HERO ═══════════════════════════════════════════════ */

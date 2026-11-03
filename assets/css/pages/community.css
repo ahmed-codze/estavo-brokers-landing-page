@@ -1,0 +1,313 @@
+/* ============================================================
+   Broker community pages — shared layer (Nov 2026)
+
+   Loaded after market.css on /developers/, /roi/, /jobs/,
+   /challenges/, /broker-ai/, /insights/ and /integrations/.
+   Those pages reuse the Market system (.mk-hero, .mk-h2,
+   .mk-lead, .mk-btn, .mk-checks, .mk-faq, .mk-close …) and add
+   the generic pieces below (.cm-*). Page-specific visuals live
+   in pages/<route>.css.
+
+   Rules carried over from market.css:
+   - selectors start at `.es-landing .mk` / `.es-landing .cm-…`;
+   - never make an element holding text + <bdi> a flex/grid
+     container (spaces collapse) — position icons instead;
+   - only transform/opacity animate, and only with
+     prefers-reduced-motion: no-preference.
+   ============================================================ */
+
+/* ── Sections ──────────────────────────────────────────────── */
+.es-landing .cm-sec {
+  padding-block: var(--mk-pad);
+  background: var(--mk-white);
+  border-block-end: 1px solid var(--mk-line);
+}
+.es-landing .cm-sec--soft { background: var(--mk-blue-soft); }
+.es-landing .cm-sec--mist { background: var(--mk-mist); }
+.es-landing .cm-sec--navy {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60rem 30rem at 85% -10%, rgb(71 116 154 / 34%), transparent 60%),
+    radial-gradient(40rem 24rem at 0% 110%, rgb(22 62 105 / 55%), transparent 65%),
+    var(--mk-band);
+  color: var(--mk-on-dark);
+  border-block-end: 0;
+}
+.es-landing .cm-sec--navy::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 4%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 4%) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(70% 80% at 50% 40%, #000 30%, transparent 85%);
+  pointer-events: none;
+}
+.es-landing .cm-sec--navy > * { position: relative; }
+.es-landing .mk .cm-sec--navy :is(.mk-h2, h3) { color: #fff; }
+.es-landing .mk .cm-sec--navy .mk-lead { color: var(--mk-on-dark-2); }
+.es-landing .mk .cm-sec--navy .mk-eyebrow { color: #9fc0de; }
+
+/* Centered heading block */
+.es-landing .mk .cm-head {
+  max-inline-size: 46rem;
+  margin-inline: auto;
+  margin-block-end: clamp(2rem, 4vw, 3.25rem);
+  text-align: center;
+}
+.es-landing .mk .cm-head .mk-lead { margin-inline: auto; }
+
+/* ── Copy + figure split ───────────────────────────────────── */
+.es-landing .cm-split {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+@media (min-width: 64rem) {
+  .es-landing .cm-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+  .es-landing .cm-split--flip > :first-child { order: 2; }
+  .es-landing .cm-split--wide { grid-template-columns: minmax(0, .9fr) minmax(0, 1.3fr); }
+}
+@media (max-width: 47.999rem) {
+  .es-landing .mk .cm-split .mk-btn { inline-size: 100%; min-block-size: 3.25rem; }
+}
+
+/* ── Product window (live HTML mock) ───────────────────────── */
+.es-landing .mk .cm-window {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--mk-blue-line);
+  border-radius: var(--mk-r-lg);
+  background: var(--mk-white);
+  box-shadow: var(--mk-shadow-lg);
+  text-align: start;
+}
+.es-landing .mk .cm-window__bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  min-block-size: 2.6rem;
+  padding: .55rem 1rem;
+  border-block-end: 1px solid var(--mk-line);
+  background: linear-gradient(180deg, #fff, var(--mk-blue-soft));
+  color: var(--mk-ink-3);
+  font-size: .8125rem;
+  direction: ltr;
+}
+.es-landing .mk .cm-window__bar > i {
+  inline-size: .6rem; block-size: .6rem;
+  border-radius: 50%;
+  background: var(--mk-blue-line);
+}
+.es-landing .mk .cm-window__bar > span {
+  margin-inline: auto;
+  padding: .15rem .8rem;
+  border: 1px solid var(--mk-line);
+  border-radius: 999px;
+  background: #fff;
+  white-space: nowrap;
+}
+.es-landing .mk .cm-window__body { padding: clamp(1rem, 2.4vw, 1.5rem); }
+
+/* The «مثال توضيحي» / "Example" label every example surface carries. */
+.es-landing .mk .cm-example {
+  position: absolute;
+  inset-block-start: .55rem;
+  inset-inline-end: .75rem;
+  z-index: 2;
+  padding: .15rem .6rem;
+  border: 1px solid var(--mk-blue-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--mk-blue-mid);
+  font-size: .75rem;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.es-landing .mk .cm-window > .cm-example { inset-block-start: .5rem; }
+
+/* ── Cards ─────────────────────────────────────────────────── */
+.es-landing .mk .cm-cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+}
+.es-landing .mk .cm-card {
+  position: relative;
+  padding: 1.5rem;
+  border: 1px solid var(--mk-line);
+  border-radius: var(--mk-r);
+  background: var(--mk-white);
+  box-shadow: var(--mk-shadow);
+}
+.es-landing .mk .cm-sec--navy .cm-card {
+  border-color: var(--mk-line-dark);
+  background: rgb(255 255 255 / 5%);
+  box-shadow: none;
+  backdrop-filter: blur(6px);
+}
+.es-landing .mk .cm-card h3 {
+  margin-block: .875rem .5rem;
+  color: var(--mk-ink);
+  font-size: 1.1875rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.es-landing .mk .cm-sec--navy .cm-card h3 { color: #fff; }
+.es-landing .mk .cm-card p { color: var(--mk-ink-2); line-height: 1.75; }
+.es-landing .mk .cm-sec--navy .cm-card p { color: var(--mk-on-dark-2); }
+.es-landing .mk .cm-ico-tile {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 2.75rem; block-size: 2.75rem;
+  border-radius: 12px;
+  background: var(--mk-blue-soft);
+  color: var(--mk-blue);
+}
+.es-landing .mk .cm-sec--navy .cm-ico-tile { background: rgb(255 255 255 / 9%); color: #cfe0f0; }
+.es-landing .mk .cm-ico-tile .mk-ico { inline-size: 1.375rem; block-size: 1.375rem; }
+
+/* ── Numbered steps ────────────────────────────────────────── */
+.es-landing .mk .cm-steps {
+  display: grid;
+  gap: 1rem;
+  counter-reset: cm-step;
+}
+@media (min-width: 56rem) {
+  .es-landing .mk .cm-steps { grid-template-columns: repeat(var(--cm-cols, 3), minmax(0, 1fr)); }
+}
+.es-landing .mk .cm-steps > li {
+  position: relative;
+  padding: 1.375rem 1.375rem 1.375rem;
+  padding-block-start: 3.5rem;
+  border: 1px solid var(--mk-line);
+  border-radius: var(--mk-r);
+  background: var(--mk-white);
+  counter-increment: cm-step;
+}
+.es-landing .mk .cm-steps > li::before {
+  content: counter(cm-step);
+  position: absolute;
+  inset-block-start: 1.125rem;
+  inset-inline-start: 1.375rem;
+  display: grid;
+  place-items: center;
+  inline-size: 1.875rem; block-size: 1.875rem;
+  border-radius: 50%;
+  background: var(--mk-blue);
+  color: #fff;
+  font-size: .875rem;
+  font-weight: 600;
+}
+.es-landing .mk .cm-steps h3 { margin-block-end: .4rem; font-size: 1.0625rem; font-weight: 600; line-height: 1.5; }
+.es-landing .mk .cm-steps p { color: var(--mk-ink-2); line-height: 1.7; }
+
+/* ── Honest scope: what it does / does not do ─────────────── */
+.es-landing .mk .cm-scope {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 56rem) { .es-landing .mk .cm-scope { grid-template-columns: 1fr 1fr; } }
+.es-landing .mk .cm-scope > div {
+  padding: 1.5rem;
+  border: 1px solid var(--mk-line);
+  border-radius: var(--mk-r);
+  background: var(--mk-white);
+}
+.es-landing .mk .cm-scope > .cm-scope__no { background: var(--mk-mist); }
+.es-landing .mk .cm-scope h3 { margin-block-end: .875rem; font-size: 1.0625rem; font-weight: 600; }
+.es-landing .mk .cm-scope li {
+  position: relative;
+  padding-inline-start: 1.75rem;
+  color: var(--mk-ink-2);
+  line-height: 1.7;
+}
+.es-landing .mk .cm-scope li + li { margin-block-start: .5rem; }
+.es-landing .mk .cm-scope li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: .2rem;
+  inset-block-start: .55em;
+  inline-size: .7rem; block-size: .4rem;
+  border-inline-start: 2px solid var(--mk-blue);
+  border-block-end: 2px solid var(--mk-blue);
+  transform: rotate(-45deg);
+}
+[dir="rtl"] .es-landing .mk .cm-scope li::before { transform: rotate(45deg) scaleX(-1); }
+.es-landing .mk .cm-scope__no li::before {
+  inline-size: .6rem; block-size: 2px;
+  inset-block-start: .8em;
+  border: 0;
+  background: var(--mk-ink-3);
+  transform: none;
+}
+[dir="rtl"] .es-landing .mk .cm-scope__no li::before { transform: none; }
+
+/* ── Related destinations (cross-links between pillars) ───── */
+.es-landing .mk .cm-related {
+  display: grid;
+  gap: .75rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+}
+.es-landing .mk .cm-related a {
+  position: relative;
+  display: block;
+  padding: 1.125rem 1.25rem;
+  padding-inline-end: 2.75rem;
+  border: 1px solid var(--mk-line);
+  border-radius: var(--mk-r);
+  background: var(--mk-white);
+  color: var(--mk-ink);
+  text-decoration: none;
+  transition: border-color .2s var(--mk-ease), transform .2s var(--mk-ease), box-shadow .2s var(--mk-ease);
+}
+.es-landing .mk .cm-related a::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: 1.125rem;
+  inset-block-start: 50%;
+  inline-size: .5rem; block-size: .5rem;
+  border-block-start: 2px solid var(--mk-blue);
+  border-inline-end: 2px solid var(--mk-blue);
+  transform: translateY(-50%) rotate(45deg);
+}
+[dir="rtl"] .es-landing .mk .cm-related a::after { transform: translateY(-50%) rotate(-45deg); }
+.es-landing .mk .cm-related b { display: block; font-weight: 600; }
+.es-landing .mk .cm-related small { display: block; margin-block-start: .2rem; color: var(--mk-ink-3); font-size: .875rem; line-height: 1.55; }
+@media (hover: hover) {
+  .es-landing .mk .cm-related a:hover { border-color: var(--mk-blue-line); box-shadow: var(--mk-shadow); transform: translateY(-2px); }
+}
+.es-landing .mk .cm-related a:focus-visible { outline: 3px solid var(--mk-blue); outline-offset: 2px; }
+
+/* ── Small pieces ──────────────────────────────────────────── */
+.es-landing .mk .cm-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.es-landing .mk .cm-chip {
+  display: inline-block;
+  padding: .3rem .75rem;
+  border: 1px solid var(--mk-blue-line);
+  border-radius: 999px;
+  background: var(--mk-white);
+  color: var(--mk-ink-2);
+  font-size: .8125rem;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.es-landing .mk .cm-chip.is-on { border-color: var(--mk-blue); background: var(--mk-blue); color: #fff; }
+
+/* Live/source/date meta line */
+.es-landing .mk .cm-meta { color: var(--mk-ink-3); font-size: .8125rem; line-height: 1.5; }
+
+/* Phone: windows never cause horizontal scroll */
+@media (max-width: 47.999rem) {
+  .es-landing .mk .cm-window { border-radius: var(--mk-r); }
+  .es-landing .mk .cm-window__bar > span { overflow: hidden; text-overflow: ellipsis; max-inline-size: 70%; }
+}
+
+@media print {
+  .es-landing .cm-sec--navy { background: #fff; color: #000; }
+  .es-landing .cm-sec--navy::before { display: none; }
+}

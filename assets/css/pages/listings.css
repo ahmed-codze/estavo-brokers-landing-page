@@ -189,3 +189,10 @@
      the content is visible whether or not this ever runs. */
   .has-js .net-flow[data-reveal] .net-output { transition: opacity var(--es-speed-reveal) var(--es-ease), translate var(--es-speed-reveal) var(--es-ease); }
 }
+
+/* Link from the network journey to the broker community (Nov 2026). */
+.net-journey__more { margin: 1.25rem auto 0; max-inline-size: 40rem; text-align: center; color: var(--es-ink-72, #4a5b6e); font-size: .9rem; line-height: 1.7; }
+.net-journey__more a { display: inline; padding-block: .7rem; color: var(--es-blue-700, #163e69); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Light eyebrows on navy: the global .es-landing eyebrow reset (estavo-v3.css) outranks .eyebrow.light. */
+.es-landing .eyebrow.light { color: var(--es-on-dark-muted); }

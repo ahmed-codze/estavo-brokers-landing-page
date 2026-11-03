@@ -35,8 +35,8 @@
     <meta name="theme-color" content="#fafcff" />
     <meta name="author" content="Estavo" />
 
-    <title>أخبار وتحليلات السوق — إستاڤو</title>
-    <meta name="description" content="تابع أخبار المطورين وإطلاقات المشاريع والتحديثات والتقارير، واستخدم معلومات السوق المناسبة مجانًا في Estavo Market." />
+    <title>جديد السوق العقاري والإطلاقات كل يوم — إستاڤو</title>
+    <meta name="description" content="موجز إستاڤو ديلي لأخبار السوق العقاري، وإطلاقات المطورين الجديدة، وأخبار كل مشروع ومطور جنب بياناته. للبروكرز في مصر." />
 
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
@@ -46,8 +46,8 @@
     <link rel="alternate" hreflang="x-default" href="https://estavo-brokers.com/insights/" />
 
     <meta property="og:site_name" content="Estavo" />
-    <meta property="og:title" content="أخبار وتحليلات السوق — إستاڤو" />
-    <meta property="og:description" content="تابع أخبار المطورين وإطلاقات المشاريع والتحديثات والتقارير، واستخدم معلومات السوق المناسبة مجانًا في Estavo Market." />
+    <meta property="og:title" content="جديد السوق العقاري والإطلاقات كل يوم — إستاڤو" />
+    <meta property="og:description" content="موجز إستاڤو ديلي لأخبار السوق العقاري، وإطلاقات المطورين الجديدة، وأخبار كل مشروع ومطور جنب بياناته. للبروكرز في مصر." />
     <meta property="og:image" content="https://estavo-brokers.com/assets/og/og-ar.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -58,8 +58,8 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@estavospace" />
-    <meta name="twitter:title" content="أخبار وتحليلات السوق — إستاڤو" />
-    <meta name="twitter:description" content="تابع أخبار المطورين وإطلاقات المشاريع والتحديثات والتقارير، واستخدم معلومات السوق المناسبة مجانًا في Estavo Market." />
+    <meta name="twitter:title" content="جديد السوق العقاري والإطلاقات كل يوم — إستاڤو" />
+    <meta name="twitter:description" content="موجز إستاڤو ديلي لأخبار السوق العقاري، وإطلاقات المطورين الجديدة، وأخبار كل مشروع ومطور جنب بياناته. للبروكرز في مصر." />
     <meta name="twitter:image" content="https://estavo-brokers.com/assets/og/og-ar.jpg" />
 
     <link rel="icon" type="image/png" sizes="32x32" href="../assets/logo/Estavo%20Icon.png" />
@@ -67,7 +67,11 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/logo/Estavo%20Icon.png" />
     <link rel="manifest" href="../site.webmanifest" />
 
-
+    <link rel="stylesheet" href="../assets/css/market.css?v=911c717b29" />
+    <link rel="stylesheet" href="../assets/css/pages/community.css?v=43e793b6bd" />
+    <link rel="stylesheet" href="../assets/css/pages/insights.css?v=81306cbb2c" />
+    <link rel="stylesheet" href="../assets/css/fx.css?v=1e92256c4d" />
+    <link rel="stylesheet" href="../assets/css/fx-site.css?v=412e62d9bd" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap" rel="stylesheet" />
@@ -1073,6 +1077,7 @@
     }
     .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(2) { animation-delay: 100ms; }
     .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(3) { animation-delay: 150ms; }
+    .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(4) { animation-delay: 200ms; }
     .es-home .es-drawer:not([hidden]) .es-drawer__foot { animation-delay: 200ms; }
   }
 
@@ -3352,15 +3357,24 @@
   }
 }
 
+
+/* Five top-level nav items (Nov 2026): tighter gap and the short CTA label
+   until the header has room for the long one. */
+@media (min-width: 64rem) and (max-width: 87.499rem) {
+  .es-landing .es-header__nav,
+  .es-home .es-header__nav { gap: 1.25rem; }
+  .es-header__actions .es-header-cta-long { display: none; }
+  .es-header__actions .es-header-cta-short { display: inline; }
+}
 </style>
 
-    <link rel="preload" as="style" href="../assets/css/estavo-v3.css?v=a02a40ffda"
+    <link rel="preload" as="style" href="../assets/css/estavo-v3.css?v=c6f4efff72"
         onload="this.onload=null;this.rel='stylesheet'" />
     <noscript>
-        <link rel="stylesheet" href="../assets/css/estavo-v3.css?v=a02a40ffda" />
+        <link rel="stylesheet" href="../assets/css/estavo-v3.css?v=c6f4efff72" />
     </noscript>
 </head>
-<body class="es es-landing">
+<body class="es es-landing es-route-mk">
 
     <a class="es-skip-link" href="#main">تخطَّ إلى المحتوى</a>
 
@@ -3375,12 +3389,39 @@
             </a>
 
             <nav class="es-header__nav" aria-label="القائمة الرئيسية">
-                <a href="../market/"><bdi>Estavo Market</bdi></a>
-
                 <span class="es-menu" data-menu>
                     <button type="button" class="es-header__disclosure" data-menu-trigger
                         aria-expanded="false" aria-haspopup="true">
-                        موقعك
+                        السوق
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                            stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+                    </button>
+                    <span class="es-menu__panel es-menu__panel--grouped" data-menu-panel hidden>
+                        <span class="es-menu__label">السوق والمطورين</span>
+                        <a href="../market/"><b><bdi>Estavo Market</bdi></b><small>المشاريع والوحدات والأسعار وأنظمة السداد.</small></a>
+                        <a href="../developers/"><b>المطورين</b><small>اعرف المطوّر ومشاريعه وأخباره.</small></a>
+                        <a href="../roi/"><b>كاش ولا تقسيط؟</b><small>حسابات أنظمة السداد بالأرقام.</small></a>
+                    </span>
+                </span>
+                <span class="es-menu" data-menu>
+                    <button type="button" class="es-header__disclosure" data-menu-trigger
+                        aria-expanded="false" aria-haspopup="true">
+                        مجتمع البروكرز
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                            stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+                    </button>
+                    <span class="es-menu__panel es-menu__panel--grouped" data-menu-panel hidden>
+                        <span class="es-menu__label">كل يوم في شغلك</span>
+                        <a href="../insights/" aria-current="page"><b>جديد السوق</b><small>أخبار وإطلاقات المطورين.</small></a>
+                        <a href="../jobs/"><b>الوظائف</b><small>فرص شغل في القطاع العقاري.</small></a>
+                        <a href="../challenges/"><b>تحدّي إكسكلوسيف</b><small>العب واختبر معلوماتك في السوق.</small></a>
+                        <a href="../guides/"><b>نصايح البيع</b><small>أدلة عملية تساعدك تبيع أكتر.</small></a>
+                    </span>
+                </span>
+                <span class="es-menu" data-menu>
+                    <button type="button" class="es-header__disclosure" data-menu-trigger
+                        aria-expanded="false" aria-haspopup="true">
+                        موقعك وتسويقك
                         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
                             stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
                     </button>
@@ -3391,26 +3432,24 @@
                         <span class="es-menu__label">إمكانيات تضيفها</span>
                         <a href="../ai/"><b><bdi>Client AI</bdi></b><small>مساعد لعملاء موقعك.</small></a>
                         <a href="../marketing/"><b>فهم العميل</b><small>اعرف طلبه قبل المكالمة.</small></a>
-                        <a href="../meta/"><b>ربط <bdi>Meta</bdi></b><small>أحداث موقعك في حسابك.</small></a>
+                        <a href="../meta/"><b>ربط <bdi>Meta</bdi></b><small>أحداث موقعك في حسابك.</small></a>
                         <a href="../listings/"><b>شبكة البروكرز</b><small>وزّع وحداتك مع تحكمك في العمولة.</small></a>
                         <span class="es-menu__foot">
-                            <a href="../integrations/">عندك منصة؟ الربط بمنصتك</a>
+                            <a href="../pricing/">أسعار وباقات المواقع</a>
                         </span>
                     </span>
                 </span>
-
-                <a href="../insights/" aria-current="page">أخبار وتحليلات</a>
-                <a href="../guides/">أدلة البروكر</a>
-                <a href="../pricing/">الأسعار</a>
+                <a href="../integrations/">ربط الداتا</a>
+                <a href="../broker-ai/">اسأل إستاڤو</a>
             </nav>
 
             <div class="es-header__actions">
                 <a href="en.html" hreflang="en" lang="en" class="es-header__lang"
                     aria-label="Switch to English" title="Switch to English">EN</a>
-                <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market"
-                    class="es-button es-button--primary" data-track="market_opened" data-position="header">
-                    <span class="es-header-cta-long">تصفح السوق مجانًا</span>
-                    <span class="es-header-cta-short">تصفح السوق</span>
+                <a href="https://brokers.estavo.space/register?redirect=%2Festavo-daily"
+                    class="es-button es-button--primary" data-track="daily_opened" data-keep-path data-position="header">
+                    <span class="es-header-cta-long">تابع جديد السوق</span>
+                    <span class="es-header-cta-short">جديد السوق</span>
                 </a>
                 <button type="button" class="es-header__burger" data-drawer-open
                     aria-expanded="false" aria-label="افتح القائمة">
@@ -3435,181 +3474,326 @@
 
         <div class="es-drawer__body">
             <div class="es-drawer__group">
-                <h2><bdi>Estavo Market</bdi></h2>
-                <a href="../market/">داتا ووحدات السوق</a>
-                <a href="../insights/" aria-current="page">أخبار وتحليلات</a>
-                <a href="../guides/">أدلة البروكر</a>
+                <h2>السوق والمطورين</h2>
+                <a href="../market/"><bdi>Estavo Market</bdi></a>
+                <a href="../developers/">المطورين</a>
+                <a href="../roi/">كاش ولا تقسيط؟</a>
+                <a href="../broker-ai/">اسأل إستاڤو</a>
             </div>
             <div class="es-drawer__group">
-                <h2>موقعك</h2>
+                <h2>مجتمع البروكرز</h2>
+                <a href="../insights/" aria-current="page">جديد السوق</a>
+                <a href="../jobs/">الوظائف</a>
+                <a href="../challenges/">تحدّي إكسكلوسيف</a>
+                <a href="../guides/">نصايح البيع</a>
+            </div>
+            <div class="es-drawer__group">
+                <h2>موقعك وتسويقك</h2>
                 <a href="../websites/">موقع للبروكر</a>
                 <a href="../enterprise/">موقع للشركة</a>
                 <a href="../ai/"><bdi>Client AI</bdi></a>
                 <a href="../marketing/">فهم العميل</a>
-                <a href="../meta/">ربط <bdi>Meta</bdi></a>
+                <a href="../meta/">ربط <bdi>Meta</bdi></a>
                 <a href="../listings/">شبكة البروكرز</a>
+                <a href="../pricing/">أسعار وباقات المواقع</a>
             </div>
             <div class="es-drawer__group">
-                <h2>أكتر</h2>
-                <a href="../pricing/">الأسعار</a>
-                <a href="../integrations/">عندك منصة؟ الربط بمنصتك</a>
+                <h2>للشركات والمنصات</h2>
+                <a href="../integrations/">ربط الداتا بمنصتك</a>
             </div>
         </div>
 
         <div class="es-drawer__foot">
-            <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market"
-                class="es-button es-button--primary" data-track="market_opened" data-position="drawer">
-                تصفح السوق مجانًا
+            <a href="https://brokers.estavo.space/register?redirect=%2Festavo-daily"
+                class="es-button es-button--primary" data-track="daily_opened" data-keep-path data-position="drawer">
+                تابع جديد السوق
             </a>
         </div>
     </div>
 
     <main id="main">
-        <!-- ══════════════════════════════════════════════════
-             INSIGHTS — Arabic
-             §7.8: use actual editorial inventory. No invented
-             developer announcements, launch dates or reports.
-             With no approved articles available, this ships as
-             an honest index with a real empty state and the
-             filter/read action the plan permits — never a
-             "follow this city" subscription that does not exist.
-             ══════════════════════════════════════════════════ -->
-        <section class="es-hero es-service-hero" aria-labelledby="hero-h">
-            <div class="es-container">
-                <div class="es-hero__copy">
-                    <span class="es-eyebrow">أخبار وتحليلات السوق</span>
-                    <h1 id="hero-h">تابع جديد المشاريع والمناطق اللي بتشتغل فيها.</h1>
-                    <p class="es-lead">
-                        أخبار المطورين وإطلاقات المشاريع وتحديثات السوق، مع تاريخ
-                        ومصدر واضح لكل مادة منشورة.
-                    </p>
-                    <div class="es-cluster es-cluster--actions">
-                        <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-button es-button--primary"
-                            data-track="market_opened" data-position="hero">استخدم <bdi>Estavo Market</bdi> مجانًا</a>
+        <div class="mk ns" data-mk>
+
+        <!-- ══ 1 · HERO — the Estavo Daily front page, as the broker opens it ══
+             Product truth (app src/modules/user/news-daily, launches, entity-news;
+             API User/NewsDailyController, User/LaunchController — 3 Nov 2026):
+             Estavo Daily = generated headline + short summary, section, linked
+             cities/developers/projects, outlet names + links to the original
+             article (never the scraped text), EGX real-estate stocks strip.
+             Launches = published, last 90 days, newest first (/launches shows the newest 8: API default limit). Sign-in + phone
+             verification required; no public feed. -->
+        <section class="mk-hero ns-hero" id="hero" aria-labelledby="hero-heading">
+            <div class="mk-wrap mk-hero__grid">
+                <div class="mk-hero__copy">
+                    <p class="mk-eyebrow"><span class="mk-eyebrow__dot" aria-hidden="true"></span>جديد السوق · إستاڤو ديلي والإطلاقات</p>
+                    <h1 class="mk-hero__title" id="hero-heading">اعرف اللي حصل في السوق النهارده. <span>قبل ما عميلك يسألك.</span></h1>
+                    <p class="mk-hero__lead">موجز يومي بأخبار العقار والاقتصاد مختارة للبروكرز، وإطلاقات المطورين الجديدة، وأخبار المشروع جنب بياناته.</p>
+                    <div class="mk-hero__actions">
+                        <a href="https://brokers.estavo.space/register?redirect=%2Festavo-daily" class="mk-btn mk-btn--primary es-button--primary" data-keep-path data-track="daily_opened" data-position="hero">افتح إستاڤو ديلي مجانًا<svg class="mk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a>
+                        <a href="https://brokers.estavo.space/register?redirect=%2Flaunches" class="mk-btn mk-btn--ghost" data-keep-path data-track="daily_opened" data-position="hero_launches">شوف الإطلاقات الجديدة</a>
                     </div>
+                    <ul class="mk-assure" aria-label="الدخول على جديد السوق">
+                        <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#check"/></svg>تسجيل مجاني بتأكيد رقم موبايلك</li>
+                        <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#check"/></svg>مجاني بالكامل حاليًا</li>
+                        <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#check"/></svg>كل خبر معاه مصادره</li>
+                    </ul>
                 </div>
-            <div class="es-service-hero-art es-service-hero-art--diagram" aria-hidden="true"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="/assets/img/estavo-roi-breakdown-still.svg" type="image/svg+xml" /><img src="../assets/img/estavo-roi-breakdown-still.svg" width="1024" height="640" alt="" decoding="async" fetchpriority="high" /></picture><div class="es-service-hero-mobile"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="/assets/img/estavo-roi-breakdown-mobile-still.svg" type="image/svg+xml" /><img src="../assets/img/estavo-roi-breakdown-mobile-still.svg" width="390" height="430" alt="" decoding="async" /></picture></div></div></div>
+
+                <div class="fxp-hero-art">
+<div class="fx-stage fx-stage--deck fx-stage--own-floor fxp-stage" aria-hidden="true">
+  <div class="fx-stage__art"><picture data-fx-swap="loop"><source media="(prefers-reduced-motion: reduce)" srcset="../assets/img/fx/insights-hero-rtl-still.svg"><img src="../assets/img/fx/insights-hero-rtl.svg" width="1200" height="900" alt="" decoding="async"></picture></div>
+  <span class="fx-stage__label fx-stage__label--above" style="--x:70.0%;--y:47.22%">ملخص <span dir="ltr">Estavo Daily</span></span>
+  <span class="fx-stage__label fx-stage__label--above" style="--x:29.17%;--y:30.7%">إطلاق جديد</span>
+  <span class="fx-stage__label fx-stage__label--above" style="--x:69.17%;--y:11.88%">صفحة المشروع</span>
+  <span class="fx-stage__label fx-stage__label--below" style="--x:50.0%;--y:88.89%">بيتجدد كل يوم</span>
+</div>
+</div>
+            </div>
         </section>
 
-        <section class="es-section es-section--mist" aria-labelledby="filters-h">
-            <div class="es-container">
-                <div class="es-copy es-copy--center" data-reveal>
-                    <span class="es-eyebrow">الفلاتر</span>
-                    <h2 id="filters-h" class="es-tagline-reveal" data-word-reveal><span class="es-tagline-line">الأخبار هتظهر هنا بالمصدر وتاريخ النشر.</span></h2>
+        <!-- ══ 2 · ESTAVO DAILY — one brief, in sections, every story sourced ══ -->
+        <section class="cm-sec ns-daily" id="daily" aria-labelledby="daily-heading">
+            <div class="mk-wrap">
+                <div class="mk-head mk-head--split" data-reveal>
+                    <div>
+                        <p class="mk-eyebrow">إستاڤو ديلي</p>
+                        <h2 class="mk-h2" id="daily-heading">موجز واحد كل يوم. متقسّم، ومختصر، وبمصادره.</h2>
+                    </div>
+                    <p class="mk-lead">بنختار أخبار العقار والاقتصاد اللي تفرق في شغل البروكر، ونلخص كل خبر في سطرين، ونرتبها في أقسام، والأهم الأول.</p>
                 </div>
 
-                <div class="es-container--theatre es-mt-8" data-reveal>
-                    <div class="es-panel es-panel--pad">
-                        <div class="es-grid-4">
-                            <div class="es-field">
-                                <label for="n-city">المدينة</label>
-                                <select class="es-select" id="n-city"><option>كل المدن</option></select>
+                <div class="ns-daily__grid">
+                    <div class="ns-index" data-reveal>
+                        <p class="ns-index__title">أقسام الموجز</p>
+                        <ol class="ns-index__list">
+                            <li><b>السوق والاقتصاد</b><span>الفايدة والتمويل والمؤشرات اللي بتأثر على قرار الشراء.</span></li>
+                            <li><b>أخبار المطوّرين</b><span>تحركات الشركات وشراكاتها ومشاريعها.</span></li>
+                            <li><b>إطلاقات</b><span>مشاريع ومراحل جديدة بتنزل السوق.</span></li>
+                            <li><b>قرارات حكومية</b><span>قرارات وإجراءات بتخص العقار.</span></li>
+                            <li><b>بنية تحتية</b><span>طرق ومواصلات ومرافق حوالين المناطق.</span></li>
+                            <li><b>ضيافة وسياحة</b><span>الفنادق والمشروعات السياحية.</span></li>
+                            <li><b>أخبار عامة</b><span>أي خبر تاني يهمك تعرفه.</span></li>
+                        </ol>
+                    </div>
+
+                    <figure class="ns-anat" data-reveal>
+                        <div class="ns-story">
+                            <span class="cm-example">مثال توضيحي</span>
+                            <p class="ns-story__sec"><span class="ns-sec">أخبار المطوّرين</span> <span class="cm-meta">من ساعتين</span></p>
+                            <div class="ns-story__part">
+                                <i class="ns-pin" aria-hidden="true">1</i>
+                                <p class="ns-story__title">مطور أ يعلن شراكة لتطوير مشروع سكني جديد في القاهرة الجديدة</p>
+                                <p class="ns-story__dek">الشراكة بتشمل مشروع على مراحل، وأول مرحلة متوقع طرحها السنة الجاية.</p>
                             </div>
-                            <div class="es-field">
-                                <label for="n-area">المنطقة</label>
-                                <select class="es-select" id="n-area"><option>كل المناطق</option></select>
+                            <div class="ns-story__part">
+                                <i class="ns-pin" aria-hidden="true">2</i>
+                                <p class="ns-src">المصادر: موقع أ · جريدة ب · موقع ج <span class="ns-src__open">فتح الخبر على موقع أ ↗</span></p>
                             </div>
-                            <div class="es-field">
-                                <label for="n-dev">المطور</label>
-                                <select class="es-select" id="n-dev"><option>كل المطورين</option></select>
-                            </div>
-                            <div class="es-field">
-                                <label for="n-type">نوع المحتوى</label>
-                                <select class="es-select" id="n-type">
-                                    <option>الكل</option>
-                                    <option>أخبار</option>
-                                    <option>إطلاقات</option>
-                                    <option>تحديثات مشاريع</option>
-                                    <option>ملخصات أسبوعية</option>
-                                    <option>تقارير</option>
-                                    <option>تحليلات</option>
-                                </select>
+                            <div class="ns-story__part">
+                                <i class="ns-pin" aria-hidden="true">3</i>
+                                <ul class="ns-tags ns-tags--linked" aria-label="مرتبط بـ">
+                                    <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#map-pin"/></svg>القاهرة الجديدة</li>
+                                    <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#project"/></svg>مطور أ</li>
+                                </ul>
                             </div>
                         </div>
-                    </div>
+                        <figcaption>
+                            <ol class="ns-legend">
+                                <li><i class="ns-pin" aria-hidden="true">1</i><b>عنوان وملخص بكلام إستاڤو</b>، مش نسخة من نص الخبر.</li>
+                                <li><i class="ns-pin" aria-hidden="true">2</i><b>أسماء المصادر ولينك الخبر الأصلي</b>، تفتحه وتقرا التفاصيل.</li>
+                                <li><i class="ns-pin" aria-hidden="true">3</i><b>المدينة والمطور والمشروع</b> المرتبطين بالخبر، لما يكون الربط متاح.</li>
+                            </ol>
+                        </figcaption>
+                    </figure>
+                </div>
 
-                    <!-- Honest empty state. Cards appear here only when
-                         approved editorial content exists (§7.8). -->
-                    <div class="es-panel es-panel--pad es-mt-6 es-center">
-                        <p class="es-kicker">لسه مفيش محتوى منشور</p>
-                        <p class="es-note es-mt-4">
-                            أول ما ينزل محتوى متاح، هيظهر هنا بتاريخ نشره ومصدره ونوعه.
-                            لحد ساعتها تقدر تروح لبيانات المشاريع مباشرة.
-                        </p>
-                        <p class="es-mt-6">
-                            <a href="../market/" class="es-text-link" data-track="market_opened"
-                                data-position="insights_empty">شوف <bdi>Estavo Market</bdi></a>
-                        </p>
+                <ul class="ns-ways" data-reveal aria-label="إزاي تقرا الموجز">
+                    <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#analysis"/></svg><b>دوّر وفلتر</b><span>ابحث في الأخبار، أو صفّيها بالمدينة أو المطور أو المشروع.</span></li>
+                    <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#update"/></svg><b>النهارده والأسبوع والشهر</b><span>ارجع لأخبار الأيام اللي فاتت لو فاتك حاجة.</span></li>
+                    <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#message"/></svg><b>عربي أو إنجليزي</b><span>اقرا الموجز باللغة اللي تريحك.</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ══ 3 · NEW LAUNCHES — the app's launch card, three states ══ -->
+        <section class="cm-sec cm-sec--navy ns-launch" id="launches" aria-labelledby="launches-heading">
+            <div class="mk-wrap">
+                <div class="mk-head mk-head--split" data-reveal>
+                    <div>
+                        <p class="mk-eyebrow">الإطلاقات الجديدة</p>
+                        <h2 class="mk-h2" id="launches-heading">أحدث الإطلاقات، بالمشروع والمطور والمدينة والتاريخ.</h2>
+                    </div>
+                    <p class="mk-lead">أحدث الطروحات والمراحل الجديدة المنشورة، الأحدث الأول، ومعاها أهم التفاصيل اللي اتنشرت.</p>
+                </div>
+
+                <ul class="ns-cards" data-reveal-stagger>
+                    <li class="ns-card">
+                        <span class="cm-example">مثال توضيحي</span>
+                        <div class="ns-card__media"><img src="../assets/img/home/project-b.webp" width="640" height="400" alt="" loading="lazy" decoding="async"><span class="ns-badge"><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#launch"/></svg>مرحلة جديدة</span></div>
+                        <div class="ns-card__body">
+                            <p class="cm-meta">من يومين · الشيخ زايد</p>
+                            <p class="ns-card__name">مشروع ب</p>
+                            <p class="ns-card__dev">مطور أ</p>
+                            <p class="ns-card__sum">مرحلة جديدة فيها شقق وتاون هاوس بمساحات متنوعة.</p>
+                            <dl class="ns-hl">
+                                <div><dt>أنواع الوحدات</dt><dd>شقق وتاون هاوس</dd></div>
+                                <div><dt>المقدم</dt><dd><bdi dir="ltr">10%</bdi></dd></div>
+                                <div><dt>مدة التقسيط</dt><dd>7 سنين</dd></div>
+                            </dl>
+                            <p class="ns-card__go">بيفتح صفحة المشروع على إستاڤو</p>
+                        </div>
+                    </li>
+                    <li class="ns-card">
+                        <span class="cm-example">مثال توضيحي</span>
+                        <div class="ns-card__media"><img src="../assets/img/home/project-a.webp" width="640" height="400" alt="" loading="lazy" decoding="async"><span class="ns-badge"><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#launch"/></svg>إطلاق</span></div>
+                        <div class="ns-card__body">
+                            <p class="cm-meta">من أسبوع · القاهرة الجديدة</p>
+                            <p class="ns-card__name">مشروع أ</p>
+                            <p class="ns-card__dev">مطور ب</p>
+                            <p class="ns-card__sum">مشروع سكني جديد بأول مرحلة متاحة للحجز.</p>
+                            <dl class="ns-hl">
+                                <div><dt>السعر يبدأ من</dt><dd><bdi dir="ltr">7.9M</bdi></dd></div>
+                                <div><dt>التشطيب</dt><dd>نص تشطيب</dd></div>
+                                <div><dt>التسليم</dt><dd><bdi dir="ltr">2029</bdi></dd></div>
+                            </dl>
+                            <p class="ns-card__go">بيفتح صفحة المشروع على إستاڤو</p>
+                        </div>
+                    </li>
+                    <li class="ns-card ns-card--src">
+                        <span class="cm-example">مثال توضيحي</span>
+                        <div class="ns-card__media"><img src="../assets/img/home/project-c.webp" width="640" height="400" alt="" loading="lazy" decoding="async"><span class="ns-badge"><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#launch"/></svg>إطلاق</span></div>
+                        <div class="ns-card__body">
+                            <p class="cm-meta">من 3 أسابيع · الساحل الشمالي</p>
+                            <p class="ns-card__name">مشروع ج</p>
+                            <p class="ns-card__dev">مطور ج</p>
+                            <p class="ns-card__sum">مشروع ساحلي جديد، والتفاصيل لسه ما اتنشرتش كاملة.</p>
+                            <p class="ns-card__go">بيفتح الخبر من مصدره ↗</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="ns-launch__foot" data-reveal>
+                    <p>الإطلاق المربوط بمشروع عندنا بيفتح صفحة المشروع ببياناته. واللي لسه مش مربوط بيفتح الخبر من مصدره.</p>
+                    <a href="https://brokers.estavo.space/register?redirect=%2Flaunches" class="mk-btn mk-btn--light" data-keep-path data-track="daily_opened" data-position="launches">شوف الإطلاقات الجديدة<svg class="mk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ 4 · NEWS IN CONTEXT — on the project page, next to its data ══
+             EntityNewsSection is rendered on ProjectDetailPage and
+             DeveloperDetailPage (the API also serves city news, but no city
+             page in the app shows it today — so the copy says project and
+             developer only). Brokers AI: ChatToolRouter search_launches. -->
+        <section class="cm-sec cm-sec--soft ns-context" id="context" aria-labelledby="context-heading">
+            <div class="mk-wrap cm-split cm-split--flip">
+                <div data-reveal>
+                    <p class="mk-eyebrow">الخبر في مكانه</p>
+                    <h2 class="mk-h2" id="context-heading">خبر المشروع جنب أسعاره ونظام سداده.</h2>
+                    <p class="mk-lead">أخبار المشروع والمطور بتظهر في صفحته على إستاڤو، تحت بياناته. فتعرف الجديد وإنت بتجهّز ردك.</p>
+                    <ul class="mk-checks">
+                        <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#check"/></svg><b>صفحة المشروع:</b> آخر أخباره تحت السعر والمقدم والتقسيط.</li>
+                        <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#check"/></svg><b>صفحة المطور:</b> أخباره جنب مشاريعه.</li>
+                        <li><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#check"/></svg><b><bdi>Brokers AI</bdi>:</b> اسأله عن الإطلاقات، وهو يدوّر في المنشور منها على إستاڤو.</li>
+                    </ul>
+                </div>
+
+                <figure class="fxp-sec-art"><div class="fx-stage fx-stage--deck fx-stage--own-floor fxp-stage" aria-hidden="true"><div class="fx-stage__art"><picture data-fx-swap="loop"><source media="(prefers-reduced-motion: reduce)" srcset="../assets/img/fx/data-hero-rtl-still.svg"><img src="../assets/img/fx/data-hero-rtl-still.svg" width="1200" height="900" alt="" loading="lazy" decoding="async"></picture></div><span class="fx-stage__label fx-stage__label--above" style="--x:25.0%;--y:30.89%">أخبار المشروع جنب بياناته</span><span class="fx-stage__label" style="--x:91.67%;--y:65.56%">المشاريع</span><span class="fx-stage__label" style="--x:91.67%;--y:77.78%">المطورين</span></div></figure>
+            </div>
+        </section>
+
+        <!-- ══ 5 · HOW STORIES ARE CHOSEN AND SOURCED + honest scope ══ -->
+        <section class="cm-sec ns-source" id="sourcing" aria-labelledby="sourcing-heading">
+            <div class="mk-wrap">
+                <div class="cm-head" data-reveal>
+                    <p class="mk-eyebrow">إزاي بنجهّز الموجز؟</p>
+                    <h2 class="mk-h2" id="sourcing-heading">بنلخص الخبر بكلامنا. والمصدر دايمًا قدامك.</h2>
+                    <p class="mk-lead">إحنا مش بننسخ الأخبار. بنكتب ملخص قصير، ونسيب لك لينك الخبر الأصلي عند الجهة اللي نشرته.</p>
+                </div>
+
+                <ol class="ns-flow" data-reveal-stagger>
+                    <li><span class="ns-flow__ico"><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#signal"/></svg></span><b>بنتابع المصادر</b><p>مواقع وجرايد إخبارية واقتصادية بتكتب عن العقار والسوق.</p></li>
+                    <li><span class="ns-flow__ico"><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#compare"/></svg></span><b>بنجمع الخبر الواحد</b><p>الخبر اللي اتنشر في أكتر من مكان بيظهر مرة واحدة، ومعاه مصادره.</p></li>
+                    <li><span class="ns-flow__ico"><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#sheet"/></svg></span><b>بنكتب ملخص بكلامنا</b><p>عنوان وسطرين، من غير ما ننسخ نص الخبر.</p></li>
+                    <li><span class="ns-flow__ico"><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#project"/></svg></span><b>بنربطه ونرتبه</b><p>بالمدينة والمطور والمشروع لما يكون واضح، والأهم الأول.</p></li>
+                </ol>
+
+                <p class="ns-source__launch" data-reveal><svg class="mk-ico" aria-hidden="true"><use href="../assets/img/icons/estavo-home.svg#launch"/></svg><b>والإطلاقات؟</b> قبل ما تتنشر، بنطابق كل إطلاق مع المشروع بتاعه في بياناتنا، واللي مش واضح بيراجعه فريق إستاڤو.</p>
+
+                <div class="cm-scope" data-reveal>
+                    <div>
+                        <h3>جديد السوق بيقدّملك</h3>
+                        <ul>
+                            <li>موجز يومي بأخبار مختارة للبروكرز، متقسّم أقسام.</li>
+                            <li>مصادر كل خبر ولينك الخبر الأصلي.</li>
+                            <li>أحدث الإطلاقات والمراحل الجديدة.</li>
+                            <li>أخبار المشروع والمطور في صفحته، جنب بياناته.</li>
+                        </ul>
+                    </div>
+                    <div class="cm-scope__no">
+                        <h3>اللي لازم تعرفه</h3>
+                        <ul>
+                            <li>الموجز مش بيضم كل خبر بيتنشر في السوق.</li>
+                            <li>مش كل إطلاق تفاصيله كاملة، فيه إطلاقات من غير أسعار أو نظام سداد.</li>
+                            <li>المعلومة منقولة من الخبر وقت نشره، فأكّد السعر والتفاصيل مع المطور.</li>
+                            <li>المحتوى متاح بعد تسجيل مجاني وتأكيد رقم الموبايل.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="es-section" aria-labelledby="anatomy-h">
-            <div class="es-container">
-                <div class="es-copy es-copy--center" data-reveal>
-                    <span class="es-eyebrow">شكل المحتوى</span>
-                    <h2 id="anatomy-h">كل مادة بتوضح مصدرها وتاريخها.</h2>
-                    <p class="es-lead">
-                        الخبر بيتفصل عن التحليل. والتحليل بيوضح البيانات المستخدمة والفترة
-                        ونطاق المدن والمشاريع وطريقة القراءة.
-                    </p>
+        <!-- ══ 6 · FAQ + related destinations ═══════════════════════════ -->
+        <section class="mk-faq ns-faq" id="faq" aria-labelledby="faq-heading">
+            <div class="mk-wrap mk-faq__grid">
+                <div class="mk-faq__head" data-reveal>
+                    <p class="mk-eyebrow">أسئلة البروكرز</p>
+                    <h2 class="mk-h2" id="faq-heading">عندك سؤال عن جديد السوق؟</h2>
+                    <p class="mk-lead">إجابات عن الأخبار والإطلاقات ومصادرها.</p>
+                    <p class="mk-faq__help">لسه عندك سؤال؟ <a href="https://wa.me/201069528393" data-track="whatsapp" data-position="insights_faq">كلمنا على <bdi>WhatsApp</bdi></a></p>
                 </div>
-
-                <div class="es-grid-2 es-mt-8" data-reveal-stagger>
-                    <div class="es-panel es-panel--pad">
-                        <span class="es-status">خبر</span>
-                        <h3 class="es-mt-4">بيانات المادة</h3>
-                        <p class="es-note es-mt-4">
-                            نوع المحتوى · الكاتب · تاريخ النشر · آخر تحديث ·
-                            المدينة والمنطقة · المشروع والمطور · المصادر
-                        </p>
-                    </div>
-                    <div class="es-panel es-panel--pad">
-                        <span class="es-status">تحليل</span>
-                        <h3 class="es-mt-4">أساس القراءة</h3>
-                        <p class="es-note es-mt-4">
-                            الفترة · نطاق المدن والمشاريع · البيانات المستخدمة · أساس الأسعار ·
-                            طريقة التحليل · المعلومات غير المتاحة
-                        </p>
-                    </div>
+                <div class="mk-faq__list" data-exclusive-details>
+                    <details class="mk-qa" open><summary><h3>جديد السوق مجاني؟</h3></summary><p>آه. سجّل مجانًا وأكّد رقم موبايلك، وادخل على إستاڤو ديلي والإطلاقات الجديدة.</p><p>جديد السوق جزء من <bdi>Estavo Market</bdi>، وده مجاني بالكامل حاليًا من غير اشتراك مدفوع.</p></details>
+                    <details class="mk-qa"><summary><h3>الأخبار دي جاية منين؟</h3></summary><p>من مواقع وجرايد إخبارية واقتصادية بنتابعها. إستاڤو بتكتب عنوان وملخص قصير بكلامها.</p><p>وكل خبر معاه أسماء مصادره ولينك الخبر الأصلي، تفتحه وتقرا التفاصيل من الجهة اللي نشرته.</p></details>
+                    <details class="mk-qa"><summary><h3>هلاقي كل أخبار السوق؟</h3></summary><p>لأ. الموجز بيختار الأخبار اللي تفرق في شغل البروكر من المصادر اللي بنتابعها، ومش بيضم كل خبر بيتنشر.</p></details>
+                    <details class="mk-qa"><summary><h3>أقدر أرجع لأخبار الأيام اللي فاتت؟</h3></summary><p>آه. تقدر تشوف أخبار النهارده أو الأسبوع أو الشهر، وتبحث فيها، وتصفّيها بالمدينة أو المطور أو المشروع.</p></details>
+                    <details class="mk-qa"><summary><h3>الإطلاقات بتتنشر إزاي؟</h3></summary><p>بنطابق كل إطلاق مع المشروع بتاعه في بيانات إستاڤو، واللي مش واضح بيراجعه فريقنا قبل النشر.</p><p>مش كل إطلاق تفاصيله كاملة، والكارت بيعرض بس التفاصيل اللي اتنشرت.</p></details>
+                    <details class="mk-qa"><summary><h3>أعتمد على سعر الإطلاق في ردي على العميل؟</h3></summary><p>اعتبره نقطة بداية. التفاصيل منقولة من الخبر وقت نشره، والأسعار وأنظمة السداد ممكن تتغير.</p><p>أكّد السعر والتفاصيل النهائية مع المطور قبل ما ترد على العميل.</p></details>
+                    <details class="mk-qa"><summary><h3>أقدر أسأل <bdi>Brokers AI</bdi> عن الأخبار؟</h3></summary><p>تقدر تسأله عن الإطلاقات، وهو يدوّر في الإطلاقات المنشورة على إستاڤو.</p><p>أما باقي أخبار السوق، فاقراها في إستاڤو ديلي بمصادرها.</p></details>
                 </div>
+            </div>
 
-                <p class="es-note es-mt-6 es-center">
-                    أسعار الطلب وأسعار التعاقد وأسعار بداية الوحدات مش نفس الشيء،
-                    وتغيّر تشكيلة المعروض وحده مش دليل على ارتفاع السوق.
-                </p>
+            <div class="mk-wrap ns-related" data-reveal>
+                <p class="ns-related__title">كمّل في إستاڤو</p>
+                <nav class="cm-related" aria-label="صفحات قريبة">
+                    <a href="../developers/"><b>المطورين</b><small>صفحة لكل مطور بمشاريعه وأخباره.</small></a>
+                    <a href="../market/"><b><bdi>Estavo Market</bdi></b><small>بيانات المشاريع وأنظمة السداد والمقارنة.</small></a>
+                    <a href="../jobs/"><b>الوظائف</b><small>وظائف القطاع العقاري في مكان واحد.</small></a>
+                    <a href="../broker-ai/"><b>اسأل إستاڤو</b><small><bdi>Brokers AI</bdi> بيدوّر في داتا السوق ويرد عليك.</small></a>
+                </nav>
             </div>
         </section>
 
-        <section class="es-section es-section--mist" aria-labelledby="link-h">
-            <div class="es-container es-container--reading">
-                <div class="es-copy" data-reveal>
-                    <span class="es-eyebrow">الصلة بالداتا</span>
-                    <h2 id="link-h">من الخبر لتفاصيل المشروع.</h2>
-                    <div class="es-prose">
-                        <p>
-                            لما تقرأ تحديث يهمك، ارجع لبيانات المشروع أو المدينة
-                            على <bdi>Estavo Market</bdi> وشوف المعلومات المرتبطة بشغلك.
-                        </p>
-                    </div>
-                    <a href="../market/" class="es-text-link" data-track="market_opened"
-                        data-position="insights_link">شوف <bdi>Estavo Market</bdi></a>
-                </div>
+        <!-- ══ 7 · CLOSING ═════════════════════════════════════════════ -->
+        <section class="mk-close" id="start" aria-labelledby="close-heading">
+            <div class="mk-wrap mk-close__inner" data-reveal>
+                <p class="mk-eyebrow mk-eyebrow--light">جديد السوق · تسجيل مجاني</p>
+                <h2 class="mk-close__title" id="close-heading">ابدأ يومك وإنت عارف إيه الجديد.</h2>
+                <p class="mk-close__sub">أخبار العقار والاقتصاد والإطلاقات الجديدة، مختارة للبروكرز ومعاها مصادرها.</p>
+                <a href="https://brokers.estavo.space/register?redirect=%2Festavo-daily" class="mk-btn mk-btn--light es-button--light" data-keep-path data-track="daily_opened" data-position="close">افتح إستاڤو ديلي مجانًا<svg class="mk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a>
+                <p class="mk-close__assure">مجاني بالكامل حاليًا · كل خبر بمصادره · سجّل وأكّد رقمك وادخل</p>
+                <p class="mk-close__team">مهتم بالإطلاقات بس؟ <a href="https://brokers.estavo.space/register?redirect=%2Flaunches" data-keep-path data-track="daily_opened" data-position="close_launches">شوف الإطلاقات الجديدة</a></p>
             </div>
         </section>
 
-        <section class="es-section es-dark" aria-labelledby="close-h">
-            <div class="es-container">
-                <div class="es-copy es-copy--center" data-reveal>
-                    <h2 id="close-h">لحد ما الأخبار تنزل، اشتغل على بيانات السوق مباشرة.</h2>
-                    <div class="es-cluster es-cluster--actions">
-                        <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-button es-button--primary"
-                            data-track="market_opened" data-position="close">جرّب <bdi>Estavo Market</bdi> مجانًا</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div class="mk-sticky" data-mk-sticky>
+            <a href="https://brokers.estavo.space/register?redirect=%2Festavo-daily" class="mk-btn mk-btn--primary" data-keep-path data-track="daily_opened" data-position="sticky">افتح إستاڤو ديلي مجانًا<svg class="mk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a>
+        </div>
+
+        <script type="application/ld+json">
+        {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "جديد السوق مجاني؟", "acceptedAnswer": {"@type": "Answer", "text": "آه. سجّل مجانًا وأكّد رقم موبايلك، وادخل على إستاڤو ديلي والإطلاقات الجديدة. جديد السوق جزء من <bdi>Estavo Market</bdi>، وده مجاني بالكامل حاليًا من غير اشتراك مدفوع."}}, {"@type": "Question", "name": "الأخبار دي جاية منين؟", "acceptedAnswer": {"@type": "Answer", "text": "من مواقع وجرايد إخبارية واقتصادية بنتابعها. إستاڤو بتكتب عنوان وملخص قصير بكلامها. وكل خبر معاه أسماء مصادره ولينك الخبر الأصلي، تفتحه وتقرا التفاصيل من الجهة اللي نشرته."}}, {"@type": "Question", "name": "هلاقي كل أخبار السوق؟", "acceptedAnswer": {"@type": "Answer", "text": "لأ. الموجز بيختار الأخبار اللي تفرق في شغل البروكر من المصادر اللي بنتابعها، ومش بيضم كل خبر بيتنشر."}}, {"@type": "Question", "name": "أقدر أرجع لأخبار الأيام اللي فاتت؟", "acceptedAnswer": {"@type": "Answer", "text": "آه. تقدر تشوف أخبار النهارده أو الأسبوع أو الشهر، وتبحث فيها، وتصفّيها بالمدينة أو المطور أو المشروع."}}, {"@type": "Question", "name": "الإطلاقات بتتنشر إزاي؟", "acceptedAnswer": {"@type": "Answer", "text": "بنطابق كل إطلاق مع المشروع بتاعه في بيانات إستاڤو، واللي مش واضح بيراجعه فريقنا قبل النشر. مش كل إطلاق تفاصيله كاملة، والكارت بيعرض بس التفاصيل اللي اتنشرت."}}, {"@type": "Question", "name": "أعتمد على سعر الإطلاق في ردي على العميل؟", "acceptedAnswer": {"@type": "Answer", "text": "اعتبره نقطة بداية. التفاصيل منقولة من الخبر وقت نشره، والأسعار وأنظمة السداد ممكن تتغير. أكّد السعر والتفاصيل النهائية مع المطور قبل ما ترد على العميل."}}, {"@type": "Question", "name": "أقدر أسأل Brokers AI عن الأخبار؟", "acceptedAnswer": {"@type": "Answer", "text": "تقدر تسأله عن الإطلاقات، وهو يدوّر في الإطلاقات المنشورة على إستاڤو. أما باقي أخبار السوق، فاقراها في إستاڤو ديلي بمصادرها."}}]}
+        </script>
+
+        </div>
 
     </main>
     <footer class="es-footer" role="contentinfo">
@@ -3619,8 +3803,8 @@
                     <img src="../assets/logo/Estavo%20Inverted%20full%20word%20logo.png" alt="إستاڤو"
                         width="4884" height="4884" loading="lazy" decoding="async" />
                     <p class="es-footer__tagline">
-                        منتجين على أساس بيانات واحد: <bdi>Estavo Market</bdi> لشغل البروكر،
-                        و<bdi>Estavo Sites</bdi> لعرضه باسمك.
+                        مجتمع البروكرز في مصر: داتا السوق والمطورين، الأخبار والوظائف والتحديات،
+                        ومساعد <bdi>AI</bdi> يساعدك في شغلك.
                     </p>
                     <p class="es-footer__tagline">الجيل الجديد من شغل العقارات.</p>
 
@@ -3641,25 +3825,30 @@
                 </div>
 
                 <div>
-                    <h2>المنتجات</h2>
-                    <nav class="es-footer__links" aria-label="روابط الخدمات">
+                    <h2>السوق والمجتمع</h2>
+                    <nav class="es-footer__links" aria-label="روابط السوق والمجتمع">
                         <a href="../market/"><bdi>Estavo Market</bdi></a>
-                        <a href="../websites/"><bdi>Estavo Sites</bdi> للبروكر</a>
-                        <a href="../enterprise/"><bdi>Estavo Sites</bdi> للشركات</a>
-                        <a href="../ai/"><bdi>Client AI</bdi></a>
-                        <a href="../meta/">ربط <bdi>Meta</bdi></a>
-                        <a href="../listings/">شبكة البروكرز</a>
+                        <a href="../developers/">المطورين</a>
+                        <a href="../roi/">كاش ولا تقسيط؟</a>
+                        <a href="../broker-ai/">اسأل إستاڤو</a>
+                        <a href="../insights/">جديد السوق</a>
+                        <a href="../jobs/">الوظائف</a>
+                        <a href="../challenges/">تحدّي إكسكلوسيف</a>
+                        <a href="../guides/">نصايح البيع</a>
                     </nav>
                 </div>
 
                 <div>
-                    <h2>الشركة</h2>
-                    <nav class="es-footer__links" aria-label="روابط الشركة">
-                        <a href="../integrations/">الربط بمنصة حالية</a>
-                        <a href="../pricing/">الأسعار</a>
-                        <a href="../insights/">أخبار وتحليلات</a>
-                        <a href="../marketing/">العملاء والتسويق</a>
-                        <a href="../examples/">أمثلة وتجارب</a>
+                    <h2>موقعك وتسويقك</h2>
+                    <nav class="es-footer__links" aria-label="روابط المواقع">
+                        <a href="../websites/">موقع للبروكر</a>
+                        <a href="../enterprise/">موقع للشركة</a>
+                        <a href="../ai/"><bdi>Client AI</bdi></a>
+                        <a href="../marketing/">فهم العميل</a>
+                        <a href="../meta/">ربط <bdi>Meta</bdi></a>
+                        <a href="../listings/">شبكة البروكرز</a>
+                        <a href="../pricing/">أسعار وباقات المواقع</a>
+                        <a href="../integrations/">ربط الداتا بمنصتك</a>
                     </nav>
                 </div>
 
@@ -3687,8 +3876,10 @@
         </div>
     </footer>
 
-    <script src="../assets/js/referral.js?v=781ea94124" defer></script>
-    <script src="../assets/js/v3/estavo-v3.js?v=e26608a3f2" defer></script>
+    <script src="../assets/js/referral.js?v=2148998f84" defer></script>
+    <script src="../assets/js/market-landing.js?v=9e58f3c06b" defer></script>
+    <script src="../assets/js/fx.js?v=c9c2a47a2d" defer></script>
+    <script src="../assets/js/v3/estavo-v3.js?v=bb425e08c2" defer></script>
 </body>
 
 </html>

@@ -448,3 +448,14 @@
   .commercial-proof.motion-ready .commercial-proof__head,
   .commercial-proof.motion-ready .commercial-proof__item { opacity: 1; translate: 0; }
 }
+
+/* Entitlement note under the hero CTA (Nov 2026): one plain line,
+   never a flex box (it holds <bdi>). */
+.sites-hero__promise a { color: var(--es-blue-700); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.sites-market-bridge__inner .section-body a { color: var(--es-on-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.sites-market-bridge__inner .btn.btn-outline { background: transparent; }
+.sites-market-bridge__inner .btn.btn-outline:hover { background: rgb(255 255 255 / 10%); }
+.es-landing .sites-market-bridge__inner .eyebrow { color: var(--es-on-dark-muted, rgb(255 255 255 / 72%)); }
+
+/* Light eyebrows on navy: the global .es-landing eyebrow reset (estavo-v3.css) outranks .eyebrow.light. */
+.es-landing .eyebrow.light { color: var(--es-on-dark-muted); }

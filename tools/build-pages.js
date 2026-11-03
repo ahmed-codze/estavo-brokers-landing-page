@@ -56,6 +56,19 @@ const ROUTE_ASSETS = {
   },
 };
 
+/* Broker-community pages (Nov 2026) share the Market page system (.mk-*)
+   plus a small shared layer (pages/community.css) and their own optional
+   page stylesheet/script, so every destination looks like one product. */
+const COMMUNITY_ROUTES = ['developers', 'roi', 'jobs', 'challenges', 'broker-ai', 'insights', 'integrations'];
+for (const key of COMMUNITY_ROUTES) {
+  const own = (rel) => (fs.existsSync(path.join(ROOT, rel.replace(/^\//, ''))) ? [rel] : []);
+  ROUTE_ASSETS[key] = {
+    styles: ['/assets/css/market.css', '/assets/css/pages/community.css', ...own(`/assets/css/pages/${key}.css`)],
+    scripts: ['/assets/js/market-landing.js', ...own(`/assets/js/pages/${key}.js`)],
+  };
+}
+const MK_FAMILY = new Set(['market', ...COMMUNITY_ROUTES]);
+
 /* Static assets are served with a long immutable cache, so every local
    CSS/JS reference carries a deterministic content hash: a rebuilt file
    gets a new URL, an unchanged one keeps its cached copy. */
@@ -65,14 +78,20 @@ function versioned(url) {
   return `${url}?v=${hash}`;
 }
 
+/* Estavo Signal (Nov 2026): every route loads the shared visual kit, then the
+   site-wide art layer that turns heroes into signal stages and flattens
+   card grids. They come last so they win over page systems. */
+const FX_STYLES = ['/assets/css/fx.css', '/assets/css/fx-site.css'];
+const FX_SCRIPTS = ['/assets/js/fx.js'];
+
 function routeStyles(key) {
-  return (ROUTE_ASSETS[key]?.styles || [])
+  return [...(ROUTE_ASSETS[key]?.styles || []), ...FX_STYLES]
     .map((href) => `    <link rel="stylesheet" href="${versioned(href)}" />`)
     .join('\n');
 }
 
 function routeScripts(key) {
-  return (ROUTE_ASSETS[key]?.scripts || [])
+  return [...(ROUTE_ASSETS[key]?.scripts || []), ...FX_SCRIPTS]
     .map((src) => `    <script src="${versioned(src)}" defer></script>`)
     .join('\n');
 }
@@ -135,8 +154,19 @@ function partial(name) {
    its parallel hero action. */
 function header(route, lang) {
   const isAr = lang === 'ar';
-  const marketRoutes = new Set(['data', 'market', 'insights']);
-  const action = marketRoutes.has(route.key)
+  const marketRoutes = new Set(['data', 'market', 'broker-ai']);
+  /* Community destinations open the matching app screen. Their links keep
+     their path through referral.js (data-keep-path) and survive sign-up. */
+  const deepActions = {
+    developers: { href: routes.cta.developers, track: 'developers_opened', label: isAr ? 'تصفح المطورين' : 'Browse developers', shortLabel: isAr ? 'المطورين' : 'Developers' },
+    roi: { href: routes.cta.projects, track: 'market_opened', label: isAr ? 'احسبها في السوق مجانًا' : 'Try it free in Market', shortLabel: isAr ? 'جرّبها' : 'Try it' },
+    jobs: { href: routes.cta.jobs, track: 'jobs_opened', label: isAr ? 'شوف الوظائف المتاحة' : 'See open jobs', shortLabel: isAr ? 'الوظائف' : 'Jobs' },
+    challenges: { href: routes.cta.game, track: 'game_opened', label: isAr ? 'العب إكسكلوسيف' : 'Play Exclusive', shortLabel: isAr ? 'العب' : 'Play' },
+    insights: { href: routes.cta.daily, track: 'daily_opened', label: isAr ? 'تابع جديد السوق' : 'Follow market news', shortLabel: isAr ? 'جديد السوق' : 'News' },
+  };
+  const action = deepActions[route.key]
+    ? { ...deepActions[route.key], keepPath: true }
+    : marketRoutes.has(route.key)
     ? {
         href: routes.cta.market,
         track: 'market_opened',
@@ -195,6 +225,11 @@ function header(route, lang) {
     enterprise: 'enterprise',
     pricing: 'pricing',
     examples: 'examples',
+    developers: 'developers',
+    roi: 'roi',
+    jobs: 'jobs',
+    challenges: 'challenges',
+    'broker-ai': 'broker-ai',
   };
   const activeKey = directRoutes[route.key];
   const activeHref = activeKey
@@ -215,6 +250,14 @@ function header(route, lang) {
     markup = markup.replaceAll(`href="${activeHref}"`, `href="${activeHref}" aria-current="page"`);
   }
 
+  if (action.keepPath) {
+    markup = markup.replaceAll(`data-track="${action.track}"`, `data-track="${action.track}" data-keep-path`);
+  }
+
+  if (MK_FAMILY.has(route.key)) {
+    markup = markup.replace('<body class="es es-landing">', '<body class="es es-landing es-route-mk">');
+  }
+
   /* The Market page is a single-conversion page: its desktop nav moves
      through the page instead of offering the other products (they stay in
      the drawer and footer). */
@@ -225,14 +268,14 @@ function header(route, lang) {
     const nav = links.map(([href, label]) => `                <a href="${href}">${label}</a>`).join('\n');
     markup = markup
       .replace(/(<nav class="es-header__nav"[^>]*>)[\s\S]*?(<\/nav>)/, `$1\n${nav}\n            $2`)
-      .replace('<body class="es es-landing">', '<body class="es es-landing es-route-market">');
+      .replace('<body class="es es-landing es-route-mk">', '<body class="es es-landing es-route-mk es-route-market">');
   }
 
   return markup;
 }
 
 function decorateLandingBody(body, route, lang) {
-  if (route.key === 'market' || body.includes('data-word-reveal')) return body;
+  if (MK_FAMILY.has(route.key) || body.includes('data-word-reveal')) return body;
 
   const heading = /<h2([^>]*)>([\s\S]*?)<\/h2>/g;
   const headings = Array.from(body.matchAll(heading));

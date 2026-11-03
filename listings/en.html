@@ -68,7 +68,9 @@
     <link rel="manifest" href="../site.webmanifest" />
 
     <link rel="stylesheet" href="../assets/css/commercial.css?v=984eb4968d" />
-    <link rel="stylesheet" href="../assets/css/pages/listings.css?v=2e8c357fd7" />
+    <link rel="stylesheet" href="../assets/css/pages/listings.css?v=413b779a37" />
+    <link rel="stylesheet" href="../assets/css/fx.css?v=1e92256c4d" />
+    <link rel="stylesheet" href="../assets/css/fx-site.css?v=412e62d9bd" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap" rel="stylesheet" />
@@ -1074,6 +1076,7 @@
     }
     .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(2) { animation-delay: 100ms; }
     .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(3) { animation-delay: 150ms; }
+    .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(4) { animation-delay: 200ms; }
     .es-home .es-drawer:not([hidden]) .es-drawer__foot { animation-delay: 200ms; }
   }
 
@@ -3353,12 +3356,21 @@
   }
 }
 
+
+/* Five top-level nav items (Nov 2026): tighter gap and the short CTA label
+   until the header has room for the long one. */
+@media (min-width: 64rem) and (max-width: 87.499rem) {
+  .es-landing .es-header__nav,
+  .es-home .es-header__nav { gap: 1.25rem; }
+  .es-header__actions .es-header-cta-long { display: none; }
+  .es-header__actions .es-header-cta-short { display: inline; }
+}
 </style>
 
-    <link rel="preload" as="style" href="../assets/css/estavo-v3.css?v=a02a40ffda"
+    <link rel="preload" as="style" href="../assets/css/estavo-v3.css?v=c6f4efff72"
         onload="this.onload=null;this.rel='stylesheet'" />
     <noscript>
-        <link rel="stylesheet" href="../assets/css/estavo-v3.css?v=a02a40ffda" />
+        <link rel="stylesheet" href="../assets/css/estavo-v3.css?v=c6f4efff72" />
     </noscript>
 </head>
 <body class="es es-landing">
@@ -3376,12 +3388,39 @@
             </a>
 
             <nav class="es-header__nav" aria-label="Main navigation">
-                <a href="../market/en.html">Estavo Market</a>
-
                 <span class="es-menu" data-menu>
                     <button type="button" class="es-header__disclosure" data-menu-trigger
                         aria-expanded="false" aria-haspopup="true">
-                        Your website
+                        Market
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                            stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+                    </button>
+                    <span class="es-menu__panel es-menu__panel--grouped" data-menu-panel hidden>
+                        <span class="es-menu__label">Market &amp; developers</span>
+                        <a href="../market/en.html"><b>Estavo Market</b><small>Projects, units, prices and payment plans.</small></a>
+                        <a href="../developers/en.html"><b>Developers</b><small>Know the developer, its projects and news.</small></a>
+                        <a href="../roi/en.html"><b>Cash or installments?</b><small>Payment-plan maths, in numbers.</small></a>
+                    </span>
+                </span>
+                <span class="es-menu" data-menu>
+                    <button type="button" class="es-header__disclosure" data-menu-trigger
+                        aria-expanded="false" aria-haspopup="true">
+                        Broker community
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                            stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+                    </button>
+                    <span class="es-menu__panel es-menu__panel--grouped" data-menu-panel hidden>
+                        <span class="es-menu__label">Every day at work</span>
+                        <a href="../insights/en.html"><b>Market news</b><small>News and developer launches.</small></a>
+                        <a href="../jobs/en.html"><b>Jobs</b><small>Real-estate job openings.</small></a>
+                        <a href="../challenges/en.html"><b>Exclusive challenge</b><small>Play and test your market knowledge.</small></a>
+                        <a href="../guides/en/"><b>Selling tips</b><small>Practical guides to sell more.</small></a>
+                    </span>
+                </span>
+                <span class="es-menu" data-menu>
+                    <button type="button" class="es-header__disclosure" data-menu-trigger
+                        aria-expanded="false" aria-haspopup="true">
+                        Your website &amp; marketing
                         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
                             stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
                     </button>
@@ -3395,14 +3434,12 @@
                         <a href="../meta/en.html"><b>Meta connection</b><small>Website events in your account.</small></a>
                         <a href="../listings/en.html" aria-current="page"><b>Broker network</b><small>Distribute properties and control commission.</small></a>
                         <span class="es-menu__foot">
-                            <a href="../integrations/en.html">Have a platform? Integrations</a>
+                            <a href="../pricing/en.html">Website plans and pricing</a>
                         </span>
                     </span>
                 </span>
-
-                <a href="../insights/en.html">Insights</a>
-                <a href="../guides/en/">Broker guides</a>
-                <a href="../pricing/en.html">Pricing</a>
+                <a href="../integrations/en.html">Data integrations</a>
+                <a href="../broker-ai/en.html">Ask Estavo</a>
             </nav>
 
             <div class="es-header__actions">
@@ -3436,24 +3473,32 @@
 
         <div class="es-drawer__body">
             <div class="es-drawer__group">
-                <h2>Estavo Market</h2>
-                <a href="../market/en.html">Market data and units</a>
-                <a href="../insights/en.html">Insights</a>
-                <a href="../guides/en/">Broker guides</a>
+                <h2>Market &amp; developers</h2>
+                <a href="../market/en.html">Estavo Market</a>
+                <a href="../developers/en.html">Developers</a>
+                <a href="../roi/en.html">Cash or installments?</a>
+                <a href="../broker-ai/en.html">Ask Estavo</a>
             </div>
             <div class="es-drawer__group">
-                <h2>Your website</h2>
-                <a href="../websites/en.html">Site for brokers</a>
-                <a href="../enterprise/en.html">Site for companies</a>
+                <h2>Broker community</h2>
+                <a href="../insights/en.html">Market news</a>
+                <a href="../jobs/en.html">Jobs</a>
+                <a href="../challenges/en.html">Exclusive challenge</a>
+                <a href="../guides/en/">Selling tips</a>
+            </div>
+            <div class="es-drawer__group">
+                <h2>Your website &amp; marketing</h2>
+                <a href="../websites/en.html">Sites for brokers</a>
+                <a href="../enterprise/en.html">Sites for companies</a>
                 <a href="../ai/en.html">Client AI</a>
                 <a href="../marketing/en.html">Client understanding</a>
                 <a href="../meta/en.html">Meta connection</a>
                 <a href="../listings/en.html" aria-current="page">Broker network</a>
+                <a href="../pricing/en.html">Website plans and pricing</a>
             </div>
             <div class="es-drawer__group">
-                <h2>More</h2>
-                <a href="../pricing/en.html">Pricing</a>
-                <a href="../integrations/en.html">Have a platform? Integrations</a>
+                <h2>For companies &amp; platforms</h2>
+                <a href="../integrations/en.html">Connect your platform to our data</a>
             </div>
         </div>
 
@@ -3483,39 +3528,13 @@
                     <p class="net-hero__note">Start your free website in around five minutes, then add eligible properties. Distribution expands reach but does not guarantee a sale; contact, negotiation and the deal remain with you.</p>
                 </div>
 
-                <div class="net-hero__art" aria-hidden="true">
-                    <div class="net-flow">
-                        <div class="net-record">
-                            <div class="net-record__head"><span class="net-record__tag">Your property</span><strong>Apartment · 3 bed</strong><small>New Cairo · resale</small></div>
-                            <div class="net-record__plan"><i></i><i></i><i></i><i></i></div>
-                            <dl class="net-record__fields">
-                                <div><dt>Status</dt><dd>Available</dd></div>
-                                <div><dt>Price</dt><dd>Per unit</dd></div>
-                                <div><dt>Commission</dt><dd class="net-record__commission">Set by you</dd></div>
-                            </dl>
-                        </div>
-
-                        <div class="net-branch" aria-hidden="true"><span class="net-branch__stem"></span><span class="net-branch__arm net-branch__arm--up"></span><span class="net-branch__arm net-branch__arm--down"></span></div>
-
-                        <div class="net-outputs">
-                            <div class="net-output net-output--site">
-                                <p class="net-output__label">On your website</p>
-                                <div class="net-browser">
-                                    <div class="net-browser__bar"><i></i><i></i><i></i><span>nour-properties.com</span></div>
-                                    <div class="net-browser__page"><strong>Nour Properties</strong><div class="net-browser__card"><i></i><span><b>3-bed apartment</b><small>New Cairo</small></span></div><b class="net-browser__cta">Contact Nour</b></div>
-                                </div>
-                            </div>
-                            <div class="net-output net-output--network">
-                                <p class="net-output__label">In the broker network</p>
-                                <div class="net-rows">
-                                    <div class="net-rows__head"><span>Property</span><span>Commission</span></div>
-                                    <div class="net-row"><span><b>3-bed apartment</b><small>New Cairo</small></span><b class="net-row__fee">Your rate</b></div>
-                                    <p class="net-rows__owner">Listed by: Nour Properties</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="fxp-hero-art">
+<div class="fx-stage fx-stage--deck fx-stage--own-floor fxp-stage" aria-hidden="true">
+  <div class="fx-stage__art"><picture data-fx-swap="loop"><source media="(prefers-reduced-motion: reduce)" srcset="../assets/img/fx/listings-hero-still.svg"><img src="../assets/img/fx/listings-hero.svg" width="1200" height="900" alt="" decoding="async"></picture></div>
+  <span class="fx-stage__label fx-stage__label--above" style="--x:50.0%;--y:27.56%">Your listing</span>
+  <span class="fx-stage__label fx-stage__label--below" style="--x:50.0%;--y:93.33%">Brokers on Estavo</span>
+</div>
+</div>
             </div>
         </section>
 
@@ -3622,6 +3641,7 @@
                 <p class="net-journey__cta">
                     <a href="https://estavo-brokers.com/website/" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="workflow">Create your site free · ~5 min</a>
                 </p>
+                <p class="net-journey__more">Listings reach brokers registered on Estavo. <a href="../market/en.html" data-track="service_selected" data-position="listings_journey_market">See&nbsp;Estavo&nbsp;Market</a></p>
             </div>
         </section>
 
@@ -3676,8 +3696,8 @@
                     <img src="../assets/logo/Estavo%20Inverted%20full%20word%20logo.png" alt="Estavo"
                         width="4884" height="4884" loading="lazy" decoding="async" />
                     <p class="es-footer__tagline">
-                        Two products on one data foundation: Estavo Market for broker work,
-                        and Estavo Sites to present it under your brand.
+                        The professional home for Egypt's brokers: market and developer data,
+                        news, jobs and challenges, and an AI assistant for your work.
                     </p>
                     <p class="es-footer__tagline">The next generation of real-estate business.</p>
 
@@ -3698,25 +3718,30 @@
                 </div>
 
                 <div>
-                    <h2>Products</h2>
-                    <nav class="es-footer__links" aria-label="Service links">
+                    <h2>Market &amp; community</h2>
+                    <nav class="es-footer__links" aria-label="Market and community links">
                         <a href="../market/en.html">Estavo Market</a>
-                        <a href="../websites/en.html">Estavo Sites for brokers</a>
-                        <a href="../enterprise/en.html">Estavo Sites for companies</a>
-                        <a href="../ai/en.html">Client AI</a>
-                        <a href="../meta/en.html">Meta connection</a>
-                        <a href="../listings/en.html">Broker network</a>
+                        <a href="../developers/en.html">Developers</a>
+                        <a href="../roi/en.html">Cash or installments?</a>
+                        <a href="../broker-ai/en.html">Ask Estavo</a>
+                        <a href="../insights/en.html">Market news</a>
+                        <a href="../jobs/en.html">Jobs</a>
+                        <a href="../challenges/en.html">Exclusive challenge</a>
+                        <a href="../guides/en/">Selling tips</a>
                     </nav>
                 </div>
 
                 <div>
-                    <h2>Company</h2>
-                    <nav class="es-footer__links" aria-label="Company links">
-                        <a href="../integrations/en.html">Existing-platform integration</a>
-                        <a href="../pricing/en.html">Pricing</a>
-                        <a href="../insights/en.html">Insights</a>
-                        <a href="../marketing/en.html">Buyers &amp; marketing</a>
-                        <a href="../examples/en.html">Examples</a>
+                    <h2>Website &amp; marketing</h2>
+                    <nav class="es-footer__links" aria-label="Website links">
+                        <a href="../websites/en.html">Sites for brokers</a>
+                        <a href="../enterprise/en.html">Sites for companies</a>
+                        <a href="../ai/en.html">Client AI</a>
+                        <a href="../marketing/en.html">Client understanding</a>
+                        <a href="../meta/en.html">Meta connection</a>
+                        <a href="../listings/en.html">Broker network</a>
+                        <a href="../pricing/en.html">Website plans and pricing</a>
+                        <a href="../integrations/en.html">Data integrations</a>
                     </nav>
                 </div>
 
@@ -3744,9 +3769,10 @@
         </div>
     </footer>
 
-    <script src="../assets/js/referral.js?v=781ea94124" defer></script>
+    <script src="../assets/js/referral.js?v=2148998f84" defer></script>
     <script src="../assets/js/commercial-page.js?v=63970ac5ff" defer></script>
-    <script src="../assets/js/v3/estavo-v3.js?v=e26608a3f2" defer></script>
+    <script src="../assets/js/fx.js?v=c9c2a47a2d" defer></script>
+    <script src="../assets/js/v3/estavo-v3.js?v=bb425e08c2" defer></script>
 </body>
 
 </html>

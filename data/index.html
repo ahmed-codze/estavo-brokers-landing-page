@@ -67,7 +67,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/logo/Estavo%20Icon.png" />
     <link rel="manifest" href="../site.webmanifest" />
 
-
+    <link rel="stylesheet" href="../assets/css/fx.css?v=1e92256c4d" />
+    <link rel="stylesheet" href="../assets/css/fx-site.css?v=412e62d9bd" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap" rel="stylesheet" />
@@ -1073,6 +1074,7 @@
     }
     .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(2) { animation-delay: 100ms; }
     .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(3) { animation-delay: 150ms; }
+    .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(4) { animation-delay: 200ms; }
     .es-home .es-drawer:not([hidden]) .es-drawer__foot { animation-delay: 200ms; }
   }
 
@@ -3352,12 +3354,21 @@
   }
 }
 
+
+/* Five top-level nav items (Nov 2026): tighter gap and the short CTA label
+   until the header has room for the long one. */
+@media (min-width: 64rem) and (max-width: 87.499rem) {
+  .es-landing .es-header__nav,
+  .es-home .es-header__nav { gap: 1.25rem; }
+  .es-header__actions .es-header-cta-long { display: none; }
+  .es-header__actions .es-header-cta-short { display: inline; }
+}
 </style>
 
-    <link rel="preload" as="style" href="../assets/css/estavo-v3.css?v=a02a40ffda"
+    <link rel="preload" as="style" href="../assets/css/estavo-v3.css?v=c6f4efff72"
         onload="this.onload=null;this.rel='stylesheet'" />
     <noscript>
-        <link rel="stylesheet" href="../assets/css/estavo-v3.css?v=a02a40ffda" />
+        <link rel="stylesheet" href="../assets/css/estavo-v3.css?v=c6f4efff72" />
     </noscript>
 </head>
 <body class="es es-landing">
@@ -3375,12 +3386,39 @@
             </a>
 
             <nav class="es-header__nav" aria-label="القائمة الرئيسية">
-                <a href="../market/" aria-current="page"><bdi>Estavo Market</bdi></a>
-
                 <span class="es-menu" data-menu>
                     <button type="button" class="es-header__disclosure" data-menu-trigger
                         aria-expanded="false" aria-haspopup="true">
-                        موقعك
+                        السوق
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                            stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+                    </button>
+                    <span class="es-menu__panel es-menu__panel--grouped" data-menu-panel hidden>
+                        <span class="es-menu__label">السوق والمطورين</span>
+                        <a href="../market/" aria-current="page"><b><bdi>Estavo Market</bdi></b><small>المشاريع والوحدات والأسعار وأنظمة السداد.</small></a>
+                        <a href="../developers/"><b>المطورين</b><small>اعرف المطوّر ومشاريعه وأخباره.</small></a>
+                        <a href="../roi/"><b>كاش ولا تقسيط؟</b><small>حسابات أنظمة السداد بالأرقام.</small></a>
+                    </span>
+                </span>
+                <span class="es-menu" data-menu>
+                    <button type="button" class="es-header__disclosure" data-menu-trigger
+                        aria-expanded="false" aria-haspopup="true">
+                        مجتمع البروكرز
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                            stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+                    </button>
+                    <span class="es-menu__panel es-menu__panel--grouped" data-menu-panel hidden>
+                        <span class="es-menu__label">كل يوم في شغلك</span>
+                        <a href="../insights/"><b>جديد السوق</b><small>أخبار وإطلاقات المطورين.</small></a>
+                        <a href="../jobs/"><b>الوظائف</b><small>فرص شغل في القطاع العقاري.</small></a>
+                        <a href="../challenges/"><b>تحدّي إكسكلوسيف</b><small>العب واختبر معلوماتك في السوق.</small></a>
+                        <a href="../guides/"><b>نصايح البيع</b><small>أدلة عملية تساعدك تبيع أكتر.</small></a>
+                    </span>
+                </span>
+                <span class="es-menu" data-menu>
+                    <button type="button" class="es-header__disclosure" data-menu-trigger
+                        aria-expanded="false" aria-haspopup="true">
+                        موقعك وتسويقك
                         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
                             stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
                     </button>
@@ -3391,17 +3429,15 @@
                         <span class="es-menu__label">إمكانيات تضيفها</span>
                         <a href="../ai/"><b><bdi>Client AI</bdi></b><small>مساعد لعملاء موقعك.</small></a>
                         <a href="../marketing/"><b>فهم العميل</b><small>اعرف طلبه قبل المكالمة.</small></a>
-                        <a href="../meta/"><b>ربط <bdi>Meta</bdi></b><small>أحداث موقعك في حسابك.</small></a>
+                        <a href="../meta/"><b>ربط <bdi>Meta</bdi></b><small>أحداث موقعك في حسابك.</small></a>
                         <a href="../listings/"><b>شبكة البروكرز</b><small>وزّع وحداتك مع تحكمك في العمولة.</small></a>
                         <span class="es-menu__foot">
-                            <a href="../integrations/">عندك منصة؟ الربط بمنصتك</a>
+                            <a href="../pricing/">أسعار وباقات المواقع</a>
                         </span>
                     </span>
                 </span>
-
-                <a href="../insights/">أخبار وتحليلات</a>
-                <a href="../guides/">أدلة البروكر</a>
-                <a href="../pricing/">الأسعار</a>
+                <a href="../integrations/">ربط الداتا</a>
+                <a href="../broker-ai/">اسأل إستاڤو</a>
             </nav>
 
             <div class="es-header__actions">
@@ -3435,24 +3471,32 @@
 
         <div class="es-drawer__body">
             <div class="es-drawer__group">
-                <h2><bdi>Estavo Market</bdi></h2>
-                <a href="../market/" aria-current="page">داتا ووحدات السوق</a>
-                <a href="../insights/">أخبار وتحليلات</a>
-                <a href="../guides/">أدلة البروكر</a>
+                <h2>السوق والمطورين</h2>
+                <a href="../market/" aria-current="page"><bdi>Estavo Market</bdi></a>
+                <a href="../developers/">المطورين</a>
+                <a href="../roi/">كاش ولا تقسيط؟</a>
+                <a href="../broker-ai/">اسأل إستاڤو</a>
             </div>
             <div class="es-drawer__group">
-                <h2>موقعك</h2>
+                <h2>مجتمع البروكرز</h2>
+                <a href="../insights/">جديد السوق</a>
+                <a href="../jobs/">الوظائف</a>
+                <a href="../challenges/">تحدّي إكسكلوسيف</a>
+                <a href="../guides/">نصايح البيع</a>
+            </div>
+            <div class="es-drawer__group">
+                <h2>موقعك وتسويقك</h2>
                 <a href="../websites/">موقع للبروكر</a>
                 <a href="../enterprise/">موقع للشركة</a>
                 <a href="../ai/"><bdi>Client AI</bdi></a>
                 <a href="../marketing/">فهم العميل</a>
-                <a href="../meta/">ربط <bdi>Meta</bdi></a>
+                <a href="../meta/">ربط <bdi>Meta</bdi></a>
                 <a href="../listings/">شبكة البروكرز</a>
+                <a href="../pricing/">أسعار وباقات المواقع</a>
             </div>
             <div class="es-drawer__group">
-                <h2>أكتر</h2>
-                <a href="../pricing/">الأسعار</a>
-                <a href="../integrations/">عندك منصة؟ الربط بمنصتك</a>
+                <h2>للشركات والمنصات</h2>
+                <a href="../integrations/">ربط الداتا بمنصتك</a>
             </div>
         </div>
 
@@ -3465,7 +3509,17 @@
     </div>
 
     <main id="main">
-        <section class="es-hero es-service-hero" aria-labelledby="hero-h"><div class="es-container es-container--reading"><div class="es-hero__copy" data-reveal><span class="es-eyebrow">بيانات السوق انتقلت</span><h1 id="hero-h">بيانات السوق وتحديثاتها وأدوات البروكر بقوا مع بعض في <bdi>Estavo Market</bdi>.</h1><p class="es-lead">دور في المشاريع والوحدات وخطط السداد، قارن المعلومات المتاحة، استخدم <bdi>Brokers AI</bdi> وجهّز عروض <bdi>PDF</bdi> باسمك من منتج واحد للبروكر.</p><p><a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-button es-button--primary" data-track="market_opened" data-position="hero">جرّب <bdi>Estavo Market</bdi> مجانًا</a></p><p><a href="../market/" class="es-text-link">اعرف أكتر عن <bdi>Estavo Market</bdi></a></p></div><div class="es-service-hero-art es-service-hero-art--diagram" aria-hidden="true"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="/assets/img/estavo-market-explorer-still.svg" type="image/svg+xml" /><img src="../assets/img/estavo-market-explorer-still.svg" width="1024" height="640" alt="" decoding="async" fetchpriority="high" /></picture><div class="es-service-hero-mobile"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="/assets/img/estavo-market-explorer-mobile-still.svg" type="image/svg+xml" /><img src="../assets/img/estavo-market-explorer-mobile-still.svg" width="390" height="430" alt="" decoding="async" /></picture></div></div></div></section>
+        <section class="es-hero es-service-hero" aria-labelledby="hero-h"><div class="es-container es-container--reading"><div class="es-hero__copy" data-reveal><span class="es-eyebrow">بيانات السوق انتقلت</span><h1 id="hero-h">بيانات السوق وتحديثاتها وأدوات البروكر بقوا مع بعض في <bdi>Estavo Market</bdi>.</h1><p class="es-lead">دور في المشاريع والوحدات وخطط السداد، قارن المعلومات المتاحة، استخدم <bdi>Brokers AI</bdi> وجهّز عروض <bdi>PDF</bdi> باسمك من منتج واحد للبروكر.</p><p><a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="es-button es-button--primary" data-track="market_opened" data-position="hero">جرّب <bdi>Estavo Market</bdi> مجانًا</a></p><p><a href="../market/" class="es-text-link">اعرف أكتر عن <bdi>Estavo Market</bdi></a></p></div>
+<div class="fxp-hero-art fxp-hero-art--below">
+<div class="fx-stage fx-stage--deck fx-stage--own-floor fxp-stage" aria-hidden="true">
+  <div class="fx-stage__art"><picture data-fx-swap="loop"><source media="(prefers-reduced-motion: reduce)" srcset="../assets/img/fx/data-hero-rtl-still.svg"><img src="../assets/img/fx/data-hero-rtl.svg" width="1200" height="900" alt="" decoding="async"></picture></div>
+  <span class="fx-stage__label" style="--x:91.67%;--y:77.78%">المطورين</span>
+  <span class="fx-stage__label" style="--x:91.67%;--y:65.56%">المشاريع</span>
+  <span class="fx-stage__label" style="--x:91.67%;--y:53.33%">نماذج الوحدات</span>
+  <span class="fx-stage__label" style="--x:91.67%;--y:41.11%">المناطق</span>
+  <span class="fx-stage__label fx-stage__label--above" style="--x:25.0%;--y:30.89%">بيانات المشروع</span>
+</div>
+</div><div class="es-service-hero-art es-service-hero-art--diagram" aria-hidden="true"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="/assets/img/estavo-market-explorer-still.svg" type="image/svg+xml" /><img src="../assets/img/estavo-market-explorer-still.svg" width="1024" height="640" alt="" decoding="async" fetchpriority="high" /></picture><div class="es-service-hero-mobile"><picture class="es-vector-picture"><source media="(prefers-reduced-motion: reduce)" srcset="/assets/img/estavo-market-explorer-mobile-still.svg" type="image/svg+xml" /><img src="../assets/img/estavo-market-explorer-mobile-still.svg" width="390" height="430" alt="" decoding="async" /></picture></div></div></div></section>
 
     </main>
     <footer class="es-footer" role="contentinfo">
@@ -3475,8 +3529,8 @@
                     <img src="../assets/logo/Estavo%20Inverted%20full%20word%20logo.png" alt="إستاڤو"
                         width="4884" height="4884" loading="lazy" decoding="async" />
                     <p class="es-footer__tagline">
-                        منتجين على أساس بيانات واحد: <bdi>Estavo Market</bdi> لشغل البروكر،
-                        و<bdi>Estavo Sites</bdi> لعرضه باسمك.
+                        مجتمع البروكرز في مصر: داتا السوق والمطورين، الأخبار والوظائف والتحديات،
+                        ومساعد <bdi>AI</bdi> يساعدك في شغلك.
                     </p>
                     <p class="es-footer__tagline">الجيل الجديد من شغل العقارات.</p>
 
@@ -3497,25 +3551,30 @@
                 </div>
 
                 <div>
-                    <h2>المنتجات</h2>
-                    <nav class="es-footer__links" aria-label="روابط الخدمات">
+                    <h2>السوق والمجتمع</h2>
+                    <nav class="es-footer__links" aria-label="روابط السوق والمجتمع">
                         <a href="../market/"><bdi>Estavo Market</bdi></a>
-                        <a href="../websites/"><bdi>Estavo Sites</bdi> للبروكر</a>
-                        <a href="../enterprise/"><bdi>Estavo Sites</bdi> للشركات</a>
-                        <a href="../ai/"><bdi>Client AI</bdi></a>
-                        <a href="../meta/">ربط <bdi>Meta</bdi></a>
-                        <a href="../listings/">شبكة البروكرز</a>
+                        <a href="../developers/">المطورين</a>
+                        <a href="../roi/">كاش ولا تقسيط؟</a>
+                        <a href="../broker-ai/">اسأل إستاڤو</a>
+                        <a href="../insights/">جديد السوق</a>
+                        <a href="../jobs/">الوظائف</a>
+                        <a href="../challenges/">تحدّي إكسكلوسيف</a>
+                        <a href="../guides/">نصايح البيع</a>
                     </nav>
                 </div>
 
                 <div>
-                    <h2>الشركة</h2>
-                    <nav class="es-footer__links" aria-label="روابط الشركة">
-                        <a href="../integrations/">الربط بمنصة حالية</a>
-                        <a href="../pricing/">الأسعار</a>
-                        <a href="../insights/">أخبار وتحليلات</a>
-                        <a href="../marketing/">العملاء والتسويق</a>
-                        <a href="../examples/">أمثلة وتجارب</a>
+                    <h2>موقعك وتسويقك</h2>
+                    <nav class="es-footer__links" aria-label="روابط المواقع">
+                        <a href="../websites/">موقع للبروكر</a>
+                        <a href="../enterprise/">موقع للشركة</a>
+                        <a href="../ai/"><bdi>Client AI</bdi></a>
+                        <a href="../marketing/">فهم العميل</a>
+                        <a href="../meta/">ربط <bdi>Meta</bdi></a>
+                        <a href="../listings/">شبكة البروكرز</a>
+                        <a href="../pricing/">أسعار وباقات المواقع</a>
+                        <a href="../integrations/">ربط الداتا بمنصتك</a>
                     </nav>
                 </div>
 
@@ -3543,8 +3602,9 @@
         </div>
     </footer>
 
-    <script src="../assets/js/referral.js?v=781ea94124" defer></script>
-    <script src="../assets/js/v3/estavo-v3.js?v=e26608a3f2" defer></script>
+    <script src="../assets/js/referral.js?v=2148998f84" defer></script>
+    <script src="../assets/js/fx.js?v=c9c2a47a2d" defer></script>
+    <script src="../assets/js/v3/estavo-v3.js?v=bb425e08c2" defer></script>
 </body>
 
 </html>

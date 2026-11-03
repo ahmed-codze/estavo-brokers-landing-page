@@ -68,7 +68,9 @@
     <link rel="manifest" href="../site.webmanifest" />
 
     <link rel="stylesheet" href="../assets/css/commercial.css?v=984eb4968d" />
-    <link rel="stylesheet" href="../assets/css/pages/websites.css?v=4bd73e47b1" />
+    <link rel="stylesheet" href="../assets/css/pages/websites.css?v=474a288773" />
+    <link rel="stylesheet" href="../assets/css/fx.css?v=1e92256c4d" />
+    <link rel="stylesheet" href="../assets/css/fx-site.css?v=412e62d9bd" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap" rel="stylesheet" />
@@ -1074,6 +1076,7 @@
     }
     .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(2) { animation-delay: 100ms; }
     .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(3) { animation-delay: 150ms; }
+    .es-home .es-drawer:not([hidden]) .es-drawer__group:nth-child(4) { animation-delay: 200ms; }
     .es-home .es-drawer:not([hidden]) .es-drawer__foot { animation-delay: 200ms; }
   }
 
@@ -3353,12 +3356,21 @@
   }
 }
 
+
+/* Five top-level nav items (Nov 2026): tighter gap and the short CTA label
+   until the header has room for the long one. */
+@media (min-width: 64rem) and (max-width: 87.499rem) {
+  .es-landing .es-header__nav,
+  .es-home .es-header__nav { gap: 1.25rem; }
+  .es-header__actions .es-header-cta-long { display: none; }
+  .es-header__actions .es-header-cta-short { display: inline; }
+}
 </style>
 
-    <link rel="preload" as="style" href="../assets/css/estavo-v3.css?v=a02a40ffda"
+    <link rel="preload" as="style" href="../assets/css/estavo-v3.css?v=c6f4efff72"
         onload="this.onload=null;this.rel='stylesheet'" />
     <noscript>
-        <link rel="stylesheet" href="../assets/css/estavo-v3.css?v=a02a40ffda" />
+        <link rel="stylesheet" href="../assets/css/estavo-v3.css?v=c6f4efff72" />
     </noscript>
 </head>
 <body class="es es-landing">
@@ -3376,12 +3388,39 @@
             </a>
 
             <nav class="es-header__nav" aria-label="Main navigation">
-                <a href="../market/en.html">Estavo Market</a>
-
                 <span class="es-menu" data-menu>
                     <button type="button" class="es-header__disclosure" data-menu-trigger
                         aria-expanded="false" aria-haspopup="true">
-                        Your website
+                        Market
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                            stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+                    </button>
+                    <span class="es-menu__panel es-menu__panel--grouped" data-menu-panel hidden>
+                        <span class="es-menu__label">Market &amp; developers</span>
+                        <a href="../market/en.html"><b>Estavo Market</b><small>Projects, units, prices and payment plans.</small></a>
+                        <a href="../developers/en.html"><b>Developers</b><small>Know the developer, its projects and news.</small></a>
+                        <a href="../roi/en.html"><b>Cash or installments?</b><small>Payment-plan maths, in numbers.</small></a>
+                    </span>
+                </span>
+                <span class="es-menu" data-menu>
+                    <button type="button" class="es-header__disclosure" data-menu-trigger
+                        aria-expanded="false" aria-haspopup="true">
+                        Broker community
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                            stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+                    </button>
+                    <span class="es-menu__panel es-menu__panel--grouped" data-menu-panel hidden>
+                        <span class="es-menu__label">Every day at work</span>
+                        <a href="../insights/en.html"><b>Market news</b><small>News and developer launches.</small></a>
+                        <a href="../jobs/en.html"><b>Jobs</b><small>Real-estate job openings.</small></a>
+                        <a href="../challenges/en.html"><b>Exclusive challenge</b><small>Play and test your market knowledge.</small></a>
+                        <a href="../guides/en/"><b>Selling tips</b><small>Practical guides to sell more.</small></a>
+                    </span>
+                </span>
+                <span class="es-menu" data-menu>
+                    <button type="button" class="es-header__disclosure" data-menu-trigger
+                        aria-expanded="false" aria-haspopup="true">
+                        Your website &amp; marketing
                         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
                             stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
                     </button>
@@ -3395,14 +3434,12 @@
                         <a href="../meta/en.html"><b>Meta connection</b><small>Website events in your account.</small></a>
                         <a href="../listings/en.html"><b>Broker network</b><small>Distribute properties and control commission.</small></a>
                         <span class="es-menu__foot">
-                            <a href="../integrations/en.html">Have a platform? Integrations</a>
+                            <a href="../pricing/en.html">Website plans and pricing</a>
                         </span>
                     </span>
                 </span>
-
-                <a href="../insights/en.html">Insights</a>
-                <a href="../guides/en/">Broker guides</a>
-                <a href="../pricing/en.html">Pricing</a>
+                <a href="../integrations/en.html">Data integrations</a>
+                <a href="../broker-ai/en.html">Ask Estavo</a>
             </nav>
 
             <div class="es-header__actions">
@@ -3436,24 +3473,32 @@
 
         <div class="es-drawer__body">
             <div class="es-drawer__group">
-                <h2>Estavo Market</h2>
-                <a href="../market/en.html">Market data and units</a>
-                <a href="../insights/en.html">Insights</a>
-                <a href="../guides/en/">Broker guides</a>
+                <h2>Market &amp; developers</h2>
+                <a href="../market/en.html">Estavo Market</a>
+                <a href="../developers/en.html">Developers</a>
+                <a href="../roi/en.html">Cash or installments?</a>
+                <a href="../broker-ai/en.html">Ask Estavo</a>
             </div>
             <div class="es-drawer__group">
-                <h2>Your website</h2>
-                <a href="../websites/en.html" aria-current="page">Site for brokers</a>
-                <a href="../enterprise/en.html">Site for companies</a>
+                <h2>Broker community</h2>
+                <a href="../insights/en.html">Market news</a>
+                <a href="../jobs/en.html">Jobs</a>
+                <a href="../challenges/en.html">Exclusive challenge</a>
+                <a href="../guides/en/">Selling tips</a>
+            </div>
+            <div class="es-drawer__group">
+                <h2>Your website &amp; marketing</h2>
+                <a href="../websites/en.html" aria-current="page">Sites for brokers</a>
+                <a href="../enterprise/en.html">Sites for companies</a>
                 <a href="../ai/en.html">Client AI</a>
                 <a href="../marketing/en.html">Client understanding</a>
                 <a href="../meta/en.html">Meta connection</a>
                 <a href="../listings/en.html">Broker network</a>
+                <a href="../pricing/en.html">Website plans and pricing</a>
             </div>
             <div class="es-drawer__group">
-                <h2>More</h2>
-                <a href="../pricing/en.html">Pricing</a>
-                <a href="../integrations/en.html">Have a platform? Integrations</a>
+                <h2>For companies &amp; platforms</h2>
+                <a href="../integrations/en.html">Connect your platform to our data</a>
             </div>
         </div>
 
@@ -3472,14 +3517,20 @@
                 <div class="sites-hero__copy">
                     <p class="hero-eyebrow">Estavo Sites — a property website for independent brokers</p>
                     <h1 id="hero-h">Bring the buyer back to you—not to a page full of competitors.</h1>
-                    <p class="sites-hero__lead">A property website under your name, with 26,000+ comparable units from 2,400+ projects and your own properties beside them. The data that normally needs a team to collect and maintain arrives ready on your site.</p>
-                    <p class="sites-hero__promise">Without a tech or data team—and without hiring a designer or developer. Free, in around five minutes. A new site starts with zero assigned cities; Estavo can then apply the launch grant of one free city and five team-created tracked leads per month.</p>
+                    <p class="sites-hero__lead">A property website under your name, with 26,000+ unit types from 2,400+ projects and your own properties beside them. The data that normally needs a team to collect and maintain arrives ready on your site.</p>
+                    <p class="sites-hero__promise">Without a tech or data team—and without hiring a designer or developer. Free, in around five minutes. A new site starts with zero cities; Estavo can add one free city as a launch grant. Cities, AI and marketing features follow your plan — <a href="../pricing/en.html">pricing</a>.</p>
                     <div class="hero-actions"><a href="https://estavo-brokers.com/website/?audience=individual" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="hero">Create your website free</a><a href="#site-preview" class="btn btn-outline btn-lg">See Nour's website example</a></div>
                 </div>
-                <div class="sites-hero__art" aria-label="Nour Properties website example">
-                    <div class="sites-hero-desktop"><div class="identity-card identity-card--name"><span>Name</span><strong>Nour Properties</strong></div><div class="identity-card identity-card--colour"><span>Colour</span><i></i><strong>Navy</strong></div><div class="identity-card identity-card--contact"><span>Contact</span><strong>WhatsApp</strong></div><span class="identity-route" aria-hidden="true"></span><div class="site-browser"><div class="site-browser__bar"><i></i><i></i><i></i><span>nour-properties.com · Example</span></div><div class="site-browser__page"><div class="site-nav"><strong>Nour Properties</strong><span>Projects</span><span>Properties</span><b>Contact</b></div><div class="site-banner"><small>Property choices under a name you trust</small><strong>Find a home that fits your request.</strong><div class="site-search"><span>Area</span><span>Property type</span><b>Search</b></div></div><div class="site-listings site-listings--three"><article><i></i><strong>Fifth Settlement compound</strong><span>3 beds · from EGP 4.8m · 7 years</span></article><article><i></i><strong>Sheikh Zayed project</strong><span>Apartments · from EGP 5.1m</span></article><article><i></i><strong>Resale — added by Nour</strong><span>2 beds · EGP 3.2m</span></article></div><div class="site-contact"><span>Found a relevant option?</span><b>Message Nour on WhatsApp</b></div></div></div></div>
-                    <div class="sites-hero-mobile"><div class="mobile-brand"><i>N</i><span><strong>Nour Properties</strong><small>Selected projects and properties</small></span></div><div class="mobile-search"><span>Search by area and property type</span><b>Search</b></div><div class="mobile-properties"><div class="mobile-property"><i></i><span><strong>Fifth Settlement compound</strong><small>3 beds · from EGP 4.8m</small></span></div><div class="mobile-property"><i></i><span><strong>Resale added by Nour</strong><small>2 beds · EGP 3.2m</small></span></div></div><div class="mobile-contact"><span>Contact Nour</span><b>WhatsApp</b></div></div>
-                </div>
+                <div class="fxp-hero-art">
+<div class="fx-stage fx-stage--deck fx-stage--own-floor fxp-stage" aria-hidden="true">
+  <div class="fx-stage__art"><picture data-fx-swap="loop"><source media="(prefers-reduced-motion: reduce)" srcset="../assets/img/fx/websites-hero-still.svg"><img src="../assets/img/fx/websites-hero.svg" width="1200" height="900" alt="" decoding="async"></picture></div>
+  <span class="fx-stage__label fx-stage__label--above" style="--x:50.0%;--y:24.22%">Your site, your name</span>
+  <span class="fx-stage__label fx-stage__label--above" style="--x:85.83%;--y:25.94%">Site assistant</span>
+  <span class="fx-stage__label fx-stage__label--below" style="--x:85.83%;--y:76.67%">Leads reach you</span>
+  <span class="fx-stage__label fx-stage__label--below" style="--x:15.0%;--y:75.56%">Domain</span>
+  <span class="fx-stage__label fx-stage__label--below" style="--x:15.0%;--y:31.11%">Name & logo</span>
+</div>
+</div>
             </div>
         </section>
 
@@ -3493,13 +3544,13 @@
 
         <section class="section-pad sites-workflow" aria-labelledby="workflow-h"><div class="container"><div class="sites-section-head sites-section-head--center" data-reveal><p class="eyebrow">How it works</p><h2 class="section-title" id="workflow-h">Three steps give your work one permanent home.</h2></div><ol class="sites-steps" data-reveal-stagger><li><span>1</span><div><strong>Choose your identity</strong><p>Your name, colour and WhatsApp number.</p></div></li><li><span>2</span><div><strong>Choose what to present</strong><p>Cities and projects from Estavo, with your own listings beside them.</p></div></li><li><span>3</span><div><strong>Share the link</strong><p>The buyer searches, reviews the details and returns to you.</p></div></li></ol><div class="sites-action"><a href="https://estavo-brokers.com/website/?audience=individual" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="workflow">Start your website free</a></div></div></section>
 
-        <section class="section-pad sites-scope" aria-labelledby="scope-h"><div class="container sites-scope__grid"><div data-reveal><p class="eyebrow">Your package</p><h2 class="section-title" id="scope-h">Know what your website can show—and what your team can track.</h2><p class="section-body">Every paid city activates its currently available inventory. It also adds 50 team-created tracked leads per month. Visitors and enquiries submitted through your website stay unlimited.</p><a href="https://estavo-brokers.com/website/?audience=individual" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="commercial">Create your free website</a><p><a href="../pricing/en.html" class="sites-text-link">See exact lead top-up prices</a></p></div><dl class="scope-list" data-reveal><div><dt>Launch grant</dt><dd>Your site is created with zero cities and zero lead allowance. Estavo can assign one free city and five tracked leads per month after setup.</dd></div><div><dt>Paid cities</dt><dd>Every paid city adds its current inventory, plus 50 monthly credits for customer records you deliberately create and track.</dd></div><div><dt>Unlimited inbound demand</dt><dd>Website visitors and enquiries never use that allowance. If your team needs more manual records, buy a lead top-up without adding a city.</dd></div></dl></div><div class="container"><p class="sites-boundary">Unit counts, prices and payment plans follow the currently available market data. You remain responsible for properties you add yourself.</p></div></section>
+        <section class="section-pad sites-scope" aria-labelledby="scope-h"><div class="container sites-scope__grid"><div data-reveal><p class="eyebrow">Your package</p><h2 class="section-title" id="scope-h">Know what your website can show—and what your team can track.</h2><p class="section-body">Every paid city activates its currently available inventory. It also adds 50 team-created tracked leads per month. Visitors and enquiries submitted through your website stay unlimited.</p><a href="https://estavo-brokers.com/website/?audience=individual" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="commercial">Create your free website</a><p><a href="../pricing/en.html" class="sites-text-link">See exact lead top-up prices</a></p></div><dl class="scope-list" data-reveal><div><dt>Launch grant</dt><dd>Your site is created with zero cities and zero lead allowance. Estavo can assign one free city and five tracked leads per month after setup.</dd></div><div><dt>Paid cities</dt><dd>Every paid city adds its current inventory, plus 50 customer records per month that you deliberately create and track.</dd></div><div><dt>Unlimited inbound demand</dt><dd>Website visitors and enquiries never use that allowance. If your team needs more manual records, buy a lead top-up without adding a city.</dd></div></dl></div><div class="container"><p class="sites-boundary">Unit counts, prices and payment plans follow the currently available market data. You remain responsible for properties you add yourself.</p></div></section>
 
-        <section class="section-faq section-pad" aria-labelledby="faq-h"><div class="container"><div class="sites-section-head sites-section-head--center" data-reveal><p class="eyebrow">Before you begin</p><h2 class="section-title" id="faq-h">Questions about your site.</h2></div><div class="faq-list" data-exclusive-details data-reveal><details class="faq-item" open><summary class="faq-question"><h3>Is the website itself free?</h3></summary><p class="faq-answer">Website creation, identity and core pages are free. Optional additions show their terms before you choose them.</p></details><details class="faq-item"><summary class="faq-question"><h3>Who runs the hosting and server?</h3></summary><p class="faq-answer">Estavo operates the site infrastructure under the current service terms. Any custom domain or different operating request is defined during setup.</p></details><details class="faq-item"><summary class="faq-question"><h3>Does the site carry Estavo's name or mine?</h3></summary><p class="faq-answer">The customer-facing site carries the name, identity and contact details you select. Estavo operates the service behind it.</p></details><details class="faq-item"><summary class="faq-question"><h3>Can I use my own domain?</h3></summary><p class="faq-answer">Domain options, ownership and renewal terms are explained during setup before confirmation.</p></details><details class="faq-item"><summary class="faq-question"><h3>Can I add primary and resale properties myself?</h3></summary><p class="faq-answer">You can add the property types supported by your service. You remain responsible for the accuracy and updates of properties you enter.</p></details><details class="faq-item"><summary class="faq-question"><h3>Is the site bilingual and mobile-friendly?</h3></summary><p class="faq-answer">Available language and page options are shown during setup, and every published interface is designed to remain usable on mobile.</p></details></div></div></section>
+        <section class="section-faq section-pad" aria-labelledby="faq-h"><div class="container"><div class="sites-section-head sites-section-head--center" data-reveal><p class="eyebrow">Before you begin</p><h2 class="section-title" id="faq-h">Questions about your site.</h2></div><div class="faq-list" data-exclusive-details data-reveal><details class="faq-item" open><summary class="faq-question"><h3>Is the website itself free?</h3></summary><p class="faq-answer">Creating the basic site is free, including your identity and core pages. Cities, AI and marketing features follow your plan — see <a href="../pricing/en.html">website plans and pricing</a>.</p></details><details class="faq-item"><summary class="faq-question"><h3>Who runs the hosting and server?</h3></summary><p class="faq-answer">Estavo operates the site infrastructure under the current service terms. Any custom domain or different operating request is defined during setup.</p></details><details class="faq-item"><summary class="faq-question"><h3>Does the site carry Estavo's name or mine?</h3></summary><p class="faq-answer">The customer-facing site carries the name, identity and contact details you select. Estavo operates the service behind it.</p></details><details class="faq-item"><summary class="faq-question"><h3>Can I use my own domain?</h3></summary><p class="faq-answer">Domain options, ownership and renewal terms are explained during setup before confirmation.</p></details><details class="faq-item"><summary class="faq-question"><h3>Can I add primary and resale properties myself?</h3></summary><p class="faq-answer">You can add the property types supported by your service. You remain responsible for the accuracy and updates of properties you enter.</p></details><details class="faq-item"><summary class="faq-question"><h3>Is the site bilingual and mobile-friendly?</h3></summary><p class="faq-answer">Available language and page options are shown during setup, and every published interface is designed to remain usable on mobile.</p></details></div></div></section>
 
-        <aside class="section-pad sites-market-bridge" aria-labelledby="market-bridge-h"><div class="container sites-market-bridge__inner" data-reveal><div><p class="eyebrow light">The same account and data</p><h2 class="section-title light" id="market-bridge-h">One account, two products.</h2><p class="section-body light">Search and compare in Estavo Market, then present what you choose on your website. The same data and the same account.</p></div><a href="../market/en.html" class="btn btn-outline btn-lg" data-track="service_selected" data-position="sites_market_bridge">Explore Estavo Market</a></div></aside>
+        <aside class="section-pad sites-market-bridge" aria-labelledby="market-bridge-h"><div class="container sites-market-bridge__inner" data-reveal><div><p class="eyebrow light">The same account, free</p><h2 class="section-title light" id="market-bridge-h">Your Estavo account also opens Estavo Market and the broker community.</h2><p class="section-body light">Search and compare projects in Estavo Market, and follow <a href="../insights/en.html">market news</a>, <a href="../jobs/en.html">jobs</a> and the <a href="../challenges/en.html">Exclusive challenge</a>. All completely free for now.</p></div><a href="../market/en.html" class="btn btn-outline btn-lg" data-track="service_selected" data-position="sites_market_bridge">Explore Estavo Market</a></div></aside>
 
-        <section class="section-cta section-pad sites-close" aria-labelledby="close-h"><div class="container"><div class="cta-inner"><div class="cta-character" aria-hidden="true">N</div><h2 class="cta-title" id="close-h">Give buyers one professional place to see your work—even when you work independently.</h2><p class="cta-subtitle">Create your site free, choose what to present and share a link that brings the buyer back to you. Your preview is built from the projects and units in the cities you choose; when you activate it, you start with one free city.</p><div class="cta-buttons"><a href="https://estavo-brokers.com/website/?audience=individual" class="btn btn-gold btn-lg es-button--light" data-track="website_preview_started" data-position="close">Create your website free · ~5 min</a><a href="https://wa.me/201069528393" class="btn btn-outline btn-lg" data-track="whatsapp_clicked" data-position="sites_close">Message us on WhatsApp</a></div></div></div></section>
+        <section class="section-cta section-pad sites-close" aria-labelledby="close-h"><div class="container"><div class="cta-inner"><div class="cta-character" aria-hidden="true">N</div><h2 class="cta-title" id="close-h">Give buyers one professional place to see your work—even when you work independently.</h2><p class="cta-subtitle">Create your site free, choose what to present and share a link that brings the buyer back to you. A new site starts with zero assigned cities; Estavo can apply the launch grant after setup.</p><div class="cta-buttons"><a href="https://estavo-brokers.com/website/?audience=individual" class="btn btn-gold btn-lg es-button--light" data-track="website_preview_started" data-position="close">Create your website free · ~5 min</a><a href="https://wa.me/201069528393" class="btn btn-outline btn-lg" data-track="whatsapp_clicked" data-position="sites_close">Message us on WhatsApp</a></div></div></div></section>
 
     </main>
     <footer class="es-footer" role="contentinfo">
@@ -3509,8 +3560,8 @@
                     <img src="../assets/logo/Estavo%20Inverted%20full%20word%20logo.png" alt="Estavo"
                         width="4884" height="4884" loading="lazy" decoding="async" />
                     <p class="es-footer__tagline">
-                        Two products on one data foundation: Estavo Market for broker work,
-                        and Estavo Sites to present it under your brand.
+                        The professional home for Egypt's brokers: market and developer data,
+                        news, jobs and challenges, and an AI assistant for your work.
                     </p>
                     <p class="es-footer__tagline">The next generation of real-estate business.</p>
 
@@ -3531,25 +3582,30 @@
                 </div>
 
                 <div>
-                    <h2>Products</h2>
-                    <nav class="es-footer__links" aria-label="Service links">
+                    <h2>Market &amp; community</h2>
+                    <nav class="es-footer__links" aria-label="Market and community links">
                         <a href="../market/en.html">Estavo Market</a>
-                        <a href="../websites/en.html">Estavo Sites for brokers</a>
-                        <a href="../enterprise/en.html">Estavo Sites for companies</a>
-                        <a href="../ai/en.html">Client AI</a>
-                        <a href="../meta/en.html">Meta connection</a>
-                        <a href="../listings/en.html">Broker network</a>
+                        <a href="../developers/en.html">Developers</a>
+                        <a href="../roi/en.html">Cash or installments?</a>
+                        <a href="../broker-ai/en.html">Ask Estavo</a>
+                        <a href="../insights/en.html">Market news</a>
+                        <a href="../jobs/en.html">Jobs</a>
+                        <a href="../challenges/en.html">Exclusive challenge</a>
+                        <a href="../guides/en/">Selling tips</a>
                     </nav>
                 </div>
 
                 <div>
-                    <h2>Company</h2>
-                    <nav class="es-footer__links" aria-label="Company links">
-                        <a href="../integrations/en.html">Existing-platform integration</a>
-                        <a href="../pricing/en.html">Pricing</a>
-                        <a href="../insights/en.html">Insights</a>
-                        <a href="../marketing/en.html">Buyers &amp; marketing</a>
-                        <a href="../examples/en.html">Examples</a>
+                    <h2>Website &amp; marketing</h2>
+                    <nav class="es-footer__links" aria-label="Website links">
+                        <a href="../websites/en.html">Sites for brokers</a>
+                        <a href="../enterprise/en.html">Sites for companies</a>
+                        <a href="../ai/en.html">Client AI</a>
+                        <a href="../marketing/en.html">Client understanding</a>
+                        <a href="../meta/en.html">Meta connection</a>
+                        <a href="../listings/en.html">Broker network</a>
+                        <a href="../pricing/en.html">Website plans and pricing</a>
+                        <a href="../integrations/en.html">Data integrations</a>
                     </nav>
                 </div>
 
@@ -3577,9 +3633,10 @@
         </div>
     </footer>
 
-    <script src="../assets/js/referral.js?v=781ea94124" defer></script>
+    <script src="../assets/js/referral.js?v=2148998f84" defer></script>
     <script src="../assets/js/commercial-page.js?v=63970ac5ff" defer></script>
-    <script src="../assets/js/v3/estavo-v3.js?v=e26608a3f2" defer></script>
+    <script src="../assets/js/fx.js?v=c9c2a47a2d" defer></script>
+    <script src="../assets/js/v3/estavo-v3.js?v=bb425e08c2" defer></script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 /* ============================================================
-   Estavo homepage — السوق · العقار · العميل
+   Estavo homepage — community positioning (Nov 2026; layers below
+   date from the Oct 2026 السوق · العقار · العميل build)
    ------------------------------------------------------------
    Homepage-only styles for index.html and en.html. Hand-authored
    (not generated) and loaded after the shared critical CSS.
@@ -388,7 +389,7 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 }
 
 .es-home-band--navy .es-home-ic { color: var(--es-on-dark-muted); }
-.es-home-band--navy :is(.es-home-opt--best, .es-home-match__unit, .es-home-disclosure__body) .es-home-ic { color: var(--es-blue-500); }
+.es-home-band--navy :is(.es-home-opt--best, .es-home-disclosure__body) .es-home-ic { color: var(--es-blue-500); }
 
 /* ── Shared surfaces ───────────────────────────────────── */
 .es-home-card {
@@ -454,8 +455,8 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 
 /* Centred figures: one shrinkable column, so enlarged text wraps inside
    the figure instead of widening it past the screen. */
-:is(.es-home-intel, .es-home-fw, .es-home-market, .es-home-market__sources, .es-home-build,
-  .es-home-signals, .es-home-growth-fig, .es-home-closing__inner) { grid-template-columns: minmax(0, 1fr); }
+:is(.es-home-intel, .es-home-market, .es-home-market__sources, .es-home-build,
+  .es-home-flow, .es-home-closing__inner) { grid-template-columns: minmax(0, 1fr); }
 
 /* ── Native disclosure (comparison, reverse matching) ──── */
 .es-home-disclosure {
@@ -561,229 +562,12 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 .es-home-display span { display: block; }
 .es-home-display span + span { color: var(--es-blue-600); }
 
-/* The model: market · property · client → Estavo → one best-fit result.
-   Inputs sit on top and converge into the core, so the eye reads the
-   cause before the answer. Blue rails relate; the mint rail resolves. */
-.es-home-intel {
-  display: grid;
-  justify-items: center;
-  inline-size: 100%;
-  max-inline-size: 36rem;
-  justify-self: center;
-}
-
-.es-home-fw__nodes {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: .75rem;
-  inline-size: 100%;
-  padding-block-end: 1.1rem;
-}
-
-/* Each input is a small card: icon + name, then what Estavo reads from it. */
-.es-home-fw__nodes li {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-content: start;
-  align-items: center;
-  gap: .2rem .5rem;
-  padding: .8rem .85rem .85rem;
-  border: 1px solid var(--es-line);
-  border-radius: var(--home-card-radius);
-  background: var(--es-white);
-  box-shadow: 0 1px 2px rgb(11 34 57 / 5%), 0 8px 20px rgb(11 34 57 / 5%);
-  color: var(--es-navy-950);
-  line-height: 1.35;
-}
-
-.es-home-fw__nodes .es-home-ic {
-  inline-size: 1.9rem;
-  block-size: 1.9rem;
-  padding: .42rem;
-  border-radius: 50%;
-  background: var(--es-mist);
-}
-
-.es-home-fw__nodes b { font-size: 1rem; font-weight: 600; }
-
-.es-home-fw__nodes :is(small, .es-home-fw__data) {
-  grid-column: 1 / -1;
-  font-size: var(--fs-small);
-  line-height: 1.45;
-}
-
-.es-home-fw__nodes small { margin-block-start: .3rem; color: var(--es-navy-950); font-weight: 600; }
-.es-home-fw__data { color: var(--es-ink-72); font-weight: 500; }
-
-/* Three kinds of information, three forms — not three identical cards:
-   the market is an open, geographic mark; the property is a record;
-   the client is something said. */
-.es-home-fw__nodes li:nth-child(1) {
-  border-color: transparent;
-  background: none;
-  box-shadow: none;
-}
-
-.es-home-fw__nodes li:nth-child(1) .es-home-ic {
-  position: relative;
-  background:
-    radial-gradient(circle at 1px 1px, rgb(46 108 170 / 35%) 1px, transparent 0) 0 0 / 5px 5px,
-    var(--es-white);
-  box-shadow: inset 0 0 0 1.5px var(--es-blue-500), 0 0 0 5px rgb(46 108 170 / 10%);
-}
-
-.es-home-fw__nodes li:nth-child(2) { border-block-start: 3px solid var(--es-blue-500); }
-
-.es-home-fw__nodes li.es-home-fw__client {
-  border-color: transparent;
-  border-end-start-radius: .3rem;
-  background: var(--es-navy-950);
-  box-shadow: 0 10px 24px rgb(11 34 57 / 16%);
-  color: var(--es-white);
-}
-
-.es-home-fw__client .es-home-ic { background: rgb(255 255 255 / 12%); color: var(--es-white); }
-.es-home-fw__nodes .es-home-fw__client small { color: var(--es-white); }
-.es-home-fw__client .es-home-fw__data { color: var(--es-on-dark-muted); }
-
-/* Rails: a stub under each card, one bar joining them, one line into the core. */
-.es-home-fw__nodes li::after {
-  content: "";
-  position: absolute;
-  inset-block-start: 100%;
-  inset-inline-start: calc(50% - var(--rail-w) / 2);
-  inline-size: var(--rail-w);
-  block-size: 1.1rem;
-  background: var(--rail-c);
-}
-
-.es-home-fw__nodes::after {
-  content: "";
-  position: absolute;
-  inset-block-end: 0;
-  inset-inline: calc((100% - 1.5rem) / 6);
-  block-size: var(--rail-w);
-  background: var(--rail-c);
-}
-
-.es-home-fw__merge {
-  inline-size: var(--rail-w);
-  block-size: 1rem;
-  background: var(--rail-c);
-}
-
-.es-home-fw__core { inline-size: 3.75rem; block-size: 3.75rem; }
-.es-home-fw__core img { inline-size: 1.9rem; }
-
-.es-home-intel > .es-home-rail--v { --rail-len: 1.25rem; }
-
-.es-home-intel__result {
-  display: grid;
-  gap: .55rem;
-  inline-size: min(100%, 26rem);
-  padding: .9rem 1.15rem 1rem;
-  border: 1px solid rgb(42 15 48 / 35%);
-  border-inline-start: 3px solid var(--home-accent-ink);
-  border-radius: var(--home-card-radius);
-  background: var(--es-white);
-  box-shadow: 0 0 0 4px rgb(42 15 48 / 10%), 0 12px 32px rgb(11 34 57 / 8%);
-}
-
-.es-home-intel__verdict {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: .25rem 1rem;
-}
-
-.es-home-intel__fit {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  color: var(--es-navy-950);
-  font-size: var(--fs-small);
-  font-weight: 600;
-}
-
-.es-home-intel__fit::before {
-  content: "";
-  inline-size: .55rem;
-  block-size: .55rem;
-  border-radius: 50%;
-  background: var(--home-accent-ink);
-  box-shadow: 0 0 0 3px rgb(42 15 48 / 18%);
-}
-
-.es-home-intel__title {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: .25rem 1rem;
-}
-
-.es-home-intel__title b { color: var(--es-navy-950); font-size: 1.125rem; font-weight: 600; }
-.es-home-intel__title > span { color: var(--es-ink-72); font-size: var(--fs-label); font-weight: 600; }
-
-/* Phones: the same vertical story, recomposed: three compact inputs (name +
-   one line) ↓ Estavo ↓ the answer and its reason. */
-@media (max-width: 40rem) {
-  .es-home-fw__nodes { gap: .5rem; }
-  .es-home-fw__nodes li { grid-template-columns: minmax(0, 1fr); justify-items: center; padding: .65rem .45rem .7rem; text-align: center; }
-  .es-home-fw__nodes .es-home-ic { inline-size: 1.75rem; block-size: 1.75rem; padding: .38rem; }
-  .es-home-fw__nodes::after { inset-inline: calc((100% - 1rem) / 6); }
-  .es-home-fw__nodes .es-home-fw__data { display: none; } /* the result's reason carries the priority */
-  .es-home-fw__nodes small { margin-block-start: .1rem; font-weight: 500; color: var(--es-ink-72); }
-  .es-home-fw__core { inline-size: 3.25rem; block-size: 3.25rem; }
-  .es-home-fw__core img { inline-size: 1.6rem; }
-}
-
-/* Enlarged text on a phone: the three inputs stack as rows. */
-@media (max-width: 18rem) {
-  .es-home-fw__nodes { grid-template-columns: minmax(0, 1fr); }
-  .es-home-fw__nodes li { grid-template-columns: auto minmax(0, 1fr); justify-items: start; text-align: start; }
-  .es-home-fw__nodes::after, .es-home-fw__nodes li::after { display: none; }
-  .es-home-fw__merge { block-size: 1rem; }
-}
-
-/* Mascot slot — hero "studying" pose (art pending; see AGENTS.md §5.2).
-   The markup is added only with the final asset, so nothing is reserved
-   until then. Every child gets an explicit row so the mascot can share
-   the core → result rows at the outer edge without adding height; the
-   image is absolutely placed and may rise beside the merge line. */
-.es-home-intel > * { grid-column: 1; } /* shared cells, never an implicit second column */
-.es-home-intel > .es-home-fw__nodes { grid-row: 1; }
-.es-home-intel > .es-home-fw__merge { grid-row: 2; }
-.es-home-intel > .es-home-fw__core { grid-row: 3; }
-.es-home-intel > .es-home-rail--v { grid-row: 4; }
-.es-home-intel > .es-home-intel__result { grid-row: 5; }
-
 .es-home-mascot { position: relative; pointer-events: none; }
 .es-home-mascot img { position: absolute; inset-block-end: 0; inset-inline-end: 0; inline-size: auto; max-inline-size: none; }
-
-.es-home-intel > .es-home-mascot {
-  grid-row: 3 / 6;
-  grid-column: 1;
-  justify-self: end;
-  align-self: stretch;
-  inline-size: 9.5rem;
-}
-
-.es-home-intel > .es-home-mascot img { block-size: 15rem; }
-.es-home-intel:has(> .es-home-mascot) > .es-home-intel__result { justify-self: start; inline-size: min(100% - 9.5rem, 26rem); }
 
 /* Art faces right (toward the data in RTL); English mirrors unless an
    -en asset is supplied. */
 :root[dir="ltr"] .es-home-mascot--mirror img { transform: scaleX(-1); }
-
-@media (max-width: 40rem) {
-  .es-home-intel > .es-home-mascot { grid-row: 3 / 5; inline-size: 5.5rem; }
-  .es-home-intel > .es-home-mascot img { block-size: 6.5rem; }
-  .es-home-intel:has(> .es-home-mascot) > .es-home-intel__result { justify-self: stretch; inline-size: 100%; }
-}
 
 /* Proof strip: verified counts (tools/data/home-proof.json), no cards, no mint. */
 .es-home-proof { margin-block-start: clamp(2.25rem, 5vw, 3.5rem); }
@@ -850,20 +634,6 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   margin-block-start: .85rem;
   color: var(--es-ink-60);
   font-size: var(--fs-caption);
-}
-
-/* Signature motion #1 — CSS only, once, ≤1.2s: inputs → rails → core → mint result.
-   H1, CTAs and proof never wait. */
-@media (prefers-reduced-motion: no-preference) {
-  .es-home-fw__nodes li { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both; }
-  .es-home-fw__nodes li:nth-child(1) { animation-delay: 60ms; }
-  .es-home-fw__nodes li:nth-child(2) { animation-delay: 140ms; }
-  .es-home-fw__nodes li:nth-child(3) { animation-delay: 220ms; }
-  .es-home-fw__nodes::after { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 380ms both; }
-  .es-home-fw__merge { transform-origin: top; animation: es-home-draw-y var(--es-mo-base) var(--es-mo-ease) 460ms both; }
-  .es-home-fw__core { animation: es-home-pop var(--es-mo-base) var(--es-mo-ease) 560ms both; }
-  .es-home-intel > .es-home-rail--v.is-resolved { animation: es-home-draw-y var(--es-mo-base) var(--es-mo-ease) 700ms both; }
-  .es-home-intel__result { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 800ms both, es-home-glow-in 400ms var(--es-mo-ease) 1000ms both; }
 }
 
 /* ============================================================
@@ -1678,583 +1448,6 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
 }
 
 /* ============================================================
-   5. CLIENT — four signals → one insight; unit → needs on demand
-   ============================================================ */
-.es-home-signals {
-  display: grid;
-  justify-items: center;
-  gap: 1rem;
-  inline-size: min(100%, 32rem);
-  justify-self: center;
-}
-
-/* Three layers, three treatments:
-   what happened (plain text and an open constellation, no boxes),
-   what Estavo understood (mint rule), what it suggests (dashed). */
-.es-home-evidence { display: grid; gap: .5rem; inline-size: 100%; }
-
-.es-home-evidence__label {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  color: var(--es-on-dark-muted);
-  font-size: var(--fs-small);
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.es-home-evidence__said { color: var(--es-white); font-size: 1.0625rem; font-weight: 600; line-height: 1.5; }
-
-/* Where the client's behaviour lands: two properties from the example,
-   with each observed signal pinned to what it concerns. Signals about B
-   sit above B; signals about both sit on a bracket joining A and B. The
-   handover fact is marked on both because that is what was asked. B is
-   the focus (mint) because that is where the signals converge. */
-.es-home-trail__board {
-  --trail-gap: 1rem;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-areas: ". on" "a b" "pair pair";
-  column-gap: var(--trail-gap);
-  inline-size: 100%;
-}
-
-.es-home-trail__on,
-.es-home-trail__pair { display: flex; flex-wrap: wrap; gap: .45rem; }
-
-.es-home-trail__on {
-  grid-area: on;
-  position: relative;
-  justify-content: center;
-  padding-block-end: 1.1rem;
-}
-
-/* One leader from the B signals into B. */
-.es-home-trail__on::after {
-  content: "";
-  position: absolute;
-  inset-block-end: 0;
-  inset-inline-start: calc(50% - 1px);
-  inline-size: 2px;
-  block-size: 1.1rem;
-  background: linear-gradient(var(--home-rail-dark), var(--home-mint));
-}
-
-.es-home-trail__unit:nth-of-type(1) { grid-area: a; }
-.es-home-trail__unit.is-focus { grid-area: b; }
-
-.es-home-trail__pair {
-  grid-area: pair;
-  position: relative;
-  justify-content: center;
-  padding-block-start: 1.75rem;
-}
-
-/* The bracket joining A and B: up from each tile's centre, meeting below. */
-.es-home-trail__pair::before {
-  content: "";
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline: calc((100% - var(--trail-gap)) / 4);
-  block-size: 1.1rem;
-  border: 2px solid var(--home-rail-dark);
-  border-block-start: 0;
-  border-radius: 0 0 .7rem .7rem;
-}
-
-.es-home-trail__pair::after {
-  content: "";
-  position: absolute;
-  inset-block-start: 1.1rem;
-  inset-inline-start: calc(50% - 1px);
-  inline-size: 2px;
-  block-size: .65rem;
-  background: var(--home-rail-dark);
-}
-
-/* Observed signals: quiet chips — facts, not conclusions. */
-.es-home-sig {
-  display: inline-flex;
-  align-items: center;
-  gap: .45rem;
-  padding: .3rem .75rem .3rem .35rem;
-  border: 1px solid rgb(255 255 255 / 14%);
-  border-radius: 999px;
-  background: var(--es-navy-950);
-  color: var(--es-white);
-  font-size: var(--fs-small);
-  font-weight: 600;
-  line-height: 1.35;
-}
-
-:root[dir="rtl"] .es-home-sig { padding: .3rem .35rem .3rem .75rem; }
-
-.es-home-sig__icon {
-  display: grid;
-  place-items: center;
-  inline-size: 1.65rem;
-  block-size: 1.65rem;
-  flex: none;
-  border-radius: 50%;
-  background: rgb(255 255 255 / 8%);
-}
-
-.es-home-sig__icon .es-home-ic { inline-size: .95rem; block-size: .95rem; color: var(--es-on-dark); }
-
-/* The two properties. */
-.es-home-trail__unit {
-  display: grid;
-  align-content: start;
-  gap: .3rem;
-  overflow: hidden;
-  padding-block-end: .75rem;
-  border: 1px solid var(--es-line-dark);
-  border-radius: .85rem;
-  background: var(--es-navy-900);
-  opacity: .82;
-}
-
-.es-home-trail__unit.is-focus {
-  border-color: var(--home-mint);
-  box-shadow: 0 0 0 4px rgb(168 184 204 / 12%), 0 18px 40px rgb(0 0 0 / 28%);
-  opacity: 1;
-}
-
-.es-home-trail__art { display: block; margin-block-end: .35rem; }
-.es-home-trail__art svg { display: block; inline-size: 100%; block-size: auto; }
-.es-home-trail__sky { fill: rgb(255 255 255 / 5%); }
-
-/* Skyline depth. A single flat alpha made every tower the same slab, so
-   the art read as a placeholder. Each building carries a top edge and the
-   nth-of-type steps vary the fill, which is what separates one mass from
-   the next at this size — shadows would be too soft at 56px tall. */
-.es-home-trail__bld { fill: rgb(255 255 255 / 10%); stroke: rgb(255 255 255 / 16%); stroke-width: 1; }
-.es-home-trail__bld:nth-of-type(3) { fill: rgb(255 255 255 / 14%); }
-.es-home-trail__bld:nth-of-type(4) { fill: rgb(255 255 255 / 8%); }
-.es-home-trail__bld--key { fill: rgb(168 184 204 / 32%); stroke: rgb(168 184 204 / 45%); }
-.is-focus .es-home-trail__bld--key { fill: rgb(255 255 255 / 58%); stroke: rgb(255 255 255 / 70%); }
-.es-home-trail__win { fill: none; stroke: rgb(255 255 255 / 28%); stroke-width: 2; stroke-linecap: round; }
-
-/* The focused unit's own windows read brighter — it is the one being
-   compared, and the brightness is the only cue at this scale. */
-.is-focus .es-home-trail__win { stroke: rgb(255 255 255 / 42%); }
-
-.es-home-trail__name,
-.es-home-trail__facts {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: .1rem .75rem;
-  padding-inline: .85rem;
-}
-
-.es-home-trail__name b { color: var(--es-white); font-size: 1rem; font-weight: 600; }
-.es-home-trail__name span { color: var(--es-white); font-size: 1rem; font-weight: 600; }
-.es-home-trail__facts { color: var(--es-on-dark-muted); font-size: var(--fs-small); }
-.es-home-trail__facts b { color: var(--es-on-dark); font-weight: 600; }
-
-/* What was asked about, marked on both properties. */
-.es-home-trail__facts .is-asked { padding-block-end: .1rem; border-block-end: 1.5px dashed var(--es-blue-500); color: var(--es-on-dark); }
-
-/* Narrow (phones, enlarged text): the properties stack and every signal
-   group sits with what it concerns, without brackets. */
-@container (max-width: 22rem) {
-  .es-home-trail__board { grid-template-columns: minmax(0, 1fr); grid-template-areas: "on" "b" "pair" "a"; row-gap: 0; }
-  .es-home-trail__pair { justify-content: start; padding-block: .75rem; }
-  .es-home-trail__pair::before, .es-home-trail__pair::after { display: none; }
-  .es-home-trail__on { justify-content: start; }
-  .es-home-trail__on::after { inset-inline-start: 1.5rem; }
-}
-
-.es-home-evidence--seen { container-type: inline-size; }
-
-.es-home-insight {
-  display: grid;
-  gap: .5rem;
-  inline-size: 100%;
-  padding-inline-start: 1rem;
-  border-inline-start: 3px solid var(--home-mint);
-}
-
-.es-home-insight__label {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: .35rem .5rem;
-  color: var(--home-mint);
-  font-size: var(--fs-small);
-  font-weight: 600;
-}
-
-.es-home-insight__label .es-home-ic { color: var(--home-mint); }
-.es-home-insight__label .es-home-example { margin-inline-start: auto; }
-
-.es-home-insight__read { color: var(--es-white); font-size: 1.25rem; font-weight: 600; line-height: 1.45; }
-
-/* The suggestion: an action for the broker, set apart from the reading. */
-.es-home-suggest {
-  display: grid;
-  gap: .15rem;
-  inline-size: 100%;
-  padding: .8rem 1.05rem;
-  border: 1.5px dashed var(--home-mint);
-  border-radius: var(--home-card-radius);
-  color: var(--es-white);
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-.es-home-suggest em {
-  color: var(--home-mint);
-  font-size: var(--fs-small);
-  font-style: normal;
-  font-weight: 600;
-}
-
-.es-home-both-ways {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: .5rem;
-  margin-block-start: clamp(2rem, 5vw, 3rem);
-  color: var(--es-white);
-  font-size: var(--fs-body-lg);
-  font-weight: 600;
-  line-height: 1.6;
-  text-align: center;
-}
-
-.es-home-reverse { margin-block-start: .9rem; }
-
-.es-home-match {
-  display: grid;
-  gap: .75rem;
-}
-
-.es-home-match__unit {
-  display: grid;
-  gap: .2rem;
-  padding: .85rem 1rem;
-  border-radius: .75rem;
-  background: var(--es-white);
-  color: var(--es-ink-72);
-  font-size: var(--fs-label);
-}
-
-.es-home-match__unit b { color: var(--es-navy-950); font-size: 1.0625rem; }
-
-.es-home-match__list { display: grid; }
-
-.es-home-interest {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: .25rem 1rem;
-  padding: .7rem .25rem;
-  border-block-end: 1px solid var(--es-line-dark);
-  color: var(--es-on-dark);
-  font-size: var(--fs-label);
-  font-weight: 600;
-  line-height: 1.45;
-}
-
-.es-home-interest:last-child { border-block-end: 0; }
-
-.es-home-interest em {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: .35rem;
-  color: var(--es-on-dark-muted);
-  font-size: var(--fs-small);
-  font-style: normal;
-  font-weight: 600;
-}
-
-.es-home-interest.is-fit em { color: var(--home-mint); }
-.es-home-interest.is-fit .es-home-ic { color: var(--home-mint); }
-.es-home-interest.is-none { color: var(--es-on-dark-muted); }
-
-@media (prefers-reduced-motion: no-preference) {
-  /* Signature: accumulate → understand. The properties appear, the
-     signals land on them one by one, B takes the focus, then the reading. */
-  .es-home-signals.is-armed :is(.es-home-evidence--said, .es-home-trail__unit, .es-home-sig, .es-home-insight, .es-home-suggest) { opacity: 0; }
-  .es-home-signals.is-playing .es-home-evidence--said { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) both; }
-  .es-home-signals.is-playing .es-home-trail__unit { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 150ms both; }
-  .es-home-signals.is-playing .es-home-sig { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(450ms + var(--i, 0) * 160ms); }
-  .es-home-signals.is-playing .es-home-trail__unit.is-focus { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 150ms both, es-home-glow-in var(--es-mo-slow) var(--es-mo-ease) 1150ms both; }
-  .es-home-signals.is-playing .es-home-insight { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) 1300ms both; }
-  .es-home-signals.is-playing .es-home-suggest { animation: es-home-fade var(--es-mo-base) var(--es-mo-ease) 1500ms both; }
-}
-}
-
-/* ============================================================
-   6. GROWTH — one prominent pattern → a small Meta destination
-   ============================================================ */
-.es-home-control {
-  display: inline-flex;
-  align-items: center;
-  gap: .55rem;
-  color: var(--es-navy-950);
-  font-size: var(--fs-label);
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-.es-home-control .es-home-ic { inline-size: 1.2rem; block-size: 1.2rem; }
-
-.es-home-growth-fig {
-  display: grid;
-  justify-items: stretch;
-  gap: 0;
-  inline-size: min(100%, 36rem);
-  justify-self: center;
-  container-type: inline-size;
-}
-
-/* Patterns: what keeps repeating among your clients, as tags — no dots,
-   no sizes. The recurring one is marked; the others stay quiet. */
-.es-home-patterns { display: grid; gap: .7rem; }
-
-.es-home-patterns__label {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: .35rem .5rem;
-  color: var(--es-ink-72);
-  font-size: var(--fs-small);
-  font-weight: 600;
-}
-
-.es-home-patterns__label .es-home-example { margin-inline-start: auto; }
-.es-home-patterns__list { display: grid; gap: .5rem; }
-
-.es-home-cluster {
-  display: grid;
-  justify-self: start;
-  max-inline-size: 100%;
-  gap: .4rem;
-  padding: .6rem .8rem;
-  border-inline-start: 3px solid var(--es-line);
-}
-
-.es-home-cluster:not(.es-home-cluster--key) .es-home-pattern > span { background: transparent; color: var(--es-ink-72); font-weight: 500; }
-
-.es-home-cluster--key {
-  padding-block: .8rem;
-  border-inline-start-color: var(--home-mint);
-  border-radius: 0 .75rem .75rem 0;
-  background: var(--es-white);
-  box-shadow: 0 1px 2px rgb(11 34 57 / 5%), 0 10px 24px rgb(11 34 57 / 7%);
-}
-
-:root[dir="rtl"] .es-home-cluster--key { border-radius: .75rem 0 0 .75rem; }
-
-.es-home-cluster em { color: var(--es-ink-60); font-size: var(--fs-caption); font-style: normal; font-weight: 600; }
-.es-home-pattern { display: flex; flex-wrap: wrap; gap: .4rem; }
-
-.es-home-pattern > span {
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
-  padding: .25rem .65rem;
-  border: 1px solid var(--es-line);
-  border-radius: 999px;
-  background: var(--es-white);
-  color: var(--es-navy-950);
-  font-size: var(--fs-small);
-  font-weight: 600;
-}
-
-.es-home-cluster--key .es-home-pattern > span { border-color: var(--es-line-strong); font-size: var(--fs-label); }
-.es-home-pattern .es-home-ic { inline-size: 1rem; block-size: 1rem; }
-
-/* The insight, as the campaign it informs: a property image, what to
-   advertise and what to lead with, and where it runs — Meta, shown with
-   its official lockup (assets/img/brand, unmodified; see AGENTS.md). */
-.es-home-campaign {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
-  margin-block-start: 1.5rem;
-  overflow: visible;
-  border: 1px solid var(--es-line-strong);
-  border-radius: 1rem;
-  background: var(--es-white);
-  box-shadow: 0 2px 4px rgb(11 34 57 / 5%), 0 24px 56px rgb(11 34 57 / 12%);
-}
-
-/* The recurring pattern feeds the campaign. */
-.es-home-campaign::before {
-  content: "";
-  position: absolute;
-  inset-block-end: 100%;
-  inset-inline-start: 2.5rem;
-  inline-size: 2px;
-  block-size: 1.5rem;
-  background: var(--home-mint);
-}
-
-.es-home-campaign__art { position: relative; display: block; overflow: hidden; border-start-start-radius: 1rem; border-end-start-radius: 1rem; }
-.es-home-campaign__art svg { position: absolute; inset: 0; display: block; inline-size: 100%; block-size: 100%; }
-.es-home-campaign__art { min-block-size: 9rem; }
-.es-home-campaign__sky { fill: #e8eef3; }
-.es-home-campaign__haze { fill: #f1f5f8; }
-.es-home-campaign__bld { fill: #a8b8c8; }
-.es-home-campaign__bld--far { fill: #ccd6e0; }
-.es-home-campaign__bld--key { fill: var(--es-plum); }
-.es-home-campaign__win { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; opacity: .85; }
-.es-home-campaign__ground { fill: #bcc8d4; }
-
-.es-home-campaign__tag {
-  position: absolute;
-  inset-block-end: .6rem;
-  inset-inline-start: .6rem;
-  max-inline-size: calc(100% - 1.2rem);
-  padding: .2rem .6rem;
-  border-radius: 999px;
-  background: rgb(255 255 255 / 94%);
-  color: var(--es-navy-950);
-  font-size: var(--fs-caption);
-  font-style: normal;
-  font-weight: 600;
-}
-
-.es-home-campaign__body { display: grid; align-content: start; gap: .7rem; padding: 1rem 1.1rem; min-inline-size: 0; }
-
-.es-home-campaign__title {
-  display: inline-flex;
-  align-items: center;
-  gap: .45rem;
-  color: var(--es-navy-950);
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.es-home-campaign__list { display: grid; gap: .55rem; }
-.es-home-campaign__list div { display: grid; gap: .05rem; padding-inline-start: .8rem; border-inline-start: 2px solid var(--home-accent-ink); }
-.es-home-campaign__list dt { color: var(--es-ink-60); font-size: var(--fs-small); line-height: 1.4; }
-.es-home-campaign__list dd { color: var(--es-navy-950); font-size: var(--fs-label); font-weight: 600; line-height: 1.5; }
-
-.es-home-campaign__dest {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: .25rem .75rem;
-  padding-block-start: .5rem;
-  border-block-start: 1px solid var(--es-line);
-  color: var(--es-ink-60);
-  font-size: var(--fs-small);
-}
-
-/* Meta's minimum: symbol ≥ 12px. The file carries its own clear space
-   (one symbol height each side), so 48px tall = a 16px symbol. */
-.es-home-meta-logo { display: block; inline-size: auto; block-size: 3rem; margin-block: -.5rem; }
-
-@container (max-width: 30rem) {
-  .es-home-campaign { grid-template-columns: minmax(0, 1fr); }
-  .es-home-campaign__art { inline-size: 100%; min-block-size: 0; aspect-ratio: 2 / 1; border-radius: 1rem 1rem 0 0; }
-  .es-home-campaign__art svg { block-size: 100%; }
-}
-
-@container (max-width: 18rem) { .es-home-campaign__tag { display: none; } }
-
-/* Signature: cluster — the patterns arrive, the recurring one resolves,
-   then the campaign it informs. */
-@media (prefers-reduced-motion: no-preference) {
-  .es-home-clusters.is-armed .es-home-cluster { opacity: 0; }
-  .es-home-clusters.is-playing .es-home-cluster { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(var(--i, 0) * 140ms); }
-  .es-home-clusters.is-playing .es-home-cluster--key { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both, es-home-glow-in var(--es-mo-slow) var(--es-mo-ease) 600ms both; }
-}
-
-/* ============================================================
-   7. START FREE — two free doors, one scope line, compact routes
-   ============================================================ */
-.es-home-free {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  inline-size: min(100%, 52rem);
-  margin: clamp(1.5rem, 4vw, 2.5rem) auto 0;
-}
-
-.es-home-free-card {
-  display: grid;
-  align-content: start;
-  justify-items: start;
-  gap: .75rem;
-  padding: clamp(1.15rem, 3vw, 1.75rem);
-  border: 1px solid var(--es-line-strong);
-  border-radius: 1rem;
-  background: var(--es-paper);
-}
-
-.es-home-free-card__head { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem 1rem; }
-.es-home-free-card__head .es-home-h3 { color: var(--es-navy-950); font-weight: 600; }
-.es-home-free-card > p:not(.es-home-free-card__head) { color: var(--es-ink-72); font-size: 1rem; line-height: 1.7; }
-.es-home-free-card .es-home-btn { margin-block-start: .25rem; }
-
-/* Editorial panels: a big "free" and one quiet motif each — a dotted map
-   for the market, a browser outline for the site. No rails here. */
-.es-home-free-card { position: relative; overflow: hidden; isolation: isolate; border-color: var(--es-line); padding-block-start: clamp(1.5rem, 4vw, 2.25rem); }
-.es-home-free-card__head { flex-direction: column; align-items: start; gap: .2rem; }
-.es-home-free-card__head .es-home-badge { order: -1; padding: 0; background: none; color: var(--es-blue-600); font-size: clamp(1.75rem, 3.2vw, 2.25rem); font-weight: 600; line-height: 1.1; }
-.es-home-free-card__head .es-home-badge::before { display: none; }
-
-.es-home-free-card::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset-block-start: 1.25rem;
-  inset-inline-end: 1.25rem;
-  inline-size: 6.5rem;
-  block-size: 5rem;
-  opacity: .55;
-}
-
-.es-home-free-card:nth-child(1)::after {
-  border-radius: 50%;
-  background: radial-gradient(circle at 1px 1px, var(--es-blue-500) 1.2px, transparent 0) 0 0 / 9px 9px;
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 72%);
-  mask-image: radial-gradient(ellipse at center, #000 40%, transparent 72%);
-}
-
-.es-home-free-card:nth-child(2)::after {
-  border: 1.5px solid var(--es-blue-500);
-  border-radius: .5rem;
-  background:
-    linear-gradient(var(--es-blue-500), var(--es-blue-500)) 0 .9rem / 100% 1.5px no-repeat,
-    radial-gradient(circle, var(--es-blue-500) 2px, transparent 2.5px) .35rem .2rem / .6rem .6rem repeat-x;
-  background-size: 100% 1.5px, .6rem .6rem;
-  background-repeat: no-repeat, repeat-x;
-  opacity: .35;
-}
-
-.es-home-scope { margin-block-start: 1.1rem; }
-
-/* The company / existing-platform profile: one line, not another card. */
-.es-home-business {
-  max-inline-size: 44rem;
-  margin: 1.25rem auto 0;
-  color: var(--es-navy-950);
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.7;
-  text-align: center;
-}
-
-.es-home-routes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0 1.75rem;
-  margin-block-start: .5rem;
-}
-
-/* ============================================================
    8. FAQ (reuses .es-faq from the v3 system)
    ============================================================ */
 .es-home-faq {
@@ -2382,20 +1575,13 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   .es-home-actions { inline-size: 100%; }
   .es-home-actions .es-home-btn,
   .es-home-cta-block,
-  .es-home-cta-block .es-home-btn,
-  .es-home-free-card .es-home-btn { inline-size: 100%; }
-
-  .es-home-free { grid-template-columns: minmax(0, 1fr); }
+  .es-home-cta-block .es-home-btn { inline-size: 100%; }
 
   .es-home-table :is(th, td) { padding: .5rem .4rem; }
   .es-home-disclosure__body { padding-inline: .75rem; }
 
-  .es-home-routes { gap: 0 1.25rem; }
 }
 
-/* Very narrow or enlarged text: one column of signals, cluster labels under clusters. */
-@media (max-width: 22.5rem) {
-}
 
 /* Reduced motion: final state, immediately. No transitions. */
 @media (prefers-reduced-motion: reduce) {
@@ -2627,43 +1813,6 @@ html body.es-landing .es-home-main .es-home-display {
 .es-home-hero__copy { gap: 1.5rem; }
 .es-home-hero .es-home-lead { font-size: clamp(1.125rem, 1.4vw, 1.3125rem); }
 
-.es-home-intel { position: relative; max-inline-size: 40rem; isolation: isolate; }
-
-/* A pool of light under the model, not a box. */
-.es-home-intel::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -12% -14% -10%;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(255 255 255 / 95%), rgb(255 255 255 / 55%) 55%, transparent);
-}
-
-.es-home-fw__nodes { gap: 1rem; padding-block-end: 1.4rem; }
-.es-home-fw__nodes li { padding: 1rem 1.05rem 1.05rem; border-color: var(--home-line); box-shadow: var(--elev-2); }
-.es-home-fw__nodes .es-home-ic { inline-size: 2.25rem; block-size: 2.25rem; padding: .5rem; }
-.es-home-fw__nodes b { font-size: 1.125rem; }
-.es-home-fw__nodes :is(small, .es-home-fw__data) { font-size: .9375rem; }
-.es-home-fw__nodes li:nth-child(2) { border-block-start-color: #163e69; }
-.es-home-fw__nodes li.es-home-fw__client { background: linear-gradient(160deg, #163e69, var(--es-navy-950) 70%); box-shadow: var(--elev-3); }
-.es-home-fw__nodes li::after { block-size: 1.4rem; }
-.es-home-fw__merge { block-size: 1.25rem; }
-.es-home-fw__core { inline-size: 4.5rem; block-size: 4.5rem; box-shadow: 0 0 0 8px rgb(11 34 57 / 6%), 0 0 0 18px rgb(11 34 57 / 3%), 0 16px 32px rgb(11 34 57 / 28%); }
-.es-home-fw__core img { inline-size: 2.25rem; }
-.es-home-intel > .es-home-rail--v { --rail-len: 1.6rem; }
-
-.es-home-intel__result {
-  gap: .7rem;
-  inline-size: min(100%, 30rem);
-  padding: 1.15rem 1.4rem 1.25rem;
-  border-color: rgb(22 62 105 / 22%);
-  box-shadow: 0 0 0 5px rgb(22 62 105 / 7%), var(--elev-3);
-}
-
-.es-home-intel__fit::before { box-shadow: 0 0 0 3px rgb(22 62 105 / 18%); }
-.es-home-intel__title b { font-size: 1.3125rem; }
-.es-home-intel__title > span { font-size: 1rem; }
-
 /* Proof: larger figures on the same single rail. Never animated. */
 .es-home-proof { margin-block-start: clamp(3rem, 6vw, 5rem); }
 .es-home-proof__list::before { background: linear-gradient(90deg, transparent, var(--rail-c) 12%, var(--rail-c) 88%, transparent); }
@@ -2677,9 +1826,6 @@ html body.es-landing .es-home-main .es-home-display {
 .es-home-map__card { box-shadow: var(--elev-3); }
 .es-home-build { inline-size: min(100%, 48rem); }
 .es-home-browser { border-color: rgb(11 34 57 / 12%); border-radius: 1.25rem; box-shadow: var(--elev-3); }
-.es-home-signals { inline-size: min(100%, 38rem); }
-.es-home-growth-fig { inline-size: min(100%, 42rem); }
-.es-home-campaign { box-shadow: var(--elev-3); }
 .es-home-analysis { inline-size: min(100%, 72rem); }
 
 /* Pointer tilt (fine pointers only; set by home-motion.js). */
@@ -2689,18 +1835,7 @@ html body.es-landing .es-home-main .es-home-display {
     transition: transform 500ms cubic-bezier(.22, .61, .36, 1), box-shadow 300ms ease;
   }
 
-  .es-home-free-card.es-home-tilt:hover { box-shadow: var(--elev-3); }
 }
-
-/* ── Start free: two editorial panels ─────────────────── */
-.es-home-free-card {
-  border-color: var(--home-line);
-  border-radius: 1.25rem;
-  background: linear-gradient(180deg, #fff, var(--es-paper));
-  box-shadow: var(--elev-2);
-}
-
-.es-home-free-card__head .es-home-badge { color: #163e69; font-size: clamp(2.25rem, 4vw, 3rem); }
 
 /* ── FAQ: the question is text, not a flex row ─────────────
    A flex summary collapsed the spaces around <bdi>AI</bdi>
@@ -2752,12 +1887,6 @@ html body.es-landing .es-home-main .es-home-display {
 /* ── Phones ────────────────────────────────────────────── */
 @media (max-width: 40rem) {
   .es-home-band { padding-block: clamp(3.25rem, 12vw, 4.5rem); }
-  .es-home-fw__nodes { gap: .6rem; }
-  .es-home-fw__nodes li { padding: .7rem .5rem .75rem; }
-  .es-home-fw__nodes .es-home-ic { inline-size: 1.9rem; block-size: 1.9rem; padding: .42rem; }
-  .es-home-fw__nodes b { font-size: 1rem; }
-  .es-home-fw__nodes :is(small, .es-home-fw__data) { font-size: .875rem; }
-  .es-home-fw__core { inline-size: 3.75rem; block-size: 3.75rem; }
   .es-home-proof__value { font-size: 2rem; }
   .es-home-btn { min-block-size: 3.25rem; }
   :is(.es-home-hero, .es-home-band--navy)::before { background-size: 44px 44px; }
@@ -2780,65 +1909,13 @@ html body.es-landing .es-home-main .es-home-display {
      · hero: thumbnail result card, gradient rails, layered core;
      · market: paper source sheets, tinted sea, crisp land, pin halo;
      · request: glass rows on navy, the best row lit, bolder tracks;
-     · website: real browser chrome; client: glass signal chips;
-     · growth: raised pattern rows; start free: stronger motifs.
+     · website: real browser chrome.
+   (Client, growth and start-free layers were retired with their
+   sections in the 3 Nov community pass.)
    ============================================================ */
 
 /* ── Photos (shared) ───────────────────────────────────── */
 .es-home-photo { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
-
-/* ── Hero ──────────────────────────────────────────────── */
-.es-home-intel__result {
-  grid-template-columns: 5.75rem minmax(0, 1fr);
-  column-gap: 1.1rem;
-  align-items: center;
-}
-
-.es-home-intel__result > :not(.es-home-intel__thumb) { grid-column: 2; }
-
-.es-home-intel__thumb {
-  grid-column: 1;
-  grid-row: 1 / span 3;
-  align-self: stretch;
-  inline-size: 100%;
-  block-size: 100%;
-  min-block-size: 5.25rem;
-  object-fit: cover;
-  border-radius: .75rem;
-  box-shadow: inset 0 0 0 1px rgb(11 34 57 / 8%), 0 6px 14px -6px rgb(11 34 57 / 30%);
-}
-
-/* Rails read as data flowing in: lighter at the source, navy at the core. */
-.es-home-fw__nodes li::after { background: linear-gradient(to bottom, rgb(71 116 154 / 25%), var(--rail-c)); }
-.es-home-fw__merge { background: linear-gradient(to bottom, var(--rail-c), var(--es-navy-950)); }
-
-.es-home-fw__core {
-  background: radial-gradient(circle at 35% 30%, #24527f, var(--es-navy-950) 70%);
-}
-
-.es-home-fw__core::before {
-  content: "";
-  position: absolute;
-  inset: -.9rem;
-  border: 1px dashed rgb(22 62 105 / 28%);
-  border-radius: 50%;
-}
-
-/* One-time flow: a light runs down the merge rail into the core. */
-@media (prefers-reduced-motion: no-preference) {
-  .es-home-fw__merge { position: relative; overflow: hidden; }
-  .es-home-fw__merge::after {
-    content: "";
-    position: absolute;
-    inset-inline: 0;
-    block-size: 60%;
-    background: linear-gradient(to bottom, transparent, #fff, transparent);
-    animation: es-home-flow 900ms var(--es-mo-ease) 520ms both;
-  }
-  .es-home-intel__thumb { animation: es-home-fade 600ms var(--es-mo-ease) 900ms both; }
-}
-
-@keyframes es-home-flow { from { transform: translateY(-100%); opacity: 1; } to { transform: translateY(180%); opacity: 0; } }
 
 /* ── Market ────────────────────────────────────────────── */
 .es-home-market__docs { gap: .6rem; }
@@ -2986,55 +2063,9 @@ html body.es-landing .es-home-main .es-home-display {
 
 .es-home-listing__where { z-index: 1; box-shadow: var(--elev-2); }
 
-/* ── Client: photo tiles, glass signal chips ───────────── */
-.es-home-trail__unit { padding: .45rem .45rem .8rem; background: linear-gradient(180deg, rgb(255 255 255 / 7%), rgb(255 255 255 / 3%)); }
-.es-home-trail__art { position: relative; aspect-ratio: 16 / 10; overflow: hidden; margin-block-end: .5rem; border-radius: .6rem; }
-.es-home-trail__unit:not(.is-focus) .es-home-photo { filter: saturate(.55) brightness(.78); }
-.es-home-trail__unit.is-focus { box-shadow: 0 0 0 5px rgb(168 184 204 / 14%), 0 24px 48px -12px rgb(0 0 0 / 50%); }
-
-.es-home-sig {
-  border-color: rgb(255 255 255 / 16%);
-  background: linear-gradient(180deg, rgb(255 255 255 / 11%), rgb(255 255 255 / 5%));
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 10%), 0 8px 18px -10px rgb(0 0 0 / 60%);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-}
-
-.es-home-sig__icon { background: rgb(143 179 214 / 18%); }
-
-.es-home-suggest {
-  background: linear-gradient(180deg, rgb(255 255 255 / 6%), rgb(255 255 255 / 2%));
-}
-
-/* ── Growth: raised rows, photo campaign ───────────────── */
-.es-home-cluster { border-inline-start-color: rgb(11 34 57 / 10%); }
-.es-home-cluster--key { border-inline-start-color: #163e69; box-shadow: var(--elev-2); }
-.es-home-pattern > span { border-color: var(--home-line); box-shadow: var(--elev-1); }
-.es-home-cluster--key .es-home-pattern > span { background: linear-gradient(180deg, #fff, #f3f7fb); }
-.es-home-pattern .es-home-ic { color: #163e69; }
-.es-home-campaign { overflow: hidden; border-color: var(--home-line); border-radius: 1.25rem; }
-.es-home-campaign__art img { position: absolute; inset: 0; }
-.es-home-campaign__art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgb(11 34 57 / 35%)); }
-.es-home-campaign__tag { z-index: 1; }
-
-/* ── Start free: stronger, still quiet, motifs ─────────── */
-.es-home-free-card::before {
-  content: "";
-  position: absolute;
-  z-index: -2;
-  inset-block-start: -40%;
-  inset-inline-end: -25%;
-  inline-size: 70%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(71 116 154 / 14%), transparent);
-}
-
-.es-home-free-card::after { inline-size: 8.5rem; block-size: 6.5rem; opacity: .7; }
-.es-home-free-card:nth-child(2)::after { opacity: .45; }
-
 /* ============================================================
-   SIGNATURE GRAPHICS — 3 November 2026 (hero, client, growth)
+   SIGNATURE GRAPHICS — 3 November 2026 (hero window; the client and
+   growth parts were retired in the community pass)
    ------------------------------------------------------------
    Hero:   the model sits in a frosted Estavo Market window; the
            result is a property card with a photo banner, with two
@@ -3087,123 +2118,845 @@ html body.es-landing .es-home-main .es-home-display {
 .es-home-intel__bar i { inline-size: .6rem; block-size: .6rem; border-radius: 50%; background: #d5dee8; }
 .es-home-intel__bar span { margin-inline-start: auto; }
 
-/* The result: a property card with a photo banner and a stack behind it. */
-.es-home-intel__result {
-  grid-template-columns: minmax(0, 1fr);
-  padding: 0 0 1.2rem;
-  overflow: hidden;
-  border-inline-start-width: 1px;
-  border-color: rgb(22 62 105 / 24%);
-  box-shadow:
-    0 0 0 5px rgb(22 62 105 / 7%),
-    0 14px 0 -7px rgb(255 255 255 / 92%),
-    0 14px 0 -6px rgb(11 34 57 / 12%),
-    0 27px 0 -14px rgb(255 255 255 / 75%),
-    0 27px 0 -13px rgb(11 34 57 / 9%),
-    var(--elev-3);
+/* ============================================================
+   COMMUNITY PASS — 3 November 2026 (owner: "everything a broker
+   needs, in one place, with AI")
+   ------------------------------------------------------------
+   Same light, elevated system; new story:
+     hero (task window) → today (editorial board) → destinations
+     (tiles with mini previews) → data (map + proof) → Brokers AI
+     (decision board) → website & marketing → integrations (flow)
+     → FAQ → closing.
+   Mint still only marks "Estavo understood" (a resolved match or
+   verdict). Example surfaces carry one «مثال توضيحي» / "Example".
+   Never a flex/grid container around text + <bdi>: icons inside
+   such text are inline (labels, story types, steps, flow nodes).
+   ============================================================ */
+
+/* ── Hero: assurance + quiet secondary link ────────────── */
+.es-home-hero .es-home-actions { gap: .75rem 1.5rem; }
+.es-home-link--quiet { color: var(--es-navy-950); }
+.es-home-link--quiet::after { content: "↓"; margin-inline-start: .4rem; text-decoration: none; display: inline-block; }
+
+.es-home-assure {
+  color: var(--es-ink-72);
+  font-size: .9375rem;
+  font-weight: 500;
+  line-height: 1.8;
 }
 
-.es-home-intel__result > :not(.es-home-intel__thumb) { grid-column: 1; padding-inline: 1.25rem; }
+.es-home-assure > span { display: inline-block; margin-inline-end: 1.1rem; white-space: nowrap; }
 
-.es-home-intel__thumb {
-  grid-row: 1;
+/* A small drawn check before each promise, so a wrapped line still
+   starts with a marker rather than a stray separator. */
+.es-home-assure > span::before {
+  content: "";
+  display: inline-block;
+  inline-size: .55rem;
+  block-size: .3rem;
+  margin-inline-end: .45rem;
+  border-left: 2px solid #163e69; /* physical: a check reads the same in both directions */
+  border-bottom: 2px solid #163e69;
+  rotate: -45deg;
+  translate: 0 -.2rem;
+}
+
+/* ── Hero: "What do you need today?" window ────────────── */
+.es-home-intel {
+  position: relative;
+  display: grid;
+  gap: .9rem;
+  inline-size: 100%;
+  max-inline-size: 38rem;
+  justify-self: center;
+  isolation: isolate;
+}
+
+.es-home-intel::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.es-home-tasks__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .25rem 1rem;
+}
+
+.es-home-tasks__head b { color: var(--es-navy-950); font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+
+.es-home-tablist {
+  display: none;
+  flex-wrap: wrap;
+  gap: .45rem;
+}
+
+.es-home-tasks.is-tabs .es-home-tablist { display: flex; }
+
+.es-home-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  min-block-size: 2.75rem;
+  padding: .45rem .9rem;
+  border: 1px solid rgb(11 34 57 / 12%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 85%);
+  color: var(--es-ink-72);
+  font: inherit;
+  font-size: .9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.es-home-tab .es-home-ic { inline-size: 1.15rem; block-size: 1.15rem; color: currentColor; vertical-align: 0; }
+.es-home-tab:hover { border-color: rgb(11 34 57 / 28%); color: var(--es-navy-950); }
+
+.es-home-tab[aria-selected="true"] {
+  border-color: transparent;
+  background: linear-gradient(180deg, #1d4a76, var(--es-navy-950));
+  color: var(--es-white);
+  box-shadow: 0 6px 16px -8px rgb(11 34 57 / 60%);
+}
+
+.es-home-tab:focus-visible { outline: 3px solid var(--es-blue-500); outline-offset: 2px; }
+
+/* Without JS: every panel, side by side, scrolled inside the window.
+   With JS (.is-tabs): one cell, the tallest panel sets the height, so
+   switching never moves the page. */
+.es-home-tasks__panels {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  gap: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  padding-block-end: .35rem;
+}
+
+.es-home-tasks.is-tabs .es-home-tasks__panels {
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+  grid-template-columns: minmax(0, 1fr);
+  overflow: visible;
+  padding-block-end: 0;
+}
+
+.es-home-tasks.is-tabs .es-home-task { grid-area: 1 / 1; }
+.es-home-tasks.is-tabs .es-home-task[hidden] { display: flex; visibility: hidden; }
+
+.es-home-task {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  min-inline-size: 0;
+  padding: 1.15rem 1.25rem 1.25rem;
+  overflow: hidden;
+  border: 1px solid rgb(22 62 105 / 16%);
+  border-radius: 1.15rem;
+  background: var(--es-white);
+  box-shadow: 0 0 0 5px rgb(22 62 105 / 5%), var(--elev-2);
+  scroll-snap-align: start;
+}
+
+.es-home-task__photo {
+  display: block;
+  inline-size: calc(100% + 2.5rem);
+  max-inline-size: none;
   block-size: auto;
-  min-block-size: 0;
-  aspect-ratio: 3.6 / 1;
-  margin-block-end: .35rem;
-  border-radius: 0;
+  aspect-ratio: 3.4 / 1;
+  margin: -1.15rem -1.25rem .2rem;
+  object-fit: cover;
   box-shadow: inset 0 -1px 0 var(--home-line);
 }
 
-.es-home-intel__verdict { padding-block-start: .1rem; }
-
-@media (max-width: 40rem) {
-  .es-home-intel { padding: 3.2rem .75rem 1.1rem; border-radius: 1.25rem; }
-  .es-home-intel__bar { border-radius: 1.25rem 1.25rem 0 0; }
-  .es-home-intel__thumb { aspect-ratio: 2.6 / 1; }
-  .es-home-intel__result > :not(.es-home-intel__thumb) { padding-inline: 1rem; }
+.es-home-task__kind,
+.es-home-story__type {
+  color: var(--es-blue-600);
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
-/* ── Client: one panel, one rail, three readings ───────── */
-.es-home-signals {
-  position: relative;
-  justify-items: stretch;
-  gap: 1.25rem;
-  inline-size: min(100%, 40rem);
-  padding: clamp(1.2rem, 2.6vw, 1.75rem);
-  padding-inline-start: clamp(2.75rem, 4.5vw, 3.25rem);
-  border: 1px solid rgb(255 255 255 / 11%);
+:is(.es-home-task__kind, .es-home-story__type, .es-home-task__note) .es-home-ic { margin-inline-end: .4rem; color: #163e69; }
+
+.es-home-task__title { color: var(--es-navy-950); font-size: 1.1875rem; font-weight: 600; line-height: 1.45; }
+.es-home-task__meta { color: var(--es-ink-72); font-size: .9375rem; font-weight: 500; line-height: 1.55; }
+.es-home-task__note { margin-block-start: auto; padding-block-start: .55rem; border-block-start: 1px solid var(--home-line); color: var(--es-ink-60); font-size: .875rem; font-weight: 500; line-height: 1.5; }
+.es-home-task__fine { color: var(--es-ink-60); font-size: .8125rem; line-height: 1.5; }
+
+.es-home-task__chips { display: flex; flex-wrap: wrap; gap: .35rem; }
+
+.es-home-task__chips li {
+  padding: .25rem .7rem;
+  border: 1px solid var(--home-line);
+  border-radius: 999px;
+  background: #f3f7fb;
+  color: var(--es-navy-950);
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.es-home-task__chips li.is-priority { border-color: transparent; background: var(--es-navy-950); color: var(--es-white); }
+
+.es-home-task__match {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: .15rem .9rem;
+  padding: .6rem;
+  border: 1px solid var(--home-line);
+  border-radius: .9rem;
+  background: linear-gradient(180deg, #fff, #f6f9fc);
+}
+
+.es-home-task__match img {
+  grid-row: 1 / span 2;
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 4rem;
+  object-fit: cover;
+  border-radius: .6rem;
+}
+
+.es-home-task__match .es-home-task__title { align-self: end; font-size: 1.0625rem; }
+.es-home-task__match .es-home-task__meta { align-self: start; }
+
+/* Cash vs installments: two values on one scale; the verdict is the
+   resolved reading (mint check). */
+.es-home-npv { display: grid; gap: .65rem; margin-block: .2rem; }
+
+.es-home-npv li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: .3rem 1rem;
+}
+
+.es-home-npv span { color: var(--es-ink-72); font-size: .9375rem; font-weight: 500; }
+.es-home-npv b { color: var(--es-navy-950); font-size: 1.125rem; font-weight: 600; }
+
+.es-home-npv i {
+  grid-column: 1 / -1;
+  display: block;
+  inline-size: calc(var(--v, 1) * 100%);
+  block-size: .55rem;
+  border-radius: 999px;
+  background: #cdd9e6;
+}
+
+.es-home-npv li.is-best i { background: linear-gradient(90deg, #163e69, #2e6caa); }
+[dir="rtl"] .es-home-npv li.is-best i { background: linear-gradient(270deg, #163e69, #2e6caa); }
+
+.es-home-job {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  align-items: center;
+  gap: .1rem .8rem;
+}
+
+.es-home-job__logo {
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  border-radius: .75rem;
+  background: linear-gradient(160deg, #24527f, var(--es-navy-950));
+  color: var(--es-white);
+  font-size: .9375rem;
+  font-weight: 600;
+}
+
+.es-home-game { display: grid; gap: .4rem; }
+
+.es-home-game li {
+  display: grid;
+  grid-template-columns: minmax(4.5rem, auto) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .75rem;
+  padding: .55rem .75rem;
+  border: 1px solid var(--home-line);
+  border-radius: .75rem;
+  background: #f7f9fc;
+  font-size: .9375rem;
+  line-height: 1.4;
+}
+
+.es-home-game b { color: var(--es-navy-950); font-weight: 600; }
+.es-home-game span { color: var(--es-ink-72); font-size: .875rem; }
+.es-home-game strong { color: var(--es-ink-60); font-weight: 600; }
+.es-home-game li.is-exclusive { border-color: rgb(22 62 105 / 30%); background: #fff; box-shadow: var(--elev-1); }
+.es-home-game li.is-exclusive strong { color: #163e69; font-size: 1.0625rem; }
+
+/* Without JS the panels scroll sideways: a hint of the next one shows. */
+.es-home-tasks:not(.is-tabs) .es-home-tasks__panels { grid-auto-columns: 88%; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .es-home-tasks { animation: es-home-rise 600ms var(--es-mo-ease) 120ms both; }
+  .es-home-tasks.is-tabs .es-home-task:not([hidden]) { animation: es-home-task-in 360ms var(--es-mo-ease) both; }
+}
+
+@keyframes es-home-task-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 40rem) {
+  .es-home-intel { gap: .75rem; }
+  .es-home-tasks__head b { font-size: 1.125rem; }
+  /* Five tabs on one swipeable row instead of three rows of pills. */
+  .es-home-tasks.is-tabs .es-home-tablist {
+    flex-wrap: nowrap;
+    margin-inline: -.75rem;
+    padding-inline: .75rem;
+    padding-block-end: .2rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .es-home-tablist::-webkit-scrollbar { display: none; }
+  .es-home-tab { flex: none; padding-inline: .8rem; }
+  .es-home-task { padding: 1rem 1rem 1.1rem; }
+  .es-home-task__photo { inline-size: calc(100% + 2rem); margin: -1rem -1rem .2rem; aspect-ratio: 2.6 / 1; }
+  .es-home-task__match { grid-template-columns: 4.5rem minmax(0, 1fr); }
+  .es-home-game li { grid-template-columns: minmax(3.5rem, auto) minmax(0, 1fr) auto; gap: .5rem; padding-inline: .6rem; }
+}
+
+/* ── Section heads (centred) ───────────────────────────── */
+.es-home-sechead,
+.es-home-copy--center.es-home-request__head { max-inline-size: 52rem; }
+.es-home-sechead { margin-block-end: clamp(1.75rem, 4vw, 3rem); }
+
+/* ── 2. Today: editorial board ─────────────────────────── */
+.es-home-today {
+  padding: clamp(1rem, 2.4vw, 1.75rem);
+  border: 1px solid var(--home-line);
   border-radius: 1.5rem;
-  background: linear-gradient(180deg, rgb(255 255 255 / 6%), rgb(255 255 255 / 2%));
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 8%), 0 40px 80px -40px rgb(0 0 0 / 65%);
+  background: rgb(255 255 255 / 80%);
+  box-shadow: var(--elev-2);
 }
 
-/* The reading rail: evidence (quiet) → understood (signal colour). */
-.es-home-signals::before {
-  content: "";
-  position: absolute;
-  inset-block: 2.1rem 2.6rem;
-  inset-inline-start: calc(clamp(2.75rem, 4.5vw, 3.25rem) / 2 - 1px);
-  inline-size: 2px;
-  border-radius: 2px;
-  background: linear-gradient(to bottom, rgb(255 255 255 / 16%) 0%, rgb(255 255 255 / 16%) 62%, var(--home-mint) 82%, var(--home-mint) 100%);
+.es-home-today__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .25rem 1rem;
+  margin-block-end: clamp(1rem, 2vw, 1.4rem);
+  padding-block-end: .9rem;
+  border-block-end: 1px solid var(--home-line);
 }
 
-.es-home-signals > :is(.es-home-evidence, .es-home-insight, .es-home-suggest) { position: relative; }
+.es-home-today__head b { color: var(--es-navy-950); font-size: 1.0625rem; font-weight: 600; }
 
-/* One node per reading, on the rail. */
-.es-home-signals > :is(.es-home-evidence, .es-home-insight, .es-home-suggest)::before {
-  content: "";
-  position: absolute;
-  inset-block-start: .3rem;
-  inset-inline-start: calc(-1 * clamp(2.75rem, 4.5vw, 3.25rem) / 2 - .4rem);
-  inline-size: .8rem;
-  block-size: .8rem;
-  border: 2px solid rgb(255 255 255 / 45%);
+.es-home-today__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) repeat(2, minmax(0, 1fr));
+  gap: clamp(.75rem, 1.6vw, 1.15rem);
+}
+
+.es-home-story {
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  min-inline-size: 0;
+  padding: 1.1rem 1.15rem .6rem;
+  border: 1px solid var(--home-line);
+  border-radius: 1.1rem;
+  background: linear-gradient(180deg, #fff, #f6f9fc);
+}
+
+.es-home-story--lead { grid-row: span 2; padding: .6rem .6rem .6rem; background: #fff; box-shadow: var(--elev-1); }
+.es-home-story--lead > :not(img) { padding-inline: .6rem; }
+
+.es-home-story__photo {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 16 / 9;
+  margin-block-end: .5rem;
+  object-fit: cover;
+  border-radius: .8rem;
+}
+
+html body.es-landing .es-home-main .es-home-story__title { color: var(--es-navy-950); font-size: 1.125rem; font-weight: 600; line-height: 1.5; }
+html body.es-landing .es-home-main .es-home-story--lead .es-home-story__title { font-size: var(--fs-h3); line-height: 1.4; }
+.es-home-story__sum { color: var(--es-ink-72); font-size: 1rem; line-height: 1.7; }
+.es-home-story__link { margin-block-start: auto; align-self: start; font-size: .9375rem; }
+.es-home-story__link::after { content: "←"; margin-inline-start: .4rem; text-decoration: none; display: inline-block; }
+[dir="ltr"] .es-home-story__link::after { content: "→"; }
+
+@media (max-width: 60rem) {
+  .es-home-today__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .es-home-story--lead { grid-column: 1 / -1; grid-row: auto; }
+  .es-home-story--lead .es-home-story__photo { aspect-ratio: 2.4 / 1; }
+}
+
+@media (max-width: 36rem) {
+  .es-home-today { padding: .75rem; border-radius: 1.25rem; }
+  .es-home-today__grid { grid-template-columns: minmax(0, 1fr); gap: .6rem; }
+  .es-home-story { gap: .3rem; padding: .85rem .95rem .35rem; }
+}
+
+/* ── 3. Destinations: tiles with mini previews ─────────── */
+.es-home-dests {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(.75rem, 1.6vw, 1.15rem);
+}
+
+.es-home-dest {
+  display: grid;
+  align-content: start;
+  gap: .45rem;
+  block-size: 100%;
+  padding: .65rem .65rem 1.1rem;
+  border: 1px solid var(--home-line);
+  border-radius: 1.25rem;
+  background: var(--es-white);
+  box-shadow: var(--elev-1);
+  color: var(--es-ink);
+  text-decoration: none;
+  transition: transform 260ms var(--es-mo-ease), box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.es-home-dest > :not(.es-home-pv) { padding-inline: .45rem; }
+.es-home-dest:hover { transform: translateY(-3px); border-color: rgb(22 62 105 / 24%); box-shadow: var(--elev-2); }
+.es-home-dest:focus-visible { outline: 3px solid var(--es-blue-500); outline-offset: 3px; }
+
+.es-home-dest__name { margin-block-start: .35rem; color: var(--es-navy-950); font-size: 1.125rem; font-weight: 600; line-height: 1.4; }
+.es-home-dest__name::after { content: " ←"; color: var(--es-blue-500); }
+[dir="ltr"] .es-home-dest__name::after { content: " →"; }
+.es-home-dest__line { color: var(--es-ink-72); font-size: .9375rem; line-height: 1.65; }
+
+/* Mini previews: tiny, abstract product shapes (aria-hidden). Physical
+   offsets are avoided so they mirror with the page direction. */
+.es-home-pv {
+  position: relative;
+  display: block;
+  block-size: 6rem;
+  overflow: hidden;
+  border-radius: .9rem;
+  background:
+    radial-gradient(circle at 1px 1px, rgb(22 62 105 / 12%) 1px, transparent 0) 0 0 / 12px 12px,
+    linear-gradient(160deg, #f1f6fb, #e4edf6);
+}
+
+.es-home-pv i { position: absolute; display: block; }
+
+/* Market: three listing rows with a thumb and a price pill. */
+.es-home-pv--market i {
+  inset-inline: .75rem;
+  block-size: 1.3rem;
+  border-radius: .45rem;
+  background: #fff;
+  box-shadow: var(--elev-1);
+}
+.es-home-pv--market i:nth-child(1) { inset-block-start: .7rem; }
+.es-home-pv--market i:nth-child(2) { inset-block-start: 2.35rem; inset-inline-end: 1.5rem; }
+.es-home-pv--market i:nth-child(3) { inset-block-start: 4rem; inset-inline-end: 2.5rem; opacity: .75; }
+.es-home-pv--market i::before { content: ""; position: absolute; inset-block: .25rem; inset-inline-start: .25rem; inline-size: 1.25rem; border-radius: .3rem; background: #c3d4e6; }
+.es-home-pv--market i::after { content: ""; position: absolute; inset-block-start: calc(50% - .2rem); inset-inline-end: .45rem; inline-size: 1.9rem; block-size: .4rem; border-radius: 999px; background: #163e69; }
+
+/* Developers: a profile mark, two lines, three project tiles. */
+.es-home-pv--developers i:nth-child(1) { inset-block-start: .7rem; inset-inline-start: .75rem; inline-size: 2.3rem; block-size: 2.3rem; border-radius: .65rem; background: linear-gradient(160deg, #24527f, var(--es-navy-950)); }
+.es-home-pv--developers i:nth-child(2) { inset-block-start: 1.05rem; inset-inline-start: 3.55rem; inline-size: 45%; block-size: .5rem; border-radius: 999px; background: #8aa4bf; }
+.es-home-pv--developers i:nth-child(3) { inset-block-start: 1.95rem; inset-inline-start: 3.55rem; inline-size: 28%; block-size: .4rem; border-radius: 999px; background: #bccbdb; }
+.es-home-pv--developers i:nth-child(4) { inset-block-end: .65rem; inset-inline-start: .75rem; inline-size: calc((100% - 2.3rem) / 3); block-size: 1.7rem; border-radius: .4rem; background: #fff; box-shadow: var(--elev-1); }
+.es-home-pv--developers i:nth-child(4)::before,
+.es-home-pv--developers i:nth-child(4)::after { content: ""; position: absolute; inset-block: 0; inline-size: 100%; border-radius: .4rem; background: #fff; box-shadow: var(--elev-1); }
+.es-home-pv--developers i:nth-child(4)::before { inset-inline-start: calc(100% + .4rem); }
+.es-home-pv--developers i:nth-child(4)::after { inset-inline-start: calc(200% + .8rem); }
+
+/* Market news: a badge, a headline, a photo. */
+.es-home-pv--news i:nth-child(1) { inset-block-start: .8rem; inset-inline-start: .75rem; inline-size: 2.6rem; block-size: .8rem; border-radius: 999px; background: #163e69; }
+.es-home-pv--news i:nth-child(2) { inset-block-start: 2.1rem; inset-inline-start: .75rem; inline-size: calc(62% - 1.5rem); block-size: .55rem; border-radius: 999px; background: #2b4a6b; box-shadow: 0 .95rem 0 #9fb3c8; }
+.es-home-pv--news i:nth-child(2)::after { content: ""; position: absolute; inset-block-start: 1.9rem; inset-inline-start: 0; inline-size: 70%; block-size: .4rem; border-radius: 999px; background: #c3d1df; }
+.es-home-pv--news i:nth-child(3) { inset-block: .7rem; inset-inline-end: .7rem; inline-size: 34%; border-radius: .55rem; background: url("../img/home/project-c.webp") center / cover; box-shadow: var(--elev-1); }
+
+/* Cash or installments: two values on one scale. */
+.es-home-pv--cash i { inset-inline-start: .9rem; block-size: .85rem; border-radius: 999px; }
+.es-home-pv--cash i:nth-child(1) { inset-block-start: 1.5rem; inline-size: calc(100% - 1.8rem); background: #c3d1df; }
+.es-home-pv--cash i:nth-child(2) { inset-block-start: 3.4rem; inline-size: 62%; background: linear-gradient(90deg, #163e69, #2e6caa); }
+.es-home-pv--cash i::before { content: ""; position: absolute; inset-block-end: calc(100% + .3rem); inset-inline-start: 0; inline-size: 2.2rem; block-size: .35rem; border-radius: 999px; background: #8aa4bf; }
+
+/* Jobs: a listing card with an employer mark and a chip. */
+.es-home-pv--jobs i:nth-child(1) { inset: .65rem .75rem; border-radius: .65rem; background: #fff; box-shadow: var(--elev-1); }
+.es-home-pv--jobs i:nth-child(2) { inset-block-start: 1.2rem; inset-inline-start: 1.3rem; inline-size: 1.9rem; block-size: 1.9rem; border-radius: .5rem; background: linear-gradient(160deg, #24527f, var(--es-navy-950)); }
+.es-home-pv--jobs i:nth-child(2)::after { content: ""; position: absolute; inset-block-start: .3rem; inset-inline-start: 2.6rem; inline-size: 5.5rem; block-size: .5rem; border-radius: 999px; background: #2b4a6b; box-shadow: 0 .8rem 0 -.05rem #b2c3d5; }
+.es-home-pv--jobs i:nth-child(3) { inset-block-end: 1.15rem; inset-inline-start: 1.3rem; inline-size: 3.6rem; block-size: .95rem; border-radius: 999px; background: #e3ecf5; box-shadow: inset 0 0 0 1px rgb(22 62 105 / 18%); }
+
+/* Exclusive: three answer rows; the unique one scores. */
+.es-home-pv--game i { inset-inline: .8rem; block-size: 1.15rem; border-radius: .45rem; background: rgb(255 255 255 / 70%); }
+.es-home-pv--game i:nth-child(1) { inset-block-start: .75rem; background: #fff; box-shadow: var(--elev-1); }
+.es-home-pv--game i:nth-child(2) { inset-block-start: 2.35rem; }
+.es-home-pv--game i:nth-child(3) { inset-block-start: 3.95rem; }
+.es-home-pv--game i::before { content: ""; position: absolute; inset-block: .3rem; inset-inline-start: .35rem; inline-size: 40%; border-radius: 999px; background: #b6c6d7; }
+.es-home-pv--game i::after { content: "0"; position: absolute; inset-block-start: 50%; inset-inline-end: .5rem; color: #6b8197; font-size: .75rem; font-weight: 600; line-height: 1; direction: ltr; translate: 0 -50%; }
+/* The score is LTR text, so its own inline axis is LTR: pin it physically. */
+[dir="rtl"] .es-home-pv--game i::after { inset-inline-end: auto; left: .5rem; }
+.es-home-pv--game i:nth-child(1)::before { background: #2b4a6b; }
+.es-home-pv--game i:nth-child(1)::after { content: "+100"; color: #163e69; }
+
+/* Selling tips: a guide page with checked lines. */
+.es-home-pv--guides i:nth-child(1) { inset-block: .6rem -1rem; inset-inline-start: 22%; inline-size: 56%; border-radius: .5rem; background: repeating-linear-gradient(180deg, transparent 0 .55rem, #d3dee9 .55rem .85rem) 1.6rem 1.2rem / calc(100% - 2.4rem) 100% no-repeat, #fff; box-shadow: var(--elev-2); }
+.es-home-pv--guides i:nth-child(2),
+.es-home-pv--guides i:nth-child(3) { inset-inline-start: calc(22% + .55rem); inline-size: .6rem; block-size: .6rem; border-radius: 50%; background: #163e69; }
+.es-home-pv--guides i:nth-child(2) { inset-block-start: 1.75rem; }
+.es-home-pv--guides i:nth-child(3) { inset-block-start: 3.15rem; }
+
+/* Your website: a small browser with a hero band and two cards. */
+.es-home-pv--site i:nth-child(1) { inset: .6rem .75rem -1rem; border-radius: .6rem; background: linear-gradient(#eef3f8, #eef3f8) 0 0 / 100% .9rem no-repeat, #fff; box-shadow: var(--elev-2); }
+.es-home-pv--site i:nth-child(2) { inset-block-start: 1.85rem; inset-inline: 1.3rem; block-size: 1.5rem; border-radius: .4rem; background: linear-gradient(120deg, #3d1a44, #6a3a72); }
+.es-home-pv--site i:nth-child(3) { inset-block-start: 3.75rem; inset-inline-start: 1.3rem; inline-size: calc(50% - 1.6rem); block-size: 2rem; border-radius: .4rem; background: url("../img/home/project-b.webp") center / cover; }
+.es-home-pv--site i:nth-child(3)::after { content: ""; position: absolute; inset-block: 0; inset-inline-start: calc(100% + .5rem); inline-size: 100%; border-radius: .4rem; background: url("../img/home/project-a.webp") center / cover; }
+
+/* Ask Estavo: one strip across every destination. */
+.es-home-askstrip {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.25rem;
+  margin-block-start: clamp(.75rem, 1.6vw, 1.15rem);
+  padding: 1.1rem clamp(1.1rem, 2.4vw, 1.75rem);
+  border-radius: 1.25rem;
+  background:
+    radial-gradient(30rem 12rem at 85% 0%, rgb(46 108 170 / 35%), transparent 70%),
+    linear-gradient(160deg, #163e69, var(--es-navy-950) 70%);
+  color: var(--es-white);
+  text-decoration: none;
+  box-shadow: var(--elev-2);
+  transition: transform 260ms var(--es-mo-ease), box-shadow 260ms ease;
+}
+
+.es-home-askstrip:hover { transform: translateY(-2px); box-shadow: var(--elev-3); }
+.es-home-askstrip:focus-visible { outline: 3px solid var(--es-blue-500); outline-offset: 3px; }
+
+.es-home-askstrip__mark {
+  display: grid;
+  place-items: center;
+  inline-size: 3.25rem;
+  block-size: 3.25rem;
   border-radius: 50%;
-  background: var(--es-navy-950);
+  background: rgb(255 255 255 / 10%);
+  box-shadow: 0 0 0 6px rgb(255 255 255 / 5%);
 }
 
-.es-home-signals > .es-home-insight::before { border-color: var(--home-mint); background: var(--home-mint); box-shadow: 0 0 0 5px rgb(168 184 204 / 18%); }
-.es-home-signals > .es-home-suggest::before { inset-block-start: calc(50% - .4rem); border-color: var(--home-mint); }
+.es-home-askstrip__mark img { inline-size: 1.7rem; block-size: auto; }
+.es-home-askstrip__copy > b { display: block; font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+.es-home-askstrip__copy > b::after { content: " ←"; color: #8fb3d6; }
+[dir="ltr"] .es-home-askstrip__copy > b::after { content: " →"; }
+.es-home-askstrip__copy > span { display: block; color: var(--es-on-dark-muted); font-size: .9375rem; line-height: 1.65; }
 
-.es-home-evidence__said { font-size: 1.1875rem; }
-.es-home-insight__read { font-size: 1.1875rem; }
+.es-home-askstrip__chat { display: grid; justify-items: end; gap: .35rem; }
+
+.es-home-askstrip__chat i {
+  padding: .35rem .75rem;
+  border-radius: .9rem .9rem .25rem .9rem;
+  background: rgb(255 255 255 / 12%);
+  color: var(--es-white);
+  font-size: .875rem;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+[dir="rtl"] .es-home-askstrip__chat i { border-radius: .9rem .9rem .9rem .25rem; }
+.es-home-askstrip__chat i + i { justify-self: start; background: #fff; color: var(--es-navy-950); }
+
+@media (max-width: 68rem) {
+  .es-home-dests { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .es-home-askstrip__chat { display: none; }
+  .es-home-askstrip { grid-template-columns: auto minmax(0, 1fr); }
+}
+
+/* Phones: one column of compact rows — preview beside the text. */
+@media (max-width: 36rem) {
+  .es-home-dests { grid-template-columns: minmax(0, 1fr); gap: .6rem; }
+  .es-home-dest { grid-template-columns: 5.25rem minmax(0, 1fr); align-items: center; column-gap: .85rem; row-gap: .1rem; padding: .55rem .9rem .55rem .55rem; border-radius: 1rem; }
+  [dir="rtl"] .es-home-dest { padding: .55rem .55rem .55rem .9rem; }
+  .es-home-dest > :not(.es-home-pv) { padding-inline: 0; grid-column: 2; }
+  .es-home-pv { grid-row: 1 / span 2; block-size: 5.25rem; }
+  .es-home-dest__name { margin-block-start: 0; align-self: end; font-size: 1.0625rem; }
+  .es-home-dest__line { align-self: start; font-size: .875rem; line-height: 1.55; }
+  /* Small previews keep only their essential shapes. */
+  .es-home-pv--market i:nth-child(3), .es-home-pv--game i:nth-child(3) { display: none; }
+  .es-home-pv--market i { inset-inline: .4rem; }
+  .es-home-pv--market i:nth-child(2) { inset-inline-end: .9rem; }
+  .es-home-pv--market i::after { inline-size: 1.2rem; }
+  .es-home-pv--developers i:nth-child(2) { inline-size: 32%; }
+  .es-home-pv--developers i:nth-child(3) { inline-size: 20%; }
+  .es-home-pv--developers i:nth-child(4) { inline-size: calc(100% - 1.5rem); }
+  .es-home-pv--developers i:nth-child(4)::before, .es-home-pv--developers i:nth-child(4)::after { display: none; }
+  .es-home-pv--news i:nth-child(2) { inline-size: calc(55% - 1rem); }
+  .es-home-pv--jobs i:nth-child(2) { inset-inline-start: 1.1rem; inline-size: 1.5rem; block-size: 1.5rem; }
+  .es-home-pv--jobs i:nth-child(2)::after { inset-inline-start: 2rem; inline-size: 1.4rem; }
+  .es-home-pv--jobs i:nth-child(3) { inset-inline-start: 1.1rem; inline-size: 2.4rem; }
+  .es-home-pv--game i { inset-inline: .45rem; }
+  .es-home-pv--game i::before { inline-size: .55rem; border-radius: 50%; inset-block: .3rem; }
+  .es-home-askstrip { gap: .85rem; padding: 1rem; }
+  .es-home-askstrip__copy > b { font-size: 1.125rem; }
+}
+
+/* ── 4. Data: steps + proof under the map ──────────────── */
+.es-home-steps { display: grid; gap: .55rem; margin-block-start: .25rem; }
+
+.es-home-steps li {
+  position: relative;
+  padding-inline-start: 2.75rem;
+  color: var(--es-ink-72);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.es-home-steps li b { color: var(--es-navy-950); font-weight: 600; }
+
+.es-home-steps .es-home-ic {
+  position: absolute;
+  inset-block-start: -.15rem;
+  inset-inline-start: 0;
+  inline-size: 2rem;
+  block-size: 2rem;
+  padding: .42rem;
+  border: 1px solid var(--home-line);
+  border-radius: 50%;
+  background: var(--es-white);
+  box-shadow: var(--elev-1);
+  color: #163e69;
+}
+
+/* A rail joins the three steps: collected → reviewed → updated. */
+.es-home-steps li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  inset-block: 1.9rem -.55rem;
+  inset-inline-start: calc(1rem - 1px);
+  inline-size: 2px;
+  background: var(--rail-c);
+}
+
+#home-data .es-home-proof__list li::before { background: var(--es-paper); }
+
+.es-home-proof__limits {
+  max-inline-size: 52rem;
+  margin-block-start: .35rem;
+  color: var(--es-ink-72);
+  font-size: .9375rem;
+  line-height: 1.7;
+}
+
+/* ── 6. Website: capability journey + audience links ───── */
+.es-home-caps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .6rem;
+  inline-size: 100%;
+}
+
+.es-home-caps::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset-block-start: 1.75rem;
+  inset-inline: 12%;
+  block-size: 2px;
+  background: var(--rail-c);
+}
+
+.es-home-caps li { position: relative; z-index: 1; }
+
+.es-home-cap {
+  display: grid;
+  justify-items: start;
+  gap: .15rem;
+  block-size: 100%;
+  padding: .75rem .8rem .85rem;
+  border: 1px solid var(--home-line);
+  border-radius: 1rem;
+  background: var(--es-white);
+  box-shadow: var(--elev-1);
+  color: var(--es-ink);
+  text-decoration: none;
+  transition: transform 220ms var(--es-mo-ease), box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.es-home-cap:hover { transform: translateY(-2px); border-color: rgb(22 62 105 / 24%); box-shadow: var(--elev-2); }
+.es-home-cap:focus-visible { outline: 3px solid var(--es-blue-500); outline-offset: 3px; }
+
+.es-home-cap .es-home-ic {
+  inline-size: 2rem;
+  block-size: 2rem;
+  margin-block-end: .3rem;
+  padding: .42rem;
+  border-radius: 50%;
+  background: #eaf1f8;
+  color: #163e69;
+}
+
+.es-home-cap b { color: var(--es-navy-950); font-size: 1rem; font-weight: 600; line-height: 1.4; }
+.es-home-cap span { color: var(--es-ink-72); font-size: .875rem; line-height: 1.5; }
+
+.es-home-audience { display: flex; flex-wrap: wrap; gap: 0 1.5rem; }
+
+@media (max-width: 30rem) {
+  .es-home-caps { grid-template-columns: minmax(0, 1fr); }
+  .es-home-caps::before { inset-block: 1rem; inset-inline: 1.8rem auto; inline-size: 2px; block-size: auto; }
+  .es-home-cap { grid-template-columns: 2rem minmax(0, 1fr); column-gap: .75rem; align-items: center; }
+  .es-home-cap .es-home-ic { grid-row: 1 / span 2; margin: 0; }
+  .es-home-cap b, .es-home-cap span { grid-column: 2; }
+}
+
+/* ── 7. Integrations: a compact flow ───────────────────── */
+.es-home-band--compact { padding-block: clamp(3.5rem, 7vw, 6rem); }
+@media (min-width: 68.0625rem) {
+  .es-home-split--flow { grid-template-columns: minmax(0, .9fr) minmax(0, 1.2fr); }
+}
+
+.es-home-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2rem minmax(0, 1fr) 2rem minmax(0, 1.2fr);
+  align-items: center;
+  row-gap: 0;
+  inline-size: 100%;
+}
+
+.es-home-flow__node {
+  position: relative;
+  z-index: 1;
+  padding: 1rem .75rem 1.05rem;
+  border: 1px solid var(--home-line);
+  border-radius: 1.1rem;
+  background: var(--es-white);
+  box-shadow: var(--elev-2);
+  text-align: center;
+}
+
+.es-home-flow__node > .es-home-ic,
+.es-home-flow__mark {
+  display: block;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  margin: 0 auto .55rem;
+  padding: .55rem;
+  border-radius: 50%;
+  background: #eaf1f8;
+  color: #163e69;
+}
+
+.es-home-flow__node b { display: block; color: var(--es-navy-950); font-size: 1rem; font-weight: 600; line-height: 1.4; }
+.es-home-flow__node small { display: block; margin-block-start: .2rem; color: var(--es-ink-72); font-size: .875rem; line-height: 1.45; }
+
+.es-home-flow__node--src { border-color: transparent; background: linear-gradient(160deg, #163e69, var(--es-navy-950) 75%); box-shadow: var(--elev-3); }
+.es-home-flow__node--src b { color: var(--es-white); }
+.es-home-flow__node--src small { color: var(--es-on-dark-muted); }
+.es-home-flow__mark { padding: .6rem; background: rgb(255 255 255 / 12%); }
+.es-home-flow__mark img { display: block; inline-size: 100%; block-size: auto; }
+
+.es-home-flow__rail {
+  position: relative;
+  block-size: 2px;
+  background: linear-gradient(to left, var(--rail-c), #163e69);
+}
+
+[dir="ltr"] .es-home-flow__rail { background: linear-gradient(to right, var(--rail-c), #163e69); }
+
+.es-home-flow__rail::after {
+  content: "";
+  position: absolute;
+  inset-block-start: -.3rem;
+  inset-inline-end: -.1rem;
+  border-block: .35rem solid transparent;
+  border-inline-start: .45rem solid #163e69;
+}
+
+/* AI: a separate, optional branch under the connection. */
+.es-home-flow__branch {
+  position: relative;
+  grid-column: 3;
+  justify-self: center;
+  margin-block-start: 1.5rem;
+  padding: .4rem .9rem;
+  border: 1.5px dashed rgb(22 62 105 / 40%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 80%);
+  color: var(--es-navy-950);
+  font-size: .9375rem;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.es-home-flow__branch .es-home-ic { margin-inline-end: .35rem; color: #163e69; }
+
+.es-home-flow__branch::before {
+  content: "";
+  position: absolute;
+  inset-block-end: 100%;
+  inset-inline-start: calc(50% - 1px);
+  block-size: 1.5rem;
+  border-inline-start: 2px dashed rgb(22 62 105 / 35%);
+}
 
 @media (max-width: 40rem) {
-  .es-home-signals { padding: 1rem; padding-inline-start: 2.25rem; border-radius: 1.25rem; }
-  .es-home-signals::before { inset-inline-start: calc(1.125rem - 1px); }
-  .es-home-signals > :is(.es-home-evidence, .es-home-insight, .es-home-suggest)::before { inset-inline-start: calc(-1.125rem - .4rem); }
+  .es-home-flow { grid-template-columns: minmax(0, 1fr); justify-items: stretch; }
+  .es-home-flow__rail { justify-self: center; inline-size: 2px; block-size: 1.4rem; background: linear-gradient(to bottom, var(--rail-c), #163e69); }
+  [dir="ltr"] .es-home-flow__rail { background: linear-gradient(to bottom, var(--rail-c), #163e69); }
+  .es-home-flow__rail::after { inset-block: auto -.2rem; inset-inline: -.3rem auto; border-inline: .35rem solid transparent; border-block-start: .45rem solid #163e69; border-block-end: 0; }
+  .es-home-flow__branch { grid-column: 1; }
+  .es-home-flow__node { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); column-gap: .85rem; align-items: center; padding: .8rem 1rem; text-align: start; }
+  .es-home-flow__node > .es-home-ic, .es-home-flow__mark { grid-row: 1 / span 2; margin: 0; }
+  .es-home-flow__node b, .es-home-flow__node small { grid-column: 2; }
 }
 
-/* ── Growth: pattern → campaign ────────────────────────── */
-.es-home-growth-fig { inline-size: min(100%, 46rem); }
+/* ── Below-fold entries (armed by home.js only while off-screen) ── */
+@media (prefers-reduced-motion: no-preference) {
+  :is(.es-home-dests, .es-home-today__grid).is-armed > * { opacity: 0; }
+  :is(.es-home-dests, .es-home-today__grid).is-playing > * { animation: es-home-rise var(--es-mo-base) var(--es-mo-ease) both; animation-delay: calc(var(--i, 0) * 70ms); }
+}
 
-@media (min-width: 68.0625rem) {
-  .es-home-growth-fig {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    align-items: center;
-    column-gap: 2.25rem;
-  }
+/* ── Review fixes (3 Nov) ──────────────────────────────── */
+/* Footer links hold text + <bdi> («ربط Meta»): an inline-flex box drops
+   the space between them. Block boxes keep the 44px tap height. */
+.es-home .es-footer :is(.es-footer__links, .es-footer__legal) a {
+  display: block;
+  min-block-size: 2.75rem;
+  padding-block: .625rem;
+  line-height: 1.6;
+}
+.es-home .es-footer .es-footer__legal a { display: inline-block; }
 
-  /* The recurring pattern spans its column and runs into the campaign. */
-  .es-home-cluster--key { position: relative; justify-self: stretch; }
+/* Hero tabs: tighter pills so five tabs fit in at most two rows. */
+@media (min-width: 40.0625rem) {
+  .es-home-tablist { gap: .35rem; }
+  .es-home-tab { gap: .3rem; padding-inline: .7rem; font-size: .875rem; }
+}
 
-  .es-home-cluster--key::after {
-    content: "";
-    position: absolute;
-    inset-block-start: 50%;
-    inset-inline-start: 100%;
-    inline-size: 2.25rem;
-    block-size: 2px;
-    background: linear-gradient(to right, var(--home-accent-ink), var(--home-mint));
-  }
+/* Today: the lead photo absorbs the height of the two rows of small
+   stories instead of stretching them with empty space. */
+@media (min-width: 60.0625rem) {
+  .es-home-story--lead .es-home-story__photo { flex: 1 1 0; min-block-size: 9rem; aspect-ratio: auto; }
+}
 
-  [dir="rtl"] .es-home-cluster--key::after { background: linear-gradient(to left, var(--home-accent-ink), var(--home-mint)); }
+/* Ask strip example label on navy. */
+.es-home-askstrip__chat .es-home-example { color: var(--es-on-dark-muted); }
 
-  /* An ad-style card: image on top, what to say below, Meta at the foot. */
-  .es-home-campaign { grid-template-columns: minmax(0, 1fr); margin-block-start: 0; }
-  .es-home-campaign::before { display: none; }
-  .es-home-campaign__art { min-block-size: 0; aspect-ratio: 16 / 10; border-radius: 1.25rem 1.25rem 0 0; }
-  .es-home-campaign__body { padding: 1.1rem 1.25rem 1rem; }
+/* Closing line: even lines, no orphaned last words. */
+html body.es-landing .es-home-main .es-home-closing__line { text-wrap: balance; }
+
+/* Mascot: desktop only. */
+@media (max-width: 47.99rem) {
+  .es-home-closing__mascot { display: none; }
+}
+
+@media print {
+  .es-home-tasks__panels { display: grid; grid-auto-flow: row; overflow: visible; }
+  .es-home-tasks .es-home-task[hidden] { display: flex !important; visibility: visible !important; }
+  .es-home-tablist { display: none !important; }
 }

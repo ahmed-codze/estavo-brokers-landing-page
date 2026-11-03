@@ -12,7 +12,7 @@
         actions rise in once, but only for sections that start
         below the fold (same contract as home.js figures);
      3. pointer-only touches: magnetic primary buttons and a soft
-        tilt on the website preview and the two free cards;
+        tilt on the website preview;
      4. desktop only: Lenis smooth scrolling and GSAP
         ScrollTrigger parallax on decorative light layers and
         figures. The libraries are self-hosted in assets/vendor
@@ -148,8 +148,8 @@
 
   function initTilt() {
     if (reduceMotion || !finePointer) return;
-    all(".es-home-browser, .es-home-free-card").forEach(function (el) {
-      var max = el.classList.contains("es-home-browser") ? 3 : 4;
+    all(".es-home-browser").forEach(function (el) {
+      var max = 3;
       var frame = 0;
       el.classList.add("es-home-tilt");
       el.addEventListener("pointermove", function (e) {
@@ -237,7 +237,7 @@
 
       /* Figures settle a few pixels as their section crosses the
          viewport: depth, never displacement of readable copy. */
-      all("#home-market .es-home-market, #home-website .es-home-build, #home-client .es-home-evidence--seen, #home-growth .es-home-campaign").forEach(function (fig) {
+      all("#home-data .es-home-market, #home-website .es-home-build, #home-integrations .es-home-flow").forEach(function (fig) {
         gsap.fromTo(fig, { y: 36 }, {
           y: -18,
           ease: "none",

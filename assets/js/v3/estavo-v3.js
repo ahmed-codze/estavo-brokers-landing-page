@@ -191,31 +191,41 @@
 
   /* ── Header: solutions menu + mobile drawer ──────────── */
   function initHeader() {
-    var menu = document.querySelector("[data-menu]");
-    if (menu) {
-      var trigger = menu.querySelector("[data-menu-trigger]");
-      var panel = menu.querySelector("[data-menu-panel]");
+    /* Several top-level menus (Nov 2026 nav): opening one closes the others. */
+    var menus = all("[data-menu]").map(function (menu) {
+      return {
+        root: menu,
+        trigger: menu.querySelector("[data-menu-trigger]"),
+        panel: menu.querySelector("[data-menu-panel]")
+      };
+    }).filter(function (m) { return m.trigger && m.panel; });
 
-      if (trigger && panel) {
-        var closeMenu = function () {
-          panel.hidden = true;
-          trigger.setAttribute("aria-expanded", "false");
-        };
+    function closeMenu(m) {
+      m.panel.hidden = true;
+      m.trigger.setAttribute("aria-expanded", "false");
+    }
 
-        trigger.addEventListener("click", function () {
-          var open = trigger.getAttribute("aria-expanded") === "true";
-          panel.hidden = open;
-          trigger.setAttribute("aria-expanded", String(!open));
+    menus.forEach(function (m) {
+      m.trigger.addEventListener("click", function () {
+        var open = m.trigger.getAttribute("aria-expanded") === "true";
+        menus.forEach(function (other) { if (other !== m) closeMenu(other); });
+        m.panel.hidden = open;
+        m.trigger.setAttribute("aria-expanded", String(!open));
+      });
+    });
+
+    if (menus.length) {
+      document.addEventListener("click", function (event) {
+        menus.forEach(function (m) { if (!m.root.contains(event.target)) closeMenu(m); });
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key !== "Escape") return;
+        menus.forEach(function (m) {
+          var hadFocus = m.root.contains(document.activeElement) && !m.panel.hidden;
+          closeMenu(m);
+          if (hadFocus) m.trigger.focus();
         });
-
-        document.addEventListener("click", function (event) {
-          if (!menu.contains(event.target)) closeMenu();
-        });
-
-        document.addEventListener("keydown", function (event) {
-          if (event.key === "Escape") closeMenu();
-        });
-      }
+      });
     }
 
     var drawer = document.querySelector("[data-drawer]");

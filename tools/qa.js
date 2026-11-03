@@ -232,7 +232,7 @@ function checkFile(file) {
   const isEnglish = /<html[^>]*lang="en"/.test(raw);
   if (isEnglish) {
     const arabicServiceLinks = raw.match(
-      /href="\/(?:data|market|websites|ai|integrations|marketing|insights|listings|enterprise|pricing|examples)\/"/g
+      /href="(?:\.\.)?\/(?:data|market|developers|roi|jobs|challenges|broker-ai|websites|ai|integrations|marketing|meta|insights|listings|enterprise|pricing|examples)\/"/g
     ) || [];
     if (arabicServiceLinks.length) {
       failures.push(`${arabicServiceLinks.length} English-page link(s) point to Arabic service routes`);
@@ -281,11 +281,16 @@ function checkFile(file) {
     integrations: 7,
     marketing: 6,
     meta: 7,
-    insights: 5,
+    insights: 7,
     listings: 7,
     enterprise: 8,
     pricing: 5,
     examples: 4,
+    developers: 8,
+    roi: 8,
+    jobs: 8,
+    challenges: 8,
+    'broker-ai': 8,
   }[conversionPage];
   if (visibleSectionBudget) {
     const withoutArchivedSections = raw.replace(/<template\b[\s\S]*?<\/template>/gi, '');
@@ -298,7 +303,7 @@ function checkFile(file) {
   // Owner rule (2026-10-29): a section subtitle stays about two lines on
   // desktop, so it reads as a subtitle and the phone page stays short.
   // Roughly 140 Arabic / 170 English characters of visible text.
-  if (route === 'market') {
+  if (['market', 'developers', 'roi', 'jobs', 'challenges', 'broker-ai', 'insights', 'integrations'].includes(route)) {
     const cap = isRtl ? 140 : 170;
     const leads = [...raw.matchAll(/<p class="(?:mk-lead|mk-hero__lead|mk-close__sub)[^"]*">([\s\S]*?)<\/p>/g)];
     for (const [, inner] of leads) {
@@ -307,7 +312,18 @@ function checkFile(file) {
     }
   }
 
-  const expectedDestination = ['data', 'market', 'insights'].includes(route)
+  // Community destinations open the matching app screen (deep links keep
+  // their path through referral.js via data-keep-path).
+  const deepDestination = {
+    developers: 'https://brokers.estavo.space/register?redirect=%2Fdevelopers',
+    roi: 'https://brokers.estavo.space/register?redirect=%2Fprojects',
+    jobs: 'https://brokers.estavo.space/register?redirect=%2Fjobs',
+    challenges: 'https://brokers.estavo.space/games/exclusive',
+    insights: 'https://brokers.estavo.space/register?redirect=%2Festavo-daily',
+  }[route];
+  const expectedDestination = deepDestination
+    ? deepDestination
+    : ['data', 'market', 'broker-ai'].includes(route)
     ? 'https://brokers.estavo.space/go/?ref=default-landing-page-market'
     : route === 'websites'
       ? 'https://estavo-brokers.com/website/?audience=individual'
@@ -325,6 +341,14 @@ function checkFile(file) {
     if (wrong.length) {
       failures.push(`${wrong.length} conversion button(s) do not use the required route destination`);
     }
+  }
+
+  // A deep link routed through /go/ loses its destination, so every
+  // platform link that is not the /go/ entry must opt into keep-path.
+  {
+    const platformLinks = [...raw.matchAll(/<a\b[^>]*href="https:\/\/brokers\.estavo\.space\/(?!go\/)[^"]*"[^>]*>/gi)];
+    const unkept = platformLinks.filter((m) => !/\bdata-keep-path\b/.test(m[0]) && !/brokers\.estavo\.space\/credits/.test(m[0]));
+    if (unkept.length) failures.push(`${unkept.length} platform deep link(s) without data-keep-path (referral.js would send them to /go/)`);
   }
 
   // The persistent action must reinforce the page's decision instead of
@@ -362,13 +386,10 @@ function checkFile(file) {
       failures.push('individual Sites page is missing the approved no-tech/data-team positioning');
     }
   }
-  if (route === 'enterprise') {
-    const hasCompanyCostPositioning = isRtl
-      ? /أقل من (?:تكلفة )?مرتب موظف/.test(body)
-      : /less than (?:the cost of one data-entry salary|the salary of one data-entry employee)/i.test(body);
-    if (!hasCompanyCostPositioning) {
-      failures.push('company Sites page is missing the approved one-data-entry-salary comparison');
-    }
+  // Nov 2026 brief: company pricing scales with members and paid cities, so
+  // an unconditional "below one salary" promise can become untrue.
+  if (route === 'enterprise' && (isRtl ? /أقل من (?:تكلفة )?مرتب موظف/.test(body) : /less than (?:the cost of one data-entry salary|the salary of one data-entry employee)/i.test(body))) {
+    failures.push('company Sites page must not promise an unconditional below-one-salary cost');
   }
 
   // /data/ is retained only as an inbound migration route.
@@ -429,7 +450,8 @@ function main() {
 
   if (!files.length) {
     const roots = ['index.html', 'en.html'];
-    const dirs = ['data', 'market', 'websites', 'ai', 'integrations', 'marketing', 'meta',
+    const dirs = ['data', 'market', 'developers', 'roi', 'jobs', 'challenges', 'broker-ai',
+      'websites', 'ai', 'integrations', 'marketing', 'meta',
       'insights', 'listings', 'enterprise', 'pricing', 'examples'];
     files = roots.map((f) => path.join(root, f));
     for (const d of dirs) {

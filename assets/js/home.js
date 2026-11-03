@@ -7,6 +7,8 @@
      1. arms below-fold signature figures (hides their parts)
         while they are still off-screen, then plays them once
         on entry — never re-hides something already seen;
+     1b. turns the hero task window into accessible tabs (without
+        JS its five panels stay readable in a scroll strip);
      2. adds homepage-specific analytics names alongside the
         shared data-track events (estavo-v3.js keeps sending
         market_opened / website_preview_started as before);
@@ -99,19 +101,58 @@
     playOnEntry(figure);
   }
 
-  function initHomeClientSignals() {
-    var signals = document.querySelector("[data-home-signals]");
-    if (signals) {
-      index(".es-home-sig", signals);
-      playOnEntry(signals);
+  /* Hero "what do you need today?": accessible tabs (WAI-ARIA tabs
+     pattern; the panels are static, so arrow keys select directly).
+     No auto-rotation. Without this script the panels stay side by
+     side in a scroll strip and every one is readable. */
+  function initHomeTasks() {
+    var root = document.querySelector("[data-home-tasks]");
+    if (!root) return;
+    var tabs = all("[role=\"tab\"]", root);
+    var panels = tabs.map(function (tab) {
+      return document.getElementById(tab.getAttribute("aria-controls"));
+    });
+    if (!tabs.length || panels.indexOf(null) !== -1) return;
+
+    function select(index, focus) {
+      tabs.forEach(function (tab, i) {
+        var on = i === index;
+        tab.setAttribute("aria-selected", on ? "true" : "false");
+        tab.tabIndex = on ? 0 : -1;
+        panels[i].hidden = !on;
+      });
+      if (focus) {
+        tabs[index].focus();
+        if (tabs[index].scrollIntoView) tabs[index].scrollIntoView({ block: "nearest", inline: "nearest" });
+      }
     }
+
+    var current = Math.max(0, tabs.findIndex ? tabs.findIndex(function (t) { return t.getAttribute("aria-selected") === "true"; }) : 0);
+    root.classList.add("is-tabs");
+    select(current, false);
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener("click", function () { select(i, false); });
+      tab.addEventListener("keydown", function (event) {
+        var rtl = (document.documentElement.dir || "").toLowerCase() === "rtl";
+        var next = { ArrowRight: rtl ? -1 : 1, ArrowLeft: rtl ? 1 : -1 }[event.key];
+        var target = null;
+        if (next) target = (i + next + tabs.length) % tabs.length;
+        else if (event.key === "Home") target = 0;
+        else if (event.key === "End") target = tabs.length - 1;
+        if (target === null) return;
+        event.preventDefault();
+        select(target, true);
+      });
+    });
   }
 
-  function initHomeGrowthClusters() {
-    var figure = document.querySelector("[data-home-clusters]");
-    if (!figure) return;
-    index(".es-home-cluster", figure);
-    playOnEntry(figure);
+  /* Today board and destination tiles rise in once, staggered. */
+  function initHomeEntries() {
+    all(".es-home-today__grid, .es-home-dests").forEach(function (list) {
+      index(":scope > *", list);
+      playOnEntry(list);
+    });
   }
 
   function initHomeEvents() {
@@ -137,7 +178,7 @@
   }
 
   /* One restrained bar on phones. It never sits on top of another
-     visible Market CTA (hero, market, start-free, closing) or the
+     visible Market CTA (hero, closing) or the
      footer, and steps aside while the menu drawer, the support chat
      or the on-screen keyboard needs the space. raghad.js watches the
      .visible class on .sticky-cta and lifts its launcher. Focused
@@ -194,8 +235,8 @@
       initHomeMarketAssembly,
       initHomeRequestAnalysis,
       initHomeWebsite,
-      initHomeClientSignals,
-      initHomeGrowthClusters,
+      initHomeTasks,
+      initHomeEntries,
       initHomeEvents,
       initHomeMobileCta
     ].forEach(safely);

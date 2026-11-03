@@ -58,11 +58,11 @@
         },
         {
           "title": "اعرض اختيارات تساعد على القرار",
-          "html": "<p>قدّم مجموعة صغيرة ليها أسباب واضحة بدل ما تبعت كل الملفات. لكل اختيار وضّح سبب مناسبته، أهم تنازل فيه وإيه لسه محتاج تأكيد. قارن نفس نوع الوحدة وبنفس أساس السداد؛ السعر الإجمالي الأقل مش معناه بالضرورة سيولة أقل وقت الحجز.</p><p>استافو ماركت يساعدك تبحث في بيانات المشاريع والوحدات، تسأل AI البروكر عن الطلب وتقارن المعلومات المتاحة. السعر والمتاح وشروط الحجز محتاجين تأكيد من الجهة المسؤولة قبل التزام نهائي.</p>"
+          "html": "<p>قدّم مجموعة صغيرة ليها أسباب واضحة بدل ما تبعت كل الملفات. لكل اختيار وضّح سبب مناسبته، أهم تنازل فيه وإيه لسه محتاج تأكيد. قارن نفس نوع الوحدة وبنفس أساس السداد؛ السعر الإجمالي الأقل مش معناه بالضرورة سيولة أقل وقت الحجز.</p><p>Estavo Market يساعدك تبحث في بيانات المشاريع والوحدات، تسأل AI البروكر عن الطلب وتقارن المعلومات المتاحة. السعر والمتاح وشروط الحجز محتاجين تأكيد من الجهة المسؤولة قبل التزام نهائي.</p>"
         },
         {
           "title": "ابعت عرض يجاوب الأسئلة اللي جاية",
-          "html": "<p>جهّز عرض مقروء فيه المشروع والوحدة أو النموذج والموقع والمساحة والتشطيب والتسليم وخطة السداد وتاريخ مراجعة المعلومة وبياناتك. اكتب أي معلومة ناقصة بوضوح. PDF Offer من استافو يجمّع البيانات المتاحة في عرض باسمك؛ راجعه قبل الإرسال.</p><p>اختم بسؤال له إجابة عملية: «أنهي منطقة أقرب لشغلك؟» أو «نأكد المتاح ونرتب معاينة؟». العرض من غير خطوة تالية ممكن يسيب الطرفين مستنيين.</p>"
+          "html": "<p>جهّز عرض مقروء فيه المشروع والوحدة أو النموذج والموقع والمساحة والتشطيب والتسليم وخطة السداد وتاريخ مراجعة المعلومة وبياناتك. اكتب أي معلومة ناقصة بوضوح. PDF Offer من إستاڤو يجمّع البيانات المتاحة في عرض باسمك؛ راجعه قبل الإرسال.</p><p>اختم بسؤال له إجابة عملية: «أنهي منطقة أقرب لشغلك؟» أو «نأكد المتاح ونرتب معاينة؟». العرض من غير خطوة تالية ممكن يسيب الطرفين مستنيين.</p>"
         },
         {
           "title": "تابع بسبب مفيد",
@@ -75,8 +75,8 @@
       ],
       "faq": [
         {
-          "question": "هل استافو بيضمن مبيعات أكتر؟",
-          "answer": "لأ. استافو يساعد في البحث والمقارنة وتجهيز العرض. النتيجة بتعتمد على المتاح ومناسبة الاختيارات والمتابعة وظروف السوق."
+          "question": "هل إستاڤو بيضمن مبيعات أكتر؟",
+          "answer": "لأ. إستاڤو يساعد في البحث والمقارنة وتجهيز العرض. النتيجة بتعتمد على المتاح ومناسبة الاختيارات والمتابعة وظروف السوق."
         },
         {
           "question": "أزوّد الليدز الأول؟",
@@ -92,8 +92,8 @@
     "sources": [
       {
         "url": "https://estavo-brokers.com/what-is-estavo-brokers-en.html",
-        "en": "Estavo Brokers: product overview",
-        "ar": "استافو بروكرز: تعريف المنتج"
+        "en": "Estavo: product overview",
+        "ar": "إستاڤو: تعريف المنتج"
       }
     ]
   },
@@ -148,7 +148,7 @@
       "sections": [
         {
           "title": "اختار المصدر المناسب لكل مهمة",
-          "html": "<p>البروشور الرسمي يشرح المشروع، وقائمة الأسعار المؤرخة توضّح السعر المعروض، وجهة المبيعات أو الحجز تؤكد الحالة الحالية. منصة الإنفنتوري تساعدك تبحث وتقارن. البروشور مش تأكيد إن وحدة محددة متاحة النهارده.</p><p>استافو ماركت بينظم معلومات المشاريع والوحدات وخطط السداد المتاحة للبحث. استخدمه لتجهيز الاختيارات، وبعدها أكد التفاصيل المتغيرة مع الجهة المسؤولة عن الحجز.</p>"
+          "html": "<p>البروشور الرسمي يشرح المشروع، وقائمة الأسعار المؤرخة توضّح السعر المعروض، وجهة المبيعات أو الحجز تؤكد الحالة الحالية. منصة الإنفنتوري تساعدك تبحث وتقارن. البروشور مش تأكيد إن وحدة محددة متاحة النهارده.</p><p>Estavo Market بينظم معلومات المشاريع والوحدات وخطط السداد المتاحة للبحث. استخدمه لتجهيز الاختيارات، وبعدها أكد التفاصيل المتغيرة مع الجهة المسؤولة عن الحجز.</p>"
         },
         {
           "title": "جهّز سجل مراجعة لكل عرض",
@@ -167,8 +167,8 @@
           "html": "<blockquote>«ممكن تأكيد حالة [المشروع / المرحلة / العمارة / الوحدة] والسعر الحالي والعملة وخطة السداد ومبلغ الحجز والمصاريف الإضافية وأساس موعد التسليم؟ وإيه تاريخ سريان الشروط دي؟»</blockquote><p>حدّث اختياراتك بالرد واحتفظ بالتأكيد مع سجل العرض. اكتب المعلومة الناقصة كغير مؤكدة، وماتستخدمش شروط وحدة مشابهة من غير توضيح.</p>"
         },
         {
-          "title": "استخدم استافو للبحث وأكد وقت القرار",
-          "html": "<p>ابحث في المدينة والمشروع، راجع بيانات الوحدات واسأل AI البروكر عن الفروق المهمة. قبل تجهيز العرض، أكد المعلومات اللي بتغيّر قرار العميل. استافو يساعدك في البحث والتحضير؛ التأكيد النهائي للحجز من الجهة المسؤولة.</p><p>دراسة البحث تحت بتوضّح ليه تعدد قوائم الأسعار القديمة مش إثبات للمتاح الحالي أو سعر البيع الفعلي.</p>"
+          "title": "استخدم إستاڤو للبحث وأكد وقت القرار",
+          "html": "<p>ابحث في المدينة والمشروع، راجع بيانات الوحدات واسأل AI البروكر عن الفروق المهمة. قبل تجهيز العرض، أكد المعلومات اللي بتغيّر قرار العميل. إستاڤو يساعدك في البحث والتحضير؛ التأكيد النهائي للحجز من الجهة المسؤولة.</p><p>دراسة البحث تحت بتوضّح ليه تعدد قوائم الأسعار القديمة مش إثبات للمتاح الحالي أو سعر البيع الفعلي.</p>"
         }
       ],
       "faq": [
@@ -190,8 +190,8 @@
     "sources": [
       {
         "url": "https://estavo-brokers.com/what-is-estavo-brokers-en.html",
-        "en": "Estavo Brokers: product overview",
-        "ar": "استافو بروكرز: تعريف المنتج"
+        "en": "Estavo: product overview",
+        "ar": "إستاڤو: تعريف المنتج"
       }
     ]
   },
@@ -254,7 +254,7 @@
         },
         {
           "title": "استخدم برومبت البحث ده",
-          "html": "<blockquote>«ساعدني أجهز اختيارات لعميل: [الغرض]، [المدينة والمنطقة]، [النوع والغرف]، [أقل مساحة]، [إجمالي الميزانية]، [السيولة دلوقتي]، [قدرة السداد]، [آخر ميعاد تسليم]، [التشطيب] و[الشروط الأساسية]. استخدم المعلومات المتاحة في استافو ماركت. لكل اختيار وضّح سبب مناسبته والتنازل والمعلومة الناقصة. ماتخترعش المتاح وماتغيّرش الحدود من غير ما تسأل».</blockquote><p>ده برومبت للاستخدام، مش ضمان لوجود نتيجة لكل طلب. راجع إجابة AI على بيانات المشروع والوحدة.</p>"
+          "html": "<blockquote>«ساعدني أجهز اختيارات لعميل: [الغرض]، [المدينة والمنطقة]، [النوع والغرف]، [أقل مساحة]، [إجمالي الميزانية]، [السيولة دلوقتي]، [قدرة السداد]، [آخر ميعاد تسليم]، [التشطيب] و[الشروط الأساسية]. استخدم المعلومات المتاحة في Estavo Market. لكل اختيار وضّح سبب مناسبته والتنازل والمعلومة الناقصة. ماتخترعش المتاح وماتغيّرش الحدود من غير ما تسأل».</blockquote><p>ده برومبت للاستخدام، مش ضمان لوجود نتيجة لكل طلب. راجع إجابة AI على بيانات المشروع والوحدة.</p>"
         },
         {
           "title": "قارن على نفس الأساس",
@@ -266,7 +266,7 @@
         },
         {
           "title": "اتفق على الخطوة التالية",
-          "html": "<p>اسأل العميل أي تنازل يفضله، وأكد الوحدة والشروط الحالية، وبعدها رتّب معاينة أو جهّز PDF Offer مراجع. استافو ماركت يساعد في البحث والمقارنة وتجهيز العرض؛ الاختيار النهائي للبروكر والعميل.</p><p>سجّل سبب إدراج كل اختيار واستبعاد غيره. السجل ده يخلّي المكالمة التالية مفيدة بدل ما تبدأ البحث من الأول.</p>"
+          "html": "<p>اسأل العميل أي تنازل يفضله، وأكد الوحدة والشروط الحالية، وبعدها رتّب معاينة أو جهّز PDF Offer مراجع. Estavo Market يساعد في البحث والمقارنة وتجهيز العرض؛ الاختيار النهائي للبروكر والعميل.</p><p>سجّل سبب إدراج كل اختيار واستبعاد غيره. السجل ده يخلّي المكالمة التالية مفيدة بدل ما تبدأ البحث من الأول.</p>"
         }
       ],
       "faq": [
@@ -288,8 +288,8 @@
     "sources": [
       {
         "url": "https://estavo-brokers.com/what-is-estavo-brokers-en.html",
-        "en": "Estavo Brokers: product overview",
-        "ar": "استافو بروكرز: تعريف المنتج"
+        "en": "Estavo: product overview",
+        "ar": "إستاڤو: تعريف المنتج"
       }
     ]
   },
@@ -310,7 +310,7 @@
           "html": "<ul><li>Booking amount and whether it forms part of the down payment.</li><li>Down payment and each additional milestone.</li><li>Number, frequency and amount of recurring instalments.</li><li>Handover payment and any balloon payment.</li><li>Maintenance, parking, club or other charges, with payment timing.</li><li>Any stated cash discount and its conditions.</li></ul><p>Use the source’s actual schedule. Do not divide the remaining balance equally if the contract uses stepped or irregular payments.</p>"
         },
         {
-          "title": "Show the arithmetic with an explicitly illustrative example",
+          "title": "Show the arithmetic with a clearly labelled example",
           "html": "<p>Suppose a fictional offer has a quoted price of EGP 5,000,000, a 10% down payment and the remaining price divided into 20 equal quarterly instalments, with no other price payments. The down payment is EGP 500,000; the remaining EGP 4,500,000 produces EGP 225,000 per quarter.</p><p>This example is arithmetic only, not live inventory or developer terms. Additional charges, different schedules and discounts change the result. Twenty quarterly instalments do not mean the developer also offers a monthly payment option.</p>"
         },
         {
@@ -319,7 +319,7 @@
         },
         {
           "title": "Use a comparison prompt that preserves unknowns",
-          "html": "<blockquote>“Compare these two quoted schedules. List booking cash, down payment, dated instalments, handover amounts, extra charges and total stated payments. Identify missing terms and whether the specifications differ. Use only the supplied figures; do not assume a discount, equal instalments or a guaranteed return.”</blockquote><p>Estavo’s broker AI can help explain available payment-plan information. Check the underlying terms and arithmetic before sending the comparison. This guide does not depend on a separate Estavo calculator.</p>"
+          "html": "<blockquote>“Compare these two quoted schedules. List booking cash, down payment, dated instalments, handover amounts, extra charges and total stated payments. Identify missing terms and whether the specifications differ. Use only the supplied figures; do not assume a discount, equal instalments or a guaranteed return.”</blockquote><p>Estavo’s broker AI can help explain available payment-plan information. Check the underlying terms and arithmetic before sending the comparison. To check cash against instalments in numbers, see <a href=\"/roi/en.html\">Cash or installments?</a></p>"
         },
         {
           "title": "Present the decision in the client’s language",
@@ -360,7 +360,7 @@
         },
         {
           "title": "استخدم برومبت يحافظ على المجهول",
-          "html": "<blockquote>«قارن جدولَي السداد دول. اذكر الحجز والمقدم والأقساط بمواعيدها ودفعة الاستلام والمصاريف وإجمالي الدفعات المذكورة. وضّح الشروط الناقصة واختلاف المواصفات. استخدم الأرقام المقدمة بس، وماتفترضش خصم أو أقساط متساوية أو عائد مضمون».</blockquote><p>AI البروكر في استافو يساعدك توضح معلومات السداد المتاحة. راجع المصدر والحساب قبل الإرسال. الدليل ده مش معتمد على حاسبة منفصلة من استافو.</p>"
+          "html": "<blockquote>«قارن جدولَي السداد دول. اذكر الحجز والمقدم والأقساط بمواعيدها ودفعة الاستلام والمصاريف وإجمالي الدفعات المذكورة. وضّح الشروط الناقصة واختلاف المواصفات. استخدم الأرقام المقدمة بس، وماتفترضش خصم أو أقساط متساوية أو عائد مضمون».</blockquote><p>AI البروكر في إستاڤو يساعدك توضح معلومات السداد المتاحة. راجع المصدر والحساب قبل الإرسال. ولو عايز تقارن الكاش بالتقسيط بالأرقام، شوف <a href=\"/roi/\">كاش ولا تقسيط؟</a></p>"
         },
         {
           "title": "اشرح القرار بلغة العميل",
@@ -386,8 +386,8 @@
     "sources": [
       {
         "url": "https://estavo-brokers.com/what-is-estavo-brokers-en.html",
-        "en": "Estavo Brokers: product overview",
-        "ar": "استافو بروكرز: تعريف المنتج"
+        "en": "Estavo: product overview",
+        "ar": "إستاڤو: تعريف المنتج"
       }
     ]
   },
@@ -450,7 +450,7 @@
         },
         {
           "title": "خلّي المعلومة غير المؤكدة واضحة",
-          "html": "<p>اكتب «غير مذكور» أو «بانتظار التأكيد» للمصاريف الناقصة أو حالة الحجز أو شروط التسليم غير الواضحة. ماتسدش الفراغ بمعلومة من مشروع قريب. فرّق بين عرض سعر وحجز مقبول، ووضّح كاش ولا تقسيط.</p><p>PDF Offer من استافو ماركت يستخدم معلومات المشروع أو الوحدة المتاحة مع بيانات البروكر. هو أداة تجهيز؛ راجع السعر والمتاح والشروط المهمة قبل الإرسال.</p>"
+          "html": "<p>اكتب «غير مذكور» أو «بانتظار التأكيد» للمصاريف الناقصة أو حالة الحجز أو شروط التسليم غير الواضحة. ماتسدش الفراغ بمعلومة من مشروع قريب. فرّق بين عرض سعر وحجز مقبول، ووضّح كاش ولا تقسيط.</p><p>PDF Offer من Estavo Market يستخدم معلومات المشروع أو الوحدة المتاحة مع بيانات البروكر. هو أداة تجهيز؛ راجع السعر والمتاح والشروط المهمة قبل الإرسال.</p>"
         },
         {
           "title": "رسالة قصيرة مع العرض",
@@ -484,8 +484,8 @@
     "sources": [
       {
         "url": "https://estavo-brokers.com/what-is-estavo-brokers-en.html",
-        "en": "Estavo Brokers: product overview",
-        "ar": "استافو بروكرز: تعريف المنتج"
+        "en": "Estavo: product overview",
+        "ar": "إستاڤو: تعريف المنتج"
       }
     ]
   },
@@ -499,7 +499,7 @@
       "sections": [
         {
           "title": "Choose a specific client problem",
-          "html": "<p>Define the people you can serve well: home buyers in a chosen area, buyers needing a particular handover window or owners seeking a suitable resale route. Avoid claiming expertise in every area at once. Your positioning should describe the client’s problem and the evidence you can provide.</p><p>For example, “I help families compare New Cairo homes against their payment and delivery needs” is more actionable than “all properties, best prices.” This is an illustrative positioning statement, not a verified business claim.</p>"
+          "html": "<p>Define the people you can serve well: home buyers in a chosen area, buyers needing a particular handover window or owners seeking a suitable resale route. Avoid claiming expertise in every area at once. Your positioning should describe the client’s problem and the evidence you can provide.</p><p>For example, “I help families compare New Cairo homes against their payment and delivery needs” is more actionable than “all properties, best prices.” This is an example positioning statement, not a verified business claim.</p>"
         },
         {
           "title": "Publish answers that show how you work",
@@ -511,11 +511,11 @@
         },
         {
           "title": "Give prospects one clear contact path",
-          "html": "<p>A mobile-friendly page should identify you, your coverage and the next step. Keep a contact form brief: name, preferred contact method and an initial description of the need. Follow up to qualify the rest. Explain how the information will be used and respect a request to stop contact.</p><p>Estavo Sites is a separate service for a broker’s property website. Its site-specific client AI and management tools should not be confused with the broker AI inside Estavo Market. Check the available service scope before promising an integration.</p>"
+          "html": "<p>A mobile-friendly page should identify you, the areas you work in and the next step. Keep a contact form brief: name, preferred contact method and an initial description of the need. Follow up to qualify the rest. Explain how the information will be used and respect a request to stop contact.</p><p>Estavo Sites is a separate service for a broker’s property website. Its site-specific client AI and management tools should not be confused with the broker AI inside Estavo Market. Check the available service scope before promising an integration.</p>"
         },
         {
           "title": "Test channels against qualified enquiries",
-          "html": "<div class=\"table-wrap\"><table><caption>A simple weekly acquisition log</caption><thead><tr><th>Measure</th><th>Why record it?</th></tr></thead><tbody><tr><td>Source and spend</td><td>Compare channels on the same period</td></tr><tr><td>Enquiries</td><td>Count incoming conversations consistently</td></tr><tr><td>Qualified enquiries</td><td>Separate buyer fit from raw volume</td></tr><tr><td>Viewings and offers</td><td>See whether leads progress</td></tr><tr><td>Lost reason</td><td>Identify a message or inventory mismatch</td></tr></tbody></table></div><p>For paid channels, cost per qualified enquiry equals channel spend divided by qualified enquiries in that period. If there are none, do not report a reassuring average. Small samples should guide a test, not support broad performance claims.</p>"
+          "html": "<div class=\"table-wrap\"><table><caption>A simple weekly acquisition log</caption><thead><tr><th>Measure</th><th>Why record it?</th></tr></thead><tbody><tr><td>Source and spend</td><td>Compare channels on the same period</td></tr><tr><td>Enquiries</td><td>Count incoming conversations consistently</td></tr><tr><td>Serious enquiries</td><td>Separate buyer fit from raw volume</td></tr><tr><td>Viewings and offers</td><td>See whether leads progress</td></tr><tr><td>Lost reason</td><td>Identify a message or inventory mismatch</td></tr></tbody></table></div><p>For paid channels, cost per qualified enquiry equals channel spend divided by qualified enquiries in that period. If there are none, do not report a reassuring average. Small samples should guide a test, not support broad performance claims.</p>"
         },
         {
           "title": "A four-week plan you can execute",
@@ -552,7 +552,7 @@
         },
         {
           "title": "خلّي التواصل خطوة واحدة واضحة",
-          "html": "<p>صفحة الموبايل توضح مين أنت وتغطيتك والخطوة الجاية. فورم البداية يكون مختصر: الاسم وطريقة التواصل ووصف أولي للاحتياج. كمل التأهيل في المتابعة، ووضّح استخدام البيانات واحترم طلب وقف التواصل.</p><p>استافو سايتس خدمة منفصلة للموقع العقاري الذكي للبروكر. AI العميل وأدوات الإدارة المرتبطة بالموقع مختلفين عن AI البروكر داخل استافو ماركت. راجع نطاق الخدمة قبل ما توعد بربط معين.</p>"
+          "html": "<p>صفحة الموبايل توضح مين أنت وتغطيتك والخطوة الجاية. فورم البداية يكون مختصر: الاسم وطريقة التواصل ووصف أولي للاحتياج. كمل التأهيل في المتابعة، ووضّح استخدام البيانات واحترم طلب وقف التواصل.</p><p>Estavo Sites خدمة منفصلة للموقع العقاري الذكي للبروكر. AI العميل وأدوات الإدارة المرتبطة بالموقع مختلفين عن AI البروكر داخل Estavo Market. راجع نطاق الخدمة قبل ما توعد بربط معين.</p>"
         },
         {
           "title": "قِس القنوات بالطلبات المؤهلة",
@@ -560,12 +560,12 @@
         },
         {
           "title": "خطة أربعة أسابيع قابلة للتنفيذ",
-          "html": "<ol><li>الأسبوع الأول: اختار الشريحة، جهّز نموذج الطلب وسجّل خط البداية.</li><li>الأسبوع التاني: انشر إجابات لثلاثة أسئلة متكررة وشاركها على قنواتك المشروعة.</li><li>الأسبوع التالت: اطلب ترشيحات حقيقية وتابع المحادثات المتفق عليها بمقارنات مفيدة.</li><li>الأسبوع الرابع: راجع الطلبات المؤهلة والتقدم، وكمل النشاط المناسب وحسّن الخطوة الضعيفة.</li></ol><p>استافو ماركت يساعد في البحث والعروض بعد وصول الاستفسار. مش ضمان لليدز جديدة ولا بديل لشغل جذب العملاء.</p>"
+          "html": "<ol><li>الأسبوع الأول: اختار الشريحة، جهّز نموذج الطلب وسجّل خط البداية.</li><li>الأسبوع التاني: انشر إجابات لثلاثة أسئلة متكررة وشاركها على قنواتك المشروعة.</li><li>الأسبوع التالت: اطلب ترشيحات حقيقية وتابع المحادثات المتفق عليها بمقارنات مفيدة.</li><li>الأسبوع الرابع: راجع الطلبات المؤهلة والتقدم، وكمل النشاط المناسب وحسّن الخطوة الضعيفة.</li></ol><p>Estavo Market يساعد في البحث والعروض بعد وصول الاستفسار. مش ضمان لليدز جديدة ولا بديل لشغل جذب العملاء.</p>"
         }
       ],
       "faq": [
         {
-          "question": "هل استافو ماركت بيجيب عملاء تلقائيًا؟",
+          "question": "هل Estavo Market بيجيب عملاء تلقائيًا؟",
           "answer": "الدليل مش بيقدم ضمان لليدز. ماركت يساعد في البحث والعروض، وسايتس خدمة موقع منفصلة."
         },
         {
@@ -582,8 +582,8 @@
     "sources": [
       {
         "url": "https://estavo-brokers.com/what-is-estavo-brokers-en.html",
-        "en": "Estavo Brokers: product overview",
-        "ar": "استافو بروكرز: تعريف المنتج"
+        "en": "Estavo: product overview",
+        "ar": "إستاڤو: تعريف المنتج"
       }
     ]
   },
@@ -593,7 +593,7 @@
     "en": {
       "title": "Research case study: verifying 297 archived property-price snapshots",
       "description": "How Estavo checked archived Egyptian listing evidence, retained 251 usable price-area pairs and avoided claiming repeat-sale returns.",
-      "answer": "Our 30 September 2026 research recovered 297 archive-verified asking-price snapshots across 212 portal listing IDs. Of those snapshots, 251 included a usable positive area. The result improves historical evidence coverage; it does not establish completed-sale prices or investment returns.",
+      "answer": "Our 30 September 2026 research recovered 297 archive-verified asking-price snapshots across 212 portal listing IDs. Of those snapshots, 251 included a usable positive area. The result adds historical evidence; it does not establish completed-sale prices or investment returns.",
       "sections": [
         {
           "title": "The research problem",
@@ -613,7 +613,7 @@
         },
         {
           "title": "What a broker can use from the method",
-          "html": "<p>When discussing a historical quote, keep the original source, the exact observed price and currency, the area if stated and the date type. Explain whether it is an asking price, a market benchmark or a verified transaction. Do not turn a repeated old advertisement into a return calculation.</p><p>The observed archive coverage is highly uneven across years and is not representative of Egyptian housing. Use the method to improve evidence discipline, not to claim that this sample proves a national trend.</p>"
+          "html": "<p>When discussing a historical quote, keep the original source, the exact observed price and currency, the area if stated and the date type. Explain whether it is an asking price, a market benchmark or a verified transaction. Do not turn a repeated old advertisement into a return calculation.</p><p>What the archive holds is highly uneven across years and is not representative of Egyptian housing. Use the method to improve evidence discipline, not to claim that this sample proves a national trend.</p>"
         },
         {
           "title": "Evidence and reproducibility",
@@ -633,8 +633,8 @@
     },
     "ar": {
       "title": "دراسة بحثية: التحقق من 297 لقطة لأسعار عقارات مؤرشفة",
-      "description": "إزاي استافو راجع أدلة الإعلانات القديمة، واحتفظ بـ251 لقطة فيها سعر ومساحة، من غير ادعاء عوائد صفقات.",
-      "answer": "بحثنا بتاريخ 30 سبتمبر 2026 استعاد 297 لقطة موثقة بالأرشيف لأسعار طلب، تخص 212 معرّف إعلان. 251 لقطة فيها مساحة موجبة قابلة للاستخدام. ده يحسّن تغطية الأدلة القديمة، مش إثبات لأسعار بيع فعلية أو عائد استثمار.",
+      "description": "إزاي إستاڤو راجع أدلة الإعلانات القديمة، واحتفظ بـ251 لقطة فيها سعر ومساحة، من غير ادعاء عوائد صفقات.",
+      "answer": "بحثنا بتاريخ 30 سبتمبر 2026 استعاد 297 لقطة موثقة بالأرشيف لأسعار طلب، تخص 212 معرّف إعلان. 251 لقطة فيها مساحة موجبة قابلة للاستخدام. ده بيزوّد الأدلة القديمة المتاحة، مش إثبات لأسعار بيع فعلية أو عائد استثمار.",
       "sections": [
         {
           "title": "المشكلة البحثية",
@@ -654,7 +654,7 @@
         },
         {
           "title": "البروكر يستفيد إزاي من الطريقة؟",
-          "html": "<p>لما تشرح سعر قديم، احتفظ بالمصدر والسعر المرصود والعملة والمساحة لو مذكورة ونوع التاريخ. وضّح هل ده سعر طلب أو متوسط مرجعي أو صفقة متحققة. ماتحوّلش إعلان قديم متكرر لحساب عائد.</p><p>التغطية غير متوازنة بين السنوات ومش ممثلة لعقارات مصر. الطريقة لتحسين جودة الدليل، مش لإثبات اتجاه قومي للسوق.</p>"
+          "html": "<p>لما تشرح سعر قديم، احتفظ بالمصدر والسعر المرصود والعملة والمساحة لو مذكورة ونوع التاريخ. وضّح هل ده سعر طلب أو متوسط مرجعي أو صفقة متحققة. ماتحوّلش إعلان قديم متكرر لحساب عائد.</p><p>الأرشيف المتاح غير متوازن بين السنوات ومش ممثلة لعقارات مصر. الطريقة لتحسين جودة الدليل، مش لإثبات اتجاه قومي للسوق.</p>"
         },
         {
           "title": "الدليل وإعادة التحقق",
@@ -681,7 +681,7 @@
       {
         "url": "/guides/evidence/september-2026.json",
         "en": "Estavo research: aggregate evidence and source-version ledger, collected 30 September 2026",
-        "ar": "بحث استافو: ملخص الأدلة وسجل نسخ المصادر، جمع 30 سبتمبر 2026"
+        "ar": "بحث إستاڤو: ملخص الأدلة وسجل نسخ المصادر، جمع 30 سبتمبر 2026"
       },
       {
         "url": "https://web.archive.org/web/20130627115055/http://www.propertyfinder.eg:80/en/buy/al-fayum/properties-for-sale-al-nasereya.html",
@@ -784,7 +784,7 @@
       {
         "url": "/guides/evidence/september-2026.json",
         "en": "Estavo research: aggregate evidence and source-version ledger, collected 30 September 2026",
-        "ar": "بحث استافو: ملخص الأدلة وسجل نسخ المصادر، جمع 30 سبتمبر 2026"
+        "ar": "بحث إستاڤو: ملخص الأدلة وسجل نسخ المصادر، جمع 30 سبتمبر 2026"
       },
       {
         "url": "https://www.redseaway.co/downloads/",
@@ -798,7 +798,7 @@
     "kind": "report",
     "en": {
       "title": "Egypt property-price evidence report — September 2026",
-      "description": "Original Estavo analysis of 2,268 additional research records: archive coverage, developer offers, date quality and limits on market conclusions.",
+      "description": "Original Estavo analysis of 2,268 additional research records: what the archive holds, developer offers, date quality and limits on market conclusions.",
       "answer": "Our bounded September 2026 research added 2,268 records, but these are a mix of asking-price snapshots, developer quotations and market benchmarks. The main finding is an evidence-quality gap: more records do not automatically establish sale prices, current inventory or a reliable national price trend.",
       "sections": [
         {
@@ -810,12 +810,12 @@
           "html": "<div class=\"table-wrap\"><table><caption>Mutually exclusive research-record categories</caption><thead><tr><th>Record type</th><th>Count</th><th>What it establishes</th></tr></thead><tbody><tr><td>Archived asking-price snapshots</td><td>297</td><td>An advertised quote in a verified archive capture</td></tr><tr><td>Market/project benchmarks</td><td>49</td><td>Report-level context with its own definitions</td></tr><tr><td>Developer unit asking-price rows</td><td>1,121</td><td>A quoted unit offer, subject to term review</td></tr><tr><td>Developer inventory snapshots</td><td>739</td><td>Stored workbook values and statuses</td></tr><tr><td>Reference-layout offers</td><td>62</td><td>Model/layout quotations, not individual unit counts</td></tr><tr><td>Total</td><td>2,268</td><td>Research records, not completed transactions</td></tr></tbody></table></div>"
         },
         {
-          "title": "Finding: archive coverage is uneven",
+          "title": "Finding: the archive is uneven across years",
           "html": "<p>The 297 archived asking-price snapshots include 26 from 2012, 32 from 2013 and 239 from 2014. Thus 80.5% of these archive snapshots are from 2014 (239 ÷ 297, rounded to one decimal). Only 251 snapshots contain both explicit currency and usable positive area: 84.5% (251 ÷ 297).</p><p>That concentration reflects what this acquisition recovered, not where buyers were most active or how national prices moved. Averages across these years would be vulnerable to changing location and property mix. Forty-nine report-level benchmarks remain separate from individual-unit observations.</p>"
         },
         {
           "title": "Finding: document dates are not economic price dates",
-          "html": "<p>The developer channel has 1,310 records with 2019–2023 document-date evidence and 612 current-source observations from 2026. Upload timestamps, filename dates, API update times and page publication dates have different meanings. None was automatically assigned as an effective economic price date.</p><p>All 2,268 economic-date fields remained unassigned in this research export, and all training-approval flags remained false. This describes the evidence-review state, not a claim that every source lacks any date. More interpretation is needed before these records can support comparable historical price labels.</p>"
+          "html": "<p>1,310 records from the developer channel have document dates from 2019–2023, and 612 are current-source observations from 2026. Upload timestamps, filename dates, API update times and page publication dates have different meanings. None was automatically assigned as an effective economic price date.</p><p>All 2,268 economic-date fields remained unassigned in this research export, and all training-approval flags remained false. This describes the evidence-review state, not a claim that every source lacks any date. More interpretation is needed before these records can support comparable historical price labels.</p>"
         },
         {
           "title": "Finding: recurring references need identity review",
@@ -823,11 +823,11 @@
         },
         {
           "title": "What brokers should do with these findings",
-          "html": "<ol><li>Ask whether a number is an asking price, cash quote, instalment quote, benchmark or verified transaction.</li><li>Record source and date type, not just the downloaded date.</li><li>Compare location, property type, area definition, finishing and payment basis.</li><li>Keep unconfirmed availability and charges explicit.</li><li>Before booking, get current written terms from the responsible source.</li></ol><p>Estavo Market helps brokers research available information, compare options and prepare offers. This report supports the verification discipline around that workflow; it does not promise market coverage or investment accuracy.</p>"
+          "html": "<ol><li>Ask whether a number is an asking price, cash quote, instalment quote, benchmark or verified transaction.</li><li>Record source and date type, not just the downloaded date.</li><li>Compare location, property type, area definition, finishing and payment basis.</li><li>Keep unconfirmed availability and charges explicit.</li><li>Before booking, get current written terms from the responsible source.</li></ol><p>Estavo Market helps brokers research available information, compare options and prepare offers. This report supports the verification discipline around that workflow; it does not promise complete market information or investment accuracy.</p>"
         },
         {
           "title": "Limits and citation",
-          "html": "<p>This is an original market-evidence audit, not a national price index, valuation or return forecast. Asking prices are not achieved prices. Rows are not unique properties. The developer sample is concentrated in recoverable resort-project sources, and the archives are uneven by year. No national growth rate, return projection or prediction-accuracy claim is supported.</p><p>Suggested citation: Estavo Brokers (2026), <cite>Egypt property-price evidence report — September 2026</cite>, published 2 October 2026. Cite the collection date and limitations with any reused aggregate. Download the evidence summary below to inspect category counts, calculations and source hashes.</p>"
+          "html": "<p>This is an original market-evidence audit, not a national price index, valuation or return forecast. Asking prices are not achieved prices. Rows are not unique properties. The developer sample is concentrated in recoverable resort-project sources, and the archives are uneven by year. No national growth rate, return projection or prediction-accuracy claim is supported.</p><p>Suggested citation: Estavo (2026), <cite>Egypt property-price evidence report — September 2026</cite>, published 2 October 2026. Cite the collection date and limitations with any reused aggregate. Download the evidence summary below to inspect category counts, calculations and source hashes.</p>"
         }
       ],
       "faq": [
@@ -843,24 +843,24 @@
     },
     "ar": {
       "title": "تقرير أدلة أسعار العقارات في مصر — سبتمبر 2026",
-      "description": "تحليل أصلي من استافو لـ2,268 سجل بحثي إضافي: تغطية الأرشيف وعروض المطورين وجودة التواريخ وحدود استنتاجات السوق.",
+      "description": "تحليل أصلي من إستاڤو لـ2,268 سجل بحثي إضافي: الأرشيف المتاح، عروض المطورين، جودة التواريخ، وحدود استنتاجات السوق.",
       "answer": "بحثنا المحدود في سبتمبر 2026 أضاف 2,268 سجلًا، لكنها خليط من أسعار طلب مؤرشفة وعروض مطورين ومؤشرات مرجعية. النتيجة الأساسية فجوة جودة الدليل: زيادة السجلات مش تلقائيًا إثبات لسعر البيع أو المتاح الحالي أو اتجاه أسعار قومي موثوق.",
       "sections": [
         {
           "title": "نطاق التقرير والمنهج",
-          "html": "<p>اتجمع الدليل في 30 سبتمبر 2026 واتنشر التقرير في 2 أكتوبر 2026. التحليل يخص مجموعة إضافية واحدة، ومايضمش إجماليات مجموعتين أقدم. الاختيار اتبع صفحات أرشيف قابلة للاسترجاع وكتالوجات مصادر مطورين عامة، مش عينة عشوائية ممثلة لعقارات مصر.</p><p>قناة الأرشيف فيها 346 سجلًا، وقناة مصادر المطورين فيها 1,922 سجلًا عبر سبعة مشاريع. اتحفظت المصادر ببصمات ومواضع استخراج دقيقة. النشر العام فيه تحليل مجمع وروابط ممثلة، مش إعلانات خام أو بيانات عملاء أو قاعدة أسعار معاد نشرها.</p>"
+          "html": "<p>اتجمع الدليل في 30 سبتمبر 2026 واتنشر التقرير في 2 أكتوبر 2026. التحليل يخص مجموعة إضافية واحدة، ومايضمش إجماليات مجموعتين أقدم. الاختيار اتبع صفحات أرشيف قابلة للاسترجاع وكتالوجات مصادر مطورين عامة، مش عينة عشوائية ممثلة لعقارات مصر.</p><p>قناة الأرشيف فيها 346 سجلًا، و1,922 سجلًا من قناة مصادر المطورين عبر سبعة مشاريع. اتحفظت المصادر ببصمات ومواضع استخراج دقيقة. النشر العام فيه تحليل مجمع وروابط ممثلة، مش إعلانات خام أو بيانات عملاء أو قاعدة أسعار معاد نشرها.</p>"
         },
         {
           "title": "إيه معنى 2,268 سجل؟",
           "html": "<div class=\"table-wrap\"><table><caption>فئات سجلات البحث المنفصلة</caption><thead><tr><th>النوع</th><th>العدد</th><th>إيه اللي يثبته؟</th></tr></thead><tbody><tr><td>لقطات أسعار طلب مؤرشفة</td><td>297</td><td>عرض منشور داخل لقطة أرشيف متحققة</td></tr><tr><td>مؤشرات سوق ومشاريع مرجعية</td><td>49</td><td>سياق تقارير بتعريفاته الخاصة</td></tr><tr><td>صفوف أسعار طلب لوحدات مطورين</td><td>1,121</td><td>عرض وحدة محتاج مراجعة شروط</td></tr><tr><td>لقطات إنفنتوري مطورين</td><td>739</td><td>قيم وحالات محفوظة في شيتات</td></tr><tr><td>عروض نماذج مرجعية</td><td>62</td><td>سعر نموذج، مش عدد وحدات فردية</td></tr><tr><td>الإجمالي</td><td>2,268</td><td>سجلات بحث، مش صفقات منفذة</td></tr></tbody></table></div>"
         },
         {
-          "title": "نتيجة: تغطية الأرشيف غير متوازنة",
+          "title": "نتيجة: الأرشيف المتاح غير متوازن بين السنوات",
           "html": "<p>الـ297 لقطة فيها 26 من 2012، و32 من 2013، و239 من 2014. يعني 80.5% من لقطات الأرشيف من 2014: 239 ÷ 297 مع التقريب لرقم عشري. و251 لقطة فيها عملة صريحة ومساحة موجبة قابلة للاستخدام: 84.5%، أي 251 ÷ 297.</p><p>التركيز ده يعكس اللي طريقة الجمع قدرت تستعيده، مش نشاط المشترين أو حركة السعر القومي. المتوسط بين السنوات يتأثر باختلاف المناطق وأنواع العقارات. الـ49 مؤشرًا من التقارير منفصلين عن مشاهدات الوحدات الفردية.</p>"
         },
         {
           "title": "نتيجة: تاريخ المستند مش تاريخ السعر الاقتصادي",
-          "html": "<p>قناة المطورين فيها 1,310 سجلًا بأدلة تواريخ مستندات من 2019–2023، و612 مشاهدة من مصادر حالية في 2026. وقت رفع الملف وتاريخ اسمه وتحديث API ونشر الصفحة معاني مختلفة. ماحوّلناش أي واحد تلقائيًا لتاريخ نفاذ اقتصادي للسعر.</p><p>كل حقول التاريخ الاقتصادي للـ2,268 سجلًا فضلت غير محددة، وكل علامات اعتماد التدريب غير مفعلة. ده وصف لحالة مراجعة الدليل، مش ادعاء إن المصادر كلها مافيهاش تواريخ. محتاجين مراجعة إضافية قبل استخدام السجلات كقيم أسعار تاريخية قابلة للمقارنة.</p>"
+          "html": "<p>1,310 سجلًا من قناة المطورين عندها أدلة تواريخ مستندات من 2019–2023، و612 مشاهدة من مصادر حالية في 2026. وقت رفع الملف وتاريخ اسمه وتحديث API ونشر الصفحة معاني مختلفة. ماحوّلناش أي واحد تلقائيًا لتاريخ نفاذ اقتصادي للسعر.</p><p>كل حقول التاريخ الاقتصادي للـ2,268 سجلًا فضلت غير محددة، وكل علامات اعتماد التدريب غير مفعلة. ده وصف لحالة مراجعة الدليل، مش ادعاء إن المصادر كلها مافيهاش تواريخ. محتاجين مراجعة إضافية قبل استخدام السجلات كقيم أسعار تاريخية قابلة للمقارنة.</p>"
         },
         {
           "title": "نتيجة: المراجع المتكررة تحتاج مراجعة الهوية",
@@ -868,11 +868,11 @@
         },
         {
           "title": "البروكر يعمل إيه بالنتائج؟",
-          "html": "<ol><li>اسأل الرقم سعر طلب ولا كاش ولا تقسيط ولا مؤشر مرجعي ولا صفقة متحققة.</li><li>سجّل المصدر ونوع التاريخ، مش تاريخ التنزيل بس.</li><li>قارن المنطقة والنوع وتعريف المساحة والتشطيب وأساس السداد.</li><li>خلّي المتاح والمصاريف غير المؤكدة واضحين.</li><li>قبل الحجز خد الشروط الحالية مكتوبة من الجهة المسؤولة.</li></ol><p>استافو ماركت يساعد في بحث المعلومات المتاحة والمقارنة وتجهيز العرض. التقرير يدعم طريقة التحقق حول الخطوات دي، مش وعد بتغطية السوق أو دقة استثمارية.</p>"
+          "html": "<ol><li>اسأل الرقم سعر طلب ولا كاش ولا تقسيط ولا مؤشر مرجعي ولا صفقة متحققة.</li><li>سجّل المصدر ونوع التاريخ، مش تاريخ التنزيل بس.</li><li>قارن المنطقة والنوع وتعريف المساحة والتشطيب وأساس السداد.</li><li>خلّي المتاح والمصاريف غير المؤكدة واضحين.</li><li>قبل الحجز خد الشروط الحالية مكتوبة من الجهة المسؤولة.</li></ol><p>Estavo Market يساعد في بحث المعلومات المتاحة والمقارنة وتجهيز العرض. التقرير يدعم طريقة التحقق حول الخطوات دي، مش وعد بمعلومات كاملة عن السوق أو دقة استثمارية.</p>"
         },
         {
           "title": "الحدود وطريقة الاقتباس",
-          "html": "<p>ده تحليل أصلي لأدلة السوق، مش مؤشر أسعار قومي أو تقييم أو توقع عائد. سعر الطلب مش سعر التنفيذ، والصف مش عقار فريد. عينة المطورين مركزة في مصادر مشاريع منتجعات أمكن استرجاعها، والأرشيف غير متوازن بين السنوات. مافيش دليل هنا لنسبة نمو قومية أو عائد أو دقة تنبؤ.</p><p>صيغة اقتباس: استافو بروكرز (2026)، <cite>تقرير أدلة أسعار العقارات في مصر — سبتمبر 2026</cite>، منشور 2 أكتوبر 2026. اذكر تاريخ الجمع والحدود مع أي رقم تستخدمه. ملخص الأدلة تحت يوضح الأعداد والحسابات وبصمات المصادر.</p>"
+          "html": "<p>ده تحليل أصلي لأدلة السوق، مش مؤشر أسعار قومي أو تقييم أو توقع عائد. سعر الطلب مش سعر التنفيذ، والصف مش عقار فريد. عينة المطورين مركزة في مصادر مشاريع منتجعات أمكن استرجاعها، والأرشيف غير متوازن بين السنوات. مافيش دليل هنا لنسبة نمو قومية أو عائد أو دقة تنبؤ.</p><p>صيغة اقتباس: إستاڤو (2026)، <cite>تقرير أدلة أسعار العقارات في مصر — سبتمبر 2026</cite>، منشور 2 أكتوبر 2026. اذكر تاريخ الجمع والحدود مع أي رقم تستخدمه. ملخص الأدلة تحت يوضح الأعداد والحسابات وبصمات المصادر.</p>"
         }
       ],
       "faq": [
@@ -895,7 +895,7 @@
       {
         "url": "/guides/evidence/september-2026.json",
         "en": "Estavo research: aggregate evidence and source-version ledger, collected 30 September 2026",
-        "ar": "بحث استافو: ملخص الأدلة وسجل نسخ المصادر، جمع 30 سبتمبر 2026"
+        "ar": "بحث إستاڤو: ملخص الأدلة وسجل نسخ المصادر، جمع 30 سبتمبر 2026"
       },
       {
         "url": "https://www.redseaway.co/downloads/",

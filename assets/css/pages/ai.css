@@ -281,3 +281,17 @@
     animation: none !important;
   }
 }
+
+/* Client AI vs Brokers AI — inside the brand section (Nov 2026). */
+.ai-vs { margin-block-start: clamp(2rem, 5vw, 3.25rem); }
+.ai-vs__title { margin-block-end: 1rem; color: var(--es-ink); font-size: 1.05rem; font-weight: 700; line-height: 1.6; }
+.ai-vs__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.ai-vs__card { border: 1px solid var(--es-line); border-radius: 1rem; background: var(--es-white); padding: 1.15rem 1.25rem; }
+.ai-vs__card--here { border-color: var(--es-blue-500, #163e69); background: var(--es-mist, #f2f6fb); }
+.ai-vs__card b { display: block; color: var(--es-navy-900, #0b2239); font-size: .95rem; }
+.ai-vs__card p { margin-block: .4rem 0; color: var(--es-ink-72); font-size: .9rem; line-height: 1.7; }
+.ai-vs__card .sites-text-link { margin-block-start: .6rem; }
+@media (max-width: 40rem) { .ai-vs__grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Light eyebrows on navy: the global .es-landing eyebrow reset (estavo-v3.css) outranks .eyebrow.light. */
+.es-landing .eyebrow.light { color: var(--es-on-dark-muted); }

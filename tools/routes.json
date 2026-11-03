@@ -6,7 +6,13 @@
     "website_individual": "https://estavo-brokers.com/website/?audience=individual",
     "website_company": "https://estavo-brokers.com/website/?audience=company",
     "whatsapp": "https://wa.me/201069528393",
-    "_note": "referral.js rewrites any href starting with https://brokers.estavo.space to carry the active ?ref slug. Keep that origin on platform CTAs or referral attribution silently breaks."
+    "_note": "referral.js rewrites any href starting with https://brokers.estavo.space to carry the active ?ref slug. Keep that origin on platform CTAs or referral attribution silently breaks.",
+    "developers": "https://brokers.estavo.space/register?redirect=%2Fdevelopers",
+    "jobs": "https://brokers.estavo.space/register?redirect=%2Fjobs",
+    "daily": "https://brokers.estavo.space/register?redirect=%2Festavo-daily",
+    "projects": "https://brokers.estavo.space/register?redirect=%2Fprojects",
+    "game": "https://brokers.estavo.space/games/exclusive",
+    "_deep_note": "Deep links carry data-keep-path so referral.js keeps their path (adding ?ref and click ids) instead of routing them through /go/, which drops destinations. The app honours ?redirect= through sign-up. The game needs no account."
   },
   "routes": [
     {
@@ -16,11 +22,11 @@
       "key": "home",
       "ar": {
         "nav": "إستاڤو",
-        "title": "إستاڤو — السوق العقاري كله تحت اسمك"
+        "title": "إستاڤو — كل اللي البروكر محتاجه في مكان واحد، بالذكاء الاصطناعي"
       },
       "en": {
         "nav": "Estavo",
-        "title": "Estavo — Egypt's real-estate market, under your brand"
+        "title": "Estavo — Everything a real-estate broker needs, in one place, with AI"
       },
       "in_header": false
     },
@@ -60,6 +66,86 @@
       },
       "in_header": false,
       "in_solutions": true
+    },
+    {
+      "path": "/developers/",
+      "key": "developers",
+      "ar": {
+        "nav": "المطورين",
+        "title": "المطورين العقاريين في مصر ومشاريعهم وأخبارهم — إستاڤو",
+        "description": "اعرف المطوّر مش المشروع بس: نبذة عن كل مطور، مشاريعه، أخباره، وأرقام التواصل مع فريق مبيعاته. داتا 700 مطور على إستاڤو."
+      },
+      "en": {
+        "nav": "Developers",
+        "title": "Egypt's real-estate developers, their projects and news — Estavo",
+        "description": "Know the developer, not just the project: each developer's profile, projects, news and sales contacts. Data on 700 developers on Estavo."
+      },
+      "in_header": true,
+      "in_solutions": false
+    },
+    {
+      "path": "/roi/",
+      "key": "roi",
+      "ar": {
+        "nav": "كاش ولا تقسيط؟",
+        "title": "كاش ولا تقسيط؟ حسابات أنظمة السداد للبروكر — إستاڤو",
+        "description": "قارن خصم الكاش بخطة التقسيط بقيمتها النهارده، وقارن أنظمة سداد الوحدة جنب بعض، واحسب الأقساط من المقدم والمدة. جوه Estavo Market."
+      },
+      "en": {
+        "nav": "Cash or installments?",
+        "title": "Cash or installments? Payment-plan maths for brokers — Estavo",
+        "description": "Compare a cash discount with an installment plan in today's money, put a unit's payment plans side by side, and work out installments from down payment and term. Inside Estavo Market."
+      },
+      "in_header": true,
+      "in_solutions": false
+    },
+    {
+      "path": "/jobs/",
+      "key": "jobs",
+      "ar": {
+        "nav": "الوظائف",
+        "title": "وظائف عقارية في مصر — مبيعات ووساطة وتسويق | إستاڤو",
+        "description": "فرص شغل متاحة في القطاع العقاري في مصر في مكان واحد، بتتحدث كل يوم من مواقع التوظيف وصفحات الشركات. فلتر بالشركة والمنطقة والخبرة، وقدّم من الإعلان الأصلي."
+      },
+      "en": {
+        "nav": "Jobs",
+        "title": "Real-estate jobs in Egypt — sales, brokerage, marketing | Estavo",
+        "description": "Open real-estate jobs in Egypt in one board, refreshed daily from job sites and company careers pages. Filter by employer, area and experience, then apply on the original listing."
+      },
+      "in_header": true,
+      "in_solutions": false
+    },
+    {
+      "path": "/challenges/",
+      "key": "challenges",
+      "ar": {
+        "nav": "تحدّي إكسكلوسيف",
+        "title": "إكسكلوسيف — تحدّي معلومات السوق العقاري للبروكرز | إستاڤو",
+        "description": "لعبة جماعية للبروكرز: سؤال واحد عن مشاريع ومطورين ومناطق السوق، واكسب بإجابة صح محدش غيرك اختارها. باسمك بس، من غير حساب."
+      },
+      "en": {
+        "nav": "Exclusive challenge",
+        "title": "Exclusive — the real-estate market knowledge challenge for brokers | Estavo",
+        "description": "A multiplayer game for brokers: one question about projects, developers and areas, and you score with a right answer nobody else chose. Just a nickname, no account."
+      },
+      "in_header": true,
+      "in_solutions": false
+    },
+    {
+      "path": "/broker-ai/",
+      "key": "broker-ai",
+      "ar": {
+        "nav": "اسأل إستاڤو",
+        "title": "Brokers AI — اسأل إستاڤو عن المشاريع والمطورين وطلبات عملائك",
+        "description": "مساعد ذكاء اصطناعي للبروكر بيدور في بيانات Estavo Market: يلاقي مشاريع لطلب عميلك، يقارن، يحسب الأقساط، ويجهّز عرض PDF باسمك. مجاني حاليًا."
+      },
+      "en": {
+        "nav": "Ask Estavo",
+        "title": "Brokers AI — ask Estavo about projects, developers and client requests",
+        "description": "An AI assistant for brokers that searches Estavo Market data: it finds projects for a client's request, compares them, works out installments and prepares a PDF offer under your name. Free for now."
+      },
+      "in_header": true,
+      "in_solutions": false
     },
     {
       "path": "/websites/",
@@ -102,15 +188,15 @@
       "key": "integrations",
       "ar": {
         "nav": "الربط بمنصتك",
-        "title": "الربط بمنصتك — إستاڤو",
+        "title": "ربط داتا السوق العقاري بمنصتك — إستاڤو",
         "blurb": "بيانات وAI جوّه منصتك الحالية.",
-        "description": "عندك منصة شغالة؟ كلمنا عن البيانات أو المساعد العقاري اللي تحتاج تضيفهم لتجربة العملاء عندك."
+        "description": "استخدم بيانات المشاريع والمطورين والوحدات والأسعار وأنظمة السداد من إستاڤو جوه موقعك أو تطبيقك أو نظامك، بنطاق وطريقة تحديث متفق عليهم."
       },
       "en": {
         "nav": "Integrations",
-        "title": "Integrations — Estavo",
+        "title": "Real-estate market data for your platform — Estavo",
         "blurb": "Data and AI inside your existing platform.",
-        "description": "Tell us what your website or application needs. We will define the relevant cities, project data, service and integration scope with you."
+        "description": "Use Estavo project, developer, unit, price and payment-plan data inside your website, app or internal system, with an agreed scope and update method."
       },
       "in_header": false,
       "in_solutions": true
@@ -173,14 +259,14 @@
       "path": "/insights/",
       "key": "insights",
       "ar": {
-        "nav": "أخبار وتحليلات",
-        "title": "أخبار وتحليلات السوق — إستاڤو",
-        "description": "تابع أخبار المطورين وإطلاقات المشاريع والتحديثات والتقارير، واستخدم معلومات السوق المناسبة مجانًا في Estavo Market."
+        "nav": "جديد السوق",
+        "title": "جديد السوق العقاري والإطلاقات كل يوم — إستاڤو",
+        "description": "موجز إستاڤو ديلي لأخبار السوق العقاري، وإطلاقات المطورين الجديدة، وأخبار كل مشروع ومطور جنب بياناته. للبروكرز في مصر."
       },
       "en": {
-        "nav": "Insights",
-        "title": "Market insights — Estavo",
-        "description": "Follow project updates, launches, developer news and reports, then use the relevant market information in Estavo Market free."
+        "nav": "Market news",
+        "title": "Daily real-estate news and launches — Estavo",
+        "description": "The Estavo Daily brief of real-estate news, new developer launches, and news on each project and developer next to its data. For brokers in Egypt."
       },
       "in_header": true,
       "in_solutions": false
@@ -207,12 +293,12 @@
       "ar": {
         "nav": "للشركات",
         "title": "موقع عقاري لشركة الوساطة — Estavo Sites",
-        "description": "اجمع موقع شركة الوساطة والمشاريع والوحدات وتحديثات الداتا للفريق بأقل من مرتب موظف Data Entry واحد."
+        "description": "موقع لشركة الوساطة باسمها، فيه مشاريع ووحدات من بيانات إستاڤو اللي بنحدّثها، مع عقارات الشركة وفريقها في مكان واحد."
       },
       "en": {
         "nav": "For companies",
         "title": "Property website for brokerage companies — Estavo Sites",
-        "description": "Bring the brokerage website, projects, properties and data updates together for less than the salary of one data-entry employee."
+        "description": "A website under your brokerage's name, with projects and units from Estavo data we keep updated, alongside the company's own properties and team."
       },
       "in_header": true,
       "in_solutions": false
