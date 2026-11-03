@@ -1,0 +1,9 @@
+{
+  "usage": "Illustrative photography inside homepage example surfaces (website preview, client tiles, campaign card), each labelled مثال توضيحي / Example. Not developer inventory; no real project is named.",
+  "source": "Copied unchanged from tools/data/market-photos/ (640x400 WebP), which documents each file's licence.",
+  "files": {
+    "project-a.webp": "Unsplash photo-1545324418-cc1a3fa10c00 (Unsplash License).",
+    "project-b.webp": "Crop of the Estavo app asset estavo-brokers/src/assets/login/auth-resort-background.webp.",
+    "project-c.webp": "Unsplash photo-1512917774080-9991f1c4c750 (Unsplash License)."
+  }
+}

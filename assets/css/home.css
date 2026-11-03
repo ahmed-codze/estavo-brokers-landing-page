@@ -2412,3 +2412,623 @@ html[dir="ltr"] body.es-landing .es-home-main :is(.es-home-h2, .es-home-closing 
   .es-home-sticky { display: none !important; }
   .es-home-main .is-armed * { opacity: 1 !important; }
 }
+
+/* ============================================================
+   ELEVATED PASS — 3 November 2026 (owner: "light, elevated")
+   ------------------------------------------------------------
+   Same markup, copy, sections and graphics grammar; this layer
+   only changes scale, depth, light and motion polish:
+     · larger type and wider canvas, figures ~1.2–1.3× (never by
+       scaling a whole graphic: each part is resized);
+     · one elevation scale, hairline borders, layered shadows;
+     · blueprint grid + soft blue light in the hero and the navy
+       bands (.es-home-aura is a decorative layer home-motion.js
+       adds; parallax moves it on desktop);
+     · light-surface accent is Estavo blue #163e69 (the owner's
+       29 Oct direction), mint still means "Estavo understood";
+     · frosted header that tucks away while scrolling down;
+     · copy reveals, word-by-word h2 (never the H1 or proof),
+       magnetic primary buttons, pointer tilt — home-motion.js.
+   ============================================================ */
+.es-home-main {
+  --fs-display: clamp(2.5rem, 4.7vw, 4.375rem);
+  --fs-h2: clamp(2rem, 3.8vw, 3.375rem);
+  --fs-h3: clamp(1.3rem, 2vw, 1.625rem);
+  --fs-body-lg: clamp(1.0625rem, 1.3vw, 1.25rem);
+
+  --home-accent-ink: #163e69;
+  --home-card-radius: 1.125rem;
+  --home-line: rgb(11 34 57 / 9%);
+  --elev-1: 0 1px 1px rgb(11 34 57 / 4%), 0 2px 6px -2px rgb(11 34 57 / 6%);
+  --elev-2: 0 1px 2px rgb(11 34 57 / 5%), 0 8px 20px -6px rgb(11 34 57 / 10%), 0 28px 56px -18px rgb(11 34 57 / 16%);
+  --elev-3: 0 2px 4px rgb(11 34 57 / 6%), 0 16px 32px -10px rgb(11 34 57 / 14%), 0 48px 96px -28px rgb(11 34 57 / 26%);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* A wider canvas so the graphics can breathe. */
+.es-home-main > section > .es-container {
+  inline-size: min(100% - (2 * var(--es-gutter, 1rem)), 80rem);
+}
+
+/* ── Type ──────────────────────────────────────────────── */
+html body.es-landing .es-home-main .es-home-display {
+  font-size: var(--fs-display);
+  line-height: 1.18;
+  letter-spacing: -.035em;
+}
+
+[dir="rtl"] body.es-landing .es-home-main .es-home-display { line-height: 1.32; letter-spacing: 0; }
+[dir="ltr"] body.es-landing .es-home-main .es-home-display { font-size: clamp(2.5rem, 4.3vw, 4rem); }
+
+.es-home-display span + span {
+  background: linear-gradient(100deg, var(--es-blue-600) 0%, #163e69 55%, var(--es-blue-500) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.es-home-h2 { line-height: 1.28; }
+[dir="ltr"] .es-home-h2 { line-height: 1.1; letter-spacing: -.03em; }
+.es-home-lead { max-inline-size: 38rem; }
+
+.es-home-eyebrow {
+  gap: .55rem;
+  padding: .35rem .8rem .35rem .7rem;
+  border: 1px solid var(--home-line);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 70%);
+  box-shadow: var(--elev-1);
+  font-size: .8125rem;
+  letter-spacing: .01em;
+}
+
+.es-home-eyebrow::before {
+  inline-size: .4rem;
+  block-size: .4rem;
+  background: var(--es-blue-500);
+  box-shadow: 0 0 0 3px rgb(71 116 154 / 18%);
+}
+
+.es-home-band--navy .es-home-eyebrow {
+  border-color: rgb(255 255 255 / 12%);
+  background: rgb(255 255 255 / 5%);
+  box-shadow: none;
+}
+
+.es-home-band--navy .es-home-eyebrow::before { background: #8fb3d6; box-shadow: 0 0 0 3px rgb(143 179 214 / 18%); }
+
+/* ── Bands: light, grid and grain ──────────────────────── */
+.es-home-band { padding-block: clamp(4rem, 9vw, 8.5rem); isolation: isolate; }
+.es-home-band--paper { background: linear-gradient(180deg, #fff 0%, var(--es-paper) 100%); }
+
+.es-home-band--navy {
+  background:
+    radial-gradient(70rem 32rem at 50% -8rem, rgb(46 108 170 / 30%), transparent 70%),
+    var(--es-navy-950);
+}
+
+/* Faint blueprint grid, faded out at the edges. */
+:is(.es-home-hero, .es-home-band--navy)::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--grid-c) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-c) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 35%, #000 20%, transparent 78%);
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 35%, #000 20%, transparent 78%);
+}
+
+.es-home-hero { --grid-c: rgb(11 34 57 / 5.5%); }
+.es-home-band--navy { --grid-c: rgb(255 255 255 / 4.5%); }
+
+/* Photographic grain: removes the flat digital sheen. */
+:is(.es-home-hero, .es-home-band--navy)::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--grain);
+  opacity: .05;
+  mix-blend-mode: multiply;
+}
+
+.es-home-band--navy::after { opacity: .09; mix-blend-mode: soft-light; }
+
+/* The light layer (added by home-motion.js; decorative only). */
+.es-home-aura {
+  position: absolute;
+  z-index: -3;
+  inset: -10% -5% auto;
+  block-size: 120%;
+  pointer-events: none;
+  background:
+    radial-gradient(38rem 26rem at 22% 30%, rgb(71 116 154 / 20%), transparent 65%),
+    radial-gradient(30rem 22rem at 80% 12%, rgb(143 179 214 / 22%), transparent 70%);
+  will-change: transform;
+}
+
+[dir="rtl"] .es-home-aura { transform: scaleX(-1); }
+.es-home-band--navy > .es-home-aura {
+  background:
+    radial-gradient(40rem 24rem at 18% 10%, rgb(71 116 154 / 26%), transparent 70%),
+    radial-gradient(34rem 26rem at 85% 90%, rgb(46 108 170 / 18%), transparent 70%);
+}
+
+/* ── Header: frosted, tucks away while scrolling down ──── */
+.es-home .es-header {
+  background: rgb(250 252 255 / 72%);
+  -webkit-backdrop-filter: saturate(1.6) blur(14px);
+  backdrop-filter: saturate(1.6) blur(14px);
+  border-block-end-color: transparent;
+  transition: transform 420ms cubic-bezier(.22, .61, .36, 1), box-shadow 240ms ease, border-color 240ms ease;
+}
+
+.es-home .es-header.is-scrolled { border-block-end-color: var(--home-line, rgb(11 34 57 / 9%)); box-shadow: 0 6px 24px -12px rgb(11 34 57 / 18%); }
+.es-home .es-header.is-tucked { transform: translateY(-105%); }
+
+/* ── Buttons: weight, light and a magnetic offset ──────── */
+.es-home-btn {
+  min-block-size: 3.25rem;
+  padding: .8rem 1.6rem;
+  border-radius: .75rem;
+  font-size: 1.0625rem;
+  translate: var(--mx, 0) var(--my, 0);
+  transition:
+    translate 380ms cubic-bezier(.22, .61, .36, 1),
+    transform var(--es-mo-fast) var(--es-mo-ease),
+    background-color var(--es-mo-fast) ease,
+    border-color var(--es-mo-fast) ease,
+    box-shadow 240ms ease;
+}
+
+.es-home-main .es-home-btn--primary {
+  border-color: transparent;
+  background: linear-gradient(180deg, #1d4a76 0%, var(--es-navy-950) 100%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 16%), 0 1px 2px rgb(11 34 57 / 20%), 0 10px 24px -8px rgb(11 34 57 / 55%);
+}
+
+.es-home-main .es-home-btn--primary:hover {
+  background: linear-gradient(180deg, #245889 0%, #163e69 100%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 18%), 0 2px 4px rgb(11 34 57 / 20%), 0 16px 32px -10px rgb(11 34 57 / 60%);
+}
+
+.es-home-main .es-home-btn--secondary {
+  border-color: rgb(11 34 57 / 16%);
+  background: rgb(255 255 255 / 80%);
+  box-shadow: var(--elev-1);
+}
+
+.es-home-main .es-home-btn--secondary:hover { border-color: rgb(11 34 57 / 32%); background: var(--es-white); }
+
+.es-home-band--navy .es-home-btn--primary {
+  background: linear-gradient(180deg, #fff 0%, #e9f0f7 100%);
+  color: var(--es-navy-950);
+  box-shadow: inset 0 -1px 0 rgb(11 34 57 / 10%), 0 12px 28px -10px rgb(0 0 0 / 55%);
+}
+
+.es-home-band--navy .es-home-btn--primary:hover { background: #fff; }
+.es-home-band--navy .es-home-btn--secondary { border-color: rgb(255 255 255 / 30%); background: rgb(255 255 255 / 4%); box-shadow: none; }
+.es-home-band--navy .es-home-btn--secondary:hover { border-color: rgb(255 255 255 / 60%); background: rgb(255 255 255 / 10%); }
+
+/* ── Surfaces: one elevation story ─────────────────────── */
+.es-home-card { border-color: var(--home-line); box-shadow: var(--elev-2); }
+
+/* ── 1. Hero: bigger model on a soft stage ─────────────── */
+.es-home-hero { padding-block: clamp(2.5rem, 6vw, 6rem) clamp(3rem, 6vw, 5.5rem); background: var(--es-mist); }
+.es-home-hero__grid { gap: clamp(2rem, 5vw, 5.5rem); }
+@media (min-width: 68.0625rem) {
+  .es-home-hero__grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+}
+.es-home-hero__copy { gap: 1.5rem; }
+.es-home-hero .es-home-lead { font-size: clamp(1.125rem, 1.4vw, 1.3125rem); }
+
+.es-home-intel { position: relative; max-inline-size: 40rem; isolation: isolate; }
+
+/* A pool of light under the model, not a box. */
+.es-home-intel::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -12% -14% -10%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(255 255 255 / 95%), rgb(255 255 255 / 55%) 55%, transparent);
+}
+
+.es-home-fw__nodes { gap: 1rem; padding-block-end: 1.4rem; }
+.es-home-fw__nodes li { padding: 1rem 1.05rem 1.05rem; border-color: var(--home-line); box-shadow: var(--elev-2); }
+.es-home-fw__nodes .es-home-ic { inline-size: 2.25rem; block-size: 2.25rem; padding: .5rem; }
+.es-home-fw__nodes b { font-size: 1.125rem; }
+.es-home-fw__nodes :is(small, .es-home-fw__data) { font-size: .9375rem; }
+.es-home-fw__nodes li:nth-child(2) { border-block-start-color: #163e69; }
+.es-home-fw__nodes li.es-home-fw__client { background: linear-gradient(160deg, #163e69, var(--es-navy-950) 70%); box-shadow: var(--elev-3); }
+.es-home-fw__nodes li::after { block-size: 1.4rem; }
+.es-home-fw__merge { block-size: 1.25rem; }
+.es-home-fw__core { inline-size: 4.5rem; block-size: 4.5rem; box-shadow: 0 0 0 8px rgb(11 34 57 / 6%), 0 0 0 18px rgb(11 34 57 / 3%), 0 16px 32px rgb(11 34 57 / 28%); }
+.es-home-fw__core img { inline-size: 2.25rem; }
+.es-home-intel > .es-home-rail--v { --rail-len: 1.6rem; }
+
+.es-home-intel__result {
+  gap: .7rem;
+  inline-size: min(100%, 30rem);
+  padding: 1.15rem 1.4rem 1.25rem;
+  border-color: rgb(22 62 105 / 22%);
+  box-shadow: 0 0 0 5px rgb(22 62 105 / 7%), var(--elev-3);
+}
+
+.es-home-intel__fit::before { box-shadow: 0 0 0 3px rgb(22 62 105 / 18%); }
+.es-home-intel__title b { font-size: 1.3125rem; }
+.es-home-intel__title > span { font-size: 1rem; }
+
+/* Proof: larger figures on the same single rail. Never animated. */
+.es-home-proof { margin-block-start: clamp(3rem, 6vw, 5rem); }
+.es-home-proof__list::before { background: linear-gradient(90deg, transparent, var(--rail-c) 12%, var(--rail-c) 88%, transparent); }
+.es-home-proof__list li { padding-block-start: 1.5rem; }
+.es-home-proof__value { font-size: clamp(2rem, 3.6vw, 3.25rem); letter-spacing: -.035em; }
+.es-home-proof__list li > span { font-size: 1rem; }
+
+/* ── Feature sections: larger figures ──────────────────── */
+.es-home-split { gap: clamp(2.5rem, 6vw, 6.5rem); }
+.es-home-map__frame { border-color: var(--home-line); border-radius: 1.125rem; box-shadow: var(--elev-2); }
+.es-home-map__card { box-shadow: var(--elev-3); }
+.es-home-build { inline-size: min(100%, 48rem); }
+.es-home-browser { border-color: rgb(11 34 57 / 12%); border-radius: 1.25rem; box-shadow: var(--elev-3); }
+.es-home-signals { inline-size: min(100%, 38rem); }
+.es-home-growth-fig { inline-size: min(100%, 42rem); }
+.es-home-campaign { box-shadow: var(--elev-3); }
+.es-home-analysis { inline-size: min(100%, 72rem); }
+
+/* Pointer tilt (fine pointers only; set by home-motion.js). */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .es-home-tilt {
+    transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 500ms cubic-bezier(.22, .61, .36, 1), box-shadow 300ms ease;
+  }
+
+  .es-home-free-card.es-home-tilt:hover { box-shadow: var(--elev-3); }
+}
+
+/* ── Start free: two editorial panels ─────────────────── */
+.es-home-free-card {
+  border-color: var(--home-line);
+  border-radius: 1.25rem;
+  background: linear-gradient(180deg, #fff, var(--es-paper));
+  box-shadow: var(--elev-2);
+}
+
+.es-home-free-card__head .es-home-badge { color: #163e69; font-size: clamp(2.25rem, 4vw, 3rem); }
+
+/* ── FAQ: the question is text, not a flex row ─────────────
+   A flex summary collapsed the spaces around <bdi>AI</bdi>
+   (AGENTS.md mixed-direction trap). Block layout + positioned chevron. */
+.es-home-faq { display: grid; gap: .6rem; }
+.es-home-faq details { border: 1px solid var(--home-line); border-radius: 1rem; box-shadow: var(--elev-1); transition: box-shadow 240ms ease; }
+.es-home-faq details[open] { background: var(--es-white); box-shadow: var(--elev-2); }
+
+.es-home-faq summary {
+  position: relative;
+  display: block;
+  padding-block: 1.15rem;
+  padding-inline: 1.25rem 3rem;
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.es-home-faq summary::after { position: absolute; inset-block-start: calc(50% - .3rem); inset-inline-end: 1.35rem; }
+.es-home-faq details[open] summary::after { inset-block-start: calc(50% - .15rem); }
+.es-home-faq details > :not(summary) { padding-inline: 1.25rem; padding-block-end: 1.15rem; }
+
+/* ── Closing ───────────────────────────────────────────── */
+.es-home-closing { padding-block: clamp(5rem, 10vw, 9rem); }
+.es-home-closing h2 { font-size: clamp(2.25rem, 4.6vw, 4rem); }
+.es-home-closing__mascot { inline-size: 7rem; filter: drop-shadow(0 18px 24px rgb(0 0 0 / 35%)); }
+
+/* ── Copy reveals (armed by home-motion.js, below the fold only) ── */
+@media (prefers-reduced-motion: no-preference) {
+  .is-reveal-armed :is(.es-home-copy, .es-home-closing__inner) > :not(h2),
+  .is-reveal-armed > .es-container > .es-home-copy--center > :not(h2),
+  .is-reveal-armed .es-home-w {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  .is-revealed :is(.es-home-copy, .es-home-closing__inner) > *,
+  .is-revealed .es-home-w {
+    transition: opacity 700ms cubic-bezier(.22, .61, .36, 1), transform 800ms cubic-bezier(.16, 1, .3, 1);
+  }
+
+  .es-home-w { display: inline-block; }
+  .is-revealed .es-home-w { transition-delay: calc(var(--w, 0) * 45ms); }
+  .is-revealed :is(.es-home-copy, .es-home-closing__inner) > :nth-child(1) { transition-delay: 0ms; }
+  .is-revealed :is(.es-home-copy, .es-home-closing__inner) > :nth-child(3) { transition-delay: 220ms; }
+  .is-revealed :is(.es-home-copy, .es-home-closing__inner) > :nth-child(4) { transition-delay: 320ms; }
+  .is-revealed :is(.es-home-copy, .es-home-closing__inner) > :nth-child(n + 5) { transition-delay: 400ms; }
+}
+
+/* ── Phones ────────────────────────────────────────────── */
+@media (max-width: 40rem) {
+  .es-home-band { padding-block: clamp(3.25rem, 12vw, 4.5rem); }
+  .es-home-fw__nodes { gap: .6rem; }
+  .es-home-fw__nodes li { padding: .7rem .5rem .75rem; }
+  .es-home-fw__nodes .es-home-ic { inline-size: 1.9rem; block-size: 1.9rem; padding: .42rem; }
+  .es-home-fw__nodes b { font-size: 1rem; }
+  .es-home-fw__nodes :is(small, .es-home-fw__data) { font-size: .875rem; }
+  .es-home-fw__core { inline-size: 3.75rem; block-size: 3.75rem; }
+  .es-home-proof__value { font-size: 2rem; }
+  .es-home-btn { min-block-size: 3.25rem; }
+  :is(.es-home-hero, .es-home-band--navy)::before { background-size: 44px 44px; }
+}
+
+@media print {
+  .es-home-aura, :is(.es-home-hero, .es-home-band--navy)::before, :is(.es-home-hero, .es-home-band--navy)::after { display: none; }
+  .es-home-main .is-reveal-armed * { opacity: 1 !important; transform: none !important; }
+}
+
+/* ============================================================
+   GRAPHICS REFACTOR — 3 November 2026
+   ------------------------------------------------------------
+   Same Estavo grammar (navy = structure, blue = data, the signal
+   colour = "Estavo understood"), richer surfaces:
+     · property imagery: the licensed example photos in
+       assets/img/home/ (provenance.json) replace the flat CSS
+       skylines in the website preview, client tiles, campaign card
+       and the hero result. Every surface stays labelled Example;
+     · hero: thumbnail result card, gradient rails, layered core;
+     · market: paper source sheets, tinted sea, crisp land, pin halo;
+     · request: glass rows on navy, the best row lit, bolder tracks;
+     · website: real browser chrome; client: glass signal chips;
+     · growth: raised pattern rows; start free: stronger motifs.
+   ============================================================ */
+
+/* ── Photos (shared) ───────────────────────────────────── */
+.es-home-photo { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
+
+/* ── Hero ──────────────────────────────────────────────── */
+.es-home-intel__result {
+  grid-template-columns: 5.75rem minmax(0, 1fr);
+  column-gap: 1.1rem;
+  align-items: center;
+}
+
+.es-home-intel__result > :not(.es-home-intel__thumb) { grid-column: 2; }
+
+.es-home-intel__thumb {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  align-self: stretch;
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 5.25rem;
+  object-fit: cover;
+  border-radius: .75rem;
+  box-shadow: inset 0 0 0 1px rgb(11 34 57 / 8%), 0 6px 14px -6px rgb(11 34 57 / 30%);
+}
+
+/* Rails read as data flowing in: lighter at the source, navy at the core. */
+.es-home-fw__nodes li::after { background: linear-gradient(to bottom, rgb(71 116 154 / 25%), var(--rail-c)); }
+.es-home-fw__merge { background: linear-gradient(to bottom, var(--rail-c), var(--es-navy-950)); }
+
+.es-home-fw__core {
+  background: radial-gradient(circle at 35% 30%, #24527f, var(--es-navy-950) 70%);
+}
+
+.es-home-fw__core::before {
+  content: "";
+  position: absolute;
+  inset: -.9rem;
+  border: 1px dashed rgb(22 62 105 / 28%);
+  border-radius: 50%;
+}
+
+/* One-time flow: a light runs down the merge rail into the core. */
+@media (prefers-reduced-motion: no-preference) {
+  .es-home-fw__merge { position: relative; overflow: hidden; }
+  .es-home-fw__merge::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    block-size: 60%;
+    background: linear-gradient(to bottom, transparent, #fff, transparent);
+    animation: es-home-flow 900ms var(--es-mo-ease) 520ms both;
+  }
+  .es-home-intel__thumb { animation: es-home-fade 600ms var(--es-mo-ease) 900ms both; }
+}
+
+@keyframes es-home-flow { from { transform: translateY(-100%); opacity: 1; } to { transform: translateY(180%); opacity: 0; } }
+
+/* ── Market ────────────────────────────────────────────── */
+.es-home-market__docs { gap: .6rem; }
+
+.es-home-frag .es-home-ic {
+  position: relative;
+  inline-size: 3rem;
+  block-size: 3.6rem;
+  padding: .95rem .8rem;
+  border: 1px solid var(--home-line);
+  border-radius: .45rem 1.1rem .45rem .45rem;
+  background: linear-gradient(180deg, #fff, var(--es-paper));
+  box-shadow: var(--elev-2);
+  color: #163e69;
+}
+
+.es-home-market__sources p { font-size: .9375rem; font-weight: 500; }
+
+.es-home-map__sea { fill: #e2ebf4; }
+.es-home-map__neighbour { fill: #edf2f7; stroke: #cbd7e3; }
+.es-home-map__land { fill: #fff; stroke: #7f98b1; stroke-width: 1.6; }
+.es-home-map__water { fill: #e2ebf4; stroke: #9db1c5; }
+.es-home-map__nile { stroke: #5f86ad; stroke-width: 2; }
+.es-home-map__ring { fill: rgb(22 62 105 / 8%); stroke: #163e69; stroke-dasharray: 4 3; }
+
+/* A faint survey dot-grid on the sea only: the sea rect is see-through,
+   so the land paints over the dots. */
+.es-home-map__frame {
+  background:
+    radial-gradient(circle at 1px 1px, rgb(22 62 105 / 16%) 1px, transparent 0) 0 0 / 14px 14px,
+    linear-gradient(160deg, #e6eef6 0%, #dbe6f1 100%);
+}
+
+.es-home-map__frame > .es-home-map__svg .es-home-map__sea { fill: transparent; }
+.es-home-map__inset { background: #e2ebf4; }
+
+.es-home-map__inset { z-index: 1; border: 1.5px solid #163e69; border-radius: .75rem; box-shadow: var(--elev-3); }
+
+/* The selected market: a halo under the pin tip. */
+.es-home-map__node--selected::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset-block-end: -.45rem;
+  left: 50%; /* the map is always laid out LTR (geography) */
+  inline-size: 1.6rem;
+  block-size: .9rem;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(22 62 105 / 38%), transparent);
+  translate: -50% 0;
+}
+
+
+.es-home-map__card {
+  gap: .65rem;
+  padding: 1.05rem 1.15rem;
+  border: 1px solid rgb(22 62 105 / 26%);
+  border-inline-start: 3px solid #163e69;
+  border-radius: 1rem;
+  box-shadow: 0 0 0 5px rgb(22 62 105 / 7%), var(--elev-3);
+}
+
+.es-home-map__project strong { font-size: 1.25rem; }
+
+/* ── Request: glass rows on navy ───────────────────────── */
+.es-home-ask {
+  border-color: rgb(255 255 255 / 12%);
+  background: linear-gradient(180deg, rgb(255 255 255 / 7%), rgb(255 255 255 / 3%));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 8%), 0 20px 40px -24px rgb(0 0 0 / 50%);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.es-home-chip::before { background: #8fb3d6; }
+
+.es-home-opt {
+  border-color: rgb(255 255 255 / 11%);
+  background: linear-gradient(180deg, rgb(255 255 255 / 6%), rgb(255 255 255 / 2.5%));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 6%);
+  transition: border-color 240ms ease, background-color 240ms ease;
+}
+
+.es-home-opt.is-outside { background: linear-gradient(180deg, rgb(242 196 109 / 6%), rgb(255 255 255 / 2%)); }
+
+.es-home-opt--best {
+  background: linear-gradient(180deg, #fff, #f4f8fc);
+  box-shadow: 0 0 0 6px rgb(168 184 204 / 14%), 0 24px 56px -16px rgb(0 0 0 / 55%);
+}
+
+@media (min-width: 60rem) {
+  .es-home-opt--best { transform: scale(1.012); }
+  .es-home-track::before { block-size: 4px; border-radius: 4px; }
+  .es-home-track span { inline-size: .8rem; block-size: .8rem; box-shadow: 0 0 0 3px rgb(11 34 57 / 60%); }
+  .es-home-opt--best .es-home-track span { box-shadow: 0 0 0 3px #fff, 0 2px 6px rgb(11 34 57 / 30%); }
+}
+
+/* ── Website: real browser chrome ──────────────────────── */
+.es-home-browser__bar { gap: .45rem; padding: .65rem .9rem; background: linear-gradient(180deg, #f7f9fc, #eef3f8); }
+.es-home-browser__bar i { inline-size: .65rem; block-size: .65rem; background: #d5dee8; box-shadow: inset 0 0 0 1px rgb(11 34 57 / 8%); }
+
+.es-home-browser__url {
+  position: relative;
+  max-inline-size: 22rem;
+  margin-inline: auto;
+  padding: .25rem .8rem .25rem 1.7rem;
+  border: 1px solid var(--home-line);
+  text-align: center;
+  box-shadow: var(--elev-1);
+}
+
+/* A padlock: drawn, decorative (the bar is aria-hidden). */
+.es-home-browser__url::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  left: .7rem;
+  inline-size: .55rem;
+  block-size: .45rem;
+  border-radius: .12rem;
+  background: var(--es-ink-60);
+  translate: 0 -10%;
+}
+
+.es-home-browser__url::after {
+  content: "";
+  position: absolute;
+  inset-block-start: calc(50% - .48rem);
+  left: .78rem;
+  inline-size: .39rem;
+  block-size: .4rem;
+  border: 1.5px solid var(--es-ink-60);
+  border-block-end: 0;
+  border-radius: .25rem .25rem 0 0;
+}
+
+.es-home-listing__art { aspect-ratio: 16 / 9; background: #dfe7ef; }
+
+.es-home-listing__art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 50%, rgb(11 34 57 / 30%));
+}
+
+.es-home-listing__where { z-index: 1; box-shadow: var(--elev-2); }
+
+/* ── Client: photo tiles, glass signal chips ───────────── */
+.es-home-trail__unit { padding: .45rem .45rem .8rem; background: linear-gradient(180deg, rgb(255 255 255 / 7%), rgb(255 255 255 / 3%)); }
+.es-home-trail__art { position: relative; aspect-ratio: 16 / 10; overflow: hidden; margin-block-end: .5rem; border-radius: .6rem; }
+.es-home-trail__unit:not(.is-focus) .es-home-photo { filter: saturate(.55) brightness(.78); }
+.es-home-trail__unit.is-focus { box-shadow: 0 0 0 5px rgb(168 184 204 / 14%), 0 24px 48px -12px rgb(0 0 0 / 50%); }
+
+.es-home-sig {
+  border-color: rgb(255 255 255 / 16%);
+  background: linear-gradient(180deg, rgb(255 255 255 / 11%), rgb(255 255 255 / 5%));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 10%), 0 8px 18px -10px rgb(0 0 0 / 60%);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.es-home-sig__icon { background: rgb(143 179 214 / 18%); }
+
+.es-home-suggest {
+  background: linear-gradient(180deg, rgb(255 255 255 / 6%), rgb(255 255 255 / 2%));
+}
+
+/* ── Growth: raised rows, photo campaign ───────────────── */
+.es-home-cluster { border-inline-start-color: rgb(11 34 57 / 10%); }
+.es-home-cluster--key { border-inline-start-color: #163e69; box-shadow: var(--elev-2); }
+.es-home-pattern > span { border-color: var(--home-line); box-shadow: var(--elev-1); }
+.es-home-cluster--key .es-home-pattern > span { background: linear-gradient(180deg, #fff, #f3f7fb); }
+.es-home-pattern .es-home-ic { color: #163e69; }
+.es-home-campaign { overflow: hidden; border-color: var(--home-line); border-radius: 1.25rem; }
+.es-home-campaign__art img { position: absolute; inset: 0; }
+.es-home-campaign__art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgb(11 34 57 / 35%)); }
+.es-home-campaign__tag { z-index: 1; }
+
+/* ── Start free: stronger, still quiet, motifs ─────────── */
+.es-home-free-card::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset-block-start: -40%;
+  inset-inline-end: -25%;
+  inline-size: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(71 116 154 / 14%), transparent);
+}
+
+.es-home-free-card::after { inline-size: 8.5rem; block-size: 6.5rem; opacity: .7; }
+.es-home-free-card:nth-child(2)::after { opacity: .45; }
