@@ -84,18 +84,31 @@
   .dest-shot { block-size: 12.5rem; }
 }
 
-/* today: editorial layout, no outer box; the lead story carries a soft 3D newspaper */
-.es-home-today { border: 0 !important; background: none !important; box-shadow: none !important; padding: 0 !important; }
-.es-home-today__head { border: 0 !important; padding-inline: 0 !important; }
-.es-home-today__grid { gap: 0 clamp(1.5rem, 3vw, 3rem) !important; }
-.es-home-story { border: 0 !important; background: none !important; box-shadow: none !important; border-radius: 0 !important;
-  border-block-start: 1px solid rgb(22 62 105 / 12%) !important; padding: 1.25rem 0 !important; }
-.es-home-story--lead { position: relative; border-block-start: 0 !important; padding-block-start: 0 !important; }
-.es-home-story--lead > :not(img) { padding-inline: 0 !important; }
-.es-home-story--lead .es-home-story__photo { border-radius: 1.5rem !important; box-shadow: 0 34px 60px -40px rgb(15 34 54 / 60%); }
-.es-home-story--lead::after { content: ""; position: absolute; inset-block-start: -1.5rem; inset-inline-start: -1.5rem; inline-size: 6.5rem; aspect-ratio: 1;
-  background: url("../img/3d/newspaper.svg") center / contain no-repeat; filter: drop-shadow(0 14px 16px rgb(15 34 54 / 20%)); pointer-events: none; }
-@media (max-width: 36rem) { .es-home-story--lead::after { inline-size: 4.5rem; inset-block-start: -1rem; inset-inline-start: -.5rem; } }
+/* today: product picture (Estavo Daily + launches) beside a compact story list */
+.es-home-today { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); grid-template-areas: "head head" "art list";
+  gap: 1rem clamp(2rem, 5vw, 4.5rem); align-items: center; border: 0 !important; background: none !important; box-shadow: none !important; padding: 0 !important; }
+.es-home-today__head { grid-area: head; border: 0 !important; padding-inline: 0 !important; }
+.es-home-today__art { grid-area: art; min-inline-size: 0; }
+.es-home-today__grid { grid-area: list; display: flex !important; flex-direction: column; gap: 0 !important; }
+.es-home-story { display: grid !important; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "type link" "title link" "sum link";
+  column-gap: 1.25rem; padding: 1rem 0 !important; border: 0 !important; border-block-end: 1px solid rgb(22 62 105 / 10%) !important;
+  border-radius: 0 !important; background: none !important; box-shadow: none !important; }
+.es-home-story:last-child { border-block-end: 0 !important; }
+.es-home-story__type { grid-area: type; margin: 0 !important; font-size: .8125rem !important; }
+.es-home-story__title { grid-area: title; margin: .2rem 0 0 !important; font-size: 1.0625rem !important; line-height: 1.55 !important; }
+html body.es-landing .es-home-main .es-home-story--lead .es-home-story__title { font-size: 1.0625rem; }
+.es-home-story__sum { grid-area: sum; margin: .15rem 0 0 !important; font-size: .9rem; }
+.es-home-story__link { grid-area: link; align-self: center; white-space: nowrap; font-size: .9rem; }
+.es-home-story--lead { grid-row: auto !important; padding-block-start: 1rem !important; }
+.es-home-story--lead::after { content: none; }
+@media (max-width: 60rem) {
+  .es-home-today { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "art" "list"; }
+  .es-home-today__art { max-inline-size: 30rem; margin-inline: auto; inline-size: 100%; }
+}
+@media (max-width: 36rem) {
+  .es-home-story { grid-template-columns: minmax(0, 1fr); grid-template-areas: "type" "title" "sum" "link"; }
+  .es-home-story__link { justify-self: start; margin-block-start: .4rem; }
+}
 
 /* 5. Sequential scenarios (tabs removed by owner direction) */
 .ba-steps--seq { display: grid; gap: clamp(2.5rem, 6vw, 4.5rem); }

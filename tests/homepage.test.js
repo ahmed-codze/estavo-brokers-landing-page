@@ -22,8 +22,7 @@ const MAP = JSON.parse(fs.readFileSync(path.join(__dirname, '../tools/data/egypt
 const FIXTURE = JSON.parse(fs.readFileSync(path.join(__dirname, '../tools/data/home-fixture.json'), 'utf8'));
 const unit = (key) => FIXTURE.units.find((u) => u.key === key);
 const money = (m) => `${m.toFixed(1)}M`;
-const SECTIONS = ['home-hero', 'home-today', 'home-destinations', 'home-data', 'home-ai',
-    'home-website', 'home-integrations', 'home-faq', 'home-closing'];
+const SECTIONS = ['home-hero', 'home-destinations', 'home-data', 'home-ai', 'home-website', 'home-today', 'home-integrations', 'home-faq', 'home-closing'];
 const MONTHS = {
     ar: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
     en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
