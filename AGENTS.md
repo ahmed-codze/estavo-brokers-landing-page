@@ -6,6 +6,28 @@ Read this file before changing public copy, information architecture, layouts, i
 
 Last consolidated from the working site: **19 September 2026**; homepage sections updated **6 October 2026**.
 
+### Daily content editions — 4 November 2026
+
+Read [daily content](docs/daily-content.md) before changing live examples, caching, publication or data access. Home authoring now lives in `tools/home/index.html` and `tools/home/en.html`; service authoring remains in `tools/pages/`. `npm run build` renders all 32 pages with one cached edition or honest empty states. Never edit the generated daily cards in output HTML.
+
+- The public API is a bounded, prebuilt publication, not a catalogue/search proxy. Its inventory pool never automatically expands. Keep credentials, original media URLs, contacts, full articles and game answers out.
+- Visitors load local HTML and hashed thumbnails; daily fetching belongs only to the build host. Preserve schema/byte limits, media hash checks, atomic releases, Cairo dates and last-good expiry.
+- Keep calculated plans and simulated customer/AI actions clearly illustrative. Never attach real selected project names to fictional payments, contacts or results.
+- Production activation, installed timers and public availability must be verified separately. The implementation and local preview do not imply deployment.
+
+### Content refresh — 4 November 2026
+
+The current marketing surface is 32 pages: two homepages and 15 bilingual service routes in `tools/routes.json`. The November community layout and product-plus-3D direction remain in place. The homepage now leads with market data and broker tools for preparing a client reply; the destination section still introduces news, jobs, games, developers and Sites.
+
+- Write Egyptian broker copy without Arabic diacritics. Prefer خطط الدفع and ريكويست العميل, while preserving source quotations and real product identifiers.
+- Keep Market's free offer explicit. Sites creation/preview is free; selected city data, website AI and marketing features depend on the plan. The entire Estavo catalogue is not included on every website.
+- Describe Meta events as observed actions, not inferred intent. Keep integration enquiries separate from free Market access.
+- Signup requires phone verification; do not promise completion in one minute. The five-minute Sites proposition describes the preview/setup experience, not unconditional activation of all services.
+- Edit service templates and route metadata, then rebuild. Keep visible FAQs and their JSON-LD aligned, including the homepage's FAQ inside `@graph`.
+- Header copy is substituted by `tools/build-pages.js`. Preserve desktop/mobile label spans and keep the builder's source-label strings aligned with the shared header partials. `tests/content-contract.test.js` checks the generated product labels and service FAQs.
+
+This refresh covers current marketing routes and their shared navigation/footer/popups. Historical snapshots, legal policies, referral infrastructure and the website onboarding application retain their separate responsibilities.
+
 ---
 
 ## 1. The short version

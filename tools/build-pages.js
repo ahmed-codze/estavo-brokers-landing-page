@@ -20,8 +20,15 @@ const path = require('path');
 const crypto = require('crypto');
 
 const ROOT = path.join(__dirname, '..');
+const OUTPUT = process.env.LANDING_OUTPUT_DIR || ROOT;
 const routes = JSON.parse(fs.readFileSync(path.join(__dirname, 'routes.json'), 'utf8'));
 const SITE = 'https://estavo-brokers.com';
+const { read: readEdition } = require('./daily/cache');
+const { applyDaily } = require('./daily/render');
+const edition = readEdition(process.env.LANDING_CACHE_DIR || path.join(ROOT, '.cache/landing'));
+const emptyEdition = { snapshot_date: '—', generated_at: new Date().toISOString(), projects: [], units: [], developers: [], news: [], launches: [], jobs: [], games: [] };
+function withDaily(html, key, lang) { return applyDaily(html, key, lang, edition || emptyEdition); }
+
 
 /* Commercial pages share the reading rhythm and interaction layer, while
    route assets remain responsible for the product demonstration. Keeping the
@@ -172,7 +179,7 @@ function header(route, lang) {
     ? {
         href: routes.cta.market,
         track: 'market_opened',
-        label: isAr ? 'تصفح السوق مجانًا' : 'Open Estavo Market free',
+        label: isAr ? 'تصفح السوق مجانا' : 'Open Estavo Market free',
         shortLabel: isAr ? 'تصفح السوق' : 'Open Market',
       }
     : route.key === 'integrations'
@@ -193,22 +200,22 @@ function header(route, lang) {
         ? {
             href: routes.cta.website_individual,
             track: 'website_preview_started',
-            label: isAr ? 'اعمل موقعك مجانًا · حوالي ٥ دقايق' : 'Create your site free · ~5 min',
-            shortLabel: isAr ? 'ابدأ مجانًا' : 'Start free',
+            label: isAr ? 'اعمل موقعك مجانا · حوالي ٥ دقايق' : 'Create your site free · ~5 min',
+            shortLabel: isAr ? 'ابدأ مجانا' : 'Start free',
           }
       : {
           href: routes.cta.website,
           track: 'website_preview_started',
-          label: isAr ? 'اعمل موقعك مجانًا · حوالي ٥ دقايق' : 'Create your site free · ~5 min',
-          shortLabel: isAr ? 'ابدأ مجانًا' : 'Start free',
+          label: isAr ? 'اعمل موقعك مجانا · حوالي ٥ دقايق' : 'Create your site free · ~5 min',
+          shortLabel: isAr ? 'ابدأ مجانا' : 'Start free',
         };
 
   const defaultLabel = isAr
-    ? 'اعمل موقعك مجانًا · حوالي ٥ دقايق'
+    ? 'اعمل موقعك مجانا · حوالي ٥ دقايق'
     : 'Create your site free · ~5 min';
-  const defaultShortLabel = isAr ? 'ابدأ مجانًا' : 'Start free';
+  const defaultShortLabel = isAr ? 'ابدأ مجانا' : 'Start free';
   const marketLabel = isAr
-    ? 'تصفح <bdi>Estavo Market</bdi> مجانًا'
+    ? 'تصفح <bdi>Estavo Market</bdi> مجانا'
     : 'Open Estavo Market free';
   const marketShortLabel = isAr
     ? 'تصفح <bdi>Market</bdi>'
@@ -410,15 +417,22 @@ ${scripts ? `${scripts}\n` : ''}    <script src="${versioned('/assets/js/v3/esta
 </html>
 `;
 
-  const outDir = path.join(ROOT, route.path.replace(/^\//, ''));
+  const outDir = path.join(OUTPUT, route.path.replace(/^\//, ''));
   const outFile = path.join(outDir, isAr ? 'index.html' : 'en.html');
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(outFile, relativizeForServicePage(doc));
-  return path.relative(ROOT, outFile);
+  fs.writeFileSync(outFile, withDaily(relativizeForServicePage(doc), route.key, lang));
+  return path.relative(OUTPUT, outFile);
 }
 
 function main() {
   const written = [];
+  for (const [file, lang] of [['index.html', 'ar'], ['en.html', 'en']]) {
+    const source = path.join(__dirname, 'home', file);
+    if (fs.existsSync(source)) {
+      fs.writeFileSync(path.join(OUTPUT, file), withDaily(fs.readFileSync(source, 'utf8'), 'home', lang));
+      written.push(file);
+    }
+  }
   for (const route of routes.routes) {
     if (route.key === 'home') continue;
     for (const lang of ['ar', 'en']) {

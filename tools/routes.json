@@ -21,11 +21,13 @@
       "key": "home",
       "ar": {
         "nav": "إستاڤو",
-        "title": "إستاڤو — كل اللي البروكر محتاجه في مكان واحد، بالذكاء الاصطناعي"
+        "title": "إستاڤو | بيانات وأدوات للبروكر وموقع عقاري باسمك",
+        "description": "بيانات المشاريع وخطط الدفع، أخبار السوق، Brokers AI وعروض PDF للبروكرز في مصر، وموقع عقاري باسمك من Estavo Sites"
       },
       "en": {
         "nav": "Estavo",
-        "title": "Estavo — Everything a real-estate broker needs, in one place, with AI"
+        "title": "Estavo | Property data, broker tools and your branded website",
+        "description": "Search property data, compare payment plans, follow market news and create branded PDF offers, with Estavo Sites for your property website"
       },
       "in_header": false
     },
@@ -35,15 +37,15 @@
       "canonical_to": "/market/",
       "ar": {
         "nav": "بيانات السوق",
-        "title": "بيانات السوق في Estavo Market — إستاڤو",
-        "blurb": "بيانات العقارات وطريقة متابعتها.",
-        "description": "دور في معلومات المطورين والمشاريع والوحدات وخطط السداد، وقارن المتاح مجانًا من خلال Estavo Market."
+        "title": "بيانات السوق وأدوات البروكر في Estavo Market",
+        "blurb": "بيانات العقارات وطريقة متابعتها",
+        "description": "بيانات المشاريع ونماذج الوحدات وخطط الدفع موجودة في Estavo Market، مع البحث والمقارنة وBrokers AI وعروض PDF مجانا حاليا"
       },
       "en": {
         "nav": "Market data",
-        "title": "Market data in Estavo Market — Estavo",
-        "blurb": "Property data and how it is maintained.",
-        "description": "Search developer, project, unit and payment-plan information and compare what is available free in Estavo Market."
+        "title": "Market data and broker tools in Estavo Market",
+        "blurb": "Property data and how it is maintained",
+        "description": "Find project, unit-type and payment-plan data in Estavo Market, with search, comparison, Brokers AI and branded PDF offers free for now"
       },
       "in_header": false,
       "in_solutions": false
@@ -53,15 +55,15 @@
       "key": "market",
       "ar": {
         "nav": "Estavo Market",
-        "title": "Estavo Market | المخزون المحدّث لمطوري العقارات للبروكرز",
-        "blurb": "ادخل سوق العقارات للبروكر.",
-        "description": "تابع جديد السوق العقاري والإطلاقات كل يوم، وابحث في بيانات المشاريع وأنظمة السداد، وقارن الاختيارات وجهّز عرض PDF باسمك. مجاني للبروكرز في مصر."
+        "title": "Estavo Market | بيانات المشاريع وخطط الدفع للبروكرز",
+        "blurb": "ادخل سوق العقارات للبروكر",
+        "description": "دور وقارن بين المشاريع وخطط الدفع، اسأل Brokers AI وجهز عرض PDF باسمك، مجانا بالكامل حاليا ومن غير نسبة من عمولتك"
       },
       "en": {
         "nav": "Estavo Market",
-        "title": "Estavo Market | Developers’ updated inventory for brokers",
-        "blurb": "Enter the property marketplace for brokers.",
-        "description": "Follow daily real-estate news and launches, search project and payment-plan data, compare options and prepare PDF offers under your name. Free for brokers in Egypt."
+        "title": "Estavo Market | Project data and payment plans for brokers",
+        "blurb": "Enter the property marketplace for brokers",
+        "description": "Search projects, compare payment plans, ask Brokers AI and prepare branded PDF offers, completely free for now with no cut of your commission"
       },
       "in_header": false,
       "in_solutions": true
@@ -71,13 +73,13 @@
       "key": "developers",
       "ar": {
         "nav": "المطورين",
-        "title": "المطورين العقاريين في مصر ومشاريعهم وأخبارهم — إستاڤو",
-        "description": "اعرف المطوّر مش المشروع بس: نبذة عن كل مطور، مشاريعه، أخباره، وأرقام التواصل مع فريق مبيعاته. داتا 700 مطور على إستاڤو."
+        "title": "المطورين العقاريين ومشاريعهم وأخبارهم | إستاڤو",
+        "description": "ابحث عن المطور وراجع مشاريعه وأخباره وبيانات مبيعاته لما تكون متاحة، من حسابك المجاني على Estavo Market"
       },
       "en": {
         "nav": "Developers",
-        "title": "Egypt's real-estate developers, their projects and news — Estavo",
-        "description": "Know the developer, not just the project: each developer's profile, projects, news and sales contacts. Data on 700 developers on Estavo."
+        "title": "Developer profiles, projects and news in Egypt | Estavo",
+        "description": "Search developer profiles, projects and news, with sales-team contacts where available, through your free Estavo Market account"
       },
       "in_header": true,
       "in_solutions": false
@@ -87,13 +89,13 @@
       "key": "jobs",
       "ar": {
         "nav": "الوظائف",
-        "title": "وظائف عقارية في مصر — مبيعات ووساطة وتسويق | إستاڤو",
-        "description": "فرص شغل متاحة في القطاع العقاري في مصر في مكان واحد، بتتحدث كل يوم من مواقع التوظيف وصفحات الشركات. فلتر بالشركة والمنطقة والخبرة، وقدّم من الإعلان الأصلي."
+        "title": "وظائف العقارات في مصر حسب الشركة والخبرة | إستاڤو",
+        "description": "دور على وظائف العقارات حسب الشركة والمنطقة والخبرة، راجع تفاصيل الإعلان ومصدره وكمل التقديم على الموقع الأصلي"
       },
       "en": {
         "nav": "Jobs",
-        "title": "Real-estate jobs in Egypt — sales, brokerage, marketing | Estavo",
-        "description": "Open real-estate jobs in Egypt in one board, refreshed daily from job sites and company careers pages. Filter by employer, area and experience, then apply on the original listing."
+        "title": "Real-estate jobs by employer and experience | Estavo",
+        "description": "Find real-estate jobs by employer, area and experience, review each listing and its source, then apply through the original website"
       },
       "in_header": true,
       "in_solutions": false
@@ -103,13 +105,13 @@
       "key": "challenges",
       "ar": {
         "nav": "ألعاب وتحديات",
-        "title": "ألعاب وتحديات البروكرز — اختبر معلوماتك عن السوق العقاري | إستاڤو",
-        "description": "لعبة جماعية للبروكرز: سؤال واحد عن مشاريع ومطورين ومناطق السوق، واكسب بإجابة صح محدش غيرك اختارها. باسمك بس، من غير حساب."
+        "title": "إكسكلوسيف | لعبة معلومات السوق العقاري للبروكرز",
+        "description": "العب مع زمايلك أو اتدرب مع Estavo AI، خمس جولات و100 نقطة للإجابة الصح اللي محدش غيرك اختارها، مجانا ومن غير حساب"
       },
       "en": {
         "nav": "Games & challenges",
-        "title": "Games & challenges for brokers — test your real-estate market knowledge | Estavo",
-        "description": "A multiplayer game for brokers: one question about projects, developers and areas, and you score with a right answer nobody else chose. Just a nickname, no account."
+        "title": "Exclusive | A property-market knowledge game for brokers",
+        "description": "Play five rounds with colleagues or practise with Estavo AI, earn 100 points for a correct answer nobody else chose, free with no account"
       },
       "in_header": true,
       "in_solutions": false
@@ -119,13 +121,13 @@
       "key": "broker-ai",
       "ar": {
         "nav": "اسأل إستاڤو",
-        "title": "Brokers AI — اسأل إستاڤو عن المشاريع والمطورين وطلبات عملائك",
-        "description": "مساعد ذكاء اصطناعي للبروكر بيدور في بيانات Estavo Market: يلاقي مشاريع لطلب عميلك، يقارن، يحسب الأقساط، ويجهّز عرض PDF باسمك. مجاني حاليًا."
+        "title": "Brokers AI | مساعدك في البحث والمقارنة وعروض PDF",
+        "description": "اكتب ريكويست العميل، قارن المشاريع واحسب الأقساط بافتراضات واضحة وجهز عرض PDF باسمك من بيانات Estavo Market، مجانا بالكامل حاليا"
       },
       "en": {
         "nav": "Ask Estavo",
-        "title": "Brokers AI — ask Estavo about projects, developers and client requests",
-        "description": "An AI assistant for brokers that searches Estavo Market data: it finds projects for a client's request, compares them, works out installments and prepares a PDF offer under your name. Free for now."
+        "title": "Brokers AI | Search, compare and prepare branded offers",
+        "description": "Find projects for a client request, compare options, calculate installments with stated assumptions and prepare a branded PDF in Estavo Market"
       },
       "in_header": true,
       "in_solutions": false
@@ -135,15 +137,15 @@
       "key": "websites",
       "ar": {
         "nav": "موقع باسمك",
-        "title": "موقع عقاري مجاني للبروكر باسمك — Estavo Sites",
-        "blurb": "موقع عقاري باسمك، مليان ببيانات السوق وعقاراتك الخاصة.",
-        "description": "خلي العميل يرجعلك من موقع عقاري باسمك، يجمع مشاريع ووحدات من بيانات إستاڤو مع عقاراتك الخاصة وطرق التواصل معاك."
+        "title": "موقع عقاري باسمك للبروكر المستقل | Estavo Sites",
+        "blurb": "موقع عقاري باسمك، مليان ببيانات السوق وعقاراتك الخاصة",
+        "description": "اعرض مشاريع المدن ضمن باقتك وعقاراتك الخاصة على موقع باسمك ورقمك، عاين الموقع مجانا وحدد نطاق التفعيل والخدمات المناسبة ليك"
       },
       "en": {
         "nav": "Branded website",
-        "title": "Free branded property website for brokers — Estavo Sites",
-        "blurb": "A property website under your name, already filled with market data and your own listings.",
-        "description": "Bring buyers back to a property website under your name, combining Estavo market projects and units with your own properties and direct contact routes."
+        "title": "Your branded property website | Estavo Sites",
+        "blurb": "A property website under your name, already filled with market data and your own listings",
+        "description": "Present projects from your selected cities and your own listings under your brand, preview your website free and choose its scope and optional services"
       },
       "in_header": false,
       "in_solutions": true
@@ -153,15 +155,15 @@
       "key": "ai",
       "ar": {
         "nav": "Client AI",
-        "title": "AI عقاري لعملاء موقعك — Estavo Sites",
-        "blurb": "مساعد لعملاء موقعك.",
-        "description": "Client AI يساعد زوار موقعك يبحثوا ويسألوا ويقارنوا داخل العقارات اللي اخترت تعرضها، وتحت اسمك."
+        "title": "مساعد AI لزوار موقعك العقاري | Estavo Sites",
+        "blurb": "مساعد لعملاء موقعك",
+        "description": "خلي زوار موقعك يسألوا ويقارنوا من العقارات اللي بتعرضها، Client AI يعمل بهوية موقعك وضمن بياناته حسب باقتك"
       },
       "en": {
         "nav": "Client AI",
-        "title": "Property AI for buyers on your website — Estavo Sites",
-        "blurb": "An assistant for your website buyers.",
-        "description": "Client AI helps website visitors search, ask and compare within the inventory you choose to present, under your brand."
+        "title": "Client AI for your property website | Estavo Sites",
+        "blurb": "An assistant for your website buyers",
+        "description": "Help visitors search, ask and compare within the properties on your website, with Client AI under your brand and subject to your site plan"
       },
       "in_header": false,
       "in_solutions": true
@@ -171,15 +173,15 @@
       "key": "integrations",
       "ar": {
         "nav": "الربط بمنصتك",
-        "title": "ربط داتا السوق العقاري بمنصتك — إستاڤو",
-        "blurb": "بيانات وAI جوّه منصتك الحالية.",
-        "description": "استخدم بيانات المشاريع والمطورين والوحدات والأسعار وأنظمة السداد من إستاڤو جوه موقعك أو تطبيقك أو نظامك، بنطاق وطريقة تحديث متفق عليهم."
+        "title": "ربط بيانات العقارات وخطط الدفع بمنصتك | إستاڤو",
+        "blurb": "بيانات وAI جوه منصتك الحالية",
+        "description": "اربط موقعك أو تطبيقك ببيانات المشاريع والمطورين ونماذج الوحدات وخطط الدفع، بنطاق وطريقة تحديث متفق عليهم مع فريقك"
       },
       "en": {
         "nav": "Integrations",
-        "title": "Real-estate market data for your platform — Estavo",
-        "blurb": "Data and AI inside your existing platform.",
-        "description": "Use Estavo project, developer, unit, price and payment-plan data inside your website, app or internal system, with an agreed scope and update method."
+        "title": "Property data integrations for your platform | Estavo",
+        "blurb": "Data and AI inside your existing platform",
+        "description": "Connect your website or app to project, developer, unit-type and payment-plan data, with a scope and update method agreed with your team"
       },
       "in_header": false,
       "in_solutions": true
@@ -189,15 +191,15 @@
       "key": "marketing",
       "ar": {
         "nav": "العملاء والتسويق",
-        "title": "العملاء والتسويق — إستاڤو",
-        "blurb": "اعرف طلب العميل قبل المكالمة.",
-        "description": "ارجع للمشاريع اللي شافها العميل، والأسئلة اللي سألها، وتفاصيل الطلب اللي شاركها على موقعك ومع الـ AI."
+        "title": "فهم ريكويست العميل قبل المتابعة | Estavo Sites",
+        "blurb": "اعرف ريكويست العميل قبل المكالمة",
+        "description": "راجع تفضيلات العميل وأسئلته اللي شاركها على موقعك جنب المشاريع اللي فتحها، وجهز متابعة مبنية على المعلومات المتاحة"
       },
       "en": {
         "nav": "Buyers & marketing",
-        "title": "Buyers & marketing — Estavo",
-        "blurb": "Know the request before you call.",
-        "description": "Review the properties a buyer explored, the questions they asked and the preferences they shared."
+        "title": "Buyer context for your next follow-up | Estavo Sites",
+        "blurb": "Know the request before you call",
+        "description": "Review buyer preferences and questions shared on your website alongside the projects viewed, then prepare a follow-up using the available context"
       },
       "in_header": false,
       "in_solutions": true
@@ -207,15 +209,15 @@
       "key": "meta",
       "ar": {
         "nav": "ربط Meta",
-        "title": "ربط موقعك العقاري بـ Meta — Estavo Sites",
-        "blurb": "ابعت تفاعلات موقعك لحسابك على Meta.",
-        "description": "اربط الأحداث المسموح بها على موقعك بحساب Meta المملوك ليك، مع تحكم واضح في الصلاحيات والخصوصية والميزانية."
+        "title": "ربط أحداث موقعك العقاري بحساب Meta | Estavo Sites",
+        "blurb": "ابعت تفاعلات موقعك لحسابك على Meta",
+        "description": "وصل الأحداث المدعومة والمسموح بيها من موقعك لحساب Meta، مع تحكمك في الصلاحيات واحتفاظ فريقك بقرارات الحملات والميزانية"
       },
       "en": {
         "nav": "Meta connection",
-        "title": "Connect your property website to Meta — Estavo Sites",
-        "blurb": "Send website events to your Meta account.",
-        "description": "Connect permitted website events to your own Meta account with clear control over permissions, privacy and campaign budget."
+        "title": "Connect property website events to Meta | Estavo Sites",
+        "blurb": "Send website events to your Meta account",
+        "description": "Send supported, permitted property website events to your Meta account, while your team controls permissions, campaign decisions and budget"
       },
       "in_header": false,
       "in_solutions": true
@@ -225,15 +227,15 @@
       "key": "listings",
       "ar": {
         "nav": "عقاراتك الخاصة",
-        "title": "اعرض وحداتك على موقعك وقدام 6,600+ بروكر مسجّل — Estavo Sites",
-        "blurb": "من موقعك لشبكة البروكرز.",
-        "description": "ضيف عقارك على موقعك باسمك، وحدد العمولة، ووزّع الوحدات المؤهلة على شبكة تضم 6,600+ بروكر مسجّل من غير ضمان للبيع."
+        "title": "اعرض وحداتك وتعاون مع شبكة البروكرز | Estavo Sites",
+        "blurb": "من موقعك لشبكة البروكرز",
+        "description": "ضيف وحداتك على موقعك وحدد العمولة وفعل توزيع وحدات إعادة البيع المؤهلة على شبكة إستاڤو، والتواصل والتفاوض يفضلوا معاك"
       },
       "en": {
         "nav": "Your own listings",
-        "title": "List properties on your website and reach 6,600+ registered brokers — Estavo Sites",
-        "blurb": "From your site to the broker network.",
-        "description": "Add a property under your name, set the commission and distribute eligible listings to a network of 6,600+ registered brokers, with no sale guarantee."
+        "title": "List your properties and connect with brokers | Estavo Sites",
+        "blurb": "From your site to the broker network",
+        "description": "Add listings to your website, set the commission and distribute eligible resale properties through Estavo’s broker network, while handling the negotiation"
       },
       "in_header": false,
       "in_solutions": true
@@ -243,13 +245,13 @@
       "key": "insights",
       "ar": {
         "nav": "جديد السوق",
-        "title": "جديد السوق العقاري والإطلاقات كل يوم — إستاڤو",
-        "description": "موجز إستاڤو ديلي لأخبار السوق العقاري، وإطلاقات المطورين الجديدة، وأخبار كل مشروع ومطور جنب بياناته. للبروكرز في مصر."
+        "title": "إستاڤو ديلي | أخبار العقارات وإطلاقات المطورين",
+        "description": "تابع ملخص أخبار العقار والاقتصاد والإطلاقات المنشورة، مع مصادر الأخبار وربطها بالمشاريع والمطورين لما يكون متاح"
       },
       "en": {
         "nav": "Market news",
-        "title": "Daily real-estate news and launches — Estavo",
-        "description": "The Estavo Daily brief of real-estate news, new developer launches, and news on each project and developer next to its data. For brokers in Egypt."
+        "title": "Estavo Daily | Property news and developer launches",
+        "description": "Follow property and economy news summaries and published launches, with original sources and links to related projects and developers where available"
       },
       "in_header": true,
       "in_solutions": false
@@ -259,13 +261,13 @@
       "key": "enterprise",
       "ar": {
         "nav": "للشركات",
-        "title": "موقع عقاري لشركة الوساطة — Estavo Sites",
-        "description": "موقع لشركة الوساطة باسمها، فيه مشاريع ووحدات من بيانات إستاڤو اللي بنحدّثها، مع عقارات الشركة وفريقها في مكان واحد."
+        "title": "موقع عقاري لشركة الوساطة وفريقها | Estavo Sites",
+        "description": "موقع ببراند شركتك يجمع مشاريع المدن المختارة وعقارات الشركة وأدوار الفريق، إنشاء الموقع مجاني والتكلفة حسب الأعضاء والمدن والخدمات"
       },
       "en": {
         "nav": "For companies",
-        "title": "Property website for brokerage companies — Estavo Sites",
-        "description": "A website under your brokerage's name, with projects and units from Estavo data we keep updated, alongside the company's own properties and team."
+        "title": "A property website for your brokerage and team | Estavo Sites",
+        "description": "Bring selected city projects, company listings and team roles together on your brokerage website, with costs based on members, cities and optional services"
       },
       "in_header": true,
       "in_solutions": false
@@ -275,13 +277,13 @@
       "key": "examples",
       "ar": {
         "nav": "أمثلة وتجارب",
-        "title": "أمثلة وتجارب — إستاڤو",
-        "description": "شوف أمثلة للسوق والموقع، وبعدها جرّب Estavo Market مجانًا أو ابدأ موقعك المجاني في حوالي ٥ دقايق."
+        "title": "أمثلة البحث والمقارنة والموقع العقاري | إستاڤو",
+        "description": "شوف أمثلة Estavo Market للبحث والمقارنة وعروض PDF، وراجع شكل موقع البروكر أو شركة الوساطة قبل ما تختار البداية"
       },
       "en": {
         "nav": "Examples",
-        "title": "Examples — Estavo",
-        "description": "See Market and Sites examples, then try Estavo Market free or start a free website in around five minutes."
+        "title": "Search, comparison and branded website examples | Estavo",
+        "description": "Explore Estavo Market search, comparison and PDF examples, then review individual and company website options before choosing where to start"
       },
       "in_header": false,
       "in_solutions": false

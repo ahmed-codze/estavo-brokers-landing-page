@@ -1,0 +1,93 @@
+{
+  "date": "2026-11-04",
+  "branch": "develop",
+  "base_commit": "b4b85bb",
+  "remote_sync": "HEAD matches origin/develop after final fetch; edits are local and uncommitted",
+  "scope": {
+    "marketing_pages": 32,
+    "routes": [
+      "/",
+      "/data/",
+      "/market/",
+      "/developers/",
+      "/jobs/",
+      "/challenges/",
+      "/broker-ai/",
+      "/websites/",
+      "/ai/",
+      "/integrations/",
+      "/marketing/",
+      "/meta/",
+      "/listings/",
+      "/insights/",
+      "/enterprise/",
+      "/examples/"
+    ],
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "shared": [
+      "navigation",
+      "footer",
+      "conversion popups",
+      "metadata",
+      "FAQ structured data"
+    ],
+    "excluded": [
+      "historical snapshots and standalone legacy pages",
+      "legal policies",
+      "website onboarding application",
+      "referral infrastructure"
+    ]
+  },
+  "applied_workflows": [
+    "CopyCorn: Egyptian broker voice, evidence review and copy quality checks",
+    "Content strategy: audience, concrete job, mechanism and next action per page",
+    "Repository handbook: source templates, bilingual parity, commercial boundaries and visual QA"
+  ],
+  "choices": [
+    "Retained the existing product and soft 3D layouts",
+    "Rewrote every current route hero and lead; refined supporting explanations, boundaries and FAQ language",
+    "Separated free Market from package-dependent Sites services",
+    "Used خطط الدفع and ريكويست العميل; removed Arabic diacritics in authored marketing text",
+    "Removed signup timing claim and illustrative activity metrics",
+    "Kept verified statistics tied to their recorded snapshot; no new production counts or market claims"
+  ],
+  "validation": {
+    "static_qa": {
+      "pages": 32,
+      "failures": 0
+    },
+    "tests": {
+      "passed": 111,
+      "failed": 0
+    },
+    "browser": {
+      "checks": 480,
+      "failures": 0,
+      "widths": [
+        320,
+        360,
+        390,
+        1280,
+        1440,
+        1512,
+        1728
+      ],
+      "motion": [
+        "ordinary",
+        "reduced"
+      ],
+      "no_javascript_width": 320
+    },
+    "visual_review": "Inspected Arabic and English mobile and desktop hero screenshots for all 32 marketing pages; corrected shared-header labels and preserved responsive label spans",
+    "artifacts": "/tmp/estavo-content-review",
+    "diff_check": "passed"
+  },
+  "delivery": {
+    "preview": "http://127.0.0.1:8746/",
+    "pushed": false,
+    "deployed": false
+  }
+}

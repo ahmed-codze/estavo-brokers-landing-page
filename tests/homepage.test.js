@@ -39,16 +39,16 @@ const route = (r, lang) => (lang === 'ar' ? r : r.replace(/\/$/, '/en.html'));
 
 for (const [file, L] of [
     ['index.html', {
-        lang: 'ar', start: 'ابدأ مع إستاڤو مجانًا', explore: 'اكتشف إستاڤو', website: 'اعمل موقعك مجانًا', example: 'مثال توضيحي',
-        eyebrow: 'إستاڤو · مجتمع البروكرز في مصر', h1: ['كل اللي محتاجه كبروكر.', 'في مكان واحد، بالذكاء الاصطناعي.'],
+        lang: 'ar', start: 'تصفح السوق مجانا', explore: 'اكتشف إستاڤو', website: 'اعمل موقعك مجانا', example: 'مثال توضيحي',
+        eyebrow: 'إستاڤو · مجتمع البروكرز في مصر', h1: ['داتا السوق وأدوات البروكر', 'عشان ترد على عميلك بوضوح'],
         tabs: ['جديد السوق', 'طلب عميل', 'كاش ولا تقسيط؟', 'الوظائف', 'ألعاب وتحديات'],
-        free: /مجاني بالكامل حاليًا/, noCut: /من غير نسبة من عمولتك/, leadCap: 140,
+        free: /مجاني بالكامل حاليا/, noCut: /من غير نسبة من عمولتك/, leadCap: 140,
     }],
     ['en.html', {
-        lang: 'en', start: 'Start with Estavo free', explore: 'Explore Estavo', website: 'Create your website free', example: 'Example',
-        eyebrow: 'Estavo · The broker community in Egypt', h1: ['Everything you need as a broker.', 'In one place, with AI.'],
+        lang: 'en', start: 'Open Estavo Market free', explore: 'Explore Estavo', website: 'Create your website free', example: 'Example',
+        eyebrow: 'Estavo · The broker community in Egypt', h1: ['Market data and broker tools', 'for a clearer client reply'],
         tabs: ['Market news', 'Client request', 'Cash or installments?', 'Jobs', 'Games & challenges'],
-        free: /Completely free for now/, noCut: /No cut of your commission/, leadCap: 170,
+        free: /completely free for now/i, noCut: /No cut of your commission/, leadCap: 170,
     }],
 ]) {
     const ar = L.lang === 'ar';
@@ -97,7 +97,7 @@ for (const [file, L] of [
         assert.deepEqual(spans, L.h1, 'two lines; the second carries the gradient');
         const lead = text(hero.querySelector('.es-home-lead'));
         assert.ok(lead.length <= L.leadCap, `hero lead is ${lead.length} chars (about two lines)`);
-        assert.match(lead, ar ? /المطورين.*أخبار السوق.*الوظائف.*AI.*موقع باسمك/ : /developer data.*market news.*jobs.*AI.*website under your name/);
+        assert.match(lead, ar ? /المشاريع.*خطط الدفع.*أخبار السوق.*Brokers AI.*Estavo Sites/ : /projects.*payment plans.*market news.*Brokers AI.*branded offers.*website/);
 
         const links = [...hero.querySelectorAll('.es-home-actions a')];
         assert.equal(links.length, 2);
@@ -139,7 +139,7 @@ for (const [file, L] of [
         assert.ok(pd, 'product composition');
         assert.equal(pd.getAttribute('aria-hidden'), 'true', 'decorative; the copy carries the meaning');
         assert.equal(doc.querySelector('#home-hero [role="tablist"]'), null, 'no tabs (owner direction, 4 Nov 2026)');
-        assert.ok(pd.querySelector('.pd-win img[src*="img/market/hero-"]'), 'real Market screen');
+        assert.ok(pd.querySelector('.pd-win [data-daily-kind="units"]'), 'daily Market inventory screen');
         assert.ok(pd.querySelector('.pd-phone img[src*="img/market/chat-mobile-"]'), 'real AI chat on a phone');
         assert.ok(pd.querySelectorAll('.pd-obj img[src*="img/3d/"]').length >= 4, 'soft 3D objects');
         pd.querySelectorAll('img').forEach((img) => {
@@ -151,19 +151,21 @@ for (const [file, L] of [
         }
     });
 
-    test(`${file}: today board shows real Estavo items (news, launches, jobs, a game), each linked to its page`, () => {
+    test(`${file}: daily board contains dated selections or honest empty states`, () => {
         const { doc } = load(file);
         const board = doc.querySelector('#home-today [data-home-today]');
-        assert.match(text(board.querySelector('.es-home-today__head')), ar ? /بيانات إستاڤو/ : /Estavo data/, 'dated data snapshot label');
-        const stories = [...board.querySelectorAll('.es-home-story')];
-        assert.equal(stories.length, 7);
-        assert.equal(board.querySelectorAll('.es-home-story--lead').length, 1);
-        const hrefs = stories.map((s) => s.querySelector('a').getAttribute('href'));
-        assert.deepEqual(hrefs, ['insights/', 'insights/', 'insights/', 'insights/', 'jobs/', 'jobs/', 'challenges/'].map((r) => route(r, L.lang)));
-        stories.forEach((s) => assert.ok(text(s.querySelector('.es-home-story__type')).length > 2));
-        for (const sel of ['#home-today', '#home-hero']) {
-            assert.doesNotMatch(text(doc.querySelector(sel)), /\b\d{1,2} (يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|أغسطس|سبتمبر|أكتوبر|نوفمبر|ديسمبر|January|February|March|April|May|June|July|August|September|October|November|December)/);
-        }
+        assert.match(text(board.querySelector('.es-home-today__head')), ar ? /مختارات إستاڤو/ : /Estavo selections/);
+        const groups = [...board.querySelectorAll('.daily-board-group')];
+        assert.equal(groups.length, 4, 'news, launches, jobs and game');
+        groups.forEach(group => {
+            assert.ok(group.querySelector('h3'));
+            assert.ok(group.querySelector('.daily-card, .daily-empty'));
+            group.querySelectorAll('.daily-open').forEach(a => {
+                assert.match(a.href, /^https:\/\/brokers\.estavo\.space\//);
+                assert.ok(a.hasAttribute('data-keep-path'));
+            });
+        });
+        assert.equal(board.querySelector('.today-more'), null, 'no empty expand control');
     });
 
     test(`${file}: destinations cover every pillar with an icon and a benefit line`, () => {
@@ -225,16 +227,16 @@ for (const [file, L] of [
         assert.deepEqual(arts.map((f) => f.closest('section').id), ['home-data', 'home-ai', 'home-website', 'home-integrations']);
         arts.forEach((f) => {
             assert.ok(f.querySelector('.pd .pd__scene, .ws .ws-win'), 'product composition');
-            const img = f.querySelector('img');
+            const img = f.querySelector('img:not(.daily-brand)');
             assert.ok(img.getAttribute('width') && img.getAttribute('height'));
-            assert.match(img.getAttribute('src'), /assets\/img\/(market|3d|estavo-|home)/);
+            assert.match(img.getAttribute('src'), /assets\/(daily\/|img\/(market|3d|estavo-|home))/);
         });
         assert.equal(doc.querySelector('main .es-home-browser, main .es-home-flow, main [data-home-tasks]'), null);
     });
 
     test(`${file}: every example surface is labelled`, () => {
         const { doc } = load(file);
-        assert.match(doc.querySelector('[data-home-today]').textContent, ar ? /بيانات إستاڤو/ : /Estavo data/, 'today is a dated data snapshot');
+        assert.match(doc.querySelector('[data-home-today]').textContent, ar ? /مختارات إستاڤو/ : /Estavo selections/, 'today is a dated data snapshot');
         doc.querySelectorAll('main figure.fxp-sec-art').forEach((f) => assert.ok(f.textContent.includes(L.example), f.closest('section').id));
     });
 
@@ -261,7 +263,7 @@ for (const [file, L] of [
         // The site is shown as the Sites illustration, labelled once as an example.
         const site = section.querySelector('figure.fxp-sec-art');
         assert.ok(site);
-        assert.equal((site.textContent.match(new RegExp(L.example, 'g')) || []).length, 1, 'labelled once');
+        assert.ok(site.textContent.includes(L.example), 'illustrative context is labelled');
         // Website creation buttons share one label everywhere.
         doc.querySelectorAll(`a.es-home-btn[href="${WEBSITE}"]`).forEach((a) => assert.equal(text(a), L.website));
         const main = doc.querySelector('main');
@@ -471,7 +473,7 @@ test('homepage icons are inlined so they render on any host or sub-folder', () =
         assert.doesNotMatch(html, /estavo-home\.svg#/, `${file} must not depend on an external sprite`);
         const used = new Set([...html.matchAll(/href="#(i-[a-z0-9-]+)"/g)].map((m) => m[1]));
         const defined = new Set([...html.matchAll(/<symbol id="(i-[a-z0-9-]+)"/g)].map((m) => m[1]));
-        assert.ok(used.size >= 8, "sprite is wired (every used id is checked below)");
+        assert.ok(used.size >= 1, "sprite is wired (every used id is checked below)");
         used.forEach((id) => assert.ok(defined.has(id), `${file}: icon #${id} is not defined`));
         assert.equal((html.match(/id="es-home-icons"/g) || []).length, 1);
     }

@@ -1,0 +1,12 @@
+[Unit]
+Description=Refresh Estavo landing content after the API snapshot, with hourly retries
+
+[Timer]
+# API builds at :17. Content stays unchanged after a successful Cairo-day build.
+OnCalendar=*-*-* *:27:00 Africa/Cairo
+Persistent=true
+RandomizedDelaySec=30
+Unit=estavo-landing-daily.service
+
+[Install]
+WantedBy=timers.target

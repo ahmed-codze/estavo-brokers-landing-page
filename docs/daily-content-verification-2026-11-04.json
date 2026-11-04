@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-04",
+  "state": "implemented and verified locally; production not deployed",
+  "pages": 32,
+  "landing_branch": "develop",
+  "api_branch": "codex/daily-landing-content",
+  "landing_tests": 118,
+  "api_tests": 16,
+  "api_assertions": 156,
+  "media_guard_tests": 48,
+  "media_guard_assertions": 51,
+  "static_qa_failures": 0,
+  "browser_checks": 480,
+  "browser_overflow_failures": 0,
+  "viewports": [
+    320,
+    360,
+    390,
+    1280,
+    1440,
+    1512,
+    1728
+  ],
+  "modes": [
+    "normal motion",
+    "reduced motion",
+    "JavaScript disabled"
+  ],
+  "observed_manifest_bytes": 4959,
+  "observed_thumbnail_bytes_total": 70230,
+  "local_optional_categories": [
+    "news empty",
+    "launches empty",
+    "jobs empty"
+  ],
+  "release_publication": "complete then unchanged repeat",
+  "visual_review": "desktop/mobile hero and destination, developer, game, Sites and daily-board screenshots inspected; decorative objects moved clear of real card text"
+}

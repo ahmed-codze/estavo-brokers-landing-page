@@ -2,3 +2,11 @@ node_modules/
 
 # Local visual review and private release evidence
 .impeccable/review/
+
+# Private build cache and atomic daily releases
+.cache/
+.daily-releases/
+.daily-current
+
+# macOS filesystem metadata
+.DS_Store

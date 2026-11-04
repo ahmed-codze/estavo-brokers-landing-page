@@ -1,0 +1,68 @@
+/* Static daily editions. No fetching, layout measurement or font dependency. */
+.daily-screen,.daily-edition,.daily-detail-grid,.daily-board-group{--daily-ink:#163e69;--daily-muted:#52677c;--daily-line:#dce5ed;color:var(--daily-ink);text-align:start;overflow-wrap:anywhere}
+.daily-screen *,.daily-edition *{box-sizing:border-box}
+.daily-screen{background:#f4f7fb;padding:1.15em;font-size:clamp(9px,2.45cqi,16px);min-block-size:20em;line-height:1.5}
+.daily-screen__head{display:flex;gap:.65em;align-items:center;margin-block-end:1em}
+.daily-screen__head b,.daily-screen__head small{display:block}
+.daily-screen__head small{color:var(--daily-muted);font-size:.72em;margin-block-start:.2em}
+.daily-brand{display:grid;place-items:center;background:#163e69;color:white;font-size:1.6em;font-weight:800;inline-size:1.7em;block-size:1.7em;border-radius:.6em;font-family:Arial,sans-serif;direction:ltr;flex:none}
+.daily-status{inline-size:.5em;block-size:.5em;background:#3fbf94;border-radius:50%;margin-inline-start:auto;flex:none}
+.daily-screen__cards{display:grid;gap:.65em;grid-template-columns:repeat(2,minmax(0,1fr))}
+.daily-card{border:1px solid var(--daily-line);border-radius:.85em;background:white;overflow:hidden;min-inline-size:0;color:var(--daily-ink)}
+.daily-card__body{padding:.8em}
+.daily-card__title{font-size:1em;font-weight:700;display:block;line-height:1.55;overflow-wrap:anywhere}
+.daily-card p{margin:.35em 0;font-size:.85em;color:var(--daily-muted);line-height:1.55}
+.daily-card small{font-size:.72em;line-height:1.5}
+.daily-tag{display:block;color:#3d6c79;margin-block-end:.3em;min-block-size:1em}
+.daily-photo{display:block;inline-size:100%;block-size:auto;aspect-ratio:14/9;object-fit:cover}
+.daily-logo{display:block;inline-size:3.5em;block-size:3.5em;object-fit:contain;margin:.85em .85em 0;background:white}
+.daily-monogram{display:grid;place-items:center;min-block-size:4em;background:#eaf0f6;color:#28567f;font-weight:700}
+.daily-price{display:block;margin-block-start:.5em;font-size:.85em;line-height:1.6}
+.daily-screen__foot{margin:.9em 0 0;font-size:.68em;color:var(--daily-muted);line-height:1.6}
+.daily-screen--phone{padding:1.1em .8em;min-block-size:30em;font-size:clamp(7px,2cqi,13px);border-radius:1em;aspect-ratio:9/18.5;overflow:hidden}
+.daily-screen--phone .daily-screen__cards{grid-template-columns:1fr}
+.daily-screen--phone .daily-screen__head{align-items:start}
+.daily-screen--phone .daily-brand{font-size:1.1em}
+.daily-card--games{background:#163e69;color:white;grid-column:1/-1}
+.daily-card--games .daily-tag,.daily-card--games p{color:#e4edf6}
+.daily-card .daily-question{font-size:1.3em;font-weight:600;padding-block:1em}
+.daily-card--news,.daily-card--jobs,.daily-card--launches{grid-column:1/-1}
+.daily-empty{grid-column:1/-1;padding:1.5em 1em;text-align:center;border:1px dashed #bdcbd9;border-radius:1em;background:#fff;color:#294a6b;line-height:1.7}
+.daily-empty b{display:block;font-size:.92em}
+.daily-empty p{font-size:.8em;margin:.6em 0 0;color:var(--daily-muted)}
+.daily-empty__icon{display:block;font-size:2.3em;color:#849db4;margin-block-end:.4em}
+.daily-edition{margin-block-start:1.5rem;max-inline-size:36rem;border-block-start:1px solid #cbd9e6;padding-block-start:1rem;font-size:14px;line-height:1.6}
+.daily-edition__head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;margin-block-end:.65rem}
+.daily-edition__head b{font-size:.9rem}.daily-edition time{font-size:.75rem;color:#52677c;font-variant-numeric:tabular-nums;direction:ltr}
+.daily-edition__cards{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.daily-edition .daily-card--units{display:grid;grid-template-columns:6rem minmax(0,1fr)}
+.daily-edition .daily-photo{block-size:100%;min-block-size:8rem;object-fit:cover}
+.daily-edition .daily-card__body{padding:.6rem .8rem}
+.daily-edition .daily-price{font-size:.85rem}
+.daily-edition__note{font-size:11px;line-height:1.65;color:#52677c;margin:.6rem 0 0}
+.daily-open{display:inline-block;margin-block-start:.55em;font-size:.8em;color:#163e69;font-weight:700;text-decoration:underline;text-underline-offset:3px;line-height:1.6;padding-block:.3em}
+.daily-open:focus-visible,.daily-card a:focus-visible{outline:3px solid #dfaf4e;outline-offset:4px;border-radius:2px}
+.daily-card--games .daily-open{color:white}
+.daily-destination{display:block!important;position:relative;overflow:hidden;container-type:inline-size}
+.daily-destination .daily-screen{font-size:clamp(8px,3.5cqi,13px);padding:1.2em;block-size:100%;min-block-size:0}
+.daily-destination .daily-screen__foot{display:none}.daily-destination .daily-photo{aspect-ratio:2/1}
+.daily-destination .fxp-dest-orb{z-index:3}
+.es-home-today__grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem!important;max-height:none!important}
+.daily-board-group{min-inline-size:0}.daily-board-group>h3{font-size:1rem;margin:0 0 .7rem;color:inherit}.daily-board-group .daily-card{margin-block-end:.6rem;font-size:15px}
+.daily-detail-grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));font-size:16px}
+.dv-mini .daily-screen{font-size:10px;padding:1em;min-block-size:16em}
+@media(max-width:600px){.es-home-today__grid{grid-template-columns:1fr}.daily-edition{font-size:13px}.daily-edition .daily-card--units{grid-template-columns:5rem minmax(0,1fr)}.daily-edition__head b{font-size:.85rem}}
+@media print{.daily-screen,.daily-edition{break-inside:avoid}}
+
+.daily-illustrative{display:block;padding:.35em .6em;background:#f4f7fb;color:#52677c;text-align:center;font-size:clamp(7px,1.7cqi,11px);line-height:1.5}
+img.daily-brand{padding:.35em;object-fit:contain;box-sizing:border-box}
+
+.daily-destination::before,.daily-destination::after{display:none}
+@media(min-width:1024px){
+ .es-home-dest--market .daily-card--units{display:grid;grid-template-columns:40% minmax(0,1fr);min-block-size:10em}
+ .es-home-dest--market .daily-photo{block-size:100%;aspect-ratio:auto;object-fit:cover}
+}
+
+/* Keep decorative objects in the header, clear of real names and prices. */
+.es-home-dests .es-home-dest .daily-destination .fxp-dest-orb{inline-size:2.6rem!important;max-inline-size:2.6rem!important;top:.3rem!important;inset-block-end:auto!important;inset-inline:auto .3rem!important;transform:none}
+.daily-destination .daily-status{visibility:hidden}

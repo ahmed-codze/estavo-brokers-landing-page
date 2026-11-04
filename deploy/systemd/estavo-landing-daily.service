@@ -1,0 +1,20 @@
+[Unit]
+Description=Build and atomically publish the Estavo landing daily edition
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=estavo-landing
+Group=www-data
+WorkingDirectory=/srv/estavo/landing-source
+Environment=NODE_ENV=production
+Environment=LANDING_STATE_DIR=/srv/estavo/landing-editions
+ExecStart=/usr/bin/node /srv/estavo/landing-source/tools/publish-daily-edition.js
+TimeoutStartSec=300
+UMask=0022
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/estavo/landing-editions
