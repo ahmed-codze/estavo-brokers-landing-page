@@ -66,9 +66,9 @@ GROUP_ICONS = {'selling-tips': 'client-interest', 'developers-inventory': 'proje
 # Sibling community destinations shown before the hub's closing box.
 RELATED = {
     'ar': [('/insights/', 'جديد السوق', 'أخبار وإطلاقات كل يوم'), ('/jobs/', 'الوظائف', 'وظائف القطاع العقاري'),
-           ('/challenges/', 'تحدّي إكسكلوسيف', 'لعبة البروكرز'), ('/developers/', 'المطورين', 'ملفات المطورين ومشاريعهم')],
+           ('/challenges/', 'ألعاب وتحديات', 'لعبة البروكرز'), ('/developers/', 'المطورين', 'ملفات المطورين ومشاريعهم')],
     'en': [('/insights/en.html', 'Market news', 'Daily news and launches'), ('/jobs/en.html', 'Jobs', 'Real-estate jobs in Egypt'),
-           ('/challenges/en.html', 'Exclusive challenge', 'The brokers’ game'), ('/developers/en.html', 'Developers', 'Developer profiles and projects')],
+           ('/challenges/en.html', 'Games & challenges', 'The brokers’ game'), ('/developers/en.html', 'Developers', 'Developer profiles and projects')],
 }
 
 GROUPS = [

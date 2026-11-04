@@ -161,7 +161,7 @@ function header(route, lang) {
     developers: { href: routes.cta.developers, track: 'developers_opened', label: isAr ? 'تصفح المطورين' : 'Browse developers', shortLabel: isAr ? 'المطورين' : 'Developers' },
     roi: { href: routes.cta.projects, track: 'market_opened', label: isAr ? 'احسبها في السوق مجانًا' : 'Try it free in Market', shortLabel: isAr ? 'جرّبها' : 'Try it' },
     jobs: { href: routes.cta.jobs, track: 'jobs_opened', label: isAr ? 'شوف الوظائف المتاحة' : 'See open jobs', shortLabel: isAr ? 'الوظائف' : 'Jobs' },
-    challenges: { href: routes.cta.game, track: 'game_opened', label: isAr ? 'العب إكسكلوسيف' : 'Play Exclusive', shortLabel: isAr ? 'العب' : 'Play' },
+    challenges: { href: routes.cta.game, track: 'game_opened', label: isAr ? 'العب دلوقتي' : 'Play now', shortLabel: isAr ? 'العب' : 'Play' },
     insights: { href: routes.cta.daily, track: 'daily_opened', label: isAr ? 'تابع جديد السوق' : 'Follow market news', shortLabel: isAr ? 'جديد السوق' : 'News' },
   };
   const action = deepActions[route.key]

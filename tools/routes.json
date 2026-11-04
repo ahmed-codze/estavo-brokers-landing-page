@@ -119,13 +119,13 @@
       "path": "/challenges/",
       "key": "challenges",
       "ar": {
-        "nav": "تحدّي إكسكلوسيف",
-        "title": "إكسكلوسيف — تحدّي معلومات السوق العقاري للبروكرز | إستاڤو",
+        "nav": "ألعاب وتحديات",
+        "title": "ألعاب وتحديات البروكرز — اختبر معلوماتك عن السوق العقاري | إستاڤو",
         "description": "لعبة جماعية للبروكرز: سؤال واحد عن مشاريع ومطورين ومناطق السوق، واكسب بإجابة صح محدش غيرك اختارها. باسمك بس، من غير حساب."
       },
       "en": {
-        "nav": "Exclusive challenge",
-        "title": "Exclusive — the real-estate market knowledge challenge for brokers | Estavo",
+        "nav": "Games & challenges",
+        "title": "Games & challenges for brokers — test your real-estate market knowledge | Estavo",
         "description": "A multiplayer game for brokers: one question about projects, developers and areas, and you score with a right answer nobody else chose. Just a nickname, no account."
       },
       "in_header": true,

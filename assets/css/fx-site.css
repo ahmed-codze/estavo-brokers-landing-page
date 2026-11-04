@@ -47,30 +47,24 @@
   background: linear-gradient(var(--pd-fwd), var(--pd-electric), rgb(79 156 240 / 0%) 70%); }
 :is(.cm-card, .mk-card, .es-card, .es-feature-card):hover { transform: none !important; }
 
-/* 4. Homepage — pillar panels: a real product screen + its soft 3D object (no icon tiles) */
+/* 4. Homepage — pillar panels: one identical frame each: a screen window on a soft stage, its 3D object at the same corner */
 .es-home-dests { display: grid !important; grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 1.25rem !important; }
-.es-home-dest { position: relative; display: flex !important; flex-direction: column; justify-content: flex-end; gap: .35rem !important;
-  min-block-size: 24rem; padding: 1.25rem 1.35rem 1.4rem !important; overflow: hidden; border: 1px solid rgb(22 62 105 / 8%) !important;
-  border-radius: 1.6rem !important; background: linear-gradient(170deg, #eaf2fc 0%, #f7faff 58%, #fff 100%) !important;
-  box-shadow: 0 1px 0 #fff inset, 0 24px 50px -36px rgb(15 34 54 / 45%) !important; transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s; }
-.es-home-dests > li:nth-child(4n+2) .es-home-dest { background: linear-gradient(170deg, #e8f0fa 0%, #f6f9fe 58%, #fff 100%) !important; }
-.es-home-dests > li:nth-child(4n+3) .es-home-dest { background: linear-gradient(170deg, #edf3fb 0%, #f8fbff 58%, #fff 100%) !important; }
-.es-home-dest--cash { background: linear-gradient(170deg, #e5f6ef 0%, #f6fbf9 58%, #fff 100%) !important; }
-.es-home-dest--game { background: linear-gradient(170deg, #fdf3e1 0%, #fffaf2 58%, #fff 100%) !important; }
-.es-home-dest:hover { transform: translateY(-4px) !important; box-shadow: 0 1px 0 #fff inset, 0 34px 60px -34px rgb(15 34 54 / 55%) !important; }
-.es-home-dest > * { padding-inline: 0 !important; }
-.dest-shot { position: absolute; inset-block-start: 1.4rem; inset-inline: 1.3rem -2.5rem; block-size: 13.5rem; overflow: hidden; container-type: inline-size;
-  border-radius: 1rem; background: #fff; box-shadow: 0 30px 50px -30px rgb(15 34 54 / 50%), 0 0 0 1px rgb(22 62 105 / 8%);
-  transform: perspective(900px) rotateY(-10deg) rotateX(4deg); transform-origin: 100% 0; transition: transform .45s cubic-bezier(.2, .7, .2, 1); }
-[dir="ltr"] .dest-shot { transform: perspective(900px) rotateY(10deg) rotateX(4deg); transform-origin: 0 0; }
-.dest-shot > img { display: block; inline-size: 100%; block-size: auto; }
-.dest-shot > .pd-app { font-size: clamp(.45rem, 3.2cqi, .8rem); padding: 5cqi; }
-.es-home-dest:hover .dest-shot { transform: perspective(900px) rotateY(-4deg) rotateX(2deg) translateY(-4px); }
-[dir="ltr"] .es-home-dest:hover .dest-shot { transform: perspective(900px) rotateY(4deg) rotateX(2deg) translateY(-4px); }
-.es-home-dest .fxp-dest-orb { position: absolute; inset-block-start: 11.2rem; inset-inline-end: .9rem; z-index: 2; display: block; inline-size: 5.5rem; margin: 0;
-  filter: drop-shadow(0 14px 16px rgb(15 34 54 / 20%)); transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
+.es-home-dest { position: relative; container-type: inline-size; display: flex !important; flex-direction: column; gap: .35rem !important; padding: 0 0 1.35rem !important;
+  overflow: hidden; border: 1px solid rgb(22 62 105 / 9%) !important; border-radius: 1.5rem !important; background: #fff !important;
+  box-shadow: 0 24px 50px -38px rgb(15 34 54 / 45%) !important; transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s; }
+.es-home-dest:hover { transform: translateY(-4px) !important; box-shadow: 0 34px 60px -36px rgb(15 34 54 / 55%) !important; }
+.es-home-dest > * { padding-inline: 1.35rem !important; }
+.dest-shot { position: relative; display: block; aspect-ratio: 16 / 11; margin-block-end: 1rem; padding: 1.25rem 1.25rem 0 !important; overflow: hidden;
+  container-type: inline-size; background: linear-gradient(180deg, #e9f1fb, #f5f8fd) !important; }
+.dest-shot > img, .dest-shot > .pd-app { display: block; inline-size: 100%; block-size: 100%; border-radius: .85rem .85rem 0 0; background: #fff;
+  box-shadow: 0 0 0 1px rgb(22 62 105 / 9%), 0 18px 30px -20px rgb(15 34 54 / 40%); object-fit: cover; object-position: top; overflow: hidden;
+  transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
+.dest-shot > .pd-app { font-size: 3.1cqi; padding: 5cqi; }
+.es-home-dest:hover .dest-shot > * { transform: translateY(-4px); }
+.es-home-dest .fxp-dest-orb { position: absolute; top: calc(100cqi * 11 / 16 - 2.4rem); inset-inline-end: .9rem; z-index: 2; display: block;
+  inline-size: 4.25rem; margin: 0; padding: 0 !important; filter: drop-shadow(0 12px 14px rgb(15 34 54 / 22%)); transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
 .es-home-dest .fxp-dest-orb > img { display: block; inline-size: 100%; block-size: auto; }
-.es-home-dest:hover .fxp-dest-orb { transform: translateY(-6px) rotate(-4deg); }
+.es-home-dest:hover .fxp-dest-orb { transform: translateY(-5px) rotate(-4deg); }
 .es-home-dest__name { position: relative; z-index: 2; font-size: 1.2rem !important; }
 .es-home-dest__name::after { content: none !important; }
 .es-home-dest__line { position: relative; z-index: 2; }
@@ -79,9 +73,8 @@
   .es-home-dests { display: flex !important; gap: .9rem !important; overflow-x: auto; scroll-snap-type: x mandatory; padding-block-end: .75rem;
     margin-inline: calc(-1 * var(--es-gutter, 1.25rem)); padding-inline: var(--es-gutter, 1.25rem); scrollbar-width: none; }
   .es-home-dests > li { flex: 0 0 78%; scroll-snap-align: center; }
-  .es-home-dest { min-block-size: 22rem; display: flex !important; grid-template-columns: none !important; }
-  .es-home-dest > .fxp-dest-orb { grid-column: auto; grid-row: auto; inline-size: 4.75rem; inset-block-start: 10.5rem; }
-  .dest-shot { block-size: 12.5rem; }
+  .es-home-dest { grid-template-columns: none !important; }
+  .es-home-dest > .fxp-dest-orb { grid-column: auto; grid-row: auto; }
 }
 
 /* today: product picture (Estavo Daily + launches) beside a compact story list */

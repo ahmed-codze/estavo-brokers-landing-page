@@ -41,13 +41,13 @@ for (const [file, L] of [
     ['index.html', {
         lang: 'ar', start: 'ابدأ مع إستاڤو مجانًا', explore: 'اكتشف إستاڤو', website: 'اعمل موقعك مجانًا', example: 'مثال توضيحي',
         eyebrow: 'إستاڤو · مجتمع البروكرز في مصر', h1: ['كل اللي محتاجه كبروكر.', 'في مكان واحد، بالذكاء الاصطناعي.'],
-        tabs: ['جديد السوق', 'طلب عميل', 'كاش ولا تقسيط؟', 'الوظائف', 'تحدّي إكسكلوسيف'],
+        tabs: ['جديد السوق', 'طلب عميل', 'كاش ولا تقسيط؟', 'الوظائف', 'ألعاب وتحديات'],
         free: /مجاني بالكامل حاليًا/, noCut: /من غير نسبة من عمولتك/, leadCap: 140,
     }],
     ['en.html', {
         lang: 'en', start: 'Start with Estavo free', explore: 'Explore Estavo', website: 'Create your website free', example: 'Example',
         eyebrow: 'Estavo · The broker community in Egypt', h1: ['Everything you need as a broker.', 'In one place, with AI.'],
-        tabs: ['Market news', 'Client request', 'Cash or installments?', 'Jobs', 'Exclusive challenge'],
+        tabs: ['Market news', 'Client request', 'Cash or installments?', 'Jobs', 'Games & challenges'],
         free: /Completely free for now/, noCut: /No cut of your commission/, leadCap: 170,
     }],
 ]) {
@@ -351,7 +351,7 @@ for (const [file, L] of [
         // SoftwareApplication lists the community pillars.
         const app = graph.find((node) => node['@type'] === 'SoftwareApplication');
         assert.ok(app.featureList.length >= 8);
-        assert.match(app.featureList.join(' '), ar ? /المطورين.*Estavo Daily.*كاش ولا تقسيط.*وظايف.*إكسكلوسيف.*Brokers AI/ : /Developer.*Estavo Daily.*Cash or installments.*jobs.*Exclusive.*Brokers AI/);
+        assert.match(app.featureList.join(' '), ar ? /المطورين.*Estavo Daily.*كاش ولا تقسيط.*وظايف.*(ألعاب|الألعاب).*Brokers AI/ : /Developer.*Estavo Daily.*Cash or installments.*jobs.*Games.*Brokers AI/);
     });
 
     test(`${file}: metadata uses the community title`, () => {
