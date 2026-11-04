@@ -10,7 +10,6 @@
     "developers": "https://brokers.estavo.space/register?redirect=%2Fdevelopers",
     "jobs": "https://brokers.estavo.space/register?redirect=%2Fjobs",
     "daily": "https://brokers.estavo.space/register?redirect=%2Festavo-daily",
-    "projects": "https://brokers.estavo.space/register?redirect=%2Fprojects",
     "game": "https://brokers.estavo.space/games/exclusive",
     "_deep_note": "Deep links carry data-keep-path so referral.js keeps their path (adding ?ref and click ids) instead of routing them through /go/, which drops destinations. The app honours ?redirect= through sign-up. The game needs no account."
   },
@@ -54,13 +53,13 @@
       "key": "market",
       "ar": {
         "nav": "Estavo Market",
-        "title": "Estavo Market | مرجعك اليومي للسوق العقاري للبروكرز",
+        "title": "Estavo Market | المخزون المحدّث لمطوري العقارات للبروكرز",
         "blurb": "ادخل سوق العقارات للبروكر.",
         "description": "تابع جديد السوق العقاري والإطلاقات كل يوم، وابحث في بيانات المشاريع وأنظمة السداد، وقارن الاختيارات وجهّز عرض PDF باسمك. مجاني للبروكرز في مصر."
       },
       "en": {
         "nav": "Estavo Market",
-        "title": "Estavo Market | The daily real-estate market reference for brokers",
+        "title": "Estavo Market | Developers’ updated inventory for brokers",
         "blurb": "Enter the property marketplace for brokers.",
         "description": "Follow daily real-estate news and launches, search project and payment-plan data, compare options and prepare PDF offers under your name. Free for brokers in Egypt."
       },
@@ -79,22 +78,6 @@
         "nav": "Developers",
         "title": "Egypt's real-estate developers, their projects and news — Estavo",
         "description": "Know the developer, not just the project: each developer's profile, projects, news and sales contacts. Data on 700 developers on Estavo."
-      },
-      "in_header": true,
-      "in_solutions": false
-    },
-    {
-      "path": "/roi/",
-      "key": "roi",
-      "ar": {
-        "nav": "كاش ولا تقسيط؟",
-        "title": "كاش ولا تقسيط؟ حسابات أنظمة السداد للبروكر — إستاڤو",
-        "description": "قارن خصم الكاش بخطة التقسيط بقيمتها النهارده، وقارن أنظمة سداد الوحدة جنب بعض، واحسب الأقساط من المقدم والمدة. جوه Estavo Market."
-      },
-      "en": {
-        "nav": "Cash or installments?",
-        "title": "Cash or installments? Payment-plan maths for brokers — Estavo",
-        "description": "Compare a cash discount with an installment plan in today's money, put a unit's payment plans side by side, and work out installments from down payment and term. Inside Estavo Market."
       },
       "in_header": true,
       "in_solutions": false
@@ -267,22 +250,6 @@
         "nav": "Market news",
         "title": "Daily real-estate news and launches — Estavo",
         "description": "The Estavo Daily brief of real-estate news, new developer launches, and news on each project and developer next to its data. For brokers in Egypt."
-      },
-      "in_header": true,
-      "in_solutions": false
-    },
-    {
-      "path": "/pricing/",
-      "key": "pricing",
-      "ar": {
-        "nav": "الأسعار",
-        "title": "الأسعار — إستاڤو",
-        "description": "استخدم Estavo Market مجانًا أو ابدأ موقعك المجاني في حوالي ٥ دقايق. الداتا والـ AI والربط الاختياري ليهم نطاقهم."
-      },
-      "en": {
-        "nav": "Pricing",
-        "title": "Pricing — Estavo",
-        "description": "Use Estavo Market free or start a free website in around five minutes. Optional data, AI usage and integrations follow their relevant scope."
       },
       "in_header": true,
       "in_solutions": false

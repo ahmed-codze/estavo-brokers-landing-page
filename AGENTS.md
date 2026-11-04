@@ -337,16 +337,14 @@ Metadata, navigation labels and route-level descriptions live in `tools/routes.j
 | `/meta/` | Can my site's property events connect to my Meta account? | A transparent, customer-owned Meta connection for permitted Estavo Site events. | Create a website at `/website/`. |
 | `/listings/` | Can other brokers help sell properties from my site? | Publish eligible properties on the Estavo Site and distribute them to the broker network with customer-controlled commission. | Create a website at `/website/`. |
 | `/insights/` | How do I follow changes in my areas? | Dated, sourced updates and analysis connected to the broker’s work. | Open relevant information or Market. |
-| `/pricing/` | What is free and what determines cost? | Market and Sites commercial terms organized under the two-product model. | Try Market or create a Site. |
 | `/enterprise/` | Can my brokerage company have an Estavo Site? | A company-branded website with shared inventory, team context and Sites capabilities. | Create a website at `/website/`. |
 | `/examples/` | Can I see the product before choosing? | Prepared Market and Sites demonstrations. | Open the matching product. |
 | `/developers/` | Who is this developer and what are they building? | Developer profiles in the app: overview, projects, news, sales contacts where available; 700 developers. | Free sign-up → `/developers` in the app. |
-| `/roi/` | Cash or installments, in numbers? | The NPV cash-vs-installments check, side-by-side payment-plan comparison and the chat quarterly schedule. ROI/rental-yield calculators are admin-only and never claimed. | Free sign-up → `/projects`. |
 | `/jobs/` | Where are the open real-estate jobs? | The app's jobs board: refreshed daily from job sites and employer careers pages; apply on the original listing. | Free sign-up → `/jobs`. |
 | `/challenges/` | Can I test my market knowledge with other brokers? | The public «إكسكلوسيف» multiplayer game: nickname only, no account. | `/games/exclusive` in the app. |
 | `/broker-ai/` | What can I ask Estavo's AI about my work? | Brokers AI (the broker's assistant, not the website Client AI at `/ai/`). | Open Estavo Market free. |
 
-Since 3 Nov 2026 `/insights/` is «جديد السوق» / "Market news" (Estavo Daily + launches in the app, CTA → `/estavo-daily`), and `/integrations/` is a B2B data page. Global nav groups: Market (market, developers, roi) · Broker community (insights, jobs, challenges, guides) · Your website & marketing (Sites pages + pricing) · Data integrations · Ask Estavo (broker-ai).
+Since 3 Nov 2026 `/insights/` is «جديد السوق» / "Market news" (Estavo Daily + launches in the app, CTA → `/estavo-daily`), and `/integrations/` is a B2B data page. Global nav (4 Nov 2026): Broker community («المخزون المحدّث» → /market/, news, jobs, games & challenges) · Your website & marketing (Sites pages) · Data integrations · Ask Estavo (broker-ai). **Removed on 4 Nov 2026 by the owner:** /roi/ (cash or installments), /pricing/ and the /guides/ selling tips, with every link to them; old URLs 301 to /market/, /websites/ and /insights/ (`.htaccess` and `ops/nginx/knowledge.conf`). /developers/ stays live but is out of the header (footer + homepage tile only). The Market hero now leads with the updated inventory, matching its menu label.
 
 ### 5.4 Page anatomy
 

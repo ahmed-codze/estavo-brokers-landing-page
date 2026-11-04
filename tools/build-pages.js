@@ -59,7 +59,7 @@ const ROUTE_ASSETS = {
 /* Broker-community pages (Nov 2026) share the Market page system (.mk-*)
    plus a small shared layer (pages/community.css) and their own optional
    page stylesheet/script, so every destination looks like one product. */
-const COMMUNITY_ROUTES = ['developers', 'roi', 'jobs', 'challenges', 'broker-ai', 'insights', 'integrations'];
+const COMMUNITY_ROUTES = ['developers', 'jobs', 'challenges', 'broker-ai', 'insights', 'integrations'];
 for (const key of COMMUNITY_ROUTES) {
   const own = (rel) => (fs.existsSync(path.join(ROOT, rel.replace(/^\//, ''))) ? [rel] : []);
   ROUTE_ASSETS[key] = {
@@ -159,7 +159,6 @@ function header(route, lang) {
      their path through referral.js (data-keep-path) and survive sign-up. */
   const deepActions = {
     developers: { href: routes.cta.developers, track: 'developers_opened', label: isAr ? 'تصفح المطورين' : 'Browse developers', shortLabel: isAr ? 'المطورين' : 'Developers' },
-    roi: { href: routes.cta.projects, track: 'market_opened', label: isAr ? 'احسبها في السوق مجانًا' : 'Try it free in Market', shortLabel: isAr ? 'جرّبها' : 'Try it' },
     jobs: { href: routes.cta.jobs, track: 'jobs_opened', label: isAr ? 'شوف الوظائف المتاحة' : 'See open jobs', shortLabel: isAr ? 'الوظائف' : 'Jobs' },
     challenges: { href: routes.cta.game, track: 'game_opened', label: isAr ? 'العب دلوقتي' : 'Play now', shortLabel: isAr ? 'العب' : 'Play' },
     insights: { href: routes.cta.daily, track: 'daily_opened', label: isAr ? 'تابع جديد السوق' : 'Follow market news', shortLabel: isAr ? 'جديد السوق' : 'News' },
@@ -223,10 +222,8 @@ function header(route, lang) {
     insights: 'insights',
     listings: 'listings',
     enterprise: 'enterprise',
-    pricing: 'pricing',
     examples: 'examples',
     developers: 'developers',
-    roi: 'roi',
     jobs: 'jobs',
     challenges: 'challenges',
     'broker-ai': 'broker-ai',

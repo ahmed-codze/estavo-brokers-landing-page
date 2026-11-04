@@ -8,6 +8,14 @@
 Redirect 301 /data/en.html /market/en.html
 RedirectMatch 301 ^/data/?$ /market/
 
+# Removed pages (4 Nov 2026): selling tips -> news, cash or installments -> Market, pricing -> websites.
+RedirectMatch 301 ^/guides/en(/.*)?$ /insights/en.html
+RedirectMatch 301 ^/guides(/.*)?$ /insights/
+Redirect 301 /roi/en.html /market/en.html
+RedirectMatch 301 ^/roi/?$ /market/
+Redirect 301 /pricing/en.html /websites/en.html
+RedirectMatch 301 ^/pricing/?$ /websites/
+
 # ── Security headers ──────────────────────────────────────────────────────────
 <IfModule mod_headers.c>
     Header always set X-Content-Type-Options "nosniff"

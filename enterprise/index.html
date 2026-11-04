@@ -70,7 +70,7 @@
     <link rel="stylesheet" href="../assets/css/commercial.css?v=984eb4968d" />
     <link rel="stylesheet" href="../assets/css/pages/enterprise.css?v=cd7bd3025e" />
     <link rel="stylesheet" href="../assets/css/pd.css?v=2709b5b73c" />
-    <link rel="stylesheet" href="../assets/css/fx-site.css?v=d355f74320" />
+    <link rel="stylesheet" href="../assets/css/fx-site.css?v=05dfc59c66" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap" rel="stylesheet" />
@@ -3391,30 +3391,16 @@
                 <span class="es-menu" data-menu>
                     <button type="button" class="es-header__disclosure" data-menu-trigger
                         aria-expanded="false" aria-haspopup="true">
-                        السوق
-                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
-                            stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
-                    </button>
-                    <span class="es-menu__panel es-menu__panel--grouped" data-menu-panel hidden>
-                        <span class="es-menu__label">السوق والمطورين</span>
-                        <a href="../market/"><b><bdi>Estavo Market</bdi></b><small>المشاريع والوحدات والأسعار وأنظمة السداد.</small></a>
-                        <a href="../developers/"><b>المطورين</b><small>اعرف المطوّر ومشاريعه وأخباره.</small></a>
-                        <a href="../roi/"><b>كاش ولا تقسيط؟</b><small>حسابات أنظمة السداد بالأرقام.</small></a>
-                    </span>
-                </span>
-                <span class="es-menu" data-menu>
-                    <button type="button" class="es-header__disclosure" data-menu-trigger
-                        aria-expanded="false" aria-haspopup="true">
                         مجتمع البروكرز
                         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
                             stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
                     </button>
                     <span class="es-menu__panel es-menu__panel--grouped" data-menu-panel hidden>
                         <span class="es-menu__label">كل يوم في شغلك</span>
+                        <a href="../market/"><b>المخزون المحدّث</b><small>وحدات وأسعار وخطط سداد المطورين، محدّثة.</small></a>
                         <a href="../insights/"><b>جديد السوق</b><small>أخبار وإطلاقات المطورين.</small></a>
                         <a href="../jobs/"><b>الوظائف</b><small>فرص شغل في القطاع العقاري.</small></a>
                         <a href="../challenges/"><b>ألعاب وتحديات</b><small>العب واختبر معلوماتك في السوق.</small></a>
-                        <a href="../guides/"><b>نصايح البيع</b><small>أدلة عملية تساعدك تبيع أكتر.</small></a>
                     </span>
                 </span>
                 <span class="es-menu" data-menu>
@@ -3433,9 +3419,6 @@
                         <a href="../marketing/"><b>فهم العميل</b><small>اعرف طلبه قبل المكالمة.</small></a>
                         <a href="../meta/"><b>ربط <bdi>Meta</bdi></b><small>أحداث موقعك في حسابك.</small></a>
                         <a href="../listings/"><b>شبكة البروكرز</b><small>وزّع وحداتك مع تحكمك في العمولة.</small></a>
-                        <span class="es-menu__foot">
-                            <a href="../pricing/">أسعار وباقات المواقع</a>
-                        </span>
                     </span>
                 </span>
                 <a href="../integrations/">ربط الداتا</a>
@@ -3473,18 +3456,12 @@
 
         <div class="es-drawer__body">
             <div class="es-drawer__group">
-                <h2>السوق والمطورين</h2>
-                <a href="../market/"><bdi>Estavo Market</bdi></a>
-                <a href="../developers/">المطورين</a>
-                <a href="../roi/">كاش ولا تقسيط؟</a>
-                <a href="../broker-ai/">اسأل إستاڤو</a>
-            </div>
-            <div class="es-drawer__group">
                 <h2>مجتمع البروكرز</h2>
+                <a href="../market/">المخزون المحدّث</a>
                 <a href="../insights/">جديد السوق</a>
                 <a href="../jobs/">الوظائف</a>
                 <a href="../challenges/">ألعاب وتحديات</a>
-                <a href="../guides/">نصايح البيع</a>
+                <a href="../broker-ai/">اسأل إستاڤو</a>
             </div>
             <div class="es-drawer__group">
                 <h2>موقعك وتسويقك</h2>
@@ -3494,7 +3471,6 @@
                 <a href="../marketing/">فهم العميل</a>
                 <a href="../meta/">ربط <bdi>Meta</bdi></a>
                 <a href="../listings/">شبكة البروكرز</a>
-                <a href="../pricing/">أسعار وباقات المواقع</a>
             </div>
             <div class="es-drawer__group">
                 <h2>للشركات والمنصات</h2>
@@ -3525,7 +3501,7 @@
                         <a href="https://estavo-brokers.com/website/?audience=company" class="btn btn-gold btn-lg es-button--primary" data-track="website_preview_started" data-position="hero">اعمل موقع شركتك</a>
                         <a href="#how" class="btn btn-outline btn-lg" data-track="service_selected" data-position="enterprise_how">شوف تجربة موقع شركة</a>
                     </div>
-                    <p class="co-hero__note">إنشاء الموقع مجاني. بعد كده التكلفة حسب عدد الأعضاء والمدن المدفوعة والخدمات الاختيارية — شوف <a href="../pricing/">أسعار المواقع</a>. الشركة تفضل صاحبة البراند والحسابات وقرارات الوحدات وعلاقات البيع.</p>
+                    <p class="co-hero__note">إنشاء الموقع مجاني. بعد كده التكلفة حسب عدد الأعضاء والمدن المدفوعة والخدمات الاختيارية. الشركة تفضل صاحبة البراند والحسابات وقرارات الوحدات وعلاقات البيع.</p>
                 </div>
 
                 <div class="fxp-hero-art"><div class="pd" aria-hidden="true"><div class="pd__scene"><div class="pd-i pd-win" style="--x:2%;--y:9%;--w:86%"><div class="pd-win__bar"><i></i><i></i><i></i><b><bdi>yourcompany.com</bdi></b></div><img src="../assets/img/estavo-company-site-still.svg" data-pd-anim="../assets/img/estavo-company-site.svg" width="1024" height="640" alt="" decoding="async"></div><div class="pd-i pd-doc pd-doc--crop" style="--x:-4%;--y:58%;--w:30%;--z:140px;--d:0.5s;--crop:4 / 3"><img src="../assets/img/estavo-brand-unified-still.svg" data-pd-anim="../assets/img/estavo-brand-unified.svg" width="1024" height="640" alt="" decoding="async"></div></div><span class="pd-obj" style="--x:18%;--y:-4%;--w:20%"><img src="../assets/img/3d/tower.svg" width="200" height="200" alt=""></span><span class="pd-obj" style="--x:80%;--y:1%;--w:16%;--d:0.15s"><img src="../assets/img/3d/people.svg" width="200" height="200" alt=""></span><span class="pd-obj" style="--x:-6%;--y:42%;--w:17%;--d:0.3s"><img src="../assets/img/3d/database.svg" width="200" height="200" alt=""></span><span class="pd-obj" style="--x:86%;--y:56%;--w:17%;--d:0.45s"><img src="../assets/img/3d/browser.svg" width="200" height="200" alt=""></span><span class="pd-obj" style="--x:36%;--y:76%;--w:18%;--d:0.6s"><img src="../assets/img/3d/key.svg" width="200" height="200" alt=""></span></div></div>
@@ -3611,7 +3587,6 @@
                     <article class="co-output__item"><strong>رصيد مشترك</strong><p>كل عضو يضيف ٥٠ رابط تتبع و١٠٠ رسالة <bdi>Website AI</bdi> لكل مدينة مدفوعة شهريًا، مشتركة على موقع الشركة.</p></article>
                     <article class="co-output__item"><strong>زوّد الروابط لوحدها</strong><p>من غير مدينة جديدة: +٧٥ بـ٤٥٠ جنيه، +١٥٠ بـ٧٥٠، +٣٠٠ بـ١٬٢٠٠ أو +٧٥٠ بـ٢٬٤٠٠ جنيه شهريًا.</p></article>
                 </div>
-                <div class="section-actions" data-reveal><a href="../pricing/" class="btn btn-gold btn-lg es-button--primary">راجع الباقة كاملة</a></div>
             </div>
         </div>
 
@@ -3656,7 +3631,6 @@
                     <p class="eyebrow">أدوار وصلاحيات الفريق</p>
                     <h2 class="section-title" id="team-h">خلّي فريقك يركز على العميل، مش مطاردة آخر نسخة من الشيت.</h2>
                     <p class="section-body">الموقع والمشاريع والوحدات يجمعوا الشغل على أساس واحد. الأدوار والصلاحيات المتاحة بتتحدد وقت الإعداد حسب حجم الفريق وطريقة شغلكم.</p>
-                    <a href="../pricing/" class="sites-text-link">شوف اللي بيحدد النطاق</a>
                 </div>
                 <ol class="co-roles" data-reveal>
                     <li><strong>المالك أو الأدمن</strong><span>إعدادات الموقع والبراند والصلاحيات.</span></li>
@@ -3733,7 +3707,7 @@
                     <h2 class="section-title" id="scope-h">موقع الشركة، مشاريع السوق وشغل الفريق في نظام واحد.</h2>
                     <p class="section-body">موقع عقاري جاهز باسم شركتك، بمشاريع المدن اللي تختاروها ومحدّثة باستمرار. وإنتوا تضيفوا عقاراتكم وتديروا العملاء من نفس المكان.</p>
                     <p class="section-body">تقدر تبدأ موقع الشركة وتشوفه مع فريقك قبل ما تحدد المشاريع أو عدد المستخدمين أو أي خدمة مدفوعة. إنشاء الموقع مجاني، والبدء ما بينقلش ملكية أو صلاحيات أي حساب من حسابات الشركة.</p>
-                    <p class="section-body">إستاڤو بيتابع داتا المشاريع، فالفريق مش بيبنيها ولا يحدّثها بإيده. التكلفة حسب عدد الأعضاء والمدن المدفوعة والخدمات الاختيارية، وأسعار الباقات في <a href="../pricing/">أسعار المواقع</a>.</p>
+                    <p class="section-body">إستاڤو بيتابع داتا المشاريع، فالفريق مش بيبنيها ولا يحدّثها بإيده. التكلفة حسب عدد الأعضاء والمدن المدفوعة والخدمات الاختيارية.</p>
                 </div>
                 <dl class="scope-list" data-reveal>
                     <div><dt>المدن والبيانات</dt><dd>نطاق داتا السوق اللي الشركة عايزة تعرضه.</dd></div>
@@ -3763,7 +3737,7 @@
                     <details class="faq-item"><summary class="faq-question"><h3>هل <bdi>Client AI</bdi> يظهر باسم إستاڤو؟</h3></summary><p class="faq-answer">المساعد بيظهر جوّه موقع الشركة بهوية الموقع. الاسم والأيقونة بيتظبطوا ضمن الإعدادات المتاحة وقت الإعداد.</p></details>
                     <details class="faq-item"><summary class="faq-question"><h3>نقدر نربط حساب <bdi>Meta</bdi> بتاع الشركة؟</h3></summary><p class="faq-answer">أيوه. الأحداث المدعومة والمسموح بيها بتوصل لحساب الشركة، والملكية والجمهور والميزانية بيفضلوا قرار الشركة. الصلاحيات المطلوبة بتتراجع وقت الربط.</p></details>
                     <details class="faq-item"><summary class="faq-question"><h3>لو عندنا <bdi>CRM</bdi> أو <bdi>Website</bdi> بالفعل نعمل إيه؟</h3></summary><p class="faq-answer">تقدروا تكمّلوا بموقع <bdi>Estavo Sites</bdi> جنبه، أو تحتفظوا بمنصتكم وتناقشوا ربط الداتا والـ <bdi>AI</bdi> كنطاق مخصص من صفحة الربط.</p></details>
-                    <details class="faq-item"><summary class="faq-question"><h3>الشركة بتدفع على إيه؟</h3></summary><p class="faq-answer">إنشاء موقع الشركة مجاني. التكلفة الشهرية بتتحدد حسب عدد أعضاء الفريق، والمدن المدفوعة اللي مشاريعها بتظهر على الموقع، والخدمات الاختيارية زي الدومين الخاص أو خدمة الإدخال المُدارة أو ربط مخصص. اللي مش محتاجين تبنوه هو شغل الداتا: إستاڤو بيحدّث داتا <bdi dir="ltr">2,400+</bdi> مشروع من <bdi>700</bdi> مطوّر، فالفريق مش بيتابع الأسعار وخطط السداد بإيده. أسعار الباقات في <a href="../pricing/">أسعار المواقع</a>.</p></details>
+                    <details class="faq-item"><summary class="faq-question"><h3>الشركة بتدفع على إيه؟</h3></summary><p class="faq-answer">إنشاء موقع الشركة مجاني. التكلفة الشهرية بتتحدد حسب عدد أعضاء الفريق، والمدن المدفوعة اللي مشاريعها بتظهر على الموقع، والخدمات الاختيارية زي الدومين الخاص أو خدمة الإدخال المُدارة أو ربط مخصص. اللي مش محتاجين تبنوه هو شغل الداتا: إستاڤو بيحدّث داتا <bdi dir="ltr">2,400+</bdi> مشروع من <bdi>700</bdi> مطوّر، فالفريق مش بيتابع الأسعار وخطط السداد بإيده.</p></details>
                     <details class="faq-item"><summary class="faq-question"><h3>هل إستاڤو بيدير البيع أو الإعلانات بدلنا؟</h3></summary><p class="faq-answer">لأ. إستاڤو بيقدّم الموقع والداتا والأدوات. قرارات الحملات والميزانية والبيع والتفاوض بتفضل للشركة.</p></details>
                 </div>
             </div>
@@ -3790,7 +3764,7 @@
                     <img src="../assets/logo/Estavo%20Inverted%20full%20word%20logo.png" alt="إستاڤو"
                         width="4884" height="4884" loading="lazy" decoding="async" />
                     <p class="es-footer__tagline">
-                        مجتمع البروكرز في مصر: داتا السوق والمطورين، الأخبار والوظائف والتحديات،
+                        مجتمع البروكرز في مصر: داتا السوق والمطورين، الأخبار والوظائف والألعاب،
                         ومساعد <bdi>AI</bdi> يساعدك في شغلك.
                     </p>
                     <p class="es-footer__tagline">الجيل الجديد من شغل العقارات.</p>
@@ -3814,14 +3788,12 @@
                 <div>
                     <h2>السوق والمجتمع</h2>
                     <nav class="es-footer__links" aria-label="روابط السوق والمجتمع">
-                        <a href="../market/"><bdi>Estavo Market</bdi></a>
+                        <a href="../market/">المخزون المحدّث</a>
                         <a href="../developers/">المطورين</a>
-                        <a href="../roi/">كاش ولا تقسيط؟</a>
-                        <a href="../broker-ai/">اسأل إستاڤو</a>
                         <a href="../insights/">جديد السوق</a>
                         <a href="../jobs/">الوظائف</a>
                         <a href="../challenges/">ألعاب وتحديات</a>
-                        <a href="../guides/">نصايح البيع</a>
+                        <a href="../broker-ai/">اسأل إستاڤو</a>
                     </nav>
                 </div>
 
@@ -3834,7 +3806,6 @@
                         <a href="../marketing/">فهم العميل</a>
                         <a href="../meta/">ربط <bdi>Meta</bdi></a>
                         <a href="../listings/">شبكة البروكرز</a>
-                        <a href="../pricing/">أسعار وباقات المواقع</a>
                         <a href="../integrations/">ربط الداتا بمنصتك</a>
                     </nav>
                 </div>

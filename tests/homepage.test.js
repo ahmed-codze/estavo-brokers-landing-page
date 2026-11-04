@@ -35,7 +35,7 @@ function load(file) {
 }
 
 /* Relative route as each language writes it (English stays on English routes). */
-const route = (r, lang) => (lang === 'ar' ? r : r.startsWith('guides/') ? r.replace(/^guides\//, 'guides/en/') : r.replace(/\/$/, '/en.html'));
+const route = (r, lang) => (lang === 'ar' ? r : r.replace(/\/$/, '/en.html'));
 
 for (const [file, L] of [
     ['index.html', {
@@ -348,7 +348,7 @@ for (const [file, L] of [
         // SoftwareApplication lists the community pillars.
         const app = graph.find((node) => node['@type'] === 'SoftwareApplication');
         assert.ok(app.featureList.length >= 8);
-        assert.match(app.featureList.join(' '), ar ? /المطورين.*Estavo Daily.*كاش ولا تقسيط.*وظايف.*(ألعاب|الألعاب).*Brokers AI/ : /Developer.*Estavo Daily.*Cash or installments.*jobs.*Games.*Brokers AI/);
+        assert.match(app.featureList.join(' '), ar ? /المطورين.*Estavo Daily.*وظايف.*(ألعاب|الألعاب).*Brokers AI/ : /Developer.*Estavo Daily.*jobs.*Games.*Brokers AI/);
     });
 
     test(`${file}: metadata uses the community title`, () => {

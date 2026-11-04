@@ -232,7 +232,7 @@ function checkFile(file) {
   const isEnglish = /<html[^>]*lang="en"/.test(raw);
   if (isEnglish) {
     const arabicServiceLinks = raw.match(
-      /href="(?:\.\.)?\/(?:data|market|developers|roi|jobs|challenges|broker-ai|websites|ai|integrations|marketing|meta|insights|listings|enterprise|pricing|examples)\/"/g
+      /href="(?:\.\.)?\/(?:data|market|developers|jobs|challenges|broker-ai|websites|ai|integrations|marketing|meta|insights|listings|enterprise|examples)\/"/g
     ) || [];
     if (arabicServiceLinks.length) {
       failures.push(`${arabicServiceLinks.length} English-page link(s) point to Arabic service routes`);
@@ -284,10 +284,8 @@ function checkFile(file) {
     insights: 7,
     listings: 7,
     enterprise: 8,
-    pricing: 5,
     examples: 4,
     developers: 8,
-    roi: 8,
     jobs: 8,
     challenges: 8,
     'broker-ai': 8,
@@ -303,7 +301,7 @@ function checkFile(file) {
   // Owner rule (2026-10-29): a section subtitle stays about two lines on
   // desktop, so it reads as a subtitle and the phone page stays short.
   // Roughly 140 Arabic / 170 English characters of visible text.
-  if (['market', 'developers', 'roi', 'jobs', 'challenges', 'broker-ai', 'insights', 'integrations'].includes(route)) {
+  if (['market', 'developers', 'jobs', 'challenges', 'broker-ai', 'insights', 'integrations'].includes(route)) {
     const cap = isRtl ? 140 : 170;
     const leads = [...raw.matchAll(/<p class="(?:mk-lead|mk-hero__lead|mk-close__sub)[^"]*">([\s\S]*?)<\/p>/g)];
     for (const [, inner] of leads) {
@@ -316,7 +314,6 @@ function checkFile(file) {
   // their path through referral.js via data-keep-path).
   const deepDestination = {
     developers: 'https://brokers.estavo.space/register?redirect=%2Fdevelopers',
-    roi: 'https://brokers.estavo.space/register?redirect=%2Fprojects',
     jobs: 'https://brokers.estavo.space/register?redirect=%2Fjobs',
     challenges: 'https://brokers.estavo.space/games/exclusive',
     insights: 'https://brokers.estavo.space/register?redirect=%2Festavo-daily',
@@ -450,9 +447,9 @@ function main() {
 
   if (!files.length) {
     const roots = ['index.html', 'en.html'];
-    const dirs = ['data', 'market', 'developers', 'roi', 'jobs', 'challenges', 'broker-ai',
+    const dirs = ['data', 'market', 'developers', 'jobs', 'challenges', 'broker-ai',
       'websites', 'ai', 'integrations', 'marketing', 'meta',
-      'insights', 'listings', 'enterprise', 'pricing', 'examples'];
+      'insights', 'listings', 'enterprise', 'examples'];
     files = roots.map((f) => path.join(root, f));
     for (const d of dirs) {
       for (const f of ['index.html', 'en.html']) {

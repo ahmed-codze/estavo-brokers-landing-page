@@ -28,17 +28,6 @@
 .fxp-sec-art { position: relative; inline-size: 100%; min-inline-size: 0; max-inline-size: 46rem; margin: 0 auto; }
 .fxp-sec-art .pd-ex { position: absolute; inset-block-end: 0; inset-inline-end: 0; z-index: 4; padding: .3rem .65rem; border-radius: .5rem;
   background: rgb(255 255 255 / 92%); color: rgb(15 34 54 / 70%); font-size: .75rem; box-shadow: 0 6px 16px -8px rgb(15 34 54 / 40%); }
-/* the /roi/ calculator stays real HTML; two 3D objects float around it */
-.ro-stage { position: relative; }
-.pd-float { position: absolute; z-index: 3; inset-inline-start: var(--x); top: var(--y); inline-size: var(--w); pointer-events: none;
-  filter: drop-shadow(0 16px 20px rgb(15 34 54 / 16%)); }
-.pd-float > img { display: block; inline-size: 100%; block-size: auto; }
-@media (prefers-reduced-motion: no-preference) {
-  .pd-float > img { animation: pd-bob 6.5s ease-in-out infinite; }
-  .pd-float--b > img { animation-name: pd-bob2; animation-duration: 7.5s; }
-}
-@media (max-width: 40rem) { .pd-float { display: none; } }
-
 /* 3. Card grids → icon-led lists (no boxes, no mock chrome). Content stays. */
 :is(.cm-cards, .mk-cards, .es-card-grid, .es-feature-grid) { gap: clamp(1.25rem, 2.5vw, 2rem) clamp(1.5rem, 3vw, 3rem); }
 :is(.cm-card, .mk-card, .es-card, .es-feature-card) { position: relative; padding: 1rem 0 0 !important; border: 0 !important; border-radius: 0 !important;
