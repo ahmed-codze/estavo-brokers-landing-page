@@ -1,0 +1,65 @@
+{
+ "_comment": "Homepage pillar cover photos. Unsplash License (free commercial use, no attribution required); downloaded 2026-11-04 via the photo page download link, resized to 800px wide WebP.",
+ "photos": {
+  "developers.webp": {
+   "source": "https://unsplash.com/photos/_Yvc7TlKQSU",
+   "author": "Timur Seyfelmlyukov",
+   "description": "Construction crane and building under renovation",
+   "license": "Unsplash License",
+   "size": [
+    800,
+    533
+   ]
+  },
+  "jobs.webp": {
+   "source": "https://unsplash.com/photos/jEpZNyFSQwQ",
+   "author": "Vitaly Gariev",
+   "description": "HR manager shaking hands with a candidate after a job interview",
+   "license": "Unsplash License",
+   "size": [
+    800,
+    450
+   ]
+  },
+  "games.webp": {
+   "source": "https://unsplash.com/photos/Of_m3hMsoAA",
+   "author": "Jud Mackrill",
+   "description": "Four coworkers smiling around a laptop",
+   "license": "Unsplash License",
+   "size": [
+    800,
+    533
+   ]
+  },
+  "news.webp": {
+   "source": "https://unsplash.com/photos/61xM5EIiG5w",
+   "author": "Vitaly Gariev",
+   "description": "Man smiling while looking at his phone at desk",
+   "license": "Unsplash License",
+   "size": [
+    800,
+    450
+   ]
+  },
+  "branding.webp": {
+   "source": "https://unsplash.com/photos/OvXZDyt7rXE",
+   "author": "Vitaly Gariev",
+   "description": "Young businessman in a suit smiling confidently",
+   "license": "Unsplash License",
+   "size": [
+    800,
+    450
+   ]
+  },
+  "pdf.webp": {
+   "source": "https://unsplash.com/photos/n95VMLxqM2I",
+   "author": "Cytonn Photography",
+   "description": "Two people shaking hands",
+   "license": "Unsplash License",
+   "size": [
+    800,
+    534
+   ]
+  }
+ }
+}
