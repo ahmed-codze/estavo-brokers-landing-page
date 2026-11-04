@@ -82,7 +82,10 @@ function versioned(url) {
    composition kit (pd.css/pd.js) and the site layer (hero layouts, flattened
    card grids). They come last so they win over page systems. */
 const FX_STYLES = ['/assets/css/pd.css', '/assets/css/fx-site.css'];
-const FX_SCRIPTS = ['/assets/js/pd.js'];
+const FX_SCRIPTS = ['/assets/js/pd.js', '/assets/js/try-popup.js'];
+/* Sites pages convert to free website creation; every other page to free Estavo Market. */
+const TRY_AUDIENCE = { websites: 'individual', enterprise: 'company' };
+const SITE_ROUTES = new Set(['websites', 'enterprise', 'ai', 'marketing', 'meta', 'listings', 'examples']);
 
 function routeStyles(key) {
   return [...(ROUTE_ASSETS[key]?.styles || []), ...FX_STYLES]
@@ -397,6 +400,8 @@ function buildPage(route, lang) {
     + decorateLandingBody(body, route, lang)
     + '\n    </main>\n'
     + partial(`footer.${lang}.html`)
+    + partial(`try.${SITE_ROUTES.has(route.key) ? 'site' : 'market'}.${lang}.html`)
+        .replace(/https:\/\/estavo-brokers\.com\/website\/"/g, `https://estavo-brokers.com/website/${TRY_AUDIENCE[route.key] ? `?audience=${TRY_AUDIENCE[route.key]}` : ''}"`)
     + `
     <script src="${versioned('/assets/js/referral.js')}" defer></script>
 ${scripts ? `${scripts}\n` : ''}    <script src="${versioned('/assets/js/v3/estavo-v3.js')}" defer></script>

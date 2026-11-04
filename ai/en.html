@@ -70,7 +70,7 @@
     <link rel="stylesheet" href="../assets/css/commercial.css?v=984eb4968d" />
     <link rel="stylesheet" href="../assets/css/pages/ai.css?v=be49e3edf9" />
     <link rel="stylesheet" href="../assets/css/pd.css?v=2709b5b73c" />
-    <link rel="stylesheet" href="../assets/css/fx-site.css?v=d5909782d4" />
+    <link rel="stylesheet" href="../assets/css/fx-site.css?v=0db46f08e2" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap" rel="stylesheet" />
@@ -3771,10 +3771,26 @@
         </div>
     </footer>
 
+    <div class="try-pop" data-try-pop hidden>
+        <div class="try-pop__backdrop" data-try-close></div>
+        <div class="try-pop__card" role="dialog" aria-modal="true" aria-labelledby="try-pop-title">
+            <button type="button" class="try-pop__x" data-try-close aria-label="Close">×</button>
+            <img class="try-pop__guide" src="../assets/img/mascot/estavo-guide-waving-200.webp" width="200" height="324" alt="" aria-hidden="true"><img class="try-pop__logo" src="../assets/logo/estavo-brokers-logo-320.webp" width="320" height="320" alt="Estavo">
+            <h2 class="try-pop__title" id="try-pop-title">Your website, under your name, in about 5 minutes</h2>
+            <p class="try-pop__sub">Creating the site is free, and it fills with up-to-date Estavo projects and units.</p>
+            <ul class="try-pop__chips"><li>Free to create</li><li>Your name, logo and number</li><li>About 5 minutes</li></ul>
+            <a href="https://estavo-brokers.com/website/" class="try-pop__cta" data-track="website_preview_started" data-position="popup">Create your free website</a>
+            <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="try-pop__alt" data-track="market_opened" data-position="popup_alt">Or try Estavo Market free</a>
+            <button type="button" class="try-pop__later" data-try-close>Maybe later</button>
+        </div>
+    </div>
+    <div class="try-sticky" data-try-sticky hidden><a href="https://estavo-brokers.com/website/" class="try-sticky__cta" data-track="website_preview_started" data-position="sticky_try">Create your free website</a></div>
+
     <script src="../assets/js/referral.js?v=2148998f84" defer></script>
     <script src="../assets/js/commercial-page.js?v=63970ac5ff" defer></script>
     <script src="../assets/js/ai-conversation.js?v=1e95506330" defer></script>
     <script src="../assets/js/pd.js?v=e65fca32c8" defer></script>
+    <script src="../assets/js/try-popup.js?v=1f277e7f50" defer></script>
     <script src="../assets/js/v3/estavo-v3.js?v=bb425e08c2" defer></script>
 </body>
 

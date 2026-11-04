@@ -71,7 +71,7 @@
     <link rel="stylesheet" href="../assets/css/pages/community.css?v=a92f637351" />
     <link rel="stylesheet" href="../assets/css/pages/integrations.css?v=a49d2db9ea" />
     <link rel="stylesheet" href="../assets/css/pd.css?v=2709b5b73c" />
-    <link rel="stylesheet" href="../assets/css/fx-site.css?v=d5909782d4" />
+    <link rel="stylesheet" href="../assets/css/fx-site.css?v=0db46f08e2" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&amp;family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&amp;display=swap" rel="stylesheet" />
@@ -3964,10 +3964,26 @@ Idempotency-Key: &lt;batch-uuid&gt;
         </div>
     </footer>
 
+    <div class="try-pop" data-try-pop hidden>
+        <div class="try-pop__backdrop" data-try-close></div>
+        <div class="try-pop__card" role="dialog" aria-modal="true" aria-labelledby="try-pop-title">
+            <button type="button" class="try-pop__x" data-try-close aria-label="اقفل">×</button>
+            <img class="try-pop__guide" src="../assets/img/mascot/estavo-guide-waving-200.webp" width="200" height="324" alt="" aria-hidden="true"><img class="try-pop__logo" src="../assets/logo/estavo-brokers-logo-320.webp" width="320" height="320" alt="Estavo">
+            <h2 class="try-pop__title" id="try-pop-title">جرّب إستاڤو مجانًا</h2>
+            <p class="try-pop__sub">مخزون المطورين المحدّث، جديد السوق، الوظائف و<bdi>Brokers AI</bdi>. مجاني بالكامل حاليًا.</p>
+            <ul class="try-pop__chips"><li>مجاني بالكامل حاليًا</li><li>من غير نسبة من عمولتك</li><li>تسجيل في دقيقة</li></ul>
+            <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="try-pop__cta" data-track="market_opened" data-position="popup">ابدأ مجانًا دلوقتي</a>
+            
+            <button type="button" class="try-pop__later" data-try-close>بعدين</button>
+        </div>
+    </div>
+    <div class="try-sticky" data-try-sticky hidden><a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="try-sticky__cta" data-track="market_opened" data-position="sticky_try">ابدأ مجانًا دلوقتي</a></div>
+
     <script src="../assets/js/referral.js?v=2148998f84" defer></script>
     <script src="../assets/js/market-landing.js?v=9e58f3c06b" defer></script>
     <script src="../assets/js/pages/integrations.js?v=e9f9840500" defer></script>
     <script src="../assets/js/pd.js?v=e65fca32c8" defer></script>
+    <script src="../assets/js/try-popup.js?v=1f277e7f50" defer></script>
     <script src="../assets/js/v3/estavo-v3.js?v=bb425e08c2" defer></script>
 </body>
 

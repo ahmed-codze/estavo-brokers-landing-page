@@ -255,7 +255,7 @@
 <link rel="stylesheet" href="assets/css/home-critical.css?v=353b7a3c72" />
 <link rel="stylesheet" href="assets/css/home.css?v=98e5140768" />
 <link rel="stylesheet" href="assets/css/pd.css?v=2709b5b73c" />
-<link rel="stylesheet" href="assets/css/fx-site.css?v=d5909782d4" />
+<link rel="stylesheet" href="assets/css/fx-site.css?v=0db46f08e2" />
 </head>
 
 <body class="es es-home es-landing">
@@ -823,6 +823,21 @@
             </div>
         </div>
     </footer>
+    <div class="try-pop" data-try-pop hidden>
+        <div class="try-pop__backdrop" data-try-close></div>
+        <div class="try-pop__card" role="dialog" aria-modal="true" aria-labelledby="try-pop-title">
+            <button type="button" class="try-pop__x" data-try-close aria-label="اقفل">×</button>
+            <img class="try-pop__guide" src="assets/img/mascot/estavo-guide-waving-200.webp" width="200" height="324" alt="" aria-hidden="true"><img class="try-pop__logo" src="assets/logo/estavo-brokers-logo-320.webp" width="320" height="320" alt="Estavo">
+            <h2 class="try-pop__title" id="try-pop-title">جرّب إستاڤو مجانًا</h2>
+            <p class="try-pop__sub">مخزون المطورين المحدّث، جديد السوق، الوظائف و<bdi>Brokers AI</bdi>. مجاني بالكامل حاليًا.</p>
+            <ul class="try-pop__chips"><li>مجاني بالكامل حاليًا</li><li>من غير نسبة من عمولتك</li><li>تسجيل في دقيقة</li></ul>
+            <a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="try-pop__cta" data-track="market_opened" data-position="popup">ابدأ مجانًا دلوقتي</a>
+            
+            <button type="button" class="try-pop__later" data-try-close>بعدين</button>
+        </div>
+    </div>
+    <div class="try-sticky" data-try-sticky hidden><a href="https://brokers.estavo.space/go/?ref=default-landing-page-market" class="try-sticky__cta" data-track="market_opened" data-position="sticky_try">ابدأ مجانًا دلوقتي</a></div>
+
 
 
 
@@ -833,6 +848,7 @@
     <script src="assets/js/home.js?v=4542840f9e" defer></script>
     <script src="assets/js/home-motion.js?v=140dba0644" defer></script>
     <script src="assets/js/pd.js?v=e65fca32c8" defer></script>
+    <script src="assets/js/try-popup.js?v=1f277e7f50" defer></script>
     <script src="assets/js/raghad-loader.js?v=20261011-public" defer></script>
 
     <div class="es-sticky-cta sticky-cta es-home-sticky visible" data-home-sticky aria-hidden="false">
