@@ -47,21 +47,55 @@
   background: linear-gradient(var(--pd-fwd), var(--pd-electric), rgb(79 156 240 / 0%) 70%); }
 :is(.cm-card, .mk-card, .es-card, .es-feature-card):hover { transform: none !important; }
 
-/* 4. Homepage */
-.es-home-dest .fxp-dest-orb { display: block; inline-size: 4.75rem; margin-block-end: .5rem; filter: drop-shadow(0 12px 14px rgb(15 34 54 / 14%));
-  transition: transform .3s cubic-bezier(.2, .7, .2, 1); }
-.es-home-dest .fxp-dest-orb > img { display: block; inline-size: 100%; block-size: auto; }
-.es-home-dest:hover .fxp-dest-orb { transform: translateY(-4px) rotate(-3deg); }
-.es-home-dest { border: 0 !important; background: none !important; box-shadow: none !important; padding: 0 !important; }
+/* 4. Homepage — pillar panels: a real product screen + its soft 3D object (no icon tiles) */
+.es-home-dests { display: grid !important; grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 1.25rem !important; }
+.es-home-dest { position: relative; display: flex !important; flex-direction: column; justify-content: flex-end; gap: .35rem !important;
+  min-block-size: 24rem; padding: 1.25rem 1.35rem 1.4rem !important; overflow: hidden; border: 1px solid rgb(22 62 105 / 8%) !important;
+  border-radius: 1.6rem !important; background: linear-gradient(170deg, #eaf2fc 0%, #f7faff 58%, #fff 100%) !important;
+  box-shadow: 0 1px 0 #fff inset, 0 24px 50px -36px rgb(15 34 54 / 45%) !important; transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s; }
+.es-home-dests > li:nth-child(4n+2) .es-home-dest { background: linear-gradient(170deg, #e8f0fa 0%, #f6f9fe 58%, #fff 100%) !important; }
+.es-home-dests > li:nth-child(4n+3) .es-home-dest { background: linear-gradient(170deg, #edf3fb 0%, #f8fbff 58%, #fff 100%) !important; }
+.es-home-dest--cash { background: linear-gradient(170deg, #e5f6ef 0%, #f6fbf9 58%, #fff 100%) !important; }
+.es-home-dest--game { background: linear-gradient(170deg, #fdf3e1 0%, #fffaf2 58%, #fff 100%) !important; }
+.es-home-dest:hover { transform: translateY(-4px) !important; box-shadow: 0 1px 0 #fff inset, 0 34px 60px -34px rgb(15 34 54 / 55%) !important; }
 .es-home-dest > * { padding-inline: 0 !important; }
-.es-home-dest:hover { transform: none; }
-.es-home-dest:hover .es-home-dest__name { color: var(--pd-blue); }
+.dest-shot { position: absolute; inset-block-start: 1.4rem; inset-inline: 1.3rem -2.5rem; block-size: 13.5rem; overflow: hidden; container-type: inline-size;
+  border-radius: 1rem; background: #fff; box-shadow: 0 30px 50px -30px rgb(15 34 54 / 50%), 0 0 0 1px rgb(22 62 105 / 8%);
+  transform: perspective(900px) rotateY(-10deg) rotateX(4deg); transform-origin: 100% 0; transition: transform .45s cubic-bezier(.2, .7, .2, 1); }
+[dir="ltr"] .dest-shot { transform: perspective(900px) rotateY(10deg) rotateX(4deg); transform-origin: 0 0; }
+.dest-shot > img { display: block; inline-size: 100%; block-size: auto; }
+.dest-shot > .pd-app { font-size: clamp(.45rem, 3.2cqi, .8rem); padding: 5cqi; }
+.es-home-dest:hover .dest-shot { transform: perspective(900px) rotateY(-4deg) rotateX(2deg) translateY(-4px); }
+[dir="ltr"] .es-home-dest:hover .dest-shot { transform: perspective(900px) rotateY(4deg) rotateX(2deg) translateY(-4px); }
+.es-home-dest .fxp-dest-orb { position: absolute; inset-block-start: 11.2rem; inset-inline-end: .9rem; z-index: 2; display: block; inline-size: 5.5rem; margin: 0;
+  filter: drop-shadow(0 14px 16px rgb(15 34 54 / 20%)); transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
+.es-home-dest .fxp-dest-orb > img { display: block; inline-size: 100%; block-size: auto; }
+.es-home-dest:hover .fxp-dest-orb { transform: translateY(-6px) rotate(-4deg); }
+.es-home-dest__name { position: relative; z-index: 2; font-size: 1.2rem !important; }
+.es-home-dest__name::after { content: none !important; }
+.es-home-dest__line { position: relative; z-index: 2; }
+@media (max-width: 64rem) { .es-home-dests { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
 @media (max-width: 36rem) {
-  .es-home-dest { grid-template-columns: 4rem minmax(0, 1fr) !important; padding: .5rem 0 !important; }
-  .es-home-dest > .fxp-dest-orb { grid-column: 1; grid-row: 1 / span 2; margin: 0; inline-size: 3.5rem; }
+  .es-home-dests { display: flex !important; gap: .9rem !important; overflow-x: auto; scroll-snap-type: x mandatory; padding-block-end: .75rem;
+    margin-inline: calc(-1 * var(--es-gutter, 1.25rem)); padding-inline: var(--es-gutter, 1.25rem); scrollbar-width: none; }
+  .es-home-dests > li { flex: 0 0 78%; scroll-snap-align: center; }
+  .es-home-dest { min-block-size: 22rem; display: flex !important; grid-template-columns: none !important; }
+  .es-home-dest > .fxp-dest-orb { grid-column: auto; grid-row: auto; inline-size: 4.75rem; inset-block-start: 10.5rem; }
+  .dest-shot { block-size: 12.5rem; }
 }
+
+/* today: editorial layout, no outer box; the lead story carries a soft 3D newspaper */
+.es-home-today { border: 0 !important; background: none !important; box-shadow: none !important; padding: 0 !important; }
+.es-home-today__head { border: 0 !important; padding-inline: 0 !important; }
+.es-home-today__grid { gap: 0 clamp(1.5rem, 3vw, 3rem) !important; }
 .es-home-story { border: 0 !important; background: none !important; box-shadow: none !important; border-radius: 0 !important;
-  border-block-start: 1px solid rgb(22 62 105 / 14%) !important; }
+  border-block-start: 1px solid rgb(22 62 105 / 12%) !important; padding: 1.25rem 0 !important; }
+.es-home-story--lead { position: relative; border-block-start: 0 !important; padding-block-start: 0 !important; }
+.es-home-story--lead > :not(img) { padding-inline: 0 !important; }
+.es-home-story--lead .es-home-story__photo { border-radius: 1.5rem !important; box-shadow: 0 34px 60px -40px rgb(15 34 54 / 60%); }
+.es-home-story--lead::after { content: ""; position: absolute; inset-block-start: -1.5rem; inset-inline-start: -1.5rem; inline-size: 6.5rem; aspect-ratio: 1;
+  background: url("../img/3d/newspaper.svg") center / contain no-repeat; filter: drop-shadow(0 14px 16px rgb(15 34 54 / 20%)); pointer-events: none; }
+@media (max-width: 36rem) { .es-home-story--lead::after { inline-size: 4.5rem; inset-block-start: -1rem; inset-inline-start: -.5rem; } }
 
 /* 5. Sequential scenarios (tabs removed by owner direction) */
 .ba-steps--seq { display: grid; gap: clamp(2.5rem, 6vw, 4.5rem); }
