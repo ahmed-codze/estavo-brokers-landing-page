@@ -224,7 +224,7 @@ for (const [file, L] of [
         const arts = [...doc.querySelectorAll('main figure.fxp-sec-art')];
         assert.deepEqual(arts.map((f) => f.closest('section').id), ['home-data', 'home-ai', 'home-website', 'home-integrations']);
         arts.forEach((f) => {
-            assert.ok(f.querySelector('.pd .pd__scene'), 'product composition');
+            assert.ok(f.querySelector('.pd .pd__scene, .ws .ws-win'), 'product composition');
             const img = f.querySelector('img');
             assert.ok(img.getAttribute('width') && img.getAttribute('height'));
             assert.match(img.getAttribute('src'), /assets\/img\/(market|3d|estavo-|home)/);
