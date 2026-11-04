@@ -151,19 +151,16 @@ for (const [file, L] of [
         }
     });
 
-    test(`${file}: today board links every story to its own page, with example content only`, () => {
+    test(`${file}: today board shows real Estavo items (news, launches, jobs, a game), each linked to its page`, () => {
         const { doc } = load(file);
         const board = doc.querySelector('#home-today [data-home-today]');
-        assert.match(text(board.querySelector('.es-home-today__head')), new RegExp(L.example));
+        assert.match(text(board.querySelector('.es-home-today__head')), ar ? /بيانات إستاڤو/ : /Estavo data/, 'dated data snapshot label');
         const stories = [...board.querySelectorAll('.es-home-story')];
-        assert.equal(stories.length, 5);
+        assert.equal(stories.length, 7);
         assert.equal(board.querySelectorAll('.es-home-story--lead').length, 1);
         const hrefs = stories.map((s) => s.querySelector('a').getAttribute('href'));
-        assert.deepEqual(hrefs, ['insights/', 'insights/', 'jobs/', 'challenges/', 'guides/compare-payment-plans/'].map((r) => route(r, L.lang)));
-        // The selling guide is a real, published guide.
-        assert.ok(fs.existsSync(path.join(__dirname, '..', hrefs[4], 'index.html')), hrefs[4]);
+        assert.deepEqual(hrefs, ['insights/', 'insights/', 'insights/', 'insights/', 'jobs/', 'jobs/', 'challenges/'].map((r) => route(r, L.lang)));
         stories.forEach((s) => assert.ok(text(s.querySelector('.es-home-story__type')).length > 2));
-        // Relative dates only inside examples; no live-looking calendar dates.
         for (const sel of ['#home-today', '#home-hero']) {
             assert.doesNotMatch(text(doc.querySelector(sel)), /\b\d{1,2} (يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|أغسطس|سبتمبر|أكتوبر|نوفمبر|ديسمبر|January|February|March|April|May|June|July|August|September|October|November|December)/);
         }
@@ -237,7 +234,7 @@ for (const [file, L] of [
 
     test(`${file}: every example surface is labelled`, () => {
         const { doc } = load(file);
-        assert.ok(doc.querySelector('[data-home-today]').textContent.includes(L.example), 'today');
+        assert.match(doc.querySelector('[data-home-today]').textContent, ar ? /بيانات إستاڤو/ : /Estavo data/, 'today is a dated data snapshot');
         doc.querySelectorAll('main figure.fxp-sec-art').forEach((f) => assert.ok(f.textContent.includes(L.example), f.closest('section').id));
     });
 

@@ -252,7 +252,7 @@
 <link rel="stylesheet" href="assets/css/home-critical.css?v=353b7a3c72" />
 <link rel="stylesheet" href="assets/css/home.css?v=98e5140768" />
 <link rel="stylesheet" href="assets/css/pd.css?v=2709b5b73c" />
-<link rel="stylesheet" href="assets/css/fx-site.css?v=c47de93696" />
+<link rel="stylesheet" href="assets/css/fx-site.css?v=8700ae5171" />
 </head>
 
 <body class="es es-home es-landing">
@@ -625,37 +625,53 @@
                 </div>
 
                 <div class="es-home-today" data-home-today>
-                    <p class="es-home-today__head"><b>Inside Estavo</b><span class="es-home-example">Example</span></p>
+                    <p class="es-home-today__head"><b>Inside Estavo</b><span class="es-home-example">Estavo data · Nov 2026</span></p>
                     <div class="es-home-today__art"><div class="pd" aria-hidden="true"><div class="pd__scene"><div class="pd-i pd-win" style="--x:4%;--y:10%;--w:82%"><div class="pd-win__bar"><i></i><i></i><i></i><b><bdi>brokers.estavo.space</bdi></b></div><img src="assets/img/market/daily-en-still.svg" data-pd-anim="assets/img/market/daily-en.svg" width="560" height="490" alt="" decoding="async" loading="lazy"></div><div class="pd-i pd-phone" style="--x:66%;--y:22%;--w:30%;--z:90px;--d:0.3s"><img src="assets/img/market/chat-mobile-en-still.svg" data-pd-anim="assets/img/market/chat-mobile-en.svg" width="360" height="749" alt="" decoding="async" loading="lazy"></div><div class="pd-i pd-chip pd-chip--good" style="--x:50%;--y:82%;--z:170px;--d:1.1s">New launch<small>Project B · New Cairo</small></div></div><span class="pd-obj" style="--x:80%;--y:-2%;--w:16%"><img src="assets/img/3d/newspaper.svg" width="200" height="200" alt=""></span><span class="pd-obj" style="--x:-6%;--y:60%;--w:16%;--d:0.15s"><img src="assets/img/3d/rocket.svg" width="200" height="200" alt=""></span><span class="pd-obj" style="--x:70%;--y:78%;--w:15%;--d:0.3s"><img src="assets/img/3d/briefcase.svg" width="200" height="200" alt=""></span></div></div>
-                    <div class="es-home-today__grid">
-                    <article class="es-home-story es-home-story--lead">
-                        <p class="es-home-story__type"><svg class="es-home-ic" aria-hidden="true"><use href="#i-launch" /></svg>Developer launch · Today</p>
-                        <h3 class="es-home-story__title">Developer B launches a new project in the New Capital</h3>
-                        <p class="es-home-story__sum">Apartments and duplexes. Details and payment plans are on the project page inside Estavo.</p>
-                        <a href="insights/en.html" class="es-home-link es-home-story__link" data-track="service_selected" data-position="today_launch" data-home-event="home_today_click">Follow market news</a>
+                    <input type="checkbox" id="today-more" class="today-more" hidden><div class="es-home-today__grid">
+                    <article class="es-home-story es-home-story--news es-home-story--lead">
+                        <p class="es-home-story__type"><svg class="es-home-ic" aria-hidden="true"><use href="#i-news" /></svg>Market news</p>
+                        <h3 class="es-home-story__title">Tatweer Misr reports EGP 62 billion in contracted sales in the first nine months of 2026</h3>
+                        <p class="es-home-story__sum">About 3,600 homes sold, according to the Estavo Daily brief.</p>
+                        <a href="insights/en.html" class="es-home-link es-home-story__link" data-track="service_selected" data-position="today_news" data-home-event="home_today_click">Read the story</a>
                     </article>
-                    <article class="es-home-story">
-                        <p class="es-home-story__type"><svg class="es-home-ic" aria-hidden="true"><use href="#i-news" /></svg>Estavo Daily brief</p>
-                        <h3 class="es-home-story__title">Today’s market news in a few minutes: developers, projects and finance.</h3>
-                        <a href="insights/en.html" class="es-home-link es-home-story__link" data-track="service_selected" data-position="today_daily" data-home-event="home_today_click">Read the brief</a>
+                    <article class="es-home-story es-home-story--news">
+                        <p class="es-home-story__type"><svg class="es-home-ic" aria-hidden="true"><use href="#i-news" /></svg>Market news · Government</p>
+                        <h3 class="es-home-story__title">Prime Minister: registration circular for Prince Mustafa Abdel Mannan endowment lands suspended in 3 governorates</h3>
+                        <p class="es-home-story__sum">A government decision that affects property registration.</p>
+                        <a href="insights/en.html" class="es-home-link es-home-story__link" data-track="service_selected" data-position="today_gov" data-home-event="home_today_click">Read the story</a>
                     </article>
-                    <article class="es-home-story">
-                        <p class="es-home-story__type"><svg class="es-home-ic" aria-hidden="true"><use href="#i-briefcase" /></svg>Open job</p>
-                        <h3 class="es-home-story__title">Property consultant · New Cairo</h3>
-                        <p class="es-home-story__sum">Example Developments · Full time</p>
-                        <a href="jobs/en.html" class="es-home-link es-home-story__link" data-track="service_selected" data-position="today_jobs" data-home-event="home_today_click">See the jobs</a>
+                    <article class="es-home-story es-home-story--launch">
+                        <p class="es-home-story__type"><svg class="es-home-ic" aria-hidden="true"><use href="#i-launch" /></svg>New launch · Obour</p>
+                        <h3 class="es-home-story__title">D Developments launches: a new Egyptian-Saudi developer with four projects in Obour</h3>
+                        <p class="es-home-story__sum">From Al-Hokair Group; details on the launch page in Estavo.</p>
+                        <a href="insights/en.html" class="es-home-link es-home-story__link" data-track="service_selected" data-position="today_launch" data-home-event="home_today_click">See launches</a>
                     </article>
-                    <article class="es-home-story">
-                        <p class="es-home-story__type"><svg class="es-home-ic" aria-hidden="true"><use href="#i-game" /></svg>Games & challenges</p>
-                        <h3 class="es-home-story__title">Open a room and share the code on WhatsApp, or practise against Estavo AI.</h3>
-                        <a href="challenges/en.html" class="es-home-link es-home-story__link" data-track="service_selected" data-position="today_challenge" data-home-event="home_today_click">Play with colleagues</a>
+                    <article class="es-home-story es-home-story--launch">
+                        <p class="es-home-story__type"><svg class="es-home-ic" aria-hidden="true"><use href="#i-launch" /></svg>Coming launch · New Obour</p>
+                        <h3 class="es-home-story__title">Arabesque Developments prepares an integrated project in New Obour</h3>
+                        <p class="es-home-story__sum">You will find it in Launches once it is published.</p>
+                        <a href="insights/en.html" class="es-home-link es-home-story__link" data-track="service_selected" data-position="today_launch2" data-home-event="home_today_click">See launches</a>
                     </article>
-                    <article class="es-home-story es-home-story--real">
-                        <p class="es-home-story__type"><svg class="es-home-ic" aria-hidden="true"><use href="#i-guide" /></svg>Selling tips</p>
-                        <h3 class="es-home-story__title">How to compare property payment plans without misleading a client</h3>
-                        <a href="guides/en/compare-payment-plans/" class="es-home-link es-home-story__link" data-track="service_selected" data-position="today_guide" data-home-event="home_today_click">Read the guide</a>
+                    <article class="es-home-story es-home-story--jobs">
+                        <p class="es-home-story__type"><svg class="es-home-ic" aria-hidden="true"><use href="#i-briefcase" /></svg>Open job · El Shorouk</p>
+                        <h3 class="es-home-story__title">Sales Supervisor, Real Estate · ASWAQ Developments</h3>
+                        <p class="es-home-story__sum">Full time · apply on the original listing.</p>
+                        <a href="jobs/en.html" class="es-home-link es-home-story__link" data-track="service_selected" data-position="today_jobs" data-home-event="home_today_click">See jobs</a>
+                    </article>
+                    <article class="es-home-story es-home-story--jobs">
+                        <p class="es-home-story__type"><svg class="es-home-ic" aria-hidden="true"><use href="#i-briefcase" /></svg>Open job · New Cairo</p>
+                        <h3 class="es-home-story__title">Senior Property Consultant</h3>
+                        <p class="es-home-story__sum">Full time · apply on the original listing.</p>
+                        <a href="jobs/en.html" class="es-home-link es-home-story__link" data-track="service_selected" data-position="today_jobs2" data-home-event="home_today_click">See jobs</a>
+                    </article>
+                    <article class="es-home-story es-home-story--game">
+                        <p class="es-home-story__type"><svg class="es-home-ic" aria-hidden="true"><use href="#i-game" /></svg>Game of the day</p>
+                        <h3 class="es-home-story__title">Name a project in Sheikh Zayed… that nobody else in the room says</h3>
+                        <p class="es-home-story__sum">Open a room and share the code, or play against Estavo AI. No account.</p>
+                        <a href="challenges/en.html" class="es-home-link es-home-story__link" data-track="service_selected" data-position="today_game" data-home-event="home_today_click">Play now</a>
                     </article>
                     </div>
+                    <label for="today-more" class="today-more__btn"><span class="is-more">See everything from today</span><span class="is-less">Less</span></label>
                 </div>
             </div>
         </section>
@@ -829,7 +845,7 @@
     <script src="assets/js/v3/estavo-v3.js?v=bb425e08c2" defer></script>
     <script src="assets/js/home.js?v=4542840f9e" defer></script>
     <script src="assets/js/home-motion.js?v=140dba0644" defer></script>
-    <script src="assets/js/pd.js?v=995e3f9e24" defer></script>
+    <script src="assets/js/pd.js?v=e65fca32c8" defer></script>
     <script src="assets/js/raghad-loader.js?v=20261011-public" defer></script>
 
     <div class="es-sticky-cta sticky-cta es-home-sticky visible" data-home-sticky aria-hidden="false">

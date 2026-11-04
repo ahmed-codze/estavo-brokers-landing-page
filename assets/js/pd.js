@@ -7,6 +7,12 @@
 (() => {
   const mq = (q) => window.matchMedia && window.matchMedia(q).matches;
   if (mq('(prefers-reduced-motion: reduce)') || !('IntersectionObserver' in window)) return;
+  // pause looping cover/list animations while their section is off screen
+  const loops = document.querySelectorAll('.es-home-dests, .es-home-today');
+  if (loops.length) {
+    const lo = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('is-off', !e.isIntersecting)), { rootMargin: '120px 0px' });
+    loops.forEach((el) => lo.observe(el));
+  }
   const stages = [...document.querySelectorAll('.pd')];
   if (!stages.length) return;
   const play = (st) => {
