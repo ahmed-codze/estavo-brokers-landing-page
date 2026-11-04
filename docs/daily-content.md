@@ -1,5 +1,7 @@
 # Daily landing content
 
+**Current status — regression recovery:** Daily UI injection is disabled. The build preserves the approved source artwork on all 32 pages. The owner rejected the extra “Estavo selections” sections; do not restore them. The cached API pipeline remains available, but its records are not displayed until layout-preserving bindings are implemented and visually reviewed. The older implementation description below is historical, not the current UI contract. Missing data must never replace a marketing illustration with an empty panel.
+
 Implemented 4 November 2026. The marketing surface is 32 pages: Arabic/English home plus 15 service routes. This work is prepared and verified locally; it does not change the production checkout, web-server root or installed production timers.
 
 ## Publication plan and contract

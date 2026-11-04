@@ -27,4 +27,4 @@ For a local page preview, serve this directory over HTTP. Override the loader's 
 
 ## Daily examples across the landing pages
 
-The 32 current marketing pages can render one bounded Estavo content edition per Cairo day, with local thumbnails and no browser API fetches. Home sources now live in `tools/home/`; use `npm run build` after editing them or service templates. See [the contract, security boundaries, validation and activation runbook](docs/daily-content.md). The daily API, atomic publisher and timer are implemented; production activation is a separate deployment step.
+The 32 current marketing pages preserve their approved artwork. Daily visual injection is disabled after a layout regression; the cached feed infrastructure remains available but is not displayed. Home sources now live in `tools/home/`; use `npm run build` after editing them or service templates. See [the contract, security boundaries, validation and activation runbook](docs/daily-content.md). The daily API, atomic publisher and timer are implemented; production activation is a separate deployment step.

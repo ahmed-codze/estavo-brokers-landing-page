@@ -23,11 +23,8 @@ const ROOT = path.join(__dirname, '..');
 const OUTPUT = process.env.LANDING_OUTPUT_DIR || ROOT;
 const routes = JSON.parse(fs.readFileSync(path.join(__dirname, 'routes.json'), 'utf8'));
 const SITE = 'https://estavo-brokers.com';
-const { read: readEdition } = require('./daily/cache');
 const { applyDaily } = require('./daily/render');
-const edition = readEdition(process.env.LANDING_CACHE_DIR || path.join(ROOT, '.cache/landing'));
-const emptyEdition = { snapshot_date: '—', generated_at: new Date().toISOString(), projects: [], units: [], developers: [], news: [], launches: [], jobs: [], games: [] };
-function withDaily(html, key, lang) { return applyDaily(html, key, lang, edition || emptyEdition); }
+function withDaily(html) { return applyDaily(html); }
 
 
 /* Commercial pages share the reading rhythm and interaction layer, while

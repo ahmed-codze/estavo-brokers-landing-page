@@ -8,7 +8,9 @@ Last consolidated from the working site: **19 September 2026**; homepage section
 
 ### Daily content editions — 4 November 2026
 
-Read [daily content](docs/daily-content.md) before changing live examples, caching, publication or data access. Home authoring now lives in `tools/home/index.html` and `tools/home/en.html`; service authoring remains in `tools/pages/`. `npm run build` renders all 32 pages with one cached edition or honest empty states. Never edit the generated daily cards in output HTML.
+**Regression recovery:** The owner rejected the added “Estavo selections” sections and generic card replacements. Daily visual injection is disabled. Do not reintroduce shelves, date chips, empty states, or global replacements of `.pd-win`, `.pd-phone`, `.pd-doc`, and destination artwork. Future daily bindings must preserve each original composition and aspect ratio, and pass visual review at desktop/mobile sizes. Cached data is not currently displayed.
+
+Read [daily content](docs/daily-content.md) before changing live examples, caching, publication or data access. Home authoring now lives in `tools/home/index.html` and `tools/home/en.html`; service authoring remains in `tools/pages/`. `npm run build` renders all 32 pages preserving the approved source artwork. Never edit the generated daily cards in output HTML.
 
 - The public API is a bounded, prebuilt publication, not a catalogue/search proxy. Its inventory pool never automatically expands. Keep credentials, original media URLs, contacts, full articles and game answers out.
 - Visitors load local HTML and hashed thumbnails; daily fetching belongs only to the build host. Preserve schema/byte limits, media hash checks, atomic releases, Cairo dates and last-good expiry.

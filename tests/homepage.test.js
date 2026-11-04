@@ -139,7 +139,7 @@ for (const [file, L] of [
         assert.ok(pd, 'product composition');
         assert.equal(pd.getAttribute('aria-hidden'), 'true', 'decorative; the copy carries the meaning');
         assert.equal(doc.querySelector('#home-hero [role="tablist"]'), null, 'no tabs (owner direction, 4 Nov 2026)');
-        assert.ok(pd.querySelector('.pd-win [data-daily-kind="units"]'), 'daily Market inventory screen');
+        assert.ok(pd.querySelector('.pd-win img[src*="img/market/hero-"]'), 'real Market screen');
         assert.ok(pd.querySelector('.pd-phone img[src*="img/market/chat-mobile-"]'), 'real AI chat on a phone');
         assert.ok(pd.querySelectorAll('.pd-obj img[src*="img/3d/"]').length >= 4, 'soft 3D objects');
         pd.querySelectorAll('img').forEach((img) => {
@@ -151,21 +151,19 @@ for (const [file, L] of [
         }
     });
 
-    test(`${file}: daily board contains dated selections or honest empty states`, () => {
+    test(`${file}: today board shows real Estavo items (news, launches, jobs, a game), each linked to its page`, () => {
         const { doc } = load(file);
         const board = doc.querySelector('#home-today [data-home-today]');
-        assert.match(text(board.querySelector('.es-home-today__head')), ar ? /مختارات إستاڤو/ : /Estavo selections/);
-        const groups = [...board.querySelectorAll('.daily-board-group')];
-        assert.equal(groups.length, 4, 'news, launches, jobs and game');
-        groups.forEach(group => {
-            assert.ok(group.querySelector('h3'));
-            assert.ok(group.querySelector('.daily-card, .daily-empty'));
-            group.querySelectorAll('.daily-open').forEach(a => {
-                assert.match(a.href, /^https:\/\/brokers\.estavo\.space\//);
-                assert.ok(a.hasAttribute('data-keep-path'));
-            });
-        });
-        assert.equal(board.querySelector('.today-more'), null, 'no empty expand control');
+        assert.match(text(board.querySelector('.es-home-today__head')), ar ? /بيانات إستاڤو/ : /Estavo data/, 'dated data snapshot label');
+        const stories = [...board.querySelectorAll('.es-home-story')];
+        assert.equal(stories.length, 7);
+        assert.equal(board.querySelectorAll('.es-home-story--lead').length, 1);
+        const hrefs = stories.map((s) => s.querySelector('a').getAttribute('href'));
+        assert.deepEqual(hrefs, ['insights/', 'insights/', 'insights/', 'insights/', 'jobs/', 'jobs/', 'challenges/'].map((r) => route(r, L.lang)));
+        stories.forEach((s) => assert.ok(text(s.querySelector('.es-home-story__type')).length > 2));
+        for (const sel of ['#home-today', '#home-hero']) {
+            assert.doesNotMatch(text(doc.querySelector(sel)), /\b\d{1,2} (يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|أغسطس|سبتمبر|أكتوبر|نوفمبر|ديسمبر|January|February|March|April|May|June|July|August|September|October|November|December)/);
+        }
     });
 
     test(`${file}: destinations cover every pillar with an icon and a benefit line`, () => {
@@ -236,7 +234,7 @@ for (const [file, L] of [
 
     test(`${file}: every example surface is labelled`, () => {
         const { doc } = load(file);
-        assert.match(doc.querySelector('[data-home-today]').textContent, ar ? /مختارات إستاڤو/ : /Estavo selections/, 'today is a dated data snapshot');
+        assert.match(doc.querySelector('[data-home-today]').textContent, ar ? /بيانات إستاڤو/ : /Estavo data/, 'today is a dated data snapshot');
         doc.querySelectorAll('main figure.fxp-sec-art').forEach((f) => assert.ok(f.textContent.includes(L.example), f.closest('section').id));
     });
 

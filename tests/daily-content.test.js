@@ -55,33 +55,26 @@ test('a missing or invalid thumbnail cannot publish a partial edition',async t=>
 test('downloads have hard streaming byte limits',async()=>{
  await assert.rejects(boundedFetch('https://example.com',10,async()=>reply('x'.repeat(11))));
 });
-test('daily rendering escapes stored content and preserves route actions without runtime API calls',()=>{
+test('daily rendering cannot replace approved scenes or inject an extra section',()=>{
+ const html='<!doctype html><html><head></head><body><main><section><div class="es-hero__copy"><h1>الصفحة</h1><a href="/original">ابدأ</a></div><div class="pd"><div class="pd-win"><img src="hero-ar.svg"></div></div></section></main></body></html>';
  const d=fixture();d.units[0].project.ar='<img src=x onerror=alert(1)>';
- const html=applyDaily('<!doctype html><html lang="ar"><head></head><body><main><section><div class="es-hero__copy"><h1>الصفحة</h1><a href="/original">ابدأ</a></div><div class="pd"><div class="pd-win"><img src="hero-ar.svg"></div></div></section></main></body></html>','market','ar',d);
- const dom=new JSDOM(html);const doc=dom.window.document;
- assert.equal(doc.querySelector('[onerror]'),null);assert.match(doc.body.textContent,/<img src=x onerror=alert\(1\)>/);
- assert.ok(doc.querySelector('a[href="/original"]'));
- assert.equal(doc.querySelectorAll('[data-daily-edition]').length,1);
- assert.equal(doc.querySelectorAll('script').length,0);
- assert.match(html,/data-keep-path/);assert.doesNotMatch(html,/api\/public\/landing-content/);
- dom.window.close();
+ for(const edition of [d,{...d,news:[],jobs:[],units:[]}]) {
+  const output=applyDaily(html,'market','ar',edition);
+  assert.equal(output.replace('<meta name="estavo-content-mode" content="approved-examples">\n',''),html);
+ }
 });
-test('all 32 generated pages share one edition, have accessible content, and use local bounded images',()=>{
- const root=path.resolve(__dirname,'..');const routes=require('../tools/routes.json').routes;let count=0;let day;
- for(const r of routes)for(const lang of ['ar','en']){
-  const file=path.join(root,r.path,lang==='ar'?'index.html':'en.html');const html=fs.readFileSync(file,'utf8');const dom=new JSDOM(html);const doc=dom.window.document;
-  const label=doc.querySelector('meta[name="estavo-content-date"]')?.content;
-  assert.ok(label,r.key);day??=label;assert.equal(label,day);
-  const accessible=doc.querySelector('[data-daily-edition]');assert.ok(accessible,`${r.key} ${lang}`);
-  assert.equal(accessible.closest('[aria-hidden="true"]'),null);
-  doc.querySelectorAll('img[src*="assets/daily/"]').forEach(img=>{
-   assert.ok(img.width&&img.height);assert.equal(img.getAttribute('loading'),'lazy');
-   const asset=path.resolve(path.dirname(file),img.getAttribute('src'));
-   assert.ok(fs.statSync(asset).size<=100000);
-   assert.equal(crypto.createHash('sha256').update(fs.readFileSync(asset)).digest('hex')+'.webp',path.basename(asset));
-  });
-  assert.doesNotMatch(html,/<(?:script|img)[^>]+(?:src|data-endpoint)="[^" ]*api\/public\/landing-content/);
-  dom.window.close();count++;
+test('all 32 pages preserve the authored artwork and exclude the rejected selections UI',()=>{
+ const root=path.resolve(__dirname,'..');let count=0;
+ for(const r of require('../tools/routes.json').routes)for(const lang of ['ar','en']){
+  const filename=lang==='ar'?'index.html':'en.html';
+  const html=fs.readFileSync(path.join(root,r.path,filename),'utf8');
+  const source=fs.readFileSync(path.join(root,'tools',r.key==='home'?'home/'+filename:'pages/'+r.key+'.'+lang+'.html'),'utf8');
+  const dom=new JSDOM(html);const authored=new JSDOM(source);
+  const scenes=doc=>[...doc.querySelectorAll('.pd-win,.pd-phone,.pd-doc,.pd-chip,.dest-cover,.es-home-today__grid,.ns-cards,.ns-anat,.dv-mini')].map(el=>el.outerHTML.replace(/(?:\.\.\/|\/)?assets\//g,'assets/'));
+  assert.deepEqual(scenes(dom.window.document),scenes(authored.window.document),r.key+' '+lang);
+  assert.equal(dom.window.document.querySelector('.daily-edition,.daily-empty,.daily-screen,.daily-illustrative'),null);
+  assert.doesNotMatch(html,/مختارات إستاڤو|Estavo selections|daily-content\.css/);
+  dom.window.close();authored.window.close();count++;
  }
  assert.equal(count,32);
 });

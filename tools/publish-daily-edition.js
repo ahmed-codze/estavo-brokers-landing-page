@@ -49,7 +49,7 @@ async function publish() {
     for(const r of routes) for(const lang of ['ar','en']) {
       const file=path.join(stage,r.path,lang==='ar'?'index.html':'en.html');
       const html=fs.readFileSync(file,'utf8');
-      if(!html.includes(`name="estavo-content-date" content="${edition?.snapshot_date||'—'}"`) || !html.includes('data-daily-edition=')) throw new Error('Incomplete page edition: '+r.key);
+      if(!html.includes('name="estavo-content-mode" content="approved-examples"')) throw new Error('Incomplete page edition: '+r.key);
       for(const m of html.matchAll(/src="([^"<>]*assets\/daily\/[^"<>]+)"/g)) if(!fs.existsSync(path.resolve(path.dirname(file),m[1]))) throw new Error('Missing daily image');
     }
     fs.writeFileSync(path.join(stage,'edition.json'),JSON.stringify({signature,date:edition?.snapshot_date||null,status:result.status,built_at:new Date().toISOString()}));
