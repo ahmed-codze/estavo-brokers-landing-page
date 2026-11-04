@@ -68,6 +68,7 @@
 .es-home-dest__name { position: relative; z-index: 2; font-size: 1.2rem !important; }
 .es-home-dest__name::after { content: none !important; }
 .es-home-dest__line { position: relative; z-index: 2; }
+@media (min-width: 64.001rem) { .es-home-dests > li:first-child { grid-column: span 2; } .es-home-dests > li:first-child .dest-shot { aspect-ratio: 32 / 11; } .es-home-dests > li:first-child .fxp-dest-orb { top: calc(100cqi * 11 / 32 - 2.4rem); } }
 @media (max-width: 64rem) { .es-home-dests { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
 @media (max-width: 36rem) {
   .es-home-dests { display: flex !important; gap: .9rem !important; overflow-x: auto; scroll-snap-type: x mandatory; padding-block-end: .75rem;

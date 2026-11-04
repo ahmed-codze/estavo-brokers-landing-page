@@ -173,7 +173,7 @@ for (const [file, L] of [
         const { doc } = load(file);
         const tiles = [...doc.querySelectorAll('#home-destinations .es-home-dest')];
         assert.deepEqual(tiles.map((a) => a.getAttribute('href')),
-            ['market/', 'developers/', 'insights/', 'roi/', 'jobs/', 'challenges/', 'guides/', 'websites/'].map((r) => route(r, L.lang)));
+            ['market/', 'market/#pdf-feature', 'developers/', 'insights/', 'jobs/', 'challenges/', 'websites/'].map((r) => (L.lang === 'ar' ? r : r.includes('#') ? r.replace('#', 'en.html#') : route(r, L.lang))));
         tiles.forEach((a) => {
             const orb = a.querySelector('.fxp-dest-orb');
             assert.ok(orb && orb.getAttribute('aria-hidden') === 'true', 'pillar icon is decorative');
