@@ -134,22 +134,19 @@ for (const [file, L] of [
         assert.equal(text(sticky[0]), L.start);
     });
 
-    test(`${file}: hero deck is an animated illustration whose labels open every pillar`, () => {
+    test(`${file}: hero shows the real product with soft 3D objects, never tabs`, () => {
         const { doc } = load(file);
-        const deck = doc.querySelector('#home-hero .fxp-deck');
-        assert.ok(deck, 'command deck stage');
+        const pd = doc.querySelector('#home-hero .fxp-hero-art .pd');
+        assert.ok(pd, 'product composition');
+        assert.equal(pd.getAttribute('aria-hidden'), 'true', 'decorative; the copy carries the meaning');
         assert.equal(doc.querySelector('#home-hero [role="tablist"]'), null, 'no tabs (owner direction, 4 Nov 2026)');
-        const wide = [...deck.querySelectorAll('a.fx-stage__label.is-wide-only')].map((a) => a.getAttribute('href'));
-        assert.deepEqual(wide.sort(), ['market/', 'developers/', 'roi/', 'insights/', 'jobs/', 'challenges/', 'websites/', 'broker-ai/']
-            .map((r) => route(r, L.lang)).sort());
-        assert.equal(deck.querySelectorAll('a.fx-stage__label.is-narrow-only').length, 8, 'phone composition has its own labels');
-        const img = deck.querySelector('img');
-        assert.equal(img.getAttribute('width'), '1200');
-        assert.equal(img.getAttribute('height'), '900');
-        assert.equal(img.getAttribute('alt'), '');
-        const reduced = [...deck.querySelectorAll('source')].filter((x) => /prefers-reduced-motion: reduce/.test(x.getAttribute('media')));
-        assert.equal(reduced.length, 2);
-        reduced.forEach((x) => assert.match(x.getAttribute('srcset'), /-still\.svg$/));
+        assert.ok(pd.querySelector('.pd-win img[src*="img/market/hero-"]'), 'real Market screen');
+        assert.ok(pd.querySelector('.pd-phone img[src*="img/market/chat-mobile-"]'), 'real AI chat on a phone');
+        assert.ok(pd.querySelectorAll('.pd-obj img[src*="img/3d/"]').length >= 4, 'soft 3D objects');
+        pd.querySelectorAll('img').forEach((img) => {
+            assert.ok(img.getAttribute('width') && img.getAttribute('height'), 'sized image');
+            assert.equal(img.getAttribute('alt'), '');
+        });
         for (const sel of ['#home-today', '#home-hero']) {
             assert.doesNotMatch(text(doc.querySelector(sel)), /\b\d{1,2} (يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|أغسطس|سبتمبر|أكتوبر|نوفمبر|ديسمبر|January|February|March|April|May|June|July|August|September|October|November|December)/);
         }
@@ -226,15 +223,15 @@ for (const [file, L] of [
         assert.doesNotMatch(doc.querySelector('main').textContent, /30,000|7,000|26,169|2,412/);
     });
 
-    test(`${file}: section graphics are illustrations with still fallbacks, not HTML mock-ups`, () => {
+    test(`${file}: section graphics are real product compositions with soft 3D objects`, () => {
         const { doc } = load(file);
         const arts = [...doc.querySelectorAll('main figure.fxp-sec-art')];
         assert.deepEqual(arts.map((f) => f.closest('section').id), ['home-data', 'home-ai', 'home-website', 'home-integrations']);
         arts.forEach((f) => {
+            assert.ok(f.querySelector('.pd .pd__scene'), 'product composition');
             const img = f.querySelector('img');
             assert.ok(img.getAttribute('width') && img.getAttribute('height'));
-            assert.match(img.getAttribute('src'), /assets\/img\/fx\/.+-still\.svg$/);
-            assert.ok(f.querySelector('source[media*="prefers-reduced-motion: reduce"]'));
+            assert.match(img.getAttribute('src'), /assets\/img\/(market|3d|estavo-|home)/);
         });
         assert.equal(doc.querySelector('main .es-home-browser, main .es-home-flow, main [data-home-tasks]'), null);
     });
@@ -281,7 +278,7 @@ for (const [file, L] of [
         const a = section.querySelector('.es-home-actions a');
         assert.equal(a.getAttribute('href'), route('integrations/', L.lang));
         const art = section.querySelector('figure.fxp-sec-art');
-        assert.ok(art && art.querySelector('img[src*="integrations-hero"]'));
+        assert.ok(art && art.querySelector('.pd'));
         assert.match(text(section), ar ? /اختياري/ : /optional/i, 'AI stays an optional branch');
         assert.doesNotMatch(text(section), ar ? /فوري|في دقايق/ : /instant|in minutes/i, 'integration scope is agreed, never instant');
     });

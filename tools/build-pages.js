@@ -78,11 +78,11 @@ function versioned(url) {
   return `${url}?v=${hash}`;
 }
 
-/* Estavo Signal (Nov 2026): every route loads the shared visual kit, then the
-   site-wide art layer that turns heroes into signal stages and flattens
-   card grids. They come last so they win over page systems. */
-const FX_STYLES = ['/assets/css/fx.css', '/assets/css/fx-site.css'];
-const FX_SCRIPTS = ['/assets/js/fx.js'];
+/* Real product + soft 3D (owner-approved 4 Nov 2026): every route loads the
+   composition kit (pd.css/pd.js) and the site layer (hero layouts, flattened
+   card grids). They come last so they win over page systems. */
+const FX_STYLES = ['/assets/css/pd.css', '/assets/css/fx-site.css'];
+const FX_SCRIPTS = ['/assets/js/pd.js'];
 
 function routeStyles(key) {
   return [...(ROUTE_ASSETS[key]?.styles || []), ...FX_STYLES]

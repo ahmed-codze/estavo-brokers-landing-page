@@ -217,9 +217,9 @@ def layout(lang, body, article=None):
 {shell_footer(lang, slug)}
 <script src="{versioned('/assets/js/referral.js')}" defer></script>
 <script src="{versioned('/assets/js/v3/estavo-v3.js')}" defer></script>
-<link rel="stylesheet" href="{versioned('/assets/css/fx.css')}">
+<link rel="stylesheet" href="{versioned('/assets/css/pd.css')}">
 <link rel="stylesheet" href="{versioned('/assets/css/fx-site.css')}">
-<script src="{versioned('/assets/js/fx.js')}" defer></script>
+<script src="{versioned('/assets/js/pd.js')}" defer></script>
 </body>
 </html>
 '''
@@ -251,16 +251,9 @@ def article_page(article,lang):
     return layout(lang,body,article)
 
 def hub_stage(lang):
-    """Estavo Signal playbook illustration (tools/fx_art/guides.py); labels are real text."""
-    import json as _j
-    name = 'guides-hero' + ('-rtl' if lang == 'ar' else '')
-    a = _j.loads((ROOT / 'assets/img/fx/anchors.json').read_text())[name]['anchors']
-    words = {'ar': ['دوّر', 'قارن', 'ابعت عرض', 'اقفل'], 'en': ['Find', 'Compare', 'Send an offer', 'Close']}[lang]
-    labels = ''.join(f'<span class="fx-stage__label fx-stage__label--below" style="--x:{a[f"s{i+1}"]["x"]}%;--y:{a[f"s{i+1}"]["y"]}%">{w}</span>' for i, w in enumerate(words))
-    src = f'/assets/img/fx/{name}'
-    return (f'<div class="fxp-hero-art fxp-hero-art--below"><div class="fx-stage fx-stage--deck fx-stage--own-floor fxp-stage" aria-hidden="true">'
-            f'<div class="fx-stage__art"><picture data-fx-swap="loop"><source media="(prefers-reduced-motion: reduce)" srcset="{src}-still.svg">'
-            f'<img src="{src}.svg" width="1200" height="900" alt="" decoding="async"></picture></div>{labels}</div></div>')
+    """Product + soft 3D composition (tools/data/guides-hero.<lang>.html, built with the site's pd.css)."""
+    snippet = (ROOT / f'tools/data/guides-hero.{lang}.html').read_text().strip()
+    return f'<div class="fxp-hero-art fxp-hero-art--below">{snippet}</div>'
 
 
 def hub_page(lang):

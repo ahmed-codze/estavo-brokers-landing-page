@@ -1,86 +1,69 @@
-/* Estavo Signal — site layer (Nov 2026). Loaded after every page system on every route.
-   Owner direction: graphics are animated illustrations, not cards, tabs or mock windows.
-   1. hero signal stages (all three page families)  2. stage labels on phones
-   3. card grids flattened into icon-led lists        4. section atmosphere */
+/* Site layer for the "real product + soft 3D" direction (owner-approved 4 Nov 2026).
+   Loaded after every page system (and pd.css) on every route and the homepage.
+   1. hero layouts for the three page families   2. section compositions
+   3. card grids flattened into icon-led lists    4. homepage details   5. tabs-free steps */
 
-/* 1. Hero stages */
+:root { --pd-blue: #163e69; --pd-electric: #4f9cf0; --pd-fwd: to left; }
+[dir="ltr"] { --pd-fwd: to right; }
+
+/* 1. Hero compositions */
 .fxp-hero-art { position: relative; min-inline-size: 0; align-self: center; margin: 0; }
-.fxp-hero-art .fx-stage { inline-size: 100%; }
-.fxp-hero-art::before { content: ""; position: absolute; inset: 8% 4% -6%; z-index: -1; border-radius: 2rem;
-  background: radial-gradient(60% 60% at 50% 60%, rgb(79 156 240 / 38%), transparent 70%); filter: blur(28px); }
-.fxp-hero-art--below { grid-column: 1 / -1; inline-size: min(100%, 64rem); margin: clamp(1.75rem, 4vw, 3rem) auto 0; }
-/* old service heroes were reading-width; give the stage room */
+.fxp-hero-art--below { grid-column: 1 / -1; inline-size: min(100%, 64rem); margin: clamp(1.5rem, 4vw, 3rem) auto 0; }
 .es-service-hero .es-container--reading:has(.fxp-hero-art) { max-inline-size: var(--es-container, 75rem); }
-.es-service-hero .es-container--reading:has(.fxp-hero-art) .es-hero__copy { max-inline-size: 45rem; margin-inline: auto;
-  text-align: center; }
+.es-service-hero .es-container--reading:has(.fxp-hero-art) .es-hero__copy { max-inline-size: 45rem; margin-inline: auto; text-align: center; }
 .es-service-hero .es-container--reading:has(.fxp-hero-art) .es-cluster { justify-content: center; }
-/* hero grids that used to hold a narrow mock: give the stage the wider column */
 @media (min-width: 64rem) {
-  .mk-hero__grid:has(> .fxp-hero-art:not(.fxp-hero-art--below)) { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+  .mk-hero__grid:has(> .fxp-hero-art:not(.fxp-hero-art--below)) { grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); }
   :is(.sites-hero__inner, .ai-hero__inner, .mx-hero__inner, .net-hero__inner, .co-hero__inner):has(> .fxp-hero-art) {
-    display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; }
+    display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; }
   :is(.es-service-hero .es-container:not(.es-container--reading), .jb-hero > .mk-wrap):has(> .fxp-hero-art:not(.fxp-hero-art--below)) {
-    display: grid !important; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr) !important; gap: clamp(2rem, 4vw, 4rem); align-items: center; }
+    display: grid !important; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr) !important; gap: clamp(2rem, 4vw, 4rem); align-items: center; }
   .es-service-hero:has(.fxp-hero-art:not(.fxp-hero-art--below)) :is(.es-hero__copy, .fxp-hero-art) { max-inline-size: none; grid-column: auto !important; grid-row: 1 !important; }
 }
-@media (max-width: 63.999rem) {
-  .fxp-hero-art:not(.fxp-hero-art--below) { margin-block-start: 2rem; }
-}
+@media (max-width: 63.999rem) { .fxp-hero-art:not(.fxp-hero-art--below) { margin-block-start: 2rem; } }
+/* phones: keep the composition inside the gutter (objects overhang by design on wide screens) */
+@media (max-width: 40rem) { .fxp-hero-art .pd, .fxp-sec-art .pd { inline-size: 88%; margin-inline: auto; } }
 
-/* 2. Labels: smaller on phones, only the first three */
-.fxp-stage .fx-stage__label { font-size: clamp(.6875rem, .45rem + .55vw, .8125rem); }
-@media (max-width: 40rem) {
-  .fxp-stage { border-radius: 1.25rem; }
-  .fxp-stage .fx-stage__label { padding: .25rem .5rem; gap: .3rem; --fx-lo: .4rem; }
-  .fxp-stage:not(.fxp-deck) .fx-stage__label:nth-of-type(n+4) { display: none; }
+/* 2. Section compositions */
+.fxp-sec-art { position: relative; inline-size: 100%; min-inline-size: 0; max-inline-size: 46rem; margin: 0 auto; }
+.fxp-sec-art .pd-ex { position: absolute; inset-block-end: 0; inset-inline-end: 0; z-index: 4; padding: .3rem .65rem; border-radius: .5rem;
+  background: rgb(255 255 255 / 92%); color: rgb(15 34 54 / 70%); font-size: .75rem; box-shadow: 0 6px 16px -8px rgb(15 34 54 / 40%); }
+/* the /roi/ calculator stays real HTML; two 3D objects float around it */
+.ro-stage { position: relative; }
+.pd-float { position: absolute; z-index: 3; inset-inline-start: var(--x); top: var(--y); inline-size: var(--w); pointer-events: none;
+  filter: drop-shadow(0 16px 20px rgb(15 34 54 / 16%)); }
+.pd-float > img { display: block; inline-size: 100%; block-size: auto; }
+@media (prefers-reduced-motion: no-preference) {
+  .pd-float > img { animation: pd-bob 6.5s ease-in-out infinite; }
+  .pd-float--b > img { animation-name: pd-bob2; animation-duration: 7.5s; }
 }
+@media (max-width: 40rem) { .pd-float { display: none; } }
 
 /* 3. Card grids → icon-led lists (no boxes, no mock chrome). Content stays. */
 :is(.cm-cards, .mk-cards, .es-card-grid, .es-feature-grid) { gap: clamp(1.25rem, 2.5vw, 2rem) clamp(1.5rem, 3vw, 3rem); }
-:is(.cm-card, .mk-card, .es-card, .es-feature-card) { border: 0 !important; border-radius: 0 !important;
-  background: none !important; box-shadow: none !important; padding: 0 0 0 0 !important; position: relative;
-  padding-block-start: 1rem !important; }
-:is(.cm-card, .mk-card, .es-card, .es-feature-card)::before { content: ""; position: absolute; inset-block-start: 0;
-  inset-inline: 0; block-size: 1px; background: linear-gradient(var(--fx-fwd), var(--fx-electric), rgb(79 156 240 / 0%) 70%); }
+:is(.cm-card, .mk-card, .es-card, .es-feature-card) { position: relative; padding: 1rem 0 0 !important; border: 0 !important; border-radius: 0 !important;
+  background: none !important; box-shadow: none !important; }
+:is(.cm-card, .mk-card, .es-card, .es-feature-card)::before { content: ""; position: absolute; inset-block-start: 0; inset-inline: 0; block-size: 1px;
+  background: linear-gradient(var(--pd-fwd), var(--pd-electric), rgb(79 156 240 / 0%) 70%); }
 :is(.cm-card, .mk-card, .es-card, .es-feature-card):hover { transform: none !important; }
 
-/* 4. Atmosphere: navy bands get aurora + grid, paper sections a faint dot field */
-:is(.cm-sec--navy, .mk-band, .es-section--navy, .mk-close) { position: relative; isolation: isolate; overflow: hidden; }
-:is(.cm-sec--navy, .mk-band, .es-section--navy, .mk-close)::after { content: ""; position: absolute; inset: 0; z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(40% 60% at 15% 20%, rgb(79 156 240 / 22%), transparent 70%),
-    radial-gradient(35% 55% at 85% 80%, rgb(127 220 255 / 14%), transparent 70%),
-    radial-gradient(rgb(200 225 255 / 12%) .8px, transparent 1.2px) 0 0 / 22px 22px; }
-
-@media print { .fxp-hero-art { display: none; } }
-
-/* Homepage hero: the command deck replaces the tabbed window */
-.fxp-deck .fx-stage__label { text-decoration: none; transition: border-color .2s, background-color .2s; }
-.fxp-deck .fx-stage__label:hover { border-color: rgb(127 220 255 / 70%); background: rgb(18 48 79 / 96%); }
-@media (max-width: 47.99rem) { .fxp-deck { --fx-ratio: 390 / 540; } }
-
-/* Homepage + section illustrations (replace HTML mocks) */
-.fxp-sec-art { margin: 0; min-inline-size: 0; position: relative; }
-.fxp-sec-art::before { content: ""; position: absolute; inset: 10% 6% -4%; z-index: -1; border-radius: 2rem;
-  background: radial-gradient(60% 60% at 50% 60%, rgb(79 156 240 / 30%), transparent 70%); filter: blur(30px); }
-.fxp-sec-art .fx-stage { inline-size: 100%; }
-/* destinations: icon orbs instead of mini mock previews */
-.es-home-dest .fxp-dest-orb { margin-block-end: .875rem; }
-.es-home-dest:hover .fxp-dest-orb { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgb(255 255 255 / 16%), 0 16px 32px -12px rgb(79 156 240 / 70%); }
-.fxp-dest-orb { transition: transform .25s var(--fx-ease), box-shadow .25s; }
+/* 4. Homepage */
+.es-home-dest .fxp-dest-orb { display: block; inline-size: 4.75rem; margin-block-end: .5rem; filter: drop-shadow(0 12px 14px rgb(15 34 54 / 14%));
+  transition: transform .3s cubic-bezier(.2, .7, .2, 1); }
+.es-home-dest .fxp-dest-orb > img { display: block; inline-size: 100%; block-size: auto; }
+.es-home-dest:hover .fxp-dest-orb { transform: translateY(-4px) rotate(-3deg); }
 .es-home-dest { border: 0 !important; background: none !important; box-shadow: none !important; padding: 0 !important; }
 .es-home-dest > * { padding-inline: 0 !important; }
 .es-home-dest:hover { transform: none; }
-.es-home-dest:hover .es-home-dest__name { color: var(--fx-blue); }
+.es-home-dest:hover .es-home-dest__name { color: var(--pd-blue); }
 @media (max-width: 36rem) {
   .es-home-dest { grid-template-columns: 4rem minmax(0, 1fr) !important; padding: .5rem 0 !important; }
-  .es-home-dest > .fxp-dest-orb { grid-column: 1; grid-row: 1 / span 2; margin: 0; --o: 3.25rem; }
+  .es-home-dest > .fxp-dest-orb { grid-column: 1; grid-row: 1 / span 2; margin: 0; inline-size: 3.5rem; }
 }
-/* today: stories become a typographic list on a light rail, not boxed cards */
 .es-home-story { border: 0 !important; background: none !important; box-shadow: none !important; border-radius: 0 !important;
   border-block-start: 1px solid rgb(22 62 105 / 14%) !important; }
 
-/* Sequential scenarios (tabs removed by owner direction): each step is a row, art alternating sides */
+/* 5. Sequential scenarios (tabs removed by owner direction) */
 .ba-steps--seq { display: grid; gap: clamp(2.5rem, 6vw, 4.5rem); }
 .ba-steps--seq .mk-step { display: grid !important; }
 @media (min-width: 64rem) {
@@ -88,9 +71,4 @@
   .ba-steps--seq .mk-step:nth-child(even) .mk-step__copy { order: 2; }
 }
 
-/* Labels hold Arabic + Latin runs: never a flex box (mixed-direction trap, AGENTS §5.2.1) */
-.fxp-stage .fx-stage__label:not(.is-narrow-only) { display: inline-block; text-align: center; }
-@media (max-width: 47.99rem) {
-  .fxp-stage .fx-stage__label.is-wide-only { display: none; }
-  .fxp-stage .fx-stage__label.is-narrow-only { display: inline-block; }
-}
+@media print { .pd-float { display: none; } }

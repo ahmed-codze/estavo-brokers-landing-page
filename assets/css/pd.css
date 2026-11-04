@@ -1,0 +1,118 @@
+/* Estavo product compositions — "real product + soft 3D" (owner-approved 4 Nov 2026).
+   Real Estavo screens (app art or HTML app screens) tilted in light 3D space, with soft
+   3D objects (assets/img/3d/*.svg) floating around them. Light page, no neon.
+
+   Markup (built by the page sources; every child is positioned in % of the stage):
+     <div class="pd [pd--wide|pd--flat]">
+       <div class="pd__scene">
+         <div class="pd-i pd-win" style="--x:2%;--y:9%;--w:86%;--z:0px;--d:0s"> bar + <img>|<div class="pd-app"> </div>
+         <div class="pd-i pd-phone" …><img></div>   <div class="pd-i pd-doc" …><img></div>
+         <div class="pd-i pd-chip" …>text<small>…</small></div>
+       </div>
+       <span class="pd-obj" style="--x:18%;--y:-4%;--w:21%;--d:.2s"><img src="…/3d/house.svg" alt=""></span>
+     </div>
+   --x is inline-start, so Arabic and English mirror automatically.
+   assets/js/pd.js arms the intro (rise, then the objects pop) when a stage enters the
+   viewport, swaps data-pd-anim art in, pauses the float off screen and adds pointer tilt.
+   No JS / reduced motion: everything is visible and still. */
+
+.pd { --ry: -14deg; --rx: 6deg; --tx: 0; --ty: 0; position: relative; inline-size: 100%; aspect-ratio: var(--pd-r, 10 / 9);
+  perspective: 1800px; container-type: inline-size; isolation: isolate; }
+[dir="ltr"] .pd { --ry: 14deg; }
+.pd--wide { --pd-r: 16 / 9; --ry: -8deg; --rx: 8deg; }
+[dir="ltr"] .pd--wide { --ry: 8deg; }
+.pd--flat { --ry: 0deg; --rx: 0deg; }
+.pd::before { content: ""; position: absolute; inset: 8% 6% 4%; z-index: -1; border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(79 156 240 / 24%), rgb(79 156 240 / 0%)); filter: blur(24px); pointer-events: none; }
+.pd__scene { position: absolute; inset: 0; transform-style: preserve-3d;
+  transform: rotateY(calc(var(--ry) + var(--tx) * 8deg)) rotateX(calc(var(--rx) - var(--ty) * 6deg)) rotateZ(.6deg);
+  transition: transform .7s cubic-bezier(.2, .7, .2, 1); }
+.pd-i { position: absolute; inset-inline-start: var(--x, 0); top: var(--y, 0); inline-size: var(--w, 50%); translate: 0 0 var(--z, 0px); }
+
+/* product surfaces */
+.pd-win { overflow: hidden; border-radius: clamp(.6rem, 1.8cqi, 1.2rem); background: #fff;
+  box-shadow: 0 1px 0 #fff inset, 0 60px 110px -44px rgb(15 34 54 / 45%), 0 22px 36px -24px rgb(15 34 54 / 28%), 0 0 0 1px rgb(22 62 105 / 8%); }
+.pd-win__bar { display: flex; align-items: center; gap: .35em; block-size: clamp(1.25rem, 4.6cqi, 2.2rem); padding-inline: .9em;
+  background: #f4f7fb; border-block-end: 1px solid rgb(22 62 105 / 8%); font-size: clamp(.5rem, 1.5cqi, .75rem); direction: ltr; }
+.pd-win__bar i { inline-size: .62em; block-size: .62em; border-radius: 50%; background: #d6dfe9; }
+.pd-win__bar b { margin-inline: auto; padding: .3em 1.4em; border: 1px solid rgb(22 62 105 / 8%); border-radius: .4em; background: #fff;
+  color: #7d93aa; font-weight: 500; font-family: system-ui, sans-serif; }
+.pd-win > img, .pd-doc > img { display: block; inline-size: 100%; block-size: auto; }
+.pd-phone { padding: 2.2%; border-radius: clamp(1rem, 4.4cqi, 2.2rem); background: #0f2236;
+  box-shadow: 0 70px 110px -44px rgb(15 34 54 / 60%), 0 0 0 1px rgb(255 255 255 / 10%) inset; }
+.pd-phone > img, .pd-phone > .pd-app { display: block; inline-size: 100%; aspect-ratio: 9 / 18.5; object-fit: cover; object-position: top;
+  border-radius: clamp(.8rem, 3.6cqi, 1.8rem); background: #fff; overflow: hidden; }
+.pd-doc { overflow: hidden; border-radius: clamp(.5rem, 1.4cqi, .9rem); background: #fff;
+  box-shadow: 0 50px 90px -40px rgb(15 34 54 / 55%), 0 0 0 1px rgb(22 62 105 / 8%); }
+.pd-doc--crop > img { aspect-ratio: var(--crop, 3 / 4); object-fit: cover; object-position: top; }
+.pd-chip { inline-size: auto; max-inline-size: 44%; padding: .55em .85em; border-radius: .8em; background: #fff; color: #0f2236;
+  font-size: clamp(.625rem, 1.9cqi, .9rem); font-weight: 600; line-height: 1.35;
+  box-shadow: 0 18px 40px -16px rgb(15 34 54 / 42%), 0 0 0 1px rgb(22 62 105 / 8%); }
+.pd-chip small { display: block; color: rgb(15 34 54 / 66%); font-size: .82em; font-weight: 500; }
+.pd-chip--good { color: #17795a; }
+.pd-chip--ex { padding: .35em .7em; color: rgb(15 34 54 / 70%); font-weight: 500; font-size: clamp(.55rem, 1.5cqi, .75rem); }
+
+/* soft 3D objects (outside the tilted scene, so they float in front of it) */
+.pd-obj { position: absolute; z-index: 3; inset-inline-start: var(--x, 0); top: var(--y, 0); inline-size: var(--w, 18%);
+  pointer-events: none; filter: drop-shadow(0 16px 20px rgb(15 34 54 / 16%)); }
+.pd-obj > img { display: block; inline-size: 100%; block-size: auto; }
+
+/* intro + ambient (armed by pd.js; nothing is hidden without it) */
+@keyframes pd-rise { from { opacity: 0; transform: translate3d(0, 48px, 0) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes pd-pop { from { opacity: 0; transform: translateY(18px) scale(.7); } 70% { opacity: 1; transform: translateY(-4px) scale(1.04); } to { opacity: 1; transform: none; } }
+@keyframes pd-bob { 50% { transform: translateY(-7%); } }
+@keyframes pd-bob2 { 50% { transform: translateY(-9%) rotate(-3deg); } }
+@media (prefers-reduced-motion: no-preference) {
+  .pd.is-armed:not(.is-in) :is(.pd-i, .pd-obj) { opacity: 0; }
+  .pd.is-in .pd-i { animation: pd-rise .95s var(--d, 0s) cubic-bezier(.2, .8, .2, 1) both; }
+  .pd.is-in .pd-obj { animation: pd-pop .9s calc(var(--d, 0s) + .5s) cubic-bezier(.2, .9, .3, 1.2) both; }
+  .pd.is-in .pd-obj > img { animation: pd-bob 6.5s calc(var(--d, 0s) + 1.4s) ease-in-out infinite; }
+  .pd.is-in .pd-obj:nth-of-type(even) > img { animation-name: pd-bob2; animation-duration: 7.5s; }
+  .pd.is-off .pd-obj > img { animation-play-state: paused; }
+}
+
+/* HTML app screens (developers, jobs, game): built to match the Estavo app */
+.pd-app { --ink: #0f2236; --mute: rgb(15 34 54 / 60%); --line: rgb(22 62 105 / 9%); padding: 4.5cqi 5cqi; color: var(--ink);
+  font-size: clamp(.5rem, 2cqi, .95rem); line-height: 1.5; background: #fff; }
+.pd-phone .pd-app { font-size: clamp(.4rem, 2.6cqi, .85rem); padding: 9% 7%; }
+.pd-app * { margin: 0; }
+.pd-app__head { display: grid; grid-template-columns: auto 1fr; gap: .2em .8em; align-items: center; padding-block-end: .9em; border-block-end: 1px solid var(--line); }
+.pd-app__logo { grid-row: span 2; display: grid; place-items: center; inline-size: 3.2em; block-size: 3.2em; border-radius: .9em;
+  background: linear-gradient(160deg, #3f74b3, #163e69); color: #fff; font-weight: 700; font-size: 1.1em; }
+.pd-app__title { font-weight: 700; font-size: 1.25em; }
+.pd-app__sub { color: var(--mute); font-size: .85em; }
+.pd-app__chips { display: flex; flex-wrap: wrap; gap: .4em; margin-block: .9em; }
+.pd-app__chips span { padding: .25em .7em; border-radius: 999px; background: #eef3f9; color: #28567f; font-size: .78em; font-weight: 600; }
+.pd-app__chips span.is-on { background: #163e69; color: #fff; }
+.pd-app__h { margin-block: .9em .5em; font-weight: 700; font-size: .95em; }
+.pd-app__projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6em; }
+.pd-app__projects div { overflow: hidden; border: 1px solid var(--line); border-radius: .8em; }
+.pd-app__projects img { display: block; inline-size: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.pd-app__projects b, .pd-app__projects small { display: block; padding-inline: .6em; }
+.pd-app__projects b { padding-block-start: .35em; font-size: .85em; }
+.pd-app__projects small { padding-block-end: .45em; color: #163e69; font-weight: 700; font-size: .8em; direction: ltr; text-align: end; }
+.pd-app__row { display: flex; align-items: center; justify-content: space-between; gap: .8em; margin-block-start: .6em; padding: .65em .8em;
+  border: 1px solid var(--line); border-radius: .8em; font-size: .85em; }
+.pd-app__row b { font-weight: 600; }
+.pd-app__row span { color: var(--mute); }
+.pd-app__row--mint { border-color: rgb(63 191 148 / 40%); background: rgb(63 191 148 / 8%); }
+.pd-app__job { padding: .8em .9em; border: 1px solid var(--line); border-radius: .9em; margin-block-start: .6em; }
+.pd-app__job b { display: block; font-size: 1em; }
+.pd-app__job span { display: block; color: var(--mute); font-size: .8em; }
+.pd-app__job em { display: inline-block; margin-block-start: .4em; color: #28567f; font-style: normal; font-weight: 600; font-size: .78em; }
+.pd-app__job.is-on { border-color: #163e69; box-shadow: 0 0 0 2px rgb(22 62 105 / 10%); }
+.pd-app__q { margin-block: .8em; padding: .9em; border-radius: .9em; background: linear-gradient(160deg, #1d4c7f, #123459); color: #fff; font-weight: 600; }
+.pd-app__q small { display: block; color: rgb(255 255 255 / 70%); font-weight: 500; font-size: .75em; margin-block-end: .3em; }
+.pd-app__score { display: flex; justify-content: space-between; align-items: center; padding: .6em .8em; border-radius: .8em; margin-block-start: .45em;
+  background: #f4f7fb; font-size: .85em; }
+.pd-app__score strong { direction: ltr; }
+.pd-app__score.is-win { background: #fff6e2; box-shadow: 0 0 0 1px #f4bd59 inset; }
+.pd-app__score.is-win strong { color: #b06f12; }
+.pd-code { padding: 6cqi 6cqi; background: #0f2236; color: #cfe0f5; font: 500 clamp(.45rem, 1.9cqi, .85rem) / 1.65 ui-monospace, SFMono-Regular, Menlo, monospace;
+  direction: ltr; text-align: left; white-space: pre; }
+.pd-code b { color: #7fdcff; font-weight: 500; } .pd-code i { color: #8af0cf; font-style: normal; }
+
+@media print { .pd-obj { display: none; } .pd__scene { transform: none; } }
+/* Sites "mobile" art is wider than a phone screen: fit it instead of cropping */
+.pd-phone > img[src*="/estavo-"] { object-fit: contain; object-position: center top; background: #f4f7fb; }
+.pd-code { overflow: hidden; text-overflow: clip; }
