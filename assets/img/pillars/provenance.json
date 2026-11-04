@@ -60,6 +60,68 @@
     800,
     534
    ]
+  },
+  "dev-1.webp": {
+   "source": "Estavo developer logo (cdn.estavo.space), as shown in the Estavo app",
+   "subject": "Hyde Park / هايد بارك للتطوير",
+   "license": "Third-party trademark shown nominatively as an example of the Developers directory; owner-approved use 2026-11-04",
+   "size": [
+    160,
+    160
+   ]
+  },
+  "dev-2.webp": {
+   "source": "Estavo developer logo (cdn.estavo.space), as shown in the Estavo app",
+   "subject": "Centrada / سنترادا",
+   "license": "Third-party trademark shown nominatively as an example of the Developers directory; owner-approved use 2026-11-04",
+   "size": [
+    160,
+    160
+   ]
+  },
+  "dev-3.webp": {
+   "source": "Estavo developer logo (cdn.estavo.space), as shown in the Estavo app",
+   "subject": "Remco Group",
+   "license": "Third-party trademark shown nominatively as an example of the Developers directory; owner-approved use 2026-11-04",
+   "size": [
+    160,
+    160
+   ]
+  },
+  "dev-4.webp": {
+   "source": "Estavo developer logo (cdn.estavo.space), as shown in the Estavo app",
+   "subject": "Arabella / أرابيلا",
+   "license": "Third-party trademark shown nominatively as an example of the Developers directory; owner-approved use 2026-11-04",
+   "size": [
+    160,
+    160
+   ]
+  },
+  "dev-5.webp": {
+   "source": "Estavo developer logo (cdn.estavo.space), as shown in the Estavo app",
+   "subject": "Sorouh / صروح ديفلوبمنتس",
+   "license": "Third-party trademark shown nominatively as an example of the Developers directory; owner-approved use 2026-11-04",
+   "size": [
+    160,
+    160
+   ]
+  },
+  "dev-6.webp": {
+   "source": "Estavo developer logo (cdn.estavo.space), as shown in the Estavo app",
+   "subject": "Malvern / مالفرن ديفيلوبمنتس",
+   "license": "Third-party trademark shown nominatively as an example of the Developers directory; owner-approved use 2026-11-04",
+   "size": [
+    160,
+    160
+   ]
+  },
+  "project-kin.webp": {
+   "source": "Estavo project gallery (cdn.estavo.space), project 913 «كين» / Kin, New Cairo",
+   "license": "Estavo catalog media; confirm usage rights before wide promotion",
+   "size": [
+    800,
+    356
+   ]
   }
  }
 }

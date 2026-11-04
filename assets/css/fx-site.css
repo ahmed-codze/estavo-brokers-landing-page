@@ -311,3 +311,8 @@ html body.es-landing .es-home-main .es-home-story--lead .es-home-story__title { 
 @media print { .pd-float { display: none; } }
 .dc-ex { inset-block: .6rem auto; inset-inline: auto .7rem; }
 .es-home-dest--site .dc-ex { inset-block: auto .6rem; inset-inline: .7rem auto; }
+.dv-logo img { inline-size: 2.4em; block-size: 2.4em; object-fit: contain; border-radius: .45em; background: #fff; }
+.dv-logo small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-inline-size: 100%; }
+.nw-ticker span:first-child strong { color: #f4bd59; }
+.jb-row b bdi { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dc-ex { font-size: .625rem; padding: .1rem .4rem; }
