@@ -18,7 +18,7 @@ function fixture() {
  units:[{key:'u1',project_key:'p1',project:text,type:text,price_from:8000000,currency:'EGP',area_sqm:140,bedrooms:3,delivery:null,selection:'daily_rotation',href}],
  developers:[{key:'d1',name:text,logo:null,selection:'daily_rotation',href}],
  news:[{key:'n1',title:text,summary:text,published_at:'2026-11-04T08:00:00Z',sources:[{name:'Publisher',url:'https://example.com/news'}],selection:'recent',href}],
- launches:[],jobs:[],games:[{key:'exclusive',name:{ar:'إكسكلوسيف',en:'Exclusive'},prompt:'سمي مشروع في القاهرة الجديدة',selection:'daily_rotation',href:'https://brokers.estavo.space/games/exclusive'}]};
+ launches:[],jobs:[],games:[{key:'exclusive',name:{ar:'تغيير وش',en:'Taghyeer Wesh'},prompt:'سمي مشروع في القاهرة الجديدة',selection:'daily_rotation',href:'https://brokers.estavo.space/games/exclusive'}]};
 }
 const reply=bytes=>new Response(bytes,{status:200,headers:{'content-type':'application/json'}});
 test('Cairo editions respect midnight and DST independently of the build host',()=>{

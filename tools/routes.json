@@ -10,7 +10,7 @@
     "developers": "https://brokers.estavo.space/register?redirect=%2Fdevelopers",
     "jobs": "https://brokers.estavo.space/register?redirect=%2Fjobs",
     "daily": "https://brokers.estavo.space/register?redirect=%2Festavo-daily",
-    "game": "https://brokers.estavo.space/games/exclusive",
+    "game": "https://brokers.estavo.space/games",
     "_deep_note": "Deep links carry data-keep-path so referral.js keeps their path (adding ?ref and click ids) instead of routing them through /go/, which drops destinations. The app honours ?redirect= through sign-up. The game needs no account."
   },
   "routes": [
@@ -105,13 +105,13 @@
       "key": "challenges",
       "ar": {
         "nav": "ألعاب وتحديات",
-        "title": "إكسكلوسيف | لعبة معلومات السوق العقاري للبروكرز",
-        "description": "العب مع زمايلك أو اتدرب مع Estavo AI، خمس جولات و100 نقطة للإجابة الصح اللي محدش غيرك اختارها، مجانا ومن غير حساب"
+        "title": "ألعاب البروكرز | الجاسوس وتغيير وش واسرق البيعة",
+        "description": "3 ألعاب جماعية عن المشاريع والمطورين والمناطق: الجاسوس، تغيير وش، واسرق البيعة. العب مع زمايلك من الموبايل، مجانا ومن غير حساب"
       },
       "en": {
         "nav": "Games & challenges",
-        "title": "Exclusive | A property-market knowledge game for brokers",
-        "description": "Play five rounds with colleagues or practise with Estavo AI, earn 100 points for a correct answer nobody else chose, free with no account"
+        "title": "Broker games | Spy, Taghyeer Wesh and Steal the Deal",
+        "description": "Three group games about projects, developers and areas: Spy, Taghyeer Wesh and Steal the Deal. Play with colleagues on your phone, free with no account"
       },
       "in_header": true,
       "in_solutions": false

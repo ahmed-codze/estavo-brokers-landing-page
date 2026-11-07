@@ -315,7 +315,7 @@ function checkFile(file) {
   const deepDestination = {
     developers: 'https://brokers.estavo.space/register?redirect=%2Fdevelopers',
     jobs: 'https://brokers.estavo.space/register?redirect=%2Fjobs',
-    challenges: 'https://brokers.estavo.space/games/exclusive',
+    challenges: 'https://brokers.estavo.space/games',
     insights: 'https://brokers.estavo.space/register?redirect=%2Festavo-daily',
   }[route];
   const expectedDestination = deepDestination
