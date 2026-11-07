@@ -41,13 +41,13 @@ for (const [file, L] of [
     ['index.html', {
         lang: 'ar', start: 'تصفح السوق مجانا', explore: 'اكتشف إستاڤو', website: 'اعمل موقعك مجانا', example: 'مثال توضيحي',
         eyebrow: 'إستاڤو · مجتمع البروكرز في مصر', h1: ['داتا السوق وأدوات البروكر', 'عشان ترد على عميلك بوضوح'],
-        tabs: ['جديد السوق', 'طلب عميل', 'كاش ولا تقسيط؟', 'الوظائف', 'ألعاب وتحديات'],
+        tabs: ['جديد السوق', 'طلب عميل', 'كاش ولا تقسيط؟', 'الوظائف'],
         free: /مجاني بالكامل حاليا/, noCut: /من غير نسبة من عمولتك/, leadCap: 140,
     }],
     ['en.html', {
         lang: 'en', start: 'Open Estavo Market free', explore: 'Explore Estavo', website: 'Create your website free', example: 'Example',
         eyebrow: 'Estavo · The broker community in Egypt', h1: ['Market data and broker tools', 'for a clearer client reply'],
-        tabs: ['Market news', 'Client request', 'Cash or installments?', 'Jobs', 'Games & challenges'],
+        tabs: ['Market news', 'Client request', 'Cash or installments?', 'Jobs'],
         free: /completely free for now/i, noCut: /No cut of your commission/, leadCap: 170,
     }],
 ]) {
@@ -151,15 +151,15 @@ for (const [file, L] of [
         }
     });
 
-    test(`${file}: today board shows real Estavo items (news, launches, jobs, a game), each linked to its page`, () => {
+    test(`${file}: today board shows real Estavo items (news, launches, jobs), each linked to its page`, () => {
         const { doc } = load(file);
         const board = doc.querySelector('#home-today [data-home-today]');
         assert.match(text(board.querySelector('.es-home-today__head')), ar ? /بيانات إستاڤو/ : /Estavo data/, 'dated data snapshot label');
         const stories = [...board.querySelectorAll('.es-home-story')];
-        assert.equal(stories.length, 7);
+        assert.equal(stories.length, 6);
         assert.equal(board.querySelectorAll('.es-home-story--lead').length, 1);
         const hrefs = stories.map((s) => s.querySelector('a').getAttribute('href'));
-        assert.deepEqual(hrefs, ['insights/', 'insights/', 'insights/', 'insights/', 'jobs/', 'jobs/', 'challenges/'].map((r) => route(r, L.lang)));
+        assert.deepEqual(hrefs, ['insights/', 'insights/', 'insights/', 'insights/', 'jobs/', 'jobs/'].map((r) => route(r, L.lang)));
         stories.forEach((s) => assert.ok(text(s.querySelector('.es-home-story__type')).length > 2));
         for (const sel of ['#home-today', '#home-hero']) {
             assert.doesNotMatch(text(doc.querySelector(sel)), /\b\d{1,2} (يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|أغسطس|سبتمبر|أكتوبر|نوفمبر|ديسمبر|January|February|March|April|May|June|July|August|September|October|November|December)/);
@@ -170,7 +170,7 @@ for (const [file, L] of [
         const { doc } = load(file);
         const tiles = [...doc.querySelectorAll('#home-destinations .es-home-dest')];
         assert.deepEqual(tiles.map((a) => a.getAttribute('href')),
-            ['market/', 'market/#pdf-feature', 'developers/', 'insights/', 'jobs/', 'challenges/', 'websites/'].map((r) => (L.lang === 'ar' ? r : r.includes('#') ? r.replace('#', 'en.html#') : route(r, L.lang))));
+            ['market/', 'market/#pdf-feature', 'developers/', 'insights/', 'jobs/', 'websites/'].map((r) => (L.lang === 'ar' ? r : r.includes('#') ? r.replace('#', 'en.html#') : route(r, L.lang))));
         tiles.forEach((a) => {
             const orb = a.querySelector('.fxp-dest-orb');
             assert.ok(orb && orb.getAttribute('aria-hidden') === 'true', 'pillar icon is decorative');
@@ -343,12 +343,14 @@ for (const [file, L] of [
         assert.doesNotMatch(visible.join(' '), /CRM|بيعمل إيه|What is Estavo|يعرف كل حاجة|know everything/i);
         assert.equal(doc.querySelectorAll('#home-faq details[open]').length, 0);
         assert.ok(doc.querySelector('#home-faq a[href^="privacy"]'), 'privacy policy linked from the FAQ');
-        // The jobs/game answer states the real access model.
-        assert.match(answers[5], ar ? /تسجيل مجاني.*من غير حساب/ : /free sign-up.*without an account/);
+        // The jobs answer states the real access model (games stay unlisted while in testing).
+        assert.match(answers[5], ar ? /تسجيل مجاني/ : /free sign-up/);
+        assert.doesNotMatch(answers.join(' '), /ألعاب|games/i);
         // SoftwareApplication lists the community pillars.
         const app = graph.find((node) => node['@type'] === 'SoftwareApplication');
-        assert.ok(app.featureList.length >= 8);
-        assert.match(app.featureList.join(' '), ar ? /المطورين.*Estavo Daily.*وظايف.*(ألعاب|الألعاب).*Brokers AI/ : /Developer.*Estavo Daily.*jobs.*Games.*Brokers AI/);
+        assert.ok(app.featureList.length >= 7);
+        assert.match(app.featureList.join(' '), ar ? /المطورين.*Estavo Daily.*وظايف.*Brokers AI/ : /Developer.*Estavo Daily.*jobs.*Brokers AI/);
+        assert.doesNotMatch(app.featureList.join(' '), /ألعاب|games/i, 'games stay unlisted while in testing');
     });
 
     test(`${file}: metadata uses the community title`, () => {

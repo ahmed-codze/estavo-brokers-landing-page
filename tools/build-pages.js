@@ -397,7 +397,7 @@ function buildPage(route, lang) {
     ogImage: isAr ? 'og-ar.jpg' : 'og-en.jpg',
     ogLocale: isAr ? 'ar_EG' : 'en_US',
     altLocale: isAr ? 'en_US' : 'ar_EG',
-    noindex: Boolean(route.canonical_to),
+    noindex: Boolean(route.canonical_to || route.noindex),
   })
     + header(route, lang)
     + '\n    <main id="main">\n'

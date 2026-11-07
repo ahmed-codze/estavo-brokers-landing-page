@@ -113,7 +113,8 @@
         "title": "Broker games | Spy, Taghyeer Wesh and Steal the Deal",
         "description": "Three group games about projects, developers and areas: Spy, Taghyeer Wesh and Steal the Deal. Play with colleagues on your phone, free with no account"
       },
-      "in_header": true,
+      "in_header": false,
+      "noindex": true,
       "in_solutions": false
     },
     {
