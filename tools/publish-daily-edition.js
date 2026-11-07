@@ -11,13 +11,22 @@ const {cairoDay,MEDIA}=require('./daily/schema');
 const ROOT=path.resolve(__dirname,'..');
 const STATE=path.resolve(process.env.LANDING_STATE_DIR||path.join(ROOT,'.daily-releases'));
 const routes=JSON.parse(fs.readFileSync(path.join(ROOT,'tools/routes.json'))).routes;
-const publicDirs=['assets','ai','broker-ai','brokerages','brokers','challenges','data','data-deletion','developers','eestavo-website','en','enterprise','examples','go','insights','integrations','jobs','listings','market','marketing','meta','privacy','request-website','services','smart-brokerage','terms','website','websites'];
-const publicFiles=['index.html','en.html','404.html','.htaccess','go.php','robots.txt','sitemap.xml','site.webmanifest','favicon.ico'];
+// Copy everything the checkout used to serve directly, so switching the
+// document root to a release never drops a page (privacy.html, verification
+// files, …). Only private build state and VCS data stay out.
+const PRIVATE=new Set(['.git','node_modules','.cache','.daily-releases','.daily-current','.artifacts','.impeccable','.publish-lock']);
 function copyPublic(destination) {
-  for(const name of [...publicDirs,...publicFiles]) {
+  for(const name of fs.readdirSync(ROOT)) {
+    if(PRIVATE.has(name)) continue;
     const source=path.join(ROOT,name);
-    if(fs.existsSync(source)) fs.cpSync(source,path.join(destination,name),{recursive:true,filter:p=>!p.startsWith(path.join(ROOT,'assets/daily')) && !fs.lstatSync(p).isSymbolicLink() && (!path.basename(p).startsWith('.') || path.basename(p)==='.htaccess')});
+    if(fs.lstatSync(source).isSymbolicLink()) continue;
+    fs.cpSync(source,path.join(destination,name),{recursive:true,filter:p=>!p.startsWith(path.join(ROOT,'assets','daily')+path.sep) && !fs.lstatSync(p).isSymbolicLink()});
   }
+}
+// A code deploy (git pull) must reach visitors even when the edition is unchanged.
+function sourceRevision() {
+  try { return execFileSync('git',['-C',ROOT,'rev-parse','HEAD'],{stdio:['ignore','pipe','ignore']}).toString().trim(); }
+  catch { return 'nogit'; }
 }
 async function publish() {
   fs.mkdirSync(STATE,{recursive:true});
@@ -30,7 +39,7 @@ async function publish() {
     try { result=await refresh({cacheDir,assetDir,...(process.argv.includes('--local')?{endpoint:'http://127.0.0.1:81/api/public/landing-content',allowLocal:true}:{})}); }
     catch(e){result={data:read(cacheDir),status:'unavailable',warning:e.message};}
     const day=cairoDay(),edition=result.data;
-    const signature=(edition?.revision||'unavailable')+':'+day;
+    const signature=(edition?.revision||'unavailable')+':'+day+':'+sourceRevision();
     const current=path.join(STATE,'current');
     let prior;
     try{prior=JSON.parse(fs.readFileSync(path.join(current,'edition.json'),'utf8'));}catch{}

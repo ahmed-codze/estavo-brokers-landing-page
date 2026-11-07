@@ -24,7 +24,7 @@ const OUTPUT = process.env.LANDING_OUTPUT_DIR || ROOT;
 const routes = JSON.parse(fs.readFileSync(path.join(__dirname, 'routes.json'), 'utf8'));
 const SITE = 'https://estavo-brokers.com';
 const { applyDaily } = require('./daily/render');
-function withDaily(html) { return applyDaily(html); }
+function withDaily(html, key, lang) { return applyDaily(html, key, lang); }
 
 
 /* Commercial pages share the reading rhythm and interaction layer, while

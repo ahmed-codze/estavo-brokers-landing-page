@@ -78,3 +78,23 @@ test('all 32 pages preserve the authored artwork and exclude the rejected select
  }
  assert.equal(count,32);
 });
+test('home binds the edition into the approved cards without adding or removing elements',()=>{
+ const root=path.resolve(__dirname,'..');
+ const source=fs.readFileSync(path.join(root,'tools/home/index.html'),'utf8');
+ const d=fixture();
+ d.news=[{...d.news[0],title:{ar:'<img src=x onerror=alert(1)> خبر اليوم',en:'Today'}}];
+ d.jobs=[{key:'j1',title:'Sales Manager',company:'Acme',location:'Cairo, Egypt',employment_type:'full_time',published_at:'2026-11-04T07:00:00Z',valid_through:null,selection:'recent',href:'https://brokers.estavo.space/register?redirect=%2Fjobs'}];
+ d.units=[1,2,3].map(i=>({...d.units[0],key:'u'+i}));
+ const out=applyDaily(source,'home','ar',d);
+ const a=new JSDOM(source).window.document,b=new JSDOM(out).window.document;
+ const shape=doc=>[...doc.querySelectorAll('.dest-cover *,.es-home-today__grid *')].map(e=>e.tagName+'.'+(e.closest('.nw-row')&&e.tagName==='EM'?'tag':e.className)).filter(s=>!s.startsWith('BDI'));
+ assert.deepEqual(shape(b),shape(a));
+ assert.equal(b.querySelector('.es-home-today__grid img[src=x]'),null);
+ assert.match(b.querySelector('.es-home-story--news .es-home-story__title').textContent,/خبر اليوم/);
+ assert.match(b.querySelector('.dc--board .jb-row b').textContent,/Sales Manager/);
+ assert.match(b.querySelector('.dc--board .jb-row small').textContent,/^Cairo · دوام كامل$/);
+ assert.match(b.querySelector('.dc--board .jb-row em').textContent,/النهارده/);
+ assert.equal(b.querySelector('meta[name="estavo-daily-edition"]').content,'2026-11-04');
+ // Without an edition the authored page passes through untouched.
+ assert.equal(applyDaily(source,'home','ar',null).replace('<meta name="estavo-content-mode" content="approved-examples">\n',''),source.replace(/[ \t]+\n/g,'\n'));
+});
