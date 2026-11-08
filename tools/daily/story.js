@@ -1,5 +1,5 @@
 'use strict';
-// Turns the edition's three real showcase units into the illustration story
+// Turns the edition's three real showcase units (one bedroom count) into the illustration story
 // used by tools/build-market-art.py (and the HTML scenes). Every claim is
 // derived from the data: the client's budget sits between the two cheaper
 // units and the dearest one, so "2 matches + 1 alternative" holds; the best
@@ -59,6 +59,12 @@ function buildStory(edition) {
     };
   };
   const b = per(B), a = per(A), c = per(C);
+  // All three share one bedroom count (the client asked for "N rooms").
+  const n = B.bedrooms;
+  if (!rows.every(r => r.bedrooms === n) || n < 1 || n > 9) return null;
+  const roomsAr = n === 1 ? 'غرفة' : n === 2 ? 'غرفتين' : `${n} غرف`;
+  const flatAr = `شقة ${roomsAr}`;
+  const bedEn = `${n}-bed`, bedroomEn = `${n}-bedroom`, bedroomsEn = n === 1 ? '1 bedroom' : `${n} bedrooms`;
   const city = { ar: B.city.ar, en: B.city.en };
   const latestHand = Math.max(...[B, A].map(u => (u.delivery ? Number(u.delivery.slice(0, 4)) : 0)));
   const want = latestHand ? latestHand + 1 : null;
@@ -93,14 +99,14 @@ function buildStory(edition) {
       // The before/after tile has no real plan history behind it: stays an example.
       upd_sub: 'مثال · خطة السداد',
       calc_b: `تقسيط ${ar.yrs(b.yrs)}`,
-      city: city.ar, unit_chip: 'شقة 3 غرف', inst_short: ar.yrs(b.yrs),
+      city: city.ar, unit_chip: flatAr, inst_short: ar.yrs(b.yrs),
       alt_short: `بديل · +${over}`, pills: [city.ar, 'سكني'],
       phase: `${B.developer.ar} · استلام ${b.hand.ar}`,
-      ud_rows: [['نوع الوحدة', /شقة/.test(B.type.ar) || !B.type.ar ? 'شقة 3 غرف' : B.type.ar], ['السعر', b.price], ['المساحة', `${b.area} م²`], ['الغرف', '3'],
+      ud_rows: [['نوع الوحدة', /شقة/.test(B.type.ar) || !B.type.ar ? flatAr : B.type.ar], ['السعر', b.price], ['المساحة', `${b.area} م²`], ['الغرف', String(n)],
         ['التشطيب', b.finish.arShort], ['المشروع', b.name.ar], ['الاستلام', b.hand.ar]],
-      search: `شقة 3 غرف في ${city.ar} لحد ${money(budget)}، والأهم أقل مقدم`,
-      search_m: `شقة 3 غرف في ${city.ar}، أقل مقدم`,
-      chips: [city.ar, '3 غرف', `حتى ${money(budget)}`, `مقدم حتى ${money(cap)}`],
+      search: `${flatAr} في ${city.ar} لحد ${money(budget)}، والأهم أقل مقدم`,
+      search_m: `${flatAr} في ${city.ar}، أقل مقدم`,
+      chips: [city.ar, roomsAr, `حتى ${money(budget)}`, `مقدم حتى ${money(cap)}`],
       units: {
         B: [b.mono.ar, b.name.ar, `${b.area} م² · ${b.finish.ar}`, b.price, b.down, ar.yrs(b.yrs), b.hand.ar],
         A: [a.mono.ar, a.name.ar, `${a.area} م² · ${a.finish.ar}`, a.price, a.down, ar.yrs(a.yrs), a.hand.ar],
@@ -112,19 +118,19 @@ function buildStory(edition) {
       rec_title: b.name.ar, rec_sub: `${city.ar} · سكني`,
       fields: [['price', 'السعر', b.price], ['down-payment', 'المقدم', b.down], ['payment-period', 'خطة السداد', ar.yrs(b.yrs)],
         ['delivery', 'الاستلام', b.hand.ar], ['area', 'المساحة', `${b.area} م²`], ['finishing', 'التشطيب', b.finish.arShort]],
-      msg: `عايز شقة 3 غرف في ${city.ar} لحد ${money(budget)}، والأهم المقدم يكون أقل حاجة، مش أكتر من ${money(cap)}.`,
-      crit: [['المنطقة', city.ar, ''], ['الغرف', '3', ''], ['السعر', `حتى ${money(budget)}`, ''], ['المقدم', `حتى ${money(cap)}`, '']],
+      msg: `عايز ${flatAr} في ${city.ar} لحد ${money(budget)}، والأهم المقدم يكون أقل حاجة، مش أكتر من ${money(cap)}.`,
+      crit: [['المنطقة', city.ar, ''], ['الغرف', String(n), ''], ['السعر', `حتى ${money(budget)}`, ''], ['المقدم', `حتى ${money(cap)}`, '']],
       res: [['B', `مقدم ${b.down} · ${ar.yrs(b.yrs)} · ${b.hand.ar}`, 'أنسب لأولويته', 'best'],
         ['A', `مقدم ${a.down} · ${ar.yrs(a.yrs)} · ${a.hand.ar}`, 'مطابق', 'plain'],
         ['C', `مقدم ${c.down} · ${ar.yrs(c.yrs)} · ${c.hand.ar}`, `بديل · +${over}`, 'over']],
       file_t: `عرض ${b.name.ar}`,
       draft: `أهلًا، ده عرض ${b.name.ar} في ${city.ar}: مقدم ${b.down} وسداد على ${ar.yrs(b.yrs)} واستلام ${b.hand.ar}. ولو تحب نقارنه بـ${a.name.ar}، أبعتلك الفرق.`,
-      me1: `عايز 3 bedrooms في ${city.ar}، لحد ${money(budget)} وأقل مقدم.`,
+      me1: `عايز ${n} bedrooms في ${city.ar}، لحد ${money(budget)} وأقل مقدم.`,
       ai1: [['لقيت 2 مطابقين وبديل. الأنسب لأولويته ', 400], [b.name.ar, 600], [`: مقدم ${b.down}، أقل من ${a.name.ar} بـ${diff}.`, 400]],
       rows: [[b.mono.ar, `مقدم ${b.down} · ${ar.yrs(b.yrs)} · ${b.hand.ar}`], [a.mono.ar, `مقدم ${a.down} · ${ar.yrs(a.yrs)} · ${a.hand.ar}`]],
       ...(want ? { me2: `والاستلام؟ العميل عايز قبل ${want}.` } : {}),
       ai2: `استلام ${b.name.ar} ${b.hand.ar}، و${a.name.ar} ${a.hand.ar}. و${c.name.ar} ${C.ready ? 'جاهز' : 'استلامه ' + c.hand.ar} بس فوق الميزانية بـ${over}.`,
-      doc_k: `عرض وحدة · ${city.ar}`, doc_t: `${b.name.ar} · شقة 3 غرف`,
+      doc_k: `عرض وحدة · ${city.ar}`, doc_t: `${b.name.ar} · ${flatAr}`,
       doc_f: [['السعر', b.price], ['المقدم', b.down], ['السداد', ar.yrs(b.yrs)], ['الاستلام', b.hand.ar], ['المساحة', `${b.area} م²`], ['التشطيب', b.finish.arShort]],
       wa_t: `عرض ${b.name.ar}`,
     },
@@ -136,11 +142,11 @@ function buildStory(edition) {
       city: city.en, inst_short: en.years(b.yrs),
       alt_short: `Alternative · +${over}`, pills: [city.en, 'Residential'],
       phase: `${B.developer.en} · Handover ${b.hand.en}`,
-      ud_rows: [['Unit type', /apartment/i.test(B.type.en) || !B.type.en ? '3-bed apartment' : B.type.en], ['Price', b.price], ['Area', `${b.area} m²`], ['Bedrooms', '3'],
+      ud_rows: [['Unit type', /apartment/i.test(B.type.en) || !B.type.en ? `${bedEn} apartment` : B.type.en], ['Price', b.price], ['Area', `${b.area} m²`], ['Bedrooms', String(n)],
         ['Finishing', b.finish.enShort], ['Project', b.name.en], ['Delivery', b.hand.en]],
-      search: `3-bed in ${city.en} up to ${money(budget)}, lowest down payment`,
-      search_m: `3-bed, ${city.en}, lowest down payment`,
-      chips: [city.en, '3 bedrooms', `Up to ${money(budget)}`, `Down up to ${money(cap)}`],
+      search: `${bedEn} in ${city.en} up to ${money(budget)}, lowest down payment`,
+      search_m: `${bedEn}, ${city.en}, lowest down payment`,
+      chips: [city.en, bedroomsEn, `Up to ${money(budget)}`, `Down up to ${money(cap)}`],
       units: {
         B: [b.mono.en, b.name.en, `${b.area} m² · ${b.finish.en}`, b.price, b.down, en.yrs(b.yrs), b.hand.en],
         A: [a.mono.en, a.name.en, `${a.area} m² · ${a.finish.en}`, a.price, a.down, en.yrs(a.yrs), a.hand.en],
@@ -152,19 +158,19 @@ function buildStory(edition) {
       rec_title: b.name.en, rec_sub: `${city.en} · Residential`,
       fields: [['price', 'Price', b.price], ['down-payment', 'Down payment', b.down], ['payment-period', 'Payment plan', en.years(b.yrs)],
         ['delivery', 'Handover', b.hand.en], ['area', 'Area', `${b.area} m²`], ['finishing', 'Finishing', b.finish.enShort]],
-      msg: `I want a 3-bedroom apartment in ${city.en}, up to ${money(budget)}. The most important thing is the lowest down payment, no more than ${money(cap)}.`,
-      crit: [['Area', city.en, ''], ['Bedrooms', '3', ''], ['Price', `Up to ${money(budget)}`, ''], ['Down payment', `Up to ${money(cap)}`, '']],
+      msg: `I want a ${bedroomEn} apartment in ${city.en}, up to ${money(budget)}. The most important thing is the lowest down payment, no more than ${money(cap)}.`,
+      crit: [['Area', city.en, ''], ['Bedrooms', String(n), ''], ['Price', `Up to ${money(budget)}`, ''], ['Down payment', `Up to ${money(cap)}`, '']],
       res: [['B', `${b.down} down · ${en.yrs(b.yrs)} · ${b.hand.en}`, 'Best fit', 'best'],
         ['A', `${a.down} down · ${en.yrs(a.yrs)} · ${a.hand.en}`, 'Match', 'plain'],
         ['C', `${c.down} down · ${en.yrs(c.yrs)} · ${c.hand.en}`, `Alternative · +${over}`, 'over']],
       file_t: `${b.name.en} offer`,
       draft: `Hi, here's the ${b.name.en} offer in ${city.en}: ${b.down} down, a ${b.yrs}-year plan and ${b.hand.en} handover. If you'd like it compared with ${a.name.en}, I'll send you the difference.`,
-      me1: `3 bedrooms in ${city.en}, up to ${money(budget)}, lowest down payment.`,
+      me1: `${bedroomsEn} in ${city.en}, up to ${money(budget)}, lowest down payment.`,
       ai1: [['I found 2 matches and an alternative. The best fit for their priority is ', 400], [b.name.en, 600], [`: ${b.down} down, ${diff} less than ${a.name.en}.`, 400]],
       rows: [[b.mono.en, `${b.down} down · ${en.yrs(b.yrs)} · ${b.hand.en}`], [a.mono.en, `${a.down} down · ${en.yrs(a.yrs)} · ${a.hand.en}`]],
       ...(want ? { me2: `And handover? The client wants it before ${want}.` } : {}),
       ai2: `${b.name.en} hands over ${b.hand.en === 'Ready' ? 'now' : 'in ' + b.hand.en} and ${a.name.en} ${a.hand.en === 'Ready' ? 'now' : 'in ' + a.hand.en}. ${c.name.en} ${C.ready ? 'is ready' : 'hands over in ' + c.hand.en}, but ${over} over budget.`,
-      doc_k: `Unit offer · ${city.en}`, doc_t: `${b.name.en} · 3-bedroom apartment`,
+      doc_k: `Unit offer · ${city.en}`, doc_t: `${b.name.en} · ${bedroomEn} apartment`,
       doc_f: [['Price', b.price], ['Down payment', b.down], ['Plan', en.years(b.yrs)], ['Handover', b.hand.en], ['Area', `${b.area} m²`], ['Finishing', b.finish.enShort]],
       wa_t: `${b.name.en} offer`,
     },

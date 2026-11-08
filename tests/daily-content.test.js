@@ -119,3 +119,11 @@ test('showcase is optional, strictly validated, and drives a true illustration s
  assert.equal(buildStory({...d,showcase:d.showcase.slice(0,2)}),null);
  const tie=JSON.parse(JSON.stringify(d));tie.showcase[1].down_payment=480000;assert.equal(buildStory(tie),null);
 });
+test('the story follows the showcase bedroom count and refuses mixed counts',()=>{
+ const {buildStory}=require('../tools/daily/story');
+ const row=(ar,price,down,bedrooms)=>({key:ar,project:{ar,en:ar},city:{ar:'أكتوبر',en:'October'},developer:{ar:'م',en:'D'},type:{ar:'شقة',en:'Apartment'},area_sqm:120,bedrooms,finishing:'semi_finished',price_from:price,currency:'EGP',down_payment:down,dp_pct:10,installment_months:120,delivery:'2029-12-31',ready:false,image:null,href});
+ const d={...fixture(),showcase:[row('أ',5000000,500000,2),row('ب',5400000,450000,2),row('ج',6000000,600000,2)]};
+ const s=buildStory(d);
+ assert.equal(s.ar.chips[1],'غرفتين');assert.match(s.ar.msg,/شقة غرفتين/);assert.match(s.en.msg,/2-bedroom/);
+ assert.equal(buildStory({...d,showcase:[row('أ',5000000,500000,2),row('ب',5400000,450000,3),row('ج',6000000,600000,2)]}),null);
+});
