@@ -28,7 +28,7 @@ async function refresh({cacheDir,assetDir,endpoint=DEFAULT_ENDPOINT,now=new Date
   try { fd=fs.openSync(lock,'wx'); } catch(e) { if(e.code==='EEXIST') throw new Error('Another landing refresh is running; inspect a stale lock before removing it');throw e; }
   try {
     const previous=read(cacheDir,now);
-    const complete = previous && [...previous.projects.map(r=>r.image),...previous.developers.map(r=>r.logo)].filter(Boolean).every(item => {
+    const complete = previous && [...previous.projects.map(r=>r.image),...previous.developers.map(r=>r.logo),...previous.showcase.map(r=>r.image)].filter(Boolean).every(item => {
       const hash=MEDIA.exec(item)[1],file=path.join(assetDir,hash+'.webp');
       return fs.existsSync(file) && crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')===hash;
     });
@@ -37,8 +37,8 @@ async function refresh({cacheDir,assetDir,endpoint=DEFAULT_ENDPOINT,now=new Date
       const bytes=await boundedFetch(endpoint,65536,fetcher);
       const data=validate(JSON.parse(bytes.toString('utf8')),now);
       if(previous && data.snapshot_date<previous.snapshot_date) throw new Error('Landing source moved backwards');
-      const media=[...new Set([...data.projects.map(r=>r.image),...data.developers.map(r=>r.logo)].filter(Boolean))];
-      // Maximum nine sequential downloads, capped at 100KB each; no source URLs.
+      const media=[...new Set([...data.projects.map(r=>r.image),...data.developers.map(r=>r.logo),...data.showcase.map(r=>r.image)].filter(Boolean))];
+      // At most twelve sequential downloads, capped at 100KB each; no source URLs.
       for(const item of media) {
         const hash=MEDIA.exec(item)[1],file=path.join(assetDir,hash+'.webp');
         if(fs.existsSync(file) && crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')===hash) continue;

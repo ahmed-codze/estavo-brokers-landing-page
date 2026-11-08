@@ -98,3 +98,24 @@ test('home binds the edition into the approved cards without adding or removing 
  // Without an edition the authored page passes through untouched.
  assert.equal(applyDaily(source,'home','ar',null).replace('<meta name="estavo-content-mode" content="approved-examples">\n',''),source.replace(/[ \t]+\n/g,'\n'));
 });
+test('showcase is optional, strictly validated, and drives a true illustration story',()=>{
+ const {buildStory}=require('../tools/daily/story');
+ const d=fixture();
+ assert.deepEqual(validate(JSON.parse(JSON.stringify(d)),now).showcase,[]);
+ const row=(ar,price,down,months,delivery)=>({key:ar,project:{ar,en:ar+'-en'},city:{ar:'القاهرة الجديدة',en:'New Cairo'},developer:{ar:'مطور',en:'Dev'},type:{ar:'شقة',en:'Apartment'},area_sqm:150,bedrooms:3,finishing:'fully_finished',price_from:price,currency:'EGP',down_payment:down,dp_pct:10,installment_months:months,delivery,ready:false,image:null,href});
+ d.showcase=[row('ب',7990000,480000,108,'2030-12-31'),row('أ',6120000,612000,102,'2029-06-30'),row('ج',8530000,853000,96,'2027-12-31')];
+ assert.equal(validate(JSON.parse(JSON.stringify(d)),now).showcase.length,3);
+ for(const change of [r=>r.down_payment=r.price_from+1,r=>r.phone='x',r=>r.installment_months=0,r=>r.image='https://example.com/a.jpg']) {
+  const bad=JSON.parse(JSON.stringify(d));change(bad.showcase[0]);assert.throws(()=>validate(bad,now));
+ }
+ const s=buildStory(d);
+ // Budget sits above both matches and below the alternative; best = lowest real down payment.
+ assert.equal(s.ar.chips[2],'حتى 8.0M');
+ assert.equal(s.ar.units.B[1],'ب');assert.equal(s.ar.units.A[1],'أ');assert.equal(s.ar.units.C[1],'ج');
+ assert.equal(s.ar.units.B[4],'480K');assert.equal(s.story.years.A,8.5);
+ assert.match(s.ar.ai,/أقل من أ بـ130K/);assert.match(s.ar.over,/530K/);
+ assert.equal(s.ar.upd_sub,'مثال · خطة السداد');
+ // No true story -> no story (the approved example art stays).
+ assert.equal(buildStory({...d,showcase:d.showcase.slice(0,2)}),null);
+ const tie=JSON.parse(JSON.stringify(d));tie.showcase[1].down_payment=480000;assert.equal(buildStory(tie),null);
+});

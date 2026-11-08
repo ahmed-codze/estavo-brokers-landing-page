@@ -29,7 +29,7 @@ from fontTools.ttLib import TTFont
 import uharfbuzz as hb
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT = ROOT / 'assets/img/market'
+OUT = Path(__import__('os').environ.get('MARKET_ART_OUT') or ROOT / 'assets/img/market')
 
 # ── Palette: Estavo navy + Estavo blue ───────────────────────────────
 NAVY = '#0b2239'
@@ -378,6 +378,9 @@ def font_css(chars):
     return css
 
 
+# Numbers the scenes draw outside the copy table (unit B is the record card).
+STORY = {'years': {'B': 7, 'A': 8, 'C': 6}, 'area': {'B': '158', 'A': '165', 'C': '180'}}
+
 # ── Copy ─────────────────────────────────────────────────────────────
 C = {
     'ar': {
@@ -551,8 +554,11 @@ PHOTOS = {}
 
 
 def photo_uri(key):
+    # 'stock-<name>' is always the authored photo, never a day's real one:
+    # launch tiles have no photo of their own in the data.
     if key not in PHOTOS:
-        data = (ROOT / f'tools/data/market-photos/{key}.webp').read_bytes()
+        name = key[6:] if key.startswith('stock-') else key
+        data = (ROOT / f'tools/data/market-photos/{name}.webp').read_bytes()
         PHOTOS[key] = 'data:image/webp;base64,' + base64.b64encode(data).decode()
     return PHOTOS[key]
 
@@ -691,8 +697,8 @@ def city_pill(a, x, y, label, size=11.5):
 
 def unit_vals(c, key):
     mono, name, sub, price, down, plan, hand = c['units'][key]
-    years = {'B': 7, 'A': 8, 'C': 6}[key]
-    area = {'B': '158', 'A': '165', 'C': '180'}[key]
+    years = STORY['years'][key]
+    area = STORY['area'][key]
     return dict(mono=mono, name=name, price=price, down=down, hand=hand,
                 inst=c['inst'].format(n=years), area=c['area_v'].format(n=area))
 
@@ -974,7 +980,7 @@ def dash(lang, compact):
     lx = pad + lw + gap
     a.seq('r', 420)
     a.rect(lx, y0, rw, rowA, r=16, fill=WHITE, stroke=LINE)
-    photo(a, lx + 1, y0 + 1, rw - 2, 112, 0, r=15, sweep=1900)
+    photo(a, lx + 1, y0 + 1, rw - 2, 112, 0, r=15, key='stock-project-b', sweep=1900)
     badge(a, lx + rw - 10, y0 + 10, c['launch_badge'], 10.5, BLUE, WHITE, h=22)
     a.rect(lx + 10, y0 + 10, tw(c['t_launch'], 10.5, 600) + 18, 22, r=11, fill=NAVY, opacity=.85)
     a.text(lx + 19, y0 + 25, c['t_launch'], 10.5, WHITE, 600)
@@ -1071,7 +1077,7 @@ def dash_mobile(lang):
     y += newsH + gap
     a.seq('r', 900)
     a.rect(pad, y, bw, launchH, r=16, fill=WHITE, stroke=LINE)
-    photo(a, pad + 10, y + 10, 110, launchH - 20, 0, r=10, rtop_only=False, sweep=1700)
+    photo(a, pad + 10, y + 10, 110, launchH - 20, 0, r=10, rtop_only=False, key='stock-project-b', sweep=1700)
     a.text(pad + 132, y + 28, c['t_launch'], 11, BLUE, 600)
     a.text(pad + 132, y + 50, c['launch_name'], 13.5, INK, 600)
     a.text(pad + 132, y + 72, c['launch_meta'], 11, T3)
@@ -1162,7 +1168,7 @@ def daily(lang, compact):
     ly = p + card_h - (10 if compact else 40)
     a.seq('r', 1300)
     a.rect(lx, ly, lw, 112, r=16, fill=WHITE, stroke=LINE, filt='sh')
-    photo(a, lx + 8, ly + 8, 84, 96, 2, r=10, rtop_only=False, sweep=2000)
+    photo(a, lx + 8, ly + 8, 84, 96, 2, r=10, rtop_only=False, key='stock-project-c', sweep=2000)
     a.text(lx + 102, ly + 30, c['t_launch'], 10.5, BLUE, 600)
     a.text(lx + 102, ly + 52, c['launch_name'].split(' · ')[0], 13, INK, 600)
     a.text(lx + 102, ly + 72, c['launch_meta'].split(' · ')[0], 11, T3)
@@ -1219,14 +1225,14 @@ def record(lang, compact):
     a.seq('r', 600)
     a.rect(pcx, pc_y, pcw, price_card_h, r=18, fill=WHITE, filt='sh')
     a.text(pcx + 18, pc_y + 28, c['start_from'], 11.5, T3, 500)
-    a.text(pcx + 18, pc_y + 58, '8.0M', 26, BLUE, 600)
+    a.text(pcx + 18, pc_y + 58, c['units']['B'][3], 26, BLUE, 600)
     st_badge = c['available']
     bw_ = badge(a, pcx + pcw - 16, pc_y + 16, st_badge, 11, '#e7f4ec', '#1f7a45', h=24)
     a.fx(f'<circle class="ring" cx="{a.px(pcx + pcw - 16 - bw_ - 10)}" cy="{pc_y + 28}" r="5" fill="none" stroke="#22c55e" stroke-width="1.6" style="animation-delay:1300ms;animation-duration:2s"/>')
     a.fx(f'<circle cx="{a.px(pcx + pcw - 16 - bw_ - 10)}" cy="{pc_y + 28}" r="3" fill="#22c55e"/>')
     a.close()
-    stats = [('delivery', c['f_delivery'], '2027'), ('area', c['f_area'], c['area_v'].format(n='158')),
-             ('down-payment', c['f_down'], '1.2M'), ('instalment', c['f_inst'], c['inst'].format(n=7))]
+    stats = [('delivery', c['f_delivery'], c['units']['B'][6]), ('area', c['f_area'], c['area_v'].format(n=STORY['area']['B'])),
+             ('down-payment', c['f_down'], c['units']['B'][4]), ('instalment', c['f_inst'], c['inst'].format(n=STORY['years']['B']))]
     for i, (ic, lab, val) in enumerate(stats):
         r_, k = divmod(i, 2)
         sx = pcx + 12 + k * (statw + 10)
@@ -1258,7 +1264,7 @@ def record(lang, compact):
     a.rect(pad + 16, plan_y + 14, tw_t, 22, r=6, fill=SOFT)
     a.text(pad + 16 + tw_t / 2, plan_y + 29, c['plan_tag'], 10.5, BLUE, 600, anchor='middle')
     half = (W - 2 * pad) / 2
-    a.text(pad + 18, plan_y + 76, '1.2M', 28, BLUE, 600)
+    a.text(pad + 18, plan_y + 76, c['units']['B'][4], 28, BLUE, 600)
     a.text(pad + 18, plan_y + 99, c['f_down'], 12, T3)
     a.line(pad + half, plan_y + 50, pad + half, plan_y + 102)
     a.text(pad + half + 18, plan_y + 76, c['inst_short'], 28, BLUE, 600)
@@ -1739,27 +1745,145 @@ def main():
         global ANIM
         for animated, suffix in ((True, ''), (False, '-still')):
             ANIM = animated
-            art = fn(*args)
+            art = render(name, fn, args)
             path = OUT / f'{name}{suffix}.svg'
-            path.write_text(art.svg(title))
+            # Real-data scenes drop the "Example:" prefix from their title.
+            shown = title.split(': ', 1)[-1] if BADGE[args[0]] != EXAMPLE[args[0]] else title
+            path.write_text(art.svg(shown))
             written.append((path.name, art.W, art.H, path.stat().st_size))
         ANIM = False
 
+    def badge_for(key, lang):
+        # Scenes that show only real data carry the dated data label; the
+        # dashboard (illustrative calculator/update tile) and the simulated
+        # conversation/send scenes stay labelled examples.
+        BADGE[lang] = DATA_LABEL[lang] if DATA_LABEL and key in ('daily', 'record') else EXAMPLE[lang]
+        C[lang]['example'] = BADGE[lang]
+
     for lang in ('ar', 'en'):
+        badge_for('hero', lang)
         build(f'hero-{lang}', dash, (lang, False), TITLES['hero'][lang])
         build(f'hero-mobile-{lang}', dash, (lang, True), TITLES['hero'][lang])
+        badge_for('daily', lang)
         build(f'daily-{lang}', daily, (lang, False), TITLES['daily'][lang])
         build(f'daily-mobile-{lang}', daily, (lang, True), TITLES['daily'][lang])
         for key, fn in [('record', record), ('step-ask', step_ask), ('step-find', step_find),
                         ('step-send', step_send), ('chat', chat), ('pdf', pdf)]:
+            badge_for(key, lang)
             build(f'{key}-{lang}', fn, (lang, False), TITLES[key][lang])
             build(f'{key}-mobile-{lang}', fn, (lang, True), TITLES[key][lang])
+        badge_for('change', lang)
         build(f'change-{lang}', change, (lang, False), TITLES['change'][lang])
 
     for name, w, h, size in written:
         print(f'  {name:36} {w}x{h}  {size / 1024:.1f} KB')
-    print(f'\n{len(written)} SVG(s) written to {OUT.relative_to(ROOT)}')
+    print(f'\n{len(written)} SVG(s) written to {OUT}')
+
+
+# ── Daily story (optional) ───────────────────────────────────────────
+# MARKET_ART_STORY points at a JSON file written by tools/daily/story.js:
+# real values for the copy table, STORY numbers, project photos and the
+# dated data label. Without it the approved example art is rebuilt as is.
+EXAMPLE = {lang: C[lang]['example'] for lang in C}
+BADGE = dict(EXAMPLE)
+DATA_LABEL = None
+RAW = None                      # the loaded story, or None for example art
+BASE = None                     # deep copies of the example copy/numbers/photos
+# Multi-line bubbles (chat, client message, reply) wrap; they may run wider
+# than their example as long as the scene keeps its exact size.
+WRAPPED = {'me1', 'me2', 'ai1', 'ai2', 'ai', 'msg', 'draft'}
+
+
+def fit(new, old, factor=1.15):
+    """Shorten a real string to the width its example slot was drawn for."""
+    if not isinstance(new, str) or not isinstance(old, str) or len(old) < 8:
+        return new
+    limit = tw(old, 12) * factor
+    if tw(new, 12) <= limit:
+        return new
+    words = new.split(' ')
+    while len(words) > 1 and tw(' '.join(words) + '…', 12) > limit:
+        words.pop()
+    out = ' '.join(words).rstrip('،,.:;·- ')
+    while len(out) > 1 and tw(out + '…', 12) > limit:
+        out = out[:-1]
+    return out + '…'
+
+
+def merge(old, new, factor=1.15, wrapped=1.15):
+    if isinstance(old, dict) and isinstance(new, dict):
+        return {k: (merge(old[k], new[k], wrapped if k in WRAPPED else factor, wrapped) if k in new else old[k]) for k in old}
+    if isinstance(old, (list, tuple)) and isinstance(new, list):
+        items = [merge(o, n, factor, wrapped) for o, n in zip(old, new)] + list(old[len(new):])
+        return tuple(items) if isinstance(old, tuple) else items
+    if isinstance(old, str) and isinstance(new, str):
+        return fit(new, old, factor)
+    if isinstance(old, int) and isinstance(new, int):
+        return new
+    return old
+
+
+def apply_story(lang, wrapped):
+    """Copy = example copy + the real story, bubbles allowed `wrapped` x width."""
+    import copy
+    C[lang] = merge(copy.deepcopy(BASE['C'][lang]), RAW.get(lang, {}), 1.15, wrapped)
+    C[lang]['example'] = BADGE[lang]
+    for k in ('years', 'area'):
+        STORY[k] = dict(BASE['STORY'][k], **{u: v for u, v in RAW.get('story', {}).get(k, {}).items() if u in STORY[k]})
+    PHOTOS.clear(); PHOTOS.update(RAW_PHOTOS)
+
+
+def use_example(lang):
+    import copy
+    C[lang] = copy.deepcopy(BASE['C'][lang]); C[lang]['example'] = EXAMPLE[lang]
+    for k in ('years', 'area'):
+        STORY[k] = dict(BASE['STORY'][k])
+    PHOTOS.clear()
+
+
+def authored_size(name):
+    f = ROOT / 'assets/img/market' / f'{name}.svg'
+    m = re.search(r'viewBox="0 0 ([\d.]+) ([\d.]+)"', f.read_text()[:400]) if f.exists() else None
+    return (float(m.group(1)), float(m.group(2))) if m else None
+
+
+def render(name, fn, args):
+    """With a story, each scene must keep its authored size (the pages and
+    their approved compositions depend on it). Tighten the bubbles until it
+    fits; if it never does, that scene falls back to the example story."""
+    if RAW is None:
+        return fn(*args)
+    lang = args[0]
+    target = authored_size(name)
+    for wrapped in (1.6, 1.4, 1.25, 1.1, 1.0, .9, .8):
+        apply_story(lang, wrapped)
+        art = fn(*args)
+        if target is None or (float(art.W), float(art.H)) == target:
+            return art
+    print(f'  {name}: real story does not fit its frame; example kept')
+    use_example(lang)
+    art = fn(*args)
+    apply_story(lang, 1.15)
+    return art
+
+
+RAW_PHOTOS = {}
+
+
+def load_story():
+    global DATA_LABEL, RAW, BASE
+    path = __import__('os').environ.get('MARKET_ART_STORY')
+    if not path:
+        return
+    import copy, json
+    RAW = json.loads(Path(path).read_text())
+    BASE = {'C': copy.deepcopy(C), 'STORY': copy.deepcopy(STORY)}
+    for key, file in RAW.get('photos', {}).items():
+        if key in ('project-a', 'project-b', 'project-c') and file:
+            RAW_PHOTOS[key] = 'data:image/webp;base64,' + base64.b64encode(Path(file).read_bytes()).decode()
+    DATA_LABEL = RAW.get('data_label')
 
 
 if __name__ == '__main__':
+    load_story()
     main()

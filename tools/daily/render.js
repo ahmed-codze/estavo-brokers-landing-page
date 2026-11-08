@@ -157,6 +157,10 @@ function applyDaily(html, key, lang, data) {
   let out = html;
   const d = data === undefined ? (key === 'home' ? edition() : null) : data;
   if (key === 'home' && d && (lang === 'ar' || lang === 'en')) out = bind(out, lang, d);
+  // The market illustrations were regenerated for this edition; their files
+  // keep their names and a 30-day cache, so each page asks for today's copy.
+  const ver = process.env.LANDING_ART_VERSION;
+  if (ver && /^\d{4}-\d{2}-\d{2}$/.test(ver)) out = out.replace(/(assets\/img\/market\/[a-z0-9-]+\.svg)(?=["'\s,)])/g, `$1?v=${ver}`);
   return out.replace(/[ \t]+\n/g, '\n').replace('</head>', MARK + '\n</head>');
 }
 module.exports = { applyDaily };

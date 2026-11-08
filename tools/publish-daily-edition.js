@@ -8,6 +8,7 @@ const crypto=require('crypto');
 const {execFileSync}=require('child_process');
 const {refresh,read}=require('./daily/cache');
 const {cairoDay,MEDIA}=require('./daily/schema');
+const {buildStory}=require('./daily/story');
 const ROOT=path.resolve(__dirname,'..');
 const STATE=path.resolve(process.env.LANDING_STATE_DIR||path.join(ROOT,'.daily-releases'));
 const routes=JSON.parse(fs.readFileSync(path.join(ROOT,'tools/routes.json'))).routes;
@@ -22,6 +23,29 @@ function copyPublic(destination) {
     if(fs.lstatSync(source).isSymbolicLink()) continue;
     fs.cpSync(source,path.join(destination,name),{recursive:true,filter:p=>!p.startsWith(path.join(ROOT,'assets','daily')+path.sep) && !fs.lstatSync(p).isSymbolicLink()});
   }
+}
+// Regenerates the market illustrations with the day's real story. Output lands
+// in a temporary folder and replaces the authored SVGs only if the whole run
+// succeeds; any failure keeps the approved example art. Returns true on success.
+function marketArt(stage,edition,assetDir) {
+  const story=buildStory(edition);
+  if(!story) return false;
+  for(const [key,item] of Object.entries(story.photos)) {
+    const file=item && path.join(assetDir,MEDIA.exec(item)[1]+'.webp');
+    story.photos[key]=file && fs.existsSync(file)?file:null;
+  }
+  const tmp=path.join(stage,'.market-art');
+  fs.mkdirSync(tmp);
+  try {
+    fs.writeFileSync(path.join(tmp,'story.json'),JSON.stringify(story));
+    execFileSync(process.env.LANDING_PYTHON||'python3',[path.join(ROOT,'tools/build-market-art.py')],{cwd:ROOT,stdio:'pipe',timeout:900000,
+      env:{...process.env,MARKET_ART_OUT:path.join(tmp,'svg'),MARKET_ART_STORY:path.join(tmp,'story.json')}});
+    const files=fs.readdirSync(path.join(tmp,'svg')).filter(n=>n.endsWith('.svg'));
+    if(files.length<60) throw new Error('Market art run was incomplete');
+    for(const n of files) fs.renameSync(path.join(tmp,'svg',n),path.join(stage,'assets/img/market',n));
+    return true;
+  } catch(e) { console.error('Market art kept as authored: '+(e.stderr?.toString().trim().split('\n').pop()||e.message));return false; }
+  finally { fs.rmSync(tmp,{recursive:true,force:true}); }
 }
 // A code deploy (git pull) must reach visitors even when the edition is unchanged.
 function sourceRevision() {
@@ -53,7 +77,8 @@ async function publish() {
         fs.copyFileSync(path.join(assetDir,name),path.join(stage,'assets/daily',name));
       }
     }
-    execFileSync(process.execPath,[path.join(ROOT,'tools/build-pages.js')],{cwd:ROOT,env:{...process.env,LANDING_OUTPUT_DIR:stage,LANDING_CACHE_DIR:cacheDir},stdio:'pipe'});
+    const art=edition?marketArt(stage,edition,assetDir):false;
+    execFileSync(process.execPath,[path.join(ROOT,'tools/build-pages.js')],{cwd:ROOT,env:{...process.env,LANDING_OUTPUT_DIR:stage,LANDING_CACHE_DIR:cacheDir,...(art?{LANDING_ART_VERSION:edition.snapshot_date}:{})},stdio:'pipe'});
     // Every current page must be from one edition, with local media present.
     for(const r of routes) for(const lang of ['ar','en']) {
       const file=path.join(stage,r.path,lang==='ar'?'index.html':'en.html');
@@ -69,9 +94,9 @@ async function publish() {
     const releases=fs.readdirSync(STATE).filter(n=>/^release-\d{4}-\d{2}-\d{2}-[a-f0-9]{10}$/.test(n)).map(n=>path.join(STATE,n)).sort((a,b)=>fs.statSync(b).mtimeMs-fs.statSync(a).mtimeMs);
     for(const obsolete of releases.slice(3)) if(obsolete!==stage) fs.rmSync(obsolete,{recursive:true});
     // Private image cache only: prune unreferenced derivatives older than a week.
-    const referenced=new Set(edition?[...edition.projects.map(r=>r.image),...edition.developers.map(r=>r.logo)].filter(Boolean).map(u=>MEDIA.exec(u)[1]+'.webp'):[]);
+    const referenced=new Set(edition?[...edition.projects.map(r=>r.image),...edition.developers.map(r=>r.logo),...edition.showcase.map(r=>r.image)].filter(Boolean).map(u=>MEDIA.exec(u)[1]+'.webp'):[]);
     for(const name of fs.readdirSync(assetDir)) if(/^[a-f0-9]{64}\.webp$/.test(name) && !referenced.has(name) && Date.now()-fs.statSync(path.join(assetDir,name)).mtimeMs>7*86400000) fs.unlinkSync(path.join(assetDir,name));
-    console.log(JSON.stringify({status:result.status,date:edition?.snapshot_date||null,pages:32,current,warning:result.warning}));
+    console.log(JSON.stringify({status:result.status,date:edition?.snapshot_date||null,pages:32,art,current,warning:result.warning}));
   } catch(e) { if(stage && fs.existsSync(stage) && (!fs.existsSync(path.join(STATE,'current')) || fs.realpathSync(path.join(STATE,'current'))!==stage)) fs.rmSync(stage,{recursive:true});throw e; }
   finally {fs.closeSync(fd);fs.unlinkSync(lock);}
 }

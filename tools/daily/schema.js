@@ -1,5 +1,7 @@
 'use strict';
-const LIMITS = { projects: 3, units: 3, developers: 6, news: 4, launches: 3, jobs: 4, games: 1 };
+const LIMITS = { projects: 3, units: 3, developers: 6, news: 4, launches: 3, jobs: 4, games: 1, showcase: 3 };
+// Added after schema v1 shipped: editions without it are still valid.
+const OPTIONAL = new Set(['showcase']);
 const MEDIA = /^\/api\/public\/landing-content\/media\/([a-f0-9]{64})\.webp$/;
 const cairoDay = (now = new Date()) => new Intl.DateTimeFormat('en-CA', { timeZone: 'Africa/Cairo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
 function validate(data, now = new Date()) {
@@ -12,6 +14,7 @@ function validate(data, now = new Date()) {
   const href = (v) => { text(v, 512); const u = new URL(v); if (u.origin !== 'https://brokers.estavo.space' || u.username || u.password || !['/register', '/games/exclusive'].includes(u.pathname)) fail(); };
   const media = (v) => { if (v !== null && !MEDIA.test(v)) fail(); };
   for (const [kind, limit] of Object.entries(LIMITS)) {
+    if (OPTIONAL.has(kind) && data[kind] === undefined) data[kind] = [];
     const rows = data[kind];
     if (!Array.isArray(rows) || rows.length > limit || new Set(rows.map(r => r.key)).size !== rows.length) fail();
     for (const r of rows) {
@@ -29,6 +32,14 @@ function validate(data, now = new Date()) {
       }
       if (kind === 'jobs') for (const key of ['title', 'company', 'location', 'employment_type']) text(r[key], 160);
       if (kind === 'games') text(r.prompt, 180);
+      if (kind === 'showcase') {
+        translated(r.project); translated(r.city); translated(r.developer); translated(r.type); text(r.finishing, 60); media(r.image);
+        const money = v => Number.isFinite(v) && v > 0 && v <= 1e12;
+        if (!money(r.price_from) || !money(r.down_payment) || r.down_payment > r.price_from || r.currency !== 'EGP'
+          || !Number.isFinite(r.area_sqm) || r.area_sqm <= 0 || r.area_sqm > 1e5 || !Number.isInteger(r.bedrooms)
+          || !Number.isFinite(r.dp_pct) || r.dp_pct <= 0 || r.dp_pct > 100 || !Number.isInteger(r.installment_months) || r.installment_months <= 0 || r.installment_months > 600
+          || (r.delivery !== null && !/^\d{4}-\d{2}-\d{2}$/.test(r.delivery)) || typeof r.ready !== 'boolean') fail();
+      }
       if (['news', 'launches', 'jobs'].includes(kind) && (!Number.isFinite(Date.parse(r.published_at)) || Date.parse(r.published_at) > +now)) fail();
       if (kind === 'jobs' && r.valid_through && !Number.isFinite(Date.parse(r.valid_through))) fail();
       // Refuse accidental server-side over-sharing, even if the renderer would ignore it.
@@ -39,6 +50,7 @@ function validate(data, now = new Date()) {
         launches: 'key title project published_at href selection',
         jobs: 'key title company location employment_type published_at valid_through href selection',
         games: 'key name prompt href selection',
+        showcase: 'key project city developer type area_sqm bedrooms finishing price_from currency down_payment dp_pct installment_months delivery ready image href',
       }[kind].split(' ');
       if (Object.keys(r).some(k => !allowed.includes(k))) fail();
     }
