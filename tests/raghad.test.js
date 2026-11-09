@@ -240,7 +240,7 @@ test('all four landing routes defer the same public widget with versioned relati
         const dom = new JSDOM(html, { url: `https://estavo-brokers.com/${name}` });
         const loader = dom.window.document.querySelector('script[src*="raghad-loader.js"]');
         assert.equal(new URL(loader.src).pathname, '/assets/js/raghad-loader.js');
-        assert.equal(new URL(loader.src).searchParams.get('v'), '20261011-public');
+        assert.equal(new URL(loader.src).searchParams.get('v'), '20261109-stream');
         assert.equal(loader.hasAttribute('defer'), true);
         assert.equal(dom.window.document.querySelector('script[src*="/raghad.js"]'), null);
         dom.window.close();
@@ -426,4 +426,135 @@ test('production pause hides Raghad on listed hosts while previews remain availa
         assert.equal(Boolean(get('#raghad-support')), host === 'preview.estavo.test');
         dom.window.close();
     }
+});
+
+// A controllable server-sent-events response: push(text) delivers bytes, end() closes it.
+function sseResponse() {
+    const { TextEncoder } = require('node:util');
+    const encoder = new TextEncoder();
+    const queue = [];
+    let waiting = null;
+    let closed = false;
+    const deliver = item => { if (waiting) { const resolve = waiting; waiting = null; resolve(item); } else queue.push(item); };
+    return {
+        response: {
+            ok: true, status: 200,
+            headers: { get: name => (name.toLowerCase() === 'content-type' ? 'text/event-stream; charset=UTF-8' : null) },
+            body: { getReader: () => ({
+                read: () => (queue.length ? Promise.resolve(queue.shift()) : closed ? Promise.resolve({ done: true }) : new Promise(resolve => { waiting = resolve; })),
+                cancel: async () => { closed = true; deliver({ done: true }); },
+            }) },
+            json: async () => { throw new Error('streamed responses are not JSON'); },
+        },
+        push(text) { deliver({ value: encoder.encode(text), done: false }); },
+        event(name, data) { this.push(`event: ${name}\ndata: ${JSON.stringify(data)}\n\n`); },
+        end() { closed = true; deliver({ done: true }); },
+    };
+}
+
+function streamingSetup(locale = 'en') {
+    const streams = [];
+    const calls = [];
+    const harness = setup(locale, async (url, options) => {
+        calls.push(options);
+        const stream = sseResponse();
+        streams.push(stream);
+        return stream.response;
+    });
+    harness.window.TextDecoder = require('node:util').TextDecoder;
+    return { ...harness, streams, calls };
+}
+
+test('streamed replies appear word by word, then settle into the final safe message', async () => {
+    const { dom, get, send, streams, calls } = streamingSetup();
+    send('What is Estavo?');
+    await tick();
+    assert.match(calls[0].headers.Accept, /^application\/json, text\/event-stream$/);
+    assert.equal(get('.raghad-status').hidden, false, 'typing indicator shows until text arrives');
+    const stream = streams[0];
+    stream.push(': {"ok":true}\n\n');
+    // Split one event across chunks, and use CRLF, to exercise buffering.
+    stream.push('event: delta\r\ndata: {"text":"Estavo helps "}\r\n\r\nevent: del');
+    stream.push('ta\ndata: {"text":"brokers <b>work</b>"}\n\n');
+    await tick(); await new Promise(resolve => setTimeout(resolve, 30));
+    const live = get('.raghad-message--assistant');
+    assert.ok(live, 'the reply bubble appears before the answer is finished');
+    assert.equal(live.getAttribute('aria-busy'), 'true');
+    assert.match(live.textContent, /Estavo helps brokers <b>work<\/b>/);
+    assert.equal(live.querySelector('b'), null, 'model markup stays text while streaming');
+    assert.equal(get('.raghad-status').hidden, true, 'typing indicator gives way to the text');
+    assert.equal(get('.raghad-send').disabled, true, 'no second send while a reply is streaming');
+
+    stream.event('done', { message: 'Estavo helps brokers. Start at https://estavo-brokers.com/website/en.html. Not https://evil.example/website/', conversation_token: 'signed-1', sources: [] });
+    stream.end();
+    await tick(); await tick();
+    const final = get('.raghad-message--assistant');
+    assert.equal(final, live, 'the same bubble is reused');
+    assert.equal(final.hasAttribute('aria-busy'), false);
+    assert.deepEqual([...final.querySelectorAll('a')].map(a => a.href), ['https://estavo-brokers.com/website/en.html']);
+    assert.equal(get('.raghad-status').hidden, true);
+
+    send('And the website?');
+    await tick();
+    assert.equal(JSON.parse(calls[1].body).conversation_token, 'signed-1');
+    dom.window.close();
+});
+
+test('a stream that fails midway removes the partial reply and keeps the question for retry', async () => {
+    const { dom, get, send, streams } = streamingSetup('ar');
+    send('ازاي اعمل موقع؟');
+    await tick();
+    streams[0].event('delta', { text: 'نص جزئي' });
+    await tick(); await new Promise(resolve => setTimeout(resolve, 30));
+    assert.ok(get('.raghad-message--assistant'));
+    streams[0].event('error', { code: 'support_unavailable' });
+    await tick(); await tick();
+    assert.equal(get('.raghad-message--assistant'), null);
+    assert.ok(get('.raghad-message--user.raghad-message--failed'));
+    assert.equal(get('.raghad-input').value, 'ازاي اعمل موقع؟');
+    assert.equal(get('.raghad-error').hidden, false);
+    assert.equal(get('.raghad-retry').hidden, false);
+    dom.window.close();
+});
+
+test('a stream that closes without a final message is treated as unavailable', async () => {
+    const { dom, get, send, streams } = streamingSetup();
+    send('Hello');
+    await tick();
+    streams[0].event('delta', { text: 'Half' });
+    streams[0].end();
+    await tick(); await tick(); await tick();
+    assert.equal(get('.raghad-message--assistant'), null);
+    assert.equal(get('.raghad-input').value, 'Hello');
+    assert.equal(get('.raghad-error').hidden, false);
+    dom.window.close();
+});
+
+test('new chat during a streamed reply stops it and late text never returns', async () => {
+    const { dom, get, send, streams } = streamingSetup();
+    send('Tell me about credits');
+    await tick();
+    streams[0].event('delta', { text: 'Credits are' });
+    await tick(); await new Promise(resolve => setTimeout(resolve, 30));
+    get('.raghad-reset').click();
+    get('.raghad-confirm-reset').click();
+    streams[0].event('delta', { text: ' late text' });
+    streams[0].event('done', { message: 'Credits are late text', conversation_token: 'late', sources: [] });
+    await tick(); await tick(); await new Promise(resolve => setTimeout(resolve, 30));
+    assert.equal(get('.raghad-messages').children.length, 0);
+    assert.equal(get('.raghad-status').hidden, true);
+    assert.equal(get('.raghad-intro').hidden, false);
+    dom.window.close();
+});
+
+test('the API connection is warmed once when the visitor reaches for the chat', () => {
+    const { dom, window, get } = setup();
+    const hints = () => window.document.querySelectorAll('link[rel="preconnect"]');
+    assert.equal(hints().length, 0, 'no network hint before intent');
+    get('.raghad-launcher').dispatchEvent(new window.Event('pointerenter'));
+    get('.raghad-launcher').click();
+    assert.equal(hints().length, 1);
+    assert.equal(hints()[0].href, 'https://api-brokers.estavo.space/');
+    assert.equal(hints()[0].crossOrigin, 'anonymous');
+    dom.window.close();
 });
