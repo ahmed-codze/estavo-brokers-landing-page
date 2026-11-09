@@ -6,6 +6,10 @@ Read this file before changing public copy, information architecture, layouts, i
 
 Last consolidated from the working site: **19 September 2026**; homepage sections updated **6 October 2026**.
 
+### Website copy — 9 November 2026
+
+Owner direction: remove free-website claims from all public copy, metadata, popups and onboarding. Use neutral website-creation wording. This supersedes earlier instructions below to advertise free Sites creation or preview; it does not change pricing logic, city grants or the separate free Market offer.
+
 ### Daily content editions — 4 November 2026
 
 **Regression recovery:** The owner rejected the added “Estavo selections” sections and generic card replacements. Daily injection was re-enabled on 7 Nov 2026 as text-only bindings inside the approved home cards (see docs/daily-content.md). Do not reintroduce shelves, date chips, empty states, or global replacements of `.pd-win`, `.pd-phone`, `.pd-doc`, and destination artwork. Future daily bindings must preserve each original composition and aspect ratio, and pass visual review at desktop/mobile sizes.

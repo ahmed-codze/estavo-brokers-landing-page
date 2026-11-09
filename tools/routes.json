@@ -140,13 +140,13 @@
         "nav": "موقع باسمك",
         "title": "موقع عقاري باسمك للبروكر المستقل | Estavo Sites",
         "blurb": "موقع عقاري باسمك، مليان ببيانات السوق وعقاراتك الخاصة",
-        "description": "اعرض مشاريع المدن ضمن باقتك وعقاراتك الخاصة على موقع باسمك ورقمك، عاين الموقع مجانا وحدد نطاق التفعيل والخدمات المناسبة ليك"
+        "description": "اعرض مشاريع المدن ضمن باقتك وعقاراتك الخاصة على موقع باسمك ورقمك، عاين الموقع وحدد نطاق التفعيل والخدمات المناسبة ليك"
       },
       "en": {
         "nav": "Branded website",
         "title": "Your branded property website | Estavo Sites",
         "blurb": "A property website under your name, already filled with market data and your own listings",
-        "description": "Present projects from your selected cities and your own listings under your brand, preview your website free and choose its scope and optional services"
+        "description": "Present projects from your selected cities and your own listings under your brand, preview your website and choose its scope and optional services"
       },
       "in_header": false,
       "in_solutions": true
@@ -263,7 +263,7 @@
       "ar": {
         "nav": "للشركات",
         "title": "موقع عقاري لشركة الوساطة وفريقها | Estavo Sites",
-        "description": "موقع ببراند شركتك يجمع مشاريع المدن المختارة وعقارات الشركة وأدوار الفريق، إنشاء الموقع مجاني والتكلفة حسب الأعضاء والمدن والخدمات"
+        "description": "موقع ببراند شركتك يجمع مشاريع المدن المختارة وعقارات الشركة وأدوار الفريق، التكلفة حسب الأعضاء والمدن والخدمات"
       },
       "en": {
         "nav": "For companies",

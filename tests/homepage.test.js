@@ -39,13 +39,13 @@ const route = (r, lang) => (lang === 'ar' ? r : r.replace(/\/$/, '/en.html'));
 
 for (const [file, L] of [
     ['index.html', {
-        lang: 'ar', start: 'تصفح السوق مجانا', explore: 'اكتشف إستاڤو', website: 'اعمل موقعك مجانا', example: 'مثال توضيحي',
+        lang: 'ar', start: 'تصفح السوق مجانا', explore: 'اكتشف إستاڤو', website: 'اعمل موقعك', example: 'مثال توضيحي',
         eyebrow: 'إستاڤو · مجتمع البروكرز في مصر', h1: ['داتا السوق وأدوات البروكر', 'عشان ترد على عميلك بوضوح'],
         tabs: ['جديد السوق', 'طلب عميل', 'كاش ولا تقسيط؟', 'الوظائف'],
         free: /مجاني بالكامل حاليا/, noCut: /من غير نسبة من عمولتك/, leadCap: 140,
     }],
     ['en.html', {
-        lang: 'en', start: 'Open Estavo Market free', explore: 'Explore Estavo', website: 'Create your website free', example: 'Example',
+        lang: 'en', start: 'Open Estavo Market free', explore: 'Explore Estavo', website: 'Create your website', example: 'Example',
         eyebrow: 'Estavo · The broker community in Egypt', h1: ['Market data and broker tools', 'for a clearer client reply'],
         tabs: ['Market news', 'Client request', 'Cash or installments?', 'Jobs'],
         free: /completely free for now/i, noCut: /No cut of your commission/, leadCap: 170,
@@ -251,8 +251,8 @@ for (const [file, L] of [
         const block = text(buttons[0].closest('.es-home-cta-block'));
         assert.match(block, ar ? /حوالي 5 دقايق/ : /about 5 minutes/);
         assert.doesNotMatch(block, /أقل من 5|under 5/);
-        assert.match(block, ar ? /إنشاء الموقع الأساسي مجاني/ : /Creating the basic site is free/);
-        assert.match(block, ar ? /المدن والـ ?AI وإمكانيات التسويق حسب الباقة/ : /Cities, AI and marketing features follow your plan/);
+        assert.doesNotMatch(block, /مجان|\bfree\b/i);
+        assert.match(block, ar ? /المدن والـ ?AI وإمكانيات التسويق حسب الباقة/ : /cities, AI and marketing features follow your plan/);
         // Capabilities as a journey, then the two audiences.
         assert.deepEqual([...section.querySelectorAll('.es-home-caps a')].map((a) => a.getAttribute('href')),
             ['ai/', 'marketing/', 'meta/'].map((r) => route(r, L.lang)));

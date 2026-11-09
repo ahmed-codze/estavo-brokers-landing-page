@@ -426,10 +426,10 @@ test('the website builders state the free/paid city truth (creation preview vs. 
         const step = html.match(/aria-labelledby="cities-title"[\s\S]*?<p class="step-copy">([\s\S]*?)<\/p>/)[1];
         assert.match(step, ar ? /معاينة لموقعك/ : /preview of your website/);
         assert.match(step, ar ? /بتبدأ بمدينة واحدة مجانًا، وباقي المدن حسب الباقة/ : /one free city; more cities depend on your plan/);
-        // Never promise every unit of every selected city on the free site.
+        // Never promise every unit of every selected city on the site.
         assert.doesNotMatch(html, ar ? /هنملأ موقعك بكل الوحدات/ : /fill your website with every unit/);
         assert.doesNotMatch(html, /مجاني 100%|100% free|مجاني بالكامل|completely free|كامل مجانًا|5 دقايق بس/);
-        assert.match(html, ar ? /إنشاء الموقع مجاني/ : /Free to create/);
+        assert.match(html, ar ? /موقع باسمك/ : /Your own brand/);
     }
 });
 
