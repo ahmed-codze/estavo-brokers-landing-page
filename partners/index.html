@@ -7,11 +7,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#fafcff">
 <meta name="author" content="Estavo">
-<meta name="description" content="شراكة Estavo للوكالات: جهّز عملاءك من شركات العقارات والبروكرز بموقع وبراند ووحدات وذكاء اصطناعي، واحسب نصيبك من كل اشتراك وتجديد.">
+<meta name="description" content="شراكة Estavo للوكالات: جهز عملاءك من شركات العقارات والبروكرز بموقع وبراند ووحدات وذكاء اصطناعي، واحسب نصيبك من كل اشتراك وتجديد.">
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:site_name" content="Estavo">
 <meta property="og:title" content="Estavo Agency Partnership">
-<meta property="og:description" content="جهّز عملاءك للجيل الجديد من العقارات، واحسب نصيبك من كل اشتراك وتجديد.">
+<meta property="og:description" content="جهز عملاءك للجيل الجديد من العقارات، واحسب نصيبك من كل اشتراك وتجديد.">
 <meta property="og:image" content="https://estavo-brokers.com/assets/og/og-ar.jpg">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/logo/Estavo%20Icon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../assets/logo/Estavo%20Icon.png">
@@ -25,7 +25,7 @@
    Navy ink, Estavo blue actions, mint = money/result. Arabic first, English toggle. */
 :root{
   color-scheme:light;
-  --navy:#0b2239; --navy-2:#102b45; --blue:#163e69; --blue-2:#28567f; --blue-3:#47749a; --blue-tint:#e8f0f8;
+  --navy:#0b2239; --navy-2:#102b45; --blue:#163e69; --blue-2:#28567f; --blue-3:#47749a; --blue-tint:#edf0f4; --purple:#33123B;
   --ink:#13283c; --ink-2:rgb(19 40 60 / 72%); --ink-3:rgb(19 40 60 / 70%);
   --paper:#fafcff; --white:#fff; --mist:#f1f5f8; --line:rgb(19 40 60 / 11%);
   --mint:#72e0bb; --mint-d:#16754f; --mint-tint:#e3f8f0;
@@ -390,6 +390,26 @@ footer{padding-block:26px 44px;color:var(--ink-3);font-size:.82rem;line-height:1
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 html{scroll-behavior:smooth}
 section[id],header[id]{scroll-margin-top:62px}
+
+/* Readability pass: Cairo Arabic needs taller lines; section heads breathe; navy + small purple, no light-blue accents */
+#app[data-l="ar"] h1,#app[data-l="ar"] h2,#app[data-l="ar"] h3{line-height:1.5}
+#app[data-l="ar"] .hero h1{line-height:1.38}
+#app[data-l="en"] .h2{line-height:1.22}
+.head{gap:14px}
+.head .tag{margin-bottom:2px}
+.lead{line-height:1.85}
+.head .lead{max-width:58ch}
+.tag{color:var(--navy)}
+.tag b{background:var(--purple)}
+.ls .who,.mstep .n{color:var(--navy)}
+.bnav a.on{color:var(--navy)}
+:focus-visible{outline-color:var(--navy)}
+.ls{align-content:start}
+.tab > span,.payout small{text-wrap:pretty}
+.lead,.ls p,.faq details p,.why2 span,.mini,.again{text-wrap:pretty}
+.lead b{white-space:nowrap}
+.how .tn em{font-size:.78rem}
+.brand{min-height:44px}
 </style>
 </head>
 <body>
@@ -420,8 +440,8 @@ section[id],header[id]{scroll-margin-top:62px}
   <div class="wrap">
     <div>
       <span class="tag"><b><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></b><span lang="ar">شراكة إستاڤو × وكالات التسويق العقاري</span><span lang="en">Estavo × Real estate marketing agencies</span></span>
-      <h1><span lang="ar">جهّز عملاءك <span class="hl">للجيل الجديد</span> من العقارات</span><span lang="en">Power up your clients for the <span class="hl">next generation</span> of real estate</span></h1>
-      <p class="lead"><span lang="ar">قدّم لعملاءك من شركات العقارات والبروكرز موقع ذكي باسمهم، عليه السوق كله. هما بياخدوا سعر شريك، وإنت بتاخد نصيب من كل اشتراك وكل تجديد.</span><span lang="en">Offer your brokerage and broker clients a smart website under their name, with the whole market on it. They get a partner rate, and you share every subscription and renewal.</span></p>
+      <h1><span lang="ar">جهز عملاءك <span class="hl">للجيل الجديد</span> من العقارات</span><span lang="en">Get your clients ready for the <span class="hl">new era</span> of real estate</span></h1>
+      <p class="lead"><span lang="ar">قدم لعملاءك من شركات العقارات والبروكرز موقع ذكي باسمهم عليه السوق كله<br>سعر شريك ليهم، ونصيب ليك من كل اشتراك وكل تجديد</span><span lang="en">Offer your brokerage and broker clients a smart website under their name, with the whole market on it<br>A partner rate for them, and a share of every subscription and renewal for you</span></p>
       <div class="ctas">
         <a class="btn pri" href="#share"><span lang="ar">احسب نصيبك</span><span lang="en">Calculate your share</span></a>
         <a class="btn gh" href="#how"><span lang="ar">إزاي بتشتغل؟</span><span lang="en">How it works</span></a>
@@ -448,15 +468,15 @@ section[id],header[id]{scroll-margin-top:62px}
   <div class="wrap">
     <div class="head c rv">
       <span class="tag"><b>1</b><span lang="ar">الشراكة في دقيقة</span><span lang="en">The partnership in a minute</span></span>
-      <h2 class="h2"><span lang="ar">إنت بتقدّم، إحنا بنشغّل، وإنت بتقبض</span><span lang="en">You introduce, we run it, you get paid</span></h2>
+      <h2 class="h2"><span lang="ar">إنت بتقدم، إحنا بنشغل، وإنت بتقبض</span><span lang="en">You introduce, we run it, you get paid</span></h2>
     </div>
     <div class="loop">
-      <div class="ls rv"><span class="dot"><img loading="lazy" decoding="async" src="img/megaphone.svg" alt=""><i>1</i></span><span class="who"><span lang="ar">وكالتك</span><span lang="en">Your agency</span></span><h3><span lang="ar">بتقدّم إستاڤو</span><span lang="en">Introduces Estavo</span></h3><p><span lang="ar">لعملاءك بكود الشريك، ومعاك مواد تسويق مشتركة ودعم مخصص للشركاء.</span><span lang="en">To your clients with a partner code, backed by co-branded material and dedicated partner support.</span></p></div>
-      <div class="ls rv" style="--d:.08s"><span class="dot"><img loading="lazy" decoding="async" src="img/people.svg" alt=""><i>2</i></span><span class="who"><span lang="ar">عميلك</span><span lang="en">Your client</span></span><h3><span lang="ar">بيشترك بسعر شريك</span><span lang="en">Subscribes at a partner rate</span></h3><p><span lang="ar">خصم لحد 15% حسب مستواك.</span><span lang="en">Up to 15% off, depending on your level.</span></p></div>
-      <div class="ls rv" style="--d:.16s"><span class="dot"><img loading="lazy" decoding="async" src="img/browser.svg" alt=""><i>3</i></span><span class="who"><span lang="ar">إستاڤو</span><span lang="en">Estavo</span></span><h3><span lang="ar">بنبني موقعه ونشغّله</span><span lang="en">Builds and runs the site</span></h3><p><span lang="ar">الموقع، المشروعات، التحديث، الـAI، الفواتير والدعم.</span><span lang="en">Site, projects, updates, AI, billing and support.</span></p></div>
-      <div class="ls money rv" style="--d:.24s"><span class="dot"><img loading="lazy" decoding="async" src="img/coins.svg" alt=""><i>4</i></span><span class="who"><span lang="ar">إنت</span><span lang="en">You</span></span><h3><span lang="ar">بتاخد نصيبك</span><span lang="en">Get your share</span></h3><p><span lang="ar">لحد 40% من أول دفعة، ومندوبك بياخد 5% حافز. بكشف حساب كل شهر.</span><span lang="en">Up to 40% of the first payment, plus a 5% incentive for your sales agent. Monthly statement.</span></p></div>
+      <div class="ls rv"><span class="dot"><img loading="lazy" decoding="async" src="img/megaphone.svg" alt=""><i>1</i></span><span class="who"><span lang="ar">وكالتك</span><span lang="en">Your agency</span></span><h3><span lang="ar">بتقدم إستاڤو</span><span lang="en">Introduces Estavo</span></h3><p><span lang="ar">لعملاءك بكود الشريك، ومعاك مواد تسويق مشتركة ودعم مخصص للشركاء</span><span lang="en">To your clients with a partner code, backed by co-branded material and dedicated partner support</span></p></div>
+      <div class="ls rv" style="--d:.08s"><span class="dot"><img loading="lazy" decoding="async" src="img/people.svg" alt=""><i>2</i></span><span class="who"><span lang="ar">عميلك</span><span lang="en">Your client</span></span><h3><span lang="ar">بيشترك بسعر شريك</span><span lang="en">Subscribes at a partner rate</span></h3><p><span lang="ar">خصم لحد 15% حسب مستواك</span><span lang="en">Up to 15% off, depending on your level</span></p></div>
+      <div class="ls rv" style="--d:.16s"><span class="dot"><img loading="lazy" decoding="async" src="img/browser.svg" alt=""><i>3</i></span><span class="who"><span lang="ar">إستاڤو</span><span lang="en">Estavo</span></span><h3><span lang="ar">بنبني موقعه ونشغله</span><span lang="en">Builds and runs the site</span></h3><p><span lang="ar">الموقع، المشروعات، التحديث، الـAI، الفواتير والدعم</span><span lang="en">Site, projects, updates, AI, billing and support</span></p></div>
+      <div class="ls money rv" style="--d:.24s"><span class="dot"><img loading="lazy" decoding="async" src="img/coins.svg" alt=""><i>4</i></span><span class="who"><span lang="ar">إنت</span><span lang="en">You</span></span><h3><span lang="ar">بتاخد نصيبك</span><span lang="en">Get your share</span></h3><p><span lang="ar">لحد 40% من أول دفعة و5% حافز لمندوبك، بكشف حساب كل شهر</span><span lang="en">Up to 40% of the first payment plus a 5% incentive for your sales agent, with a monthly statement</span></p></div>
     </div>
-    <p class="again rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg><span><span lang="ar">ومع <b>كل تجديد</b> لعميلك، الخطوة 4 بتتكرر: لحد 20% من التجديد.</span><span lang="en">With <b>every renewal</b>, step 4 repeats: up to 20% of the renewal.</span></span></p>
+    <p class="again rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg><span><span lang="ar">ومع <b>كل تجديد</b> لعميلك، الخطوة 4 بتتكرر: لحد 20% من التجديد</span><span lang="en">With <b>every renewal</b>, step 4 repeats: up to 20% of the renewal</span></span></p>
   </div>
 </section>
 
@@ -465,20 +485,20 @@ section[id],header[id]{scroll-margin-top:62px}
   <div class="wrap">
     <div class="head rv">
       <span class="tag"><b>2</b><span lang="ar">اللي عميلك بياخده</span><span lang="en">What your client gets</span></span>
-      <h2 class="h2"><span lang="ar">مش مجرد موقع. السوق كله باسمه.</span><span lang="en">Not just a website. The whole market, under their name.</span></h2>
+      <h2 class="h2"><span lang="ar">موقع باسمه، عليه السوق كله</span><span lang="en">A website under their name, with the whole market on it</span></h2>
     </div>
     <div class="figrow">
       <div class="fig card rv"><b><bdi dir="ltr">30,000+</bdi></b><span><span lang="ar">وحدة بخطط الدفع</span><span lang="en">units with payment plans</span></span></div>
       <div class="fig card rv" style="--d:.06s"><b><bdi dir="ltr">2,000+</bdi></b><span><span lang="ar">مشروع</span><span lang="en">projects</span></span></div>
       <div class="fig card rv" style="--d:.12s"><b><bdi dir="ltr">700+</bdi></b><span><span lang="ar">مطور عقاري</span><span lang="en">developers</span></span></div>
-      <div class="fig card rv" style="--d:.18s"><b><span lang="ar">يوميًا</span><span lang="en">Daily</span></b><span><span lang="ar">تحديث الأسعار والخطط</span><span lang="en">price and plan updates</span></span></div>
+      <div class="fig card rv" style="--d:.18s"><b><span lang="ar">يوميا</span><span lang="en">Daily</span></b><span><span lang="ar">تحديث الأسعار والخطط</span><span lang="en">price and plan updates</span></span></div>
     </div>
     <div class="show">
       <div class="tabs" role="tablist" aria-label="Features">
-        <button class="tab" role="tab" aria-selected="true" data-p="site"><img loading="lazy" decoding="async" src="img/browser.svg" alt=""><b><span lang="ar">موقع باسمه</span><span lang="en">Their own website</span></b><span><span lang="ar">اسم الشركة، اللوجو، ولون البراند. أو باسم البروكر.</span><span lang="en">Their company name, logo and colours, or the broker's own.</span></span></button>
-        <button class="tab" role="tab" aria-selected="false" data-p="units"><img loading="lazy" decoding="async" src="img/database.svg" alt=""><b><span lang="ar">مشروعات محدّثة</span><span lang="en">Updated projects</span></b><span><span lang="ar">بالصور وخطط الدفع، وبتتحدّث كل يوم.</span><span lang="en">With photos and payment plans, updated daily.</span></span></button>
-        <button class="tab" role="tab" aria-selected="false" data-p="ai"><img loading="lazy" decoding="async" src="img/chat-ai.svg" alt=""><b><span lang="ar">مساعد AI</span><span lang="en">AI assistant</span></b><span><span lang="ar">بيرد على عملاءه ويرشّح وحدات 24 ساعة.</span><span lang="en">Answers buyers and suggests units, 24/7.</span></span></button>
-        <button class="tab" role="tab" aria-selected="false" data-p="meta"><img loading="lazy" decoding="async" src="img/megaphone.svg" alt=""><b><span lang="ar">ربط مع Meta</span><span lang="en">Meta connection</span></b><span><span lang="ar">اهتمام العملاء بيوصل لحملاته.</span><span lang="en">Buyer interest reaches their campaigns.</span></span></button>
+        <button class="tab" role="tab" aria-selected="true" data-p="site"><img loading="lazy" decoding="async" src="img/browser.svg" alt=""><b><span lang="ar">موقع باسمه</span><span lang="en">Their own website</span></b><span><span lang="ar">اسم الشركة واللوجو ولون البراند، أو باسم البروكر نفسه</span><span lang="en">Their company name, logo and colours, or the broker's own</span></span></button>
+        <button class="tab" role="tab" aria-selected="false" data-p="units"><img loading="lazy" decoding="async" src="img/database.svg" alt=""><b><span lang="ar">مشروعات محدثة</span><span lang="en">Updated projects</span></b><span><span lang="ar">بالصور وخطط الدفع، وبتتحدث كل يوم</span><span lang="en">With photos and payment plans, updated daily</span></span></button>
+        <button class="tab" role="tab" aria-selected="false" data-p="ai"><img loading="lazy" decoding="async" src="img/chat-ai.svg" alt=""><b><span lang="ar">مساعد AI</span><span lang="en">AI assistant</span></b><span><span lang="ar">بيرد على عملاءه ويرشح وحدات 24 ساعة</span><span lang="en">Answers buyers and suggests units, 24/7.</span></span></button>
+        <button class="tab" role="tab" aria-selected="false" data-p="meta"><img loading="lazy" decoding="async" src="img/megaphone.svg" alt=""><b><span lang="ar">ربط مع Meta</span><span lang="en">Meta connection</span></b><span><span lang="ar">اهتمام العملاء بيوصل لحملاته</span><span lang="en">Buyer interest reaches their campaigns</span></span></button>
       </div>
       <div class="panel" id="panel" role="tabpanel" aria-live="polite"></div>
     </div>
@@ -500,10 +520,10 @@ section[id],header[id]{scroll-margin-top:62px}
 <template id="tp-units">
   <div class="pane">
     <div class="units">
-      <div class="unit card"><div class="im"><img loading="lazy" decoding="async" src="img/proj-p1.webp" alt=""><span class="fresh"><span lang="ar">اتحدّث النهارده</span><span lang="en">Updated today</span></span></div><div class="tx"><b>ميفيدا جاردنز</b><small><span lang="ar">إعمار مصر · المستقبل سيتي</span><span lang="en">Emaar Misr · Mostakbal City</span></small></div></div>
-      <div class="unit card"><div class="im"><img loading="lazy" decoding="async" src="img/proj-p2.webp" alt=""><span class="fresh"><span lang="ar">اتحدّث النهارده</span><span lang="en">Updated today</span></span></div><div class="tx"><b>كريك فيو</b><small><span lang="ar">ماونتن فيو · القاهرة الجديدة</span><span lang="en">Mountain View · New Cairo</span></small></div></div>
-      <div class="unit card"><div class="im"><img loading="lazy" decoding="async" src="img/proj-p3.webp" alt=""><span class="fresh"><span lang="ar">اتحدّث النهارده</span><span lang="en">Updated today</span></span></div><div class="tx"><b>بالم هيلز وان</b><small><span lang="ar">بالم هيلز · 6 أكتوبر</span><span lang="en">Palm Hills · 6th of October</span></small></div></div>
-      <div class="unit card"><div class="im"><img loading="lazy" decoding="async" src="img/proj-p4.webp" alt=""><span class="fresh"><span lang="ar">اتحدّث النهارده</span><span lang="en">Updated today</span></span></div><div class="tx"><b>سوان ليك ريزيدنسز</b><small><span lang="ar">حسن علام · القاهرة الجديدة</span><span lang="en">Hassan Allam · New Cairo</span></small></div></div>
+      <div class="unit card"><div class="im"><img loading="lazy" decoding="async" src="img/proj-p1.webp" alt=""><span class="fresh"><span lang="ar">اتحدث النهارده</span><span lang="en">Updated today</span></span></div><div class="tx"><b><bdi>Tevora Gardens</bdi></b><small><span lang="ar">شقق وتاون هاوس · المستقبل سيتي</span><span lang="en">Apartments & townhouses · Mostakbal City</span></small></div></div>
+      <div class="unit card"><div class="im"><img loading="lazy" decoding="async" src="img/proj-p2.webp" alt=""><span class="fresh"><span lang="ar">اتحدث النهارده</span><span lang="en">Updated today</span></span></div><div class="tx"><b><bdi>Mirava Residence</bdi></b><small><span lang="ar">شقق · القاهرة الجديدة</span><span lang="en">Apartments · New Cairo</span></small></div></div>
+      <div class="unit card"><div class="im"><img loading="lazy" decoding="async" src="img/proj-p3.webp" alt=""><span class="fresh"><span lang="ar">اتحدث النهارده</span><span lang="en">Updated today</span></span></div><div class="tx"><b><bdi>Solen Park</bdi></b><small><span lang="ar">فيلات · 6 أكتوبر</span><span lang="en">Villas · 6th of October</span></small></div></div>
+      <div class="unit card"><div class="im"><img loading="lazy" decoding="async" src="img/proj-p4.webp" alt=""><span class="fresh"><span lang="ar">اتحدث النهارده</span><span lang="en">Updated today</span></span></div><div class="tx"><b><bdi>Arvel Hills</bdi></b><small><span lang="ar">شقق وفيلات · القاهرة الجديدة</span><span lang="en">Apartments & villas · New Cairo</span></small></div></div>
     </div>
   </div>
 </template>
@@ -513,8 +533,8 @@ section[id],header[id]{scroll-margin-top:62px}
       <div class="ch"><i></i><span lang="ar">مساعد موقع عميلك</span><span lang="en">Your client's site assistant</span></div>
       <div class="cb">
         <span class="msg u"><span lang="ar">عايز شقة 3 غرف في القاهرة الجديدة، استلام قريب</span><span lang="en">I want a 3-bedroom in New Cairo, early handover</span></span>
-        <span class="msg a"><span lang="ar">عندي اختيارات مناسبة. ده أقربهم للاستلام:</span><span lang="en">I have good options. This one hands over soonest:</span></span>
-        <div class="reply"><img loading="lazy" decoding="async" src="img/proj-p4.webp" alt=""><div><b>سوان ليك ريزيدنسز</b><br><span lang="ar">القاهرة الجديدة · استلام 2026</span><span lang="en">New Cairo · handover 2026</span></div></div>
+        <span class="msg a"><span lang="ar">عندي اختيارات مناسبة، وده أقربهم للاستلام</span><span lang="en">I have good options, and this one hands over soonest</span></span>
+        <div class="reply"><img loading="lazy" decoding="async" src="img/proj-p4.webp" alt=""><div><b><bdi>Arvel Hills</bdi></b><br><span lang="ar">القاهرة الجديدة · استلام 2026</span><span lang="en">New Cairo · handover 2026</span></div></div>
         <span class="msg u"><span lang="ar">ابعتلي التفاصيل على واتساب</span><span lang="en">Send me the details on WhatsApp</span></span>
         <span class="typing" aria-hidden="true"><i></i><i></i><i></i></span>
       </div>
@@ -524,9 +544,9 @@ section[id],header[id]{scroll-margin-top:62px}
 <template id="tp-meta">
   <div class="pane">
     <div class="metaflow">
-      <div class="mstep card"><span class="n">1</span><div><b><span lang="ar">عميل فتح مشروع على موقعه</span><span lang="en">A buyer opens a project on their site</span></b><span><span lang="ar">مثلًا شقة في القاهرة الجديدة</span><span lang="en">For example, a New Cairo apartment</span></span></div></div>
+      <div class="mstep card"><span class="n">1</span><div><b><span lang="ar">عميل فتح مشروع على موقعه</span><span lang="en">A buyer opens a project on their site</span></b><span><span lang="ar">مثلا شقة في القاهرة الجديدة</span><span lang="en">For example, a New Cairo apartment</span></span></div></div>
       <span class="mdown"></span>
-      <div class="mstep card"><span class="n">2</span><div><b><span lang="ar">طلب التفاصيل</span><span lang="en">Asks for details</span></b><span><span lang="ar">الطلب بيوصل للبروكر على طول</span><span lang="en">The enquiry reaches the broker right away</span></span></div></div>
+      <div class="mstep card"><span class="n">2</span><div><b><span lang="ar">طلب التفاصيل</span><span lang="en">Asks for details</span></b><span><span lang="ar">ريكويست العميل بيوصل للبروكر على طول</span><span lang="en">The enquiry reaches the broker right away</span></span></div></div>
       <span class="mdown"></span>
       <div class="mstep card end"><span class="n">M</span><div><b><span lang="ar">الحدث بيوصل لحسابه على Meta</span><span lang="en">The event reaches their Meta account</span></b><span><span lang="ar">يستخدمه في استهداف حملاته الجاية</span><span lang="en">They use it to target their next campaigns</span></span></div></div>
     </div>
@@ -539,7 +559,7 @@ section[id],header[id]{scroll-margin-top:62px}
     <div class="head rv">
       <span class="tag"><b>3</b><span lang="ar">عميلك بيدفع كام</span><span lang="en">What your client pays</span></span>
       <h2 class="h2"><span lang="ar">السعر بالمدن اللي بيشتغل فيها، وعدد المستخدمين</span><span lang="en">Priced by the cities they work in, and the number of users</span></h2>
-      <p class="lead"><span lang="ar">جرّب: اختار نوع العميل والمدن، والسعر بيتحسب قدامك.</span><span lang="en">Try it: pick the client type and cities, and see the price.</span></p>
+      <p class="lead"><span lang="ar">جرب: اختار نوع العميل والمدن، والسعر بيتحسب قدامك</span><span lang="en">Try it: pick the client type and cities, and see the price</span></p>
     </div>
     <div class="price rv">
       <div class="pc">
@@ -562,9 +582,9 @@ section[id],header[id]{scroll-margin-top:62px}
       </div>
     </div>
     <div class="why2">
-      <div class="rv"><img loading="lazy" decoding="async" src="img/pin.svg" alt=""><b><span lang="ar">ليه بالمدينة؟</span><span lang="en">Why per city?</span></b><span><span lang="ar">كل مدينة سوق كامل بنرفعه على موقعه ونحدّثه. وكل مدينة زيادة أرخص من اللي قبلها.</span><span lang="en">Each city is a full market we load and keep updated. Each extra city costs less than the last.</span></span></div>
-      <div class="rv" style="--d:.08s"><img loading="lazy" decoding="async" src="img/people.svg" alt=""><b><span lang="ar">ليه بالمستخدم؟</span><span lang="en">Why per user?</span></b><span><span lang="ar">كل مستخدم بياخد لينكات ورسايل AI. والفريق الأكبر بيدفع أقل للفرد، لحد 25%.</span><span lang="en">Each user gets links and AI messages. Bigger teams pay less per person, down to 25% off.</span></span></div>
-      <div class="rv" style="--d:.16s"><img loading="lazy" decoding="async" src="img/coins.svg" alt=""><b><span lang="ar">الدفع الأطول أوفر</span><span lang="en">Longer terms save more</span></b><span><span lang="ar">ربع سنوي أوفر، والسنوي بيوفّر حوالي النص مقارنة بالشهري.</span><span lang="en">Quarterly costs less, and annual saves about half versus monthly.</span></span></div>
+      <div class="rv"><img loading="lazy" decoding="async" src="img/pin.svg" alt=""><b><span lang="ar">ليه بالمدينة؟</span><span lang="en">Why per city?</span></b><span><span lang="ar">كل مدينة سوق كامل بنرفعه على موقعه ونحدثه، وكل مدينة زيادة أرخص من اللي قبلها</span><span lang="en">Each city is a full market we load and keep updated, and each extra city costs less than the last</span></span></div>
+      <div class="rv" style="--d:.08s"><img loading="lazy" decoding="async" src="img/people.svg" alt=""><b><span lang="ar">ليه بالمستخدم؟</span><span lang="en">Why per user?</span></b><span><span lang="ar">كل مستخدم بياخد لينكات ورسايل AI، والفريق الأكبر بيدفع أقل للفرد بخصم لحد 25%</span><span lang="en">Each user gets links and AI messages, and bigger teams pay less per person, down to 25% off</span></span></div>
+      <div class="rv" style="--d:.16s"><img loading="lazy" decoding="async" src="img/coins.svg" alt=""><b><span lang="ar">الدفع الأطول أوفر</span><span lang="en">Longer terms save more</span></b><span><span lang="ar">ربع سنوي أوفر، والسنوي بيوفر حوالي النص مقارنة بالشهري</span><span lang="en">Quarterly costs less, and annual saves about half versus monthly</span></span></div>
     </div>
   </div>
 </section>
@@ -575,7 +595,7 @@ section[id],header[id]{scroll-margin-top:62px}
     <div class="head rv">
       <span class="tag"><b>4</b><span lang="ar">نصيبك من الشراكة</span><span lang="en">Your share of the partnership</span></span>
       <h2 class="h2"><span lang="ar">كل ما عملاءك يزيدوا، نصيبك يكبر</span><span lang="en">More clients, a bigger share</span></h2>
-      <p class="lead"><span lang="ar">مستواك بيتحدد بعدد عملاءك اللي بيدفعوا، والشركة بتتحسب عميل واحد. وفوق نصيب الوكالة، مندوب المبيعات اللي بيقفل الصفقة بياخد <b style="color:var(--mint)">5% حافز</b> على كل صفقة جديدة.</span><span lang="en">Your level depends on your paying clients, and a company counts as one. On top of the agency share, the sales agent who closes the deal gets a <b style="color:var(--mint)">5% incentive</b> on every new deal.</span></p>
+      <p class="lead"><span lang="ar">مستواك بيتحدد بعدد عملاءك اللي بيدفعوا، والشركة بتتحسب عميل واحد<br>ومندوب المبيعات اللي بيقفل الصفقة بياخد <b style="color:var(--mint)">5% حافز إضافي</b> على كل صفقة جديدة</span><span lang="en">Your level depends on your paying clients, and a company counts as one<br>The sales agent who closes the deal gets an <b style="color:var(--mint)">extra 5% incentive</b> on every new deal</span></p>
     </div>
     <div class="levels rv" id="levels">
       <div class="lv" style="--h:38%"><b><bdi dir="ltr">10%</bdi></b><span class="rn"><span lang="ar">5% من التجديد</span><span lang="en">5% of renewals</span></span><span class="cl">1–5<small><span lang="ar">خصم العميل 5%</span><span lang="en">client gets 5% off</span></small></span></div>
@@ -622,20 +642,20 @@ section[id],header[id]{scroll-margin-top:62px}
         <h2 class="h2"><span lang="ar">قبل ما نبدأ</span><span lang="en">Before we start</span></h2>
       </div>
       <div class="faq">
-        <details><summary><span lang="ar">بنقبض نصيبنا إمتى؟</span><span lang="en">When do we get paid?</span></summary><p><span lang="ar">كل شهر بكشف حساب بالدفعات اللي اتحصلت بعد فترة الاسترداد، والتحويل خلال 10 أيام عمل.</span><span lang="en">Monthly, with a statement of collected payments after the refund period. Transfer within 10 working days.</span></p></details>
-        <details><summary><span lang="ar">مين اللي بيتحسب عميل؟</span><span lang="en">What counts as a client?</span></summary><p><span lang="ar">أي حساب اشترك بكود أو لينك وكالتك وعنده اشتراك مدفوع شغال. الحسابات المجانية مش بتتحسب.</span><span lang="en">Any account that subscribed through your code or link and has an active paid subscription. Free accounts don't count.</span></p></details>
-        <details><summary><span lang="ar">حافز مندوب المبيعات بيتحسب إزاي؟</span><span lang="en">How does the sales agent incentive work?</span></summary><p><span lang="ar">5% من قيمة أول دفعة على كل صفقة جديدة، للمندوب من وكالتك اللي قفل الصفقة. وده فوق نصيب الوكالة، وبيظهر في كشف الحساب الشهري.</span><span lang="en">5% of the first payment on every new deal, for the agent from your agency who closed it. It comes on top of the agency share and appears on the monthly statement.</span></p></details>
-        <details><summary><span lang="ar">مستوانا بيتغير إزاي؟</span><span lang="en">How does our level change?</span></summary><p><span lang="ar">بيطلع فورًا أول ما توصل للعدد المطلوب، وبنراجعه كل 3 شهور.</span><span lang="en">It goes up as soon as you reach the next threshold, and we review it every 3 months.</span></p></details>
-        <details><summary><span lang="ar">نصيب التجديد بيكمل لحد إمتى؟</span><span lang="en">How long does the renewal share last?</span></summary><p><span lang="ar">12 شهر لكل عميل، ومن المستوى 3 (21 عميل) طول ما الشراكة شغالة.</span><span lang="en">12 months per client, and from level 3 (21 clients) for as long as the partnership runs.</span></p></details>
-        <details><summary><span lang="ar">خصم الشريك بيتجمع مع عروض تانية؟</span><span lang="en">Does the partner discount combine with offers?</span></summary><p><span lang="ar">لأ، العميل بياخد الخصم الأكبر بس. وبيتطبق فوق خصم الدفع الربع سنوي والسنوي.</span><span lang="en">No, the client gets the single larger discount. It applies on top of quarterly and annual terms.</span></p></details>
+        <details><summary><span lang="ar">بنقبض نصيبنا إمتى؟</span><span lang="en">When do we get paid?</span></summary><p><span lang="ar">كل شهر بكشف حساب بالدفعات اللي اتحصلت بعد فترة الاسترداد، والتحويل خلال 10 أيام عمل</span><span lang="en">Monthly, with a statement of collected payments after the refund period and a transfer within 10 working days</span></p></details>
+        <details><summary><span lang="ar">مين اللي بيتحسب عميل؟</span><span lang="en">What counts as a client?</span></summary><p><span lang="ar">أي حساب اشترك بكود أو لينك وكالتك وعنده اشتراك مدفوع شغال</span><span lang="en">Any account that subscribed through your code or link and has an active paid subscription</span></p></details>
+        <details><summary><span lang="ar">حافز مندوب المبيعات بيتحسب إزاي؟</span><span lang="en">How does the sales agent incentive work?</span></summary><p><span lang="ar">5% من قيمة أول دفعة على كل صفقة جديدة للمندوب من وكالتك اللي قفلها، فوق نصيب الوكالة، وبيظهر في كشف الحساب الشهري</span><span lang="en">5% of the first payment on every new deal goes to the agent from your agency who closed it, on top of the agency share, shown on the monthly statement</span></p></details>
+        <details><summary><span lang="ar">مستوانا بيتغير إزاي؟</span><span lang="en">How does our level change?</span></summary><p><span lang="ar">بيطلع فورا أول ما توصل للعدد المطلوب، وبنراجعه كل 3 شهور</span><span lang="en">It goes up as soon as you reach the next threshold, and we review it every 3 months</span></p></details>
+        <details><summary><span lang="ar">نصيب التجديد بيكمل لحد إمتى؟</span><span lang="en">How long does the renewal share last?</span></summary><p><span lang="ar">12 شهر لكل عميل، ومن المستوى 3 (21 عميل) طول ما الشراكة شغالة</span><span lang="en">12 months per client, and from level 3 (21 clients) for as long as the partnership runs</span></p></details>
+        <details><summary><span lang="ar">خصم الشريك بيتجمع مع عروض تانية؟</span><span lang="en">Does the partner discount combine with offers?</span></summary><p><span lang="ar">لأ، العميل بياخد الخصم الأكبر بس، وبيتطبق فوق خصم الدفع الربع سنوي والسنوي</span><span lang="en">No, the client gets the single larger discount, applied on top of quarterly and annual terms</span></p></details>
       </div>
     </div>
     <div class="start rv" style="--d:.1s">
       <h3><span lang="ar">نبدأ إزاي؟</span><span lang="en">How we start</span></h3>
       <ol>
-        <li><span><b><span lang="ar">نوقّع اتفاق الشراكة</span><span lang="en">Sign the partnership agreement</span></b><span><span lang="ar">صفحة واحدة بالنسب دي</span><span lang="en">One page with these rates</span></span></span></li>
+        <li><span><b><span lang="ar">نوقع اتفاق الشراكة</span><span lang="en">Sign the partnership agreement</span></b><span><span lang="ar">صفحة واحدة بالنسب دي</span><span lang="en">One page with these rates</span></span></span></li>
         <li><span><b><span lang="ar">تستلم كود الشريك</span><span lang="en">Get your partner code</span></b><span><span lang="ar">ومعاه مواد التسويق المشتركة</span><span lang="en">With the co-branded material</span></span></span></li>
-        <li><span><b><span lang="ar">عملاءك يفعّلوا مواقعهم</span><span lang="en">Clients launch their sites</span></b><span><span lang="ar">وإحنا بنبني ونشغّل</span><span lang="en">We build and run them</span></span></span></li>
+        <li><span><b><span lang="ar">عملاءك يفعلوا مواقعهم</span><span lang="en">Clients launch their sites</span></b><span><span lang="ar">وإحنا بنبني ونشغل</span><span lang="en">We build and run them</span></span></span></li>
         <li><span><b><span lang="ar">تقبض كل شهر</span><span lang="en">Get paid every month</span></b><span><span lang="ar">بكشف حساب واضح</span><span lang="en">With a clear statement</span></span></span></li>
       </ol>
       <img loading="lazy" decoding="async" class="gn" src="img/guide-celebrate.webp" width="700" height="560" alt="" aria-hidden="true">
@@ -643,7 +663,7 @@ section[id],header[id]{scroll-margin-top:62px}
   </div>
 </section>
 
-<footer><div class="wrap"><span lang="ar">الأسعار بالجنيه المصري قبل الضريبة، حسب أسعار إستاڤو أكتوبر 2026. النصيب بيتحسب على الدفعات اللي اتحصلت فعلًا. الشروط النهائية في اتفاق الشراكة الموقّع.</span><span lang="en">Prices in EGP before VAT, from the October 2026 Estavo tariff. Your share is calculated on collected payments. Final terms are set in the signed partnership agreement.</span></div></footer>
+<footer><div class="wrap"><span lang="ar">الأسعار بالجنيه المصري قبل الضريبة حسب أسعار إستاڤو أكتوبر 2026 · النصيب بيتحسب على الدفعات اللي اتحصلت فعلا · الشروط النهائية في اتفاق الشراكة الموقع</span><span lang="en">Prices in EGP before VAT, from the October 2026 Estavo tariff · Your share is calculated on collected payments · Final terms are set in the signed partnership agreement</span></div></footer>
 </div>
 
 <script>
@@ -699,7 +719,7 @@ section[id],header[id]{scroll-margin-top:62px}
   const P={sel:new Set([0,1]),type:"company",users:8};
   const PX={ar:{lbl:{individual:"بروكر فردي",company:n=>`شركة · ${n} مستخدمين`},per:{monthly:"/ شهر",quarterly:"/ 3 شهور",annual:"/ سنة"},
       count:n=>n===1?"مدينة واحدة":n===2?"مدينتين":`${n} مدن`,city:(i,nm)=>["المدينة الأولى","المدينة التانية","المدينة التالتة"][i]?`${["المدينة الأولى","المدينة التانية","المدينة التالتة"][i]} · ${nm}`:`مدينة زيادة · ${nm}`,
-      vol:v=>`شامل خصم حجم الفريق ${v}%`,every:{1:"كل شهر",3:"كل 3 شهور",12:"كل سنة"},pm:v=>`≈ ${v} / شهر`,save:v=>`وفّر ${v}%`,term:{monthly:"شهري",quarterly:"ربع سنوي",annual:"سنوي"},cityRate:"",users:(n,save)=>`× ${n} مستخدمين · خصم الحجم ${save}%`,month:v=>`يعني ${v} في الشهر`,pick:"اختار مدينة واحدة على الأقل"},
+      vol:v=>`شامل خصم حجم الفريق ${v}%`,every:{1:"كل شهر",3:"كل 3 شهور",12:"كل سنة"},pm:v=>`≈ ${v} / شهر`,save:v=>`وفر ${v}%`,term:{monthly:"شهري",quarterly:"ربع سنوي",annual:"سنوي"},cityRate:"",users:(n,save)=>`× ${n} مستخدمين · خصم الحجم ${save}%`,month:v=>`يعني ${v} في الشهر`,pick:"اختار مدينة واحدة على الأقل"},
     en:{lbl:{individual:"Individual broker",company:n=>`Company · ${n} users`},per:{monthly:"/ month",quarterly:"/ quarter",annual:"/ year"},
       count:n=>`${n} ${n===1?"city":"cities"}`,city:(i,nm)=>`${["First city","Second city","Third city"][i]||"Extra city"} · ${nm}`,
       vol:v=>`Includes a ${v}% team-size discount`,every:{1:"per month",3:"per quarter",12:"per year"},pm:v=>`≈ ${v} / mo`,save:v=>`save ${v}%`,term:{monthly:"Monthly",quarterly:"Quarterly",annual:"Annual"},cityRate:"",users:(n,save)=>`× ${n} users (${save}% volume saving)`,month:v=>`That's ${v} a month`,pick:"Pick at least one city"}};
@@ -730,10 +750,10 @@ section[id],header[id]{scroll-margin-top:62px}
       for(const c of cl){if(c.next!==t)continue;c.w*=.9;c.next+=q.months;const k=li(act());if(t-c.s<=12||k>=2)tot+=c.pay*c.w*LV[k].rn/100}
       for(let k=0;k<pace;k++){const i=li(act()+1),pay=up5(Math.round(q.total*(100-LV[i].d)/100));cl.push({s:t,next:t+q.months,w:1,pay});tot+=pay*LV[i].nw/100}}
     return{total:tot,end:act()}}
-  const CT={ar:{pname:{monthly:"شهري",quarterly:"ربع سنوي",annual:"سنوي"},level:n=>`مستواك الحالي: ${n}`,you:"إنت هنا",per:{monthly:"شهريًا",quarterly:"كل 3 شهور",annual:"سنويًا"},off:d=>`بعد خصم ${d}%`,of:p=>`${p}% من أول دفعة`,rn:p=>`${p}% من كل تجديد`,yr:v=>`يعني ${v} في أول 12 شهر`,
-      note:(n,l)=>`في الشهر 12 هيبقى عندك حوالي ${n} عميل بيدفع (المستوى ${l}). بنفترض إن 90% من العملاء بيجددوا.`},
+  const CT={ar:{pname:{monthly:"شهري",quarterly:"ربع سنوي",annual:"سنوي"},level:n=>`مستواك الحالي: ${n}`,you:"إنت هنا",per:{monthly:"شهريا",quarterly:"كل 3 شهور",annual:"سنويا"},off:d=>`بعد خصم ${d}%`,of:p=>`${p}% من أول دفعة`,rn:p=>`${p}% من كل تجديد`,yr:v=>`يعني ${v} في أول 12 شهر`,
+      note:(n,l)=>`في الشهر 12 هيبقى عندك حوالي ${n} عميل بيدفع (المستوى ${l})، على أساس إن 90% من العملاء بيجددوا`},
     en:{pname:{monthly:"Monthly",quarterly:"Quarterly",annual:"Annual"},level:n=>`Your current level: ${n}`,you:"You are here",per:{monthly:"per month",quarterly:"per quarter",annual:"per year"},off:d=>`after ${d}% off`,of:p=>`${p}% of the first payment`,rn:p=>`${p}% of each renewal`,yr:v=>`That's ${v} over the first 12 months`,
-      note:(n,l)=>`By month 12 you'd have about ${n} paying clients (level ${l}). Assumes 90% of clients renew.`}};
+      note:(n,l)=>`By month 12 you'd have about ${n} paying clients (level ${l}), assuming 90% of clients renew`}};
   const S={type:"company",period:"annual"};
   document.querySelectorAll(".calc .seg[data-k]").forEach(g=>g.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
     g.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));S[g.dataset.k]=b.dataset.v;calc()}));
