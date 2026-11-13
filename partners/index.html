@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NVFZMXPPLF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NVFZMXPPLF');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#fafcff">
+<meta name="author" content="Estavo">
+<meta name="description" content="شراكة Estavo للوكالات: جهّز عملاءك من شركات العقارات والبروكرز بموقع وبراند ووحدات وذكاء اصطناعي، واحسب نصيبك من كل اشتراك وتجديد.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:site_name" content="Estavo">
+<meta property="og:title" content="Estavo Agency Partnership">
+<meta property="og:description" content="جهّز عملاءك للجيل الجديد من العقارات، واحسب نصيبك من كل اشتراك وتجديد.">
+<meta property="og:image" content="https://estavo-brokers.com/assets/og/og-ar.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/logo/Estavo%20Icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/logo/Estavo%20Icon.png">
+<title>Estavo Agency Partnership</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap">
+<style>
+/* Layout: light Estavo product page in five beats — hero (product + payouts), the partnership loop,
+   an interactive "what your client gets" showcase, a live price card, and your share (levels + calculator).
+   Navy ink, Estavo blue actions, mint = money/result. Arabic first, English toggle. */
+:root{
+  color-scheme:light;
+  --navy:#0b2239; --navy-2:#102b45; --blue:#163e69; --blue-2:#28567f; --blue-3:#47749a; --blue-tint:#e8f0f8;
+  --ink:#13283c; --ink-2:rgb(19 40 60 / 72%); --ink-3:rgb(19 40 60 / 70%);
+  --paper:#fafcff; --white:#fff; --mist:#f1f5f8; --line:rgb(19 40 60 / 11%);
+  --mint:#72e0bb; --mint-d:#16754f; --mint-tint:#e3f8f0;
+  --font:"Cairo","Segoe UI",Tahoma,system-ui,sans-serif;
+  --e1:0 1px 2px rgb(11 34 57 / 5%),0 4px 14px rgb(11 34 57 / 6%);
+  --e2:0 2px 4px rgb(11 34 57 / 6%),0 18px 40px -14px rgb(11 34 57 / 22%);
+  --e3:0 4px 8px rgb(11 34 57 / 8%),0 40px 80px -28px rgb(11 34 57 / 34%);
+  --r:20px; --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.75 var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+#app[data-l="ar"] [lang="en"],#app[data-l="en"] [lang="ar"]{display:none!important}
+.wrap{width:100%;max-width:1140px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{margin:0;line-height:1.3;text-wrap:balance;font-weight:800}
+p{margin:0}
+img{display:block;max-width:100%;height:auto}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--blue-2);outline-offset:3px;border-radius:8px}
+section{padding-block:84px;position:relative;z-index:0}
+.alt{background:var(--mist);border-block:1px solid var(--line)}
+.head{display:grid;gap:10px;margin-bottom:36px;max-width:660px}
+.head.c{margin-inline:auto;text-align:center;justify-items:center}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:700;color:var(--blue-2);background:var(--blue-tint);border-radius:999px;padding:3px 12px 3px 4px;width:max-content;max-width:100%}
+.tag b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:.75rem}
+.h2{font-size:clamp(1.75rem,4vw,2.7rem);font-weight:900;color:var(--navy)}
+.lead{color:var(--ink-2);font-size:1.08rem}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--e1)}
+.num{font-variant-numeric:tabular-nums}
+#app.js .rv:not(.in){opacity:0;transform:translateY(22px)}
+.rv{transition:opacity .6s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:10px 20px;border-radius:12px;font-weight:800;font-size:1rem;text-decoration:none;transition:transform .2s,box-shadow .2s;white-space:nowrap}
+.btn:hover{transform:translateY(-2px)}
+.btn.pri{background:var(--blue);color:#fff;box-shadow:0 10px 24px -10px rgb(22 62 105 / 70%)}
+.btn.gh{background:var(--white);color:var(--blue);border:1px solid var(--line);box-shadow:var(--e1)}
+.seg{display:inline-grid;grid-auto-flow:column;grid-auto-columns:1fr;background:var(--mist);border-radius:12px;padding:4px;gap:4px}
+.seg button{border:0;background:transparent;color:var(--ink-2);font-weight:700;font-size:.92rem;min-height:44px;padding:4px 12px;line-height:1.2;border-radius:9px;cursor:pointer;min-width:0;transition:background .2s,color .2s}
+.seg button[aria-pressed="true"]{background:var(--white);color:var(--blue);box-shadow:var(--e1)}
+
+/* top bar */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--paper)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgb(250 252 255 / 88%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:58px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:1.15rem;color:var(--navy);text-decoration:none}
+.brand img{width:40px}
+.brand small{font-weight:600;font-size:.82rem;color:var(--ink-3);border-inline-start:1px solid var(--line);padding-inline-start:9px}
+.top nav{display:flex;align-items:center;gap:2px}
+.top nav a{color:var(--ink-2);text-decoration:none;font-weight:700;font-size:.9rem;padding:0 10px;min-height:44px;display:inline-flex;align-items:center;border-radius:8px}
+.top nav a:hover{background:var(--mist);color:var(--ink)}
+.lang{border:1px solid var(--line);background:var(--white);color:var(--blue);font-weight:800;font-size:.88rem;border-radius:999px;min-height:44px;padding:0 16px;cursor:pointer;margin-inline-start:6px}
+.bar-p{position:absolute;inset:auto 0 -1px;height:2px;background:linear-gradient(90deg,var(--mint),var(--blue-2));transform-origin:var(--o,left);transform:scaleX(var(--sp,0))}
+
+/* hero */
+.hero{padding-block:52px 72px;overflow:hidden;background:
+  radial-gradient(50% 60% at 12% 25%,rgb(71 116 154 / 14%),transparent 70%),
+  radial-gradient(45% 55% at 88% 85%,rgb(114 224 187 / 18%),transparent 70%),
+  linear-gradient(rgb(22 62 105 / 4.5%) 1px,transparent 1px) 0 0/32px 32px,
+  linear-gradient(90deg,rgb(22 62 105 / 4.5%) 1px,transparent 1px) 0 0/32px 32px,var(--paper)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:44px;align-items:center}
+.hero h1{font-size:clamp(2.3rem,5.4vw,3.9rem);font-weight:900;line-height:1.2;color:var(--navy);margin-top:16px}
+.hero h1 .hl{color:var(--blue);position:relative;white-space:nowrap}
+.hero h1 .hl::after{content:"";position:absolute;inset-inline:0;bottom:.1em;height:.22em;background:var(--mint);border-radius:4px;z-index:-1;opacity:.7}
+.hero .lead{margin-top:16px;font-size:1.15rem;max-width:44ch}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.figs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px;border-top:1px solid var(--line);padding-top:18px}
+.figs div{display:grid;align-content:start;line-height:1.3;min-width:0}
+.figs div + div{border-inline-start:1px solid var(--line);padding-inline-start:14px}
+.figs b{font-size:1.85rem;font-weight:900;color:var(--navy)}
+.figs div:first-child b{color:var(--mint-d)}
+.figs span{font-size:.85rem;color:var(--ink-2)}
+.visual{position:relative;direction:ltr;padding:16px 0 40px}
+.browser{border-radius:16px;overflow:hidden;background:#fff;box-shadow:var(--e3);border:1px solid var(--line)}
+.bbar{background:var(--mist);height:30px;display:flex;align-items:center;gap:6px;padding:0 12px;border-bottom:1px solid var(--line)}
+.bbar i{width:9px;height:9px;border-radius:50%;background:#c9d4df}
+.bbar span{margin-inline-start:8px;background:#fff;border-radius:6px;padding:0 10px;font-size:.78rem;line-height:20px;color:var(--ink-3);flex:1;max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.browser img{width:100%;transition:opacity .3s}
+.phone{position:absolute;width:23%;right:-2%;bottom:6px;border-radius:24px;background:var(--navy);padding:6px;box-shadow:var(--e3)}
+.phone img{width:100%;border-radius:19px;transition:opacity .3s}
+.fading{opacity:.2}
+.payout{position:absolute;display:flex;align-items:center;gap:10px;background:rgb(255 255 255 / 96%);border:1px solid var(--line);border-radius:14px;padding:9px 14px;box-shadow:var(--e2);direction:rtl;animation:float 7s ease-in-out infinite;max-width:70%}
+#app[dir="ltr"] .payout{direction:ltr}
+.payout .ic{width:36px;height:36px;border-radius:10px;background:var(--mint-tint);display:grid;place-items:center;flex:none}
+.payout .ic img{width:26px}
+.payout div{display:grid;line-height:1.35;min-width:0}
+.payout b{font-size:.88rem;color:var(--navy)}
+.payout small{font-size:.78rem;color:var(--ink-3)}
+.payout strong{font-weight:900;color:var(--mint-d);white-space:nowrap;font-size:1.02rem}
+.po1{left:-6%;top:-2%}
+.po2{left:4%;bottom:-6px;animation-delay:-3.5s}
+.hguide{position:absolute;width:20%;left:-14%;bottom:40px;filter:drop-shadow(0 14px 14px rgb(11 34 57 / 25%));animation:bob 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px)}}
+@keyframes bob{50%{transform:translateY(-6px)}}
+
+/* loop */
+.loop{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.loop::before{content:"";position:absolute;top:34px;inset-inline:12% 12%;height:2px;background:repeating-linear-gradient(90deg,var(--blue-3) 0 8px,transparent 8px 14px);opacity:.5}
+.ls{position:relative;display:grid;gap:8px;justify-items:center;text-align:center;padding:0 4px}
+.ls .dot{width:68px;height:68px;border-radius:50%;background:var(--white);border:1px solid var(--line);box-shadow:var(--e2);display:grid;place-items:center;position:relative;z-index:1}
+.ls .dot img{width:42px}
+.ls .dot i{position:absolute;top:-4px;inset-inline-end:-4px;width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font-style:normal;font-size:.75rem;font-weight:800;display:grid;place-items:center}
+.ls .who{font-size:.78rem;font-weight:800;color:var(--blue-2);background:var(--blue-tint);border-radius:999px;padding:0 10px;margin-top:4px}
+.ls h3{font-size:1.1rem;color:var(--navy)}
+.ls p{font-size:.93rem;color:var(--ink-2);max-width:26ch}
+.ls.money .dot{background:var(--mint-tint);border-color:rgb(114 224 187 / 60%)}
+.ls.money .dot i{background:var(--mint-d)}
+.ls.money .who{background:var(--mint-tint);color:var(--mint-d)}
+.again{display:flex;align-items:center;justify-content:center;gap:10px;margin:26px auto 0;max-width:640px;background:var(--white);border:1px dashed rgb(31 143 97 / 45%);border-radius:14px;padding:10px 16px;color:var(--ink-2);font-size:.95rem;text-align:center}
+.again svg{width:26px;height:26px;flex:none;color:var(--mint-d)}
+.again b{color:var(--mint-d)}
+.wins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:34px}
+.win{padding:18px;display:grid;grid-template-columns:44px minmax(0,1fr);gap:4px 12px;align-items:start}
+.win img{width:44px;grid-row:span 2}
+.win b{color:var(--navy);font-size:1rem}
+.win span{color:var(--ink-2);font-size:.92rem;line-height:1.55}
+
+/* showcase */
+.figrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:26px}
+.fig{padding:14px 16px;display:grid;line-height:1.3}
+.fig b{font-size:1.6rem;font-weight:900;color:var(--navy)}
+.fig > span{font-size:.86rem;color:var(--ink-2)}
+.show{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:22px;align-items:start}
+.tabs{display:grid;gap:8px}
+.tab{display:grid;grid-template-columns:46px minmax(0,1fr);gap:2px 12px;align-items:center;line-height:1.4;text-align:start;padding:12px 14px;border-radius:16px;border:1px solid transparent;background:transparent;cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s;color:inherit}
+.tab img{width:46px;grid-row:span 2;opacity:.75;transition:opacity .2s}
+.tab b{font-size:1.02rem;color:var(--navy)}
+.tab > span{font-size:.88rem;color:var(--ink-3);line-height:1.5}
+.tab:hover{background:rgb(255 255 255 / 70%)}
+.tab[aria-selected="true"]{background:var(--white);border-color:var(--line);box-shadow:var(--e2)}
+.tab[aria-selected="true"] img{opacity:1}
+.tab[aria-selected="true"] > span{color:var(--ink-2)}
+.panel{min-height:420px;position:relative}
+.pane{animation:paneIn .45s var(--ease)}
+@keyframes paneIn{from{opacity:0;transform:translateY(10px)}}
+.pane .top-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.pane .cap{font-size:.82rem;color:var(--ink-3)}
+.site-wrap{position:relative;direction:ltr;padding-bottom:22px}
+.site-wrap .phone{width:24%;right:-1%;bottom:0}
+.units{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.unit{overflow:hidden}
+.unit .im{aspect-ratio:16/9;background:var(--mist);position:relative}
+.unit .im img{width:100%;height:100%;object-fit:cover}
+.unit .fresh{position:absolute;top:8px;inset-inline-start:8px;background:var(--mint);color:var(--navy);font-weight:800;font-size:.75rem;border-radius:999px;padding:0 10px}
+.unit .tx{padding:10px 12px;display:grid;line-height:1.4}
+.unit b{color:var(--navy)}
+.unit small{color:var(--ink-3);font-size:.84rem}
+.chat{max-width:440px;margin-inline:auto;overflow:hidden}
+.chat .ch{background:var(--blue);color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;font-weight:800}
+.chat .ch i{width:10px;height:10px;border-radius:50%;background:var(--mint)}
+.chat .cb{padding:16px;display:grid;gap:10px;background:var(--mist)}
+.msg{max-width:84%;padding:8px 12px;border-radius:14px;line-height:1.55;font-size:.95rem}
+.msg.u{justify-self:start;background:var(--blue);color:#fff;border-end-start-radius:4px}
+.msg.a{justify-self:end;background:#fff;border:1px solid var(--line);border-end-end-radius:4px}
+#app[dir="ltr"] .msg.u{justify-self:end}
+#app[dir="ltr"] .msg.a{justify-self:start}
+.reply{justify-self:end;width:84%;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+#app[dir="ltr"] .reply{justify-self:start}
+.reply img{width:100%;aspect-ratio:16/8;object-fit:cover}
+.reply div{padding:8px 12px;font-size:.88rem;line-height:1.5}
+.typing{justify-self:end;display:flex;gap:4px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+#app[dir="ltr"] .typing{justify-self:start}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--blue-3);animation:dt 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes dt{40%{transform:translateY(-4px);opacity:.4}}
+.metaflow{display:grid;gap:10px;max-width:520px;margin-inline:auto}
+.mstep{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;align-items:center;padding:14px 16px}
+.mstep .n{width:44px;height:44px;border-radius:12px;background:var(--blue-tint);display:grid;place-items:center;font-weight:900;color:var(--blue)}
+.mstep b{display:block;color:var(--navy)}
+.mstep span{font-size:.9rem;color:var(--ink-2)}
+.mstep.end .n{background:#1877f2;color:#fff}
+.mdown{justify-self:center;width:2px;height:16px;background:repeating-linear-gradient(var(--blue-3) 0 4px,transparent 4px 8px)}
+
+/* pricing */
+.price{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:0;overflow:hidden;border-radius:24px;box-shadow:var(--e3);border:1px solid var(--line)}
+.pc{background:var(--white);padding:26px;display:grid;gap:20px;align-content:start}
+.pl{font-weight:800;color:var(--navy);font-size:.95rem;margin-bottom:8px;display:flex;justify-content:space-between;gap:8px}
+.pl small{color:var(--ink-3);font-weight:600}
+.cities{display:flex;flex-wrap:wrap;gap:8px}
+.cities button{display:inline-flex;align-items:center;gap:7px;min-height:44px;border:1px solid var(--line);background:var(--white);border-radius:999px;padding:0 13px 0 11px;font-weight:700;font-size:.88rem;line-height:1.2;white-space:nowrap;color:var(--ink-2);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.cities button::before{content:"";width:15px;height:15px;border-radius:50%;border:2px solid var(--blue-3);flex:none;transition:all .2s;background:center/10px no-repeat}
+.cities button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.cities button[aria-pressed="true"]::before{border-color:var(--mint);background-color:var(--mint);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3 3 7-7' fill='none' stroke='%230b2239' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.pc .seg{display:grid;width:100%}
+.urow{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.urow[hidden]{display:none!important}
+.stepper{display:inline-flex;align-items:center;gap:2px;background:var(--mist);border-radius:14px;padding:3px}
+.stepper button{width:44px;height:44px;border-radius:11px;border:0;background:var(--white);font-weight:800;font-size:1.15rem;line-height:1;color:var(--blue);cursor:pointer;box-shadow:var(--e1)}
+.stepper output{min-width:40px;text-align:center;font-size:1.1rem;font-weight:900;color:var(--navy);font-variant-numeric:tabular-nums}
+.pr{background:var(--navy);color:#fff;padding:26px;display:grid;gap:14px;align-content:start;position:relative;overflow:hidden}
+.pr::before{content:"";position:absolute;width:70%;aspect-ratio:1;inset:-30% -20% auto auto;background:radial-gradient(closest-side,rgb(114 224 187 / 22%),transparent)}
+.pr > *{position:relative}
+.pr .lbl{color:rgb(255 255 255 / 66%);font-size:.95rem}
+.pr .amt{font-size:clamp(2rem,8.5vw,3.2rem);font-weight:900;line-height:1.1;font-variant-numeric:tabular-nums;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.pr .amt small{font-size:.95rem;font-weight:700;color:rgb(255 255 255 / 66%);white-space:nowrap}
+.pr .sub{color:var(--mint);font-weight:700;font-size:.92rem;min-height:1.4em}
+.how{display:grid;gap:8px}
+.allow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.allow div{background:rgb(255 255 255 / 7%);border:1px solid rgb(255 255 255 / 12%);border-radius:12px;padding:8px 12px;display:grid;line-height:1.35}
+.allow b{font-size:1.15rem;font-weight:900;color:var(--mint);font-variant-numeric:tabular-nums}
+.allow span{font-size:.8rem;color:rgb(255 255 255 / 66%)}
+.why2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
+.why2 div{display:grid;grid-template-columns:40px minmax(0,1fr);gap:2px 12px;align-items:start}
+.why2 img{width:40px;grid-row:span 2}
+.why2 b{color:var(--navy);font-size:.98rem}
+.why2 span{color:var(--ink-2);font-size:.9rem;line-height:1.55}
+
+.how .trow{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:10px;padding:10px 12px;border:1px solid rgb(255 255 255 / 10%);border-radius:12px;background:rgb(255 255 255 / 4%)}
+.how .trow.best{border-color:rgb(114 224 187 / 55%);background:rgb(114 224 187 / 9%)}
+.how .tn{display:grid;justify-items:start;gap:3px;line-height:1.25}
+.how .tn b{font-size:.98rem}
+.how .tn em{font-style:normal;font-size:.74rem;font-weight:800;color:var(--navy);background:var(--mint);border-radius:999px;padding:1px 8px;white-space:nowrap}
+.how .tp{display:grid;justify-items:end;text-align:end;line-height:1.25;gap:2px}
+.how .tp b{font-size:1.02rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.how .tp small{font-size:.78rem;color:rgb(255 255 255 / 64%)}
+.terms{display:grid;gap:6px}
+.terms .tl{font-size:.82rem;color:rgb(255 255 255 / 66%)}
+#terms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+#terms button{display:grid;gap:0;text-align:start;background:rgb(255 255 255 / 5%);border:1px solid rgb(255 255 255 / 14%);border-radius:10px;padding:7px 10px;color:#fff;cursor:pointer;min-height:48px;line-height:1.35}
+#terms button span{font-size:.78rem;color:rgb(255 255 255 / 66%)}
+#terms button b{font-size:.98rem;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+#terms button[aria-pressed="true"]{border-color:var(--mint);background:rgb(114 224 187 / 12%)}
+#terms button[aria-pressed="true"] b{color:var(--mint)}
+/* share */
+.share{background:var(--navy);color:#fff}
+.share .h2{color:#fff}
+.share .lead{color:rgb(255 255 255 / 70%)}
+.share .tag{background:rgb(114 224 187 / 14%);color:var(--mint)}
+.share .tag b{background:var(--mint);color:var(--navy)}
+.levels{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:end;height:340px;direction:ltr;position:relative;isolation:isolate;z-index:0}
+.lv{border-radius:14px 14px 8px 8px;background:linear-gradient(180deg,rgb(71 116 154 / 75%),rgb(16 43 69 / 90%));border:1px solid rgb(255 255 255 / 12%);padding:12px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;height:max(var(--h),168px);min-width:0;transform-origin:bottom;transition:transform .8s var(--ease),box-shadow .3s,border-color .3s,opacity .3s;transition-delay:var(--d,0s)}
+#app.js .levels:not(.in) .lv{transform:scaleY(.08)}
+.lv b{font-size:clamp(1.4rem,3.2vw,2.2rem);font-weight:900;line-height:1}
+.lv .rn{font-size:.82rem;color:rgb(255 255 255 / 72%);line-height:1.4}
+.lv .cl{font-weight:800;font-size:.92rem;border-top:1px solid rgb(255 255 255 / 15%);padding-top:6px;line-height:1.35}
+.lv .cl small{display:block;font-weight:600;font-size:.78rem;color:var(--mint)}
+.lv.top{background:linear-gradient(180deg,#3d8f74,#1d5a4a)}
+.lv.cur{border-color:var(--mint);box-shadow:0 0 0 2px var(--mint),0 0 40px -6px rgb(114 224 187 / 60%)}
+.lv.cur::after{content:attr(data-you);position:absolute;top:-30px;left:50%;transform:translateX(-50%);background:var(--mint);color:var(--navy);font-weight:800;font-size:.78rem;border-radius:999px;padding:0 10px;white-space:nowrap}
+.lv{position:relative}
+#app[dir="rtl"] .lv .rn,#app[dir="rtl"] .lv .cl small{direction:rtl;unicode-bidi:isolate}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:18px;background:var(--white);color:var(--ink);border-radius:24px;padding:22px;margin-top:44px;box-shadow:var(--e3)}
+.inputs{display:grid;gap:14px;align-content:start}
+.fld{display:grid;gap:4px}
+.fld .l{display:flex;justify-content:space-between;align-items:baseline;font-weight:700;font-size:.95rem}
+.fld output{color:var(--blue);font-weight:900;font-size:1.05rem}
+.calc .seg{display:grid}
+input[type=range]{width:100%;accent-color:var(--blue);height:44px;margin:0;cursor:pointer}
+input[type=range]:focus-visible{outline-offset:2px}
+.out{background:var(--navy-2);color:#fff;border-radius:18px;padding:20px;display:grid;gap:14px;align-content:start;min-width:0;position:relative;overflow:hidden}
+.out .lbl{color:rgb(255 255 255 / 66%);font-size:.95rem}
+.out .total{display:block;font-size:clamp(2.2rem,5.4vw,3.2rem);font-weight:900;color:var(--mint);line-height:1.1;font-variant-numeric:tabular-nums}
+.out .yr{color:rgb(255 255 255 / 66%);font-size:.88rem}
+.out .gn{position:absolute;width:96px;inset-inline-end:14px;top:14px;filter:drop-shadow(0 10px 14px rgb(0 0 0 / 35%))}
+.badge{justify-self:start;align-self:start;width:max-content;background:rgb(114 224 187 / 14%);color:var(--mint);border:1px solid rgb(114 224 187 / 40%);border-radius:999px;padding:1px 12px;font-weight:800;font-size:.86rem}
+.three{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.three .agent{border-color:rgb(114 224 187 / 45%);background:rgb(114 224 187 / 9%)}
+.three .agent b{color:var(--mint)}
+.three > div{background:rgb(255 255 255 / 6%);border:1px solid rgb(255 255 255 / 13%);border-radius:12px;padding:10px 12px;display:grid;min-width:0;line-height:1.4}
+.three span{font-size:.8rem;color:rgb(255 255 255 / 66%)}
+.three b{font-weight:800;font-size:1.1rem;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.mini{color:rgb(255 255 255 / 58%);font-size:.8rem;line-height:1.55}
+
+/* faq + start */
+.split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:30px;align-items:start}
+.faq{display:grid;gap:8px}
+.faq details{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:0 16px;box-shadow:var(--e1)}
+.faq summary{cursor:pointer;font-weight:700;min-height:52px;padding:10px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--navy)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:1.4rem;line-height:1;color:var(--blue-2);transition:transform .2s;flex:none}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{color:var(--ink-2);padding-bottom:14px;line-height:1.75}
+.start{background:var(--navy);color:#fff;border-radius:24px;padding:26px;display:grid;gap:16px;position:relative;overflow:hidden}
+.start h3{font-size:1.6rem;font-weight:900}
+.start ol{margin:0;padding:0;list-style:none;display:grid;gap:14px;counter-reset:n}
+.start li{display:grid;grid-template-columns:32px minmax(0,1fr);gap:12px;align-items:start;line-height:1.45;counter-increment:n}
+.start li::before{content:counter(n);width:32px;height:32px;border-radius:50%;background:var(--mint);color:var(--navy);display:grid;place-items:center;font-weight:900}
+.start li b{display:block;color:#fff;font-size:1rem}
+.start li span{color:rgb(255 255 255 / 68%);font-size:.9rem}
+.start .gn{position:absolute;width:118px;inset-inline-end:8px;bottom:0}
+footer{padding-block:26px 44px;color:var(--ink-3);font-size:.82rem;line-height:1.75;border-top:1px solid var(--line)}
+
+.bnav{display:none}
+@media (max-width:980px){
+  body{padding-bottom:calc(70px + env(safe-area-inset-bottom,0px))}
+  .bnav{position:fixed;z-index:60;inset:auto 0 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));background:rgb(255 255 255 / 94%);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);box-shadow:0 -8px 24px -12px rgb(11 34 57 / 20%);
+    padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+  .bnav a{display:grid;justify-items:center;gap:2px;min-height:52px;align-content:center;text-decoration:none;color:var(--ink-3);font-weight:700;font-size:.75rem;border-radius:12px;transition:color .2s,background .2s}
+  .bnav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .bnav a.on{color:var(--blue);background:var(--blue-tint)}
+  .bnav a.on svg{stroke-width:2.2}
+  .hero .wrap,.show,.price,.calc,.split{grid-template-columns:minmax(0,1fr)}
+  .visual{max-width:620px;margin-inline:auto;width:100%}
+  .hguide{display:none}
+  .loop{grid-template-columns:minmax(0,1fr);gap:0}
+  .loop::before{inset-inline:auto;inset-inline-start:33px;top:20px;bottom:20px;width:2px;height:auto;background:repeating-linear-gradient(180deg,var(--blue-3) 0 8px,transparent 8px 14px)}
+  .ls{grid-template-columns:68px minmax(0,1fr);justify-items:start;text-align:start;gap:2px 14px;padding:10px 0}
+  .ls .dot{grid-row:span 3}
+  .ls .who{margin:0}
+  .ls p{max-width:none}
+  .wins,.why2{grid-template-columns:minmax(0,1fr)}
+  .figrow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tabs{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 10px;margin-inline:-2px;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:none;scroll-snap-align:start;display:inline-flex;align-items:center;gap:8px;padding:0 14px 0 10px;min-height:46px;border-radius:999px;background:var(--white);border:1px solid var(--line);box-shadow:var(--e1);line-height:1.2}
+  .tab img{width:28px;grid-row:auto}
+  .tab b{font-size:.92rem;white-space:nowrap}
+  .tab > span{display:none}
+  .tab[aria-selected="true"]{background:var(--blue);border-color:var(--blue)}
+  .tab[aria-selected="true"] b{color:#fff}
+  .panel{min-height:0}
+  .top nav a{display:none}
+  .start .gn{width:90px}
+  #share .wrap{display:flex;flex-direction:column}
+  #share .head{order:0}
+  #share .calc{order:1;margin-top:0}
+  #share .levels{order:2;margin-top:28px}
+  .calc .out{order:-1}
+  .calc{padding:12px;gap:16px;border-radius:20px}
+  .calc .inputs{padding:4px 8px 8px}
+  .why2{gap:12px;margin-top:18px}
+  .why2 div{grid-template-columns:30px minmax(0,1fr);gap:0 10px}
+  .why2 img{width:30px}
+  .why2 b{font-size:.92rem}
+  .why2 span{font-size:.86rem;line-height:1.5}
+}
+@media (max-width:560px){
+  section{padding-block:56px}
+  .brand small{display:none}
+  .figs{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px}
+  .figs div + div{border:0;padding:0}
+  .ctas{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+  .ctas .btn{white-space:normal;text-align:center;padding:8px 10px;font-size:.95rem;line-height:1.3}
+  .figs b{font-size:1.5rem}
+  .figs span{font-size:.8rem}
+  .payout{padding:7px 10px;gap:8px;max-width:80%}
+  .payout .ic{width:30px;height:30px}
+  .payout .ic img{width:22px}
+  .payout b{font-size:.8rem}
+  .payout small{font-size:.75rem}
+  .po1{left:-2%;top:-8%}
+  .po2{left:0}
+  .units{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+  .figrow{gap:8px;margin-bottom:18px}
+  .fig{padding:12px 14px;border-radius:14px;align-content:center;min-height:84px}
+  .fig b{font-size:1.4rem;line-height:1.2}
+  .fig > span{font-size:.82rem;line-height:1.4}
+  .unit .tx{padding:8px}
+  .unit small{font-size:.78rem}
+  .pc,.pr{padding:20px}
+  .levels{grid-template-columns:minmax(0,1fr);height:auto;gap:8px}
+  .lv{height:auto;flex-direction:row;align-items:center;gap:12px;border-radius:12px;padding:10px 14px;transform-origin:left;
+    background:linear-gradient(90deg,rgb(71 116 154 / 75%) 0 var(--h),rgb(255 255 255 / 6%) var(--h))}
+  #app.js .levels:not(.in) .lv{transform:scaleX(.1)}
+  .lv b{font-size:1.5rem;min-width:60px}
+  .lv .rn{flex:1;color:#fff;font-size:.86rem}
+  .lv .cl{border:0;padding:0;text-align:right;white-space:nowrap}
+  .lv.top{background:linear-gradient(90deg,#2f8f6f,#1d5a4a)}
+  .lv.cur::after{top:-10px;left:auto;right:12px;transform:none;font-size:.72rem}
+  .three{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .out .gn{width:70px}
+  .start .gn{display:none}
+}
+#app b [lang],#app h2 [lang],#app h3 [lang]{font-size:inherit;color:inherit;font-weight:inherit;line-height:inherit}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+html{scroll-behavior:smooth}
+section[id],header[id]{scroll-margin-top:62px}
+</style>
+</head>
+<body>
+
+<div id="app" data-l="ar" dir="rtl">
+
+<div class="top"><div class="wrap">
+  <a class="brand" href="#top"><img src="img/estavo-mark.svg" width="40" height="23" alt="">Estavo<small><span lang="ar">شراكة الوكالات</span><span lang="en">Agency partnership</span></small></a>
+  <nav>
+    <a href="#how"><span lang="ar">الشراكة</span><span lang="en">Partnership</span></a>
+    <a href="#gets"><span lang="ar">عميلك بياخد إيه</span><span lang="en">What clients get</span></a>
+    <a href="#pricing"><span lang="ar">الأسعار</span><span lang="en">Pricing</span></a>
+    <a href="#share"><span lang="ar">نصيبك</span><span lang="en">Your share</span></a>
+    <button class="lang" id="lang" type="button"><span lang="ar">English</span><span lang="en">عربي</span></button>
+  </nav>
+</div><span class="bar-p" id="barp"></span></div>
+
+<nav class="bnav" id="bnav" aria-label="Sections">
+  <a href="#how"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/></svg><span><span lang="ar">الشراكة</span><span lang="en">Partner</span></span></a>
+  <a href="#gets"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg><span><span lang="ar">عميلك</span><span lang="en">Clients</span></span></a>
+  <a href="#pricing"><svg viewBox="0 0 24 24"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg><span><span lang="ar">الأسعار</span><span lang="en">Pricing</span></span></a>
+  <a href="#share"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2"/></svg><span><span lang="ar">نصيبك</span><span lang="en">Share</span></span></a>
+  <a href="#faq"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17h.01"/></svg><span><span lang="ar">أسئلة</span><span lang="en">FAQ</span></span></a>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="tag"><b><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></b><span lang="ar">شراكة إستاڤو × وكالات التسويق العقاري</span><span lang="en">Estavo × Real estate marketing agencies</span></span>
+      <h1><span lang="ar">جهّز عملاءك <span class="hl">للجيل الجديد</span> من العقارات</span><span lang="en">Power up your clients for the <span class="hl">next generation</span> of real estate</span></h1>
+      <p class="lead"><span lang="ar">قدّم لعملاءك من شركات العقارات والبروكرز موقع ذكي باسمهم، عليه السوق كله. هما بياخدوا سعر شريك، وإنت بتاخد نصيب من كل اشتراك وكل تجديد.</span><span lang="en">Offer your brokerage and broker clients a smart website under their name, with the whole market on it. They get a partner rate, and you share every subscription and renewal.</span></p>
+      <div class="ctas">
+        <a class="btn pri" href="#share"><span lang="ar">احسب نصيبك</span><span lang="en">Calculate your share</span></a>
+        <a class="btn gh" href="#how"><span lang="ar">إزاي بتشتغل؟</span><span lang="en">How it works</span></a>
+      </div>
+      <div class="figs">
+        <div><b><bdi dir="ltr">40%</bdi></b><span><span lang="ar">أعلى نصيب من الاشتراك الجديد</span><span lang="en">top share of new subscriptions</span></span></div>
+        <div><b><bdi dir="ltr">20%</bdi></b><span><span lang="ar">أعلى نصيب من التجديد</span><span lang="en">top share of renewals</span></span></div>
+        <div><b><bdi dir="ltr">15%</bdi></b><span><span lang="ar">أعلى خصم لعميلك</span><span lang="en">top discount for clients</span></span></div>
+        <div><b><bdi dir="ltr">+5%</bdi></b><span><span lang="ar">حافز لمندوب المبيعات عندك</span><span lang="en">incentive for your sales agent</span></span></div>
+      </div>
+    </div>
+    <div class="visual" aria-hidden="true">
+      <div class="browser"><div class="bbar"><i></i><i></i><i></i><span>nilecrest.estavo.space</span></div><img src="img/site-co.webp" width="1440" height="900" alt=""></div>
+      <div class="phone"><img src="img/site-co-m.webp" width="390" height="844" alt=""></div>
+      <div class="payout po1"><span class="ic"><img src="img/people.svg" alt=""></span><div><b><span lang="ar">عميل جديد اشترك</span><span lang="en">New client subscribed</span></b><small><span lang="ar">شركة · 8 مستخدمين · سنوي</span><span lang="en">Company · 8 users · annual</span></small></div><strong><bdi dir="ltr">+4,595</bdi></strong></div>
+      <div class="payout po2"><span class="ic"><img src="img/coins.svg" alt=""></span><div><b><span lang="ar">تجديد سنوي</span><span lang="en">Annual renewal</span></b><small><span lang="ar">نفس العميل · السنة الجاية</span><span lang="en">Same client · next year</span></small></div><strong><bdi dir="ltr">+2,297</bdi></strong></div>
+      <img class="hguide" src="img/guide-waving.webp" width="407" height="612" alt="">
+    </div>
+  </div>
+</header>
+
+<!-- THE LOOP -->
+<section id="how">
+  <div class="wrap">
+    <div class="head c rv">
+      <span class="tag"><b>1</b><span lang="ar">الشراكة في دقيقة</span><span lang="en">The partnership in a minute</span></span>
+      <h2 class="h2"><span lang="ar">إنت بتقدّم، إحنا بنشغّل، وإنت بتقبض</span><span lang="en">You introduce, we run it, you get paid</span></h2>
+    </div>
+    <div class="loop">
+      <div class="ls rv"><span class="dot"><img loading="lazy" decoding="async" src="img/megaphone.svg" alt=""><i>1</i></span><span class="who"><span lang="ar">وكالتك</span><span lang="en">Your agency</span></span><h3><span lang="ar">بتقدّم إستاڤو</span><span lang="en">Introduces Estavo</span></h3><p><span lang="ar">لعملاءك بكود الشريك، ومعاك مواد تسويق مشتركة ودعم مخصص للشركاء.</span><span lang="en">To your clients with a partner code, backed by co-branded material and dedicated partner support.</span></p></div>
+      <div class="ls rv" style="--d:.08s"><span class="dot"><img loading="lazy" decoding="async" src="img/people.svg" alt=""><i>2</i></span><span class="who"><span lang="ar">عميلك</span><span lang="en">Your client</span></span><h3><span lang="ar">بيشترك بسعر شريك</span><span lang="en">Subscribes at a partner rate</span></h3><p><span lang="ar">خصم لحد 15% حسب مستواك.</span><span lang="en">Up to 15% off, depending on your level.</span></p></div>
+      <div class="ls rv" style="--d:.16s"><span class="dot"><img loading="lazy" decoding="async" src="img/browser.svg" alt=""><i>3</i></span><span class="who"><span lang="ar">إستاڤو</span><span lang="en">Estavo</span></span><h3><span lang="ar">بنبني موقعه ونشغّله</span><span lang="en">Builds and runs the site</span></h3><p><span lang="ar">الموقع، المشروعات، التحديث، الـAI، الفواتير والدعم.</span><span lang="en">Site, projects, updates, AI, billing and support.</span></p></div>
+      <div class="ls money rv" style="--d:.24s"><span class="dot"><img loading="lazy" decoding="async" src="img/coins.svg" alt=""><i>4</i></span><span class="who"><span lang="ar">إنت</span><span lang="en">You</span></span><h3><span lang="ar">بتاخد نصيبك</span><span lang="en">Get your share</span></h3><p><span lang="ar">لحد 40% من أول دفعة، ومندوبك بياخد 5% حافز. بكشف حساب كل شهر.</span><span lang="en">Up to 40% of the first payment, plus a 5% incentive for your sales agent. Monthly statement.</span></p></div>
+    </div>
+    <p class="again rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg><span><span lang="ar">ومع <b>كل تجديد</b> لعميلك، الخطوة 4 بتتكرر: لحد 20% من التجديد.</span><span lang="en">With <b>every renewal</b>, step 4 repeats: up to 20% of the renewal.</span></span></p>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section id="gets" class="alt">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="tag"><b>2</b><span lang="ar">اللي عميلك بياخده</span><span lang="en">What your client gets</span></span>
+      <h2 class="h2"><span lang="ar">مش مجرد موقع. السوق كله باسمه.</span><span lang="en">Not just a website. The whole market, under their name.</span></h2>
+    </div>
+    <div class="figrow">
+      <div class="fig card rv"><b><bdi dir="ltr">30,000+</bdi></b><span><span lang="ar">وحدة بخطط الدفع</span><span lang="en">units with payment plans</span></span></div>
+      <div class="fig card rv" style="--d:.06s"><b><bdi dir="ltr">2,000+</bdi></b><span><span lang="ar">مشروع</span><span lang="en">projects</span></span></div>
+      <div class="fig card rv" style="--d:.12s"><b><bdi dir="ltr">700+</bdi></b><span><span lang="ar">مطور عقاري</span><span lang="en">developers</span></span></div>
+      <div class="fig card rv" style="--d:.18s"><b><span lang="ar">يوميًا</span><span lang="en">Daily</span></b><span><span lang="ar">تحديث الأسعار والخطط</span><span lang="en">price and plan updates</span></span></div>
+    </div>
+    <div class="show">
+      <div class="tabs" role="tablist" aria-label="Features">
+        <button class="tab" role="tab" aria-selected="true" data-p="site"><img loading="lazy" decoding="async" src="img/browser.svg" alt=""><b><span lang="ar">موقع باسمه</span><span lang="en">Their own website</span></b><span><span lang="ar">اسم الشركة، اللوجو، ولون البراند. أو باسم البروكر.</span><span lang="en">Their company name, logo and colours, or the broker's own.</span></span></button>
+        <button class="tab" role="tab" aria-selected="false" data-p="units"><img loading="lazy" decoding="async" src="img/database.svg" alt=""><b><span lang="ar">مشروعات محدّثة</span><span lang="en">Updated projects</span></b><span><span lang="ar">بالصور وخطط الدفع، وبتتحدّث كل يوم.</span><span lang="en">With photos and payment plans, updated daily.</span></span></button>
+        <button class="tab" role="tab" aria-selected="false" data-p="ai"><img loading="lazy" decoding="async" src="img/chat-ai.svg" alt=""><b><span lang="ar">مساعد AI</span><span lang="en">AI assistant</span></b><span><span lang="ar">بيرد على عملاءه ويرشّح وحدات 24 ساعة.</span><span lang="en">Answers buyers and suggests units, 24/7.</span></span></button>
+        <button class="tab" role="tab" aria-selected="false" data-p="meta"><img loading="lazy" decoding="async" src="img/megaphone.svg" alt=""><b><span lang="ar">ربط مع Meta</span><span lang="en">Meta connection</span></b><span><span lang="ar">اهتمام العملاء بيوصل لحملاته.</span><span lang="en">Buyer interest reaches their campaigns.</span></span></button>
+      </div>
+      <div class="panel" id="panel" role="tabpanel" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<template id="tp-site">
+  <div class="pane">
+    <div class="top-row">
+      <div class="seg" id="sitetype"><button type="button" data-v="co" aria-pressed="true"><span lang="ar">شركة</span><span lang="en">Company</span></button><button type="button" data-v="ind" aria-pressed="false"><span lang="ar">بروكر فردي</span><span lang="en">Individual broker</span></button></div>
+      <span class="cap"><span lang="ar">لقطات حقيقية · الأسماء والصور للتوضيح</span><span lang="en">Real screens · names and portraits are placeholders</span></span>
+    </div>
+    <div class="site-wrap">
+      <div class="browser"><div class="bbar"><i></i><i></i><i></i><span id="surl">nilecrest.estavo.space</span></div><img loading="lazy" decoding="async" id="sd" src="img/site-co.webp" width="1440" height="900" alt="Estavo Sites home page"></div>
+      <div class="phone"><img loading="lazy" decoding="async" id="sm" src="img/site-co-m.webp" width="390" height="844" alt=""></div>
+    </div>
+  </div>
+</template>
+<template id="tp-units">
+  <div class="pane">
+    <div class="units">
+      <div class="unit card"><div class="im"><img loading="lazy" decoding="async" src="img/proj-p1.webp" alt=""><span class="fresh"><span lang="ar">اتحدّث النهارده</span><span lang="en">Updated today</span></span></div><div class="tx"><b>ميفيدا جاردنز</b><small><span lang="ar">إعمار مصر · المستقبل سيتي</span><span lang="en">Emaar Misr · Mostakbal City</span></small></div></div>
+      <div class="unit card"><div class="im"><img loading="lazy" decoding="async" src="img/proj-p2.webp" alt=""><span class="fresh"><span lang="ar">اتحدّث النهارده</span><span lang="en">Updated today</span></span></div><div class="tx"><b>كريك فيو</b><small><span lang="ar">ماونتن فيو · القاهرة الجديدة</span><span lang="en">Mountain View · New Cairo</span></small></div></div>
+      <div class="unit card"><div class="im"><img loading="lazy" decoding="async" src="img/proj-p3.webp" alt=""><span class="fresh"><span lang="ar">اتحدّث النهارده</span><span lang="en">Updated today</span></span></div><div class="tx"><b>بالم هيلز وان</b><small><span lang="ar">بالم هيلز · 6 أكتوبر</span><span lang="en">Palm Hills · 6th of October</span></small></div></div>
+      <div class="unit card"><div class="im"><img loading="lazy" decoding="async" src="img/proj-p4.webp" alt=""><span class="fresh"><span lang="ar">اتحدّث النهارده</span><span lang="en">Updated today</span></span></div><div class="tx"><b>سوان ليك ريزيدنسز</b><small><span lang="ar">حسن علام · القاهرة الجديدة</span><span lang="en">Hassan Allam · New Cairo</span></small></div></div>
+    </div>
+  </div>
+</template>
+<template id="tp-ai">
+  <div class="pane">
+    <div class="chat card">
+      <div class="ch"><i></i><span lang="ar">مساعد موقع عميلك</span><span lang="en">Your client's site assistant</span></div>
+      <div class="cb">
+        <span class="msg u"><span lang="ar">عايز شقة 3 غرف في القاهرة الجديدة، استلام قريب</span><span lang="en">I want a 3-bedroom in New Cairo, early handover</span></span>
+        <span class="msg a"><span lang="ar">عندي اختيارات مناسبة. ده أقربهم للاستلام:</span><span lang="en">I have good options. This one hands over soonest:</span></span>
+        <div class="reply"><img loading="lazy" decoding="async" src="img/proj-p4.webp" alt=""><div><b>سوان ليك ريزيدنسز</b><br><span lang="ar">القاهرة الجديدة · استلام 2026</span><span lang="en">New Cairo · handover 2026</span></div></div>
+        <span class="msg u"><span lang="ar">ابعتلي التفاصيل على واتساب</span><span lang="en">Send me the details on WhatsApp</span></span>
+        <span class="typing" aria-hidden="true"><i></i><i></i><i></i></span>
+      </div>
+    </div>
+  </div>
+</template>
+<template id="tp-meta">
+  <div class="pane">
+    <div class="metaflow">
+      <div class="mstep card"><span class="n">1</span><div><b><span lang="ar">عميل فتح مشروع على موقعه</span><span lang="en">A buyer opens a project on their site</span></b><span><span lang="ar">مثلًا شقة في القاهرة الجديدة</span><span lang="en">For example, a New Cairo apartment</span></span></div></div>
+      <span class="mdown"></span>
+      <div class="mstep card"><span class="n">2</span><div><b><span lang="ar">طلب التفاصيل</span><span lang="en">Asks for details</span></b><span><span lang="ar">الطلب بيوصل للبروكر على طول</span><span lang="en">The enquiry reaches the broker right away</span></span></div></div>
+      <span class="mdown"></span>
+      <div class="mstep card end"><span class="n">M</span><div><b><span lang="ar">الحدث بيوصل لحسابه على Meta</span><span lang="en">The event reaches their Meta account</span></b><span><span lang="ar">يستخدمه في استهداف حملاته الجاية</span><span lang="en">They use it to target their next campaigns</span></span></div></div>
+    </div>
+  </div>
+</template>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="tag"><b>3</b><span lang="ar">عميلك بيدفع كام</span><span lang="en">What your client pays</span></span>
+      <h2 class="h2"><span lang="ar">السعر بالمدن اللي بيشتغل فيها، وعدد المستخدمين</span><span lang="en">Priced by the cities they work in, and the number of users</span></h2>
+      <p class="lead"><span lang="ar">جرّب: اختار نوع العميل والمدن، والسعر بيتحسب قدامك.</span><span lang="en">Try it: pick the client type and cities, and see the price.</span></p>
+    </div>
+    <div class="price rv">
+      <div class="pc">
+        <div><div class="pl"><span><span lang="ar">نوع العميل</span><span lang="en">Client type</span></span></div>
+          <div class="seg" id="ptype"><button type="button" data-v="company" aria-pressed="true"><span lang="ar">شركة</span><span lang="en">Company</span></button><button type="button" data-v="individual" aria-pressed="false"><span lang="ar">بروكر فردي</span><span lang="en">Individual broker</span></button></div></div>
+        <div><div class="pl"><span><span lang="ar">المدن على موقعه</span><span lang="en">Cities on their site</span></span><small id="ccount"></small></div>
+          <div class="cities" id="cities"></div></div>
+        <div id="pusers" class="urow"><div class="pl" style="margin:0;display:grid;gap:0"><span><span lang="ar">عدد المستخدمين</span><span lang="en">Users</span></span><small><span lang="ar">من 3 مستخدمين</span><span lang="en">from 3 users</span></small></div>
+          <div class="stepper"><button type="button" id="uminus" aria-label="Fewer users">−</button><output id="ucount">8</output><button type="button" id="uplus" aria-label="More users">+</button></div></div>
+      </div>
+      <div class="pr" aria-live="polite">
+        <span class="lbl" id="plbl"></span>
+        <span class="amt"><span id="pamt">—</span> <small id="pper"></small></span>
+        <span class="sub" id="psub"></span>
+        <div class="how" id="phow"></div>
+        <div class="allow">
+          <div><b id="alinks"></b><span><span lang="ar">لينك متابعة عملاء / شهر</span><span lang="en">tracked client links / month</span></span></div>
+          <div><b id="aai"></b><span><span lang="ar">رسالة AI على الموقع / شهر</span><span lang="en">website AI messages / month</span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="why2">
+      <div class="rv"><img loading="lazy" decoding="async" src="img/pin.svg" alt=""><b><span lang="ar">ليه بالمدينة؟</span><span lang="en">Why per city?</span></b><span><span lang="ar">كل مدينة سوق كامل بنرفعه على موقعه ونحدّثه. وكل مدينة زيادة أرخص من اللي قبلها.</span><span lang="en">Each city is a full market we load and keep updated. Each extra city costs less than the last.</span></span></div>
+      <div class="rv" style="--d:.08s"><img loading="lazy" decoding="async" src="img/people.svg" alt=""><b><span lang="ar">ليه بالمستخدم؟</span><span lang="en">Why per user?</span></b><span><span lang="ar">كل مستخدم بياخد لينكات ورسايل AI. والفريق الأكبر بيدفع أقل للفرد، لحد 25%.</span><span lang="en">Each user gets links and AI messages. Bigger teams pay less per person, down to 25% off.</span></span></div>
+      <div class="rv" style="--d:.16s"><img loading="lazy" decoding="async" src="img/coins.svg" alt=""><b><span lang="ar">الدفع الأطول أوفر</span><span lang="en">Longer terms save more</span></b><span><span lang="ar">ربع سنوي أوفر، والسنوي بيوفّر حوالي النص مقارنة بالشهري.</span><span lang="en">Quarterly costs less, and annual saves about half versus monthly.</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SHARE -->
+<section id="share" class="share">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="tag"><b>4</b><span lang="ar">نصيبك من الشراكة</span><span lang="en">Your share of the partnership</span></span>
+      <h2 class="h2"><span lang="ar">كل ما عملاءك يزيدوا، نصيبك يكبر</span><span lang="en">More clients, a bigger share</span></h2>
+      <p class="lead"><span lang="ar">مستواك بيتحدد بعدد عملاءك اللي بيدفعوا، والشركة بتتحسب عميل واحد. وفوق نصيب الوكالة، مندوب المبيعات اللي بيقفل الصفقة بياخد <b style="color:var(--mint)">5% حافز</b> على كل صفقة جديدة.</span><span lang="en">Your level depends on your paying clients, and a company counts as one. On top of the agency share, the sales agent who closes the deal gets a <b style="color:var(--mint)">5% incentive</b> on every new deal.</span></p>
+    </div>
+    <div class="levels rv" id="levels">
+      <div class="lv" style="--h:38%"><b><bdi dir="ltr">10%</bdi></b><span class="rn"><span lang="ar">5% من التجديد</span><span lang="en">5% of renewals</span></span><span class="cl">1–5<small><span lang="ar">خصم العميل 5%</span><span lang="en">client gets 5% off</span></small></span></div>
+      <div class="lv" style="--h:52%;--d:.08s"><b><bdi dir="ltr">15%</bdi></b><span class="rn"><span lang="ar">7.5% من التجديد</span><span lang="en">7.5% of renewals</span></span><span class="cl">6–20<small><span lang="ar">خصم العميل 10%</span><span lang="en">client gets 10% off</span></small></span></div>
+      <div class="lv" style="--h:64%;--d:.16s"><b><bdi dir="ltr">20%</bdi></b><span class="rn"><span lang="ar">10% من التجديد</span><span lang="en">10% of renewals</span></span><span class="cl">21–30<small><span lang="ar">خصم العميل 10%</span><span lang="en">client gets 10% off</span></small></span></div>
+      <div class="lv" style="--h:80%;--d:.24s"><b><bdi dir="ltr">30%</bdi></b><span class="rn"><span lang="ar">15% من التجديد</span><span lang="en">15% of renewals</span></span><span class="cl">31–50<small><span lang="ar">خصم العميل 12%</span><span lang="en">client gets 12% off</span></small></span></div>
+      <div class="lv top" style="--h:100%;--d:.32s"><b><bdi dir="ltr">40%</bdi></b><span class="rn"><span lang="ar">20% من التجديد</span><span lang="en">20% of renewals</span></span><span class="cl">51+<small><span lang="ar">خصم العميل 15%</span><span lang="en">client gets 15% off</span></small></span></div>
+    </div>
+
+    <div class="calc rv" id="calc">
+      <form class="inputs" autocomplete="off" onsubmit="return false">
+        <div class="fld"><label class="l" for="active"><span><span lang="ar">عملاءك اللي بيدفعوا دلوقتي</span><span lang="en">Paying clients now</span></span><output id="o-active">10</output></label><input id="active" type="range" min="0" max="150" value="10"></div>
+        <div class="fld"><label class="l" for="pace"><span><span lang="ar">عملاء جداد كل شهر</span><span lang="en">New clients per month</span></span><output id="o-pace">3</output></label><input id="pace" type="range" min="0" max="25" value="3"></div>
+        <div class="fld"><span class="l"><span lang="ar">العميل المعتاد</span><span lang="en">Typical client</span></span>
+          <div class="seg" data-k="type"><button type="button" data-v="company" aria-pressed="true"><span lang="ar">شركة</span><span lang="en">Company</span></button><button type="button" data-v="individual" aria-pressed="false"><span lang="ar">فردي</span><span lang="en">Individual</span></button></div></div>
+        <div class="fld" id="f-members"><label class="l" for="members"><span><span lang="ar">مستخدمين الشركة</span><span lang="en">Company users</span></span><output id="o-members">8</output></label><input id="members" type="range" min="3" max="100" value="8"></div>
+        <div class="fld"><label class="l" for="cities-r"><span><span lang="ar">المدن على موقعه</span><span lang="en">Cities on their site</span></span><output id="o-cities">2</output></label><input id="cities-r" type="range" min="1" max="9" value="2"></div>
+        <div class="fld"><span class="l"><span lang="ar">الدفع</span><span lang="en">Billing</span></span>
+          <div class="seg" data-k="period"><button type="button" data-v="annual" aria-pressed="true"><span lang="ar">سنوي</span><span lang="en">Annual</span></button><button type="button" data-v="quarterly" aria-pressed="false"><span lang="ar">ربع سنوي</span><span lang="en">Quarterly</span></button><button type="button" data-v="monthly" aria-pressed="false"><span lang="ar">شهري</span><span lang="en">Monthly</span></button></div></div>
+      </form>
+      <div class="out" aria-live="polite">
+        <span class="badge" id="badge"></span>
+        <div><span class="lbl"><span lang="ar">متوسط دخلك الشهري في أول سنة</span><span lang="en">Your average monthly income, year one</span></span><span class="total" id="avg">—</span><span class="yr" id="yr"></span></div>
+        <img loading="lazy" decoding="async" class="gn" src="img/guide-celebrate.webp" width="700" height="560" alt="" aria-hidden="true">
+        <div class="three">
+          <div><span><span lang="ar">عميلك بيدفع</span><span lang="en">Your client pays</span></span><b id="c-pay">—</b><span id="c-pay-s"></span></div>
+          <div><span><span lang="ar">نصيبك من أول دفعة</span><span lang="en">Your share, first payment</span></span><b id="c-earn">—</b><span id="c-earn-s"></span></div>
+          <div><span><span lang="ar">نصيبك من كل تجديد</span><span lang="en">Your share, each renewal</span></span><b id="c-ren">—</b><span id="c-ren-s"></span></div>
+          <div class="agent"><span><span lang="ar">حافز مندوب المبيعات</span><span lang="en">Sales agent incentive</span></span><b id="c-agent">—</b><span><span lang="ar">5% على كل صفقة جديدة</span><span lang="en">5% on every new deal</span></span></div>
+        </div>
+        <div class="terms"><span class="tl"><span lang="ar">نصيبك من أول دفعة حسب طريقة الدفع (جنيه)</span><span lang="en">Your first-payment share by billing term (EGP)</span></span><div id="terms"></div></div>
+        <p class="mini" id="note"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ + START -->
+<section id="faq" class="alt">
+  <div class="wrap split">
+    <div class="rv">
+      <div class="head" style="margin-bottom:18px">
+        <span class="tag"><b>5</b><span lang="ar">أسئلة سريعة</span><span lang="en">Quick answers</span></span>
+        <h2 class="h2"><span lang="ar">قبل ما نبدأ</span><span lang="en">Before we start</span></h2>
+      </div>
+      <div class="faq">
+        <details><summary><span lang="ar">بنقبض نصيبنا إمتى؟</span><span lang="en">When do we get paid?</span></summary><p><span lang="ar">كل شهر بكشف حساب بالدفعات اللي اتحصلت بعد فترة الاسترداد، والتحويل خلال 10 أيام عمل.</span><span lang="en">Monthly, with a statement of collected payments after the refund period. Transfer within 10 working days.</span></p></details>
+        <details><summary><span lang="ar">مين اللي بيتحسب عميل؟</span><span lang="en">What counts as a client?</span></summary><p><span lang="ar">أي حساب اشترك بكود أو لينك وكالتك وعنده اشتراك مدفوع شغال. الحسابات المجانية مش بتتحسب.</span><span lang="en">Any account that subscribed through your code or link and has an active paid subscription. Free accounts don't count.</span></p></details>
+        <details><summary><span lang="ar">حافز مندوب المبيعات بيتحسب إزاي؟</span><span lang="en">How does the sales agent incentive work?</span></summary><p><span lang="ar">5% من قيمة أول دفعة على كل صفقة جديدة، للمندوب من وكالتك اللي قفل الصفقة. وده فوق نصيب الوكالة، وبيظهر في كشف الحساب الشهري.</span><span lang="en">5% of the first payment on every new deal, for the agent from your agency who closed it. It comes on top of the agency share and appears on the monthly statement.</span></p></details>
+        <details><summary><span lang="ar">مستوانا بيتغير إزاي؟</span><span lang="en">How does our level change?</span></summary><p><span lang="ar">بيطلع فورًا أول ما توصل للعدد المطلوب، وبنراجعه كل 3 شهور.</span><span lang="en">It goes up as soon as you reach the next threshold, and we review it every 3 months.</span></p></details>
+        <details><summary><span lang="ar">نصيب التجديد بيكمل لحد إمتى؟</span><span lang="en">How long does the renewal share last?</span></summary><p><span lang="ar">12 شهر لكل عميل، ومن المستوى 3 (21 عميل) طول ما الشراكة شغالة.</span><span lang="en">12 months per client, and from level 3 (21 clients) for as long as the partnership runs.</span></p></details>
+        <details><summary><span lang="ar">خصم الشريك بيتجمع مع عروض تانية؟</span><span lang="en">Does the partner discount combine with offers?</span></summary><p><span lang="ar">لأ، العميل بياخد الخصم الأكبر بس. وبيتطبق فوق خصم الدفع الربع سنوي والسنوي.</span><span lang="en">No, the client gets the single larger discount. It applies on top of quarterly and annual terms.</span></p></details>
+      </div>
+    </div>
+    <div class="start rv" style="--d:.1s">
+      <h3><span lang="ar">نبدأ إزاي؟</span><span lang="en">How we start</span></h3>
+      <ol>
+        <li><span><b><span lang="ar">نوقّع اتفاق الشراكة</span><span lang="en">Sign the partnership agreement</span></b><span><span lang="ar">صفحة واحدة بالنسب دي</span><span lang="en">One page with these rates</span></span></span></li>
+        <li><span><b><span lang="ar">تستلم كود الشريك</span><span lang="en">Get your partner code</span></b><span><span lang="ar">ومعاه مواد التسويق المشتركة</span><span lang="en">With the co-branded material</span></span></span></li>
+        <li><span><b><span lang="ar">عملاءك يفعّلوا مواقعهم</span><span lang="en">Clients launch their sites</span></b><span><span lang="ar">وإحنا بنبني ونشغّل</span><span lang="en">We build and run them</span></span></span></li>
+        <li><span><b><span lang="ar">تقبض كل شهر</span><span lang="en">Get paid every month</span></b><span><span lang="ar">بكشف حساب واضح</span><span lang="en">With a clear statement</span></span></span></li>
+      </ol>
+      <img loading="lazy" decoding="async" class="gn" src="img/guide-celebrate.webp" width="700" height="560" alt="" aria-hidden="true">
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span lang="ar">الأسعار بالجنيه المصري قبل الضريبة، حسب أسعار إستاڤو أكتوبر 2026. النصيب بيتحسب على الدفعات اللي اتحصلت فعلًا. الشروط النهائية في اتفاق الشراكة الموقّع.</span><span lang="en">Prices in EGP before VAT, from the October 2026 Estavo tariff. Your share is calculated on collected payments. Final terms are set in the signed partnership agreement.</span></div></footer>
+</div>
+
+<script>
+(function(){
+  const app=document.getElementById("app"),$=id=>document.getElementById(id);
+  const still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let L="ar";try{const s=localStorage.getItem("estavo-partner-lang");if(s==="en"||s==="ar")L=s}catch(e){}
+  const fmt=n=>Math.round(n).toLocaleString("en-US");
+  const egp=v=>fmt(v/100)+(L==="ar"?" جنيه":" EGP");
+
+  /* reveal on arrival; everything stays visible without JS */
+  let io=null;
+  if("IntersectionObserver" in window&&!still){app.classList.add("js");
+    io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12,rootMargin:"0px 0px -40px 0px"});
+    document.querySelectorAll(".rv").forEach(el=>io.observe(el))}
+
+  /* mobile bottom nav: highlight the section in view */
+  const bl=[...document.querySelectorAll("#bnav a")],bt=bl.map(a=>document.querySelector(a.getAttribute("href")));
+  function navSync(){const mid=innerHeight*.45;let i=-1;bt.forEach((t,k)=>{if(t&&t.getBoundingClientRect().top<=mid)i=k});bl.forEach((a,k)=>a.classList.toggle("on",k===i))}
+  addEventListener("scroll",navSync,{passive:true});addEventListener("resize",navSync);navSync();
+  /* scroll progress */
+  addEventListener("scroll",()=>{const d=document.documentElement;$("barp").style.setProperty("--sp",(scrollY/Math.max(1,d.scrollHeight-innerHeight)).toFixed(4))},{passive:true});
+
+  /* showcase tabs */
+  let pane="site",siteV="co";
+  const SITES={ind:["site-ind1","yourname.estavo.space"],co:["site-co","nilecrest.estavo.space"]};
+  function showPane(p){pane=p;
+    document.querySelectorAll(".tab").forEach(t=>{const on=t.dataset.p===p;t.setAttribute("aria-selected",on?"true":"false");t.setAttribute("aria-controls","panel");t.tabIndex=on?0:-1});
+    $("panel").innerHTML="";$("panel").appendChild($("tp-"+p).content.cloneNode(true));
+    if(p==="site"){
+      const set=v=>{siteV=v;$("sitetype").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.v===v?"true":"false"));
+        const [f,u]=SITES[v];const d=$("sd"),m=$("sm");if(d.getAttribute("src")!==`img/${f}.webp`){d.classList.add("fading");m.classList.add("fading");d.src=`img/${f}.webp`;m.src=`img/${f}-m.webp`}$("surl").textContent=u};
+      [$("sd"),$("sm")].forEach(x=>x.addEventListener("load",()=>x.classList.remove("fading")));
+      $("sitetype").addEventListener("click",e=>{const b=e.target.closest("button");if(b)set(b.dataset.v)});set(siteV)}
+  }
+  document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>showPane(t.dataset.p)));
+  document.querySelector(".tabs").addEventListener("keydown",e=>{const ts=[...document.querySelectorAll(".tab")],i=ts.findIndex(t=>t.dataset.p===pane);
+    const fw=(e.key==="ArrowDown")||(e.key===(L==="ar"?"ArrowLeft":"ArrowRight")),bk=(e.key==="ArrowUp")||(e.key===(L==="ar"?"ArrowRight":"ArrowLeft"));
+    if(fw||bk){e.preventDefault();const n=ts[(i+(fw?1:ts.length-1))%ts.length];showPane(n.dataset.p);n.focus()}});
+  ["site-co","site-co-m","site-ind1-m"].forEach(f=>{const i=new Image();i.src=`img/${f}.webp`});
+
+  /* tariff: mirrors WebsitePackagePricingService (Oct 2026), minor units */
+  const MO={monthly:1,quarterly:3,annual:12},DI={monthly:0,quarterly:10,annual:40},BANDS=[[3,90],[7,85],[10,80],[1e9,75]],up5=m=>Math.ceil(m/500)*500;
+  const FACT={1:100,2:130,3:150,4:165,5:180,6:190,7:200,8:210,9:220},factor=n=>FACT[n]??(220+(n-9)*10);
+  const rate=n=>{if(n<=0)return 0;let e=600;if(n>=2)e+=230;if(n>=3)e+=140;if(n>3)e+=(n-3)*115;return e*100};
+  const co=(r,m)=>{let t=0;for(const[c,p]of BANDS){const k=Math.min(m,c);t+=Math.round(k*r*p/100);m-=k;if(m<=0)break}return t};
+  function quote(type,c,m,per){const ind=type==="individual";m=ind?1:Math.max(3,m);
+    const base=ind?rate(c):co(rate(c),m),term=ind?rate(c)-15000:co(rate(c)-15000,m),bb=per==="monthly"?base:term;
+    return{m,months:MO[per],base,term,total:up5(Math.round(bb*MO[per]*(100-DI[per])/100))}}
+
+  /* price card */
+  const CITIES=[["الشيخ زايد","Sheikh Zayed"],["القاهرة الجديدة","New Cairo"],["العاصمة الإدارية","New Capital"],["6 أكتوبر","6th of October"],["الساحل الشمالي","North Coast"],["العين السخنة","Ain Sokhna"],["المستقبل سيتي","Mostakbal City"],["الشروق","El Shorouk"]];
+  const P={sel:new Set([0,1]),type:"company",users:8};
+  const PX={ar:{lbl:{individual:"بروكر فردي",company:n=>`شركة · ${n} مستخدمين`},per:{monthly:"/ شهر",quarterly:"/ 3 شهور",annual:"/ سنة"},
+      count:n=>n===1?"مدينة واحدة":n===2?"مدينتين":`${n} مدن`,city:(i,nm)=>["المدينة الأولى","المدينة التانية","المدينة التالتة"][i]?`${["المدينة الأولى","المدينة التانية","المدينة التالتة"][i]} · ${nm}`:`مدينة زيادة · ${nm}`,
+      vol:v=>`شامل خصم حجم الفريق ${v}%`,every:{1:"كل شهر",3:"كل 3 شهور",12:"كل سنة"},pm:v=>`≈ ${v} / شهر`,save:v=>`وفّر ${v}%`,term:{monthly:"شهري",quarterly:"ربع سنوي",annual:"سنوي"},cityRate:"",users:(n,save)=>`× ${n} مستخدمين · خصم الحجم ${save}%`,month:v=>`يعني ${v} في الشهر`,pick:"اختار مدينة واحدة على الأقل"},
+    en:{lbl:{individual:"Individual broker",company:n=>`Company · ${n} users`},per:{monthly:"/ month",quarterly:"/ quarter",annual:"/ year"},
+      count:n=>`${n} ${n===1?"city":"cities"}`,city:(i,nm)=>`${["First city","Second city","Third city"][i]||"Extra city"} · ${nm}`,
+      vol:v=>`Includes a ${v}% team-size discount`,every:{1:"per month",3:"per quarter",12:"per year"},pm:v=>`≈ ${v} / mo`,save:v=>`save ${v}%`,term:{monthly:"Monthly",quarterly:"Quarterly",annual:"Annual"},cityRate:"",users:(n,save)=>`× ${n} users (${save}% volume saving)`,month:v=>`That's ${v} a month`,pick:"Pick at least one city"}};
+  function cityBtns(){$("cities").innerHTML=CITIES.map((c,i)=>`<button type="button" data-i="${i}" aria-pressed="${P.sel.has(i)}">${c[L==="ar"?0:1]}</button>`).join("")}
+  $("cities").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const i=+b.dataset.i;P.sel.has(i)?P.sel.delete(i):P.sel.add(i);b.setAttribute("aria-pressed",P.sel.has(i));priceRender()});
+  const segBind=(id,key,fn)=>$(id).addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;$(id).querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));P[key]=b.dataset.v;fn()});
+  segBind("ptype","type",()=>priceRender());
+  $("uminus").onclick=()=>{P.users=Math.max(3,P.users-1);priceRender()};$("uplus").onclick=()=>{P.users=Math.min(100,P.users+1);priceRender()};
+  function priceRender(){
+    const t=PX[L],n=P.sel.size,ind=P.type==="individual",u=ind?1:P.users;
+    $("pusers").hidden=ind;$("ucount").textContent=P.users;$("ccount").textContent=t.count(n);
+    $("plbl").textContent=(ind?t.lbl.individual:t.lbl.company(u))+" · "+t.count(n);
+    if(!n){$("pamt").textContent="—";$("pper").textContent="";$("psub").textContent=t.pick;$("phow").innerHTML="";$("alinks").textContent="0";$("aai").textContent="0";return}
+    const m=quote(P.type,n,u,"monthly"),qq=quote(P.type,n,u,"quarterly"),a=quote(P.type,n,u,"annual");
+    $("pamt").textContent=egp(m.total);$("pper").textContent=t.per.monthly;
+    $("psub").textContent=ind?"":t.vol(Math.round((1-m.total/(rate(n)*u))*100));
+    const row=(lab,q,best)=>{const pm=q.total/q.months,save=Math.round((1-pm/m.total)*100);
+      return `<div class="trow${best?" best":""}"><div class="tn"><b>${lab}</b>${save>0?`<em>${t.save(save)}</em>`:""}</div><div class="tp"><b><bdi>${egp(q.total)}</bdi></b><small>${t.every[q.months]}${q.months>1?" · "+t.pm(egp(pm)):""}</small></div></div>`};
+    $("phow").innerHTML=row(t.term.monthly,m)+row(t.term.quarterly,qq)+row(t.term.annual,a,true);
+    const f=factor(n);$("alinks").textContent=fmt(Math.floor(50*u*f/100));$("aai").textContent=fmt(Math.floor(100*u*f/100));
+  }
+
+  /* share calculator */
+  const LV=[{min:1,nw:10,rn:5,d:5},{min:6,nw:15,rn:7.5,d:10},{min:21,nw:20,rn:10,d:10},{min:31,nw:30,rn:15,d:12},{min:51,nw:40,rn:20,d:15}];
+  const li=n=>{n=Math.max(1,Math.round(n));for(let i=4;i>=0;i--)if(n>=LV[i].min)return i;return 0};
+  function sim(q,start,pace){const cl=[];let tot=0;const act=()=>start+cl.reduce((s,c)=>s+c.w,0);
+    for(let t=0;t<12;t++){
+      for(const c of cl){if(c.next!==t)continue;c.w*=.9;c.next+=q.months;const k=li(act());if(t-c.s<=12||k>=2)tot+=c.pay*c.w*LV[k].rn/100}
+      for(let k=0;k<pace;k++){const i=li(act()+1),pay=up5(Math.round(q.total*(100-LV[i].d)/100));cl.push({s:t,next:t+q.months,w:1,pay});tot+=pay*LV[i].nw/100}}
+    return{total:tot,end:act()}}
+  const CT={ar:{pname:{monthly:"شهري",quarterly:"ربع سنوي",annual:"سنوي"},level:n=>`مستواك الحالي: ${n}`,you:"إنت هنا",per:{monthly:"شهريًا",quarterly:"كل 3 شهور",annual:"سنويًا"},off:d=>`بعد خصم ${d}%`,of:p=>`${p}% من أول دفعة`,rn:p=>`${p}% من كل تجديد`,yr:v=>`يعني ${v} في أول 12 شهر`,
+      note:(n,l)=>`في الشهر 12 هيبقى عندك حوالي ${n} عميل بيدفع (المستوى ${l}). بنفترض إن 90% من العملاء بيجددوا.`},
+    en:{pname:{monthly:"Monthly",quarterly:"Quarterly",annual:"Annual"},level:n=>`Your current level: ${n}`,you:"You are here",per:{monthly:"per month",quarterly:"per quarter",annual:"per year"},off:d=>`after ${d}% off`,of:p=>`${p}% of the first payment`,rn:p=>`${p}% of each renewal`,yr:v=>`That's ${v} over the first 12 months`,
+      note:(n,l)=>`By month 12 you'd have about ${n} paying clients (level ${l}). Assumes 90% of clients renew.`}};
+  const S={type:"company",period:"annual"};
+  document.querySelectorAll(".calc .seg[data-k]").forEach(g=>g.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+    g.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));S[g.dataset.k]=b.dataset.v;calc()}));
+  ["members","cities-r","active","pace"].forEach(id=>$(id).addEventListener("input",calc));
+  const lvs=[...document.querySelectorAll("#levels .lv")];
+  $("terms").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.period=b.dataset.per;
+    document.querySelectorAll('.calc .seg[data-k="period"] button').forEach(x=>x.setAttribute("aria-pressed",x.dataset.v===S.period?"true":"false"));calc()});
+  const tw=new Map();
+  function tween(el,to,f){const from=tw.get(el)??to;tw.set(el,to);if(still||from===to){el.textContent=f(to);return}
+    const t0=performance.now();(function step(t){const k=Math.min(1,(t-t0)/380),v=from+(to-from)*(1-(1-k)**3);el.textContent=f(v);if(k<1)requestAnimationFrame(step)})(t0)}
+  function calc(){
+    const t=CT[L],m=+$("members").value,c=+$("cities-r").value,a=+$("active").value,p=+$("pace").value;
+    $("o-members").textContent=m;$("o-cities").textContent=c;$("o-active").textContent=a;$("o-pace").textContent=p;
+    $("f-members").hidden=S.type!=="company";
+    const q=quote(S.type,c,m,S.period),i=li(a+1),V=LV[i],pay=up5(Math.round(q.total*(100-V.d)/100));
+    $("badge").textContent=t.level(i+1);
+    lvs.forEach((l,k)=>{l.classList.toggle("cur",k===i);l.dataset.you=t.you});
+    tween($("c-pay"),pay,egp);$("c-pay-s").textContent=`${t.per[S.period]} · ${t.off(V.d)}`;
+    tween($("c-earn"),pay*V.nw/100,egp);$("c-earn-s").textContent=t.of(V.nw);
+    tween($("c-ren"),pay*V.rn/100,egp);$("c-ren-s").textContent=t.rn(V.rn);
+    tween($("c-agent"),pay*5/100,egp);
+    const s=sim(q,a,p);tween($("avg"),s.total/12,egp);$("yr").textContent=t.yr(egp(s.total));
+    $("note").textContent=t.note(Math.round(s.end),li(s.end)+1);
+    $("terms").innerHTML=["monthly","quarterly","annual"].map(per=>{const qq=quote(S.type,c,m,per),py=up5(Math.round(qq.total*(100-V.d)/100));
+      return `<button type="button" data-per="${per}" aria-pressed="${per===S.period}"><span>${t.pname[per]}</span><b><bdi>${fmt(py*V.nw/10000)}</bdi></b></button>`}).join("");
+  }
+
+  function setLang(l){L=l;app.dataset.l=l;app.dir=l==="ar"?"rtl":"ltr";document.documentElement.lang=l;
+    $("uminus").setAttribute("aria-label",l==="ar"?"مستخدمين أقل":"Fewer users");$("uplus").setAttribute("aria-label",l==="ar"?"مستخدمين أكتر":"More users");$("lang").setAttribute("aria-label",l==="ar"?"Switch to English":"التحويل للعربي");$("barp").style.setProperty("--o",l==="ar"?"right":"left");
+    try{localStorage.setItem("estavo-partner-lang",l)}catch(e){}
+    tw.clear();cityBtns();priceRender();calc();showPane(pane);
+    if(io)document.querySelectorAll("#panel .rv").forEach(el=>io.observe(el))}
+  $("lang").addEventListener("click",()=>setLang(L==="ar"?"en":"ar"));
+  setLang(L);
+})();
+</script>
+</body>
+</html>
