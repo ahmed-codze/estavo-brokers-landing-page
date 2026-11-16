@@ -79,3 +79,15 @@ test('direct referral rewriting still works when session storage is unavailable'
     assert.equal(url.searchParams.get('fbclid'), 'CLICK');
     dom.window.close();
 });
+
+test('games card campaign opens the games landing and preserves game access', () => {
+    const target = redirect('ref=games-card&utm_campaign=games-card');
+    assert.equal(target.pathname, '/challenges/');
+    const dom = new JSDOM(fs.readFileSync(path.join(root, 'challenges/index.html'), 'utf8'), { url: target.href, runScripts: 'outside-only' });
+    dom.window.eval(fs.readFileSync(path.join(root, 'assets/js/referral.js'), 'utf8'));
+    dom.window.document.dispatchEvent(new dom.window.Event('DOMContentLoaded'));
+    const cta = new URL(dom.window.document.querySelector('a[data-position="hero"][data-track="game_opened"]').href);
+    assert.equal(cta.pathname, '/games');
+    assert.equal(cta.searchParams.get('ref'), 'games-card');
+    dom.window.close();
+});

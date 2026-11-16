@@ -98,7 +98,7 @@
             /* Keep existing Market acquisition links focused on the Market page.
                Other referral links retain their original homepage destination. */
             var marketCampaigns = ['creative-1-trial-event', 'creative-2-trial-event', 'creative-3-trial-event', 'outbound-free-v01', 'outbound-free-v02', 'outbound-free-v03', 'outbound-free-v04'];
-            var landingPath = marketCampaigns.indexOf(slug) !== -1 ? '/market/' : '/';
+            var landingPath = slug === 'games-card' ? '/challenges/' : (marketCampaigns.indexOf(slug) !== -1 ? '/market/' : '/');
 
             /* Preserve click IDs before the landing page pixel executes. */
             var forwardParams = new URLSearchParams();
