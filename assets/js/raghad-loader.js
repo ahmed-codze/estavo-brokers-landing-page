@@ -21,7 +21,7 @@
     assistantStyle.href = new URL("css/raghad.css?v=20260918-chat-feedback", assets).href;
 
     var assistantScript = document.createElement("script");
-    assistantScript.src = new URL("js/raghad.js?v=20260921-knowledge", assets).href;
+    assistantScript.src = new URL("js/raghad.js?v=20261109-stream", assets).href;
     assistantScript.dataset.endpoint = endpoint;
     assistantScript.dataset.supportUrl = "https://wa.me/201069528393";
 

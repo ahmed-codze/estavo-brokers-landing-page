@@ -87,7 +87,7 @@ function versioned(url) {
    card grids). They come last so they win over page systems. */
 const FX_STYLES = ['/assets/css/pd.css', '/assets/css/fx-site.css'];
 const FX_SCRIPTS = ['/assets/js/pd.js', '/assets/js/try-popup.js'];
-/* Sites pages convert to free website creation; every other page to free Estavo Market. */
+/* Sites pages convert to website creation; every other page to free Estavo Market. */
 const TRY_AUDIENCE = { websites: 'individual', enterprise: 'company' };
 const SITE_ROUTES = new Set(['websites', 'enterprise', 'ai', 'marketing', 'meta', 'listings', 'examples']);
 
@@ -197,20 +197,20 @@ function header(route, lang) {
         ? {
             href: routes.cta.website_individual,
             track: 'website_preview_started',
-            label: isAr ? 'اعمل موقعك مجانا · حوالي ٥ دقايق' : 'Create your site free · ~5 min',
-            shortLabel: isAr ? 'ابدأ مجانا' : 'Start free',
+            label: isAr ? 'اعمل موقعك · حوالي ٥ دقايق' : 'Create your site · ~5 min',
+            shortLabel: isAr ? 'ابدأ دلوقتي' : 'Get started',
           }
       : {
           href: routes.cta.website,
           track: 'website_preview_started',
-          label: isAr ? 'اعمل موقعك مجانا · حوالي ٥ دقايق' : 'Create your site free · ~5 min',
-          shortLabel: isAr ? 'ابدأ مجانا' : 'Start free',
+          label: isAr ? 'اعمل موقعك · حوالي ٥ دقايق' : 'Create your site · ~5 min',
+          shortLabel: isAr ? 'ابدأ دلوقتي' : 'Get started',
         };
 
   const defaultLabel = isAr
-    ? 'اعمل موقعك مجانا · حوالي ٥ دقايق'
-    : 'Create your site free · ~5 min';
-  const defaultShortLabel = isAr ? 'ابدأ مجانا' : 'Start free';
+    ? 'اعمل موقعك · حوالي ٥ دقايق'
+    : 'Create your site · ~5 min';
+  const defaultShortLabel = isAr ? 'ابدأ دلوقتي' : 'Get started';
   const marketLabel = isAr
     ? 'تصفح <bdi>Estavo Market</bdi> مجانا'
     : 'Open Estavo Market free';

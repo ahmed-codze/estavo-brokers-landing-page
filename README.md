@@ -10,6 +10,8 @@ All four routes use `assets/js/raghad-loader.js`, which enables guest access wit
 
 Deploy the corresponding API change and its private FAQ resources first. The API needs `CLOUD_FLARE_AI_GATE_WAY` and `CLOUDFLARE_ACCOUNT_ID` (see the API release guide). **Never add model credentials to this repository or the browser.** No npm dependency is needed to serve the site; jsdom is used only for tests.
 
+Replies stream in as they are written (server-sent events, see the API's `docs/RAGHAD_SUPPORT.md`); the widget falls back to the plain JSON reply when the API does not stream. The API connection is pre-opened when the visitor hovers, focuses or taps the launcher.
+
 The conversation is kept in tab memory only, and refresh/new chat clears it. The API returns an encrypted, expiring conversation token; the widget never sends a client-authored assistant/system history. Model text is rendered as text, not HTML. Failed requests preserve the draft, and support contact stays available when the model is unavailable.
 
 The main page's automatic promotional modal is suppressed while the support panel is open. New asset URLs carry a version query because the hosting rules cache CSS/JS for one year; bump that version on changes to these assets.

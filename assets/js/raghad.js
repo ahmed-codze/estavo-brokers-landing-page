@@ -48,6 +48,7 @@
     const supportUrl = script.dataset.supportUrl || 'https://wa.me/201069528393';
     let token = null; // Memory only, except a one-use, same-tab language-navigation handoff.
     let pending = false;
+    let streaming = false;
     let pendingMessage = null;
     let controller = null;
     let generation = 0;
@@ -58,7 +59,9 @@
     const HANDOFF_KEY = 'estavo-raghad-language-handoff-v1';
     const transcript = [];
     const MAX_HANDOFF_BYTES = 180000;
-    const allowedLinks = new Set(['https://brokers.estavo.space/credits', supportUrl]);
+    // Raghad is instructed to share the website creation pages, so they must be clickable too.
+    const allowedLinks = new Set(['https://brokers.estavo.space/credits', supportUrl,
+        'https://estavo-brokers.com/website/', 'https://estavo-brokers.com/website/en.html']);
 
     function el(tag, className, text) {
         const node = document.createElement(tag);
@@ -236,7 +239,22 @@
         if (open) { updateViewport(); input.focus({ preventScroll: true }); }
         else launcher.focus({ preventScroll: true });
     }
-    launcher.addEventListener('click', () => setOpen(panel.hidden));
+    // Open the API connection (DNS + TLS) while the visitor reaches for the chat,
+    // so the first message does not pay for it. Anonymous to match credentials: 'omit'.
+    let warmed = false;
+    function warmConnection() {
+        if (warmed) return;
+        warmed = true;
+        try {
+            const hint = document.createElement('link');
+            hint.rel = 'preconnect';
+            hint.href = new URL(endpoint).origin;
+            hint.crossOrigin = 'anonymous';
+            document.head.append(hint);
+        } catch { /* An invalid endpoint fails on send with the normal error. */ }
+    }
+    for (const type of ['pointerenter', 'focus', 'touchstart']) launcher.addEventListener(type, warmConnection, { passive: true, once: true });
+    launcher.addEventListener('click', () => { warmConnection(); setOpen(panel.hidden); });
     close.addEventListener('click', () => setOpen(false));
     root.addEventListener('keydown', event => {
         if (event.key === 'Escape' && !panel.hidden) {
@@ -254,8 +272,9 @@
         input.readOnly = pending;
         starters.querySelectorAll('button').forEach(node => { node.disabled = pending || cooling; });
         form.setAttribute('aria-busy', String(pending));
-        status.hidden = !pending;
-        thinkingLabel.textContent = pending ? copy.thinking : '';
+        // The typing indicator gives way to the reply as soon as its first words arrive.
+        status.hidden = !pending || streaming;
+        thinkingLabel.textContent = pending && !streaming ? copy.thinking : '';
     }
     input.addEventListener('input', () => { syncControls(); growInput(); });
     function growInput() {
@@ -269,21 +288,111 @@
         }
     });
 
-    function appendMessage(role, text, sources) {
+    function createBubble(role) {
         const bubble = el('div', `raghad-message raghad-message--${role} chat-bubble-${role}`);
-        transcript.push({ role, text, sources: sources || [] });
         bubble.append(el('span', 'raghad-sr-only', role === 'user' ? copy.you : copy.name));
         const body = el('p', '');
-        if (role === 'assistant') appendLinkedText(body, text);
-        else body.textContent = text;
         body.dir = 'auto'; // Text only: never render model-supplied HTML or link markup.
         bubble.append(body);
-        messages.append(bubble);
+        return { bubble, body };
+    }
+    function commitMessage(bubble, role, text, sources) {
+        transcript.push({ role, text, sources: sources || [] });
+        if (!bubble.isConnected) messages.append(bubble);
         // Bound the DOM for long-lived tabs independently from model history.
         while (messages.children.length > 40) { messages.firstElementChild.remove(); transcript.shift(); }
+    }
+    function appendMessage(role, text, sources) {
+        const { bubble, body } = createBubble(role);
+        if (role === 'assistant') appendLinkedText(body, text);
+        else body.textContent = text;
+        commitMessage(bubble, role, text, sources);
         // Start long answers at their beginning, not at their last line.
         scroll.scrollTop = role === 'assistant' ? Math.max(0, bubble.offsetTop - 12) : scroll.scrollHeight;
         return bubble;
+    }
+
+    const nextFrame = typeof window.requestAnimationFrame === 'function' ? window.requestAnimationFrame.bind(window) : fn => setTimeout(fn, 16);
+    const cancelFrame = typeof window.cancelAnimationFrame === 'function' ? window.cancelAnimationFrame.bind(window) : clearTimeout;
+    // A reply that is still being written. Text is painted once per frame and
+    // the view follows it only until the answer's first line reaches the top.
+    function liveReply() {
+        const { bubble, body } = createBubble('assistant');
+        bubble.setAttribute('aria-busy', 'true'); // Announce the finished answer, not every word.
+        let text = '';
+        let frame = 0;
+        let follow = true;
+        let lastTop = -1;
+        const stopFollowing = () => { if (lastTop >= 0 && scroll.scrollTop < lastTop - 2) follow = false; };
+        scroll.addEventListener('scroll', stopFollowing, { passive: true });
+        const paint = () => {
+            frame = 0;
+            body.textContent = text;
+            if (!follow) return;
+            const target = Math.min(Math.max(0, bubble.offsetTop - 12), scroll.scrollHeight - scroll.clientHeight);
+            if (target > scroll.scrollTop) scroll.scrollTop = target;
+            lastTop = scroll.scrollTop;
+        };
+        return {
+            add(delta) {
+                if (!bubble.isConnected) {
+                    messages.append(bubble);
+                    streaming = true;
+                    syncControls();
+                }
+                text += delta;
+                frame ||= nextFrame(paint);
+            },
+            finish(finalText, sources) {
+                cancelFrame(frame);
+                scroll.removeEventListener('scroll', stopFollowing);
+                body.replaceChildren();
+                appendLinkedText(body, finalText);
+                bubble.removeAttribute('aria-busy');
+                const wasLive = bubble.isConnected;
+                commitMessage(bubble, 'assistant', finalText, sources);
+                if (!wasLive) scroll.scrollTop = Math.max(0, bubble.offsetTop - 12);
+            },
+            discard() {
+                cancelFrame(frame);
+                scroll.removeEventListener('scroll', stopFollowing);
+                bubble.remove();
+            },
+        };
+    }
+
+    // Reads `delta` events as they arrive; resolves with the `done` payload.
+    async function readStream(response, isCurrent, onDelta) {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let done = null;
+        const handle = block => {
+            let name = 'message';
+            let data = '';
+            for (const line of block.split(/\r?\n/)) {
+                if (line.startsWith('event:')) name = line.slice(6).trim();
+                else if (line.startsWith('data:')) data += line.slice(5).trim();
+            }
+            if (!data) return;
+            const payload = JSON.parse(data);
+            if (name === 'delta' && typeof payload.text === 'string') onDelta(payload.text);
+            else if (name === 'done') done = payload;
+            else if (name === 'error') throw new Error(copy.unavailable);
+        };
+        for (;;) {
+            const { value, done: ended } = await reader.read();
+            if (!isCurrent()) { reader.cancel().catch(() => {}); return null; }
+            buffer += decoder.decode(value || new Uint8Array(), { stream: !ended });
+            let gap;
+            while ((gap = /\r?\n\r?\n/.exec(buffer))) {
+                handle(buffer.slice(0, gap.index));
+                buffer = buffer.slice(gap.index + gap[0].length);
+            }
+            if (ended) break;
+        }
+        if (buffer.trim()) handle(buffer);
+        return done;
     }
 
     reset.addEventListener('click', () => {
@@ -298,6 +407,7 @@
         controller?.abort();
         token = null;
         pending = false;
+        streaming = false;
         pendingMessage = null;
         failedBubble = null;
         messages.replaceChildren();
@@ -335,17 +445,25 @@
         syncControls();
         scroll.scrollTop = scroll.scrollHeight;
         const requestGeneration = ++generation;
+        const isCurrent = () => requestGeneration === generation;
         controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), 50000);
+        const reply = liveReply();
         try {
             const response = await fetch(endpoint, {
                 method: 'POST', credentials: 'omit', cache: 'no-store',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                // JSON first keeps validation and rate-limit errors as JSON; replies stream.
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json, text/event-stream' },
                 body: JSON.stringify({ message, locale, conversation_token: token }),
                 signal: controller.signal,
             });
-            const data = await response.json().catch(() => ({}));
-            if (requestGeneration !== generation) return;
+            const streamed = response.ok && response.body && typeof TextDecoder === 'function'
+                && /text\/event-stream/.test(response.headers?.get?.('Content-Type') || '');
+            const data = streamed
+                ? await readStream(response, isCurrent, delta => reply.add(delta))
+                : await response.json().catch(() => ({}));
+            if (!isCurrent()) return;
+            if (!data) throw new Error(copy.unavailable);
             if (!response.ok) {
                 if (response.status === 429) {
                     const value = response.headers?.get('Retry-After');
@@ -366,9 +484,11 @@
                 throw new Error(copy.unavailable);
             }
             token = data.conversation_token;
-            appendMessage('assistant', data.message, Array.isArray(data.sources) ? data.sources : []);
+            // The final message is authoritative and gets the trusted-link rendering.
+            reply.finish(data.message, Array.isArray(data.sources) ? data.sources : []);
         } catch (failure) {
-            if (requestGeneration !== generation) return;
+            if (!isCurrent()) return;
+            reply.discard();
             input.value = message;
             growInput();
             failedBubble = bubble;
@@ -380,8 +500,9 @@
             // Restore the submitted question and keep the old token for a safe retry.
         } finally {
             clearTimeout(timer);
-            if (requestGeneration === generation) {
+            if (isCurrent()) {
                 pending = false;
+                streaming = false;
                 pendingMessage = null;
                 syncControls();
             }
