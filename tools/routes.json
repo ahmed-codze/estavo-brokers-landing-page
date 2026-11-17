@@ -105,13 +105,13 @@
       "key": "challenges",
       "ar": {
         "nav": "ألعاب وتحديات",
-        "title": "ألعاب البروكرز | الجاسوس وتغيير وش واسرق البيعة",
-        "description": "3 ألعاب مجانية باسم مستعار ومن غير حساب: الجاسوس، تغيير وش، واسرق البيعة. سجل دخول عشان نقط الماتش المحسوب تتضاف لنقط إستاڤو وترتيبك"
+        "title": "تحديات إستاڤو للبروكرز | الجاسوس وتغيير وش واسرق البيعة",
+        "description": "3 تحديات عن المشاريع والمطورين والمدن تلعبها مع زمايلك من الموبايل مجانا ومن غير حساب، وسجل دخول عشان نقطك وترتيبك يتحسبوا على إستاڤو"
       },
       "en": {
         "nav": "Games & challenges",
-        "title": "Broker games | Spy, Taghyeer Wesh and Steal the Deal",
-        "description": "Play Spy, Taghyeer Wesh and Steal the Deal free with a nickname, no account needed. Sign in to add counted-match points to your Estavo points and rank."
+        "title": "Estavo challenges for brokers | Spy, Taghyeer Wesh and Steal the Deal",
+        "description": "Three challenges about projects, developers and cities to play with colleagues on your phone, free with no account. Sign in so your points and rank count on Estavo"
       },
       "in_header": true,
       "in_solutions": false
