@@ -404,7 +404,7 @@ function buildPage(route, lang) {
     + decorateLandingBody(body, route, lang)
     + '\n    </main>\n'
     + partial(`footer.${lang}.html`)
-    + partial(`try.${SITE_ROUTES.has(route.key) ? 'site' : 'market'}.${lang}.html`)
+    + partial(`try.${route.key === 'challenges' ? 'games' : SITE_ROUTES.has(route.key) ? 'site' : 'market'}.${lang}.html`)
         .replace(/https:\/\/estavo-brokers\.com\/website\/"/g, `https://estavo-brokers.com/website/${TRY_AUDIENCE[route.key] ? `?audience=${TRY_AUDIENCE[route.key]}` : ''}"`)
     + `
     <script src="${versioned('/assets/js/referral.js')}" defer></script>
