@@ -10,3 +10,4 @@ node_modules/
 
 # macOS filesystem metadata
 .DS_Store
+i/demo/
