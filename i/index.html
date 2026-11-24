@@ -282,7 +282,7 @@ bdi{unicode-bidi:isolate}
 .tile .shot{position:relative;flex:1;min-height:0;border-radius:14px 14px 0 0;overflow:hidden;background:#fff;box-shadow:0 -1px 0 var(--line),0 24px 50px -20px rgb(2 29 57 / 40%);transition:transform .7s var(--ease)}
 .tile .shot img{width:100%;height:100%;object-fit:cover;object-position:var(--op,center top)}
 @media (hover:hover){.tile:hover{transform:translateY(-6px);box-shadow:var(--sh-lg)}.tile:hover .shot{transform:translateY(-8px)}}
-.t1{grid-column:span 4}.t2{grid-column:span 2;grid-row:span 2}.t3{grid-column:span 2}.t4{grid-column:span 2}.t5{grid-column:span 3}.t6{grid-column:span 3}
+.t1{grid-column:span 3}.t3{grid-column:span 3}.t4{grid-column:span 2}.t5{grid-column:span 2}.t6{grid-column:span 2}
 .jobs{display:grid;align-content:start;gap:8px;padding:12px;background:#f8fafc}
 .job{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 8px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 12px}
 .job b{font-size:.88rem;font-weight:900;color:var(--navy);direction:ltr;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -537,7 +537,24 @@ bdi{unicode-bidi:isolate}
   </div>
 </section>
 
-<!-- 2 · how it works, from zero -->
+<!-- 2 · the explainer video -->
+<section class="vid center" id="video">
+  <div class="wrap">
+    <span class="k rv">فيديو 45 ثانية</span>
+    <h2 class="h2 rv" style="--d:.05s">الفيديو ده بيشرحلك إستاڤو</h2>
+    <div class="vlist rv" style="--d:.08s"><span>إزاي تدور</span><span>إزاي تقارن</span><span>إزاي تبعت للعميل</span></div>
+    <div class="phone rv" style="--d:.1s" data-phone>
+      <div class="scr">
+        <img class="poster" src="img/poster.webp?v=2a31850a" alt="" width="540" height="960" decoding="async">
+        <video data-video muted loop playsinline preload="none" poster="img/poster.webp?v=2a31850a" controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
+        <button class="play" type="button" data-play aria-label="شغل الفيديو بالصوت"><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></span></button>
+        <span class="dur">0:45</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · how it works, from zero -->
 <section class="how" id="how">
   <div class="wrap">
     <div class="head center">
@@ -582,7 +599,7 @@ bdi{unicode-bidi:isolate}
   </div>
 </section>
 
-<!-- 3 · auto update, live -->
+<!-- 4 · auto update, live -->
 <section class="live">
   <span class="grain"></span>
   <div class="wrap">
@@ -603,23 +620,6 @@ bdi{unicode-bidi:isolate}
   </div>
 </section>
 
-<!-- 4 · the explainer video -->
-<section class="vid center" id="video">
-  <div class="wrap">
-    <span class="k rv">فيديو 45 ثانية</span>
-    <h2 class="h2 rv" style="--d:.05s">الفيديو ده بيشرحلك إستاڤو</h2>
-    <div class="vlist rv" style="--d:.08s"><span>إزاي تدور</span><span>إزاي تقارن</span><span>إزاي تبعت للعميل</span></div>
-    <div class="phone rv" style="--d:.1s" data-phone>
-      <div class="scr">
-        <img class="poster" src="img/poster.webp?v=2a31850a" alt="" width="540" height="960" decoding="async">
-        <video data-video muted loop playsinline preload="none" poster="img/poster.webp?v=2a31850a" controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
-        <button class="play" type="button" data-play aria-label="شغل الفيديو بالصوت"><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></span></button>
-        <span class="dur">0:45</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- 5 · what the team does on it -->
 <section class="feat">
   <div class="wrap">
@@ -629,7 +629,6 @@ bdi{unicode-bidi:isolate}
     </div>
     <ul class="bento" data-rail>
       <li class="tile t1 rv"><div class="cap"><img class="ti" src="../assets/img/3d/tower.svg?v=954df89a" alt="" width="54" height="54" loading="lazy"><div><h3>كل المشاريع والمطورين</h3><p>السعر وخطة الدفع والمتاح والبروشور</p></div></div><div class="well"><div class="shot"><img src="img/unit.webp?v=b52250e2" alt="صفحة مشروع بالسعر وخطة الدفع" width="1300" height="738" loading="lazy" decoding="async"></div></div></li>
-      <li class="tile t2 pt rv" style="--d:.06s"><div class="cap"><img class="ti" src="../assets/img/3d/chat-ai.svg?v=687e04c5" alt="" width="54" height="54" loading="lazy"><div><h3>مساعد ريكويست العميل</h3><p>تكتب طلب العميل ويرشحلك المشاريع المناسبة</p></div></div><div class="well"><div class="shot"><img src="img/chat.webp?v=f16103af" alt="مساعد إستاڤو بيرد على ريكويست عميل" width="800" height="1144" loading="lazy" decoding="async"></div></div></li>
       <li class="tile t3 rv" style="--d:.1s;--op:right bottom"><div class="cap"><img class="ti" src="../assets/img/3d/document.svg?v=1a3eeff3" alt="" width="54" height="54" loading="lazy"><div><h3>PDF لكل يونيت</h3><p>باسم ولوجو <bdi data-f="company"></bdi></p></div></div><div class="well"><div class="shot"><img src="img/pdf.webp?v=04e76d43" alt="صفحات PDF اليونيت وآخرها صفحة الشركة" width="1000" height="834" loading="lazy" decoding="async"></div></div></li>
       <li class="tile t4 pt rv" style="--d:.14s"><div class="cap"><img class="ti" src="../assets/img/3d/briefcase.svg?v=7c0ae7b0" alt="" width="54" height="54" loading="lazy"><div><h3>وظائف العقارات</h3><p>وظايف شركات العقارات في مكان واحد</p></div></div><div class="well"><div class="shot jobs" aria-hidden="true">
           <div class="job"><b>Sales Executive</b><small>شركة عقارات · القاهرة الجديدة</small><span class="st ok">جديدة</span></div>
