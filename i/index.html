@@ -288,7 +288,6 @@ bdi{unicode-bidi:isolate}
 .job b{font-size:.88rem;font-weight:900;color:var(--navy);direction:ltr;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .job small{grid-column:1;font-size:.76rem;color:var(--ink-2);font-weight:700}
 .job .st{grid-row:1/3;grid-column:2}
-.rnav{display:none}
 
 /* free */
 .free{padding:20px 0 96px}
@@ -422,20 +421,16 @@ bdi{unicode-bidi:isolate}
   .live .wrap{grid-template-columns:minmax(0,1fr);gap:36px}
   .feed{height:360px}
   .vid{padding:72px 0}
-  .bento{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(var(--gut) * -1);padding:6px var(--gut) 24px;scroll-padding-inline:var(--gut);scrollbar-width:none;overscroll-behavior-x:contain}
-  .bento::-webkit-scrollbar{display:none}
-  .tile{flex:0 0 min(82vw,360px);height:min(122vw,500px);scroll-snap-align:center}
+  /* phones: a calm vertical list, each screen shown whole (no swiping) */
+  .bento{display:grid;grid-template-columns:minmax(0,1fr);grid-auto-rows:auto;gap:16px}
+  .tile{display:block;height:auto}
   .tile .cap{padding:18px 18px 14px;gap:12px}
   .tile .ti{width:46px;height:46px}
-  .tile h3{font-size:1.08rem}
-  .rnav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:6px}
-  .rnav button{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--navy);box-shadow:0 8px 18px -12px rgb(2 29 57 / 45%);cursor:pointer;transition:opacity .2s,transform .2s}
-  .rnav button:active{transform:scale(.94)}
-  .rnav button[disabled]{opacity:.35}
-  .rnav svg{width:18px;height:18px}
-  .dots{display:flex;gap:6px}
-  .dots i{width:7px;height:7px;border-radius:99px;background:rgb(2 29 57 / 18%);transition:width .35s var(--ease),background .35s}
-  .dots i.on{width:22px;background:var(--navy)}
+  .tile h3{font-size:1.1rem}
+  .tile .well{display:block;margin:0 10px 10px;padding:14px 14px 0;border-radius:18px}
+  .tile .shot{border-radius:12px 12px 0 0}
+  .tile .shot img{height:auto;object-fit:initial}
+  .jobs .job:nth-child(n+4){display:none}
   .free{padding:8px 0 76px}
   .fc{grid-template-columns:minmax(0,1fr);padding:30px 22px;gap:26px;border-radius:28px}
   .pdf{padding:80px 0 96px}
@@ -640,7 +635,6 @@ bdi{unicode-bidi:isolate}
       <li class="tile t5 rv" style="--op:left top"><div class="cap"><img class="ti" src="../assets/img/3d/newspaper.svg?v=6faa6a49" alt="" width="54" height="54" loading="lazy"><div><h3>أخبار السوق يوميا</h3><p>كل الأخبار والـ Launches</p></div></div><div class="well"><div class="shot"><img src="img/news.webp?v=8ee2ef40" alt="أخبار السوق اليومية" width="900" height="511" loading="lazy" decoding="async"></div></div></li>
       <li class="tile t6 pt rv" style="--d:.06s;--op:left top"><div class="cap"><img class="ti" src="../assets/img/3d/people.svg?v=7c7f6aa5" alt="" width="54" height="54" loading="lazy"><div><h3>متابعة الفريق</h3><p>المدير يشوف كل بروكر بيذاكر إيه</p></div></div><div class="well"><div class="shot"><img src="img/team.webp?v=1d7892a1" alt="نشاط البروكر في الفريق" width="1100" height="623" loading="lazy" decoding="async"></div></div></li>
     </ul>
-    <div class="rnav"><button type="button" data-prev aria-label="السابق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button><div class="dots" data-dots aria-hidden="true"></div><button type="button" data-next aria-label="التالي"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button></div>
   </div>
 </section>
 
@@ -964,22 +958,6 @@ bdi{unicode-bidi:isolate}
     document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
   } else document.querySelectorAll('.rv').forEach(function (el) { el.classList.add('in'); });
 
-  /* ── Rail dots ── */
-  var rail = document.querySelector('[data-rail]'), dots = document.querySelector('[data-dots]'), tiles = rail.children;
-  for (var i = 0; i < tiles.length; i++) dots.appendChild(document.createElement('i'));
-  function syncDots() {
-    var c = rail.getBoundingClientRect(), mid = c.left + c.width / 2, best = 0, bd = 1e9;
-    for (var j = 0; j < tiles.length; j++) { var r = tiles[j].getBoundingClientRect(), dd = Math.abs(r.left + r.width / 2 - mid); if (dd < bd) { bd = dd; best = j; } }
-    for (var q = 0; q < dots.children.length; q++) dots.children[q].classList.toggle('on', q === best);
-    cur = best; if (prevB) { prevB.disabled = best === 0; nextB.disabled = best === tiles.length - 1; }
-  }
-  var cur = 0, prevB = document.querySelector('[data-prev]'), nextB = document.querySelector('[data-next]');
-  rail.addEventListener('scroll', function () { requestAnimationFrame(syncDots); }, { passive: true });
-  function go(i) { i = Math.max(0, Math.min(tiles.length - 1, i)); rail.scrollTo({ left: rail.scrollLeft + (tiles[i].getBoundingClientRect().left + tiles[i].offsetWidth / 2) - (rail.getBoundingClientRect().left + rail.clientWidth / 2), behavior: reduce ? 'auto' : 'smooth' }); }
-  prevB.addEventListener('click', function () { go(cur - 1); });
-  nextB.addEventListener('click', function () { go(cur + 1); });
-  syncDots();
-
   /* ── Top bar, dock, PDF tilt ── */
   var top = document.querySelector('[data-top]'), dock = document.querySelector('[data-dock]'), hero = document.querySelector('.hero');
   var call = document.getElementById('call'), stage = document.querySelector('[data-tilt]'), docEl = stage.querySelector('.doc');
@@ -1000,7 +978,7 @@ bdi{unicode-bidi:isolate}
     lastY = y;
   }
   addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }, { passive: true });
-  addEventListener('resize', function () { frame(); syncDots(); }); frame();
+  addEventListener('resize', frame); frame();
   if (fine && !reduce) {
     stage.addEventListener('pointermove', function (e) {
       var r = stage.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, yy = (e.clientY - r.top) / r.height - .5;
