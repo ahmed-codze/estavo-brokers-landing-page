@@ -7,10 +7,12 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="referrer" content="no-referrer">
 <title>إستاڤو</title>
-<link rel="icon" type="image/png" sizes="32x32" href="../assets/logo/Estavo%20Icon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../assets/logo/Estavo%20Icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/logo/Estavo%20Icon.png?v=415d41d8">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/logo/Estavo%20Icon.png?v=415d41d8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api-brokers.estavo.space" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.estavo.space">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap">
 <style>
 /* Personal invitation for someone who has never heard of Estavo and has nobody to ask.
@@ -260,33 +262,33 @@ bdi{unicode-bidi:isolate}
 .play:hover span{transform:scale(1.06)}
 @keyframes ring{0%{transform:scale(.85);opacity:1}100%{transform:scale(1.4);opacity:0}}
 .phone.on .play,.phone.on .poster,.phone.on .dur{display:none}
+.vid .poster{transition:opacity .4s}
+.phone.pv .poster{opacity:0}
+.phone.pv .play{background:linear-gradient(180deg,transparent 45%,rgb(2 29 57 / 45%))}
 .dur{position:absolute;z-index:2;bottom:18px;inset-inline:0;margin-inline:auto;width:max-content;font-weight:800;font-size:.9rem;color:#fff;background:rgb(2 29 57 / 60%);padding:2px 14px;border-radius:99px}
 .vlist{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:22px}
 .vlist span{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:4px 14px;font-weight:800;font-size:.9rem;color:var(--navy)}
 
 /* what the team does */
 .feat{padding:96px 0 84px}
-.bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:340px;gap:18px;list-style:none;margin:0;padding:0}
-.tile{position:relative;overflow:hidden;border-radius:28px;background:linear-gradient(160deg,var(--mist),var(--mist-2));border:1px solid var(--line);display:flex;flex-direction:column;transition:transform .5s var(--ease),box-shadow .5s}
-.tile .cap{padding:20px 22px 14px;display:grid;gap:2px}
-.tile .cap div{display:flex;align-items:center;gap:10px}
-.tile .n{display:grid;place-items:center;width:30px;height:30px;border-radius:10px;background:var(--navy);color:#fff;font-size:.78rem;font-weight:900;flex:none}
-.tile h3{font-size:1.18rem;font-weight:900;color:var(--navy)}
-.tile p{font-size:.95rem;color:var(--ink-2);line-height:1.6}
-.tile .shot{position:relative;flex:1;min-height:0;margin:0 22px -14px;border-radius:16px 16px 0 0;overflow:hidden;box-shadow:0 -1px 0 var(--line),0 30px 60px -24px rgb(2 29 57 / 40%);background:#fff;transition:transform .7s var(--ease)}
+.bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:380px;gap:18px;list-style:none;margin:0;padding:0}
+.tile{position:relative;overflow:hidden;border-radius:28px;background:#fff;border:1px solid var(--line);box-shadow:var(--sh);display:flex;flex-direction:column;transition:transform .5s var(--ease),box-shadow .5s}
+.tile .cap{display:flex;align-items:center;gap:14px;padding:20px 22px 16px}
+.tile .ti{width:54px;height:54px;flex:none;filter:drop-shadow(0 8px 10px rgb(2 29 57 / 18%))}
+.tile h3{font-size:1.18rem;font-weight:900;color:var(--navy);line-height:1.35}
+.tile p{font-size:.93rem;color:var(--ink-2);line-height:1.55;margin-top:2px}
+.tile .well{flex:1;min-height:0;display:flex;margin:0 12px 12px;padding:18px 18px 0;border-radius:20px;background:var(--tint,linear-gradient(160deg,#edf2f8,#e3eaf3));overflow:hidden}
+.tile.pt{--tint:linear-gradient(160deg,#f4eef6,#ebe1ef)}
+.tile .shot{position:relative;flex:1;min-height:0;border-radius:14px 14px 0 0;overflow:hidden;background:#fff;box-shadow:0 -1px 0 var(--line),0 24px 50px -20px rgb(2 29 57 / 40%);transition:transform .7s var(--ease)}
 .tile .shot img{width:100%;height:100%;object-fit:cover;object-position:var(--op,center top)}
-.tile.dk{background:linear-gradient(160deg,var(--navy-2),var(--navy))}
-.tile.dk h3{color:#fff}.tile.dk p{color:var(--on-dark)}.tile.dk .n{background:#fff;color:var(--navy)}
-.tile.pl{background:linear-gradient(160deg,#4a1d54,var(--plum))}
-.tile.pl h3{color:#fff}.tile.pl p{color:var(--on-dark)}.tile.pl .n{background:#fff;color:var(--plum)}
-@media (hover:hover){.tile:hover{transform:translateY(-6px);box-shadow:var(--sh-lg)}.tile:hover .shot{transform:translateY(-10px)}}
+@media (hover:hover){.tile:hover{transform:translateY(-6px);box-shadow:var(--sh-lg)}.tile:hover .shot{transform:translateY(-8px)}}
 .t1{grid-column:span 4}.t2{grid-column:span 2;grid-row:span 2}.t3{grid-column:span 2}.t4{grid-column:span 2}.t5{grid-column:span 3}.t6{grid-column:span 3}
-.jobs{display:grid;align-content:start;gap:8px;padding:12px;background:var(--mist)}
+.jobs{display:grid;align-content:start;gap:8px;padding:12px;background:#f8fafc}
 .job{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 8px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 12px}
 .job b{font-size:.88rem;font-weight:900;color:var(--navy);direction:ltr;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .job small{grid-column:1;font-size:.76rem;color:var(--ink-2);font-weight:700}
 .job .st{grid-row:1/3;grid-column:2}
-.dots{display:none}
+.rnav{display:none}
 
 /* free */
 .free{padding:20px 0 96px}
@@ -301,12 +303,6 @@ bdi{unicode-bidi:isolate}
 .fl bdi{white-space:nowrap}
 .fl li span:first-child{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--ok-bg);color:var(--ok);flex:none}
 .fl li svg{width:20px;height:20px}
-.team{display:flex;align-items:center;margin-top:22px}
-.team i{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900;font-size:.85rem;color:#fff;border:3px solid #fff;margin-inline-start:-10px;background:var(--navy)}
-.team i:first-child{margin-inline-start:0}
-.team i:nth-child(2){background:var(--plum)}.team i:nth-child(3){background:#28567f}.team i:nth-child(4){background:#0f4c3a}
-.team i:last-child{background:#fff;color:var(--navy);border-color:var(--line);font-size:.8rem;width:auto;padding:0 12px;border-radius:99px}
-.team small{margin-inline-start:12px;font-weight:800;color:var(--ink-2)}
 
 /* profile PDF */
 .pdf{position:relative;background:var(--navy);color:#fff;padding:104px 0;overflow:hidden;isolation:isolate}
@@ -314,16 +310,23 @@ bdi{unicode-bidi:isolate}
 .pdf .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
 .pdf .k{color:var(--plum-l)}.pdf .h2{color:#fff}.pdf .sub{color:var(--on-dark)}
 .pdf .btn{margin-top:28px}
-.stage{perspective:1200px;display:grid;place-items:center;padding:10px 0 20px}
-.doc{position:relative;display:block;width:min(330px,70vw);transform-style:preserve-3d;transform:rotateY(var(--ry,-14deg)) rotateX(var(--rx,6deg));transition:transform .6s var(--ease)}
-.doc .pg{position:relative;display:block;border-radius:12px;overflow:hidden;box-shadow:0 50px 80px -30px rgb(0 0 0 / 70%),0 0 0 1px rgb(255 255 255 / 10%)}
-.doc .pg::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgb(255 255 255 / 0) 40%,rgb(255 255 255 / 22%) 55%,rgb(255 255 255 / 0) 70%);transform:translateX(var(--gx,0%));pointer-events:none}
-.doc .b1,.doc .b2{position:absolute;inset:0;border-radius:12px;background:#e9eef4;transform:translateZ(-24px) translate(14px,10px)}
+.stage{perspective:1200px;display:grid;place-items:center;padding:10px 0 8px}
+.doc{position:relative;display:block;width:min(300px,64vw);transform-style:preserve-3d;transform:rotateY(var(--ry,-14deg)) rotateX(var(--rx,6deg));transition:transform .6s var(--ease)}
+.doc .pg{position:relative;display:block;aspect-ratio:1/1.414;border-radius:6px;overflow:hidden;background:var(--navy);box-shadow:0 50px 80px -30px rgb(0 0 0 / 70%),0 0 0 1px rgb(255 255 255 / 12%)}
+.doc .pg img{width:100%;height:100%;object-fit:contain}
+.doc .pg::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgb(255 255 255 / 0) 40%,rgb(255 255 255 / 20%) 55%,rgb(255 255 255 / 0) 70%);transform:translateX(var(--gx,0%));pointer-events:none}
+.fold{position:absolute;top:0;left:0;width:38px;height:38px;background:linear-gradient(135deg,#f4f6f9 50%,#c9d3df 50%);box-shadow:4px 4px 8px -4px rgb(0 0 0 / 45%);border-bottom-right-radius:6px}
+.pdfb{position:absolute;top:12px;right:12px;background:#d93838;color:#fff;font-weight:900;font-size:.85rem;letter-spacing:.06em;padding:3px 10px;border-radius:6px;direction:ltr;box-shadow:0 8px 16px -8px rgb(0 0 0 / 60%)}
+.doc .b1,.doc .b2{position:absolute;inset:0;border-radius:6px;background:#e9eef4;transform:translateZ(-24px) translate(14px,10px)}
 .doc .b2{background:#c9d3df;transform:translateZ(-48px) translate(28px,20px)}
-.doc .tag{position:absolute;bottom:-22px;inset-inline-start:-18px;transform:translateZ(40px);display:flex;align-items:center;gap:10px;padding:10px 16px 10px 12px;border-radius:16px;background:#fff;color:var(--navy);box-shadow:0 20px 40px -14px rgb(0 0 0 / 60%);font-weight:800;line-height:1.3;max-width:92%}
-.doc .tag .co{--s:38px}
-.doc .tag small{display:block;font-size:.78rem;color:var(--ink-2);font-weight:700}
-.doc .tag b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pdf-ic{display:inline-grid;place-items:center;min-width:38px;height:26px;padding:0 6px;border-radius:6px;background:#d93838;color:#fff;font-weight:900;font-size:.75rem;letter-spacing:.05em;direction:ltr}
+.pdf-ic.lg{min-width:48px;height:56px;font-size:.8rem;border-radius:10px;clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)}
+.file{display:flex;align-items:center;gap:14px;max-width:420px;margin:28px auto 0;padding:12px 16px;border-radius:18px;background:rgb(255 255 255 / 8%);border:1px solid rgb(255 255 255 / 16%);color:#fff;text-decoration:none;backdrop-filter:blur(8px);transition:background .25s}
+.file:hover{background:rgb(255 255 255 / 14%)}
+.file .fn{display:grid;min-width:0;flex:1;text-align:start;line-height:1.4}
+.file b{font-size:.95rem;font-weight:800;direction:ltr;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file small{font-size:.8rem;color:var(--on-dark);font-weight:700}
+.file svg{width:22px;height:22px;flex:none;color:#fff}
 
 /* call */
 .call-s{padding:110px 0 120px;background:linear-gradient(180deg,#fff,var(--mist))}
@@ -357,9 +360,20 @@ bdi{unicode-bidi:isolate}
 .done h3{font-size:1.6rem;font-weight:900;color:var(--navy)}
 .done p{color:var(--ink-2);font-size:1.05rem}
 
-footer{padding:28px 0 calc(110px + env(safe-area-inset-bottom,0px));text-align:center;color:var(--ink-2);font-size:.9rem;display:grid;justify-items:center}
-footer a{color:var(--navy);font-weight:800;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
-footer img{width:34px;margin-bottom:4px}
+.foot{position:relative;background:var(--navy);color:#fff;padding:56px 0 calc(110px + env(safe-area-inset-bottom,0px));overflow:hidden;isolation:isolate}
+.foot::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(40% 70% at 90% 0%,rgb(12 55 100 / 90%),transparent 70%),radial-gradient(35% 60% at 5% 100%,rgb(51 18 59 / 70%),transparent 70%)}
+.ft-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px}
+.ft-brand{display:flex;align-items:center;gap:16px}
+.ft-brand img{width:58px}
+.ft-brand b{display:block;font-size:1.5rem;font-weight:900;line-height:1.2}
+.ft-brand p{color:var(--on-dark);font-weight:700;font-size:.98rem}
+.ft-cta{display:flex;flex-wrap:wrap;gap:10px}
+.ft-cta svg{color:#4fd68a}
+.ft-feats{list-style:none;margin:32px 0 0;padding:22px 0;display:flex;flex-wrap:wrap;gap:10px;border-block:1px solid rgb(255 255 255 / 12%)}
+.ft-feats li{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;background:rgb(255 255 255 / 7%);border:1px solid rgb(255 255 255 / 12%);font-weight:700;font-size:.9rem}
+.ft-feats li::before{content:"";width:7px;height:7px;border-radius:50%;background:#4fd68a}
+.ft-bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;margin-top:18px;color:var(--on-dark);font-size:.88rem;font-weight:600}
+.ft-bot a{color:#fff;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 
 .dock{position:fixed;inset:auto 12px calc(12px + env(safe-area-inset-bottom,0px));z-index:70;display:none;gap:8px;padding:8px;border-radius:22px;background:rgb(255 255 255 / 82%);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);box-shadow:0 20px 40px -16px rgb(2 29 57 / 45%),0 0 0 1px var(--line);transform:translateY(140%);transition:transform .5s var(--ease)}
 .dock.up{transform:none}
@@ -410,9 +424,16 @@ footer img{width:34px;margin-bottom:4px}
   .vid{padding:72px 0}
   .bento{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(var(--gut) * -1);padding:6px var(--gut) 24px;scroll-padding-inline:var(--gut);scrollbar-width:none;overscroll-behavior-x:contain}
   .bento::-webkit-scrollbar{display:none}
-  .tile{flex:0 0 min(84vw,380px);height:min(124vw,520px);scroll-snap-align:center}
-  .tile .shot{margin:0 18px -14px}
-  .dots{display:flex;justify-content:center;gap:6px;margin-top:4px}
+  .tile{flex:0 0 min(82vw,360px);height:min(122vw,500px);scroll-snap-align:center}
+  .tile .cap{padding:18px 18px 14px;gap:12px}
+  .tile .ti{width:46px;height:46px}
+  .tile h3{font-size:1.08rem}
+  .rnav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:6px}
+  .rnav button{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--navy);box-shadow:0 8px 18px -12px rgb(2 29 57 / 45%);cursor:pointer;transition:opacity .2s,transform .2s}
+  .rnav button:active{transform:scale(.94)}
+  .rnav button[disabled]{opacity:.35}
+  .rnav svg{width:18px;height:18px}
+  .dots{display:flex;gap:6px}
   .dots i{width:7px;height:7px;border-radius:99px;background:rgb(2 29 57 / 18%);transition:width .35s var(--ease),background .35s}
   .dots i.on{width:22px;background:var(--navy)}
   .free{padding:8px 0 76px}
@@ -454,14 +475,14 @@ footer img{width:34px;margin-bottom:4px}
 </head>
 <body>
 <div class="intro" data-intro aria-hidden="true">
-  <div class="lock"><img src="../assets/logo/estavo-mark-white-128.webp" alt="" width="128" height="74"><i>×</i><span class="co" data-co></span></div>
+  <div class="lock"><img src="../assets/logo/estavo-mark-white-128.webp?v=c1ab44f9" alt="" width="128" height="74"><i>×</i><span class="co" data-co></span></div>
   <p>متجهز لـ أ/ <bdi data-f="first"></bdi></p>
 </div>
 
 <header class="top" data-top>
   <div class="wrap">
     <a class="lockup" href="#top" aria-label="Estavo">
-      <img src="../partners/img/estavo-mark.svg" alt="" width="40" height="23">
+      <img src="../partners/img/estavo-mark.svg?v=59e7e30b" alt="" width="40" height="23">
       <i aria-hidden="true">×</i>
       <span class="co" data-co aria-hidden="true"></span>
       <b data-f="company"></b>
@@ -487,24 +508,24 @@ footer img{width:34px;margin-bottom:4px}
       <div><b data-count="6600">6,600+</b><span>بروكر</span></div>
     </div>
     <div class="hart" data-art>
-      <div class="wall" aria-hidden="true"><div class="row" style="--t:52s"><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Mirava Residence</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Tevora Gardens</b><span class="st nv">تقسيط 10 سنين</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Solen Park</b><span class="st wr">آخر يونيتس</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Arvel Hills</b><span class="st pl">Launch جديد</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Lanora Walk</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Velis City</b><span class="st nv">مقدم 5%</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Corvia Mall</b><span class="st ok">● محلات متاحة</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Ostra Business</b><span class="st nv">مكاتب</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Nilora Heights</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Saren Bay</b><span class="st pl">خطة جديدة</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Calvio Hills</b><span class="st nv">فيلات</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Mareva Gate</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Mirava Residence</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Tevora Gardens</b><span class="st nv">تقسيط 10 سنين</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Solen Park</b><span class="st wr">آخر يونيتس</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Arvel Hills</b><span class="st pl">Launch جديد</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Lanora Walk</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Velis City</b><span class="st nv">مقدم 5%</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Corvia Mall</b><span class="st ok">● محلات متاحة</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Ostra Business</b><span class="st nv">مكاتب</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Nilora Heights</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Saren Bay</b><span class="st pl">خطة جديدة</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Calvio Hills</b><span class="st nv">فيلات</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Mareva Gate</b><span class="st ok">● متاح</span></span></div><div class="row" style="--t:54s"><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Saren Bay</b><span class="st pl">خطة جديدة</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Calvio Hills</b><span class="st nv">فيلات</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Mareva Gate</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Mirava Residence</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Tevora Gardens</b><span class="st nv">تقسيط 10 سنين</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Solen Park</b><span class="st wr">آخر يونيتس</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Arvel Hills</b><span class="st pl">Launch جديد</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Lanora Walk</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Velis City</b><span class="st nv">مقدم 5%</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Corvia Mall</b><span class="st ok">● محلات متاحة</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Ostra Business</b><span class="st nv">مكاتب</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Nilora Heights</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Saren Bay</b><span class="st pl">خطة جديدة</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Calvio Hills</b><span class="st nv">فيلات</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Mareva Gate</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Mirava Residence</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Tevora Gardens</b><span class="st nv">تقسيط 10 سنين</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Solen Park</b><span class="st wr">آخر يونيتس</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Arvel Hills</b><span class="st pl">Launch جديد</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Lanora Walk</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Velis City</b><span class="st nv">مقدم 5%</span></span><span class="pc"><img src="img/p1.webp" alt="" width="240" height="240"><b>Corvia Mall</b><span class="st ok">● محلات متاحة</span></span><span class="pc"><img src="img/p2.webp" alt="" width="240" height="240"><b>Ostra Business</b><span class="st nv">مكاتب</span></span><span class="pc"><img src="img/p3.webp" alt="" width="240" height="240"><b>Nilora Heights</b><span class="st ok">● متاح</span></span></div></div>
+      <div class="wall" aria-hidden="true"><div class="row" style="--t:52s"><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Mirava Residence</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Tevora Gardens</b><span class="st nv">تقسيط 10 سنين</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Solen Park</b><span class="st wr">آخر يونيتس</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Arvel Hills</b><span class="st pl">Launch جديد</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Lanora Walk</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Velis City</b><span class="st nv">مقدم 5%</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Corvia Mall</b><span class="st ok">● محلات متاحة</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Ostra Business</b><span class="st nv">مكاتب</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Nilora Heights</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Saren Bay</b><span class="st pl">خطة جديدة</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Calvio Hills</b><span class="st nv">فيلات</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Mareva Gate</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Mirava Residence</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Tevora Gardens</b><span class="st nv">تقسيط 10 سنين</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Solen Park</b><span class="st wr">آخر يونيتس</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Arvel Hills</b><span class="st pl">Launch جديد</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Lanora Walk</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Velis City</b><span class="st nv">مقدم 5%</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Corvia Mall</b><span class="st ok">● محلات متاحة</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Ostra Business</b><span class="st nv">مكاتب</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Nilora Heights</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Saren Bay</b><span class="st pl">خطة جديدة</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Calvio Hills</b><span class="st nv">فيلات</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Mareva Gate</b><span class="st ok">● متاح</span></span></div><div class="row" style="--t:54s"><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Saren Bay</b><span class="st pl">خطة جديدة</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Calvio Hills</b><span class="st nv">فيلات</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Mareva Gate</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Mirava Residence</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Tevora Gardens</b><span class="st nv">تقسيط 10 سنين</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Solen Park</b><span class="st wr">آخر يونيتس</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Arvel Hills</b><span class="st pl">Launch جديد</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Lanora Walk</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Velis City</b><span class="st nv">مقدم 5%</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Corvia Mall</b><span class="st ok">● محلات متاحة</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Ostra Business</b><span class="st nv">مكاتب</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Nilora Heights</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Saren Bay</b><span class="st pl">خطة جديدة</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Calvio Hills</b><span class="st nv">فيلات</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Mareva Gate</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Mirava Residence</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Tevora Gardens</b><span class="st nv">تقسيط 10 سنين</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Solen Park</b><span class="st wr">آخر يونيتس</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Arvel Hills</b><span class="st pl">Launch جديد</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Lanora Walk</b><span class="st ok">● متاح</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Velis City</b><span class="st nv">مقدم 5%</span></span><span class="pc"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><b>Corvia Mall</b><span class="st ok">● محلات متاحة</span></span><span class="pc"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><b>Ostra Business</b><span class="st nv">مكاتب</span></span><span class="pc"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><b>Nilora Heights</b><span class="st ok">● متاح</span></span></div></div>
       <span class="orbit o1" aria-hidden="true"></span><span class="glow" aria-hidden="true"></span>
       <svg class="lines" data-lines aria-hidden="true"></svg>
       <div class="device">
         <div class="app" data-app aria-label="شاشة إستاڤو: بحث عن شقة وظهور المشاريع المتاحة">
-          <div class="a-top"><b><img src="../partners/img/estavo-mark.svg" alt="" width="40" height="23">إستاڤو</b><span><i class="dot"></i>محدث</span></div>
+          <div class="a-top"><b><img src="../partners/img/estavo-mark.svg?v=59e7e30b" alt="" width="40" height="23">إستاڤو</b><span><i class="dot"></i>محدث</span></div>
           <div class="a-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span data-type="شقة 3 غرف في التجمع"></span><i class="caret"></i></div>
           <div class="a-meta" data-meta></div>
-          <div class="a-card"><img src="img/p1.webp" alt="" width="240" height="240"><div><b class="en">Mirava Residence</b><small>القاهرة الجديدة</small><div class="tg"><span class="st ok">● متاح</span><span class="st nv">تقسيط 10 سنين</span></div></div></div>
-          <div class="a-card"><img src="img/p3.webp" alt="" width="240" height="240"><div><b class="en">Tevora Gardens</b><small>القاهرة الجديدة</small><div class="tg"><span class="st ok">● متاح</span><span class="st nv">مقدم 5%</span></div></div></div>
-          <div class="a-card"><img src="img/p2.webp" alt="" width="240" height="240"><div><b class="en">Solen Park</b><small>القاهرة الجديدة</small><div class="tg"><span class="st wr">آخر 6 يونيتس</span></div></div></div>
+          <div class="a-card"><img src="img/p1.webp?v=3707b9ed" alt="" width="240" height="240"><div><b class="en">Mirava Residence</b><small>القاهرة الجديدة</small><div class="tg"><span class="st ok">● متاح</span><span class="st nv">تقسيط 10 سنين</span></div></div></div>
+          <div class="a-card"><img src="img/p3.webp?v=0c3c1a74" alt="" width="240" height="240"><div><b class="en">Tevora Gardens</b><small>القاهرة الجديدة</small><div class="tg"><span class="st ok">● متاح</span><span class="st nv">مقدم 5%</span></div></div></div>
+          <div class="a-card"><img src="img/p2.webp?v=68b9ed16" alt="" width="240" height="240"><div><b class="en">Solen Park</b><small>القاهرة الجديدة</small><div class="tg"><span class="st wr">آخر 6 يونيتس</span></div></div></div>
           <div class="a-pdf"><span class="co" data-co aria-hidden="true"></span>PDF باسم شركتك</div>
         </div>
       </div>
-      <div class="node n1" style="--i:0" data-node><div><img src="../assets/img/3d/tower.svg" alt="" width="62" height="62"><b>كل المطورين</b></div></div>
-      <div class="node n2" style="--i:1" data-node><div><img src="../assets/img/3d/database.svg" alt="" width="62" height="62"><b>المتاح محدث يوميا</b></div></div>
-      <div class="node n4" style="--i:2" data-node><div><img src="../assets/img/3d/newspaper.svg" alt="" width="62" height="62"><b>أخبار السوق</b></div></div>
-      <div class="node n5" style="--i:3" data-node><div><img src="../assets/img/3d/briefcase.svg" alt="" width="62" height="62"><b>وظائف العقارات</b></div></div>
+      <div class="node n1" style="--i:0" data-node><div><img src="../assets/img/3d/tower.svg?v=954df89a" alt="" width="62" height="62"><b>كل المطورين</b></div></div>
+      <div class="node n2" style="--i:1" data-node><div><img src="../assets/img/3d/database.svg?v=d3405c08" alt="" width="62" height="62"><b>المتاح محدث يوميا</b></div></div>
+      <div class="node n4" style="--i:2" data-node><div><img src="../assets/img/3d/newspaper.svg?v=6faa6a49" alt="" width="62" height="62"><b>أخبار السوق</b></div></div>
+      <div class="node n5" style="--i:3" data-node><div><img src="../assets/img/3d/briefcase.svg?v=7c0ae7b0" alt="" width="62" height="62"><b>وظائف العقارات</b></div></div>
     </div>
     <p class="free-b hfree hfade" style="--d:.4s"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="ft">وكل ده مجاني تماما ليك ولشركتك <bdi data-f="company"></bdi></span></p>
     <div class="ctas hcta hfade" style="--d:.5s">
@@ -531,7 +552,7 @@ footer img{width:34px;margin-bottom:4px}
           <span class="doc-c d2"><i></i>ليستة أسعار</span>
           <span class="doc-c d3"><i></i>خطط الدفع</span>
           <span class="doc-c d4"><i></i>ماستر بلان</span>
-          <span class="hub"><img src="../assets/logo/estavo-mark-white-128.webp" alt="" width="128" height="74"></span>
+          <span class="hub"><img src="../assets/logo/estavo-mark-white-128.webp?v=c1ab44f9" alt="" width="128" height="74"></span>
           <span class="cnt">700+ مطور · 2,400+ مشروع</span>
         </div>
         <div class="tx"><span class="n">1</span><h3>بنجمع السوق كله</h3><p>من كل المطورين في مكان واحد</p></div>
@@ -590,9 +611,9 @@ footer img{width:34px;margin-bottom:4px}
     <div class="vlist rv" style="--d:.08s"><span>إزاي تدور</span><span>إزاي تقارن</span><span>إزاي تبعت للعميل</span></div>
     <div class="phone rv" style="--d:.1s" data-phone>
       <div class="scr">
-        <img class="poster" src="img/poster.webp" alt="" width="540" height="960" loading="lazy">
-        <video data-video playsinline preload="none" poster="img/poster.webp" controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
-        <button class="play" type="button" data-play aria-label="شغل الفيديو"><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></span></button>
+        <img class="poster" src="img/poster.webp?v=2a31850a" alt="" width="540" height="960" decoding="async">
+        <video data-video muted loop playsinline preload="none" poster="img/poster.webp?v=2a31850a" controlslist="nodownload noplaybackrate" disablepictureinpicture></video>
+        <button class="play" type="button" data-play aria-label="شغل الفيديو بالصوت"><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></span></button>
         <span class="dur">0:45</span>
       </div>
     </div>
@@ -607,21 +628,20 @@ footer img{width:34px;margin-bottom:4px}
       <h2 class="h2 rv" style="--d:.05s">إيه اللي موجود على إستاڤو</h2>
     </div>
     <ul class="bento" data-rail>
-      <li class="tile t1 rv"><div class="cap"><div><span class="n">01</span><h3>كل المشاريع والمطورين</h3></div><p>السعر وخطة الدفع والمتاح والصور والبروشور</p></div><div class="shot"><img src="img/unit.webp" alt="صفحة مشروع بالسعر وخطة الدفع" width="1300" height="738" loading="lazy"></div></li>
-      <li class="tile t2 dk rv" style="--d:.06s"><div class="cap"><div><span class="n">02</span><h3>مساعد لريكويست العميل</h3></div><p>تكتب ريكويست العميل ويرشحلك المشاريع المناسبة</p></div><div class="shot"><img src="img/chat.webp" alt="مساعد إستاڤو بيرد على ريكويست عميل" width="800" height="1144" loading="lazy"></div></li>
-      <li class="tile t3 pl rv" style="--d:.1s;--op:right bottom"><div class="cap"><div><span class="n">03</span><h3>PDF لكل يونيت</h3></div><p>باسم ولوجو <bdi data-f="company"></bdi></p></div><div class="shot"><img src="img/pdf.webp" alt="صفحات PDF اليونيت وآخرها صفحة الشركة" width="1300" height="1084" loading="lazy"></div></li>
-      <li class="tile t4 rv" style="--d:.14s"><div class="cap"><div><span class="n">04</span><h3>وظائف العقارات</h3></div><p>وظايف شركات العقارات في مكان واحد</p></div>
-        <div class="shot jobs" aria-hidden="true">
+      <li class="tile t1 rv"><div class="cap"><img class="ti" src="../assets/img/3d/tower.svg?v=954df89a" alt="" width="54" height="54" loading="lazy"><div><h3>كل المشاريع والمطورين</h3><p>السعر وخطة الدفع والمتاح والبروشور</p></div></div><div class="well"><div class="shot"><img src="img/unit.webp?v=b52250e2" alt="صفحة مشروع بالسعر وخطة الدفع" width="1300" height="738" loading="lazy" decoding="async"></div></div></li>
+      <li class="tile t2 pt rv" style="--d:.06s"><div class="cap"><img class="ti" src="../assets/img/3d/chat-ai.svg?v=687e04c5" alt="" width="54" height="54" loading="lazy"><div><h3>مساعد ريكويست العميل</h3><p>تكتب طلب العميل ويرشحلك المشاريع المناسبة</p></div></div><div class="well"><div class="shot"><img src="img/chat.webp?v=f16103af" alt="مساعد إستاڤو بيرد على ريكويست عميل" width="800" height="1144" loading="lazy" decoding="async"></div></div></li>
+      <li class="tile t3 rv" style="--d:.1s;--op:right bottom"><div class="cap"><img class="ti" src="../assets/img/3d/document.svg?v=1a3eeff3" alt="" width="54" height="54" loading="lazy"><div><h3>PDF لكل يونيت</h3><p>باسم ولوجو <bdi data-f="company"></bdi></p></div></div><div class="well"><div class="shot"><img src="img/pdf.webp?v=04e76d43" alt="صفحات PDF اليونيت وآخرها صفحة الشركة" width="1000" height="834" loading="lazy" decoding="async"></div></div></li>
+      <li class="tile t4 pt rv" style="--d:.14s"><div class="cap"><img class="ti" src="../assets/img/3d/briefcase.svg?v=7c0ae7b0" alt="" width="54" height="54" loading="lazy"><div><h3>وظائف العقارات</h3><p>وظايف شركات العقارات في مكان واحد</p></div></div><div class="well"><div class="shot jobs" aria-hidden="true">
           <div class="job"><b>Sales Executive</b><small>شركة عقارات · القاهرة الجديدة</small><span class="st ok">جديدة</span></div>
           <div class="job"><b>Property Consultant</b><small>شركة عقارات · الشيخ زايد</small><span class="st nv">دوام كامل</span></div>
           <div class="job"><b>Sales Team Leader</b><small>شركة عقارات · 6 أكتوبر</small><span class="st nv">دوام كامل</span></div>
           <div class="job"><b>Sales Manager</b><small>شركة عقارات · الشيخ زايد</small><span class="st ok">جديدة</span></div>
           <div class="job"><b>Sales Executive</b><small>شركة عقارات · العاصمة الإدارية</small><span class="st nv">دوام كامل</span></div>
-        </div></li>
-      <li class="tile t5 rv" style="--op:left top"><div class="cap"><div><span class="n">05</span><h3>كل أخبار السوق</h3></div><p>الأخبار والـ Launches كل يوم</p></div><div class="shot"><img src="img/news.webp" alt="أخبار السوق اليومية" width="1100" height="624" loading="lazy"></div></li>
-      <li class="tile t6 dk rv" style="--d:.06s;--op:left top"><div class="cap"><div><span class="n">06</span><h3>متابعة الفريق</h3></div><p>المدير يشوف كل بروكر بيذاكر أنهي مشاريع</p></div><div class="shot"><img src="img/team.webp" alt="نشاط البروكر في الفريق" width="1100" height="623" loading="lazy"></div></li>
+        </div></div></li>
+      <li class="tile t5 rv" style="--op:left top"><div class="cap"><img class="ti" src="../assets/img/3d/newspaper.svg?v=6faa6a49" alt="" width="54" height="54" loading="lazy"><div><h3>أخبار السوق يوميا</h3><p>كل الأخبار والـ Launches</p></div></div><div class="well"><div class="shot"><img src="img/news.webp?v=8ee2ef40" alt="أخبار السوق اليومية" width="900" height="511" loading="lazy" decoding="async"></div></div></li>
+      <li class="tile t6 pt rv" style="--d:.06s;--op:left top"><div class="cap"><img class="ti" src="../assets/img/3d/people.svg?v=7c7f6aa5" alt="" width="54" height="54" loading="lazy"><div><h3>متابعة الفريق</h3><p>المدير يشوف كل بروكر بيذاكر إيه</p></div></div><div class="well"><div class="shot"><img src="img/team.webp?v=1d7892a1" alt="نشاط البروكر في الفريق" width="1100" height="623" loading="lazy" decoding="async"></div></div></li>
     </ul>
-    <div class="dots" data-dots aria-hidden="true"></div>
+    <div class="rnav"><button type="button" data-prev aria-label="السابق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button><div class="dots" data-dots aria-hidden="true"></div><button type="button" data-next aria-label="التالي"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button></div>
   </div>
 </section>
 
@@ -632,7 +652,6 @@ footer img{width:34px;margin-bottom:4px}
       <div>
         <div class="zero"><b>0</b><span>جنيه</span></div>
         <h2 class="h2">كل ده مجاني تماما</h2>
-        <div class="team" aria-hidden="true"><i>أح</i><i>كر</i><i>مص</i><i>يو</i><i>+ كل الفريق</i></div>
       </div>
       <ul class="fl">
         <li><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="t">ليك ولكل بروكر في <bdi data-f="company"></bdi></span></li>
@@ -643,23 +662,28 @@ footer img{width:34px;margin-bottom:4px}
   </div>
 </section>
 
-<!-- 7 · their Estavo profile -->
+<!-- 7 · their Estavo profile PDF -->
 <section class="pdf" id="pdf">
   <span class="grain"></span>
   <div class="wrap">
     <div>
-      <span class="k rv">بروفايل إستاڤو</span>
-      <h2 class="h2 rv" style="--d:.05s">ملف بيعرف إستاڤو، متجهز لـ <bdi data-f="company"></bdi></h2>
-      <p class="sub rv" style="--d:.1s">10 صفحات بتشرح المنصة بالصور، تقدر تبعته لأي حد في الإدارة</p>
+      <span class="k rv">بروفايل PDF</span>
+      <h2 class="h2 rv" style="--d:.05s">بروفايل إستاڤو PDF</h2>
+      <p class="sub rv" style="--d:.1s">ملف PDF من 10 صفحات بيشرح المنصة بالصور، متجهز لـ <bdi data-f="company"></bdi>. تقدر تبعته لأي حد في الإدارة</p>
       <a class="btn light rv" style="--d:.15s" data-pdf target="_blank" rel="noopener" data-t="pdf_open">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-        افتح البروفايل</a>
+        <span class="pdf-ic">PDF</span>افتح ملف الـ PDF</a>
     </div>
-    <div class="stage rv" data-tilt>
-      <a class="doc" data-pdf target="_blank" rel="noopener" data-t="pdf_cover" aria-label="افتح البروفايل">
-        <span class="b2"></span><span class="b1"></span>
-        <span class="pg"><img data-cover src="img/cover.webp" alt="" width="900" height="1272" loading="lazy"></span>
-        <span class="tag"><span class="co" data-co aria-hidden="true"></span><span style="min-width:0"><small>متجهز لـ</small><b data-f="company"></b></span></span>
+    <div class="rv" style="--d:.1s">
+      <div class="stage" data-tilt>
+        <a class="doc" data-pdf target="_blank" rel="noopener" data-t="pdf_cover" aria-label="افتح ملف الـ PDF">
+          <span class="b2"></span><span class="b1"></span>
+          <span class="pg"><img data-cover src="img/cover.webp?v=ea556ffa" alt="" width="900" height="1272" loading="lazy" decoding="async"><span class="fold" aria-hidden="true"></span><span class="pdfb" aria-hidden="true">PDF</span></span>
+        </a>
+      </div>
+      <a class="file" data-pdf target="_blank" rel="noopener" data-t="pdf_open">
+        <span class="pdf-ic lg">PDF</span>
+        <span class="fn"><b data-file></b><small>10 صفحات · PDF</small></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
       </a>
     </div>
   </div>
@@ -674,7 +698,7 @@ footer img{width:34px;margin-bottom:4px}
           <h2 class="h2">نكلمك إمتى؟</h2>
           <p class="sub">15 دقيقة نوريك فيها إستاڤو ونفتح حساب فريقك</p>
         </div>
-        <img src="../partners/img/guide-waving.webp" alt="" width="110" height="110">
+        <img src="../partners/img/guide-waving.webp?v=0ca55bef" alt="" width="110" height="110">
       </div>
       <form class="form" data-form novalidate>
         <div>
@@ -704,10 +728,26 @@ footer img{width:34px;margin-bottom:4px}
 </section>
 </main>
 
-<footer>
-  <img src="../partners/img/estavo-mark.svg" alt="Estavo" width="40" height="23">
-  <a href="https://estavo-brokers.com/" data-t="footer_site">estavo-brokers.com</a>
-  <a data-wa-stop target="_blank" rel="noopener" style="font-weight:700;color:var(--ink-2);font-size:.85rem">مش حابب نتواصل تاني؟ قولنا هنا</a>
+<footer class="foot">
+  <div class="wrap">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <img src="../assets/logo/estavo-mark-white-128.webp?v=c1ab44f9" alt="Estavo" width="128" height="74" loading="lazy">
+        <div><b>إستاڤو</b><p>أول وأكبر منصة لمجتمع البروكرز في مصر</p></div>
+      </div>
+      <div class="ft-cta">
+        <a class="btn light" href="#call" data-t="footer_call">اطلب مكالمة</a>
+        <a class="btn glass" data-wa target="_blank" rel="noopener" data-t="wa_footer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zm8.4-18.2A11.8 11.8 0 0 0 1.8 17.9L.1 24l6.3-1.6A11.8 11.8 0 0 0 23.8 12a11.7 11.7 0 0 0-3.4-8.4z"/></svg>واتساب</a>
+      </div>
+    </div>
+    <ul class="ft-feats" aria-label="على إستاڤو">
+      <li>كل المشاريع والمطورين</li><li>المتاح محدث يوميا</li><li>PDF لكل يونيت</li><li>أخبار السوق</li><li>وظائف العقارات</li>
+    </ul>
+    <div class="ft-bot">
+      <span>© 2026 Estavo · <a href="https://estavo-brokers.com/" data-t="footer_site">estavo-brokers.com</a></span>
+      <span><a href="../privacy.html">الخصوصية</a> · <a href="../terms.html">الشروط</a> · <a data-wa-stop target="_blank" rel="noopener">مش حابب نتواصل تاني؟</a></span>
+    </div>
+  </div>
 </footer>
 
 <nav class="dock" data-dock aria-label="تواصل">
@@ -731,9 +771,9 @@ footer img{width:34px;margin-bottom:4px}
   var VIDEO = 'https://cdn.estavo.space/brokers/community/video/estavo-explainer-cd4b38d93308.mp4';
   var WA = '201069528393';
   var DEMOS = {
-    1: { first: 'يوسف', company: 'Nour Real Estate', initials: 'NR', color: '#0f6b4f', pdf: null, cover: 'img/cover.webp' },
-    2: { first: 'كريم', company: 'Northline Properties', initials: 'NL', color: '#7a1f2b', pdf: null, cover: 'img/cover.webp' },
-    3: { first: 'مصطفى', company: 'Urban Crest Realty', initials: 'UC', color: '#e8b931', pdf: null, cover: 'img/cover.webp' }
+    1: { first: 'يوسف', company: 'Nour Real Estate', initials: 'NR', color: '#0f6b4f', pdf: null, cover: 'img/cover.webp?v=ea556ffa' },
+    2: { first: 'كريم', company: 'Northline Properties', initials: 'NL', color: '#7a1f2b', pdf: null, cover: 'img/cover.webp?v=ea556ffa' },
+    3: { first: 'مصطفى', company: 'Urban Crest Realty', initials: 'UC', color: '#e8b931', pdf: null, cover: 'img/cover.webp?v=ea556ffa' }
   };
   var qs = new URLSearchParams(location.search), token = (qs.get('k') || '').trim(), live = false;
 
@@ -774,6 +814,7 @@ footer img{width:34px;margin-bottom:4px}
     });
     document.querySelectorAll('[data-pdf]').forEach(function (a) { if (p.pdf) a.href = p.pdf; else { a.href = '#call'; a.removeAttribute('target'); } });
     if (p.cover) document.querySelector('[data-cover]').src = p.cover;
+    document.querySelectorAll('[data-file]').forEach(function (el) { el.textContent = 'Estavo-Profile-' + (p.company || 'Estavo').trim().replace(/\s+/g, '-') + '.pdf'; });
     var hi = 'أهلا، أنا ' + p.first + ' من ' + p.company + '، حابب أعرف أكتر عن إستاڤو';
     document.querySelectorAll('[data-wa]').forEach(function (a) { a.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(hi); });
     document.querySelector('[data-wa-stop]').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent('مش حابب حد يتواصل معايا تاني، ' + p.company);
@@ -852,9 +893,9 @@ footer img{width:34px;margin-bottom:4px}
 
   /* ── Step 3: search + result ── */
   var SEARCHES = [
-    ['فيلا في الشيخ زايد', ['Solen Park', 'الشيخ زايد · فيلات', 'img/p2.webp', ['st ok', '● متاح'], 'تقسيط 8 سنين']],
-    ['شقة 3 غرف في التجمع', ['Mirava Residence', 'القاهرة الجديدة · شقق', 'img/p1.webp', ['st ok', '● متاح'], 'تقسيط 10 سنين']],
-    ['استلام فوري في أكتوبر', ['Tevora Gardens', '6 أكتوبر · شقق', 'img/p3.webp', ['st wr', 'آخر يونيتس'], 'استلام فوري']]
+    ['فيلا في الشيخ زايد', ['Solen Park', 'الشيخ زايد · فيلات', 'img/p2.webp?v=68b9ed16', ['st ok', '● متاح'], 'تقسيط 8 سنين']],
+    ['شقة 3 غرف في التجمع', ['Mirava Residence', 'القاهرة الجديدة · شقق', 'img/p1.webp?v=3707b9ed', ['st ok', '● متاح'], 'تقسيط 10 سنين']],
+    ['استلام فوري في أكتوبر', ['Tevora Gardens', '6 أكتوبر · شقق', 'img/p3.webp?v=0c3c1a74', ['st wr', 'آخر يونيتس'], 'استلام فوري']]
   ];
   var s3 = 0, type2 = document.querySelector('[data-type2]'), res = document.querySelector('[data-res]');
   function card(d) {
@@ -875,14 +916,14 @@ footer img{width:34px;margin-bottom:4px}
 
   /* ── Live feed ── */
   var FEED = [
-    ['Mirava Residence', 'img/p1.webp', 'st ok', '● نزل 12 يونيت جديد'],
-    ['Tevora Gardens', 'img/p3.webp', 'st pl', 'خطة دفع جديدة 10 سنين'],
-    ['Solen Park', 'img/p2.webp', 'st gr', 'Phase 1 اتباعت'],
-    ['Arvel Hills', 'img/p1.webp', 'st wr', 'Launch جديد'],
-    ['Lanora Walk', 'img/p2.webp', 'st nv', 'الأسعار اتحدثت'],
-    ['Velis City', 'img/p3.webp', 'st pl', 'مقدم 5% بدل 10%'],
-    ['Corvia Mall', 'img/p1.webp', 'st ok', '● محلات جديدة متاحة'],
-    ['Ostra Business', 'img/p2.webp', 'st ok', '● مكاتب متاحة']
+    ['Mirava Residence', 'img/p1.webp?v=3707b9ed', 'st ok', '● نزل 12 يونيت جديد'],
+    ['Tevora Gardens', 'img/p3.webp?v=0c3c1a74', 'st pl', 'خطة دفع جديدة 10 سنين'],
+    ['Solen Park', 'img/p2.webp?v=68b9ed16', 'st gr', 'Phase 1 اتباعت'],
+    ['Arvel Hills', 'img/p1.webp?v=3707b9ed', 'st wr', 'Launch جديد'],
+    ['Lanora Walk', 'img/p2.webp?v=68b9ed16', 'st nv', 'الأسعار اتحدثت'],
+    ['Velis City', 'img/p3.webp?v=0c3c1a74', 'st pl', 'مقدم 5% بدل 10%'],
+    ['Corvia Mall', 'img/p1.webp?v=3707b9ed', 'st ok', '● محلات جديدة متاحة'],
+    ['Ostra Business', 'img/p2.webp?v=68b9ed16', 'st ok', '● مكاتب متاحة']
   ];
   var feed = document.querySelector('[data-feed]'), fi = 0;
   function feedItem(d, mins) {
@@ -931,8 +972,13 @@ footer img{width:34px;margin-bottom:4px}
     var c = rail.getBoundingClientRect(), mid = c.left + c.width / 2, best = 0, bd = 1e9;
     for (var j = 0; j < tiles.length; j++) { var r = tiles[j].getBoundingClientRect(), dd = Math.abs(r.left + r.width / 2 - mid); if (dd < bd) { bd = dd; best = j; } }
     for (var q = 0; q < dots.children.length; q++) dots.children[q].classList.toggle('on', q === best);
+    cur = best; if (prevB) { prevB.disabled = best === 0; nextB.disabled = best === tiles.length - 1; }
   }
+  var cur = 0, prevB = document.querySelector('[data-prev]'), nextB = document.querySelector('[data-next]');
   rail.addEventListener('scroll', function () { requestAnimationFrame(syncDots); }, { passive: true });
+  function go(i) { i = Math.max(0, Math.min(tiles.length - 1, i)); rail.scrollTo({ left: rail.scrollLeft + (tiles[i].getBoundingClientRect().left + tiles[i].offsetWidth / 2) - (rail.getBoundingClientRect().left + rail.clientWidth / 2), behavior: reduce ? 'auto' : 'smooth' }); }
+  prevB.addEventListener('click', function () { go(cur - 1); });
+  nextB.addEventListener('click', function () { go(cur + 1); });
   syncDots();
 
   /* ── Top bar, dock, PDF tilt ── */
@@ -965,14 +1011,31 @@ footer img{width:34px;margin-bottom:4px}
     stage.addEventListener('pointerleave', function () { docEl.style.setProperty('--ry', '-14deg'); docEl.style.setProperty('--rx', '6deg'); docEl.style.setProperty('--gx', '0%'); });
   }
 
-  /* ── Video ── */
+  /* ── Video: a 125 KB silent loop plays when near; a tap plays the 3 MB 720p cut with sound ── */
   var phone = document.querySelector('[data-phone]'), video = document.querySelector('[data-video]');
+  var PREVIEW = 'video/preview.mp4?v=8a0c6c8f', FULL = 'video/explainer-720.mp4?v=51257d7b';
+  function startPreview() {
+    if (reduce || phone.classList.contains('on') || video.getAttribute('src')) return;
+    video.src = PREVIEW;
+    var pr = video.play(); if (pr && pr.catch) pr.catch(function () {});
+  }
+  video.addEventListener('playing', function () { phone.classList.add('pv'); });
+  if ('IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) { if (!phone.classList.contains('on')) video.pause(); return; }
+      if (!video.getAttribute('src')) startPreview(); else if (!phone.classList.contains('on')) video.play().catch(function () {});
+    }, { rootMargin: '300px 0px' });
+    vio.observe(phone);
+  }
   document.querySelector('[data-play]').addEventListener('click', function () {
-    video.src = VIDEO; video.controls = true; phone.classList.add('on');
+    phone.classList.add('on');
+    video.loop = false; video.muted = false; video.controls = true; video.preload = 'auto';
+    video.onerror = function () { video.onerror = null; video.src = VIDEO; video.play().catch(function () {}); };
+    video.src = FULL;
     var pr = video.play(); if (pr && pr.catch) pr.catch(function () {});
     track('video_play');
   });
-  video.addEventListener('ended', function () { track('video_complete'); });
+  video.addEventListener('ended', function () { if (phone.classList.contains('on')) track('video_complete'); });
 
   /* ── Call request ── */
   function ymd(x) { return x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0') + '-' + String(x.getDate()).padStart(2, '0'); }
